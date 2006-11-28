@@ -31,7 +31,7 @@ SOFTWARE.
 
 =============================================================================
 
-$Id: build.xml,v 1.11 2006/02/24 13:14:25 fabriziogiudici Exp $
+$Id: build.xml 9 2006-11-28 12:43:27Z fabriziogiudici $
 -->
 
 <project name="jrawio" default="default" basedir=".">

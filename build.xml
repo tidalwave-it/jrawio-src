@@ -24,7 +24,7 @@ limitations under the License.
  
 ==============================================================================
  
-$Id: build.xml 262 2006-11-27 06:58:32Z fabriziogiudici $
+$Id: build.xml 9 2006-11-28 12:43:27Z fabriziogiudici $
 -->
 
 <project name="jrawio" default="jar" basedir=".">
