@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="publish" default="jar" basedir=".">
+
+    <!-- =======================================================================
+
+    
+
+    ======================================================================== -->
+    <target name="publish-release" depends="distribution">
+        <javaNetUpload projectName="${java.net.projectName}"
+                       toFile="${tag}/${java.net.projectName}-${tag}-src.zip"
+                       fromFile="dist/${java.net.projectName}-${tag}-src.zip"
+                       fileDescription="Source files"
+                       fileStatus="Stable"/>
+        <javaNetUpload projectName="mistral"
+                       toFile="${tag}/${java.net.projectName}-${tag}-bin.zip"
+                       fromFile="dist/${java.net.projectName}-${tag}-bin.zip"
+                       fileDescription="Binary distribution"
+                       fileStatus="Stable"/>
+    </target>
+
+    <!-- =======================================================================
+
+    
+
+    ======================================================================== -->
+    <target name="publish-snapshot" depends="distribution">
+        <javaNetUpload projectName="${java.net.projectName}"
+                       toFile="Nightly builds/Sources/${java.net.projectName}-${tag}-src.zip"
+                       fromFile="dist/${java.net.projectName}-${tag}-src.zip"
+                       fileDescription="Source files"
+                       fileStatus="Draft"/>
+        <javaNetUpload projectName="${java.net.projectName}"
+                       toFile="Nightly builds/Binaries/${java.net.projectName}-${tag}-bin.zip"
+                       fromFile="dist/${java.net.projectName}-${tag}-bin.zip"
+                       fileDescription="Binary distribution"
+                       fileStatus="Draft"/>
+    </target>
+
+    <!-- =======================================================================
+
+    
+
+    ======================================================================== -->
+    <target name="distribution" depends="clean, gettag, jar, javadoc, src-zip, bin-zip"/>
+
+    <!-- =======================================================================
+
+    
+
+    ======================================================================== -->
+    <target name="src-zip" depends="gettag">
+	<mkdir dir="dist"/>
+	<delete file="dist/${java.net.projectName}-${tag}-src.zip" failonerror="false"/>
+	<zip destfile="dist/${java.net.projectName}-${tag}-src.zip" basedir="." excludes="**/.svn/**,**/build/**,**/dist/**,**/nbproject/private/**,dist/**,Rio*/**">
+        </zip>
+    </target>
+
+    <!-- =======================================================================
+
+    
+
+    ======================================================================== -->
+    <target name="bin-zip" depends="gettag">
+	<mkdir dir="dist"/>
+	<delete file="dist/${java.net.projectName}-${tag}-bin.zip" failonerror="false"/>
+	<zip destfile="dist/${java.net.projectName}-${tag}-bin.zip" basedir="." excludes="**/.svn/**,**/src/**,**/build/**,**/nbproject/**,**/test/**,**/build.xml,dist/**,lib/**,Rio*/**">
+        </zip>
+    </target>
+
+    <!-- =======================================================================
+
+    Retrieves the current revision number from the subversion facility.
+
+    ======================================================================== -->
+    <target name="gettag">
+        <delete failonerror="false" file="subversion.properties" />
+        <exec command="svn info -r HEAD" output="subversion.properties"/>
+        <property file="subversion.properties"/>
+        <property file="RELEASE"/>
+        <property name="tag" value="${Release}.${Revision}"/>
+        <delete failonerror="false" file="subversion.properties" />
+        <echo message="Current tag is ${tag}..." />
+        <echo message="PLEASE VERIFY THAT THE CURRENT TAG IS DIFFERENT THAN THE PREVIOUS RELEASE" />
+    </target>
+</project>
