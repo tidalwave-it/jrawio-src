@@ -24,7 +24,7 @@ limitations under the License.
  
 ==============================================================================
  
-$Id: build.xml 14 2006-11-28 13:21:41Z fabriziogiudici $
+$Id: build.xml 18 2006-11-28 14:20:29Z fabriziogiudici $
 -->
 
 <project name="jrawio" default="default" basedir=".">
@@ -47,16 +47,20 @@ $Id: build.xml 14 2006-11-28 13:21:41Z fabriziogiudici $
     ======================================================================== -->
     <target name="default">
         <ant dir="jrawio" target="default" inheritall="false"/>
-<!--        <ant dir="reajent" target="default" inheritall="false"/> -->
+        <ant dir="reajent" target="default" inheritall="false"/> 
     </target>
     
     <!-- =======================================================================
     Creates all the javadocs and copies them in the www folder.
     ======================================================================== -->
-    <target name="javadoc">
+    <target name="javadoc" depends="gettag">
         <ant dir="jrawio" target="javadoc" inheritall="false"/>
         <copy todir="../www/javadoc/jrawio">
             <fileset dir="jrawio/dist/javadoc"/>
+        </copy>
+        <ant dir="reajent" target="javadoc" inheritall="false"/>
+        <copy todir="../www/javadoc/reajent">
+            <fileset dir="reajent/dist/javadoc"/>
         </copy>
     </target>
     

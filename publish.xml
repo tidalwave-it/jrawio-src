@@ -32,11 +32,6 @@
                        fileDescription="Source files"
                        fileStatus="Draft"/>
         <javaNetUpload projectName="${java.net.projectName}"
-                       toFile="Nightly builds/Sources/${java.net.projectName}-${tag}-src.zip"
-                       fromFile="dist/reajent-${tag}-src.zip"
-                       fileDescription="Source files"
-                       fileStatus="Draft"/>
-        <javaNetUpload projectName="${java.net.projectName}"
                        toFile="Nightly builds/Binaries/${java.net.projectName}-${tag}-bin.zip"
                        fromFile="dist/${java.net.projectName}-${tag}-bin.zip"
                        fileDescription="Binary distribution"
@@ -70,7 +65,7 @@
     <target name="bin-zip" depends="gettag">
 	<mkdir dir="dist"/>
 	<delete file="dist/${java.net.projectName}-${tag}-bin.zip" failonerror="false"/>
-	<zip destfile="dist/${java.net.projectName}-${tag}-bin.zip" basedir="." excludes="**/.svn/**,**/src/**,**/build/**,**/nbproject/**,**/test/**,**/build.xml,dist/**,lib/**,Rio*/**, **/image.properties*">
+	<zip destfile="dist/${java.net.projectName}-${tag}-bin.zip" basedir="." excludes="**/.svn/**,**/src/**,**/build/**,**/nbproject/**,**/test/**,**/build.xml,dist/**,lib/**,Rio*/**, **/image.properties*, tools/** ">
         </zip>
     </target>
 

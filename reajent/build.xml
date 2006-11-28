@@ -31,22 +31,10 @@ SOFTWARE.
 
 =============================================================================
 
-$Id: build.xml 10 2006-11-28 12:47:43Z fabriziogiudici $
+$Id: build.xml 18 2006-11-28 14:20:29Z fabriziogiudici $
 -->
-<project name="reajent-src" default="default" basedir=".">
+<project name="reajent" default="default" basedir=".">
     <description>Builds, tests, and runs the project reajent-src.</description>
     <import file="nbproject/build-impl.xml"/>
-
-    <target name="gettag">
-        <delete failonerror="false" file="tag.properties" />
-        <java classpath="${build.classes.dir}" classname="it.tidalwave.imageio.rawprocessor .Version" output="tag.properties" />
-        <property file="tag.properties" />
-        <delete failonerror="false" file="tag.properties" />
-        <echo message="Current tag is ${tag}" />
-    </target>
-
-    <target name="distr" depends="clean, jar, gettag">
-        <move file="${dist.jar}" tofile="${dist.dir}/reajent-${tag}.jar"/>
-    </target>
 
 </project>
