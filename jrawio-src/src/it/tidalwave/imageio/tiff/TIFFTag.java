@@ -1,0 +1,585 @@
+/*******************************************************************************
+ *
+ * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
+ * ----------------------------------------------------------
+ *
+ * Copyright (C) 2003-2006 by Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * Project home page: http://jrawio.dev.java.net
+ * 
+ *******************************************************************************
+ *
+ * MIT License notice
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy 
+ * of this software and associated documentation files (the "Software"), to deal 
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ * 
+ *******************************************************************************
+ *
+ * $Id: TIFFTag.java,v 1.2 2006/02/08 20:26:54 fabriziogiudici Exp $
+ *
+ ******************************************************************************/
+package it.tidalwave.imageio.tiff;
+
+import java.util.logging.Logger;
+import java.io.IOException;
+import javax.imageio.stream.ImageInputStream;
+import it.tidalwave.imageio.raw.AbstractTag;
+import it.tidalwave.imageio.raw.TagRational;
+import it.tidalwave.imageio.raw.TagRegistry;
+
+/*******************************************************************************
+ * 
+ * This class represents a TIFF tag and is able to read from an IFD block.
+ * 
+ * @author  Fabrizio Giudici
+ * @version CVS $Id: TIFFTag.java,v 1.2 2006/02/08 20:26:54 fabriziogiudici Exp $
+ *
+ ******************************************************************************/
+public class TIFFTag extends AbstractTag
+  {
+    private final static long serialVersionUID = 6025163135754787912L;
+
+    private final static String CLASS = "it.tidalwave.imageio.tiff.TIFFTag";
+
+    private final static Logger logger = Logger.getLogger(CLASS);
+
+    public static final short TYPE_BYTE = 1;
+
+    public static final short TYPE_ASCII = 2;
+
+    public static final short TYPE_SHORT = 3;
+
+    public static final short TYPE_LONG = 4;
+
+    public static final short TYPE_RATIONAL = 5;
+
+    public static final short TYPE_SBYTE = 6;
+
+    public static final short TYPE_UNDEFINED = 7;
+
+    public static final short TYPE_SSHORT = 8;
+
+    public static final short TYPE_SLONG = 9;
+
+    public static final short TYPE_SRATIONAL = 10;
+
+    public static final short TYPE_FLOAT = 11;
+
+    public static final short TYPE_DOUBLE = 12;
+
+    /** This array maps type codes to type descriptions. */
+    private static final String[] typeToString = new String[TYPE_DOUBLE + 1];
+
+    static
+      {
+        typeToString[0] = "0"; // This is used by NEF MakerNote fields. FIXME: check
+        typeToString[TYPE_BYTE] = "byte";
+        typeToString[TYPE_ASCII] = "ascii";
+        typeToString[TYPE_SHORT] = "short";
+        typeToString[TYPE_LONG] = "long";
+        typeToString[TYPE_RATIONAL] = "rational";
+        typeToString[TYPE_SBYTE] = "signed byte";
+        typeToString[TYPE_UNDEFINED] = "undefined";
+        typeToString[TYPE_SSHORT] = "signed short";
+        typeToString[TYPE_SLONG] = "signed long";
+        typeToString[TYPE_SRATIONAL] = "signed rational";
+        typeToString[TYPE_FLOAT] = "signed float";
+        typeToString[TYPE_DOUBLE] = "double";
+      }
+
+    /*******************************************************************************
+     * 
+     * Creates an <code>TIFFTag</code> in a registry given s numeric code.
+     * 
+     * @param  registry  the registry this tag belongs to
+     * @param  code      the code
+     * 
+     *******************************************************************************/
+    public TIFFTag (TagRegistry registry, int code)
+      {
+        super(registry, code);
+      }
+
+    /*******************************************************************************
+     * 
+     * @inheritDoc
+     * 
+     * This method is overridden to support all TIFF specific types.
+     * 
+     *******************************************************************************/
+    public Object getValue ()
+      {
+        switch (type)
+          {
+            case TYPE_SBYTE:
+            case TYPE_BYTE:
+              if (intValue.length == 1)
+                {
+                  return new Byte((byte)intValue[0]);
+                }
+
+              byte[] bytes = new byte[intValue.length];
+
+              for (int i = 0; i < bytes.length; i++)
+                {
+                  bytes[i] = (byte)intValue[i];
+                }
+
+              return bytes;
+
+            case TYPE_SSHORT:
+            case TYPE_SHORT:
+              if (intValue.length == 1)
+                {
+                  return new Short((short)intValue[0]);
+                }
+
+              short[] shorts = new short[intValue.length];
+
+              for (int i = 0; i < shorts.length; i++)
+                {
+                  shorts[i] = (short)intValue[i];
+                }
+
+              return shorts;
+
+            case 0: // This is used by NEF MakerNote fields. FIXME: check
+            case TYPE_SLONG:
+            case TYPE_LONG:
+              return (intValue.length == 1) ? new Integer(intValue[0]) : (Object)intValue;
+
+            case TYPE_ASCII:
+              return asciiValue;
+
+            case TYPE_SRATIONAL:
+            case TYPE_RATIONAL:
+              return (rationalValue.length == 1) ? rationalValue[0] : (Object)rationalValue;
+
+            case TYPE_UNDEFINED:
+              return undefinedValue;
+
+            default:
+              throw new RuntimeException("Unsupported type:" + type);
+          }
+      }
+
+    /*******************************************************************************
+     *
+     * Reads this tag from a stream according to the TIFF format.
+     * 
+     * @param  iis         the input stream
+     * @throws IOException if an I/O error ocfurs
+     * 
+     ******************************************************************************/
+    public void read (ImageInputStream iis) throws IOException
+      {
+        type = iis.readUnsignedShort();
+        valuesCount = iis.readInt();
+        //logger.finest(">>>> tag: " + code + ", type: " + type + ", valuesCount: " + valuesCount);
+
+        //
+        // The Maker note could be coded as an "embedded TIFF" within the file.
+        // So it's better to know its offset so you can read with the same classes.
+        //
+        if (code == 37500) // FIXME  Maker Note
+          {
+            type = TYPE_LONG;
+            valuesCount = 1;
+          }
+
+        switch (type)
+          {
+            case TYPE_SBYTE:
+            case TYPE_BYTE:
+              intValue = readByteValues(iis, valuesCount);
+
+              if (type == TYPE_BYTE)
+                {
+                  for (int i = 0; i < intValue.length; i++)
+                    {
+                      intValue[i] &= 0xff;
+                    }
+                }
+
+              break;
+
+            case TYPE_SSHORT:
+            case TYPE_SHORT:
+              intValue = readShortValues(iis, valuesCount);
+
+              if (type == TYPE_SHORT)
+                {
+                  for (int i = 0; i < intValue.length; i++)
+                    {
+                      intValue[i] &= 0xffff;
+                    }
+                }
+
+              rationalValue = new TagRational[intValue.length];
+
+              for (int i = 0; i < intValue.length; i++)
+                {
+                  rationalValue[i] = new TagRational(intValue[i], 1);
+                }
+
+              break;
+
+            case 0: // This is used by NEF MakerNote fields. FIXME: check
+            case TYPE_SLONG:
+            case TYPE_LONG:
+              intValue = readIntValues(iis, valuesCount); // FIXME: these are long!
+              break;
+
+            case TYPE_ASCII:
+              asciiValue = readASCIIValue(iis, valuesCount);
+              break;
+
+            case TYPE_RATIONAL:
+              rationalValue = readRationalValues(iis, valuesCount);
+              break;
+
+            case TYPE_UNDEFINED:
+              undefinedValue = readUndefinedValues(iis, valuesCount);
+              break;
+
+            case TYPE_SRATIONAL:
+              rationalValue = readRationalValues(iis, valuesCount);
+              break;
+
+            case TYPE_FLOAT:
+              logger.warning("WARNING: TIFF type not implemented [FLOAT]: " + type); // TODO
+              iis.readUnsignedInt();
+              break;
+
+            case TYPE_DOUBLE:
+              logger.warning("WARNING: TIFF type not implemented [DOUBLE]: " + type); // TODO
+              iis.readUnsignedInt();
+              break;
+
+            default:
+              logger.warning("WARNING: TIFF type unknown: " + type);
+              iis.readUnsignedInt();
+              break;
+          }
+      }
+
+    /*******************************************************************************
+     *
+     * @inheritDoc
+     * 
+     ******************************************************************************/
+    public boolean equals (Object o)
+      {
+        if (!(o instanceof TIFFTag))
+          {
+            return false;
+          }
+
+        TIFFTag t = (TIFFTag)o;
+
+        if ((code != t.code) || (type != t.type) || (valuesCount != t.valuesCount))
+          {
+            return false;
+          }
+
+        if (intValue != null)
+          {
+            for (int i = 0; i < intValue.length; i++)
+              {
+                if (intValue[i] != t.intValue[i])
+                  {
+                    return false;
+                  }
+              }
+          }
+
+        else if (rationalValue != null)
+          {
+            for (int i = 0; i < rationalValue.length; i++)
+              {
+                if (!rationalValue[i].equals(t.rationalValue[i]))
+                  {
+                    return false;
+                  }
+              }
+          }
+
+        else if (asciiValue != null)
+          {
+            return asciiValue.equals(t.asciiValue);
+          }
+
+        else if (undefinedValue != null)
+          {
+            for (int i = 0; i < undefinedValue.length; i++)
+              {
+                if (undefinedValue[i] != t.undefinedValue[i])
+                  {
+                    return false;
+                  }
+              }
+          }
+
+        else
+          {
+            throw new RuntimeException();
+          }
+
+        return true;
+      }
+
+    /*******************************************************************************
+     *
+     * @inheritDoc
+     * 
+     ******************************************************************************/
+    public String toString ()
+      {
+        String name = registry.getTagName(code);
+
+        if (name == null)
+          {
+            name = "#" + code;
+          }
+
+        StringBuffer buffer = new StringBuffer(name);
+        buffer.append(" type: ");
+        buffer.append((type < typeToString.length) ? typeToString[type] : ("unknown type " + type));
+
+        if (valuesCount != 1)
+          {
+            buffer.append("[" + valuesCount + "]");
+          }
+
+        buffer.append(" value: ");
+        appendValues(buffer);
+
+        return buffer.toString();
+      }
+
+    /*******************************************************************************
+     * 
+     * Reads an ASCII value.
+     * 
+     * @param iis            the input stream
+     * @param valueCount     the count of values to read
+     * @return               the value
+     * @throws IOException   if an I/O error occurs
+     * 
+     *******************************************************************************/
+    private String readASCIIValue (ImageInputStream iis,
+                                   int valueCount) throws IOException
+      {
+        StringBuffer buffer = new StringBuffer();
+        boolean needReset = false;
+
+        if (valueCount > 4)
+          {
+            needReset = true;
+
+            long valueOffset = iis.readUnsignedInt();
+            iis.mark();
+            iis.seek(valueOffset);
+          }
+
+        int i = valueCount;
+
+        while (i-- > 0)
+          {
+            char ch = (char)iis.readByte();
+
+            if ((ch == 0) && (i == 0))
+              {
+                break;
+              }
+
+            buffer.append(ch);
+          }
+
+        if (needReset)
+          {
+            iis.reset();
+          }
+
+        else
+          {
+            iis.skipBytes(4 - valuesCount);
+          }
+
+        return buffer.toString();
+      }
+
+    /*******************************************************************************
+     * 
+     * Reads rational values.
+     * 
+     * @param iis            the input stream
+     * @param valueCount     the count of values to read
+     * @return               the value
+     * @throws IOException   if an I/O error occurs
+     * 
+     *******************************************************************************/
+    private TagRational[] readRationalValues (ImageInputStream iis,
+                                              int valuesCount) throws IOException
+      {
+        long valueOffset = iis.readUnsignedInt();
+        TagRational[] buffer = new TagRational[valuesCount];
+        iis.mark();
+        iis.seek(valueOffset);
+
+        for (int i = 0; i < valuesCount; i++)
+          {
+            int n = iis.readInt();
+            int d = iis.readInt();
+            buffer[i] = new TagRational(n, d);
+          }
+
+        iis.reset();
+
+        return buffer;
+      }
+
+    /*******************************************************************************
+     * 
+     * Reads integer values.
+     * 
+     * @param iis            the input stream
+     * @param valueCount     the count of values to read
+     * @return               the value
+     * @throws IOException   if an I/O error occurs
+     * 
+     *******************************************************************************/
+    private int[] readIntValues (ImageInputStream iis,
+                                 int valuesCount) throws IOException
+      {
+        long valueOffset = iis.readUnsignedInt();
+
+        if (valuesCount == 1)
+          {
+            return new int[] { (int)valueOffset };
+          }
+
+        return readIntValues(iis, valueOffset, valuesCount);
+      }
+
+    /*******************************************************************************
+     * 
+     * Reads short values.
+     * 
+     * @param iis            the input stream
+     * @param valueCount     the count of values to read
+     * @return               the value
+     * @throws IOException   if an I/O error occurs
+     * 
+     *******************************************************************************/
+    private int[] readShortValues (ImageInputStream iis,
+                                   int valuesCount) throws IOException
+      {
+        if (valuesCount <= 2)
+          {
+            int[] buffer = new int[valuesCount];
+
+            for (int i = 0; i < valuesCount; i++)
+              {
+                buffer[i] = iis.readShort();
+              }
+
+            iis.skipBytes(4 - (valuesCount * 2));
+
+            return buffer;
+          }
+
+        else
+          {
+            long valueOffset = iis.readUnsignedInt();
+            return readShortValues(iis, valueOffset, valuesCount);
+          }
+      }
+
+    /*******************************************************************************
+     * 
+     * Reads byte values.
+     * 
+     * @param iis            the input stream
+     * @param valueCount     the count of values to read
+     * @return               the value
+     * @throws IOException   if an I/O error occurs
+     * 
+     *******************************************************************************/
+    private int[] readByteValues (ImageInputStream iis,
+                                  int valuesCount) throws IOException
+      {
+        if (valuesCount <= 4)
+          {
+            int[] buffer = new int[valuesCount];
+
+            for (int i = 0; i < valuesCount; i++)
+              {
+                buffer[i] = iis.readByte();
+              }
+
+            iis.skipBytes(4 - valuesCount);
+            return buffer;
+          }
+
+        else
+          {
+            long valueOffset = iis.readUnsignedInt();
+            return readByteValues(iis, valueOffset, valuesCount);
+          }
+      }
+
+    /*******************************************************************************
+     * 
+     * Reads byte values.
+     * 
+     * @param iis            the input stream
+     * @param valueCount     the count of values to read
+     * @return               the value
+     * @throws IOException   if an I/O error occurs
+     * 
+     * FIXME: can be merged with readByteValues (?)
+     * 
+     *******************************************************************************/
+    private byte[] readUndefinedValues (ImageInputStream iis,
+                                        int valuesCount) throws IOException
+      {
+        byte[] buffer = new byte[valuesCount];
+
+        if (valuesCount <= 4)
+          {
+            for (int i = 0; i < valuesCount; i++)
+              {
+                buffer[i] = iis.readByte();
+              }
+
+            iis.skipBytes(4 - valuesCount);
+          }
+
+        else
+          {
+            long valueOffset = iis.readUnsignedInt();
+            iis.mark();
+            iis.seek(valueOffset);
+            iis.read(buffer);
+            iis.reset();
+          }
+
+        return buffer;
+      }
+  }

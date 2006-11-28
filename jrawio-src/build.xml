@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
+==========================================================
+
+Copyright (C) 2003-2006 by Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+Project home page: http://www.tidalwave.it/jrawio
+
+=============================================================================
+
+MIT License notice
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+=============================================================================
+
+$Id: build.xml,v 1.11 2006/02/24 13:14:25 fabriziogiudici Exp $
+-->
+
+<project name="jrawio" default="default" basedir=".">
+    <description>Builds, tests, and runs the project jrawio.</description>
+    <import file="nbproject/build-impl.xml"/>
+
+    <target name="-pre-compile">
+        <echo message="Auto-generating some sources..."/>
+        <xslt in="metadata/Nikon3MakerNote.xml" 
+            out="src-generated/it/tidalwave/imageio/nef/Nikon3MakerNoteSupport.java" 
+            style="metadata/xslt/DirectoryToJava.xslt">
+            <param name="serialVersionUID" expression="1237805638960118907L"/>
+            <param name="package" expression="it.tidalwave.imageio.nef"/>
+        </xslt>
+        <xslt in="metadata/CanonCR2MakerNote.xml" 
+            out="src-generated/it/tidalwave/imageio/cr2/CanonCR2MakerNoteSupport.java" 
+            style="metadata/xslt/DirectoryToJava.xslt">
+            <param name="serialVersionUID" expression="6347805638960118907L"/>
+            <param name="package" expression="it.tidalwave.imageio.cr2"/>
+        </xslt>
+        <xslt in="metadata/LeicaMakerNote.xml" 
+            out="src-generated/it/tidalwave/imageio/makernote/LeicaMakerNoteSupport.java" 
+            style="metadata/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="2517342348960118907L"/>
+            <param name="package" expression="it.tidalwave.imageio.makernote"/>
+        </xslt>
+        <xslt in="metadata/SonyMakerNote.xml" 
+            out="src-generated/it/tidalwave/imageio/srf/SonySRFMakerNoteSupport.java" 
+            style="metadata/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="3029403930493230394L"/>
+            <param name="package" expression="it.tidalwave.imageio.srf"/>
+        </xslt>
+        <xslt in="metadata/PentaxMakerNote.xml" 
+            out="src-generated/it/tidalwave/imageio/pef/PentaxMakerNoteSupport.java" 
+            style="metadata/xslt/DirectoryToJava.xslt">
+            <param name="serialVersionUID" expression="4059509303945039494L"/>
+            <param name="package" expression="it.tidalwave.imageio.pef"/>
+        </xslt>
+        <xslt in="metadata/MinoltaMakerNote.xml" 
+            out="src-generated/it/tidalwave/imageio/mrw/MinoltaMakerNoteSupport.java" 
+            style="metadata/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="4358973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.mrw"/>
+        </xslt>
+        <xslt in="metadata/OlympusMakerNote.xml" 
+            out="src-generated/it/tidalwave/imageio/orf/OlympusMakerNoteSupport.java" 
+            style="metadata/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="7930973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="metadata/KodakMakerNote.xml" 
+            out="src-generated/it/tidalwave/imageio/dcr/KodakMakerNoteSupport.java" 
+            style="metadata/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="3049583459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.dcr"/>
+        </xslt>
+        <echo message="Auto-generating some sources (2)..."/>
+        <javac srcdir="${src.dir}" 
+            destdir="${build.classes.dir}" 
+            classpath="${javac.classpath}" 
+            source="1.4" 
+            target="1.4" 
+            includes="IFDGenerator.java"
+            optimize="yes" 
+            deprecation="on" 
+            debug="on">
+        </javac>
+        <mkdir dir="${basedir}/src-generated" />
+        <java classname="IFDGenerator">
+            <arg value="${basedir}/${src.dir}" />
+            <arg value="${basedir}/src-generated" />
+            <classpath>
+                <pathelement path="${build.classes.dir}" />
+            </classpath>
+        </java>
+    </target>
+
+    <target name="-post-clean">
+        <delete dir="${basedir}/src-generated" failonerror="false"/>
+    </target>
+
+    <target name="-post-jar">
+    </target>
+
+    <target name="makedocs">
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=211" dest="ChangeLog.html"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=212" dest="README.html"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=213" dest="ReleaseNotes.html"/>
+    </target>
+
+    <target name="getdescriptors">
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=234" dest="metadata/CanonCR2MakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=235" dest="metadata/CanonCRWMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=240" dest="metadata/KodakMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=236" dest="metadata/MinoltaMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=239" dest="metadata/Nikon3MakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=237" dest="metadata/OlympusMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=241" dest="metadata/PentaxMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=238" dest="metadata/SonyMakerNote.xml"/>
+    </target>
+
+    <target name="gettag">
+        <delete failonerror="false" file="tag.properties" />
+        <java classpath="${build.classes.dir}" classname="it.tidalwave.imageio.raw.Version" output="tag.properties" />
+        <property file="tag.properties" />
+        <delete failonerror="false" file="tag.properties" />
+        <echo message="Current tag is ${tag}" />
+    </target>
+
+    <target name="distr" depends="clean, jar, javadoc, gettag, makedocs">
+        <move file="${dist.jar}" tofile="${dist.dir}/jrawio-${tag}.jar"/>
+        <property name="prefix" value="jrawio-${tag}" />	
+        <zip zipfile="${dist.dir}/${prefix}-src.zip">
+            <zipfileset prefix="${prefix}/jrawio-src" dir="." includes="build.xml" />
+            <zipfileset prefix="${prefix}/jrawio-src" dir="." includes="*.html, *.txt" />
+            <zipfileset prefix="${prefix}/jrawio-src" dir="." includes="src/**, examples/**, nbproject/**" />
+        </zip>
+        <zip zipfile="${dist.dir}/${prefix}-bin.zip">
+            <zipfileset prefix="${prefix}" dir="." includes="*.html, *.txt" />
+            <zipfileset prefix="${prefix}" dir="." includes="examples/**" />
+            <zipfileset prefix="${prefix}" dir="${dist.dir}" includes="*.jar" />
+            <zipfileset prefix="${prefix}/javadoc" dir="${dist.javadoc.dir}" />
+        </zip>
+    </target>
+
+</project>
+

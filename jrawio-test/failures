@@ -1,0 +1,46 @@
+/DNG (converted)/DSCN0001.DNG
+/From Individuals/Canon guy/crw_0080.crw
+/From Individuals/Canon guy/crw_2811.crw
+/From the Web/pictures.nicolas.delerue.org/japan/20040629_naritasan/crw_4415.crw
+/From the Web/www.ajs.com/~ajs/pt/111-1151_CRW.Crw
+/From the Web/www.cs.bris.ac.uk/~alan/SIGGRAPH/NIC2001/CRW_0207.CRW
+/From the Web/www.outbackphoto.com/CRW_0834.CRW
+/www.tidalwave.it/Nikon D70/20050527-0104.NDF
+testGetHeightIsCorrect: /FromTheWeb/cdimage.debian.org/pub/test/maswan/debconf5/debconf5_hut.cr2
+testGetHeightIsCorrect: /FromTheWeb/raw_large/350d/20d/20d_6000_7217.CR2
+testGetHeightIsCorrect: /FromTheWeb/raw_large/350d/20d/20d_6000_7218.CR2
+testGetHeightIsCorrect: /FromTheWeb/raw_large/350d/20d/20d_6000_7219.CR2
+testGetHeightIsCorrect: /FromTheWeb/raw_large/350d/20d/20d_6000_7220.CR2
+testGetHeightIsCorrect: /FromTheWeb/raw_large/350d/20d/20d_6000_7221.CR2
+testGetHeightIsCorrect: /FromTheWeb/www.jirvana.com/1Ds Mark II_0172._iso100.CR2
+testGetHeightWithNoInput: /FromTheWeb/cdimage.debian.org/pub/test/maswan/debconf5/debconf5_hut.cr2
+testGetHeightWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7217.CR2
+testGetHeightWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7218.CR2
+testGetHeightWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7219.CR2
+testGetHeightWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7220.CR2
+testGetHeightWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7221.CR2
+testGetNumImagesWithNoInput: /FromTheWeb/cdimage.debian.org/pub/test/maswan/debconf5/debconf5_hut.cr2
+testGetNumImagesWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7217.CR2
+testGetNumImagesWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7218.CR2
+testGetNumImagesWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7219.CR2
+testGetNumImagesWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7220.CR2
+testGetNumImagesWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7221.CR2
+testGetNumThumbnailsWithNoInput: /FromTheWeb/cdimage.debian.org/pub/test/maswan/debconf5/debconf5_hut.cr2
+testGetNumThumbnailsWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7217.CR2
+testGetNumThumbnailsWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7218.CR2
+testGetNumThumbnailsWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7219.CR2
+testGetNumThumbnailsWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7220.CR2
+testGetNumThumbnailsWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7221.CR2
+testGetWidthIsCorrect: /FromTheWeb/cdimage.debian.org/pub/test/maswan/debconf5/debconf5_hut.cr2
+testGetWidthIsCorrect: /FromTheWeb/raw_large/350d/20d/20d_6000_7217.CR2
+testGetWidthIsCorrect: /FromTheWeb/raw_large/350d/20d/20d_6000_7218.CR2
+testGetWidthIsCorrect: /FromTheWeb/raw_large/350d/20d/20d_6000_7219.CR2
+testGetWidthIsCorrect: /FromTheWeb/raw_large/350d/20d/20d_6000_7220.CR2
+testGetWidthIsCorrect: /FromTheWeb/raw_large/350d/20d/20d_6000_7221.CR2
+testGetWidthIsCorrect: /FromTheWeb/www.jirvana.com/1Ds Mark II_0172._iso100.CR2
+testGetWidthWithNoInput: /FromTheWeb/cdimage.debian.org/pub/test/maswan/debconf5/debconf5_hut.cr2
+testGetWidthWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7217.CR2
+testGetWidthWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7218.CR2
+testGetWidthWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7219.CR2
+testGetWidthWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7220.CR2
+testGetWidthWithNoInput: /FromTheWeb/raw_large/350d/20d/20d_6000_7221.CR2

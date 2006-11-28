@@ -1,0 +1,276 @@
+
+
+
+
+ 
+ 
+ 
+
+
+	
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		
+		<title>Read Me (HTML)</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso8859-1" />
+		<link href="" rel="stylesheet" type="text/css" />
+	</head>
+	<!-- XHTML Container -->
+	<body>
+		<!-- Structured Document begins - articleId = 745 -->
+<h2>Manual</h2>
+
+
+<ul>
+
+	
+	
+	
+	
+		<li><a href="#1">1. Overview</a></li>
+	
+		
+		
+		
+	
+		
+	
+
+	
+	
+	
+	
+		<li><a href="#2">2. Supported formats and cameras</a></li>
+	
+		
+		
+		
+	
+		
+	
+
+	
+	
+	
+	
+		<li><a href="#3">3. Project website and tracking</a></li>
+	
+		
+		
+		
+	
+		
+	
+
+	
+	
+	
+	
+		<li><a href="#4">4. Post-processing the raster</a></li>
+	
+		
+		
+		
+	
+		
+	
+
+	
+	
+	
+	
+		<li><a href="#5">5. Using jrawio and running the provided example</a></li>
+	
+		
+		
+		
+	
+		
+	
+
+	
+	
+	
+	
+		<li><a href="#6">6. Non standard classes</a></li>
+	
+		
+		
+		
+	
+		
+	
+
+	
+	
+	
+	
+		<li><a href="#7">7. Documentation about RAW Formats</a></li>
+	
+		
+		
+		
+	
+		
+	
+
+</ul>
+
+
+
+	
+	
+	
+	
+		<a name="1"></a>
+		<h3>1. Overview</h3>
+	
+	<p>
+		
+		
+		<span style="font-weight: bold;">jrawio</span> is a Service Provider Implementation for the Java&trade; ImageIO API. It provides the ability to read images coded in a digital &quot;camera raw&quot; format (such as NEF for Nikon or CRW/CR2 for Canon). It is to be pointed out that <span style="font-weight: bold;">jrawio</span> is implemented in 100% pure Java&trade;.
+		
+		<span style="font-weight: bold;">jrawio</span> is an opensource product distributed under the MIT license. <br /><br />The Java&trade; ImageIO API (<a href="http://java.sun.com/j2se/1.4.2/docs/guide/imageio">java.sun.com/j2se/1.4.2/docs/guide/imageio</a>) is an API which provides the ability to read and write images stored with different type of protocols (such as TIFF, JPEG, PNG and so on). The architecture of the ImageIO API is modular: programmers use a fixed, portable high-level API to control the load and store operations, while a set of &quot;drivers&quot; (called Service Provider Implementations, SPI) deal each one with a specific protocol. This solution enables the programmers to develop their imaging application abstracting storage details; moreover, an existing application can be augmented to deal with a new type of image files by just installing a new SPI. <br /><br />If you ever heard of nefIO, <span style="font-weight: bold;">jrawio</span> is basically the same stuff. When we wrote nefIO we were focused only on Nikon NEF format, while <span style="font-weight: bold;">jrawio</span> scope is broader. Basically we want to support every format around, provided that people provide us with image samples or technical documentation.
+		
+		
+		
+	</p>
+	
+		
+	
+
+	
+	
+	
+	
+		<a name="2"></a>
+		<h3>2. Supported formats and cameras</h3>
+	
+	<p>
+		
+		
+		jrawio is presently a Release Candidate for v1.0, so it's coming out of beta stage. Please refer also to the Release Notes for information about issues.<br /><br />It has been tested with about 8,000 photos taken with Nikon D100 and D70 cameras and with about 250 samples of various cameras downloaded from the web. jrawio has been explicitly tested with the following models:<br /> <table cellspacing="0" cellpadding="2" border="1">     <tbody>         <tr>             <th>Maker</th>             <th>Format</th>             <th>Model</th>         </tr>         <tr>             <td>Canon</td>             <td>CR2</td>             <td> Digital Rebel,  EOS 1D MkII,  EOS 1Ds MkII,  EOS 350D  </td>         </tr>         <tr>             <td>Canon</td>             <td>CRW</td>             <td> D30,  EOD 10D,  EOS 300D  </td>         </tr>         <tr>             <td>Leica</td>             <td>DNG</td>             <td> R8,  R9  </td>         </tr>         <tr>             <td>Minolta</td>             <td>MRW</td>             <td>DiMAGE 5, DiMAGE 7i, DiMAGE 7Hi</td>         </tr>         <tr>             <td>Nikon</td>             <td>NEF</td>             <td> CoolPix 5400,  CoolPix 5700,  CoolPix 8700,  CoolPix 8800,  D1,  D100,  D1X, D200,  D2H,  D2X,  D50,  D70,  D70s  </td>         </tr>         <tr>             <td>Pentax</td>             <td>PEF</td>             <td>*ist D, *ist DL, *ist DS</td>         </tr>         <tr>             <td>Sony</td>             <td>SRF</td>             <td> F828  </td>         </tr>     </tbody> </table>
+		
+		If you are interested in using jrawio with some files from a supported format, but produced by an untested camera, please contact us and provide some samples. We will work to fix the problem as soon as possible.<br /><br /><span style="font-style: italic;">Please consider submitting your samples also to the </span><a href="http://www.glasslantern.com/RAWpository" target="_blank" style="font-style: italic;">RAWpository</a><span style="font-style: italic;">, a shared collection of camera raw sample files. This could be useful for other open source developers around the world. </span>
+		
+		
+		
+	</p>
+	
+		
+	
+
+	
+	
+	
+	
+		<a name="3"></a>
+		<h3>3. Project website and tracking</h3>
+	
+	<p>
+		
+		
+		
+		
+		The home page for this project is:<br /><br />&nbsp;&nbsp;&nbsp; <a href="http://jrawio.dev.java.net">jrawio.dev.java.net</a><br /><br />All the tracking information about the project (issues, bugs, road map) is avaiable at:<br /><br />&nbsp;&nbsp;&nbsp; <a href="http://www.tidalwave.it/bluemarine/tracker/browse/JRW">www.tidalwave.it/bluemarine/tracker/browse/JRW</a>
+		
+		
+		
+	</p>
+	
+		
+	
+
+	
+	
+	
+	
+		<a name="4"></a>
+		<h3>4. Post-processing the raster</h3>
+	
+	<p>
+		
+		
+		
+		
+		Photos read with the jrawio plugin will appear dark and greenish (so dark that most of them could look black). This is because by default jrawio delivers the raw data straight from the camera sensor.&nbsp; As per the Camera Raw file specifications, these data need a heavy post-processing in order to be transformed in a display-ready color.<br /><br />The official release of jrawio does not provide post-processing capabilities, which will be added with version 1.5, due to be released for the first half of 2006. Anyway an early-access post-processing engine is already available. It is named RAWProcessor and can be downloaded from the <a href="https://jrawio.dev.java.net/servlets/ProjectDocumentList">&quot;Documents &amp; Files&quot;</a> section. Read more about the RAWProcessor <a href="https://jrawio.dev.java.net/243.html">here</a>.
+		
+		
+		
+	</p>
+	
+		
+	
+
+	
+	
+	
+	
+		<a name="5"></a>
+		<h3>5. Using jrawio and running the provided example</h3>
+	
+	<p>
+		
+		
+		
+		
+		To use jrawio just place its jar file in the classpath of your application - no further action is needed and your application wil be able to open raw files by means of <span class="Code">javax.imageio.ImageIO</span> methods. <span style="font-style: italic;">As jrawio is still beta, you could find some bugs - just notify us about them. Some bugs related to integration with other applications have been already identified and quickly fixed.</span><br /><br />In the directory examples there is a simple Java application that lets the user select an image file and shows it in a very simple viewer. The user can see the raw bitmap, the thumbnail(s) if present and the metadata (in XML format).<br /><br />To compile the example:<br /><br />&nbsp;&nbsp;&nbsp; <span class="Code">javac Main.java</span><br /><br />To run the example:<br /><br />&nbsp;&nbsp;&nbsp; <span class="Code">java -Xmx512M -cp jrawio-1.0.RC5.jar:. Main</span> <br /><br />Note that the example code is completely independent of jrawio, as it should be - it only uses standard Java&trade; ImageIO code. <br /><br />Specifying a sufficient amount of memory might be required for large images. Remember that a 12 megapixels raw image needs 72+ megabytes of RAM!<br /><br />If you want to run the example with the <a href="/infoglueDeliverLive/ViewPage.action?siteNodeId=243&languageId=1&contentId=-1">RAWProcessor</a> enabled, use this command line:<br /><br />&nbsp;&nbsp;&nbsp; <span class="Code">java -Xmx512M -cp jrawio-1.0.RC5.jar:reajent-xxx.jar:. Main</span> <br /><br />where xxx should be replaced with the version of the RAWProcessor you're using (make sure it's compatible with the jrawio version you're using).
+		
+		
+		
+	</p>
+	
+		
+	
+
+	
+	
+	
+	
+		<a name="6"></a>
+		<h3>6. Non standard classes</h3>
+	
+	<p>
+		
+		
+		
+		
+		jrawio defines several subclasses of <span class="Code">IIOMetadata</span> for the different formats it supports. These are internal classes and are not part of the official API. There is no guarantee that they won't change in future - they could even be dropped or completely redesigned. <br /><br />The standard way to access metadata is with XML, retrieved by the method <span class="Code">getAsTree()</span> as in the following example:<br /><br /> <div style="margin-left: 40px;"><span class="Code">File file = new File(...);<br imagereader="(ImageReader)ImageIO.getImageReaders(file).next();&lt;br" />imageReader.setInput(ImageIO.createImageInputStream(file));<br />IIOMetadata metadata = imageReader.getImageMetadata(0);<br />Node node = metadata.getAsTree(metadata.getNativeMetadataFormatName());</span><br /><br /></div>&nbsp;
+		
+		
+		
+	</p>
+	
+		
+	
+
+	
+	
+	
+	
+		<a name="7"></a>
+		<h3>7. Documentation about RAW Formats</h3>
+	
+	<p>
+		
+		
+		There are many pieces of documentation about RAW formats around the internet. As a spin-off of jrawio project a comprehensive documentation is being written at <a href="http://www.tidalwave.it/cameraraw" target="_blank">www.tidalwave.it/cameraraw</a>
+		
+		
+		
+		
+		
+	</p>
+	
+		
+	
+
+<!-- Structured Document ends -->
+	</body>
+</html>
+
+
+
