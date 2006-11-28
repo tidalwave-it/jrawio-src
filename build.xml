@@ -24,7 +24,7 @@ limitations under the License.
  
 ==============================================================================
  
-$Id: build.xml 9 2006-11-28 12:43:27Z fabriziogiudici $
+$Id: build.xml 12 2006-11-28 12:59:20Z fabriziogiudici $
 -->
 
 <project name="jrawio" default="jar" basedir=".">
@@ -46,17 +46,17 @@ $Id: build.xml 9 2006-11-28 12:43:27Z fabriziogiudici $
     Creates all the jar files in the project. 
     ======================================================================== -->
     <target name="jar">
-        <ant dir="jrawio-src" target="jar" inheritall="false"/>
-        <ant dir="reajent-src" target="jar" inheritall="false"/>
+        <ant dir="jrawio" target="jar" inheritall="false"/>
+        <ant dir="reajent" target="jar" inheritall="false"/>
     </target>
     
     <!-- =======================================================================
     Creates all the javadocs and copies them in the www folder.
     ======================================================================== -->
     <target name="javadoc">
-        <ant dir="jrawio-src" target="javadoc" inheritall="false"/>
+        <ant dir="jrawio" target="javadoc" inheritall="false"/>
         <copy todir="../www/javadoc/jrawio">
-            <fileset dir="jrawio-src/dist/javadoc"/>
+            <fileset dir="jrawio/dist/javadoc"/>
         </copy>
     </target>
     
@@ -64,9 +64,9 @@ $Id: build.xml 9 2006-11-28 12:43:27Z fabriziogiudici $
     Cleans everything.
     ======================================================================== -->
     <target name="clean">
-        <ant dir="jrawio-src" target="clean" inheritall="false"/>
+        <ant dir="jrawio" target="clean" inheritall="false"/>
         <ant dir="jrawio-test" target="clean" inheritall="false"/>
-        <ant dir="reajent-src" target="clean" inheritall="false"/>
+        <ant dir="reajent" target="clean" inheritall="false"/>
         <delete dir="dist" failonerror="false"/>
     </target>
     

@@ -19,7 +19,7 @@ is divided into following sections:
   - cleanup
 
 -->
-<project name="reajent-src-impl" default="default" basedir=".." xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:j2seproject2="http://www.netbeans.org/ns/j2se-project/2" xmlns:j2seproject1="http://www.netbeans.org/ns/j2se-project/1" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
+<project name="reajent-impl" default="default" basedir=".." xmlns:j2seproject3="http://www.netbeans.org/ns/j2se-project/3" xmlns:j2seproject2="http://www.netbeans.org/ns/j2se-project/2" xmlns:j2seproject1="http://www.netbeans.org/ns/j2se-project/1" xmlns:jaxws="http://www.netbeans.org/ns/jax-ws/1">
     <target name="default" depends="test,jar,javadoc" description="Build and test whole project."/>
     <!-- 
     ======================
@@ -267,7 +267,7 @@ is divided into following sections:
     ===================
     -->
     <target name="deps-jar" depends="init" unless="no.deps">
-        <ant target="jar" inheritall="false" antfile="${project.jrawio-src}/build.xml"/>
+        <ant target="jar" inheritall="false" antfile="${project.jrawio}/build.xml"/>
     </target>
     <target name="-pre-pre-compile" depends="init,deps-jar">
         <mkdir dir="${build.classes.dir}"/>
@@ -564,7 +564,7 @@ is divided into following sections:
     ===============
     -->
     <target name="deps-clean" depends="init" unless="no.deps">
-        <ant target="clean" inheritall="false" antfile="${project.jrawio-src}/build.xml"/>
+        <ant target="clean" inheritall="false" antfile="${project.jrawio}/build.xml"/>
     </target>
     <target name="-do-clean" depends="init">
         <delete dir="${build.dir}"/>
