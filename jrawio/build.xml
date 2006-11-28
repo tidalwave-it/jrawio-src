@@ -31,10 +31,10 @@ SOFTWARE.
 
 =============================================================================
 
-$Id: build.xml 19 2006-11-28 14:29:02Z fabriziogiudici $
+$Id: build.xml 21 2006-11-28 14:47:22Z fabriziogiudici $
 -->
 
-<project name="jrawio" default="default" basedir=".">
+<project name="jrawio" default="jar" basedir=".">
     <description>Builds, tests, and runs the project jrawio.</description>
     <import file="nbproject/build-impl.xml"/>
   

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project name="publish" default="default" basedir=".">
+<project name="publish" default="jar" basedir=".">
 
     <!-- =======================================================================
 
@@ -43,7 +43,7 @@
     
 
     ======================================================================== -->
-    <target name="distribution" depends="clean, gettag, default, javadoc, src-zip, bin-zip"/>
+    <target name="distribution" depends="clean, gettag, jar, javadoc, src-zip, bin-zip"/>
 
     <!-- =======================================================================
 
