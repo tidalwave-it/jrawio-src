@@ -31,67 +31,72 @@ SOFTWARE.
 
 =============================================================================
 
-$Id: build.xml 18 2006-11-28 14:20:29Z fabriziogiudici $
+$Id: build.xml 19 2006-11-28 14:29:02Z fabriziogiudici $
 -->
 
 <project name="jrawio" default="default" basedir=".">
     <description>Builds, tests, and runs the project jrawio.</description>
     <import file="nbproject/build-impl.xml"/>
-
-    <property name="metadata.dir" value="${src}/../../jrawio/metadata"/>
+  
+    <!-- Trick. Don't know why, but the -pre-compile task is called also by building
+         reajent (only if launched by the master build.xml). -->
+    <property name="src2.dir" value="../jrawio/src"/>
+    <property name="metadata.dir" value="../jrawio/metadata"/>
+    <property name="metadata.dest" value="../jrawio/src-generated"/>
 
     <target name="-pre-compile"> 
         <echo message="Auto-generating some sources..."/>
+        <mkdir dir="${basedir}/src-generated"/>
         <xslt in="${metadata.dir}/Nikon3MakerNote.xml" 
-            out="src-generated/it/tidalwave/imageio/nef/Nikon3MakerNoteSupport.java" 
+            out="${metadata.dest}/it/tidalwave/imageio/nef/Nikon3MakerNoteSupport.java" 
             style="${metadata.dir}/xslt/DirectoryToJava.xslt">
             <param name="serialVersionUID" expression="1237805638960118907L"/>
             <param name="package" expression="it.tidalwave.imageio.nef"/>
         </xslt>
         <xslt in="${metadata.dir}/CanonCR2MakerNote.xml" 
-            out="src-generated/it/tidalwave/imageio/cr2/CanonCR2MakerNoteSupport.java" 
+            out="${metadata.dest}/it/tidalwave/imageio/cr2/CanonCR2MakerNoteSupport.java" 
             style="${metadata.dir}/xslt/DirectoryToJava.xslt">
             <param name="serialVersionUID" expression="6347805638960118907L"/>
             <param name="package" expression="it.tidalwave.imageio.cr2"/>
         </xslt>
         <xslt in="${metadata.dir}/LeicaMakerNote.xml" 
-            out="src-generated/it/tidalwave/imageio/makernote/LeicaMakerNoteSupport.java" 
+            out="${metadata.dest}/it/tidalwave/imageio/makernote/LeicaMakerNoteSupport.java" 
             style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
             <param name="serialVersionUID" expression="2517342348960118907L"/>
             <param name="package" expression="it.tidalwave.imageio.makernote"/>
         </xslt>
         <xslt in="${metadata.dir}/SonyMakerNote.xml" 
-            out="src-generated/it/tidalwave/imageio/srf/SonySRFMakerNoteSupport.java" 
+            out="${metadata.dest}/it/tidalwave/imageio/srf/SonySRFMakerNoteSupport.java" 
             style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
             <param name="serialVersionUID" expression="3029403930493230394L"/>
             <param name="package" expression="it.tidalwave.imageio.srf"/>
         </xslt>
         <xslt in="${metadata.dir}/PentaxMakerNote.xml" 
-            out="src-generated/it/tidalwave/imageio/pef/PentaxMakerNoteSupport.java" 
+            out="${metadata.dest}/it/tidalwave/imageio/pef/PentaxMakerNoteSupport.java" 
             style="${metadata.dir}/xslt/DirectoryToJava.xslt">
             <param name="serialVersionUID" expression="4059509303945039494L"/>
             <param name="package" expression="it.tidalwave.imageio.pef"/>
         </xslt>
         <xslt in="${metadata.dir}/MinoltaMakerNote.xml" 
-            out="src-generated/it/tidalwave/imageio/mrw/MinoltaMakerNoteSupport.java" 
+            out="${metadata.dest}/it/tidalwave/imageio/mrw/MinoltaMakerNoteSupport.java" 
             style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
             <param name="serialVersionUID" expression="4358973459348573495L"/>
             <param name="package" expression="it.tidalwave.imageio.mrw"/>
         </xslt>
         <xslt in="${metadata.dir}/OlympusMakerNote.xml" 
-            out="src-generated/it/tidalwave/imageio/orf/OlympusMakerNoteSupport.java" 
+            out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusMakerNoteSupport.java" 
             style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
             <param name="serialVersionUID" expression="7930973459348573495L"/>
             <param name="package" expression="it.tidalwave.imageio.orf"/>
         </xslt>
         <xslt in="${metadata.dir}/KodakMakerNote.xml" 
-            out="src-generated/it/tidalwave/imageio/dcr/KodakMakerNoteSupport.java" 
+            out="${metadata.dest}/it/tidalwave/imageio/dcr/KodakMakerNoteSupport.java" 
             style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
             <param name="serialVersionUID" expression="3049583459348573495L"/>
             <param name="package" expression="it.tidalwave.imageio.dcr"/>
         </xslt>
         <echo message="Auto-generating some sources (2)..."/>
-        <javac srcdir="${src.dir}" 
+        <javac srcdir="${src2.dir}" 
             destdir="${build.classes.dir}" 
             classpath="${javac.classpath}" 
             source="1.4" 
@@ -101,10 +106,10 @@ $Id: build.xml 18 2006-11-28 14:20:29Z fabriziogiudici $
             deprecation="on" 
             debug="on">
         </javac>
-        <mkdir dir="${basedir}/src-generated" />
+        <mkdir dir="${basedir}/${metadata.dest}" />
         <java classname="IFDGenerator">
             <arg value="${basedir}/${src.dir}" />
-            <arg value="${basedir}/src-generated" />
+            <arg value="${basedir}/${metadata.dest}" />
             <classpath>
                 <pathelement path="${build.classes.dir}" />
             </classpath>
