@@ -46,20 +46,17 @@ $Id: build.xml 262 2006-11-27 06:58:32Z fabriziogiudici $
     Creates all the jar files in the project. 
     ======================================================================== -->
     <target name="jar">
-        <ant dir="EditableImage" target="jar" inheritall="false"/>
-        <ant dir="JAI-Adapter" target="jar" inheritall="false"/>
-        <ant dir="ImageJ-Adapter" target="jar" inheritall="false"/>
-        <ant dir="Examples/ViewerExample" target="jar" inheritall="false"/>
-        <ant dir="Examples/HistogramViewerExample" target="jar" inheritall="false"/>
+        <ant dir="jrawio-src" target="jar" inheritall="false"/>
+        <ant dir="reajent-src" target="jar" inheritall="false"/>
     </target>
     
     <!-- =======================================================================
     Creates all the javadocs and copies them in the www folder.
     ======================================================================== -->
     <target name="javadoc">
-        <ant dir="EditableImage" target="javadoc" inheritall="false"/>
-        <copy todir="../www/javadoc/EditableImage">
-            <fileset dir="EditableImage/dist/javadoc"/>
+        <ant dir="jrawio-src" target="javadoc" inheritall="false"/>
+        <copy todir="../www/javadoc/jrawio">
+            <fileset dir="jrawio-src/dist/javadoc"/>
         </copy>
     </target>
     
@@ -67,11 +64,9 @@ $Id: build.xml 262 2006-11-27 06:58:32Z fabriziogiudici $
     Cleans everything.
     ======================================================================== -->
     <target name="clean">
-        <ant dir="EditableImage" target="clean" inheritall="false"/>
-        <ant dir="JAI-Adapter" target="clean" inheritall="false"/>
-        <ant dir="ImageJ-Adapter" target="clean" inheritall="false"/>
-        <ant dir="Examples/ViewerExample" target="clean" inheritall="false"/>
-        <ant dir="Examples/HistogramViewerExample" target="clean" inheritall="false"/>
+        <ant dir="jrawio-src" target="clean" inheritall="false"/>
+        <ant dir="jrawio-test" target="clean" inheritall="false"/>
+        <ant dir="reajent-src" target="clean" inheritall="false"/>
         <delete dir="dist" failonerror="false"/>
     </target>
     
