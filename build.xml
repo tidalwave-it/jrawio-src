@@ -24,10 +24,10 @@ limitations under the License.
  
 ==============================================================================
  
-$Id: build.xml 12 2006-11-28 12:59:20Z fabriziogiudici $
+$Id: build.xml 14 2006-11-28 13:21:41Z fabriziogiudici $
 -->
 
-<project name="jrawio" default="jar" basedir=".">
+<project name="jrawio" default="default" basedir=".">
     
     <description>Builds, tests, and runs the project jrawio.</description>
     
@@ -45,9 +45,9 @@ $Id: build.xml 12 2006-11-28 12:59:20Z fabriziogiudici $
     <!-- =======================================================================
     Creates all the jar files in the project. 
     ======================================================================== -->
-    <target name="jar">
-        <ant dir="jrawio" target="jar" inheritall="false"/>
-        <ant dir="reajent" target="jar" inheritall="false"/>
+    <target name="default">
+        <ant dir="jrawio" target="default" inheritall="false"/>
+<!--        <ant dir="reajent" target="default" inheritall="false"/> -->
     </target>
     
     <!-- =======================================================================
