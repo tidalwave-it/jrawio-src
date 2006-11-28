@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: Version.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * $Id: Version.java 22 2006-11-28 14:56:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -30,12 +30,12 @@ package it.tidalwave.imageio.raw;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: Version.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * @version $Id: Version.java 22 2006-11-28 14:56:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public final class Version
   {
-    public final static String BUILD = "1.0.RC5";
+    public final static String BUILD = "1.0.RC6";
 
     /******************************************************************************
      *
