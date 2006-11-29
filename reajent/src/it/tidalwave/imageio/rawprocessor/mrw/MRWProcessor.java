@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWProcessor.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * $Id: MRWProcessor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.mrw;
@@ -35,7 +35,7 @@ import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: MRWProcessor.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * @version $Id: MRWProcessor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWProcessor extends RAWProcessor

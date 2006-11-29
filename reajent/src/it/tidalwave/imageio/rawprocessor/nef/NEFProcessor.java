@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFProcessor.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * $Id: NEFProcessor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
@@ -37,17 +37,16 @@ import it.tidalwave.imageio.rawprocessor.RAWProcessor;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.raw.ColorProfileOperation;
 import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
-import it.tidalwave.imageio.rawprocessor.raw.RotateOperation;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: NEFProcessor.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * @version $Id: NEFProcessor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFProcessor extends RAWProcessor
   {
-    private final static String CLASS = "it.tidalwave.imageio.rawprocessor.nef.BindNCEMetadata";
+    private final static String CLASS = NEFProcessor.class.getName();
      
     private final static Logger logger = Logger.getLogger(CLASS);
         

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: PEFProcessor.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * $Id: PEFProcessor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.pef;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: PEFProcessor.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * @version $Id: PEFProcessor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
  *
  ******************************************************************************/
 public class PEFProcessor extends RAWProcessor

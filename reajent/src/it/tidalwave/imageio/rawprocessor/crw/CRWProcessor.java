@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWProcessor.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * $Id: CRWProcessor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.crw;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: CRWProcessor.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * @version $Id: CRWProcessor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWProcessor extends RAWProcessor

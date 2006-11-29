@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImage.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * $Id: RAWImage.java 23 2006-11-29 10:32:42Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -36,12 +36,12 @@ import it.tidalwave.imageio.raw.RAWMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: RAWImage.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * @version $Id: RAWImage.java 23 2006-11-29 10:32:42Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RAWImage
   {
-    private final static String CLASS = "it.tidalwave.imageio.rawprocessor.RAWImage";
+    private final static String CLASS = RAWImage.class.getName();
     
     private final static Logger logger = Logger.getLogger(CLASS);
     
@@ -93,6 +93,67 @@ public class RAWImage
      *
      *
      ******************************************************************************/
+    public RAWMetadataSupport getRAWMetadata()
+      {
+        return rawMetadata;
+      }
+    
+    /*******************************************************************************
+     *
+     * Sets the curve.
+     *
+     * @param  curve  the curve
+     *
+     ******************************************************************************/
+    public void setCurve (Curve curve)
+      {
+        this.curve = curve;  
+      }
+    
+    /*******************************************************************************
+     *
+     * Returns the curve.
+     *
+     * @return  the curve
+     *
+     ******************************************************************************/
+    public Curve getCurve()
+      {
+        return curve;   
+      }
+    
+    /*******************************************************************************
+     *
+     * Sets the black level.
+     *
+     * @param  blackLevel  the black level
+     *
+     ******************************************************************************/
+    public void setBlackLevel (double blackLevel)
+      {
+        this.blackLevel = blackLevel;  
+      }
+    
+    /*******************************************************************************
+     *
+     * Returns the black level.
+     *
+     * @return  the black level
+     *
+     ******************************************************************************/
+    public double getBlackLevel()
+      {
+        return blackLevel;  
+      }
+    
+    /*******************************************************************************
+     *
+     * Returns the coefficient for the given channel.
+     *
+     * @param  channel  the channel
+     * @return          the coefficient
+     *
+     ******************************************************************************/
     private double getCoefficient (int channel)
       {
         return coefficients[channel];  
@@ -100,6 +161,9 @@ public class RAWImage
     
     /*******************************************************************************
      *
+     * Returns the red coefficient.
+     *  
+     * @return  the red coefficient
      *
      ******************************************************************************/
     public double getRedCoefficient()
@@ -109,6 +173,9 @@ public class RAWImage
     
     /*******************************************************************************
      *
+     * Returns the green coefficient.
+     *  
+     * @return  the green coefficient
      *
      ******************************************************************************/
     public double getGreenCoefficient()
@@ -118,6 +185,9 @@ public class RAWImage
     
     /*******************************************************************************
      *
+     * Returns the blue coefficient.
+     *  
+     * @return  the blue coefficient
      *
      ******************************************************************************/
     public double getBlueCoefficient()
@@ -127,6 +197,9 @@ public class RAWImage
     
     /*******************************************************************************
      *
+     * Multiplies the red coefficient by the given value.
+     *
+     * @param  value  the multiplier
      *
      ******************************************************************************/
     public void multiplyRedCoefficient (double value)
@@ -136,6 +209,9 @@ public class RAWImage
     
     /*******************************************************************************
      *
+     * Multiplies the green coefficient by the given value.
+     *
+     * @param  value  the multiplier
      *
      ******************************************************************************/
     public void multiplyGreenCoefficient (double value)
@@ -145,6 +221,9 @@ public class RAWImage
     
     /*******************************************************************************
      *
+     * Multiplies the blue coefficient by the given value.
+     *
+     * @param  value  the multiplier
      *
      ******************************************************************************/
     public void multiplyBlueCoefficient (double value)
@@ -154,6 +233,11 @@ public class RAWImage
     
     /*******************************************************************************
      *
+     * Multiplies a given channel coefficient by the given value. The channel
+     * parameter can be 0,1,2,... to mean R,G,B,...
+     *
+     * @param  channel  the channel to multiply
+     * @param  value    the multiplier
      *
      ******************************************************************************/
     private void multiplyRGBCoefficient (int channel, double value)
@@ -164,7 +248,11 @@ public class RAWImage
     
     /*******************************************************************************
      *
-     * BEWARE THAT THE INDEX IS RELATIVE TO THE CFA PATTERN, NOT RGB.
+     * Multiplies a given channel coefficient by the given value. The cfaIndex 
+     * parameters refers to the channel at the given position in the CFA matrix.
+     *
+     * @param  channel  the channel to multiply
+     * @param  value    the multiplier
      *
      ******************************************************************************/
     public void multiplyCFACoefficient (int cfaIndex, double value)
@@ -174,48 +262,10 @@ public class RAWImage
         logger.finer ("Coefficient[" + channel + "] = " + coefficients[channel] + " - has been multiplied by " + value);
       }
     
-    public void setBlackLevel (double blackLevel)
-      {
-        this.blackLevel = blackLevel;  
-      }
-    
-    public double getBlackLevel()
-      {
-        return blackLevel;  
-      }
-    
-    /*******************************************************************************
-     *
-     *
-     ******************************************************************************/
-    public Curve getCurve()
-      {
-        return curve;   
-      }
-    
-    /*******************************************************************************
-     *
-     *
-     ******************************************************************************/
-    public void setCurve (Curve curve)
-      {
-        this.curve = curve;  
-      }
-    
-    /*******************************************************************************
-     *
-     *
-     ******************************************************************************/
-    public RAWMetadataSupport getRAWMetadata()
-      {
-        return rawMetadata;
-      }
-    
     /*******************************************************************************
      * 
-     * Retrieves the CFA pattern for the current model. The default implementation
-     * gets it from the EXIF data. This method should be overridden for non-TIFF
-     * based RAW formats.
+     * Retrieves the CFA pattern for the current model. This method should be 
+     * overridden for non-TIFF based RAW formats.
      * 
      * @return  the CFA pattern
      * 
@@ -227,8 +277,9 @@ public class RAWImage
     
     /*******************************************************************************
      * 
-     * @param cfaPattern
-     * @return
+     * Returns the CFA pattern as a string (e.g. "GRBG").
+     *
+     * @return  the CFA pattern
      * 
      *******************************************************************************/
     public String getCFAPatternAsString()
@@ -245,8 +296,10 @@ public class RAWImage
     
     /*******************************************************************************
      * 
-     * @param cfaPattern
-     * @return
+     * Computes the CFA pattern as an array of indexes. This method first searches 
+     * in the EXIF directory, then in the raster directory.
+     *
+     * @return  the CFA pattern
      * 
      *******************************************************************************/
     private int[] computeCFAPattern()

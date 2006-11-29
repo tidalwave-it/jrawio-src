@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CR2Processor.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * $Id: CR2Processor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.cr2;
@@ -35,7 +35,7 @@ import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: CR2Processor.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * @version $Id: CR2Processor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CR2Processor extends RAWProcessor
