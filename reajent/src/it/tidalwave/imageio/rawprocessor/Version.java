@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: Version.java 22 2006-11-28 14:56:08Z fabriziogiudici $
+ * $Id: Version.java 40 2008-07-29 20:31:12Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -34,14 +34,14 @@ import java.text.SimpleDateFormat;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: Version.java 22 2006-11-28 14:56:08Z fabriziogiudici $
+ * @version CVS $Id: Version.java 40 2008-07-29 20:31:12Z fabriziogiudici $
  *
  ******************************************************************************/
 public final class Version
   {
     public final static DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
     
-    public final static String REQUIRED_JRAWIO_VERSION = "1.0.RC6";
+    public final static String REQUIRED_JRAWIO_VERSION = "1.5SNAPSHOT";
 
     /******************************************************************************
      *
