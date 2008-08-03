@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RotateOperation.java 23 2006-11-29 10:32:42Z fabriziogiudici $
+ * $Id: RotateOperation.java 43 2008-08-03 10:04:58Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
@@ -44,7 +44,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RotateOperation.java 23 2006-11-29 10:32:42Z fabriziogiudici $
+ * @version $Id: RotateOperation.java 43 2008-08-03 10:04:58Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RotateOperation extends OperationSupport
@@ -65,6 +65,7 @@ public class RotateOperation extends OperationSupport
         if (rotation != 0)
           {
             image.setImage(rotateQuadrant(image.getImage(), rotation));
+            image.setRotation(rotation);
           }
       }
         
