@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: FileImageInputStream2Spi.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * $Id: FileImageInputStream2Spi.java 46 2008-08-03 10:06:26Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.io;
@@ -38,16 +38,16 @@ import it.tidalwave.imageio.raw.Version;
 /*******************************************************************************
  *
  * @author  fritz
- * @version CVS $Id: FileImageInputStream2Spi.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * @version CVS $Id: FileImageInputStream2Spi.java 46 2008-08-03 10:06:26Z fabriziogiudici $
  *
  ******************************************************************************/
 public class FileImageInputStream2Spi extends ImageInputStreamSpi 
   {
-    private static final String vendorName = "www.tidalwave.it";
+    private static final String VENDOR_NAME = "www.tidalwave.it";
 
-    private static final String version = Version.BUILD;
+    private static final String VERSION = Version.BUILD;
 
-    private static final Class inputClass = File.class;
+    private static final Class INPUT_CLASS = File.class;
 
     /*******************************************************************************
      * 
@@ -55,7 +55,7 @@ public class FileImageInputStream2Spi extends ImageInputStreamSpi
      *******************************************************************************/
     public FileImageInputStream2Spi()
       {
-        super(vendorName, version, inputClass);
+        super(VENDOR_NAME, VERSION, INPUT_CLASS);
       }
 
     /*******************************************************************************
@@ -78,13 +78,15 @@ public class FileImageInputStream2Spi extends ImageInputStreamSpi
      * @param category  the registration category
      * 
      *******************************************************************************/
+    @Override
     public void onRegistration (ServiceRegistry registry, Class category)
       {
         super.onRegistration(registry, category);
         
-        for (Iterator i = registry.getServiceProviders(ImageInputStreamSpi.class, true); i.hasNext();)
+        for (final Iterator<ImageInputStreamSpi> i = registry.getServiceProviders(ImageInputStreamSpi.class, true); 
+             i.hasNext();)
           {
-            Object other = i.next();
+            final ImageInputStreamSpi other = i.next();
 
             if (this != other)
               {
