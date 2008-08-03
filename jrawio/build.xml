@@ -31,7 +31,7 @@ SOFTWARE.
 
 =============================================================================
 
-$Id: build.xml 21 2006-11-28 14:47:22Z fabriziogiudici $
+$Id: build.xml 52 2008-08-03 10:21:29Z fabriziogiudici $
 -->
 
 <project name="jrawio" default="jar" basedir=".">
@@ -149,6 +149,14 @@ $Id: build.xml 21 2006-11-28 14:47:22Z fabriziogiudici $
         <echo message="Current tag is ${tag}" />
     </target>
 -->
+
+    <target name="wiki">
+        <mkdir dir="${metadata.dir}/wiki"/>
+        <xslt in="${metadata.dir}/Nikon3MakerNote.xml"
+            out="${metadata.dir}/wiki/Nikon3MakerNote.wiki"
+            style="${metadata.dir}/xslt/DirectoryToWiki.xslt">
+        </xslt>
+    </target>
 
 </project>
 
