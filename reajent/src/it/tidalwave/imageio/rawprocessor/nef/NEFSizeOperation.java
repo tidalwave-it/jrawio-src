@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFSizeOperation.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * $Id: NEFSizeOperation.java 47 2008-08-03 10:07:56Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
@@ -38,7 +38,7 @@ import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: NEFSizeOperation.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * @version $Id: NEFSizeOperation.java 47 2008-08-03 10:07:56Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFSizeOperation extends SizeOperation
@@ -53,20 +53,20 @@ public class NEFSizeOperation extends SizeOperation
     protected Insets getCrop (RAWImage image)
       {
         logger.fine("getCrop()");
+        Insets crop = super.getCrop(image);
+        int rotation = normalized(image.getRotation());
+        crop = rotateCrop(crop, rotation);
+        logger.finer(">>>> Standard crop - left: " + crop.left + ", top: " + crop.top + ", right: " + crop.right + ", bottom: " + crop.bottom);
+
         NEFMetadata metadata = (NEFMetadata)image.getRAWMetadata();
         NikonCaptureEditorMetadata nceMetadata = (NikonCaptureEditorMetadata)metadata.getCaptureEditorMetadata();
-        Insets crop = super.getCrop(image);
-        
-        if (crop == null) // e.g. a new camera not descripted in NEFSizeOperation.properties
-          {
-            crop = new Insets(0, 0, 0, 0);
-          }
-
-        logger.finer(">>>> Standard crop - left: " + crop.left + ", top: " + crop.top + ", right: " + crop.right + ", bottom: " + crop.bottom);
 
         if (nceMetadata != null)
           {
             double scale = 0.5;
+            //
+            // NCE crop settings are relative to the rotated image
+            //
             int left = (int)Math.round(nceMetadata.getCropLeft() * scale);
             int top = (int)Math.round(nceMetadata.getCropTop() * scale);
             int right = (int)Math.round(nceMetadata.getCropWidth() * scale);
@@ -79,6 +79,14 @@ public class NEFSizeOperation extends SizeOperation
               } 
 
             Dimension size = getSize(image);
+            
+            if ((rotation == 90) || (rotation == 270))
+              {
+                int tmp = size.width;
+                size.width = size.height;
+                size.height = tmp;
+              }
+            
             logger.fine(">>>> Standard size: " + size.width + " x " + size.height);
 
             crop.left += left;
@@ -90,6 +98,16 @@ public class NEFSizeOperation extends SizeOperation
         logger.fine(">>>> returning: " + crop);
         
         return crop;
+      }
+    
+    private int normalized (int angle)
+      {
+        while (angle < 0)
+          {
+            angle += 360;  
+          }
+        
+        return angle % 360;
       }
     
     /*******************************************************************************

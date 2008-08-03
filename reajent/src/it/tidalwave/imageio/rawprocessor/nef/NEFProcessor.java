@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFProcessor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
+ * $Id: NEFProcessor.java 47 2008-08-03 10:07:56Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
@@ -41,7 +41,7 @@ import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFProcessor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
+ * @version $Id: NEFProcessor.java 47 2008-08-03 10:07:56Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFProcessor extends RAWProcessor
@@ -82,8 +82,8 @@ public class NEFProcessor extends RAWProcessor
         operationList.add(new NEFExposureOperation());
         operationList.add(new NEFCurveOperation());
         operationList.add(new DemosaicOperation());
-        operationList.add(new NEFSizeOperation());
         operationList.add(new NEFRotateOperation());
+        operationList.add(new NEFSizeOperation());
         operationList.add(new NEFColorConversionOperation());
         operationList.add(new ColorProfileOperation());
 //        operationList.add(new SharpenOperation());

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DNGProcessor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
+ * $Id: DNGProcessor.java 47 2008-08-03 10:07:56Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DNGProcessor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
+ * @version $Id: DNGProcessor.java 47 2008-08-03 10:07:56Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DNGProcessor extends RAWProcessor
@@ -52,8 +52,8 @@ public class DNGProcessor extends RAWProcessor
 //        operationList.add(new ExposureOperation());
         operationList.add(new DNGCurveOperation());
         operationList.add(new DemosaicOperation());
-        operationList.add(new DNGSizeOperation());
         operationList.add(new RotateOperation());
+        operationList.add(new DNGSizeOperation());
         operationList.add(new DNGColorConversionOperation());
         operationList.add(new ColorProfileOperation());
 //        operationList.add(new SharpenOperation());
