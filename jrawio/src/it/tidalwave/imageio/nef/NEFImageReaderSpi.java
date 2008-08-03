@@ -3,7 +3,7 @@
  * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
  * ==========================================================
  *
- * Copyright (C) 2003-2006 by Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * Copyright (C) 2003-2007 by Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
  * Project home page: http://jrawio.tidalwave.it
  *
  *******************************************************************************
@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFImageReaderSpi.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * $Id: NEFImageReaderSpi.java 48 2008-08-03 10:09:06Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -41,12 +41,12 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: NEFImageReaderSpi.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * @version CVS $Id: NEFImageReaderSpi.java 48 2008-08-03 10:09:06Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
   {
-    private final static String CLASS = "it.tidalwave.imageio.nef.NEFImageReaderSpi";
+    private final static String CLASS = NEFImageReaderSpi.class.getName();
 
     private final static Logger logger = Logger.getLogger(CLASS);
 
@@ -64,7 +64,7 @@ public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
     /*******************************************************************************
      *
      ******************************************************************************/
-    public String getDescription (Locale locale)
+    public String getDescription (final Locale locale)
       {
         return "Standard NEF Image Reader";
       }
@@ -72,7 +72,8 @@ public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
     /*******************************************************************************
      *
      ******************************************************************************/
-    public ImageReader createReaderInstance (Object extension) throws IOException
+    public ImageReader createReaderInstance (final Object extension) 
+      throws IOException
       {
         return new NEFImageReader(this, extension);
       }
@@ -84,7 +85,8 @@ public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
      * @throws IOException
      * 
      *******************************************************************************/
-    protected boolean canDecodeInput (RAWImageInputStream iis) throws IOException
+    protected boolean canDecodeInput (final RAWImageInputStream iis) 
+      throws IOException
       {
         iis.seek(0);
         NEFHeaderProcessor headerProcessor = new NEFHeaderProcessor();
@@ -102,6 +104,7 @@ public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
         
         if (primaryIFD.isDNGVersionAvailable())
           { 
+            logger.finest(">>>> FAILING, isDNGVersionAvailable returning true");
             return false;    
           }
         
