@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: SizeOperation.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * $Id: SizeOperation.java 44 2008-08-03 10:05:45Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
@@ -44,7 +44,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: SizeOperation.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * @version CVS $Id: SizeOperation.java 44 2008-08-03 10:05:45Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class SizeOperation extends OperationSupport
@@ -114,7 +114,14 @@ public abstract class SizeOperation extends OperationSupport
         logger.fine("getCrop()");
         TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
         IFD primaryIFD = metadata.getPrimaryIFD();
-        return getStandardCrop(primaryIFD.getModel());
+        Insets crop = getStandardCrop(primaryIFD.getModel());
+        
+        if (crop == null) // e.g. a new camera not descripted properties
+          {
+            crop = new Insets(0, 0, 0, 0);
+          }
+        
+        return crop;
       }
       
     /*******************************************************************************
@@ -155,6 +162,51 @@ public abstract class SizeOperation extends OperationSupport
                                   image.getHeight() - crop.top - crop.bottom);  
         logImage(logger, ">>>> crop returning: ", image);
         return image;
+      }
+    
+    /*******************************************************************************
+     *
+     *
+     ******************************************************************************/
+    protected Insets rotateCrop (Insets crop, int rotation)
+      {
+        Insets result = new Insets(0, 0, 0, 0);
+        
+        switch (rotation)
+          {
+            case 0:
+              result.left   = crop.left;
+              result.top    = crop.top;
+              result.right  = crop.right;
+              result.bottom = crop.bottom;
+              break;
+              
+            case 90:
+              result.left   = crop.top;
+              result.top    = crop.right;
+              result.right  = crop.bottom;
+              result.bottom = crop.left;
+              break;
+              
+            case 180:
+              result.left   = crop.right;
+              result.top    = crop.bottom;
+              result.right  = crop.left;
+              result.bottom = crop.top;
+              break;
+              
+            case 270:
+              result.left   = crop.bottom;
+              result.top    = crop.left;
+              result.right  = crop.top;
+              result.bottom = crop.right;
+              break;
+              
+            default: 
+              throw new IllegalArgumentException("rotation=" + rotation);
+          }
+        
+        return result;
       }
     
     /*******************************************************************************
