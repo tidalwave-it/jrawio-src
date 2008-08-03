@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImage.java 23 2006-11-29 10:32:42Z fabriziogiudici $
+ * $Id: RAWImage.java 42 2008-08-03 10:04:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.raw.RAWMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RAWImage.java 23 2006-11-29 10:32:42Z fabriziogiudici $
+ * @version $Id: RAWImage.java 42 2008-08-03 10:04:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RAWImage
@@ -58,6 +58,9 @@ public class RAWImage
     private double blackLevel = 0; // should use a different value for each channel
     
     protected Curve curve;
+    
+    /** The angle that the image was rotated to. */
+    private int rotation;
     
     /*******************************************************************************
      *
@@ -120,6 +123,24 @@ public class RAWImage
     public Curve getCurve()
       {
         return curve;   
+      }
+    
+    /*******************************************************************************
+     *
+     *
+     ******************************************************************************/
+    public void setRotation (int rotation)
+      {
+        this.rotation = rotation;  
+      }
+    
+    /*******************************************************************************
+     *
+     *
+     ******************************************************************************/
+    public int getRotation()
+      {
+        return rotation;  
       }
     
     /*******************************************************************************
