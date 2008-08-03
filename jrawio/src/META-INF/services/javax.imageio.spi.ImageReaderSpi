@@ -1,4 +1,3 @@
-it.tidalwave.imageio.io.FileImageInputStream2Spi
 it.tidalwave.imageio.nef.NEFImageReaderSpi
 it.tidalwave.imageio.crw.CRWImageReaderSpi
 it.tidalwave.imageio.cr2.CR2ImageReaderSpi
@@ -8,5 +7,4 @@ it.tidalwave.imageio.mrw.MRWImageReaderSpi
 it.tidalwave.imageio.orf.ORFImageReaderSpi
 it.tidalwave.imageio.dcr.DCRImageReaderSpi
 it.tidalwave.imageio.dng.DNGImageReaderSpi
-it.tidalwave.imageio.rawprocessor.RAWProcessorInstallerSpi
 
