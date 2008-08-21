@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWCurveOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: MRWCurveOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.mrw;
@@ -34,7 +34,7 @@ import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: MRWCurveOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: MRWCurveOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWCurveOperation extends CurveOperation  

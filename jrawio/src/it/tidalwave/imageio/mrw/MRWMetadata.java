@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWMetadata.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.tiff.IFD;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: MRWMetadata.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWMetadata extends TIFFMetadataSupport

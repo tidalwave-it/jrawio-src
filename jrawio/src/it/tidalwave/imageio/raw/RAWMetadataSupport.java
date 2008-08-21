@@ -22,11 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: RAWMetadataSupport.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: RAWMetadataSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.metadata.IIOMetadataFormatImpl;
 import org.w3c.dom.Node;
@@ -34,16 +36,19 @@ import org.w3c.dom.Node;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: RAWMetadataSupport.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: RAWMetadataSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class RAWMetadataSupport extends IIOMetadata
   {
-    protected Directory realPrimaryIFD;
+    @Nonnull
+    protected final Directory realPrimaryIFD;
 
-    protected HeaderProcessor headerProcessor;
+    @CheckForNull
+    protected final HeaderProcessor headerProcessor;
 
-    private String nativeFormatName;
+    @Nonnull
+    private final String nativeFormatName;
 
     /*******************************************************************************
      * 
@@ -51,7 +56,9 @@ public abstract class RAWMetadataSupport extends IIOMetadata
      * @param nativeFormatName
      * 
      *******************************************************************************/
-    public RAWMetadataSupport (Directory primaryDirectory, String nativeFormatName, HeaderProcessor headerProcessor)
+    public RAWMetadataSupport (@Nonnull final Directory primaryDirectory, 
+                               @Nonnull final String nativeFormatName, 
+                               @CheckForNull final HeaderProcessor headerProcessor)
       {
         this.nativeFormatName = nativeFormatName;
         this.realPrimaryIFD = primaryDirectory;
@@ -63,6 +70,7 @@ public abstract class RAWMetadataSupport extends IIOMetadata
      * @return
      * 
      *******************************************************************************/
+    @CheckForNull
     public HeaderProcessor getHeaderProcessor()
       {
         return headerProcessor;  
@@ -73,7 +81,8 @@ public abstract class RAWMetadataSupport extends IIOMetadata
      * @inheritDoc
      * 
      ******************************************************************************/
-    public Node getAsTree (String formatName)
+    @Nonnull
+    public Node getAsTree (final String formatName)
       {
         if (formatName == null)
           {
@@ -113,7 +122,8 @@ public abstract class RAWMetadataSupport extends IIOMetadata
      * @inheritDoc
      * 
      ******************************************************************************/
-    public boolean isStandardMetadataFormatSupported ()
+    @Override
+    public boolean isStandardMetadataFormatSupported()
       {
         return true;
       }
@@ -123,7 +133,9 @@ public abstract class RAWMetadataSupport extends IIOMetadata
      * @inheritDoc
      * 
      ******************************************************************************/
-    public String getNativeMetadataFormatName ()
+    @Override
+    @Nonnull
+    public String getNativeMetadataFormatName()
       {
         return nativeFormatName;
       }
@@ -133,7 +145,9 @@ public abstract class RAWMetadataSupport extends IIOMetadata
      * @inheritDoc
      * 
      ******************************************************************************/
-    public String[] getExtraMetadataFormatNames ()
+    @Override
+    @Nonnull
+    public String[] getExtraMetadataFormatNames()
       {
         return new String[] { };
       }
@@ -153,8 +167,8 @@ public abstract class RAWMetadataSupport extends IIOMetadata
      * @inheritDoc
      * 
      ******************************************************************************/
-    public void mergeTree (String formatName,
-                           Node root)
+    public void mergeTree (final String formatName,
+                           final Node root)
       {
         throw new UnsupportedOperationException("RAWMetadata.mergeTree()");
       }
@@ -164,7 +178,7 @@ public abstract class RAWMetadataSupport extends IIOMetadata
      * @inheritDoc
      * 
      ******************************************************************************/
-    public void reset ()
+    public void reset()
       {
         throw new UnsupportedOperationException("RAWMetadata.reset()");
       }
@@ -174,6 +188,8 @@ public abstract class RAWMetadataSupport extends IIOMetadata
      * @inheritDoc
      * 
      ******************************************************************************/
+    @Override
+    @Nonnull
     public String toString ()
       {
         StringBuffer buffer = new StringBuffer();

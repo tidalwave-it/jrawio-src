@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: TagRational.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: TagRational.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -35,7 +35,7 @@ import java.io.Serializable;
  * integer denominator.
  * 
  * @author  Fabrizio Giudici
- * @version CVS $Id: TagRational.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: TagRational.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class TagRational extends Number implements Serializable

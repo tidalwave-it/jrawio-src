@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWSizeOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: CRWSizeOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.crw;
@@ -37,7 +37,7 @@ import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: CRWSizeOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: CRWSizeOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWSizeOperation extends SizeOperation

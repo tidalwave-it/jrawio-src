@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: SonyDecipher.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: SonyDecipher.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.srf;
@@ -37,7 +37,7 @@ import javax.imageio.stream.ImageInputStream;
  * Thanks to Dave Coffin: http://www.cybercom.net/~dcoffin/dcraw/sony_clear.c
  * 
  * @author  Fabrizio Giudici
- * @version CVS $Id: SonyDecipher.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: SonyDecipher.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class SonyDecipher

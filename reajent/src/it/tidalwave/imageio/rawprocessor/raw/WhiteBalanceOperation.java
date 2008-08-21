@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: WhiteBalanceOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: WhiteBalanceOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
@@ -33,7 +33,7 @@ import it.tidalwave.imageio.rawprocessor.OperationSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: WhiteBalanceOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: WhiteBalanceOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class WhiteBalanceOperation extends OperationSupport

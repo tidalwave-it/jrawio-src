@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFRasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: NEFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -41,7 +41,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSupport;
  * This class implements the compressed NEF raster loading.
  * 
  * @author  Fabrizio Giudici
- * @version CVS $Id: NEFRasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: NEFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFRasterReader extends RasterReader

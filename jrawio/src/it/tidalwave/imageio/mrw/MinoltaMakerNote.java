@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MinoltaMakerNote.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: MinoltaMakerNote.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -30,7 +30,7 @@ package it.tidalwave.imageio.mrw;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: MinoltaMakerNote.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: MinoltaMakerNote.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MinoltaMakerNote extends MinoltaMakerNoteSupport

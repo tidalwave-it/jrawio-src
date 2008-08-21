@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CR2RasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: CR2RasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.raw.RasterReader;
 /*******************************************************************************
  *
  * @author  fritz
- * @version CVS $Id: CR2RasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: CR2RasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 

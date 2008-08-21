@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NikonCaptureEditorMetadata.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: NikonCaptureEditorMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 
@@ -42,7 +42,7 @@ import java.util.logging.Logger;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: NikonCaptureEditorMetadata.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: NikonCaptureEditorMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NikonCaptureEditorMetadata

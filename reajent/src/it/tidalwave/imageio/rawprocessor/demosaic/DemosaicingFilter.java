@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DemosaicingFilter.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: DemosaicingFilter.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.demosaic;
@@ -32,7 +32,7 @@ import java.awt.image.Raster;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: DemosaicingFilter.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: DemosaicingFilter.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class DemosaicingFilter

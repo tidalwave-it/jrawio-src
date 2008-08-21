@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFExposureOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: NEFExposureOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: NEFExposureOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: NEFExposureOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFExposureOperation extends ExposureOperation

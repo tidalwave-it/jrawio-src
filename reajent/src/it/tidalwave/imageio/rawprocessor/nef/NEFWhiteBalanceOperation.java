@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFWhiteBalanceOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: NEFWhiteBalanceOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: NEFWhiteBalanceOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: NEFWhiteBalanceOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFWhiteBalanceOperation extends OperationSupport

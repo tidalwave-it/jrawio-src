@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ORFImageReaderSpi.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: ORFImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.pef.PEFImageReader;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: ORFImageReaderSpi.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: ORFImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFImageReaderSpi extends RAWImageReaderSpiSupport

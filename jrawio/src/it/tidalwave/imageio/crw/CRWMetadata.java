@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWMetadata.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: CRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.tiff.IFD;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: CRWMetadata.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: CRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWMetadata extends TIFFMetadataSupport

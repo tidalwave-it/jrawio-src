@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DNGRasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: DNGRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.tiff.IFD;
 /*******************************************************************************
  *
  * @author  fritz
- * @version CVS $Id: DNGRasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: DNGRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DNGRasterReader extends RasterReader

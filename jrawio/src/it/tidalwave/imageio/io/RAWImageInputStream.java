@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImageInputStream.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: RAWImageInputStream.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.io;
@@ -34,7 +34,7 @@ import javax.imageio.stream.ImageInputStreamImpl;
 /*******************************************************************************
  *
  * @author  fritz
- * @version CVS $Id: RAWImageInputStream.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: RAWImageInputStream.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RAWImageInputStream extends ImageInputStreamImpl

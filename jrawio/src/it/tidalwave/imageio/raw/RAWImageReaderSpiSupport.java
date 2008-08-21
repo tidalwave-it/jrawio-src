@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImageReaderSpiSupport.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: RAWImageReaderSpiSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: RAWImageReaderSpiSupport.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: RAWImageReaderSpiSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi

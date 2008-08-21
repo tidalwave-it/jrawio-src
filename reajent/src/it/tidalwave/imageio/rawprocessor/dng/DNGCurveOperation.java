@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DNGCurveOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: DNGCurveOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: DNGCurveOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: DNGCurveOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DNGCurveOperation extends CurveOperation  

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFImageReaderSpi.java 48 2008-08-03 10:09:06Z fabriziogiudici $
+ * $Id: NEFImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -41,7 +41,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: NEFImageReaderSpi.java 48 2008-08-03 10:09:06Z fabriziogiudici $
+ * @version $Id: NEFImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFImageReaderSpi extends RAWImageReaderSpiSupport

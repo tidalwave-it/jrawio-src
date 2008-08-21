@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NikonLensInfo.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: NikonLensInfo.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -35,7 +35,7 @@ import java.nio.ByteBuffer;
 /*******************************************************************************
  *
  * @author  fritz
- * @version CVS $Id: NikonLensInfo.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: NikonLensInfo.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NikonLensInfo // NOT Serializable, it is rebuilt on demand

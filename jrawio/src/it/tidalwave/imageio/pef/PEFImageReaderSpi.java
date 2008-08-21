@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: PEFImageReaderSpi.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: PEFImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.pef;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: PEFImageReaderSpi.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: PEFImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class PEFImageReaderSpi extends RAWImageReaderSpiSupport

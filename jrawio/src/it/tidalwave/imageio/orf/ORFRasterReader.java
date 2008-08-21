@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ORFRasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: ORFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -37,7 +37,7 @@ import it.tidalwave.imageio.raw.RasterReader;
  * This class implements the ORF (Olympus raw Format) raster loading.
  * 
  * @author  Fabrizio Giudici
- * @version CVS $Id: ORFRasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: ORFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFRasterReader extends RasterReader

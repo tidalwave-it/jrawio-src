@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWHeaderProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: MRWHeaderProcessor.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -34,7 +34,7 @@ import it.tidalwave.imageio.raw.HeaderProcessor;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: MRWHeaderProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: MRWHeaderProcessor.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWHeaderProcessor extends HeaderProcessor

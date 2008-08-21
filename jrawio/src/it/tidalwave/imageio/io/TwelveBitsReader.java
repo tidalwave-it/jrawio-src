@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: TwelveBitsReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: TwelveBitsReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.io;
@@ -44,7 +44,7 @@ import javax.imageio.stream.ImageInputStream;
  * an ArrayIndexOutOfBounds will occur.
  *
  * @author Fabrizio Giudici
- * @version CVS $Id: TwelveBitsReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: TwelveBitsReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 /* package */class TwelveBitsReader extends BitReader

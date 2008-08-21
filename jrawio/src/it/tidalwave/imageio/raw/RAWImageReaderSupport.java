@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImageReaderSupport.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: RAWImageReaderSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -55,7 +55,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * This class provides support for all RAW image readers.
  * 
  * @author  Fabrizio Giudici
- * @version CVS $Id: RAWImageReaderSupport.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: RAWImageReaderSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class RAWImageReaderSupport extends ImageReader

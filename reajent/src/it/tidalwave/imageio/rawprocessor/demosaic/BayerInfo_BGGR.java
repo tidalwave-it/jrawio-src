@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: BayerInfo_BGGR.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: BayerInfo_BGGR.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.demosaic;
@@ -30,7 +30,7 @@ package it.tidalwave.imageio.rawprocessor.demosaic;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: BayerInfo_BGGR.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: BayerInfo_BGGR.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
 
        Indexes

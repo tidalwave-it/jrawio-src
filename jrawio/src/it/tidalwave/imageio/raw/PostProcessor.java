@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: PostProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: PostProcessor.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -33,7 +33,7 @@ import javax.imageio.metadata.IIOMetadata;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: PostProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: PostProcessor.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public interface PostProcessor

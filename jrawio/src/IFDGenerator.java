@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: IFDGenerator.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: IFDGenerator.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 import java.io.BufferedReader;
@@ -36,7 +36,7 @@ import java.util.StringTokenizer;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: IFDGenerator.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: IFDGenerator.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class IFDGenerator

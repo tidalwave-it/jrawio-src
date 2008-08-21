@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFMetadata.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: NEFMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.IFD;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: NEFMetadata.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: NEFMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFMetadata extends TIFFMetadataSupport

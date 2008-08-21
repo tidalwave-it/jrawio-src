@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DCRRasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: DCRRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.dcr;
@@ -40,7 +40,7 @@ import javax.imageio.stream.ImageInputStream;
  * This class implements the PEF (Pentax raw Format) raster loading.
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: DCRRasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: DCRRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DCRRasterReader extends RasterReader

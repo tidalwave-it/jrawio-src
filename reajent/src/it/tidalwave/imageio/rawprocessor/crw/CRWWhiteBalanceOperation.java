@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWWhiteBalanceOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: CRWWhiteBalanceOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.crw;
@@ -35,7 +35,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: CRWWhiteBalanceOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: CRWWhiteBalanceOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWWhiteBalanceOperation extends OperationSupport

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWImageReaderTest.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: MRWImageReaderTest.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -35,7 +35,7 @@ import it.tidalwave.imageio.test.util.FileFinder;
 /*******************************************************************************
  *
  * @author  fritz
- * @version CVS $Id: MRWImageReaderTest.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: MRWImageReaderTest.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWImageReaderTest extends TestCase

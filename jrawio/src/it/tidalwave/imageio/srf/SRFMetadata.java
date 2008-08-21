@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: SRFMetadata.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: SRFMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.srf;
@@ -37,7 +37,7 @@ import it.tidalwave.imageio.tiff.IFD;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: SRFMetadata.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: SRFMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class SRFMetadata extends TIFFMetadataSupport

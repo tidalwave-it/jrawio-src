@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CanonCR2MakerNote.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: CanonCR2MakerNote.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.cr2;
@@ -34,7 +34,7 @@ import java.io.InputStream;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: CanonCR2MakerNote.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: CanonCR2MakerNote.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CanonCR2MakerNote extends CanonCR2MakerNoteSupport

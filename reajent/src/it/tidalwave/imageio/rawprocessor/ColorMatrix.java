@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ColorMatrix.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: ColorMatrix.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -33,7 +33,7 @@ import java.text.DecimalFormat;
 /*******************************************************************************
  *
  * @author  fritz
- * @version CVS $Id: ColorMatrix.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: ColorMatrix.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ColorMatrix

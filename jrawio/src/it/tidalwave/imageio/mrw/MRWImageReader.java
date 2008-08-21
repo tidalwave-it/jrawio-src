@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWImageReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: MRWImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -41,7 +41,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: MRWImageReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: MRWImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWImageReader extends TIFFImageReaderSupport

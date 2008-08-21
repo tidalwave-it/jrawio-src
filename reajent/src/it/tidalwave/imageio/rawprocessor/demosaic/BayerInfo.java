@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: BayerInfo.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: BayerInfo.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.demosaic;
@@ -33,7 +33,7 @@ import java.awt.image.PixelInterleavedSampleModel;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: BayerInfo.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: BayerInfo.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 

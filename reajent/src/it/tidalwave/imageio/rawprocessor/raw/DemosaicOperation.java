@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DemosaicOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: DemosaicOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
@@ -38,7 +38,7 @@ import it.tidalwave.imageio.rawprocessor.demosaic.DemosaicFilterProcessor;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: DemosaicOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: DemosaicOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DemosaicOperation extends OperationSupport

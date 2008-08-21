@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: TIFFMetadataSupport.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: TIFFMetadataSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.raw.TagRegistry;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: TIFFMetadataSupport.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: TIFFMetadataSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class TIFFMetadataSupport extends RAWMetadataSupport

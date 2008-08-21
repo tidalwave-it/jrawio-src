@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RasterReaderCoolpix.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: RasterReaderCoolpix.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -30,7 +30,7 @@ package it.tidalwave.imageio.nef;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: RasterReaderCoolpix.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: RasterReaderCoolpix.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RasterReaderCoolpix extends NEFRasterReader

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWImageReaderSpi.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: CRWImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: CRWImageReaderSpi.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: CRWImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWImageReaderSpi extends RAWImageReaderSpiSupport

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: E300RasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: E300RasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -38,7 +38,7 @@ import java.io.IOException;
  * This class implements the ORF (Olympus raw Format) raster loading for E-300.
  * 
  * @author  Fabrizio Giudici
- * @version CVS $Id: E300RasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: E300RasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class E300RasterReader extends ORFRasterReader

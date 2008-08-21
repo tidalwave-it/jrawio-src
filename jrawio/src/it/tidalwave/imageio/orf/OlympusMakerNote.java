@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: OlympusMakerNote.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: OlympusMakerNote.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -37,7 +37,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: OlympusMakerNote.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: OlympusMakerNote.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class OlympusMakerNote extends OlympusMakerNoteSupport

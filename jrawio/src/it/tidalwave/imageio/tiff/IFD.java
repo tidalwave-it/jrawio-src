@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: IFD.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: IFD.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -35,7 +35,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: IFD.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: IFD.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class IFD extends IFDGenerated

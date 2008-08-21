@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CR2ImageReaderTest.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: CR2ImageReaderTest.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.cr2;
@@ -35,7 +35,7 @@ import it.tidalwave.imageio.test.util.FileFinder;
 /*******************************************************************************
  *
  * @author  fritz
- * @version CVS $Id: CR2ImageReaderTest.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: CR2ImageReaderTest.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CR2ImageReaderTest extends TestCase

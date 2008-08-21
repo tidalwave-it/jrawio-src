@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: SRFRasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: SRFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.srf;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSupport;
  * This class implements the SRF (Sony Raw Format) raster loading.
  * 
  * @author  Fabrizio Giudici
- * @version CVS $Id: SRFRasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: SRFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class SRFRasterReader extends RasterReader

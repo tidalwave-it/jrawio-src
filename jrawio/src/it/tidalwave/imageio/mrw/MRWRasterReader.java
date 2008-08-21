@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWRasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: MRWRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -37,7 +37,7 @@ import java.nio.ByteOrder;
  * This class implements the MRF (Minolta raw Format) raster loading.
  * 
  * @author  Fabrizio Giudici
- * @version CVS $Id: MRWRasterReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: MRWRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWRasterReader extends RasterReader

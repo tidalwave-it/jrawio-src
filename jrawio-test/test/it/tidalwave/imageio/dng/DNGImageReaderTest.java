@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DNGImageReaderTest.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: DNGImageReaderTest.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.dng;
@@ -35,7 +35,7 @@ import it.tidalwave.imageio.test.util.FileFinder;
 /*******************************************************************************
  *
  * @author  fritz
- * @version CVS $Id: DNGImageReaderTest.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: DNGImageReaderTest.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DNGImageReaderTest extends TestCase
