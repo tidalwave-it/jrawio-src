@@ -7,7 +7,7 @@
  * 
  *******************************************************************************
  *
- * Copyright (C) 2003-2006 by Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * Copyright (C) 2003-2008 by Fabrizio Giudici
  *                        and Emmanuele Sordini (Emmanuele@Sordini.com)
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -24,7 +24,7 @@
  * 
  *******************************************************************************
  * 
- * $Id: PlainLogFormatter.java 51 2008-08-03 10:18:17Z fabriziogiudici $
+ * $Id: PlainLogFormatter.java 55 2008-08-21 19:43:51Z fabriziogiudici $
  * 
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -40,7 +40,7 @@ import java.io.StringWriter;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PlainLogFormatter.java 51 2008-08-03 10:18:17Z fabriziogiudici $
+ * @version $Id: PlainLogFormatter.java 55 2008-08-21 19:43:51Z fabriziogiudici $
  *
  ******************************************************************************/
 public class PlainLogFormatter extends Formatter

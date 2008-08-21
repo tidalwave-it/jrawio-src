@@ -3,7 +3,7 @@
  * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
  * ==========================================================
  *
- * Copyright (C) 2003-2006 by Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * Copyright (C) 2003-2008 by Fabrizio Giudici
  * Project home page: http://jrawio.tidalwave.it
  *
  *******************************************************************************
@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: Main.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * $Id: Main.java 55 2008-08-21 19:43:51Z fabriziogiudici $
  *
  ******************************************************************************/
 import java.awt.Dimension;
@@ -52,7 +52,7 @@ import org.w3c.dom.Node;
  * A quick and dirty test program.
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: Main.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * @version CVS $Id: Main.java 55 2008-08-21 19:43:51Z fabriziogiudici $
  *
  ******************************************************************************/
 public class Main

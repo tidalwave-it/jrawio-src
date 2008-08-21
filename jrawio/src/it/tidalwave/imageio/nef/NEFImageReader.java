@@ -3,7 +3,7 @@
  * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
  * ==========================================================
  *
- * Copyright (C) 2003-2006 by Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * Copyright (C) 2003-2008 by Fabrizio Giudici
  * Project home page: http://jrawio.tidalwave.it
  *
  *******************************************************************************
@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFImageReader.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * $Id: NEFImageReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: NEFImageReader.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * @version CVS $Id: NEFImageReader.java 55 2008-08-21 19:43:51Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFImageReader extends TIFFImageReaderSupport

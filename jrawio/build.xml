@@ -4,7 +4,7 @@
 jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
 ==========================================================
 
-Copyright (C) 2003-2006 by Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+Copyright (C) 2003-2008 by Fabrizio Giudici
 Project home page: http://www.tidalwave.it/jrawio
 
 =============================================================================
@@ -31,13 +31,15 @@ SOFTWARE.
 
 =============================================================================
 
-$Id: build.xml 52 2008-08-03 10:21:29Z fabriziogiudici $
+$Id: build.xml 55 2008-08-21 19:43:51Z fabriziogiudici $
 -->
 
 <project name="jrawio" default="jar" basedir=".">
     <description>Builds, tests, and runs the project jrawio.</description>
     <import file="nbproject/build-impl.xml"/>
   
+    <import file="../tools/ant/findbugs.xml"/>
+
     <!-- Trick. Don't know why, but the -pre-compile task is called also by building
          reajent (only if launched by the master build.xml). -->
     <property name="src2.dir" value="../jrawio/src"/>

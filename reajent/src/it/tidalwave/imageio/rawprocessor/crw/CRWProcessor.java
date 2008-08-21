@@ -3,7 +3,7 @@
  * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
  * ==========================================================
  *
- * Copyright (C) 2003-2006 by Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * Copyright (C) 2003-2008 by Fabrizio Giudici
  * Project home page: http://jrawio.tidalwave.it
  *
  *******************************************************************************
@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWProcessor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
+ * $Id: CRWProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.crw;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWProcessor.java 23 2006-11-29 10:32:42Z fabriziogiudici $
+ * @version $Id: CRWProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWProcessor extends RAWProcessor

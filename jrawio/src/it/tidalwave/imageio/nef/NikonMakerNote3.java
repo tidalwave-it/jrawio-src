@@ -3,7 +3,7 @@
  * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
  * ==========================================================
  *
- * Copyright (C) 2003-2006 by Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * Copyright (C) 2003-2008 by Fabrizio Giudici
  * Project home page: http://jrawio.tidalwave.it
  *
  *******************************************************************************
@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NikonMakerNote3.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * $Id: NikonMakerNote3.java 55 2008-08-21 19:43:51Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: NikonMakerNote3.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * @version CVS $Id: NikonMakerNote3.java 55 2008-08-21 19:43:51Z fabriziogiudici $
  *
  ******************************************************************************/
 public final class NikonMakerNote3 extends Nikon3MakerNoteSupport

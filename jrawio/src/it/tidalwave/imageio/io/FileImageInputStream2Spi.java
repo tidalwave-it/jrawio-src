@@ -3,7 +3,7 @@
  * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
  * ==========================================================
  *
- * Copyright (C) 2003-2006 by Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * Copyright (C) 2003-2008 by Fabrizio Giudici
  * Project home page: http://jrawio.tidalwave.it
  *
  *******************************************************************************
@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: FileImageInputStream2Spi.java 46 2008-08-03 10:06:26Z fabriziogiudici $
+ * $Id: FileImageInputStream2Spi.java 55 2008-08-21 19:43:51Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.io;
@@ -38,7 +38,7 @@ import it.tidalwave.imageio.raw.Version;
 /*******************************************************************************
  *
  * @author  fritz
- * @version CVS $Id: FileImageInputStream2Spi.java 46 2008-08-03 10:06:26Z fabriziogiudici $
+ * @version CVS $Id: FileImageInputStream2Spi.java 55 2008-08-21 19:43:51Z fabriziogiudici $
  *
  ******************************************************************************/
 public class FileImageInputStream2Spi extends ImageInputStreamSpi 

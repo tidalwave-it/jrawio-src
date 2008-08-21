@@ -3,7 +3,7 @@
  * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
  * ==========================================================
  *
- * Copyright (C) 2003-2006 by Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
+ * Copyright (C) 2003-2008 by Fabrizio Giudici
  * Project home page: http://jrawio.tidalwave.it
  *
  *******************************************************************************
@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: PixelGroupingDemosaicingFilter.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * $Id: PixelGroupingDemosaicingFilter.java 55 2008-08-21 19:43:51Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.demosaic;
@@ -33,7 +33,7 @@ import java.awt.image.Raster;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version CVS $Id: PixelGroupingDemosaicingFilter.java 9 2006-11-28 12:43:27Z fabriziogiudici $
+ * @version CVS $Id: PixelGroupingDemosaicingFilter.java 55 2008-08-21 19:43:51Z fabriziogiudici $
  *
  * FIXME: it works only for the D100 bayer pattern, should be generalized.
  *
