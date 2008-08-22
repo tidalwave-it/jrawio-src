@@ -22,25 +22,25 @@
  *
  *******************************************************************************
  *
- * $Id: NEFWhiteBalanceInfo.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: NEFWhiteBalanceInfo.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.IntBuffer;
+import javax.annotation.Nonnull;
 
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: NEFWhiteBalanceInfo.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: NEFWhiteBalanceInfo.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
-
 public class NEFWhiteBalanceInfo // NOT Serializable
   {
-    private ByteBuffer buffer; 
+    @Nonnull
+    private final ByteBuffer buffer; 
 
     private boolean valid = true;
     
@@ -54,7 +54,7 @@ public class NEFWhiteBalanceInfo // NOT Serializable
     
     private int blueIndex;
     
-    private int[] coefficients = new int[4];
+    final private int[] coefficients = new int[4];
     
     private final static double SCALE = 1.0 / 256.0;
 
@@ -102,7 +102,7 @@ public class NEFWhiteBalanceInfo // NOT Serializable
      *
      *
      ******************************************************************************/
-    protected NEFWhiteBalanceInfo (NikonMakerNote3 makerNote, boolean bigEndian)
+    protected NEFWhiteBalanceInfo (@Nonnull final NikonMakerNote3 makerNote, boolean bigEndian)
       {
         buffer = ByteBuffer.wrap(makerNote.getBlock151());
         buffer.order(bigEndian? ByteOrder.BIG_ENDIAN : ByteOrder.LITTLE_ENDIAN);
@@ -138,6 +138,7 @@ public class NEFWhiteBalanceInfo // NOT Serializable
      *
      *
      ******************************************************************************/
+    @Nonnull
     public int[] getCoefficients()
       {
         return coefficients;  
@@ -183,7 +184,7 @@ public class NEFWhiteBalanceInfo // NOT Serializable
      *
      *
      ******************************************************************************/
-    private void demangle ( NikonMakerNote3 makerNote)
+    private void demangle (@Nonnull final NikonMakerNote3 makerNote)
       {
         String serialNumber = makerNote.getD2XSerialNumber();
         int shutterCount = makerNote.getShutterCount();

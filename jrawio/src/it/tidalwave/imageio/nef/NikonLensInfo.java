@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NikonLensInfo.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: NikonLensInfo.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -31,11 +31,12 @@ import java.util.Properties;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import javax.annotation.Nonnull;
 
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: NikonLensInfo.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: NikonLensInfo.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NikonLensInfo // NOT Serializable, it is rebuilt on demand
@@ -89,17 +90,21 @@ public class NikonLensInfo // NOT Serializable, it is rebuilt on demand
      * @param bytes
      * 
      *******************************************************************************/
-    /* package */NikonLensInfo (byte[] bytes)
+    /* package */NikonLensInfo (@Nonnull final byte[] bytes)
       {
-        ByteBuffer buffer = ByteBuffer.wrap(bytes);
+        final ByteBuffer buffer = ByteBuffer.wrap(bytes);
         version = buffer.getInt();
         int offset = 6;
 
         if (version == V101)
-          offset = 11;
+          {
+            offset = 11;
+          }
 
         if (version != V100 && version != V101)
-          return;
+          {
+            return;
+          }
 
         lensID = buffer.get(offset + 0);
         lensName = lensNameByID.getProperty("" + lensID);
@@ -116,7 +121,7 @@ public class NikonLensInfo // NOT Serializable, it is rebuilt on demand
      * @return
      * 
      *******************************************************************************/
-    public String getLensName ()
+    public String getLensName()
       {
         return lensName;
       }
@@ -126,7 +131,9 @@ public class NikonLensInfo // NOT Serializable, it is rebuilt on demand
      * @inheritDoc
      * 
      *******************************************************************************/
-    public String toString ()
+    @Override
+    @Nonnull
+    public String toString()
       {
         StringBuffer buffer = new StringBuffer();
 

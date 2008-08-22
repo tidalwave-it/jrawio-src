@@ -22,11 +22,14 @@
  *
  *******************************************************************************
  *
- * $Id: NEFMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: NEFMetadata.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -40,7 +43,7 @@ import it.tidalwave.imageio.tiff.IFD;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: NEFMetadata.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFMetadata extends TIFFMetadataSupport
@@ -57,7 +60,9 @@ public class NEFMetadata extends TIFFMetadataSupport
     /*******************************************************************************
      *
      ******************************************************************************/
-    public NEFMetadata (Directory primaryIFD, RAWImageInputStream iis, HeaderProcessor headerProcessor)
+    public NEFMetadata (@Nonnull final Directory primaryIFD, 
+                        @Nonnull final RAWImageInputStream iis, 
+                        @CheckForNull final HeaderProcessor headerProcessor)
       {
         super(primaryIFD, iis, headerProcessor);
       }
@@ -67,7 +72,8 @@ public class NEFMetadata extends TIFFMetadataSupport
      * @return
      * 
      *******************************************************************************/
-    protected void postInit (RAWImageInputStream iis)
+    @Override
+    protected void postInit (@Nonnull final RAWImageInputStream iis)
       {
         if (!rasterIFD.isJPEGInterchangeFormatAvailable())
           {
@@ -114,6 +120,8 @@ public class NEFMetadata extends TIFFMetadataSupport
      * @return
      * 
      *******************************************************************************/
+    @Override
+    @Nonnegative
     public int getWidth()
       {
         return width;
@@ -124,6 +132,8 @@ public class NEFMetadata extends TIFFMetadataSupport
      * @return
      * 
      *******************************************************************************/
+    @Override
+    @Nonnegative
     public int getHeight()
       {
         return height;
@@ -134,7 +144,8 @@ public class NEFMetadata extends TIFFMetadataSupport
      * @return
      * 
      *******************************************************************************/   
-    public NikonMakerNote3 getNikonMakerNote ()
+    @Nonnull
+    public NikonMakerNote3 getNikonMakerNote()
       {
         return (NikonMakerNote3)getMakerNote();
       }
@@ -144,7 +155,8 @@ public class NEFMetadata extends TIFFMetadataSupport
      * @return
      * 
      *******************************************************************************/
-    public Object getCaptureEditorMetadata ()
+    @CheckForNull
+    public Object getCaptureEditorMetadata()
       {
         return captureEditorMetadata;
       }
@@ -154,7 +166,7 @@ public class NEFMetadata extends TIFFMetadataSupport
      * @param captureEditorMetadata
      * 
      *******************************************************************************/
-    public void _setCaptureEditorMetadata (Object captureEditorMetadata)
+    public void _setCaptureEditorMetadata (@CheckForNull final Object captureEditorMetadata)
       {
         this.captureEditorMetadata = captureEditorMetadata;
       }
@@ -164,7 +176,8 @@ public class NEFMetadata extends TIFFMetadataSupport
      * @inheritDoc
      *
      ******************************************************************************/
-    protected boolean isRasterIFD (IFD ifd)
+    @Override
+    protected boolean isRasterIFD (@Nonnull final IFD ifd)
       {
         return ifd.isNewSubFileTypeAvailable() && (ifd.getNewSubFileType() == IFD.NewSubFileType.IMAGE); 
       }
@@ -174,7 +187,8 @@ public class NEFMetadata extends TIFFMetadataSupport
      * @inheritDoc
      *
      ******************************************************************************/
-    protected boolean isThumbnailIFD (IFD ifd)
+    @Override
+    protected boolean isThumbnailIFD (@Nonnull final IFD ifd)
       {
         return (ifd.isNewSubFileTypeAvailable() && (ifd.getNewSubFileType() == IFD.NewSubFileType.REDUCED_RESOLUTION))
         || ifd.isJPEGInterchangeFormatAvailable(); 

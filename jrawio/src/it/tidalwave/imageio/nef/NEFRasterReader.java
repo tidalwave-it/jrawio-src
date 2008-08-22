@@ -22,11 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: NEFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: NEFRasterReader.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
 
+import javax.annotation.Nonnull;
 import java.util.logging.Logger;
 import java.io.IOException;
 import java.awt.image.DataBufferUShort;
@@ -35,18 +36,20 @@ import it.tidalwave.imageio.decoder.HuffmannDecoder;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RasterReader;
 import it.tidalwave.imageio.raw.RAWImageReaderSupport;
+import javax.annotation.Nonnegative;
 
 /*******************************************************************************
  *
  * This class implements the compressed NEF raster loading.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: NEFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: NEFRasterReader.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFRasterReader extends RasterReader
   {
-    private final static Logger logger = Logger.getLogger("it.tidalwave.imageio.nef.NEFRasterReader");
+    private final static String CLASS = NEFRasterReader.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
     
     /** This value in the 'Compressed' TIFF tag stands for the proprietary Nikon
      * compression scheme.
@@ -89,6 +92,7 @@ public class NEFRasterReader extends RasterReader
     private final static HuffmannDecoder decoder = HuffmannDecoder.createDecoder(DECODER_CONFIGURATION);
 
     /** The vertical predictors. */
+    @Nonnull
     private int[] vPredictor;
     
     static
@@ -109,7 +113,8 @@ public class NEFRasterReader extends RasterReader
      * @return			the <code>RasterReader</code>
      * 
      *******************************************************************************/
-    public static NEFRasterReader getInstance (String model,
+    @Nonnull
+    public static NEFRasterReader getInstance (@Nonnull String model,
                                                boolean isNDF)
       {
         if (isNDF)
@@ -151,7 +156,7 @@ public class NEFRasterReader extends RasterReader
      * @param vPredictor  the vertical predictor values
      * 
      *******************************************************************************/
-    public void setVPredictor (int[] vPredictor)
+    public void setVPredictor (@Nonnull final int[] vPredictor)
       {
         this.vPredictor = vPredictor;
       }
@@ -164,7 +169,8 @@ public class NEFRasterReader extends RasterReader
      * {@link #COMPRESSED_NEF}.
      * 
      ******************************************************************************/
-    protected boolean isCompressedRaster ()
+    @Override
+    protected boolean isCompressedRaster()
       {
         return compression == COMPRESSED_NEF;
       }
@@ -176,9 +182,11 @@ public class NEFRasterReader extends RasterReader
      * This method implements raster data loading for compressed NEF.
      *
      ******************************************************************************/
-    protected void loadCompressedRaster (RAWImageInputStream iis,
-                                         WritableRaster raster,
-                                         RAWImageReaderSupport ir) throws IOException
+    @Override
+    protected void loadCompressedRaster (@Nonnull final RAWImageInputStream iis,
+                                         @Nonnull final WritableRaster raster,
+                                         @Nonnull final RAWImageReaderSupport ir) 
+      throws IOException
       {
         DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
         //        int typeBits = DataBuffer.getDataTypeSize(dataBuffer.getDataType());
@@ -230,17 +238,17 @@ public class NEFRasterReader extends RasterReader
      * @return		the clipped value
      * 
      *******************************************************************************/
-    private final static int clipped (int value,
-                                      int max)
+    @Nonnegative
+    private final static int clipped (final int value, final int max)
       {
         if (value < 0)
           {
-            value = 0;
+            return 0;
           }
 
         if (value >= max)
           {
-            value = max - 1;
+            return max - 1;
           }
 
         return value;

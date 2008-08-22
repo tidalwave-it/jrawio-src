@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NDFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: NDFRasterReader.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -35,7 +35,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NDFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: NDFRasterReader.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NDFRasterReader extends NEFRasterReader
@@ -46,9 +46,10 @@ public class NDFRasterReader extends NEFRasterReader
      * 
      *******************************************************************************/
     protected void loadUncompressedRaster (ImageInputStream iis,
-                                          WritableRaster raster,
-                                          RAWImageReaderSupport ir,
-                                          int whiteLevel) throws IOException
+                                           WritableRaster raster,
+                                           RAWImageReaderSupport ir,
+                                           int whiteLevel) 
+      throws IOException
       {
         /*
          //logger.fine("loadUncompressedImage()");

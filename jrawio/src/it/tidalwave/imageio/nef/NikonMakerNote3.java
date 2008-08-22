@@ -22,29 +22,31 @@
  *
  *******************************************************************************
  *
- * $Id: NikonMakerNote3.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: NikonMakerNote3.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.ShortBuffer;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NikonMakerNote3.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: NikonMakerNote3.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
   {
+    private static final long serialVersionUID = -802326201633669892L;
+    
     /** Lens info interpreter. */
     private transient NikonLensInfo lensInfo;
     
@@ -56,7 +58,10 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * @inheritDoc
      * 
      *******************************************************************************/
-    public void loadAll (RAWImageInputStream iis, long offset) throws IOException
+    @Override
+    public void loadAll (@Nonnull final RAWImageInputStream iis, 
+                         long offset)
+      throws IOException
       {
         //
         // The NEF MakerNote is quite strange. If the first 10 bytes start with
@@ -91,7 +96,8 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * @return the lens info
      * 
      *******************************************************************************/
-    public NikonLensInfo getLensInfo2 ()
+    @Nonnull
+    public NikonLensInfo getLensInfo2()
       {
         if ((lensInfo == null) && isLensInfoAvailable())
           {
@@ -118,7 +124,7 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * @return the lens name
      * 
      *******************************************************************************/
-    public String getLensName ()
+    public String getLensName()
       {
         if (!isLensNameAvailable())
           {
@@ -133,7 +139,8 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * @return the vertical predictor
      * 
      *******************************************************************************/
-    public int[] getVPredictor ()
+    @Nonnull
+    public int[] getVPredictor()
       {
         ShortBuffer shortBuffer = getCompressionDataAsShortBuffer();
         shortBuffer.position(1);
@@ -153,7 +160,8 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * @return the linearization table
      * 
      *******************************************************************************/
-    public int[] getLinearizationTable ()
+    @Nonnull
+    public int[] getLinearizationTable()
       {
         ShortBuffer shortBuffer = getCompressionDataAsShortBuffer();
         shortBuffer.position(5);
@@ -173,9 +181,10 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * @return the compression data
      * 
      *******************************************************************************/
-    private ShortBuffer getCompressionDataAsShortBuffer ()
+    @CheckForNull
+    private ShortBuffer getCompressionDataAsShortBuffer()
       {
-        byte[] bytes = getCompressionData();
+        final byte[] bytes = getCompressionData();
 
         if (bytes != null)
           {
@@ -193,12 +202,12 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
           }
 
         return null;
-
       }
 
     /*******************************************************************************
      *
      ******************************************************************************/
+    @CheckForNull
     public NEFWhiteBalanceInfo getWhiteBalanceInfo()
       {
         return isBlock151Available() ? new NEFWhiteBalanceInfo(this, bigEndian) : null;
@@ -209,7 +218,9 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * @inheritDoc
      * 
      *******************************************************************************/
-    public String toString ()
+    @Override
+    @Nonnull
+    public String toString()
       {
         StringBuffer buffer = new StringBuffer(super.toString());
 

@@ -22,11 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: NEFImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: NEFImageReaderSpi.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -41,13 +43,12 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: NEFImageReaderSpi.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
   {
     private final static String CLASS = NEFImageReaderSpi.class.getName();
-
     private final static Logger logger = Logger.getLogger(CLASS);
 
     private final static List supportedModels = Arrays.asList(new String[] { "E5700", "E8700", "E5400", "E8800" });
@@ -56,7 +57,7 @@ public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
      * 
      * 
      *******************************************************************************/
-    public NEFImageReaderSpi ()
+    public NEFImageReaderSpi()
       {
         super("NEF", new String[] { "nef", "ndf" }, "image/nef", NEFImageReader.class);
       }
@@ -64,6 +65,7 @@ public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
     /*******************************************************************************
      *
      ******************************************************************************/
+    @Nonnull
     public String getDescription (final Locale locale)
       {
         return "Standard NEF Image Reader";
@@ -72,7 +74,8 @@ public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
     /*******************************************************************************
      *
      ******************************************************************************/
-    public ImageReader createReaderInstance (final Object extension) 
+    @Nonnull
+    public ImageReader createReaderInstance (@CheckForNull final Object extension) 
       throws IOException
       {
         return new NEFImageReader(this, extension);
@@ -85,7 +88,7 @@ public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
      * @throws IOException
      * 
      *******************************************************************************/
-    protected boolean canDecodeInput (final RAWImageInputStream iis) 
+    protected boolean canDecodeInput (@Nonnull final RAWImageInputStream iis) 
       throws IOException
       {
         iis.seek(0);

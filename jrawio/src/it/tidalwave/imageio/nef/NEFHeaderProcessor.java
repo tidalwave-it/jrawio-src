@@ -22,20 +22,20 @@
  *
  *******************************************************************************
  *
- * $Id: NEFHeaderProcessor.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: NEFHeaderProcessor.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
-import javax.imageio.stream.ImageInputStream;
 import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFHeaderProcessor.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: NEFHeaderProcessor.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFHeaderProcessor extends HeaderProcessor
@@ -50,7 +50,9 @@ public class NEFHeaderProcessor extends HeaderProcessor
      * @throws IOException
      * 
      *******************************************************************************/
-    public void process (RAWImageInputStream iis) throws IOException
+    @Override
+    public void process (@Nonnull final RAWImageInputStream iis) 
+      throws IOException
       {
         iis.mark();
         byte[] buffer = new byte[NDF_OFFSET];
@@ -65,6 +67,7 @@ public class NEFHeaderProcessor extends HeaderProcessor
      * @inheritDoc
      * 
      *******************************************************************************/
+    @Override
     public int getOffset()
       {
         return isNDF ? NDF_OFFSET : 0;

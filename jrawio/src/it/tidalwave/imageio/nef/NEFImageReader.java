@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: NEFImageReader.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -32,27 +32,30 @@ import java.awt.image.WritableRaster;
 import java.io.IOException;
 import java.util.logging.Logger;
 import javax.imageio.spi.ImageReaderSpi;
-import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: NEFImageReader.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFImageReader extends TIFFImageReaderSupport
   {
-    private final static Logger logger = Logger.getLogger("it.tidalwave.imageio.nef.NEFImageReader");
+    private final static String CLASS = NEFImageReader.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
 
     private boolean isNDF = false;
 
     /*******************************************************************************
      *
      ******************************************************************************/
-    protected NEFImageReader (ImageReaderSpi originatingProvider, Object extension)
+    protected NEFImageReader (@Nonnull final ImageReaderSpi originatingProvider, 
+                              @CheckForNull final Object extension)
       {
         super(originatingProvider, NikonMakerNote3.class, NEFMetadata.class);
         headerProcessor = new NEFHeaderProcessor();
@@ -79,7 +82,9 @@ public class NEFImageReader extends TIFFImageReaderSupport
      * @throws IOException  if an I/O error occurs
      *
      ******************************************************************************/
-    protected BufferedImage loadImage (int imageIndex) throws IOException
+    @Override
+    protected BufferedImage loadImage (@Nonnull final int imageIndex) 
+      throws IOException
       {
         logger.fine("loadImage(iis: " + iis + ", imageIndex: " + imageIndex + ")");
         checkImageIndex(imageIndex);
@@ -116,7 +121,9 @@ public class NEFImageReader extends TIFFImageReaderSupport
      * @inheritDoc
      * 
      ******************************************************************************/
-    protected WritableRaster loadRAWRaster() throws IOException
+    @Nonnull
+    protected WritableRaster loadRAWRaster() 
+      throws IOException
       {
         logger.fine("loadRAWRaster(iis: " + iis + ")");
         IFD primaryIFD = ((IFD)primaryDirectory);
@@ -155,7 +162,9 @@ public class NEFImageReader extends TIFFImageReaderSupport
      * @inheritDoc
      * 
      *******************************************************************************/
-    protected void processMetadata() throws IOException
+    @Override
+    protected void processMetadata() 
+      throws IOException
       {
         iis.setBaseOffset(headerProcessor.getOffset());
         isNDF = iis.getBaseOffset() != 0;//FIXME: do it better

@@ -22,10 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: RasterReader_NIKON_D100.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: RasterReader_NIKON_D100.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
+
+import javax.annotation.Nonnegative;
 
 /*******************************************************************************
  *
@@ -34,7 +36,7 @@ package it.tidalwave.imageio.nef;
  * are bits to skip while reading the data.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: RasterReader_NIKON_D100.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: RasterReader_NIKON_D100.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RasterReader_NIKON_D100 extends NEFRasterReader
@@ -57,7 +59,8 @@ public class RasterReader_NIKON_D100 extends NEFRasterReader
      * is wrong.
      * 
      ******************************************************************************/
-    public boolean isCompressedRaster ()
+    @Override
+    public boolean isCompressedRaster()
       {
         padded = (compression == COMPRESSED_NEF) && (stripByteCount == D100_PADDED_SIZE);
 
@@ -71,7 +74,9 @@ public class RasterReader_NIKON_D100 extends NEFRasterReader
      * Every 10 samples (120 bits = 15 bytes) there is a padding byte to a 16-bytes block;
      * 
      *******************************************************************************/
-    protected int getSkipCountAtColumn (int x) 
+    @Override
+    @Nonnegative
+    protected int getSkipCountAtColumn (@Nonnegative final int x) 
       {
         if (padded && (((x - 1) % D100_INTERLEAVE_COUNT) == (D100_INTERLEAVE_COUNT - 1)))
           {
@@ -88,7 +93,9 @@ public class RasterReader_NIKON_D100 extends NEFRasterReader
      * After every row there are 10 padding bytes.
      * 
      *******************************************************************************/
-    protected int getSkipCountAtEndOfRow (int par0, int height) 
+    @Override
+    @Nonnegative
+    protected int getSkipCountAtEndOfRow (final int par0, final int height) 
       {
         return padded ? D100_PADDED_ROW_PAD_BITS : 0;
       }

@@ -22,15 +22,17 @@
  *
  *******************************************************************************
  *
- * $Id: RasterReaderCoolpix.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: RasterReaderCoolpix.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
 
+import javax.annotation.Nonnegative;
+
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RasterReaderCoolpix.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: RasterReaderCoolpix.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RasterReaderCoolpix extends NEFRasterReader
@@ -42,7 +44,9 @@ public class RasterReaderCoolpix extends NEFRasterReader
      * Coolpix rasters are interlaced.
      * 
      *******************************************************************************/
-    protected int getRow (int y, int height)
+    @Override
+    @Nonnegative
+    protected int getRow (@Nonnegative final int y, @Nonnegative final int height)
       {
         return (y < (height / 2)) ? (y * 2) : ((y - height / 2) * 2 + 1);
       }
