@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: FileFinder.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: FileFinder.java 61 2008-08-22 19:40:05Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.test.util;
@@ -36,7 +36,7 @@ import java.io.FileFilter;
 public class FileFinder
   {
     public static Collection findTestFiles (File folder,
-                                                  final String extension)
+                                            final String extension)
       {
         Collection result = new ArrayList();
 
