@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFMetadata.java 58 2008-08-22 19:17:28Z fabriziogiudici $
+ * $Id: NEFMetadata.java 69 2008-08-23 15:09:09Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -30,6 +30,7 @@ package it.tidalwave.imageio.nef;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.util.logging.Logger;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -39,27 +40,41 @@ import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
+import it.tidalwave.imageio.tiff.ThumbnailHelper;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFMetadata.java 58 2008-08-22 19:17:28Z fabriziogiudici $
+ * @version $Id: NEFMetadata.java 69 2008-08-23 15:09:09Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFMetadata extends TIFFMetadataSupport
   {
+    private final static String CLASS = NEFMetadata.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
     private final static long serialVersionUID = 1795868438676854749L;
 
-    /** */
-    private transient Object captureEditorMetadata;
-    
+    /** We have a different approach to compute dimensions, that are stored here .*/
+    @Nonnegative
     private int width;
     
+    /** We have a different approach to compute dimensions, that are stored here .*/
+    @Nonnegative
     private int height;
 
-    /*******************************************************************************
+    /** The Nikon Capture Editor metadata. */
+    @CheckForNull
+    private transient Object nceMetadata;
+    
+    /***************************************************************************
      *
-     ******************************************************************************/
+     * Constructs this object.
+     * 
+     * @param   primaryIFD        the primary IFD
+     * @param   iis               the input stream
+     * @param   headerProcessor   the header processor
+     * 
+     **************************************************************************/
     public NEFMetadata (@Nonnull final Directory primaryIFD, 
                         @Nonnull final RAWImageInputStream iis, 
                         @CheckForNull final HeaderProcessor headerProcessor)
@@ -67,38 +82,66 @@ public class NEFMetadata extends TIFFMetadataSupport
         super(primaryIFD, iis, headerProcessor);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @return
+     * FIXME: coulldn't this just be moved to the constructor? You could even
+     * turn fields final.
      * 
-     *******************************************************************************/
+     * {@inheritDoc}
+     * 
+     *************************************************************************/
     @Override
     protected void postInit (@Nonnull final RAWImageInputStream iis)
       {
+        // Special case
+        // Seen for instance in fabriziogiudici/Nikon/D100/TIFF/TIFF-Large.TIF
+        // which is a .NEF converted into .TIF with NCE.
+        // The IFD don't have the 'newSubFileTypeAvailable', so isRasterIFD()
+        // and isThumbnailIFD() fail.
+        if (rasterIFD == null)
+          {
+            logger.fine(">>>> rasterIFD not detected yet, guessing...");
+            rasterIFD = getPrimaryIFD();
+            final Directory nextDirectory = rasterIFD.getNextDirectory();
+            
+            if ((nextDirectory != null) && (nextDirectory instanceof IFD))
+              {
+                thumbnailHelperList.add(new ThumbnailHelper(iis, (IFD)nextDirectory));
+              }          
+          }
+        // end special case
+        
         if (!rasterIFD.isJPEGInterchangeFormatAvailable())
           {
             width = rasterIFD.getImageWidth();
             height = rasterIFD.getImageLength();
           }
         
-        else // This NEF is just and embedded JPEG
+        else // This NEF is just an embedded JPEG
           {
             try
               {
-                int byteCount = rasterIFD.getJPEGInterchangeFormatLength();
-                long offset = rasterIFD.getJPEGInterchangeFormat();
-                byte[] buffer = new byte[byteCount];
+                final int byteCount = rasterIFD.getJPEGInterchangeFormatLength();
+                final long offset = rasterIFD.getJPEGInterchangeFormat();
+                final byte[] buffer = new byte[byteCount];
                 iis.seek(offset);
                 iis.read(buffer);
-                ImageReader ir = (ImageReader)(ImageIO.getImageReadersByFormatName("JPEG").next());
-                ir.setInput(ImageIO.createImageInputStream(new ByteArrayInputStream(buffer)));
-                width = ir.getWidth(0);
-                height = ir.getHeight(0);
+                final ImageReader ir = ImageIO.getImageReadersByFormatName("JPEG").next();
+                
+                try
+                  {
+                    ir.setInput(ImageIO.createImageInputStream(new ByteArrayInputStream(buffer)));
+                    width = ir.getWidth(0);
+                    height = ir.getHeight(0);
+                  }
+                finally
+                  {
+                    ir.dispose();
+                  }
               }
-            
             catch (IOException e)
               {
-                System.err.println("While reading size of NEF embedded JPEG: " + e);
+                logger.warning("While reading size of NEF embedded JPEG: " + e);
               }
           }
 /*
@@ -115,11 +158,11 @@ public class NEFMetadata extends TIFFMetadataSupport
  */
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @return
+     * {@inheritDoc}
      * 
-     *******************************************************************************/
+     **************************************************************************/
     @Override
     @Nonnegative
     public int getWidth()
@@ -127,11 +170,11 @@ public class NEFMetadata extends TIFFMetadataSupport
         return width;
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @return
+     * {@inheritDoc}
      * 
-     *******************************************************************************/
+     **************************************************************************/
     @Override
     @Nonnegative
     public int getHeight()
@@ -139,54 +182,54 @@ public class NEFMetadata extends TIFFMetadataSupport
         return height;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * @return
      * 
-     *******************************************************************************/   
+     **************************************************************************/
     @Nonnull
     public NikonMakerNote3 getNikonMakerNote()
       {
         return (NikonMakerNote3)getMakerNote();
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * @return
      * 
-     *******************************************************************************/
+     **************************************************************************/
     @CheckForNull
     public Object getCaptureEditorMetadata()
       {
-        return captureEditorMetadata;
+        return nceMetadata;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * @param captureEditorMetadata
      * 
-     *******************************************************************************/
+     **************************************************************************/
     public void _setCaptureEditorMetadata (@CheckForNull final Object captureEditorMetadata)
       {
-        this.captureEditorMetadata = captureEditorMetadata;
+        this.nceMetadata = captureEditorMetadata;
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
-     ******************************************************************************/
+     **************************************************************************/
     @Override
     protected boolean isRasterIFD (@Nonnull final IFD ifd)
       {
         return ifd.isNewSubFileTypeAvailable() && (ifd.getNewSubFileType() == IFD.NewSubFileType.IMAGE); 
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
-     ******************************************************************************/
+     **************************************************************************/
     @Override
     protected boolean isThumbnailIFD (@Nonnull final IFD ifd)
       {

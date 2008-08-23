@@ -22,12 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: IFDSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: IFDSupport.java 69 2008-08-23 15:09:09Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
 
-import java.io.EOFException;
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.util.logging.Logger;
 import it.tidalwave.imageio.raw.Directory;
@@ -36,44 +36,45 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 
 /*******************************************************************************
  *
+ * This class provides the capability of loading an IFD.
+ * 
  * @author Fabrizio Giudici
- * @version $Id: IFDSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: IFDSupport.java 69 2008-08-23 15:09:09Z fabriziogiudici $
  *
  ******************************************************************************/
 public class IFDSupport extends Directory
   {
+    private final static String CLASS = IFDSupport.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
     private final static long serialVersionUID = -8252917582886315978L;
 
-    private final static String CLASS = "it.tidalwave.imageio.tiff.IFDSupport";
-
-    private final static Logger logger = Logger.getLogger(CLASS);
-
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * 
-     *******************************************************************************/
+     **************************************************************************/
     protected IFDSupport()
       {
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * Creates a new <code>IFD</code> whose tags belong to the given registry.
      * 
      * @param tagRegistry  the registry
      * 
-     *******************************************************************************/
-    protected IFDSupport (TagRegistry tagRegistry)
+     **************************************************************************/
+    protected IFDSupport (@Nonnull final TagRegistry tagRegistry)
       {
         super(tagRegistry);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     *******************************************************************************/
-    public long load (RAWImageInputStream iis, long offset) throws IOException
+     **************************************************************************/
+    public long load (@Nonnull final RAWImageInputStream iis, long offset)
+      throws IOException
       {
         logger.finer(">>>> Reading IFD at offset: " + offset + " + " + iis.getBaseOffset());
         int entryCount;
@@ -85,11 +86,18 @@ public class IFDSupport extends Directory
             entryCount = iis.readShort();
           }
         //
-        // Some NEF photos (e.g. 20051208-0005.NEF) have an invalid ifdOffset at the
-        // end of an IFD. Should investigate, since this fix is not enough: what if
-        // the ifdOffset is invalid but lies within the file size range?
+        // Some NEF photos (e.g. 20051208-0005.NEF, Nikon_D70s_0001.NEF) have an 
+        // invalid ifdOffset at the end of an IFD. Should investigate, since this 
+        // fix is not enough: what if the ifdOffset is invalid but lies within 
+        // the file size range?
         //
-        catch (EOFException e)
+//        catch (IllegalArgumentException e)
+//          {
+//            logger.warning("Ignoring invalid ifdOffset: " + offset);
+//            return 0;
+//          }
+//        catch (EOFException e)
+        catch (Exception e)
           {
             logger.warning("Ignoring invalid ifdOffset: " + offset);
             return 0;
@@ -99,8 +107,8 @@ public class IFDSupport extends Directory
 
         for (int i = 0; i < entryCount; i++)
           {
-            int ifdTag = iis.readUnsignedShort();
-            TIFFTag tag = new TIFFTag(tagRegistry, ifdTag);
+            final int ifdTag = iis.readUnsignedShort();
+            final TIFFTag tag = new TIFFTag(tagRegistry, ifdTag);
             tag.read(iis);
             addTag(tag);
           }

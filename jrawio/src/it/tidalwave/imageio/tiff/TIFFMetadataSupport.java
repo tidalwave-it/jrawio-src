@@ -22,12 +22,14 @@
  *
  *******************************************************************************
  *
- * $Id: TIFFMetadataSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: TIFFMetadataSupport.java 69 2008-08-23 15:09:09Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
 
-import it.tidalwave.imageio.raw.HeaderProcessor;
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,6 +37,7 @@ import javax.imageio.metadata.IIOMetadataNode;
 import org.w3c.dom.Node;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.Directory;
+import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.raw.RAWMetadataSupport;
 import it.tidalwave.imageio.raw.TagRational;
 import it.tidalwave.imageio.raw.TagRegistry;
@@ -42,50 +45,63 @@ import it.tidalwave.imageio.raw.TagRegistry;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: TIFFMetadataSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: TIFFMetadataSupport.java 69 2008-08-23 15:09:09Z fabriziogiudici $
  *
  ******************************************************************************/
 public class TIFFMetadataSupport extends RAWMetadataSupport
   {
-             
-    private static final String[] ORIENTATION_NAMES = {
-      null, "Normal", "FlipH", "Rotate180", "FlipV", "FlipHRotate90", "Rotate270", "FlipVRotate90", "Rotate90" };
+    private static final String[] ORIENTATION_NAMES = 
+      {
+        null, "Normal", "FlipH", "Rotate180", "FlipV", "FlipHRotate90", "Rotate270", "FlipVRotate90", "Rotate90" 
+      };
 
-    private static final String[] COLOR_SPACE_NAMES = {
-      "GRAY", "GRAY", "RGB", "RGB", "GRAY", null, "YCbCr", "Lab", "Lab" };
+    private static final String[] COLOR_SPACE_NAMES = 
+      {
+        "GRAY", "GRAY", "RGB", "RGB", "GRAY", null, "YCbCr", "Lab", "Lab" 
+      };
 
-    private static final String[] TYPE_NAMES = {
-      null, "Byte", "Ascii", "Short", "Long", "Rational", "SByte", "Undefined", "SShort", "SLong", "SRational",
-      "Float", "Double", "IFDPointer" };
+    private static final String[] TYPE_NAMES = 
+      {
+        null, "Byte", "Ascii", "Short", "Long", "Rational", "SByte", 
+        "Undefined", "SShort", "SLong", "SRational", "Float", "Double", "IFDPointer" 
+      };
 
+    @Nonnull
     private IFD primaryIFD;
 
+    @CheckForNull
     private IFD exifIFD;
 
+    @CheckForNull
     protected IFD rasterIFD;
     
-    protected List thumbnailHelperList = new ArrayList();
+    protected final List<ThumbnailHelper> thumbnailHelperList = new ArrayList<ThumbnailHelper>();
         
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @param primaryIFD
-     * @param nativeFormatName
+     * Constructs this object.
      * 
-     *******************************************************************************/
-    public TIFFMetadataSupport (Directory primaryDirectory, RAWImageInputStream iis, HeaderProcessor headerProcessor)
+     * @param   primaryDirectory  the primary directory
+     * @param   iis               the input stream
+     * @param   headerProcessor   the header processor
+     * 
+     **************************************************************************/
+    public TIFFMetadataSupport (@Nonnull final Directory primaryDirectory,
+                                @Nonnull final RAWImageInputStream iis, 
+                                @Nonnull final HeaderProcessor headerProcessor)
       {
         super(primaryDirectory, "it_tidalwave_imageio_tiff_image_1.0", headerProcessor);
-        primaryIFD = (IFD)primaryDirectory;
 
         if (primaryDirectory != null)
           {
+            primaryIFD = (IFD)primaryDirectory;
             exifIFD = (IFD)primaryDirectory.getNamedDirectory(IFD.EXIF_NAME);
 
             if (exifIFD == null)
               {
-                for (Iterator i = primaryDirectory.subDirectories(); i.hasNext();)
+                for (final Iterator<Directory> i = primaryDirectory.subDirectories(); i.hasNext();)
                   {
-                    Directory directory = (Directory)i.next();
+                    final Directory directory = i.next();
                     exifIFD = (IFD)directory.getNamedDirectory(IFD.EXIF_NAME);
 
                     if (exifIFD != null)
@@ -94,32 +110,28 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
                       }
                   }
               }
-          }
 
-        if (primaryDirectory != null)
-          {
-            List ifdList = new ArrayList();
+            final List<IFD> ifdList = new ArrayList<IFD>();
         
             for (IFD ifd = primaryIFD; ifd != null; ifd = (IFD)ifd.getNextDirectory())
               {
                 ifdList.add(ifd);
               }
         
-            for (Iterator i = primaryIFD.subDirectories(); i.hasNext(); )
+            for (final Iterator i = primaryIFD.subDirectories(); i.hasNext(); )
               {
-                ifdList.add(i.next());
+                ifdList.add((IFD)i.next());
               }
         
-            for (Iterator i = ifdList.iterator(); i.hasNext(); )
+            for (final IFD ifd : ifdList)
               {
-                IFD ifd = (IFD)i.next();
-            
                 if (isRasterIFD(ifd))
                   {
                     rasterIFD = ifd;  
                   }
             
-                if (isThumbnailIFD(ifd)) // no else, sometimes a single IFD will be both
+                // no else, sometimes a single IFD will be both raster and thumbnail
+                if (isThumbnailIFD(ifd)) 
                   {
                     thumbnailHelperList.add(new ThumbnailHelper(iis, ifd));
                   }
@@ -129,129 +141,143 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
         postInit(iis);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @return
+     * Returns the image width.
      * 
-     *******************************************************************************/
-    protected void postInit (RAWImageInputStream iis)
-      {
-      }
-
-    /*******************************************************************************
+     * @return the image width
      * 
-     * @return
-     * 
-     *******************************************************************************/
+     **************************************************************************/
+    @Nonnegative
     public int getWidth()
       {
         return rasterIFD.getImageWidth();
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @return
+     * Returns the image height.
      * 
-     *******************************************************************************/
+     * @return the image height
+     * 
+     **************************************************************************/
+    @Nonnegative
     public int getHeight()
       {
         return rasterIFD.getImageLength();
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @return
+     * Returns the thumbnail width.
      * 
-     *******************************************************************************/
-    public int getThumbnailWidth (int thumbnailIndex)
+     * @param   thumbnailIndex   the requested thumbnail
+     * @return                   the width
+     * 
+     **************************************************************************/
+    @Nonnegative
+    public int getThumbnailWidth (@Nonnegative final int thumbnailIndex)
       {
-        return ((ThumbnailHelper)thumbnailHelperList.get(thumbnailIndex)).getWidth();
+        return thumbnailHelperList.get(thumbnailIndex).getWidth();
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @return
+     * Returns the thumbnail height.
      * 
-     *******************************************************************************/
-    public int getThumbnailHeight (int thumbnailIndex)
+     * @param   thumbnailIndex   the requested thumbnail
+     * @return                   the height
+     * 
+     **************************************************************************/
+    @Nonnegative
+    public int getThumbnailHeight (@Nonnegative final int thumbnailIndex)
       {
-        return ((ThumbnailHelper)thumbnailHelperList.get(thumbnailIndex)).getHeight();
+        return thumbnailHelperList.get(thumbnailIndex).getHeight();
       }
-    
-    /*******************************************************************************
+     
+    /***************************************************************************
      * 
      * @return
      * 
-     *******************************************************************************/
-    public ThumbnailHelper[] getThumbnailHelper ()
+     **************************************************************************/
+    @Nonnull
+    public ThumbnailHelper[] getThumbnailHelper()
       {
-        return (ThumbnailHelper[])thumbnailHelperList.toArray(new ThumbnailHelper[0]);
+        return thumbnailHelperList.toArray(new ThumbnailHelper[0]);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * Gets the primary IFD.
+     * Returns the primary IFD.
      * 
-     * @return the primary IFD.
+     * @return the primary IFD
      * 
-     ******************************************************************************/
-    public IFD getPrimaryIFD ()
+     **************************************************************************/
+    @Nonnull
+    public IFD getPrimaryIFD()
       {
         return primaryIFD;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @return
+     * Returns the raster IFD.
      * 
-     *******************************************************************************/
+     * @return the raster IFD
+     * 
+     **************************************************************************/
+    @Nonnull
     public IFD getRasterIFD()
       {
         return rasterIFD;
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * Gets the EXIF IFD.
+     * Returns the EXIF IFD.
      * 
      * @return the EXIF IFD
      * 
-     *******************************************************************************/
-    public IFD getExifIFD ()
+     **************************************************************************/
+    @CheckForNull
+    public IFD getExifIFD()
       {
         return exifIFD;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @return
+     * Returns the maker note.
      * 
-     *******************************************************************************/
-    public Directory getMakerNote ()
+     * @return  the maker note
+     * 
+     **************************************************************************/
+    @CheckForNull
+    public Directory getMakerNote()
       {
-        IFD exifIFD = getExifIFD();
-
+        final IFD exifIFD = getExifIFD(); // call the method since it can be polimorphic
         return (exifIFD == null) ? null : exifIFD.getNamedDirectory(IFD.MAKER_NOTE_NAME);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     ******************************************************************************/
-    public IIOMetadataNode getStandardDimensionNode ()
+     **************************************************************************/
+    @Override
+    @Nonnull
+    public IIOMetadataNode getStandardDimensionNode()
       {
-        IIOMetadataNode dimensionNode = new IIOMetadataNode("Dimension");
-        IFD resolutionIFD = getPrimaryIFD();
-        IFD orientationIFD = getPrimaryIFD();
+        final IIOMetadataNode dimensionNode = new IIOMetadataNode("Dimension");
+        final IFD resolutionIFD = getPrimaryIFD();
+        final IFD orientationIFD = getPrimaryIFD();
 
         if (resolutionIFD.isXResolutionAvailable() && resolutionIFD.isYResolutionAvailable())
           {
-            TagRational xres = resolutionIFD.getXResolution();
-            TagRational yres = resolutionIFD.getYResolution();
-
-            IIOMetadataNode node = new IIOMetadataNode("PixelAspectRatio");
-            float ratio = xres.floatValue() / yres.floatValue();
+            final TagRational xres = resolutionIFD.getXResolution();
+            final TagRational yres = resolutionIFD.getYResolution();
+            final IIOMetadataNode node = new IIOMetadataNode("PixelAspectRatio");
+            final float ratio = xres.floatValue() / yres.floatValue();
             node.setAttribute("value", Float.toString(ratio));
             dimensionNode.appendChild(node);
 
@@ -259,13 +285,12 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
 
             if (resolutionIFD.isResolutionUnitAvailable())
               {
-                int resolutionUnit = resolutionIFD.getResolutionUnit().intValue();
+                final int resolutionUnit = resolutionIFD.getResolutionUnit().intValue();
 
                 if (resolutionUnit == 3)
                   {
                     gotPixelSize = true;
                   }
-
                 else if (resolutionUnit == 2)
                   {
                     if (xres != null)
@@ -286,86 +311,88 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
               {
                 if (xres != null)
                   {
-                    float horizontalPixelSize = 10f / xres.floatValue();
-                    addNode(dimensionNode, "HorizontalPixelSize", Float.toString(horizontalPixelSize));
+                    final float horizontalPixelSize = 10f / xres.floatValue();
+                    addNameValueNode(dimensionNode, "HorizontalPixelSize", Float.toString(horizontalPixelSize));
                   }
 
                 if (yres != null)
                   {
-                    float verticalPixelSize = 10f / yres.floatValue();
-                    addNode(dimensionNode, "VerticalPixelSize", Float.toString(verticalPixelSize));
+                    final float verticalPixelSize = 10f / yres.floatValue();
+                    addNameValueNode(dimensionNode, "VerticalPixelSize", Float.toString(verticalPixelSize));
                   }
               }
           }
 
         if (orientationIFD.isOrientationAvailable())
           {
-            int o = orientationIFD.getOrientation().intValue();
+            final int o = orientationIFD.getOrientation().intValue();
 
             if ((o >= 0) && (o < ORIENTATION_NAMES.length))
               {
-                addNode(dimensionNode, "ImageOrientation", ORIENTATION_NAMES[o]);
+                addNameValueNode(dimensionNode, "ImageOrientation", ORIENTATION_NAMES[o]);
               }
           }
 
-        addNode(dimensionNode, "HorizontalScreenSize", Integer.toString(getWidth()));
-        addNode(dimensionNode, "VerticalScreenSize", Integer.toString(getHeight()));
+        addNameValueNode(dimensionNode, "HorizontalScreenSize", Integer.toString(getWidth()));
+        addNameValueNode(dimensionNode, "VerticalScreenSize", Integer.toString(getHeight()));
 
         return dimensionNode;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     ******************************************************************************/
-    public IIOMetadataNode getStandardChromaNode ()
+     **************************************************************************/
+    @Override
+    @Nonnull
+    public IIOMetadataNode getStandardChromaNode()
       {
-        IIOMetadataNode chroma_node = new IIOMetadataNode("Chroma");
-        IIOMetadataNode node = null;
+        final IIOMetadataNode chromaNode = new IIOMetadataNode("Chroma");
 
         if (primaryIFD.isPhotometricInterpretationAvailable())
           {
-            int photometricInterpretation = primaryIFD.getPhotometricInterpretation().intValue();
+            final int photometricInterpretation = primaryIFD.getPhotometricInterpretation().intValue();
 
             if ((photometricInterpretation > 0) && (photometricInterpretation < COLOR_SPACE_NAMES.length))
               {
-                node = new IIOMetadataNode("ColorSpaceType");
+                final IIOMetadataNode node = new IIOMetadataNode("ColorSpaceType");
                 node.setAttribute("name", COLOR_SPACE_NAMES[photometricInterpretation]);
-                chroma_node.appendChild(node);
+                chromaNode.appendChild(node);
               }
 
-            node = new IIOMetadataNode("BlackIsZero");
+            final IIOMetadataNode node = new IIOMetadataNode("BlackIsZero");
             node.setAttribute("value", (photometricInterpretation != 0) ? "TRUE" : "FALSE");
-            chroma_node.appendChild(node);
+            chromaNode.appendChild(node);
           }
 
         if (primaryIFD.isBitsPerSampleAvailable())
           {
-            int numChannels = primaryIFD.getBitsPerSample().length;
-            node = new IIOMetadataNode("NumChannels");
+            final int numChannels = primaryIFD.getBitsPerSample().length;
+            final IIOMetadataNode node = new IIOMetadataNode("NumChannels");
             node.setAttribute("value", Integer.toString(numChannels));
-            chroma_node.appendChild(node);
+            chromaNode.appendChild(node);
           }
 
-        return chroma_node;
+        return chromaNode;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     ******************************************************************************/
-    public IIOMetadataNode getStandardDocumentNode ()
+     **************************************************************************/
+    @Override
+    @Nonnull
+    public IIOMetadataNode getStandardDocumentNode()
       {
-        IIOMetadataNode document_node = new IIOMetadataNode("Document");
-        IIOMetadataNode node = null;
+        final IIOMetadataNode documentNode = new IIOMetadataNode("Document");
 
         if (primaryIFD.isDateTimeAvailable())
           {
-            String s = primaryIFD.getDateTime();
-            String[] st = s.split("[:. ]");
-            node = new IIOMetadataNode("ImageCreationTime");
+            final String s = primaryIFD.getDateTime();
+            final String[] st = s.split("[:. ]");
+            final IIOMetadataNode node = new IIOMetadataNode("ImageCreationTime");
             node.setAttribute("year", st[0]);
             node.setAttribute("month", st[1]);
             node.setAttribute("day", st[2]);
@@ -377,38 +404,40 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
                 node.setAttribute("second", st[5]);
               }
 
-            document_node.appendChild(node);
+            documentNode.appendChild(node);
           }
 
-        return document_node;
+        return documentNode;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     ******************************************************************************/
-    public Node getNativeNode (TIFFTag field, TagRegistry registry)
+     **************************************************************************/
+    @Nonnull
+    public Node getNativeNode (@Nonnull final TIFFTag field, 
+                               @Nonnull final TagRegistry registry)
       {
-        IIOMetadataNode node = new IIOMetadataNode("TIFFField");
+        final IIOMetadataNode node = new IIOMetadataNode("TIFFField");
         node.setAttribute("number", Integer.toString(field.getCode()));
-        String name = registry.getTagName(field.getCode());
+        final String name = registry.getTagName(field.getCode());
 
         if (name != null)
           {
             node.setAttribute("name", name);
           }
 
-        int count = field.getValuesCount();
-        int type = field.getType();
+        final int count = field.getValuesCount();
+        final int type = field.getType();
         IIOMetadataNode child = new IIOMetadataNode("TIFF" + TYPE_NAMES[type] + "s");
 
         if (type == TIFFTag.TYPE_UNDEFINED)
           {
             child = new IIOMetadataNode("TIFFUndefined");
 
-            byte[] data = field.getByteValues();
-            StringBuffer sb = new StringBuffer(count * 4);
+            final byte[] data = field.getByteValues();
+            final StringBuilder sb = new StringBuilder(count * 4);
 
             for (int j = 0; j < count; j++)
               {
@@ -427,7 +456,7 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
           {
             for (int i = 0; i < count; i++)
               {
-                IIOMetadataNode cchild = new IIOMetadataNode("TIFF" + TYPE_NAMES[type]);
+                final IIOMetadataNode cchild = new IIOMetadataNode("TIFF" + TYPE_NAMES[type]);
 
                 switch (type)
                   {
@@ -448,8 +477,8 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
                       break;
 
                     case TIFFTag.TYPE_ASCII:
-                      StringBuffer buffer = new StringBuffer();
-                      String value = field.getASCIIValue();
+                      final StringBuilder buffer = new StringBuilder();
+                      final String value = field.getASCIIValue();
                       
                       for (int j = 0; j < value.length(); j++)
                         {
@@ -481,42 +510,50 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
         return node;
       }
 
-    /*******************************************************************************
-     *
-     ******************************************************************************/
-    private static void addNode (IIOMetadataNode parent,
-                                 String name,
-                                 String value)
+    /***************************************************************************
+     * 
+     * @param   iis               the input stream
+     * 
+     **************************************************************************/
+    protected void postInit (@Nonnull final RAWImageInputStream iis)
       {
-        IIOMetadataNode node = new IIOMetadataNode(name);
-        node.setAttribute("value", value);
-        parent.appendChild(node);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
+     * Probes an IFD and returns true if it's the raster IFD, i.e. it's 
+     * describing the main image.
+     * 
+     * @param  ifd  the IFD to probe
+     * @return      true if it's the raster IFD
      *
-     ******************************************************************************/
-    protected boolean isRasterIFD (IFD ifd)
+     **************************************************************************/
+    protected boolean isRasterIFD (final IFD ifd)
       {
         return false;
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
+     * Probes an IFD and returns true if it's a thumbnail IFD, i.e. it's 
+     * describing a thumbnail.
+     * 
+     * @param  ifd  the IFD to probe
+     * @return      true if it's a thumbnail IFD
      *
-     ******************************************************************************/
-    protected boolean isThumbnailIFD (IFD ifd)
+     **************************************************************************/
+    protected boolean isThumbnailIFD (final IFD ifd)
       {
         return false;
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
-     ******************************************************************************/
-    protected Node getNativeTree (String name)
+     **************************************************************************/
+    @Nonnull
+    protected Node getNativeTree (@Nonnull final String name)
       {
-        IIOMetadataNode root = new IIOMetadataNode(name);
+        final IIOMetadataNode root = new IIOMetadataNode(name);
 
         if (primaryIFD != null) // at the moment CRW doesn't have it
           {
@@ -526,18 +563,38 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
         return root;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     ******************************************************************************/
-    private void appendIFDAsTree (IIOMetadataNode parentNode, 
-                                  Directory directory,
-                                  String name,
-                                  String parentName,
-                                  int parentTagNumber)
+     * Utility method to create a new node with a name=value pair.
+     * 
+     * @param  parent   the parent node
+     * @param  name     the name
+     * @param  value    the value
+     * 
+     **************************************************************************/
+    private static void addNameValueNode (@Nonnull final IIOMetadataNode parent,
+                                          @Nonnull final String name,
+                                          @Nonnull final String value)
+      {
+        final IIOMetadataNode node = new IIOMetadataNode(name);
+        node.setAttribute("value", value);
+        parent.appendChild(node);
+      }
+
+    /***************************************************************************
+     *
+     **************************************************************************/
+    private void appendIFDAsTree (final IIOMetadataNode parentNode, 
+                                  final Directory directory,
+                                  final String name,
+                                  final String parentName,
+                                  final int parentTagNumber)
       {
         int ifdCounter = 0;
             
-        for (Directory currentDirectory = directory; currentDirectory != null; currentDirectory = currentDirectory.getNextDirectory(), ifdCounter++)
+        for (Directory currentDirectory = directory; 
+             currentDirectory != null; 
+             currentDirectory = currentDirectory.getNextDirectory(), ifdCounter++)
           {
             IIOMetadataNode directoryNode = new IIOMetadataNode("TIFFIFD");
             parentNode.appendChild(directoryNode);
@@ -578,8 +635,8 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
             int n = 0;
             for (Iterator i = currentDirectory.subDirectories(); i.hasNext();)
               {
-                 IFD subIFD = (IFD)i.next();
-                 appendIFDAsTree(directoryNode, subIFD, "SubIFD" + n++, currentName, 0);
+                IFD subIFD = (IFD)i.next();
+                appendIFDAsTree(directoryNode, subIFD, "SubIFD" + n++, currentName, 0);
               }
 
             String[] subIFDNames = currentDirectory.getSubDirectoryNames();
@@ -593,14 +650,16 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
           }
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     ******************************************************************************/
-    public String toString ()
+     **************************************************************************/
+    @Override
+    @Nonnull
+    public String toString()
       {
-        StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
 
         buffer.append(getClass().getName() + "[");
         buffer.append("\n****primaryDirectory: " + primaryIFD);
