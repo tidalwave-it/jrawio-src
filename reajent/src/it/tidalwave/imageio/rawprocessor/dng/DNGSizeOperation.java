@@ -22,11 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: DNGSizeOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: DNGSizeOperation.java 68 2008-08-23 14:51:27Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
 
+import javax.annotation.Nonnull;
+import java.util.logging.Logger;
 import java.awt.Dimension;
 import java.awt.Insets;
 import it.tidalwave.imageio.raw.TagRational;
@@ -38,53 +40,76 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DNGSizeOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: DNGSizeOperation.java 68 2008-08-23 14:51:27Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DNGSizeOperation extends SizeOperation
   {
-    /*******************************************************************************
+    private static final String CLASS = DNGSizeOperation.class.getName();
+    private static final Logger logger = Logger.getLogger(CLASS);
+    
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
-     ******************************************************************************/
-    protected Insets getCrop (RAWImage image)
+     **************************************************************************/
+    @Override
+    @Nonnull
+    protected Insets getCrop (@Nonnull final RAWImage image)
       {
-        TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
-        IFD rasterIFD = metadata.getRasterIFD();
-        TagRational[] cropOrigin = rasterIFD.getDefaultCropOrigin();
-        TagRational[] cropSize = rasterIFD.getDefaultCropSize();
-
+        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
+        final IFD rasterIFD = metadata.getRasterIFD();
+        final TagRational[] cropOrigin = rasterIFD.getDefaultCropOrigin();
+        final TagRational[] cropSize = rasterIFD.getDefaultCropSize();
+        final int imageWidth = image.getImage().getWidth();
+        final int imageHeight = image.getImage().getHeight();
         int left = (int)Math.round(cropOrigin[0].doubleValue());
         int top = (int)Math.round(cropOrigin[1].doubleValue());
         int cropWidth = (int)Math.round(cropSize[0].doubleValue());
         int cropHeight = (int)Math.round(cropSize[1].doubleValue());
+
+        final int rotation = normalizedAngle(image.getRotation());
+        
+        if ((rotation == 90) || (rotation == 270))
+          {
+            int temp = cropWidth;
+            cropWidth = cropHeight;
+            cropHeight = temp;
+            temp = left;
+            left = top;
+            top = temp;
+          }
+
+        logger.finest(String.format(">>>> getCrop(): width: %d, height: %d, left: %d, top: %d, cropWidth: %d, cropHeight: %d",
+                                    imageWidth, imageHeight, left, top, cropWidth, cropHeight));
         
         return new Insets(top, 
                           left, 
-                          image.getImage().getHeight() - top - cropHeight,
-                          image.getImage().getWidth() - left - cropWidth);
+                          imageHeight - top - cropHeight,
+                          imageWidth - left - cropWidth);
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
-     ******************************************************************************/
-    protected Dimension getSize (RAWImage image)
+     **************************************************************************/
+    @Override
+    @Nonnull
+    protected Dimension getSize (@Nonnull final RAWImage image)
       {
-        TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
-        IFD rasterIFD = metadata.getRasterIFD();
-        TagRational[] cropOrigin = rasterIFD.getDefaultCropOrigin();
-        TagRational[] cropSize = rasterIFD.getDefaultCropSize();
-        TagRational[] scale = rasterIFD.isDefaultScaleAvailable() ? rasterIFD.getDefaultScale() : SCALE_UNCHANGED;
+        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
+        final IFD rasterIFD = metadata.getRasterIFD();
+//        final TagRational[] cropOrigin = rasterIFD.getDefaultCropOrigin();
+        final TagRational[] cropSize = rasterIFD.getDefaultCropSize();
+        final TagRational[] scale = rasterIFD.isDefaultScaleAvailable() ? rasterIFD.getDefaultScale() : SCALE_UNCHANGED;
 
-        int left = (int)Math.round(cropOrigin[0].doubleValue());
-        int top = (int)Math.round(cropOrigin[1].doubleValue());
-        int cropWidth = (int)Math.round(cropSize[0].doubleValue());
-        int cropHeight = (int)Math.round(cropSize[1].doubleValue());
-        int width = (int)Math.round(cropWidth * scale[0].doubleValue());
-        int height = (int)Math.round(cropHeight * scale[1].doubleValue());
+//        final int left = (int)Math.round(cropOrigin[0].doubleValue());
+//        final int top = (int)Math.round(cropOrigin[1].doubleValue());
+        final int cropWidth = (int)Math.round(cropSize[0].doubleValue());
+        final int cropHeight = (int)Math.round(cropSize[1].doubleValue());
+        final int width = (int)Math.round(cropWidth * scale[0].doubleValue());
+        final int height = (int)Math.round(cropHeight * scale[1].doubleValue());
                 
         return new Dimension(width, height);
       }

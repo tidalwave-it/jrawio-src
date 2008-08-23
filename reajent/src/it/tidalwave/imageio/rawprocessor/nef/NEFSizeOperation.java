@@ -22,13 +22,15 @@
  *
  *******************************************************************************
  *
- * $Id: NEFSizeOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: NEFSizeOperation.java 68 2008-08-23 14:51:27Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
 
-import java.awt.Dimension;
+import javax.annotation.Nonnull;
 import java.util.logging.Logger;
+import java.awt.Dimension;
+import java.awt.Rectangle;
 import java.awt.Insets;
 import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;
@@ -38,7 +40,7 @@ import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFSizeOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: NEFSizeOperation.java 68 2008-08-23 14:51:27Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFSizeOperation extends SizeOperation
@@ -47,78 +49,78 @@ public class NEFSizeOperation extends SizeOperation
     
     /*******************************************************************************
      *
-     * @inheritDoc
+     * @{@inheritDoc}
      *
      ******************************************************************************/
-    protected Insets getCrop (RAWImage image)
+    @Override
+    @Nonnull 
+    protected Insets getCrop (@Nonnull final RAWImage image)
       {
         logger.fine("getCrop()");
         Insets crop = super.getCrop(image);
-        int rotation = normalized(image.getRotation());
-        crop = rotateCrop(crop, rotation);
-        logger.finer(">>>> Standard crop - left: " + crop.left + ", top: " + crop.top + ", right: " + crop.right + ", bottom: " + crop.bottom);
+        final int rotation = normalizedAngle(image.getRotation());
+        crop = rotate(crop, rotation);
+        logger.finer(String.format(">>>> rotation: %d, crop: %s", rotation, crop));
 
-        NEFMetadata metadata = (NEFMetadata)image.getRAWMetadata();
-        NikonCaptureEditorMetadata nceMetadata = (NikonCaptureEditorMetadata)metadata.getCaptureEditorMetadata();
+        final NEFMetadata metadata = (NEFMetadata)image.getRAWMetadata();
+        final NikonCaptureEditorMetadata nceMetadata = (NikonCaptureEditorMetadata)metadata.getCaptureEditorMetadata();
 
         if (nceMetadata != null)
           {
             double scale = 0.5;
+            Rectangle nceCrop = new Rectangle(0, 0, 0, 0);
             //
             // NCE crop settings are relative to the rotated image
             //
-            int left = (int)Math.round(nceMetadata.getCropLeft() * scale);
-            int top = (int)Math.round(nceMetadata.getCropTop() * scale);
-            int right = (int)Math.round(nceMetadata.getCropWidth() * scale);
-            int bottom = (int)Math.round(nceMetadata.getCropHeight() * scale);
-            logger.fine(">>>> NCE crop - left: " + left + ", top: " + top + ", right: " + right + ", bottom: " + bottom);
+            nceCrop.x = (int)Math.round(nceMetadata.getCropLeft() * scale);
+            nceCrop.y = (int)Math.round(nceMetadata.getCropTop() * scale);
+            nceCrop.width = (int)Math.round(nceMetadata.getCropWidth() * scale);
+            nceCrop.height = (int)Math.round(nceMetadata.getCropHeight() * scale);
             
             if (metadata.getPrimaryIFD().getModel().trim().equals("NIKON D1X"))
               {
-                bottom /= 2; // ??  
+                nceCrop.height /= 2; // ??  
               } 
 
-            Dimension size = getSize(image);
+            final Dimension size = getSize(image);
+            logger.fine(String.format(">>>> original size: %s, original NCE crop: %s", size, nceCrop));
+ 
+            // Some images needs to rotate the NCE crop (e.g. ccw90.nef)
+            // others don't (e.g. Nikon_D70s_0001.NEF)
+            // FIXME: but we don't know how to guess. See the trick below.
+            boolean shouldRotateNCECrop = true;
             
-            if ((rotation == 90) || (rotation == 270))
+            if (shouldRotateNCECrop)
+              {  
+                final Rectangle save = (Rectangle)nceCrop.clone();
+                nceCrop = rotate(nceCrop, size, rotation);
+                //
+                // FIXME: trick to recover NCE crop quirks - see above.
+                //
+                if ((nceCrop.x < 0) || (nceCrop.y < 0))
+                  {
+                    logger.warning("Bad crop, NCE crop hadn't to be rotated");
+                    nceCrop = save;  
+                  }
+              }
+            
+            if ((rotation == 90) || (rotation == 270)) // FIXME: refactor into rotateDimension
               {
                 int tmp = size.width;
                 size.width = size.height;
                 size.height = tmp;
               }
             
-            logger.fine(">>>> Standard size: " + size.width + " x " + size.height);
+            logger.fine(String.format(">>>> size: %s, NCE crop: %s", size, nceCrop));
 
-            crop.left += left;
-            crop.top += top;
-            crop.right += size.width - right;
-            crop.bottom += size.height - bottom;
+            crop.left   += nceCrop.x;
+            crop.top    += nceCrop.y;
+            crop.right  += size.width - nceCrop.width;
+            crop.bottom += size.height - nceCrop.height;
           }
         
-        logger.fine(">>>> returning: " + crop);
+        logger.fine(">>>> returning crop: " + crop);
         
         return crop;
       }
-    
-    private int normalized (int angle)
-      {
-        while (angle < 0)
-          {
-            angle += 360;  
-          }
-        
-        return angle % 360;
-      }
-    
-    /*******************************************************************************
-     *
-     * @inheritDoc
-     *
-     ******************************************************************************/
-/*    protected Dimension getSize (RAWImage image)
-      {
-        logger.fine("getSize()");
-                
-        return new Dimension(width, height);
-      }*/
   }

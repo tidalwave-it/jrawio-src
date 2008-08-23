@@ -22,11 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: SizeOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: SizeOperation.java 68 2008-08-23 14:51:27Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.logging.Logger;
@@ -34,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.awt.Dimension;
 import java.awt.Insets;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.raw.TagRational;
 import it.tidalwave.imageio.tiff.IFD;
@@ -44,7 +47,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: SizeOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: SizeOperation.java 68 2008-08-23 14:51:27Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class SizeOperation extends OperationSupport
@@ -55,18 +58,18 @@ public abstract class SizeOperation extends OperationSupport
 
     protected final static TagRational[] SCALE_UNCHANGED = new TagRational[] { ONE, ONE };
         
-    private Properties properties = new Properties();
+    private final Properties properties = new Properties();
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
+     **************************************************************************/
     public SizeOperation()
       {
         try
           {
-            String fileName = "/" + getClass().getName().replace('.', '/') + ".properties";
-            InputStream is = getClass().getResourceAsStream(fileName);
+            final String fileName = "/" + getClass().getName().replace('.', '/') + ".properties";
+            final InputStream is = getClass().getResourceAsStream(fileName);
 
             if (is != null)
               {
@@ -80,12 +83,13 @@ public abstract class SizeOperation extends OperationSupport
           }        
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
-     ******************************************************************************/
-    public void process (RAWImage image) throws Exception
+     **************************************************************************/
+    public void process (@Nonnull final RAWImage image) 
+      throws Exception
       {
         logger.fine("process()");
         Insets crop = getCrop(image);
@@ -105,18 +109,19 @@ public abstract class SizeOperation extends OperationSupport
           }
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
-    protected Insets getCrop (RAWImage image)
+     **************************************************************************/
+    @Nonnull
+    protected Insets getCrop (@Nonnull final RAWImage image)
       {
         logger.fine("getCrop()");
-        TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
-        IFD primaryIFD = metadata.getPrimaryIFD();
+        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
+        final IFD primaryIFD = metadata.getPrimaryIFD();
         Insets crop = getStandardCrop(primaryIFD.getModel());
         
-        if (crop == null) // e.g. a new camera not descripted properties
+        if (crop == null) // e.g. a new camera for which we don't have data
           {
             crop = new Insets(0, 0, 0, 0);
           }
@@ -124,23 +129,26 @@ public abstract class SizeOperation extends OperationSupport
         return crop;
       }
       
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
-    protected Dimension getSize (RAWImage image)
+     **************************************************************************/
+    @Nonnull
+    protected Dimension getSize (@Nonnull final RAWImage image)
       {
         logger.fine("getSize()");
-        TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
-        IFD primaryIFD = metadata.getPrimaryIFD();
+        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
+        final IFD primaryIFD = metadata.getPrimaryIFD();
         return getStandardSize(primaryIFD.getModel());
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
-    protected BufferedImage resample (BufferedImage image, Dimension dimension)
+     **************************************************************************/
+    @Nonnull
+    protected BufferedImage resample (@Nonnull final BufferedImage image, 
+                                      @Nonnull final Dimension dimension)
       {
         logger.warning("resample(" + dimension + ") - NOT IMPLEMENTED");
         logImage(logger, ">>>> image: ", image);
@@ -148,11 +156,13 @@ public abstract class SizeOperation extends OperationSupport
         return image; // FIXME: RESAMPLE
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
-    protected BufferedImage crop (BufferedImage image, Insets crop)
+     **************************************************************************/
+    @Nonnull
+    protected BufferedImage crop (@Nonnull BufferedImage image, 
+                                  @Nonnull final Insets crop)
       {
         logger.finer("crop(" + crop + ")");
         logImage(logger, ">>>> image: ", image);
@@ -164,13 +174,15 @@ public abstract class SizeOperation extends OperationSupport
         return image;
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
-    protected Insets rotateCrop (Insets crop, int rotation)
+     **************************************************************************/
+    @Nonnull
+    protected static Insets rotate (@Nonnull final Insets crop, @Nonnegative int rotation)
       {
-        Insets result = new Insets(0, 0, 0, 0);
+        logger.finer(String.format("rotate(%s, %d)", crop, rotation));        
+        final Insets result = new Insets(0, 0, 0, 0);
         
         switch (rotation)
           {
@@ -206,15 +218,68 @@ public abstract class SizeOperation extends OperationSupport
               throw new IllegalArgumentException("rotation=" + rotation);
           }
         
+        logger.finest(">>>> returning: " + result);
+        
         return result;
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
+     **************************************************************************/
+    @Nonnull
+    protected static Rectangle rotate (@Nonnull final Rectangle rectangle, 
+                                       @Nonnull final Dimension size,
+                                       @Nonnegative int rotation)
+      {
+        logger.finest(String.format("rotate(%s, %s, %d)", rectangle, size, rotation));        
+        final Rectangle result = new Rectangle(0, 0, 0, 0);
+        
+        switch (rotation)
+          {
+            case 0:
+              result.x      = rectangle.x;
+              result.y      = rectangle.y;
+              result.width  = rectangle.width;
+              result.height = rectangle.height;
+              break;
+              
+            case 90:
+              result.x      = rectangle.y;
+              result.y      = size.width - rectangle.x - rectangle.width;
+              result.width  = rectangle.height;
+              result.height = rectangle.width;
+              break;
+              
+            case 180:
+              result.x      = size.width - rectangle.x - rectangle.width;
+              result.y      = size.height - rectangle.y - rectangle.height;
+              result.width  = rectangle.width;
+              result.height = rectangle.height;
+              break;
+              
+            case 270:
+              result.x      = size.height - rectangle.y - rectangle.height;
+              result.y      = rectangle.x;
+              result.width  = rectangle.height;
+              result.height = rectangle.width;
+              break;
+              
+            default: 
+              throw new IllegalArgumentException("rotation=" + rotation);
+          }
+        
+        logger.finest(">>>> returning: " + result);
+        
+        return result;
+      }
+    
+    /***************************************************************************
      *
-     ******************************************************************************/
-    public Dimension getStandardSize (String model)
+     *
+     **************************************************************************/
+    @Nonnull
+    public Dimension getStandardSize (@Nonnull String model)
       {
         model = model.trim();
         logger.fine("getStandardSize(" + model + ")");
@@ -234,12 +299,12 @@ public abstract class SizeOperation extends OperationSupport
         return size;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     *
-     ******************************************************************************/
-    public Insets getStandardCrop (String model)
+     **************************************************************************/
+    @Nonnull
+    public Insets getStandardCrop (@Nonnull String model)
       {
         model = model.trim();
         logger.fine("getStandardCrop(" + model + ")");
