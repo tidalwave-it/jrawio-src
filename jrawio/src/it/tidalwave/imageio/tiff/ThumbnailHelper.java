@@ -22,12 +22,11 @@
  *
  *******************************************************************************
  *
- * $Id: ThumbnailHelper.java 75 2008-08-23 21:58:04Z fabriziogiudici $
+ * $Id: ThumbnailHelper.java 76 2008-08-23 22:03:28Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
 
-import java.util.logging.Level;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Properties;
@@ -55,7 +54,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * an ImageReader for any TIFF-based image format.
  *
  * @author Fabrizio Giudici
- * @version $Id: ThumbnailHelper.java 75 2008-08-23 21:58:04Z fabriziogiudici $
+ * @version $Id: ThumbnailHelper.java 76 2008-08-23 22:03:28Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ThumbnailHelper
@@ -211,7 +210,6 @@ public class ThumbnailHelper
         
         try
           {
-            System.err.println("OFFSET / LENGTH " + offset + " " + byteCount);
             final byte[] buffer = new byte[byteCount];
             final long save = iis.getStreamPosition(); // TEMP FIX for a bug
             iis.seek(offset);
