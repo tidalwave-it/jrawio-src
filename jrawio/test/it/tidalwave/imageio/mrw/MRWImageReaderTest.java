@@ -42,7 +42,7 @@ import static org.junit.Assert.*;
 public class MRWImageReaderTest extends LoadTestSupport
   {
     @Test
-    public void testReadPICT0006_MRW() 
+    public void testJRW152() 
       throws IOException 
       {
         final ImageReader ir = getImageReader("others/theoheinze/Minolta/Dynax7D/MRW/PICT0652.MRW");

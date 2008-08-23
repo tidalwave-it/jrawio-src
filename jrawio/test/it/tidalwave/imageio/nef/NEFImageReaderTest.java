@@ -42,7 +42,7 @@ import static org.junit.Assert.*;
 public class NEFImageReaderTest extends LoadTestSupport
   {
     @Test
-    public void testReadPICT0006_MRW() 
+    public void testJRW146() 
       throws IOException 
       {
         final ImageReader ir = getImageReader("fabriziogiudici/Nikon/D100/NEF/NikonCaptureEditor/ccw90.nef");
@@ -56,7 +56,7 @@ public class NEFImageReaderTest extends LoadTestSupport
       }
     
     @Test
-    public void testReadPICT0006_MRW2() 
+    public void testJRW148() 
       throws IOException 
       {
         final ImageReader ir = getImageReader("fabriziogiudici/Nikon/D100/TIFF/TIFF-Large.TIF");
@@ -70,7 +70,7 @@ public class NEFImageReaderTest extends LoadTestSupport
       }
     
     @Test
-    public void testReadPICT0006_MRW3() 
+    public void testJRW149_JRW150() 
       throws IOException 
       {
         final ImageReader ir = getImageReader("mpetersen/Nikon/D70s/NEF/Nikon_D70s_0001.NEF");

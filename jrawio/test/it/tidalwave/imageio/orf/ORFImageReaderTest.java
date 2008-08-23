@@ -42,7 +42,7 @@ import static org.junit.Assert.*;
 public class ORFImageReaderTest extends LoadTestSupport
   {
     @Test
-    public void testReadPICT0006_MRW() 
+    public void testJRW151() 
       throws IOException 
       {
         final ImageReader ir = getImageReader("others/josephandre/Olympus/E510/ORF/_2090037.ORF");

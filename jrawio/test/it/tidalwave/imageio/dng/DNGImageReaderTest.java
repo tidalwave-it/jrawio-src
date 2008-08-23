@@ -42,7 +42,7 @@ import static org.junit.Assert.*;
 public class DNGImageReaderTest extends LoadTestSupport
   {
     @Test
-    public void testReadPICT0006_MRW() 
+    public void testJRW144() 
       throws IOException 
       {
         final ImageReader ir = getImageReader("esordini/Canon/EOS300D/Adobe/DNG/100_0056.DNG");
@@ -58,7 +58,7 @@ public class DNGImageReaderTest extends LoadTestSupport
       }
     
     @Test
-    public void testReadPICT0006_MRW1() 
+    public void testJRW145() 
       throws IOException 
       {
         final ImageReader ir = getImageReader("esordini/Canon/EOS300D/Adobe/DNG/100_0043.DNG");
