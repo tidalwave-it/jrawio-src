@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: TIFFImageReaderSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: TIFFImageReaderSupport.java 72 2008-08-23 21:38:54Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -47,7 +47,7 @@ import it.tidalwave.imageio.raw.RasterReader;
  * an ImageReader for any TIFF-based image format.
  *
  * @author Fabrizio Giudici
- * @version $Id: TIFFImageReaderSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: TIFFImageReaderSupport.java 72 2008-08-23 21:38:54Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
@@ -112,6 +112,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      * @inheritDoc
      * 
      *******************************************************************************/
+    @Override
     public int getNumThumbnails (int imageIndex) throws IOException
       {
         checkImageIndex(imageIndex);
@@ -126,6 +127,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      * load the thumbnail.
      *
      ******************************************************************************/
+    @Override
     public int getThumbnailWidth (int imageIndex, int thumbnailIndex) throws IOException
       {
         checkImageIndex(imageIndex);
@@ -140,6 +142,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      * load the thumbnail.
      *
      ******************************************************************************/
+    @Override
     public int getThumbnailHeight (int imageIndex, int thumbnailIndex) throws IOException
       {
         checkImageIndex(imageIndex);
