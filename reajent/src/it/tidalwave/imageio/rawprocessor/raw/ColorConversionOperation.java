@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ColorConversionOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: ColorConversionOperation.java 66 2008-08-23 14:49:02Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
@@ -38,11 +38,11 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ColorConversionOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: ColorConversionOperation.java 66 2008-08-23 14:49:02Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class ColorConversionOperation extends OperationSupport
-{
+  {
     private final static Logger logger = getLogger(ColorConversionOperation.class);
     
     /*******************************************************************************
