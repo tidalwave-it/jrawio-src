@@ -22,11 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: MRWHeaderProcessor.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: MRWHeaderProcessor.java 73 2008-08-23 21:39:29Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
 
+import javax.annotation.Nonnull;
+import java.util.logging.Logger;
 import java.io.IOException;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.HeaderProcessor;
@@ -34,11 +36,14 @@ import it.tidalwave.imageio.raw.HeaderProcessor;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWHeaderProcessor.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: MRWHeaderProcessor.java 73 2008-08-23 21:39:29Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWHeaderProcessor extends HeaderProcessor
   {
+    private final static String CLASS = MRWHeaderProcessor.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+    
     private int baseOffset;
     
     private int rasterOffset;
@@ -47,13 +52,16 @@ public class MRWHeaderProcessor extends HeaderProcessor
     
     private int rasterHeight;
     
-    private double[] coefficients = new double[4];
+    private final double[] coefficients = new double[4];
     
-    /*******************************************************************************
+    /***************************************************************************
      * 
+     * @param  iis  the input stream
      * 
-     *******************************************************************************/
-    public void process (RAWImageInputStream iis) throws IOException
+     **************************************************************************/
+    @Override
+    public void process (@Nonnull final RAWImageInputStream iis) 
+      throws IOException
       {        
         iis.setBaseOffset(0);
         iis.seek(4);
@@ -65,7 +73,7 @@ public class MRWHeaderProcessor extends HeaderProcessor
             int tag = iis.readInt();
             int len = iis.readInt();
             
-            System.err.println("TAG " + Integer.toHexString(tag) + " LEN: " +  len);
+            logger.fine("MRW HEADER TAG " + Integer.toHexString(tag) + " LEN: " +  len);
 
             switch (tag) 
               {
@@ -95,35 +103,49 @@ public class MRWHeaderProcessor extends HeaderProcessor
           }
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @param iis
-     * @return
-     * @throws IOException
      * 
-     *******************************************************************************/
+     **************************************************************************/
+    @Override
     public int getBaseOffset() 
       {
         return baseOffset;
       }
     
+    /***************************************************************************
+     * 
+     * 
+     **************************************************************************/
     public int getRasterOffset()
       { 
         return rasterOffset;  
       }
     
+    /***************************************************************************
+     * 
+     * 
+     **************************************************************************/
     public int getRasterWidth()
       { 
         return rasterWidth;  
       }
     
+    /***************************************************************************
+     * 
+     * 
+     **************************************************************************/
     public int getRasterHeight()
       { 
         return rasterHeight;  
       }
 
+    /***************************************************************************
+     * 
+     * 
+     **************************************************************************/
     public double[] getCoefficients()
       {
-        return coefficients;
+        return coefficients.clone();
       }
   }
