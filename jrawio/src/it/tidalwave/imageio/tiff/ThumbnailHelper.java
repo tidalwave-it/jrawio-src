@@ -22,11 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: ThumbnailHelper.java 74 2008-08-23 21:39:59Z fabriziogiudici $
+ * $Id: ThumbnailHelper.java 75 2008-08-23 21:58:04Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
 
+import java.util.logging.Level;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Properties;
@@ -54,7 +55,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * an ImageReader for any TIFF-based image format.
  *
  * @author Fabrizio Giudici
- * @version $Id: ThumbnailHelper.java 74 2008-08-23 21:39:59Z fabriziogiudici $
+ * @version $Id: ThumbnailHelper.java 75 2008-08-23 21:58:04Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ThumbnailHelper
@@ -205,7 +206,8 @@ public class ThumbnailHelper
      **************************************************************************/
     private void getSizeFromEmbeddedJPEG (@Nonnull final RAWImageInputStream iis)
       {           
-        final ImageReader ir = ImageIO.getImageReadersByFormatName("JPEG").next();
+        ImageInputStream is = null;
+        ImageReader ir = null;
         
         try
           {
@@ -214,7 +216,9 @@ public class ThumbnailHelper
             final long save = iis.getStreamPosition(); // TEMP FIX for a bug
             iis.seek(offset);
             iis.read(buffer);
-            ir.setInput(ImageIO.createImageInputStream(createInputStream(buffer)));
+            ir = ImageIO.getImageReadersByFormatName("JPEG").next();
+            is = ImageIO.createImageInputStream(createInputStream(buffer));
+            ir.setInput(is);
             width = ir.getWidth(0);
             height = ir.getHeight(0);
             iis.seek(save);
@@ -225,7 +229,22 @@ public class ThumbnailHelper
           }
         finally
           {
-            ir.dispose();
+            if (is != null)
+              {
+                try 
+                  {
+                    is.close();
+                  }
+                catch (IOException e)
+                  {
+                    logger.warning("While closing stream " + e);
+                  }
+              }
+            
+            if (ir != null)
+              {
+                ir.dispose();
+              }
           }
       }
     
