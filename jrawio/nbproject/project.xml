@@ -9,7 +9,9 @@
                 <root id="src.dir"/>
                 <root id="src.src-generated.dir" name="Generated Sources"/>
             </source-roots>
-            <test-roots/>
+            <test-roots>
+                <root id="test.test.dir" name="Test Packages"/>
+            </test-roots>
         </data>
     </configuration>
 </project>
