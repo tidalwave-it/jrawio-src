@@ -60,6 +60,22 @@ http://creativecommons.org/licenses/by-sa/2.5
         <description></description>
     </tag>
     <tag>
+        <code>136</code>
+        <type>long</type>
+        <length>1</length>
+        <name>JpegThumbnailOffset</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>137</code>
+        <type>long</type>
+        <length>1</length>
+        <name>JpegThumbnailLength</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
         <code>3584</code>
         <type>undefined</type>
         <length>40</length>

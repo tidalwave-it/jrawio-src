@@ -22,81 +22,124 @@
  *
  *******************************************************************************
  *
- * $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: MRWMetadata.java 74 2008-08-23 21:39:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import java.io.InputStream;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
+import it.tidalwave.imageio.tiff.ThumbnailHelper;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: MRWMetadata.java 74 2008-08-23 21:39:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWMetadata extends TIFFMetadataSupport
   {
     private final static long serialVersionUID = 1795868418676854749L;
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     ******************************************************************************/
-    public MRWMetadata (Directory primaryIFD, RAWImageInputStream iis, HeaderProcessor headerProcessor)
+     * Constructs this object.
+     * 
+     * @param   primaryIFD        the primary IFD
+     * @param   iis               the input stream
+     * @param   headerProcessor   the header processor
+     * 
+     **************************************************************************/
+    public MRWMetadata (@Nonnull final Directory primaryIFD, 
+                        @Nonnull final RAWImageInputStream iis, 
+                        @Nonnull final HeaderProcessor headerProcessor)
       {
         super(primaryIFD, iis, headerProcessor);
+
+        final MinoltaMakerNote minoltaMakerNote = getMinoltaMakerNote();
+        
+        if (minoltaMakerNote != null)
+          {
+            final MRWHeaderProcessor mrwhp = (MRWHeaderProcessor)headerProcessor;
+            if (minoltaMakerNote.isJpegThumbnailLengthAvailable() &&
+                minoltaMakerNote.isJpegThumbnailOffsetAvailable())
+              {
+                final int offset = minoltaMakerNote.getJpegThumbnailOffset() + mrwhp.getBaseOffset();
+                final int length = minoltaMakerNote.getJpegThumbnailLength();
+                thumbnailHelperList.add(new ThumbnailHelper(iis, offset, length)
+                  {
+                    // The embedded JPEG thumbnail lacks the JPEG header
+                    @Override
+                    protected InputStream createInputStream (final byte[] buffer)
+                      {
+                        final byte[] result = new byte[buffer.length + 2];
+                        result[0] = (byte)0xff;
+                        result[1] = (byte)0xd8;
+                        System.arraycopy(buffer, 0, result, 2, buffer.length);
+                        return super.createInputStream(result);
+                      }
+                  });
+              }
+          }
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @return
+     * {@inheritDoc}
      * 
-     *******************************************************************************/
+     **************************************************************************/
+    @Override
     public int getWidth()
       {
         return getPrimaryIFD().getImageWidth();
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @return
+     * {@inheritDoc}
      * 
-     *******************************************************************************/
+     **************************************************************************/
+    @Override
     public int getHeight()
       {
         return getPrimaryIFD().getImageLength();
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @return
+     * {@inheritDoc}
      * 
-     *******************************************************************************/
-    public MinoltaMakerNote getMinoltaMakerNote ()
+     **************************************************************************/
+    @CheckForNull
+    public MinoltaMakerNote getMinoltaMakerNote()
       {
         return (MinoltaMakerNote)getMakerNote();
       }
     
-    /*******************************************************************************
-     *
-     * @inheritDoc
-     *
-     ******************************************************************************/
-    protected boolean isRasterIFD (IFD ifd)
+    /***************************************************************************
+     * 
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    @Override
+    protected boolean isRasterIFD (@Nonnull final IFD ifd)
       {
         return ifd.isImageWidthAvailable();
       }
     
-    /*******************************************************************************
-     *
-     * @inheritDoc
-     *
-     ******************************************************************************/
-    protected boolean isThumbnailIFD (IFD ifd)
+    /***************************************************************************
+     * 
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    @Override
+    protected boolean isThumbnailIFD (@Nonnull final IFD ifd)
       {
         return ifd.isJPEGInterchangeFormatAvailable();
       }

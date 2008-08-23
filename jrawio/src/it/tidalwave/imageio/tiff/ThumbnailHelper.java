@@ -22,14 +22,18 @@
  *
  *******************************************************************************
  *
- * $Id: ThumbnailHelper.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: ThumbnailHelper.java 74 2008-08-23 21:39:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import java.util.Properties;
+import java.util.logging.Logger;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.IOException;
 import java.awt.Transparency;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
@@ -50,12 +54,16 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * an ImageReader for any TIFF-based image format.
  *
  * @author Fabrizio Giudici
- * @version $Id: ThumbnailHelper.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: ThumbnailHelper.java 74 2008-08-23 21:39:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ThumbnailHelper
   {
-    public IFD ifd;
+    private final static String CLASS = ThumbnailHelper.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+    
+    @Nonnull
+    public final IFD ifd; // FIXME: make it private
     
     private int width;
     
@@ -65,12 +73,13 @@ public class ThumbnailHelper
     
     private int byteCount;
     
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
      *
-     ******************************************************************************/
-    public ThumbnailHelper (RAWImageInputStream iis, IFD ifd)
+     **************************************************************************/
+    public ThumbnailHelper (@Nonnull final RAWImageInputStream iis, 
+                            @Nonnull final IFD ifd)
       {
         this.ifd = ifd; 
 
@@ -78,15 +87,13 @@ public class ThumbnailHelper
           {
             width = ifd.getImageWidth();  
             height = ifd.getImageLength();  
-          }
-        
+          }        
         else
           {
             offset = ifd.getJPEGInterchangeFormat();
             byteCount = ifd.getJPEGInterchangeFormatLength();
             getSizeFromEmbeddedJPEG(iis);
           }
-        
         // 
         // Try first JPEG, since some formats have all information (raster+thumbnail) in the same IFD.
         //
@@ -103,130 +110,162 @@ public class ThumbnailHelper
           }
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
      *
-     ******************************************************************************/
-    public ThumbnailHelper (RAWImageInputStream iis, int offset, int byteCount)
+     **************************************************************************/
+    public ThumbnailHelper (@Nonnull final RAWImageInputStream iis, 
+                            final int offset, 
+                            @Nonnegative final int byteCount)
       {
+        this.ifd = null;
         this.offset = offset;
         this.byteCount = byteCount;
         getSizeFromEmbeddedJPEG(iis);
       }
        
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
      *
-     ******************************************************************************/
-    public ThumbnailHelper (RAWImageInputStream iis, int offset, int byteCount, int width, int height)
+     **************************************************************************/
+    public ThumbnailHelper (@Nonnull final RAWImageInputStream iis, 
+                            final int offset, 
+                            @Nonnegative final int byteCount, 
+                            final int width, 
+                            final int height)
       {
+        this.ifd = null;
         this.offset = offset;
         this.byteCount = byteCount;
         this.width = width;
         this.height = height;
       }
        
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
      *
-     ******************************************************************************/
+     **************************************************************************/
     public int getWidth()
       {
         return width;
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
      *
-     ******************************************************************************/
+     **************************************************************************/
     public int getHeight()
       {
         return height;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
      *
-     ******************************************************************************/
-    public BufferedImage load (ImageInputStream iis) throws IOException
+     **************************************************************************/
+    public BufferedImage load (@Nonnull final ImageInputStream iis) 
+      throws IOException
       {
         return load(iis, offset, byteCount);
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
      *
-     ******************************************************************************/
-    private BufferedImage load (ImageInputStream iis, int offset, int byteCount) throws IOException
+     **************************************************************************/
+    private BufferedImage load (@Nonnull final ImageInputStream iis, 
+                                final int offset, 
+                                @Nonnegative int byteCount) 
+      throws IOException
       {
-        byte[] buffer = new byte[byteCount];
+        logger.fine(String.format("load(%s, %d, %d", iis, offset, byteCount));
+        final byte[] buffer = new byte[byteCount];
         iis.seek(offset);
         iis.read(buffer);
-        BufferedImage image = ImageIO.read(new ByteArrayInputStream(buffer));
+        BufferedImage image = ImageIO.read(createInputStream(buffer));
         
         if ((image == null))
           {
-//            image = loadPlainImage(iis, ifd.getImageWidth(), ifd.getImageLength(), offset, byteCount);   
             image = loadPlainImage(iis, width, height, offset, byteCount);   
           }
 
         return image;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
      *
-     ******************************************************************************/
-    private void getSizeFromEmbeddedJPEG (RAWImageInputStream iis)
+     **************************************************************************/
+    private void getSizeFromEmbeddedJPEG (@Nonnull final RAWImageInputStream iis)
       {           
+        final ImageReader ir = ImageIO.getImageReadersByFormatName("JPEG").next();
+        
         try
           {
-            byte[] buffer = new byte[byteCount];
-            long save = iis.getStreamPosition(); // TEMP FIX for a bug
+            System.err.println("OFFSET / LENGTH " + offset + " " + byteCount);
+            final byte[] buffer = new byte[byteCount];
+            final long save = iis.getStreamPosition(); // TEMP FIX for a bug
             iis.seek(offset);
             iis.read(buffer);
-            ImageReader ir = (ImageReader)(ImageIO.getImageReadersByFormatName("JPEG").next());
-            ir.setInput(ImageIO.createImageInputStream(new ByteArrayInputStream(buffer)));
+            ir.setInput(ImageIO.createImageInputStream(createInputStream(buffer)));
             width = ir.getWidth(0);
             height = ir.getHeight(0);
             iis.seek(save);
           } 
-        
         catch (IOException e)
           {
             e.printStackTrace(); // FIXME
           }
+        finally
+          {
+            ir.dispose();
+          }
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
      *
-     ******************************************************************************/
-    protected BufferedImage loadPlainImage (ImageInputStream iis, int width, int height, int offset, int length) throws IOException
+     **************************************************************************/
+    @Nonnull
+    protected InputStream createInputStream (@Nonnull final byte[] buffer)
+      {
+        return new ByteArrayInputStream(buffer);
+      }
+    
+    /***************************************************************************
+     *
+     *
+     *
+     **************************************************************************/
+    protected BufferedImage loadPlainImage (@Nonnull final ImageInputStream iis, 
+                                            @Nonnull final int width, 
+                                            @Nonnull final int height, 
+                                            final int offset, 
+                                            @Nonnegative int length) 
+      throws IOException
       {
         //  logger.fine("loadPlainImage(iis: " + iis + ", offset: " + offset + ")");          
-        int pixelStride = 3;
-        int scanlineStride = pixelStride * width;
-        int[] bandOffsets = { 0, 1, 2 }; // FIXME
-        WritableRaster raster = Raster.createInterleavedRaster(DataBuffer.TYPE_BYTE, width, height, scanlineStride,
-            pixelStride, bandOffsets, null);
+        final int pixelStride = 3;
+        final int scanlineStride = pixelStride * width;
+        final int[] bandOffsets = { 0, 1, 2 }; // FIXME
+        final WritableRaster raster = Raster.createInterleavedRaster(DataBuffer.TYPE_BYTE, width, height, scanlineStride,
+                                                                     pixelStride, bandOffsets, null);
         iis.seek(offset); // FIXME: does not support multiple strips
-        DataBufferByte dataBuffer = (DataBufferByte)raster.getDataBuffer();
+        final DataBufferByte dataBuffer = (DataBufferByte)raster.getDataBuffer();
         iis.readFully(dataBuffer.getData(), 0, scanlineStride * height);
   
-        ColorSpace colorSpace = ColorSpace.getInstance(ColorSpace.CS_sRGB);
-        ColorModel colorModel = new ComponentColorModel(colorSpace, false, false, Transparency.OPAQUE, DataBuffer.TYPE_BYTE);
-        Properties properties = new Properties();
-
-        BufferedImage bufferedImage = new BufferedImage(colorModel, raster, false, properties);  
+        final ColorSpace colorSpace = ColorSpace.getInstance(ColorSpace.CS_sRGB);
+        final ColorModel colorModel = new ComponentColorModel(colorSpace, false, false, Transparency.OPAQUE, DataBuffer.TYPE_BYTE);
+        final Properties properties = new Properties();
+        final BufferedImage bufferedImage = new BufferedImage(colorModel, raster, false, properties);  
         
         //logger.fine(">>>> loadPlainImage() completed ok in " + (System.currentTimeMillis() - time) + " msec.");
 
