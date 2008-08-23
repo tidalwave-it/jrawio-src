@@ -22,12 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: OperationSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: OperationSupport.java 67 2008-08-23 14:50:02Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
 
-import java.io.IOException;
+import javax.annotation.Nonnull;
+import javax.annotation.Nonnegative;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
@@ -35,6 +36,7 @@ import java.util.HashMap;
 import java.util.Properties;
 import java.util.logging.Logger;
 import java.io.InputStream;
+import java.io.IOException;
 import java.awt.color.ColorSpace;
 import java.awt.color.ICC_Profile;
 import java.awt.color.ICC_ColorSpace;
@@ -47,44 +49,47 @@ import java.awt.image.SinglePixelPackedSampleModel;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: OperationSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: OperationSupport.java 67 2008-08-23 14:50:02Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class OperationSupport implements Operation
   {
-    private static Map propertyMap = new HashMap();
+    private static final Map<String, Properties> PROPERTY_MAP = new HashMap<String, Properties>();
     
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
-    protected static Logger getLogger (Class clazz)
+     **************************************************************************/
+    @Nonnull 
+    protected static Logger getLogger (@Nonnull final Class clazz)
       {
         return Logger.getLogger(getQualifiedName(clazz));
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
-    protected static String getQualifiedName (Class clazz)
+     **************************************************************************/
+    protected static String getQualifiedName (@Nonnull final Class clazz)
       {
         return clazz.getPackage().getName() + "." + clazz.getName();
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
-    public void init (RAWImage image) throws Exception
+     **************************************************************************/
+    public void init (@Nonnull final RAWImage image) 
+      throws Exception
       {        
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
-    protected static Properties getProperties (Class clazz)
+     **************************************************************************/
+    @Nonnull 
+    protected static Properties getProperties (@Nonnull final Class clazz)
       {
         String name = clazz.getName();
         int i = name.lastIndexOf('.');
@@ -97,19 +102,20 @@ public abstract class OperationSupport implements Operation
         return getProperties(clazz, name + ".properties");
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
-    private static Properties getProperties (Class clazz, String resName)
+     **************************************************************************/
+    @Nonnull 
+    private static Properties getProperties (@Nonnull final Class clazz, 
+                                             @Nonnull final String resourceName)
       {
-        String key = clazz+ ":" + resName;
-        Properties properties = (Properties)propertyMap.get(key);
+        String key = clazz+ ":" + resourceName;
+        Properties properties = (Properties)PROPERTY_MAP.get(key);
 
         if (properties == null)
           {
-            InputStream[] is = getResourceInputStream(clazz, resName);
-
+            InputStream[] is = getResourceInputStream(clazz, resourceName);
             properties = new Properties();
 
             if (is != null)
@@ -129,26 +135,25 @@ public abstract class OperationSupport implements Operation
                       }
                   }
 
-                propertyMap.put(key, properties);
+                PROPERTY_MAP.put(key, properties);
               }
           }
 
         return properties;
       }
 
-    /*******************************************************************************
-     * 
-     * @param resName
-     * @return
-     * 
-     *******************************************************************************/
-    public static InputStream[] getResourceInputStream (Class clazz, String resName)
+    /***************************************************************************
+     *
+     *
+     **************************************************************************/
+    public static InputStream[] getResourceInputStream (@Nonnull Class clazz, 
+                                                        @Nonnull final String resourceName)
       {
-        List temp = new ArrayList();
+        final List<InputStream> temp = new ArrayList<InputStream>();
 
         for (; clazz != null; clazz = clazz.getSuperclass())
           {
-            String string = "/" + clazz.getPackage().getName().replace('.', '/') + "/" + resName;
+            String string = "/" + clazz.getPackage().getName().replace('.', '/') + "/" + resourceName;
             InputStream is = clazz.getResourceAsStream(string);
 
             if (is != null)
@@ -158,18 +163,30 @@ public abstract class OperationSupport implements Operation
               }
           }
 
-        return (InputStream[])temp.toArray(new InputStream[0]);
+        return temp.toArray(new InputStream[0]);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
+     *
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    @Override
+    @Nonnull
+    public String toString() 
+      {
+        return "[" + getClass().getSimpleName().replaceAll(".*\\.", "") + "]";
+      }    
+
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
+     **************************************************************************/
     protected static String toString (
         int[] array,
         int   radix)
       {
-        StringBuffer buffer = new StringBuffer("");
+        StringBuilder buffer = new StringBuilder("");
 
         for (int i = 0; i < array.length; i++)
           {
@@ -184,13 +201,10 @@ public abstract class OperationSupport implements Operation
         return buffer.toString();
       }
 
-    /**
-     * @param image
-     */
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
+     **************************************************************************/
     protected static void logImage (Logger logger, String prefix, RenderedImage image)
       {
         ColorModel colorModel = image.getColorModel();
@@ -202,10 +216,10 @@ public abstract class OperationSupport implements Operation
         //      log.debug(">>>> iccProfile is now: " + getICCProfileName(bufferedImage));
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
+     **************************************************************************/
     private static String toString (SampleModel sampleModel)
       {
         if (sampleModel instanceof SinglePixelPackedSampleModel)
@@ -224,10 +238,10 @@ public abstract class OperationSupport implements Operation
           }
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
+     **************************************************************************/
     private static String toString (ColorSpace colorSpace)
       {
        if (colorSpace instanceof ICC_ColorSpace)
@@ -241,13 +255,13 @@ public abstract class OperationSupport implements Operation
           }
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
+     **************************************************************************/
     private static String toString (ICC_ColorSpace colorSpace)
       {
-        StringBuffer buffer = new StringBuffer("");
+        StringBuilder buffer = new StringBuilder("");
         buffer.append(colorSpace.getClass().getName());
         buffer.append("[type: ");
         buffer.append(colorSpace.getType());
@@ -258,13 +272,13 @@ public abstract class OperationSupport implements Operation
         return buffer.toString();
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
+     **************************************************************************/
     private static String toString (SinglePixelPackedSampleModel sampleModel)
       {
-        StringBuffer buffer = new StringBuffer("");
+        StringBuilder buffer = new StringBuilder("");
         buffer.append(sampleModel.getClass().getName());
         buffer.append("[width: ");
         buffer.append(sampleModel.getWidth());
@@ -289,13 +303,13 @@ public abstract class OperationSupport implements Operation
         return buffer.toString();
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
+     **************************************************************************/
     private static String toString (PixelInterleavedSampleModel sampleModel)
       {
-        StringBuffer buffer = new StringBuffer("");
+        StringBuilder buffer = new StringBuilder("");
         buffer.append(sampleModel.getClass().getName());
         buffer.append("[width: ");
         buffer.append(sampleModel.getWidth());
@@ -319,10 +333,26 @@ public abstract class OperationSupport implements Operation
 
         return buffer.toString();
       }
-    /*******************************************************************************
+    
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
+     **************************************************************************/
+    @Nonnegative
+    protected int normalizedAngle (int angle)
+      {
+        while (angle < 0)
+          {
+            angle += 360;  
+          }
+        
+        return angle % 360;
+      }
+    
+    /***************************************************************************
+     *
+     *
+     **************************************************************************/
     protected static ICC_Profile getICCProfile (RenderedImage image)
       {
         ColorSpace colorSpace = image.getColorModel().getColorSpace();
@@ -336,10 +366,10 @@ public abstract class OperationSupport implements Operation
         return null;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
+     **************************************************************************/
     protected static String getICCProfileName (ICC_Profile profile)
       {
         if (profile == null)
