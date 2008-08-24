@@ -22,14 +22,15 @@
  *
  *******************************************************************************
  *
- * $Id: RasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: RasterReader.java 116 2008-08-24 21:52:21Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
 
-import java.nio.ByteOrder;
+import javax.annotation.Nonnull;
 import java.util.logging.Logger;
 import java.io.IOException;
+import java.nio.ByteOrder;
 import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferUShort;
 import java.awt.image.Raster;
@@ -60,13 +61,12 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * </ul>
  * 
  * @author  Fabrizio Giudici
- * @version $Id: RasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: RasterReader.java 116 2008-08-24 21:52:21Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RasterReader
   {
-    private final static String CLASS = "it.tidalwave.imageio.raw.RasterReader";
-
+    private final static String CLASS = RasterReader.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
 
     public static final int R_OFFSET = 0;
@@ -340,7 +340,8 @@ public class RasterReader
      * 
      *******************************************************************************/
     public final WritableRaster loadRaster (RAWImageInputStream iis,
-                                            RAWImageReaderSupport ir) throws IOException
+                                            RAWImageReaderSupport ir) 
+      throws IOException
       {
         assert width > 0 : "width not set";
         assert height > 0 : "height not set";
@@ -377,7 +378,8 @@ public class RasterReader
      ******************************************************************************/
     protected void loadUncompressedRaster (RAWImageInputStream iis,
                                            WritableRaster raster,
-                                           RAWImageReaderSupport ir) throws IOException
+                                           RAWImageReaderSupport ir) 
+      throws IOException
       {
         if (bitsPerSample == 16)
           {
@@ -402,7 +404,8 @@ public class RasterReader
      ******************************************************************************/
     protected void loadUncompressedRasterNot16 (RAWImageInputStream iis,
                                                 WritableRaster raster,
-                                                RAWImageReaderSupport ir) throws IOException      
+                                                RAWImageReaderSupport ir) 
+      throws IOException      
       {
         logger.fine("loadUncompressedRaster()");
         logger.finer(">>>> CFA pattern: " + cfaOffsets[0] + " " + cfaOffsets[1] + " " + cfaOffsets[2] + " " + cfaOffsets[3]);
@@ -455,19 +458,22 @@ public class RasterReader
      * @throws IOException  if an I/O error occurs
      *
      ******************************************************************************/
-    protected void loadUncompressedRaster16 (RAWImageInputStream iis,
-                                             WritableRaster raster,
-                                             RAWImageReaderSupport ir) throws IOException
+    protected void loadUncompressedRaster16 (@Nonnull final RAWImageInputStream iis,
+                                             @Nonnull final WritableRaster raster,
+                                             @Nonnull final RAWImageReaderSupport ir) 
+      throws IOException
       {
-        logger.fine("loadUncompressedRaster16()");
+        long position = iis.getStreamPosition();
+        logger.fine(String.format("loadUncompressedRaster16() at %d (0x%x), %dx%d %dbps", 
+                                  position, position, width, height, bitsPerSample));
         logger.finer(">>>> CFA pattern: " + cfaOffsets[0] + " " + cfaOffsets[1] + " " + cfaOffsets[2] + " " + cfaOffsets[3]);
 
-        DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
-        short[] data = dataBuffer.getData();
-        int width = raster.getWidth();
-        int height = raster.getHeight();
-        int pixelStride = 3; // FIXME
-        int scanStride = width * pixelStride;
+        final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
+        final short[] data = dataBuffer.getData();
+        final int width = raster.getWidth();
+        final int height = raster.getHeight();
+        final int pixelStride = 3; // FIXME
+        final int scanStride = width * pixelStride;
         selectBitReader(iis, raster, bitsPerSample);
         
         if (byteOrder == null)
@@ -475,7 +481,7 @@ public class RasterReader
             byteOrder = iis.getByteOrder();  
           }
         
-        logger.finer(">>>> BYTE ORDER: " + byteOrder);
+        logger.finer(">>>> byte order: " + byteOrder);
         boolean swap16 = byteOrder == ByteOrder.BIG_ENDIAN;
         //
         // We can rely on the fact that the array has been zeroed by the JVM,
@@ -491,7 +497,7 @@ public class RasterReader
               {
                 int j = x % 2;
 //                int sample = iis.readShort() & 0xFFFF; Works, but it's 50% slower'
-                int sample = (int)iis.readBits(bitsPerSample) % 0xFFFF;
+                int sample = (int)iis.readBits(bitsPerSample) & 0xFFFF;
                 
                 if (swap16)
                   {
@@ -504,6 +510,9 @@ public class RasterReader
 
             ir.processImageProgress((100.0f * y) / height);
           }
+        
+        position = iis.getStreamPosition();
+        logger.fine(String.format(">>>> loadUncompressedRaster16() completed at %d (0x%x)", position, position));
       }    
     
     /*******************************************************************************
@@ -562,6 +571,7 @@ public class RasterReader
                                     int bitsPerSample)
       {
         DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
+        // FIXME: typeBits should be indeed bitsPerSample
         int typeBits = DataBuffer.getDataTypeSize(dataBuffer.getDataType());
 
         if (isCompressedRaster())
