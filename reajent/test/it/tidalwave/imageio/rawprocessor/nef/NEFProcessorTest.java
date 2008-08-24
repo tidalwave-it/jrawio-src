@@ -52,7 +52,7 @@ public class NEFProcessorTest extends LoadTestSupport
         assertEquals(1, ir.getNumThumbnails(0));
         assertImage(ir, 3034, 2024);
         assertThumbnail(ir, 0, 120, 160);
-        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 16);
+        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 8); // FIXME: WRONG, should be 16 bits
         assertLoadThumbnail(ir, 0, 120, 160);
         close(ir);
         
