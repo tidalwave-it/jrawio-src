@@ -22,69 +22,76 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImageInputStream.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: RAWImageInputStream.java 107 2008-08-24 17:54:37Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.io;
 
 import java.io.IOException;
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageInputStreamImpl;
 
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: RAWImageInputStream.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: RAWImageInputStream.java 107 2008-08-24 17:54:37Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RAWImageInputStream extends ImageInputStreamImpl
   {
+    @Nonnegative
     private long baseOffset;
 
+    @Nonnull
+    // Not final: CRWImageInputStream needs to switch it.
     protected ImageInputStream delegate;
 
+    @CheckForNull
     private BitReader bitReader;
 
     private boolean dontClose;
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * @param delegate
      * 
-     *******************************************************************************/
-    public RAWImageInputStream (ImageInputStream delegate)
+     **************************************************************************/
+    public RAWImageInputStream (@Nonnull final ImageInputStream delegate)
       {
         this.delegate = delegate;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * @param baseOffset
      * 
-     *******************************************************************************/
-    public void setBaseOffset (long baseOffset)
+     **************************************************************************/
+    public void setBaseOffset (final long baseOffset)
       {
         this.baseOffset = baseOffset;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * @return
      * 
-     *******************************************************************************/
-    public long getBaseOffset ()
+     **************************************************************************/
+    public long getBaseOffset()
       {
         return baseOffset;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * @param bitCount
      * @param bufferSize
      * 
-     *******************************************************************************/
-    public void selectBitReader (int bitCount,
-                                 int bufferSize)
+     **************************************************************************/
+    public void selectBitReader (@Nonnegative final int bitCount,
+                                 @Nonnegative int bufferSize)
       {
         if (bufferSize == 0)
           {
@@ -109,18 +116,18 @@ public class RAWImageInputStream extends ImageInputStreamImpl
         //        logger.fine("Using bitReader: " + bitReader.getClass());
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * @param b
      * 
-     *******************************************************************************/
-    public void setSkipZeroAfterFF (boolean b)
+     **************************************************************************/
+    public void setSkipZeroAfterFF (final boolean b)
       {
         assert (bitReader != null) : "null bitReader";
         bitReader.setSkipZeroAfterFF(b);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * Read another string of bits. If the most significant bits of the read string
      * is 1, the 2-complement value is returned. This operation is frequently needed
@@ -129,9 +136,10 @@ public class RAWImageInputStream extends ImageInputStreamImpl
      * @param  bitsToGet    how many bits to read
      * @return              the bits as an integer
      * @throws IOException  if any I/O error occurs
-     * 
-     *******************************************************************************/
-    public final int readComplementedBits (int bitsToGet) throws IOException
+     *
+     ***************************************************************************/
+    public final int readComplementedBits (@Nonnegative final int bitsToGet) 
+      throws IOException
       {
         int value = (int)readBits(bitsToGet);
 
@@ -143,30 +151,45 @@ public class RAWImageInputStream extends ImageInputStreamImpl
         return value;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * @param bitsToSkip
      * @throws IOException
      * 
-     *******************************************************************************/
-    public final void skipBits (int bitsToSkip) throws IOException
+     **************************************************************************/
+    public final void skipBits (@Nonnegative final int bitsToSkip) 
+      throws IOException
       {
         assert (bitReader != null) : "null bitReader";
         bitReader.skipBits(bitsToSkip);
       }
 
+    /***************************************************************************
+     * 
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    @Override
+    public String toString() 
+      {
+        return String.format("RAWImageInputStream[%s]", delegate);
+      }
+    
     ////////// Decorated methods follow ////////////////////////////////////////////
 
+    @Override
     public final int readBit () throws IOException
       {
         return (bitReader != null) ? bitReader.readBits(1) : delegate.readBit();
       }
 
+    @Override
     public final long readBits (int numBits) throws IOException
       {
         return (bitReader != null) ? bitReader.readBits(numBits) : delegate.readBits(numBits);
       }
 
+    @Override
     public void seek (long pos) throws IOException
       {
         if (bitReader != null)
@@ -180,16 +203,19 @@ public class RAWImageInputStream extends ImageInputStreamImpl
           }
       }
 
+    @Override
     public long getStreamPosition () throws IOException
       {
         return ((bitReader != null) ? bitReader.getStreamPosition() : delegate.getStreamPosition()) - baseOffset;
       }
 
+    @Override
     public int getBitOffset () throws IOException
       {
         return (bitReader != null) ? bitReader.getBitOffset() : delegate.getBitOffset();
       }
 
+    @Override
     public void setBitOffset (int bitOffset) throws IOException
       {
         if (bitReader != null)
@@ -217,6 +243,7 @@ public class RAWImageInputStream extends ImageInputStreamImpl
         return delegate.read(b, off, len);
       }
 
+    @Override
     public long length ()
       {
         try
@@ -229,11 +256,13 @@ public class RAWImageInputStream extends ImageInputStreamImpl
           }
       }
 
+    @Override
     public int skipBytes (int n) throws IOException
       {
         return delegate.skipBytes(n); // FIXME: bitReader?
       }
 
+    @Override
     public long skipBytes (long n) throws IOException
       {
         return delegate.skipBytes(n); // FIXME: bitReader?
@@ -250,36 +279,43 @@ public class RAWImageInputStream extends ImageInputStreamImpl
      delegate.reset();
      }
      */
+    @Override
     public void flushBefore (long pos) throws IOException
       {
         delegate.flushBefore(pos + baseOffset);
       }
 
+    @Override
     public void flush () throws IOException
       {
         delegate.flush();
       }
 
+    @Override
     public long getFlushedPosition ()
       {
         return delegate.getFlushedPosition();
       }
 
+    @Override
     public boolean isCached ()
       {
         return delegate.isCached();
       }
 
+    @Override
     public boolean isCachedMemory ()
       {
         return delegate.isCachedMemory();
       }
 
+    @Override
     public boolean isCachedFile ()
       {
         return delegate.isCachedFile();
       }
 
+    @Override
     public void close () throws IOException
       {
 //        if (!dontClose)
