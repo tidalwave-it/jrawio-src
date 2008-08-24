@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ThumbnailHelper.java 76 2008-08-23 22:03:28Z fabriziogiudici $
+ * $Id: ThumbnailHelper.java 93 2008-08-24 13:57:07Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -54,7 +54,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * an ImageReader for any TIFF-based image format.
  *
  * @author Fabrizio Giudici
- * @version $Id: ThumbnailHelper.java 76 2008-08-23 22:03:28Z fabriziogiudici $
+ * @version $Id: ThumbnailHelper.java 93 2008-08-24 13:57:07Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ThumbnailHelper
@@ -72,6 +72,8 @@ public class ThumbnailHelper
     private int offset;
     
     private int byteCount;
+    
+    private byte[] buffer;
     
     /***************************************************************************
      *
@@ -131,6 +133,19 @@ public class ThumbnailHelper
      *
      **************************************************************************/
     public ThumbnailHelper (@Nonnull final RAWImageInputStream iis, 
+                            @Nonnull final byte[] buffer)
+      {
+        this.ifd = null;
+        this.buffer = buffer;
+        getSizeFromEmbeddedJPEG(iis);
+      }
+       
+    /***************************************************************************
+     *
+     *
+     *
+     **************************************************************************/
+    public ThumbnailHelper (@Nonnull final RAWImageInputStream iis, 
                             final int offset, 
                             @Nonnegative final int byteCount, 
                             final int width, 
@@ -171,23 +186,8 @@ public class ThumbnailHelper
     public BufferedImage load (@Nonnull final ImageInputStream iis) 
       throws IOException
       {
-        return load(iis, offset, byteCount);
-      }
-    
-    /***************************************************************************
-     *
-     *
-     *
-     **************************************************************************/
-    private BufferedImage load (@Nonnull final ImageInputStream iis, 
-                                final int offset, 
-                                @Nonnegative int byteCount) 
-      throws IOException
-      {
-        logger.fine(String.format("load(%s, %d, %d", iis, offset, byteCount));
-        final byte[] buffer = new byte[byteCount];
-        iis.seek(offset);
-        iis.read(buffer);
+        logger.fine(String.format("load(%s)", iis));
+        final byte[] buffer = getBuffer(iis);
         BufferedImage image = ImageIO.read(createInputStream(buffer));
         
         if ((image == null))
@@ -196,6 +196,28 @@ public class ThumbnailHelper
           }
 
         return image;
+      }
+    
+    /***************************************************************************
+     *
+     *
+     *
+     **************************************************************************/
+    @Nonnull
+    private byte[] getBuffer (@Nonnull final ImageInputStream iis) 
+      throws IOException
+      {
+        if (buffer != null)
+          {
+            return buffer;  
+          }
+        else
+          {
+            final byte[] buffer = new byte[byteCount];
+            iis.seek(offset);
+            iis.read(buffer);
+            return buffer;
+          }
       }
 
     /***************************************************************************
@@ -210,10 +232,8 @@ public class ThumbnailHelper
         
         try
           {
-            final byte[] buffer = new byte[byteCount];
             final long save = iis.getStreamPosition(); // TEMP FIX for a bug
-            iis.seek(offset);
-            iis.read(buffer);
+            final byte[] buffer = getBuffer(iis);
             ir = ImageIO.getImageReadersByFormatName("JPEG").next();
             is = ImageIO.createImageInputStream(createInputStream(buffer));
             ir.setInput(is);

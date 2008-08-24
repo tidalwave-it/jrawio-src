@@ -22,25 +22,33 @@
  *
  *******************************************************************************
  *
- * $Id: OlympusMakerNote.java 81 2008-08-24 08:44:10Z fabriziogiudici $
+ * $Id: OlympusMakerNote.java 93 2008-08-24 13:57:07Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import java.util.NoSuchElementException;
+import java.util.logging.Logger;
 import java.io.IOException;
+import it.tidalwave.imageio.tiff.ThumbnailHelper;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: OlympusMakerNote.java 81 2008-08-24 08:44:10Z fabriziogiudici $
+ * @version $Id: OlympusMakerNote.java 93 2008-08-24 13:57:07Z fabriziogiudici $
  *
  ******************************************************************************/
 public class OlympusMakerNote extends OlympusMakerNoteSupport
   {
+    private final static String CLASS = ORFMetadata.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
     private final static long serialVersionUID = 6357805620960118907L;
 
+    private CameraSettings cameraSettings;
+    
     /***************************************************************************
      *
      * {@inheritDoc}
@@ -58,9 +66,59 @@ public class OlympusMakerNote extends OlympusMakerNoteSupport
 
         if (s.equals("OLYMP"))
           {
+            iis.skipBytes(4);
             super.load(iis, iis.getStreamPosition()); // not loadAll(), there's no next-IFD pointer at the end
+            loadCameraSettings(iis);
           }
 
         iis.setBaseOffset(baseOffsetSave);
+      }
+    
+    /***************************************************************************
+     *
+     *
+     **************************************************************************/
+    @CheckForNull
+    public CameraSettings getOlympusCameraSettings()
+      {
+        return cameraSettings;  
+      }
+    
+    /***************************************************************************
+     *
+     *
+     **************************************************************************/
+    @Nonnull
+    protected ThumbnailHelper loadThumbnailHelper (@Nonnull final RAWImageInputStream iis)
+      throws IOException, NoSuchElementException
+      {
+        if ((cameraSettings != null) &&
+             cameraSettings.isThumbnailOffsetAvailable() && 
+             cameraSettings.isThumbnailSizeAvailable())
+          {
+            final int makerNoteOffset = (int)getStart() - 12;
+            final int thumbnailOffset = cameraSettings.getThumbnailOffset() + makerNoteOffset;
+            final int thumbnailSize = cameraSettings.getThumbnailSize();
+            return new ThumbnailHelper(iis, thumbnailOffset, thumbnailSize);
+          }
+        
+        throw new NoSuchElementException();
+      }
+
+    /***************************************************************************
+     *
+     *
+     **************************************************************************/
+    private void loadCameraSettings (@Nonnull final RAWImageInputStream iis)
+      throws IOException
+      {
+        if (isCameraSettingsAvailable())
+          {
+            final int cameraSettingsOffset = getCameraSettings();
+            final int makerNoteOffset = (int)getStart() - 12;
+            cameraSettings = new CameraSettings();
+            cameraSettings.load(iis, makerNoteOffset + cameraSettingsOffset);
+            logger.fine("Camera Settings: " + cameraSettings);
+          }
       }
   }

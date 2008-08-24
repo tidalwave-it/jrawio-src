@@ -31,7 +31,7 @@ SOFTWARE.
 
 =============================================================================
 
-$Id: build.xml 63 2008-08-23 14:45:46Z fabriziogiudici $
+$Id: build.xml 93 2008-08-24 13:57:07Z fabriziogiudici $
 -->
 
 <project name="jrawio" default="jar" basedir=".">
@@ -89,6 +89,12 @@ $Id: build.xml 63 2008-08-23 14:45:46Z fabriziogiudici $
             out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusMakerNoteSupport.java" 
             style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
             <param name="serialVersionUID" expression="7930973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusCameraSettings.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusCameraSettingsMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="3050973459348573495L"/>
             <param name="package" expression="it.tidalwave.imageio.orf"/>
         </xslt>
         <xslt in="${metadata.dir}/KodakMakerNote.xml" 

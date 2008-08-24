@@ -22,11 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: TIFFTag.java 79 2008-08-24 08:37:33Z fabriziogiudici $
+ * $Id: TIFFTag.java 93 2008-08-24 13:57:07Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.util.logging.Logger;
 import java.io.IOException;
@@ -40,7 +41,7 @@ import it.tidalwave.imageio.raw.TagRegistry;
  * This class represents a TIFF tag and is able to read from an IFD block.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: TIFFTag.java 79 2008-08-24 08:37:33Z fabriziogiudici $
+ * @version $Id: TIFFTag.java 93 2008-08-24 13:57:07Z fabriziogiudici $
  *
  ******************************************************************************/
 public class TIFFTag extends AbstractTag
@@ -73,8 +74,10 @@ public class TIFFTag extends AbstractTag
 
     public static final short TYPE_DOUBLE = 12;
 
+    public static final short TYPE_ORF_13 = 13;
+
     /** This array maps type codes to type descriptions. */
-    private static final String[] typeToString = new String[TYPE_DOUBLE + 1];
+    private static final String[] typeToString = new String[TYPE_ORF_13 + 1];
 
     static
       {
@@ -90,7 +93,8 @@ public class TIFFTag extends AbstractTag
         typeToString[TYPE_SLONG] = "signed long";
         typeToString[TYPE_SRATIONAL] = "signed rational";
         typeToString[TYPE_FLOAT] = "signed float";
-        typeToString[TYPE_DOUBLE] = "double";
+        typeToString[TYPE_DOUBLE] = "double"; 
+        typeToString[TYPE_ORF_13] = "orf13"; // used in the Olympus ORF makernote
       }
 
     /*******************************************************************************
@@ -113,6 +117,8 @@ public class TIFFTag extends AbstractTag
      * This method is overridden to support all TIFF specific types.
      * 
      *******************************************************************************/
+    @Override
+    @CheckForNull
     public Object getValue ()
       {
         switch (type)
@@ -152,6 +158,7 @@ public class TIFFTag extends AbstractTag
             case 0: // This is used by NEF MakerNote fields. FIXME: check
             case TYPE_SLONG:
             case TYPE_LONG:
+            case TYPE_ORF_13:
               return (intValue.length == 1) ? new Integer(intValue[0]) : (Object)intValue;
 
             case TYPE_ASCII:
@@ -233,6 +240,7 @@ public class TIFFTag extends AbstractTag
             case 0: // This is used by NEF MakerNote fields. FIXME: check
             case TYPE_SLONG:
             case TYPE_LONG:
+            case TYPE_ORF_13:
               intValue = readIntValues(iis, valuesCount); // FIXME: these are long!
               break;
 
@@ -274,6 +282,7 @@ public class TIFFTag extends AbstractTag
      * @inheritDoc
      * 
      ******************************************************************************/
+    @Override
     public boolean equals (Object o)
       {
         if (!(o instanceof TIFFTag))

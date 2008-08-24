@@ -12,78 +12,10 @@ http://creativecommons.org/licenses/by-sa/2.5
 <directory name="Olympus" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="Directory.xsd">
     <tag>
-        <code>0</code>
-        <type>ascii</type>
-        <name>Makernote Version</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>1</code>
+        <code>256</code>
         <type>undefined</type>
-        <name>Camera Settings</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>3</code>
-        <type>undefined</type>
-        <name>Alternate Camera Settings</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>64</code>
-        <type>undefined</type>
-        <name>Compressed Image Size</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>129</code>
-        <type>int</type>
-        <length>1</length>
-        <name>Minolta Thumbnail Offset</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>136</code>
-        <type>int</type>
-        <length>1</length>
-        <name>Alternate Minolta Thumbnail Offset</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>137</code>
-        <type>int</type>
-        <length>1</length>
-        <name>Minolta Thumbnail Length</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>257</code>
-        <type>short</type>
-        <length>1</length>
-        <name>Colour Mode</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>258</code>
-        <type>short</type>
-        <length>1</length>
-        <name>Image Quality</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>259</code>
-        <type>short</type>
-        <length>1</length>
-        <name>Alternate Image Quality</name>
+        <length>99</length>
+        <name>JpegThumbnail</name>
         <example></example>
         <description></description>
     </tag>
@@ -91,258 +23,55 @@ http://creativecommons.org/licenses/by-sa/2.5
         <code>512</code>
         <type>long</type>
         <length>3</length>
-        <name>Special Mode</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>513</code>
-        <type>short</type>
-        <length>1</length>
-        <name>JPEG Quality</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>514</code>
-        <type>short</type>
-        <length>1</length>
-        <name>Macro</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>516</code>
-        <type>rational</type>
-        <length>1</length>
-        <name>Digital Zoom</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>519</code>
-        <type>ascii</type>
-        <name>Firmware Version</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>520</code>
-        <type>ascii</type>
-        <name>Picture Info Data</name>
+        <name>SpecialMode</name>
         <example></example>
         <description></description>
     </tag>
     <tag>
         <code>521</code>
-        <type>ascii</type>
-        <name>Camera ID</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>523</code>
-        <type>int</type>
-        <length>1</length>
-        <name>Image Width</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>524</code>
-        <type>int</type>
-        <length>1</length>
-        <name>Image Height</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>525</code>
-        <type>ascii</type>
-        <name>Original Manufacturer Model</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>3584</code>
         <type>undefined</type>
-        <name>Print Image Matching Info</name>
+        <length>99</length>
+        <name>CameraID</name>
         <example></example>
         <description></description>
     </tag>
     <tag>
-        <code>4100</code>
+        <code>8208</code>
+        <type>undefined</type>
+        <length>99</length>
+        <name>Equipment</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>8224</code>
         <type>int</type>
         <length>1</length>
-        <name>Flash Mode</name>
+        <name>CameraSettings</name>
         <example></example>
         <description></description>
     </tag>
     <tag>
-        <code>4102</code>
-        <type>int</type>
-        <length>1</length>
-        <name>Bracket</name>
+        <code>8240</code>
+        <type>undefined</type>
+        <length>99</length>
+        <name>RawDevelopment</name>
         <example></example>
         <description></description>
     </tag>
     <tag>
-        <code>4107</code>
-        <type>int</type>
-        <length>1</length>
-        <name>Focus Mode</name>
+        <code>8256</code>
+        <type>undefined</type>
+        <length>99</length>
+        <name>ImageProcessing</name>
         <example></example>
         <description></description>
     </tag>
     <tag>
-        <code>4108</code>
-        <type>int</type>
-        <length>1</length>
-        <name>Focus Distance</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4109</code>
-        <type>int</type>
-        <length>1</length>
-        <name>Zoom</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4110</code>
-        <type>int</type>
-        <length>1</length>
-        <name>Macro Focus</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4111</code>
-        <type>short</type>
-        <length>1</length>
-        <name>Sharpness</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4113</code>
-        <type>short</type>
-        <length>9</length>
-        <name>Colour Matrix</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4114</code>
-        <type>short</type>
-        <length>4</length>
-        <name>Black Level</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4117</code>
-        <type>short</type>
-        <length>1</length>
-        <name>White Balance</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4119</code>
-        <type>short</type>
-        <length>2</length>
-        <name>Red Bias</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4120</code>
-        <type>short</type>
-        <length>2</length>
-        <name>Blue Bias</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4122</code>
-        <type>short</type>
-        <length>1</length>
-        <name>Serial Number</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4131</code>
-        <type>short</type>
-        <length>1</length>
-        <name>Flash Bias</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4137</code>
-        <type>short</type>
-        <length>1</length>
-        <name>Contrast</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4138</code>
-        <type>short</type>
-        <length>1</length>
-        <name>Sharpness Factor</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4139</code>
-        <type>short</type>
-        <length>1</length>
-        <name>Colour Control</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4140</code>
-        <type>short</type>
-        <length>1</length>
-        <name>Valid Bits</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4141</code>
-        <type>short</type>
-        <length>1</length>
-        <name>Coring Filter</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4142</code>
-        <type>long</type>
-        <length>1</length>
-        <name>Final Width</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4143</code>
-        <type>long</type>
-        <length>1</length>
-        <name>Final Height</name>
-        <example></example>
-        <description></description>
-    </tag>
-    <tag>
-        <code>4148</code>
-        <type>int</type>
-        <length>1</length>
-        <name>Compression Ratio</name>
+        <code>8272</code>
+        <type>undefined</type>
+        <length>99</length>
+        <name>FocusInfo</name>
         <example></example>
         <description></description>
     </tag>
