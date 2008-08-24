@@ -133,7 +133,7 @@ public class LoadTestSupport extends TestSupport
     protected void assertRaster (final BufferedImage image, final String path, final String expectedRasterMD5) 
       throws IOException, NoSuchAlgorithmException
       {
-        final File tmp = new File(System.getProperty("java.io.tmpdir") + "/reajenttest");
+        final File tmp = new File(System.getProperty("java.io.tmpdir") + "/jrawio-test");
         final File tiffFile = new File(tmp, path + ".tiff");
         final File jpegFile = new File(tmp, path + ".jpg"); 
         tiffFile.getParentFile().mkdirs();

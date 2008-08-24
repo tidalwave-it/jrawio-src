@@ -30,6 +30,7 @@ package it.tidalwave.imageio.dng;
 import java.io.IOException;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.LoadTestSupport;
+import java.awt.image.BufferedImage;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -43,33 +44,39 @@ public class DNGImageReaderTest extends LoadTestSupport
   {
     @Test
     public void testJRW144() 
-      throws IOException 
+      throws Exception 
       {
-        final ImageReader ir = getImageReader("esordini/Canon/EOS300D/Adobe/DNG/100_0056.DNG");
+        final String path = "esordini/Canon/EOS300D/Adobe/DNG/100_0056.DNG";
+        final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
         assertImage(ir, 3088, 2055);
         assertThumbnail(ir, 0, 256, 171);
         assertThumbnail(ir, 1, 1024, 683);
-        assertLoadImage(ir, 3088, 2055);
+        final BufferedImage image = assertLoadImage(ir, 3088, 2055);
         assertLoadThumbnail(ir, 0, 256, 171);
         assertLoadThumbnail(ir, 1, 1024, 683);
         close(ir);
+        
+//        assertRaster(image, path, "");
       }
     
     @Test
     public void testJRW145() 
-      throws IOException 
+      throws Exception 
       {
-        final ImageReader ir = getImageReader("esordini/Canon/EOS300D/Adobe/DNG/100_0043.DNG");
+        final String path = "esordini/Canon/EOS300D/Adobe/DNG/100_0043.DNG";
+        final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
         assertImage(ir, 3088, 2055);
         assertThumbnail(ir, 0, 256, 171);
         assertThumbnail(ir, 1, 1024, 683);
-        assertLoadImage(ir, 3088, 2055);
+        final BufferedImage image = assertLoadImage(ir, 3088, 2055);
         assertLoadThumbnail(ir, 0, 256, 171);
         assertLoadThumbnail(ir, 1, 1024, 683);
         close(ir);
+        
+//        assertRaster(image, path, "");
       }
   }

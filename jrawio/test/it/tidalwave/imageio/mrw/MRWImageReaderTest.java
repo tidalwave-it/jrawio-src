@@ -28,6 +28,7 @@
 package it.tidalwave.imageio.mrw;
 
 import it.tidalwave.imageio.LoadTestSupport;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageReader;
 import org.junit.Test;
@@ -43,15 +44,18 @@ public class MRWImageReaderTest extends LoadTestSupport
   {
     @Test
     public void testJRW152() 
-      throws IOException 
+      throws Exception 
       {
-        final ImageReader ir = getImageReader("others/theoheinze/Minolta/Dynax7D/MRW/PICT0652.MRW");
+        final String path = "others/theoheinze/Minolta/Dynax7D/MRW/PICT0652.MRW";
+        final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(1, ir.getNumThumbnails(0));
         assertImage(ir, 3008, 2000);
         assertThumbnail(ir, 0, 640, 480);
-        assertLoadImage(ir, 3016, 2008);
+        final BufferedImage image = assertLoadImage(ir, 3016, 2008);
         assertLoadThumbnail(ir, 0, 640, 480);
         close(ir);
+        
+        assertRaster(image, path, "1f83f407e5afe3299c4a6df1c9fd1710");
       }
   }
