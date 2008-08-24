@@ -58,7 +58,7 @@ public class DNGImageReaderTest extends LoadTestSupport
         assertLoadThumbnail(ir, 1, 1024, 683);
         close(ir);
         
-        assertRaster(image, path, "");
+        assertRaster(image, path, "62b1d9c0bdd0bcccbb004e8c0aae361c");
       }
     
     @Test
@@ -77,6 +77,6 @@ public class DNGImageReaderTest extends LoadTestSupport
         assertLoadThumbnail(ir, 1, 1024, 683);
         close(ir);
         
-        assertRaster(image, path, "");
+        assertRaster(image, path, "5ec0a74e2917142788271d8424627684");
       }
   }

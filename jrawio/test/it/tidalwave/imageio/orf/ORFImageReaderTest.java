@@ -51,7 +51,7 @@ public class ORFImageReaderTest extends LoadTestSupport
         assertEquals(1, ir.getNumThumbnails(0));
         assertImage(ir, 3720, 2800);
         assertThumbnail(ir, 0, 1600, 1200);
-        assertLoadImage(ir, 3720, 2800);
+        assertLoadImage(ir, 3720, 2800, 3, 16);
         assertLoadThumbnail(ir, 0, 1600, 1200);
         
         final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
