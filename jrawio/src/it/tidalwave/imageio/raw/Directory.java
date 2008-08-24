@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: Directory.java 83 2008-08-24 09:19:45Z fabriziogiudici $
+ * $Id: Directory.java 117 2008-08-24 23:08:40Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -46,7 +46,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: Directory.java 83 2008-08-24 09:19:45Z fabriziogiudici $
+ * @version $Id: Directory.java 117 2008-08-24 23:08:40Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class Directory implements Serializable
@@ -748,9 +748,10 @@ public abstract class Directory implements Serializable
     @Nonnull
     public String toString()
       {
-        final StringBuilder buffer = new StringBuilder("\n\t");
+        final StringBuilder buffer = new StringBuilder();
+        buffer.append(String.format("%d - %d (0x%x - 0x%x)\n\t", start, end, start, end));
 
-        for (final Object key : tagMapByKey.keySet())
+        for (final Object key : keyList)
           {
             final Object value = tagMapByKey.get(key);
             buffer.append(value);
