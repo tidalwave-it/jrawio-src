@@ -48,9 +48,9 @@ public class ORFImageReaderTest extends LoadTestSupport
         final ImageReader ir = getImageReader("others/josephandre/Olympus/E510/ORF/_2090037.ORF");
         assertEquals(1, ir.getNumImages(false));
         assertEquals(1, ir.getNumThumbnails(0));
-        assertImage(ir, 3034, 2024);
+        assertImage(ir, 3720, 2800);
         assertThumbnail(ir, 0, 120, 160);
-        assertLoadImage(ir, 3034, 2024);
+        assertLoadImage(ir, 3720, 2800);
         assertLoadThumbnail(ir, 0, 120, 160);
         close(ir);
       }
