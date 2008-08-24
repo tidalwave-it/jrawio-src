@@ -135,10 +135,8 @@ public class LoadTestSupport extends TestSupport
       {
         final File tmp = new File(System.getProperty("java.io.tmpdir") + "/jrawio-test");
         final File tiffFile = new File(tmp, path + ".tiff");
-        final File jpegFile = new File(tmp, path + ".jpg"); 
         tiffFile.getParentFile().mkdirs();
         ImageIO.write(image, "TIFF", tiffFile);
-        ImageIO.write(image, "JPG", jpegFile);
         
         final int width = image.getWidth();
         final int height = image.getHeight();
