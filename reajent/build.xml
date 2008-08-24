@@ -31,10 +31,11 @@ SOFTWARE.
 
 =============================================================================
 
-$Id: build.xml 55 2008-08-21 19:43:51Z fabriziogiudici $
+$Id: build.xml 97 2008-08-24 15:58:54Z fabriziogiudici $
 -->
 <project name="reajent" default="jar" basedir=".">
     <description>Builds, tests, and runs the project reajent-src.</description>
     <import file="nbproject/build-impl.xml"/>
 
+    <import file="nbproject/profiler-build-impl.xml"/>
 </project>

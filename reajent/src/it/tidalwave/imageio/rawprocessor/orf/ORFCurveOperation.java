@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ORFCurveOperation.java 96 2008-08-24 14:51:54Z fabriziogiudici $
+ * $Id: ORFCurveOperation.java 97 2008-08-24 15:58:54Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.orf;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFCurveOperation.java 96 2008-08-24 14:51:54Z fabriziogiudici $
+ * @version $Id: ORFCurveOperation.java 97 2008-08-24 15:58:54Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFCurveOperation extends CurveOperation
@@ -53,7 +53,9 @@ public class ORFCurveOperation extends CurveOperation
     @Override
     public void init (@Nonnull final RAWImage image) 
       throws Exception
-      {        
+      {       
+        // FIXME: everything is temporary
+        validBits = 12;
         OlympusMakerNote orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
 //        blackLevels = orfMakernote.getBlackLevel();
 //        validBits = orfMakernote.getValidBits();
@@ -65,6 +67,8 @@ public class ORFCurveOperation extends CurveOperation
           {
             validBits = 16;   
           }
+        
+        blackLevels = new int[]{ 2 << validBits - 1, 2 << validBits - 1, 2 << validBits - 1 }; 
       }
     
     /***************************************************************************
@@ -76,8 +80,9 @@ public class ORFCurveOperation extends CurveOperation
     @Nonnull
     protected int[] getBlackLevel (@Nonnull final RAWImage image)
       {
-        final int blackLevel = (blackLevels[0] + blackLevels[1] + blackLevels[2] + blackLevels[3]) / 4;
-        return new int[] { blackLevel, blackLevel, blackLevel };
+//        final int blackLevel = (blackLevels[0] + blackLevels[1] + blackLevels[2] + blackLevels[3]) / 4;
+//        return new int[] { blackLevel, blackLevel, blackLevel };
+        return blackLevels;
       }
     
     /***************************************************************************
