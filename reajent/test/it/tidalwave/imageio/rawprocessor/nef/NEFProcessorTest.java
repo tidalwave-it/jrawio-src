@@ -52,7 +52,7 @@ public class NEFProcessorTest extends LoadTestSupport
         assertEquals(1, ir.getNumThumbnails(0));
         assertImage(ir, 3034, 2024);
         assertThumbnail(ir, 0, 120, 160);
-        final BufferedImage image = assertLoadImage(ir, 2000, 3008);
+        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 16);
         assertLoadThumbnail(ir, 0, 120, 160);
         close(ir);
         
@@ -70,7 +70,7 @@ public class NEFProcessorTest extends LoadTestSupport
         assertImage(ir, 3008, 2000);
         assertThumbnail(ir, 0, 160, 120);
         // FIXME: this is wrong, the TIF is being processed as it were a RAW
-        final BufferedImage image = assertLoadImage(ir, 2982, 1976);
+        final BufferedImage image = assertLoadImage(ir, 2982, 1976, 3, 8); // FIXME: WRONG, should be 16 bits
         assertLoadThumbnail(ir, 0, 160, 120);
         close(ir);
         
@@ -88,7 +88,7 @@ public class NEFProcessorTest extends LoadTestSupport
         assertImage(ir, 3040, 2014);
         assertThumbnail(ir, 0, 106, 160);
         assertThumbnail(ir, 1, 384, 255);
-        final BufferedImage image = assertLoadImage(ir, 2000, 3008);
+        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 8); // FIXME: WRONG, should be 16 bits
         assertLoadThumbnail(ir, 0, 106, 160);
         assertLoadThumbnail(ir, 1, 384, 255);
         close(ir);
