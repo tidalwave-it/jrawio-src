@@ -37,7 +37,6 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 
@@ -50,7 +49,6 @@ import static org.junit.Assert.*;
 public class LoadTestSupport extends TestSupport
   {
     private static String testFolder;
-            //"/home/fritz/Projects/Imaging/trunk/www/TestSets";
         
     /***************************************************************************
      * 

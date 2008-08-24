@@ -27,10 +27,11 @@
  ******************************************************************************/
 package it.tidalwave.imageio;
 
-import java.io.InputStream;
 import java.util.logging.Handler;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
+import java.io.File;
+import java.io.InputStream;
 import org.junit.BeforeClass;
 
 /*******************************************************************************
@@ -47,6 +48,7 @@ public class TestSupport
       {
         try 
           {
+            new File("logs").mkdirs();
             final InputStream is = TestSupport.class.getResourceAsStream("log.properties");
             LogManager.getLogManager().readConfiguration(is);
             is.close();
