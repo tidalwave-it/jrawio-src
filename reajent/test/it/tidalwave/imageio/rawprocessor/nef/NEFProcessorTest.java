@@ -29,6 +29,7 @@ package it.tidalwave.imageio.rawprocessor.nef;
 
 import java.io.IOException;
 import javax.imageio.ImageReader;
+import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.LoadTestSupport;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -45,44 +46,53 @@ public class NEFProcessorTest extends LoadTestSupport
     public void test1() 
       throws IOException 
       {
-        final ImageReader ir = getImageReader("fabriziogiudici/Nikon/D100/NEF/NikonCaptureEditor/ccw90.nef");
+        final String path = "fabriziogiudici/Nikon/D100/NEF/NikonCaptureEditor/ccw90.nef";
+        final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(1, ir.getNumThumbnails(0));
         assertImage(ir, 3034, 2024);
         assertThumbnail(ir, 0, 120, 160);
-        assertLoadImage(ir, 2000, 3008);
+        final BufferedImage image = assertLoadImage(ir, 2000, 3008);
         assertLoadThumbnail(ir, 0, 120, 160);
         close(ir);
+        
+        assertRaster(image, path, "");
       }
     
     @Test
     public void test2() 
       throws IOException 
       {
-        final ImageReader ir = getImageReader("fabriziogiudici/Nikon/D100/TIFF/TIFF-Large.TIF");
+        final String path = "fabriziogiudici/Nikon/D100/TIFF/TIFF-Large.TIF";
+        final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(1, ir.getNumThumbnails(0));
         assertImage(ir, 3008, 2000);
         assertThumbnail(ir, 0, 160, 120);
         // FIXME: this is wrong, the TIF is being processed as it were a RAW
-        assertLoadImage(ir, 2982, 1976);
+        final BufferedImage image = assertLoadImage(ir, 2982, 1976);
         assertLoadThumbnail(ir, 0, 160, 120);
         close(ir);
+        
+        assertRaster(image, path, "");
       }
     
     @Test
     public void test3() 
       throws IOException 
       {
-        final ImageReader ir = getImageReader("mpetersen/Nikon/D70s/NEF/Nikon_D70s_0001.NEF");
+        final String path = "mpetersen/Nikon/D70s/NEF/Nikon_D70s_0001.NEF";
+        final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
         assertImage(ir, 3040, 2014);
         assertThumbnail(ir, 0, 106, 160);
         assertThumbnail(ir, 1, 384, 255);
-        assertLoadImage(ir, 2000, 3008);
+        final BufferedImage image = assertLoadImage(ir, 2000, 3008);
         assertLoadThumbnail(ir, 0, 106, 160);
         assertLoadThumbnail(ir, 1, 384, 255);
         close(ir);
+        
+        assertRaster(image, path, "");
       }
   }

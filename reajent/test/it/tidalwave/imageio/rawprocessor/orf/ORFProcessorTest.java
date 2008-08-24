@@ -37,6 +37,9 @@ import it.tidalwave.imageio.orf.ImageProcessing;
 import it.tidalwave.imageio.orf.ORFMetadata;
 import it.tidalwave.imageio.orf.OlympusMakerNote;
 import it.tidalwave.imageio.orf.RawDevelopment;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -52,12 +55,13 @@ public class ORFProcessorTest extends LoadTestSupport
     public void test1() 
       throws IOException 
       {
-        final ImageReader ir = getImageReader("others/josephandre/Olympus/E510/ORF/_2090037.ORF");
+        final String path = "others/josephandre/Olympus/E510/ORF/_2090037.ORF";
+        final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(1, ir.getNumThumbnails(0));
         assertImage(ir, 3720, 2800);
         assertThumbnail(ir, 0, 1600, 1200);
-        assertLoadImage(ir, 3720, 2800);
+        final BufferedImage image = assertLoadImage(ir, 3720, 2800);
         assertLoadThumbnail(ir, 0, 1600, 1200);
         
         final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
@@ -87,5 +91,7 @@ public class ORFProcessorTest extends LoadTestSupport
         assertEquals(14, rawDevelopment.getTags().size());
         
         close(ir);
+        
+        assertRaster(image, path, "");
       }
   }
