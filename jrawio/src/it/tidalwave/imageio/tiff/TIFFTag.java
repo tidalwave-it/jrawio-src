@@ -22,11 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: TIFFTag.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: TIFFTag.java 79 2008-08-24 08:37:33Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
 
+import javax.annotation.Nonnull;
 import java.util.logging.Logger;
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
@@ -39,16 +40,14 @@ import it.tidalwave.imageio.raw.TagRegistry;
  * This class represents a TIFF tag and is able to read from an IFD block.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: TIFFTag.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: TIFFTag.java 79 2008-08-24 08:37:33Z fabriziogiudici $
  *
  ******************************************************************************/
 public class TIFFTag extends AbstractTag
   {
-    private final static long serialVersionUID = 6025163135754787912L;
-
-    private final static String CLASS = "it.tidalwave.imageio.tiff.TIFFTag";
-
+    private final static String CLASS = TIFFTag.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
+    private final static long serialVersionUID = 6025163135754787912L;
 
     public static final short TYPE_BYTE = 1;
 
@@ -340,7 +339,9 @@ public class TIFFTag extends AbstractTag
      * @inheritDoc
      * 
      ******************************************************************************/
-    public String toString ()
+    @Override
+    @Nonnull
+    public String toString()
       {
         String name = registry.getTagName(code);
 
@@ -349,7 +350,7 @@ public class TIFFTag extends AbstractTag
             name = "#" + code;
           }
 
-        StringBuffer buffer = new StringBuffer(name);
+        final StringBuilder buffer = new StringBuilder(name);
         buffer.append(" type: ");
         buffer.append((type < typeToString.length) ? typeToString[type] : ("unknown type " + type));
 

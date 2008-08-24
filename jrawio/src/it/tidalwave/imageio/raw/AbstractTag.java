@@ -22,11 +22,14 @@
  *
  *******************************************************************************
  *
- * $Id: AbstractTag.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: AbstractTag.java 79 2008-08-24 08:37:33Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -43,7 +46,7 @@ import javax.imageio.stream.ImageInputStream;
  * from an image stream.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: AbstractTag.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: AbstractTag.java 79 2008-08-24 08:37:33Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class AbstractTag implements Serializable
@@ -61,7 +64,7 @@ public abstract class AbstractTag implements Serializable
     protected transient TagRegistry registry;
 
     /** The name of the registry this tag belongs to. */
-    private String registryName;
+    private final String registryName;
 
     /** The numerical tag code. */
     protected int code;
@@ -88,65 +91,66 @@ public abstract class AbstractTag implements Serializable
     /** The values as an ASCII string. */
     protected String asciiValue;
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Creates an <code>AbstractTag</code> in a registry given s numeric code.
      * 
      * @param  registry  the registry this tag belongs to
      * @param  code      the code
      * 
-     ******************************************************************************/
-    public AbstractTag (TagRegistry registry, int code)
+     **************************************************************************/
+    public AbstractTag (@Nonnull final TagRegistry registry, final int code)
       {
         this.registry = registry;
         this.code = code;
         registryName = registry.getName();
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the numeric code of this tag.
      * 
      * @return  the code
      * 
-     ******************************************************************************/
-    public int getCode ()
+     **************************************************************************/
+    public int getCode()
       {
         return code;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Return the type of values contained in this tag.
      * 
      * @return   the type
      * 
-     ******************************************************************************/
-    public int getType ()
+     **************************************************************************/
+    public int getType()
       {
         return type;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the count of values in this tag.
      * 
      * @return  the count of values
      * 
-     ******************************************************************************/
-    public int getValuesCount ()
+     **************************************************************************/
+    public int getValuesCount()
       {
         return valuesCount;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * Returns the value(s) contained in this tag as the most pertinent type.
      * 
      * @return  the value
      * 
-     *******************************************************************************/
-    public Object getValue ()
+     **************************************************************************/
+    @CheckForNull
+    public Object getValue()
       {
         if (undefinedValue != null)
           {
@@ -174,14 +178,15 @@ public abstract class AbstractTag implements Serializable
           }
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the value as bytes.
      * 
      * @return  the values as bytes
      * 
-     ******************************************************************************/
-    public byte[] getByteValues ()
+     **************************************************************************/
+    @CheckForNull
+    public byte[] getByteValues()
       {
         //
         // Arrays up to four bytes can be specified as integers and are stored into intValue.
@@ -199,55 +204,59 @@ public abstract class AbstractTag implements Serializable
         return undefinedValue;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the value as integers.
      * 
      * @return  the values as integers
      * 
-     ******************************************************************************/
-    public int[] getIntValues ()
+     **************************************************************************/
+    @CheckForNull
+    public int[] getIntValues()
       {
         return intValue;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the value as floats.
      * 
      * @return  the values as floats
      * 
-     ******************************************************************************/
-    public float[] getFloatValues ()
+     **************************************************************************/
+    @CheckForNull
+    public float[] getFloatValues()
       {
         return floatValue;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the value as rationals.
      * 
      * @return  the values as rationals
      * 
-     ******************************************************************************/
+     **************************************************************************/
+    @CheckForNull
     public TagRational[] getRationalValues ()
       {
         return rationalValue;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the value as an ASCII string.
      * 
      * @return  the values as an ASCII string
      * 
-     ******************************************************************************/
+     **************************************************************************/
+    @CheckForNull
     public String getASCIIValue ()
       {
         return asciiValue;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * Reads integer values from the given image input stream.
      * 
@@ -257,10 +266,12 @@ public abstract class AbstractTag implements Serializable
      * @return              the integers
      * @throws IOException  if a I/O error occurs
      * 
-     *******************************************************************************/
-    protected int[] readIntValues (ImageInputStream iis,
-                                   long valueOffset,
-                                   int valuesCount) throws IOException
+     **************************************************************************/
+    @Nonnull
+    protected int[] readIntValues (@Nonnull final ImageInputStream iis,
+                                   final long valueOffset,
+                                   @Nonnegative final int valuesCount) 
+      throws IOException
       {
         int[] buffer = new int[valuesCount];
         iis.mark();
@@ -276,7 +287,7 @@ public abstract class AbstractTag implements Serializable
         return buffer;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * Reads short values from the given image input stream.
      * 
@@ -286,10 +297,12 @@ public abstract class AbstractTag implements Serializable
      * @return              the integers
      * @throws IOException  if a I/O error occurs
      * 
-     *******************************************************************************/
-    protected int[] readShortValues (ImageInputStream iis,
-                                     long valueOffset,
-                                     int valuesCount) throws IOException
+     **************************************************************************/
+    @Nonnull
+    protected int[] readShortValues (@Nonnull final ImageInputStream iis,
+                                     final long valueOffset,
+                                     @Nonnegative final int valuesCount) 
+      throws IOException
       {
         int[] buffer = new int[valuesCount];
         iis.mark();
@@ -305,7 +318,7 @@ public abstract class AbstractTag implements Serializable
         return buffer;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * Reads byte values from the given image input stream.
      * 
@@ -315,10 +328,12 @@ public abstract class AbstractTag implements Serializable
      * @return              the integers
      * @throws IOException  if a I/O error occurs
      * 
-     *******************************************************************************/
-    protected int[] readByteValues (ImageInputStream iis,
-                                    long valueOffset,
-                                    int valuesCount) throws IOException
+     **************************************************************************/
+    @Nonnull
+    protected int[] readByteValues (@Nonnull final ImageInputStream iis,
+                                    final long valueOffset,
+                                    @Nonnegative final int valuesCount) 
+      throws IOException
       {
         int[] buffer = new int[valuesCount];
 
@@ -334,15 +349,15 @@ public abstract class AbstractTag implements Serializable
         return buffer;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * Appends the contained value(s) to the given <code>StringBuffer</code>. This
      * method is used by {@link #toString()}.
      * 
      * @param buffer  buffer
      * 
-     *******************************************************************************/
-    protected void appendValues (StringBuffer buffer)
+     **************************************************************************/
+    protected void appendValues (@Nonnull final StringBuilder buffer)
       {
         if (undefinedValue != null)
           {
@@ -359,7 +374,7 @@ public abstract class AbstractTag implements Serializable
                     j = undefinedValue.length - MAX_TRAILING_VALUES;
                   }
 
-                buffer.append(undefinedValue[j]);
+                buffer.append(Integer.toHexString(undefinedValue[j]));
               }
           }
 
@@ -412,7 +427,7 @@ public abstract class AbstractTag implements Serializable
           }
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * Customized deserialization code. This method restores the link to the registry
      * this tag belongs to.
@@ -421,8 +436,9 @@ public abstract class AbstractTag implements Serializable
      * @throws IOException
      * @throws ClassNotFoundException
      * 
-     ******************************************************************************/
-    private void readObject (ObjectInputStream is) throws IOException, ClassNotFoundException
+     **************************************************************************/
+    private void readObject (@Nonnull final ObjectInputStream is) 
+      throws IOException, ClassNotFoundException
       {
         is.defaultReadObject();
         registry = TagRegistry.getRegistry(registryName);

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CIFFTag.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: CIFFTag.java 79 2008-08-24 08:37:33Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -30,13 +30,14 @@ package it.tidalwave.imageio.crw;
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
 
+import javax.annotation.Nonnull;
 import it.tidalwave.imageio.raw.AbstractTag;
 import it.tidalwave.imageio.raw.TagRegistry;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CIFFTag.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: CIFFTag.java 79 2008-08-24 08:37:33Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CIFFTag extends AbstractTag
@@ -293,7 +294,9 @@ public class CIFFTag extends AbstractTag
      * @inheritDoc
      * 
      ******************************************************************************/
-    public String toString ()
+    @Override
+    @Nonnull
+    public String toString()
       {
         String name = registry.getTagName(code);
 
@@ -302,7 +305,7 @@ public class CIFFTag extends AbstractTag
             name = "#" + code;
           }
 
-        StringBuffer buffer = new StringBuffer(name);
+        final StringBuilder buffer = new StringBuilder(name);
         buffer.append(" type: ");
         buffer.append(typeToString[type >>> 11]);
 
