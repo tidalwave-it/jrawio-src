@@ -27,19 +27,18 @@
  ******************************************************************************/
 package it.tidalwave.imageio;
 
-import java.awt.image.BufferedImage;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
+import java.awt.image.BufferedImage;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 
 /*******************************************************************************
@@ -50,15 +49,19 @@ import static org.junit.Assert.*;
  ******************************************************************************/
 public class LoadTestSupport extends TestSupport
   {
-    private String testFolder = "/home/fritz/Projects/Imaging/trunk/www/TestSets";
-    
+    private static String testFolder;
+            //"/home/fritz/Projects/Imaging/trunk/www/TestSets";
+        
     /***************************************************************************
      * 
      * 
      **************************************************************************/
-    @Before
-    public void setUp() 
-      {
+    @BeforeClass
+    public static void setupTestFolderPath() 
+      {                
+        testFolder = System.getProperty("testset.folder");
+        assertNotNull("You must set a property named 'test-sys-prop.testset.folder' " +
+                      "in nbproject/private/private.properties to point to the test files", testFolder);
       }
 
     /***************************************************************************

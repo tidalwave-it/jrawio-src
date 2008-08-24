@@ -31,7 +31,7 @@ SOFTWARE.
 
 =============================================================================
 
-$Id: build.xml 95 2008-08-24 14:48:47Z fabriziogiudici $
+$Id: build.xml 108 2008-08-24 18:22:19Z fabriziogiudici $
 -->
 
 <project name="jrawio" default="jar" basedir=".">
@@ -131,8 +131,8 @@ $Id: build.xml 95 2008-08-24 14:48:47Z fabriziogiudici $
         <javac srcdir="${src2.dir}" 
             destdir="${build.classes.dir}" 
             classpath="${javac.classpath}" 
-            source="1.4" 
-            target="1.4" 
+            source="1.5" 
+            target="1.5" 
             includes="IFDGenerator.java"
             optimize="yes" 
             deprecation="on" 
@@ -155,6 +155,7 @@ $Id: build.xml 95 2008-08-24 14:48:47Z fabriziogiudici $
     <target name="-post-jar">
     </target>
 
+<!--
     <target name="makedocs">
         <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=211" dest="ChangeLog.html"/>
         <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=212" dest="README.html"/>
@@ -171,6 +172,7 @@ $Id: build.xml 95 2008-08-24 14:48:47Z fabriziogiudici $
         <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=241" dest="${metadata.dir}/PentaxMakerNote.xml"/>
         <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=238" dest="${metadata.dir}/SonyMakerNote.xml"/>
     </target>
+-->
 
 <!--
     <target name="gettag">
@@ -185,8 +187,8 @@ $Id: build.xml 95 2008-08-24 14:48:47Z fabriziogiudici $
     <target name="wiki">
         <mkdir dir="${metadata.dir}/wiki"/>
         <xslt in="${metadata.dir}/Nikon3MakerNote.xml"
-            out="${metadata.dir}/wiki/Nikon3MakerNote.wiki"
-            style="${metadata.dir}/xslt/DirectoryToWiki.xslt">
+             out="${metadata.dir}/wiki/Nikon3MakerNote.wiki"
+           style="${metadata.dir}/xslt/DirectoryToWiki.xslt">
         </xslt>
     </target>
 
