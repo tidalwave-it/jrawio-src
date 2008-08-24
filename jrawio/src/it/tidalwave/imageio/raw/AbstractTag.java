@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: AbstractTag.java 79 2008-08-24 08:37:33Z fabriziogiudici $
+ * $Id: AbstractTag.java 88 2008-08-24 10:45:39Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -46,7 +46,7 @@ import javax.imageio.stream.ImageInputStream;
  * from an image stream.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: AbstractTag.java 79 2008-08-24 08:37:33Z fabriziogiudici $
+ * @version $Id: AbstractTag.java 88 2008-08-24 10:45:39Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class AbstractTag implements Serializable
@@ -374,7 +374,7 @@ public abstract class AbstractTag implements Serializable
                     j = undefinedValue.length - MAX_TRAILING_VALUES;
                   }
 
-                buffer.append(Integer.toHexString(undefinedValue[j]));
+                buffer.append(Integer.toHexString(undefinedValue[j] & 0xff));
               }
           }
 
