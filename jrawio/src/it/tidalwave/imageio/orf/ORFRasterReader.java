@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ORFRasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
+ * $Id: ORFRasterReader.java 118 2008-08-24 23:09:13Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -35,7 +35,7 @@ import it.tidalwave.imageio.raw.RasterReader;
  * This class implements the ORF (Olympus raw Format) raster loading.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: ORFRasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
+ * @version $Id: ORFRasterReader.java 118 2008-08-24 23:09:13Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFRasterReader extends RasterReader
@@ -48,6 +48,7 @@ public class ORFRasterReader extends RasterReader
      * @return        the <code>RasterReader</code>
      * 
      **************************************************************************/
+    @Nonnull
     public static ORFRasterReader getInstance (@Nonnull String model)
       {
         model = model.toUpperCase().trim();
@@ -63,6 +64,23 @@ public class ORFRasterReader extends RasterReader
             return new E300RasterReader();    
           }
         
+        if (model.equals("E-510"))
+          {
+            return new E410RasterReader();    
+          }
+        
         return new ORFRasterReader();
+      }
+    
+    /***************************************************************************
+     * 
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    @Override
+    @Nonnull
+    public String toString()
+      {
+        return "ORFRasterReader";  
       }
   }
