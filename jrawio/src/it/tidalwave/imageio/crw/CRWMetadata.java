@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: CRWMetadata.java 84 2008-08-24 09:20:11Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.tiff.IFD;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: CRWMetadata.java 84 2008-08-24 09:20:11Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWMetadata extends TIFFMetadataSupport
@@ -433,7 +433,7 @@ public class CRWMetadata extends TIFFMetadataSupport
 
         if (tag == null)
           {
-            for (Iterator i = dir.subDirectories(); i.hasNext();)
+            for (Iterator i = dir.getSubDirectories().iterator(); i.hasNext();)
               {
                 CanonCRWMakerNote subDir = (CanonCRWMakerNote)i.next();
                 tag = findTag(subDir, code);
@@ -474,7 +474,7 @@ public class CRWMetadata extends TIFFMetadataSupport
             return dir;
           }
 
-        for (Iterator i = dir.subDirectories(); i.hasNext();)
+        for (Iterator i = dir.getSubDirectories().iterator(); i.hasNext();)
           {
             CanonCRWMakerNote subDir = (CanonCRWMakerNote)i.next();
             CanonCRWMakerNote d2 = findDirectory(subDir, code);

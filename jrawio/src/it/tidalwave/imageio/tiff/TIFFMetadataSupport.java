@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: TIFFMetadataSupport.java 69 2008-08-23 15:09:09Z fabriziogiudici $
+ * $Id: TIFFMetadataSupport.java 84 2008-08-24 09:20:11Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -45,7 +45,7 @@ import it.tidalwave.imageio.raw.TagRegistry;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: TIFFMetadataSupport.java 69 2008-08-23 15:09:09Z fabriziogiudici $
+ * @version $Id: TIFFMetadataSupport.java 84 2008-08-24 09:20:11Z fabriziogiudici $
  *
  ******************************************************************************/
 public class TIFFMetadataSupport extends RAWMetadataSupport
@@ -99,9 +99,8 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
 
             if (exifIFD == null)
               {
-                for (final Iterator<Directory> i = primaryDirectory.subDirectories(); i.hasNext();)
+                for (final Directory directory : primaryDirectory.getSubDirectories())
                   {
-                    final Directory directory = i.next();
                     exifIFD = (IFD)directory.getNamedDirectory(IFD.EXIF_NAME);
 
                     if (exifIFD != null)
@@ -118,9 +117,9 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
                 ifdList.add(ifd);
               }
         
-            for (final Iterator i = primaryIFD.subDirectories(); i.hasNext(); )
+            for (final Directory directory : primaryIFD.getSubDirectories())
               {
-                ifdList.add((IFD)i.next());
+                ifdList.add((IFD)directory);
               }
         
             for (final IFD ifd : ifdList)
@@ -619,7 +618,7 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
                 directoryNode.setAttribute("parentNumber", Integer.toString(parentTagNumber));
               }
 
-            for (Iterator i = currentDirectory.tags().iterator(); i.hasNext();)
+            for (Iterator i = currentDirectory.getTags().iterator(); i.hasNext();)
               {
                 TIFFTag f = (TIFFTag)i.next();
                 int tagNumber = f.getCode();
@@ -633,10 +632,9 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
               }
             
             int n = 0;
-            for (Iterator i = currentDirectory.subDirectories(); i.hasNext();)
+            for (final Directory subIFD : currentDirectory.getSubDirectories())
               {
-                IFD subIFD = (IFD)i.next();
-                appendIFDAsTree(directoryNode, subIFD, "SubIFD" + n++, currentName, 0);
+                appendIFDAsTree(directoryNode, (IFD)subIFD, "SubIFD" + n++, currentName, 0);
               }
 
             String[] subIFDNames = currentDirectory.getSubDirectoryNames();
