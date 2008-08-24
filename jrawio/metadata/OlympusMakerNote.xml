@@ -37,8 +37,8 @@ http://creativecommons.org/licenses/by-sa/2.5
     </tag>
     <tag>
         <code>8208</code>
-        <type>undefined</type>
-        <length>99</length>
+        <type>int</type>
+        <length>1</length>
         <name>Equipment</name>
         <example></example>
         <description></description>
@@ -53,24 +53,24 @@ http://creativecommons.org/licenses/by-sa/2.5
     </tag>
     <tag>
         <code>8240</code>
-        <type>undefined</type>
-        <length>99</length>
+        <type>int</type>
+        <length>1</length>
         <name>RawDevelopment</name>
         <example></example>
         <description></description>
     </tag>
     <tag>
         <code>8256</code>
-        <type>undefined</type>
-        <length>99</length>
+        <type>int</type>
+        <length>1</length>
         <name>ImageProcessing</name>
         <example></example>
         <description></description>
     </tag>
     <tag>
         <code>8272</code>
-        <type>undefined</type>
-        <length>99</length>
+        <type>int</type>
+        <length>1</length>
         <name>FocusInfo</name>
         <example></example>
         <description></description>

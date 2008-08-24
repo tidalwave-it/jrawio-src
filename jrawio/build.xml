@@ -31,7 +31,7 @@ SOFTWARE.
 
 =============================================================================
 
-$Id: build.xml 93 2008-08-24 13:57:07Z fabriziogiudici $
+$Id: build.xml 95 2008-08-24 14:48:47Z fabriziogiudici $
 -->
 
 <project name="jrawio" default="jar" basedir=".">
@@ -94,7 +94,31 @@ $Id: build.xml 93 2008-08-24 13:57:07Z fabriziogiudici $
         <xslt in="${metadata.dir}/OlympusCameraSettings.xml" 
             out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusCameraSettingsMakerNoteSupport.java" 
             style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="1050973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusEquipment.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusEquipmentMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="2050973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusFocusInfo.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusFocusInfoMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
             <param name="serialVersionUID" expression="3050973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusImageProcessing.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusImageProcessingMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="4050973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusRawDevelopment.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusRawDevelopmentMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="5050973459348573495L"/>
             <param name="package" expression="it.tidalwave.imageio.orf"/>
         </xslt>
         <xslt in="${metadata.dir}/KodakMakerNote.xml" 

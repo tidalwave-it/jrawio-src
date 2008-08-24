@@ -59,9 +59,27 @@ public class ORFImageReaderTest extends LoadTestSupport
         final OlympusMakerNote makerNote = metadata.getOlympusMakerNote();
         assertNotNull(makerNote);
         assertEquals(8, makerNote.getTags().size());
+        
         final CameraSettings cameraSettings = makerNote.getOlympusCameraSettings();
-        assertNotNull(makerNote);
+        assertNotNull(cameraSettings);
         assertEquals(44, cameraSettings.getTags().size());
+
+        final Equipment equipment = makerNote.getOlympusEquipment();
+        assertNotNull(equipment);
+        assertEquals(23, equipment.getTags().size());
+        
+        final FocusInfo focusInfo = makerNote.getOlympusFocusInfo();
+        assertNotNull(focusInfo);
+        assertEquals(59, focusInfo.getTags().size());
+        
+        final ImageProcessing imageProcessing = makerNote.getOlympusImageProcessing();
+        assertNotNull(imageProcessing);
+        assertEquals(142, imageProcessing.getTags().size());
+        
+        final RawDevelopment rawDevelopment = makerNote.getOlympusRawDevelopment();
+        assertNotNull(rawDevelopment);
+        assertEquals(14, rawDevelopment.getTags().size());
+        
         close(ir);
       }
   }

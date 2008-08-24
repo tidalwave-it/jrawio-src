@@ -33,6 +33,6 @@ package it.tidalwave.imageio.orf;
  * @version $Id: CSeriesRasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
  *
  ******************************************************************************/
-public class CameraSettings extends OlympusCameraSettingsMakerNoteSupport
+public class ImageProcessing extends OlympusImageProcessingMakerNoteSupport
   {
   }
