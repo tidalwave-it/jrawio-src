@@ -30,6 +30,7 @@ package it.tidalwave.imageio.orf;
 import java.io.IOException;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.LoadTestSupport;
+import java.awt.image.BufferedImage;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -44,15 +45,18 @@ public class ORFImageReaderTest extends LoadTestSupport
     @Test
     // JIRA issues JRW-151, JRW-154, JRW-155
     public void testJRW151_JRW154_JRW155() 
-      throws IOException 
+      throws Exception 
       {
-        final ImageReader ir = getImageReader("others/josephandre/Olympus/E510/ORF/_2090037.ORF");
+        final String path = "others/josephandre/Olympus/E510/ORF/_2090037.ORF";
+        final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(1, ir.getNumThumbnails(0));
         assertImage(ir, 3720, 2800);
         assertThumbnail(ir, 0, 1600, 1200);
-        assertLoadImage(ir, 3720, 2800, 3, 16);
+        final BufferedImage image = assertLoadImage(ir, 3720, 2800, 3, 16);
         assertLoadThumbnail(ir, 0, 1600, 1200);
+        
+        assertRaster(image, path, "0f73316ca3d30507b2d67a1edc2e4f43");
         
         final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
         assertNotNull(metadata);
