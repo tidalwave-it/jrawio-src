@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWMetadata.java 74 2008-08-23 21:39:59Z fabriziogiudici $
+ * $Id: MRWMetadata.java 80 2008-08-24 08:42:00Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.ThumbnailHelper;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWMetadata.java 74 2008-08-23 21:39:59Z fabriziogiudici $
+ * @version $Id: MRWMetadata.java 80 2008-08-24 08:42:00Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWMetadata extends TIFFMetadataSupport
@@ -66,10 +66,10 @@ public class MRWMetadata extends TIFFMetadataSupport
         
         if (minoltaMakerNote != null)
           {
-            final MRWHeaderProcessor mrwhp = (MRWHeaderProcessor)headerProcessor;
             if (minoltaMakerNote.isJpegThumbnailLengthAvailable() &&
                 minoltaMakerNote.isJpegThumbnailOffsetAvailable())
               {
+                final MRWHeaderProcessor mrwhp = (MRWHeaderProcessor)headerProcessor;        
                 final int offset = minoltaMakerNote.getJpegThumbnailOffset() + mrwhp.getBaseOffset();
                 final int length = minoltaMakerNote.getJpegThumbnailLength();
                 thumbnailHelperList.add(new ThumbnailHelper(iis, offset, length)

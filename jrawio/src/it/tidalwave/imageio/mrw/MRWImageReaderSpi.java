@@ -22,15 +22,16 @@
  *
  *******************************************************************************
  *
- * $Id: MRWImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: MRWImageReaderSpi.java 80 2008-08-24 08:42:00Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
 
-import java.nio.ByteOrder;
+import javax.annotation.Nonnull;
 import java.util.Locale;
-import java.io.IOException;
 import java.util.logging.Logger;
+import java.io.IOException;
+import java.nio.ByteOrder;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
@@ -38,49 +39,62 @@ import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: MRWImageReaderSpi.java 80 2008-08-24 08:42:00Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWImageReaderSpi extends RAWImageReaderSpiSupport
   {
-    private final static Logger logger = Logger.getLogger("it.tidalwave.imageio.mrw.MRWImageReaderSpi");
+    private final static String CLASS = MRWImageReaderSpi.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
     
     private final static int MRW_MAGIC = 0x004D524D;
             
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * 
-     *******************************************************************************/
-    public MRWImageReaderSpi ()
+     **************************************************************************/
+    public MRWImageReaderSpi()
       {
         super("MRW", "mrw", "image/mrw", MRWImageReader.class);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     ******************************************************************************/
-    public String getDescription (Locale locale)
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    @Nonnull
+    public String getDescription (final Locale locale)
       {
         return "Standard MRW Image Reader";
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     ******************************************************************************/
-    public ImageReader createReaderInstance (Object extension) throws IOException
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    @Nonnull
+    public ImageReader createReaderInstance (final Object extension) 
+      throws IOException
       {
         return new MRWImageReader(this, extension);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     ******************************************************************************/
-    public boolean canDecodeInput (RAWImageInputStream iis) throws IOException
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    public boolean canDecodeInput (@Nonnull final RAWImageInputStream iis)
+      throws IOException
       {
         iis.setByteOrder(ByteOrder.BIG_ENDIAN);
         iis.seek(0);
-        int magic = iis.readInt();
-               
+        final int magic = iis.readInt();
+              
+        // FIXME: should give up if it's a DNG, see other ImageReaderSpi's
+        
         if (magic != MRW_MAGIC)
           {
             logger.fine("MRWImageReaderSpi giving up on: '" + Integer.toHexString(magic) + "'");

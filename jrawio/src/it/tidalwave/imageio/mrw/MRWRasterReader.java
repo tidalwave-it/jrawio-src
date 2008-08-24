@@ -22,29 +22,31 @@
  *
  *******************************************************************************
  *
- * $Id: MRWRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: MRWRasterReader.java 80 2008-08-24 08:42:00Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RasterReader;
-import java.nio.ByteOrder;
 
 /*******************************************************************************
  *
  * This class implements the MRF (Minolta raw Format) raster loading.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: MRWRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: MRWRasterReader.java 80 2008-08-24 08:42:00Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWRasterReader extends RasterReader
   {
-    protected void selectBitReader (RAWImageInputStream iis,
-                                    WritableRaster raster,
-                                    int bitsPerSample)
+    @Override
+    protected void selectBitReader (@Nonnull final RAWImageInputStream iis,
+                                    @Nonnull final WritableRaster raster,
+                                    @Nonnegative final int bitsPerSample)
       {
         iis.selectBitReader(-1, 0);
       }

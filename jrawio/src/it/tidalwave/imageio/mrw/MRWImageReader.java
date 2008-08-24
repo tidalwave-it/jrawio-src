@@ -22,17 +22,17 @@
  *
  *******************************************************************************
  *
- * $Id: MRWImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: MRWImageReader.java 80 2008-08-24 08:42:00Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
 
-import java.nio.ByteOrder;
+import javax.annotation.Nonnull;
 import java.util.logging.Logger;
 import java.io.IOException;
+import java.nio.ByteOrder;
 import javax.imageio.spi.ImageReaderSpi;
 import java.awt.image.WritableRaster;
-import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.RasterReader;
 import it.tidalwave.imageio.tiff.IFD;
@@ -41,71 +41,84 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: MRWImageReader.java 80 2008-08-24 08:42:00Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWImageReader extends TIFFImageReaderSupport
   {
-    private final static Logger logger = Logger.getLogger("it.tidalwave.imageio.mrw.MRWImageReader");
-    
-    /*******************************************************************************
+    private final static String CLASS = MRWImageReader.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+   
+    /***************************************************************************
      *
-     ******************************************************************************/
-    protected MRWImageReader (ImageReaderSpi originatingProvider, Object extension)
+     **************************************************************************/
+    protected MRWImageReader (@Nonnull final ImageReaderSpi originatingProvider,
+                              final Object extension)
       {
         super(originatingProvider, MinoltaMakerNote.class, MRWMetadata.class);
         headerProcessor = new MRWHeaderProcessor();
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * {@inheritDoc}
+     * 
      * FIXME: merge with super implementation
-     ******************************************************************************/
-    protected Directory loadPrimaryDirectory() throws IOException
+     * 
+     **************************************************************************/
+    @Override
+    @Nonnull
+    protected Directory loadPrimaryDirectory() 
+      throws IOException
       {
         logger.info("loadPrimaryDirectory(" + iis + ")");
         headerProcessor.process(iis);
         iis.setBaseOffset(headerProcessor.getBaseOffset());
         iis.seek(headerProcessor.getOffset());
-        long directoryOffset = processHeader(iis, headerProcessor); // FIXME: refactor so that processHeader doe snot use headerSkipper
+        final long directoryOffset = processHeader(iis, headerProcessor); // FIXME: refactor so that processHeader doe snot use headerSkipper
 
-        IFD primaryIFD = new IFD();
+        final IFD primaryIFD = new IFD();
         primaryIFD.loadAll(iis, directoryOffset);
         iis.setBaseOffset(0);
         
         return primaryIFD;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * {@inheritDoc}
+     * 
      * FIXME: merge with super implementation
-     ******************************************************************************/
-    protected void processEXIFAndMakerNote (Directory directory) throws IOException
+     * 
+     **************************************************************************/
+    @Override
+    protected void processEXIFAndMakerNote (@Nonnull final Directory directory) 
+      throws IOException
       {
         iis.setBaseOffset(headerProcessor.getBaseOffset());
         super.processEXIFAndMakerNote(directory);
         iis.setBaseOffset(0);
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     ******************************************************************************/
-    protected WritableRaster loadRAWRaster() throws IOException
+     **************************************************************************/
+    @Nonnull
+    protected WritableRaster loadRAWRaster() 
+      throws IOException
       {
         logger.fine("loadRAWRaster(iis: " + iis + ")");
 
-        long time = System.currentTimeMillis();
-        MRWRasterReader rasterReader = new MRWRasterReader();
+        final long time = System.currentTimeMillis();
+        final MRWRasterReader rasterReader = new MRWRasterReader();
         initializeRasterReader(rasterReader);
 
-        MRWHeaderProcessor mrwHeaderProcessor = (MRWHeaderProcessor) headerProcessor;
-        long rasterOffset = mrwHeaderProcessor.getRasterOffset();
-        int sensorWidth = mrwHeaderProcessor.getRasterWidth();
-        int sensorHeight = mrwHeaderProcessor.getRasterHeight();
+        final MRWHeaderProcessor mrwHeaderProcessor = (MRWHeaderProcessor) headerProcessor;
+        final long rasterOffset = mrwHeaderProcessor.getRasterOffset();
+        final int sensorWidth = mrwHeaderProcessor.getRasterWidth();
+        final int sensorHeight = mrwHeaderProcessor.getRasterHeight();
         iis.seek(rasterOffset); // FIXME: set prop in rasterReader, seek in the rasterreader
         logger.finest(">>>> imageDataOffset: " + rasterOffset + ", size: " + sensorWidth + " x " + sensorHeight);
         rasterReader.setWidth(sensorWidth);
@@ -124,8 +137,8 @@ public class MRWImageReader extends TIFFImageReaderSupport
 //        
 //        else
           {
-            IFD primaryIFD = (IFD)primaryDirectory;
-            String model = primaryIFD.getModel();
+            final IFD primaryIFD = (IFD)primaryDirectory;
+            final String model = primaryIFD.getModel();
         
             if ((model != null) && ((model.indexOf("A200") > 0) || (model.indexOf("DYNAX 5D") >= 0)
                 || (model.indexOf("A2") > 0) || (model.indexOf("A1") > 0)) || (model.indexOf("7D") >= 0))
@@ -141,29 +154,29 @@ public class MRWImageReader extends TIFFImageReaderSupport
         rasterReader.setStripByteCount(rasterDataSize);
         
         logger.finest(">>>> using rasterReader: " + rasterReader);
-        WritableRaster raster = rasterReader.loadRaster(iis, this);
+        final WritableRaster raster = rasterReader.loadRaster(iis, this);
         logger.finer(">>>> loadRAWRaster() completed ok in " + (System.currentTimeMillis() - time) + " msec.");
 
         return raster;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * FIXME: merge with superclass
      * 
      * @param rasterReader
      * 
-     *******************************************************************************/
-    protected void initializeRasterReader (RasterReader rasterReader)
+     **************************************************************************/
+    protected void initializeRasterReader (@Nonnull final RasterReader rasterReader)
       {
-        IFD primaryIFD = (IFD)primaryDirectory;
-        IFD exifIFD = (IFD)primaryIFD.getNamedDirectory(IFD.EXIF_NAME);
+        final IFD primaryIFD = (IFD)primaryDirectory;
+        final IFD exifIFD = (IFD)primaryIFD.getNamedDirectory(IFD.EXIF_NAME);
         
 //        rasterReader.setCFAPattern(exifIFD.getEXIFCFAPattern());
         rasterReader.setCFAPattern(new byte[]{0,1,1,2});
         rasterReader.setCompression(primaryIFD.getCompression().intValue());
 
-        MinoltaMakerNote minoltaMakerNote = (MinoltaMakerNote)makerNote;
+        final MinoltaMakerNote minoltaMakerNote = (MinoltaMakerNote)makerNote;
         
         if (minoltaMakerNote.isRasterDataSizeAvailable())
           {
