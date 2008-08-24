@@ -22,12 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: SixteenBitsReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: SixteenBitsReader.java 115 2008-08-24 21:51:12Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.io;
 
 import java.io.IOException;
+import javax.annotation.Nonnull;
 import javax.imageio.stream.ImageInputStream;
 
 /*******************************************************************************
@@ -44,7 +45,7 @@ import javax.imageio.stream.ImageInputStream;
  * an ArrayIndexOutOfBounds will occur.
  *
  * @author Fabrizio Giudici
- * @version $Id: SixteenBitsReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: SixteenBitsReader.java 115 2008-08-24 21:51:12Z fabriziogiudici $
  *
  ******************************************************************************/
 /* package */class SixteenBitsReader extends BitReader
@@ -113,6 +114,7 @@ import javax.imageio.stream.ImageInputStream;
      * @throws IllegalArgumentException  if bitsToGet is not a multiple of 8
      * 
      ******************************************************************************/
+    @Override
     public void skipBits (int bitsToSkip)
       {
         if ((bitsToSkip % 8) != 0)
@@ -139,11 +141,24 @@ import javax.imageio.stream.ImageInputStream;
      * @param bitPosition
      * 
      *******************************************************************************/
+    @Override
     public void setBitOffset (int bitPosition)
       {
         if (bitPosition != 0)
           {
             throw new UnsupportedOperationException(); // FIXME
           }
+      }
+
+    /***************************************************************************
+     * 
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    @Override
+    @Nonnull
+    public String toString() 
+      {
+        return String.format("SixteenBitsReader[bufferSize=%d]", byteBuffer.length);
       }
   }
