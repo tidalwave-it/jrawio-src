@@ -43,8 +43,8 @@ import static org.junit.Assert.*;
 public class ORFImageReaderTest extends LoadTestSupport
   {
     @Test
-    // JIRA issues JRW-151, JRW-154, JRW-155
-    public void testJRW151_JRW154_JRW155() 
+    // JIRA issues JRW-151, JRW-154, JRW-155, JRW-159
+    public void testJRW151_JRW154_JRW155_JRW159() 
       throws Exception 
       {
         final String path = "others/josephandre/Olympus/E510/ORF/_2090037.ORF";
