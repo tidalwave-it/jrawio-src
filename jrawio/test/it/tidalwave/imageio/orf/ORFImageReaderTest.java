@@ -42,8 +42,8 @@ import static org.junit.Assert.*;
 public class ORFImageReaderTest extends LoadTestSupport
   {
     @Test
-    // JIRA issues JRW-151, JRW-154
-    public void testJRW151_JRW154() 
+    // JIRA issues JRW-151, JRW-154, JRW-155
+    public void testJRW151_JRW154_JRW155() 
       throws IOException 
       {
         final ImageReader ir = getImageReader("others/josephandre/Olympus/E510/ORF/_2090037.ORF");
