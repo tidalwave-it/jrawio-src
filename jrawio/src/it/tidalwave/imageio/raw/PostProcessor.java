@@ -22,21 +22,23 @@
  *
  *******************************************************************************
  *
- * $Id: PostProcessor.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: PostProcessor.java 78 2008-08-24 08:32:52Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
 
+import javax.annotation.Nonnull;
 import java.awt.image.BufferedImage;
-import javax.imageio.metadata.IIOMetadata;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PostProcessor.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: PostProcessor.java 78 2008-08-24 08:32:52Z fabriziogiudici $
  *
  ******************************************************************************/
 public interface PostProcessor
   {
-    public BufferedImage process (BufferedImage image, RAWMetadataSupport metadata);  
+    @Nonnull 
+    public BufferedImage process (@Nonnull BufferedImage image, 
+                                  @Nonnull RAWMetadataSupport metadata);  
   }
