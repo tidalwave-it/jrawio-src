@@ -22,26 +22,30 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImageInputStream.java 107 2008-08-24 17:54:37Z fabriziogiudici $
+ * $Id: RAWImageInputStream.java 114 2008-08-24 21:50:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.io;
 
-import java.io.IOException;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.util.logging.Logger;
+import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageInputStreamImpl;
 
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: RAWImageInputStream.java 107 2008-08-24 17:54:37Z fabriziogiudici $
+ * @version $Id: RAWImageInputStream.java 114 2008-08-24 21:50:46Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RAWImageInputStream extends ImageInputStreamImpl
   {
+    private final static String CLASS = RAWImageInputStream.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+    
     @Nonnegative
     private long baseOffset;
 
@@ -113,7 +117,7 @@ public class RAWImageInputStream extends ImageInputStreamImpl
             bitReader = new FastBitReader(delegate, bufferSize);
           }
 
-        //        logger.fine("Using bitReader: " + bitReader.getClass());
+        logger.finest(">>>> Using bitReader: " + bitReader);
       }
 
     /***************************************************************************
@@ -172,7 +176,7 @@ public class RAWImageInputStream extends ImageInputStreamImpl
     @Override
     public String toString() 
       {
-        return String.format("RAWImageInputStream[%s]", delegate);
+        return String.format("RAWImageInputStream[%s, %s]", bitReader, delegate);
       }
     
     ////////// Decorated methods follow ////////////////////////////////////////////
