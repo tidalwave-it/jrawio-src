@@ -81,26 +81,28 @@ public class LoadTestSupport extends TestSupport
      * 
      * 
      **************************************************************************/
-    protected void assertLoadImage (final ImageReader ir, final int width, final int height) 
+    protected BufferedImage assertLoadImage (final ImageReader ir, final int width, final int height) 
       throws IOException 
       {
         final BufferedImage image = ir.read(0);
         assertNotNull(image);
         assertEquals(width, image.getWidth());
         assertEquals(height, image.getHeight());
+        return image;
       }
     
     /***************************************************************************
      * 
      * 
      **************************************************************************/
-    protected void assertLoadThumbnail (final ImageReader ir, final int thumbnailIndex, final int width, final int height) 
+    protected BufferedImage assertLoadThumbnail (final ImageReader ir, final int thumbnailIndex, final int width, final int height) 
       throws IOException 
       {
         final BufferedImage thumbnail = ir.readThumbnail(0, thumbnailIndex);
         assertNotNull(thumbnail);
         assertEquals(width, thumbnail.getWidth());
         assertEquals(height, thumbnail.getHeight());
+        return thumbnail;
       }
     
     /***************************************************************************
@@ -116,6 +118,21 @@ public class LoadTestSupport extends TestSupport
         assertNotNull(imageReader);
         imageReader.setInput(ImageIO.createImageInputStream(file));
         return imageReader;
+      }
+    
+    /***************************************************************************
+     * 
+     * 
+     **************************************************************************/
+    protected void assertRaster (final BufferedImage image, final String path, final String rasterMD5) 
+      throws IOException
+      {
+        final File tmp = new File(System.getProperty("java.io.tmpdir") + "/reajenttest");
+        final File tiffFile = new File(tmp, path + ".tiff");
+        final File jpegFile = new File(tmp, path + ".jpg"); 
+        assertTrue(tiffFile.getParentFile().mkdirs());
+        ImageIO.write(image, "TIFF", tiffFile);
+        ImageIO.write(image, "JPG", jpegFile);
       }
     
     /***************************************************************************
