@@ -22,14 +22,15 @@
  *
  *******************************************************************************
  *
- * $Id: PEFImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: PEFImageReaderSpi.java 82 2008-08-24 08:46:20Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.pef;
 
+import javax.annotation.Nonnull;
 import java.util.Locale;
-import java.io.IOException;
 import java.util.logging.Logger;
+import java.io.IOException;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
@@ -39,46 +40,56 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: PEFImageReaderSpi.java 82 2008-08-24 08:46:20Z fabriziogiudici $
  *
  ******************************************************************************/
 public class PEFImageReaderSpi extends RAWImageReaderSpiSupport
   {
-    private final static Logger logger = Logger.getLogger("it.tidalwave.imageio.pef.PEFImageReaderSpi");
+    private final static String CLASS = PEFImageReaderSpi.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
     
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * 
-     *******************************************************************************/
-    public PEFImageReaderSpi ()
+     **************************************************************************/
+    public PEFImageReaderSpi()
       {
         super("PEF", "pef", "image/pef", PEFImageReader.class);
       }
 
-    /*******************************************************************************
-     *
-     ******************************************************************************/
-    public String getDescription (Locale locale)
+    /***************************************************************************
+     * 
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    @Nonnull
+    public String getDescription (final Locale locale)
       {
         return "Standard PEF Image Reader";
       }
 
-    /*******************************************************************************
-     *
-     ******************************************************************************/
-    public ImageReader createReaderInstance (Object extension) throws IOException
+    /***************************************************************************
+     * 
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    @Nonnull
+    public ImageReader createReaderInstance (final Object extension) 
+      throws IOException
       {
         return new PEFImageReader(this, extension);
       }
 
-    /*******************************************************************************
-     *
-     ******************************************************************************/
-    public boolean canDecodeInput (RAWImageInputStream iis) throws IOException
+    /***************************************************************************
+     * 
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    public boolean canDecodeInput (@Nonnull final RAWImageInputStream iis) 
+      throws IOException
       {
         iis.seek(0);
         long ifdOffset = TIFFImageReaderSupport.processHeader(iis, null);
-        IFD primaryIFD = new IFD();
+        final IFD primaryIFD = new IFD();
         primaryIFD.load(iis, ifdOffset);
         
         if (primaryIFD.isDNGVersionAvailable())
@@ -86,8 +97,8 @@ public class PEFImageReaderSpi extends RAWImageReaderSpiSupport
             return false;    
           }
         
-        String make = primaryIFD.getMake();
-        String model = primaryIFD.getModel();
+        final String make = primaryIFD.getMake();
+        final String model = primaryIFD.getModel();
 
         if ((make == null) || !make.toUpperCase().startsWith("PENTAX"))
           {

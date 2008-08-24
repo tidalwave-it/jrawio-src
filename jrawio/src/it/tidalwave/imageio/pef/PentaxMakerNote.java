@@ -22,11 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: PentaxMakerNote.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: PentaxMakerNote.java 82 2008-08-24 08:46:20Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.pef;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.nio.ByteOrder;
 import it.tidalwave.imageio.io.RAWImageInputStream;
@@ -35,30 +36,42 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PentaxMakerNote.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: PentaxMakerNote.java 82 2008-08-24 08:46:20Z fabriziogiudici $
  *
  ******************************************************************************/
 public class PentaxMakerNote extends PentaxMakerNoteSupport
   {
     private final static long serialVersionUID = 6347805620960118907L;
     
-    public void loadAll (RAWImageInputStream iis, long offset) throws IOException
+    /***************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     **************************************************************************/
+    @Override
+    public void loadAll (@Nonnull final RAWImageInputStream iis, final long offset) 
+       throws IOException
       {
-        long baseOffsetSave = iis.getBaseOffset();
-        ByteOrder byteOrderSave = iis.getByteOrder();
+        final long baseOffsetSave = iis.getBaseOffset();
+        final ByteOrder byteOrderSave = iis.getByteOrder();
 
-        iis.seek(offset);
-        byte[] buffer = new byte[4];
-        iis.read(buffer);
-        String s = new String(buffer, 0, 3);
-
-        if (s.equals("AOC")) // Pentax / Asahi Type 2 Makernote
+        try
           {
-            TIFFImageReaderSupport.setByteOrder(iis);
-            super.load(iis, iis.getStreamPosition()); // not loadAll(), there's no next-IFD pointer at the end
-          }
+            iis.seek(offset);
+            final byte[] buffer = new byte[4];
+            iis.read(buffer);
+            final String s = new String(buffer, 0, 3);
 
-        iis.setBaseOffset(baseOffsetSave);
-        iis.setByteOrder(byteOrderSave);                 
+            if (s.equals("AOC")) // Pentax / Asahi Type 2 Makernote
+              {
+                TIFFImageReaderSupport.setByteOrder(iis);
+                super.load(iis, iis.getStreamPosition()); // not loadAll(), there's no next-IFD pointer at the end
+              }
+          }
+        finally
+          { 
+            iis.setBaseOffset(baseOffsetSave);
+            iis.setByteOrder(byteOrderSave);       
+          }
       }
   }

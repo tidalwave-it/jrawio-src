@@ -22,11 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: PEFMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: PEFMetadata.java 82 2008-08-24 08:46:20Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.pef;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.HeaderProcessor;
@@ -37,66 +39,72 @@ import it.tidalwave.imageio.tiff.ThumbnailHelper;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: PEFMetadata.java 82 2008-08-24 08:46:20Z fabriziogiudici $
  *
  ******************************************************************************/
 public class PEFMetadata extends TIFFMetadataSupport
   {
     private final static long serialVersionUID = 1795868418676854749L;
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     ******************************************************************************/
-    public PEFMetadata (Directory primaryIFD, RAWImageInputStream iis, HeaderProcessor headerProcessor)
+     **************************************************************************/
+    public PEFMetadata (@Nonnull final Directory primaryIFD, 
+                        @Nonnull final RAWImageInputStream iis, 
+                        @Nonnull final HeaderProcessor headerProcessor)
       {
         super(primaryIFD, iis, headerProcessor);
       }
 
-    /*******************************************************************************
-     * 
-     * @return
-     * 
-     *******************************************************************************/
-    protected void postInit (RAWImageInputStream iis)
+    /***************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     **************************************************************************/
+    @Override
+    protected void postInit (@Nonnull final RAWImageInputStream iis)
       {
-        PentaxMakerNote makerNote = getPentaxMakerNote ();
+        final PentaxMakerNote makerNote = getPentaxMakerNote ();
         
         if (makerNote.isPreviewThumbnailDimensionsAvailable())
           {
-            int thumbnailOffset = makerNote.getPreviewThumbnailOffset();
-            int thumbnailSize = makerNote.getPreviewThumbnailSize();
-            int thumbnailWidth = makerNote.getPreviewThumbnailDimensions()[0];
-            int thumbnailHeight = makerNote.getPreviewThumbnailDimensions()[1];
+            final int thumbnailOffset = makerNote.getPreviewThumbnailOffset();
+            final int thumbnailSize = makerNote.getPreviewThumbnailSize();
+            final int thumbnailWidth = makerNote.getPreviewThumbnailDimensions()[0];
+            final int thumbnailHeight = makerNote.getPreviewThumbnailDimensions()[1];
             thumbnailHelperList.add(new ThumbnailHelper(iis, thumbnailOffset, thumbnailSize, thumbnailWidth, thumbnailHeight));
           }
       }
  
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * @return
      * 
-     *******************************************************************************/
-    public PentaxMakerNote getPentaxMakerNote ()
+     **************************************************************************/
+    @CheckForNull
+    public PentaxMakerNote getPentaxMakerNote()
       {
         return (PentaxMakerNote)getMakerNote();
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
-     ******************************************************************************/
-    protected boolean isRasterIFD (IFD ifd)
+     **************************************************************************/
+    @Override
+    protected boolean isRasterIFD (@Nonnull final IFD ifd)
       {
         return ifd.isPhotometricInterpretationAvailable();
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
-     ******************************************************************************/
-    protected boolean isThumbnailIFD (IFD ifd)
+     **************************************************************************/
+    @Override
+    protected boolean isThumbnailIFD (@Nonnull final IFD ifd)
       {
         return ifd.isJPEGInterchangeFormatAvailable();
       }

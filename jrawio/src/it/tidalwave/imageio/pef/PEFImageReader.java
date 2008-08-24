@@ -22,16 +22,17 @@
  *
  *******************************************************************************
  *
- * $Id: PEFImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: PEFImageReader.java 82 2008-08-24 08:46:20Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.pef;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 import java.util.logging.Logger;
 import java.io.IOException;
 import java.awt.image.WritableRaster;
 import javax.imageio.spi.ImageReaderSpi;
-import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RasterReader;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
@@ -39,58 +40,62 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: PEFImageReader.java 82 2008-08-24 08:46:20Z fabriziogiudici $
  *
  ******************************************************************************/
 public class PEFImageReader extends TIFFImageReaderSupport
   {
-    private final static Logger logger = Logger.getLogger("it.tidalwave.imageio.pef.PEFImageReader");
+    private final static String CLASS = PEFImageReader.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     ******************************************************************************/
-    protected PEFImageReader (ImageReaderSpi originatingProvider, Object extension)
+     **************************************************************************/
+    protected PEFImageReader (@Nonnull final ImageReaderSpi originatingProvider, 
+                              @CheckForNull final Object extension)
       {
         super(originatingProvider, PentaxMakerNote.class, PEFMetadata.class);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     ******************************************************************************/
-    protected WritableRaster loadRAWRaster () throws IOException
+     **************************************************************************/
+    @Nonnull
+    protected WritableRaster loadRAWRaster() 
+      throws IOException
       {
         logger.fine("loadRAWRaster(iis: " + iis + ")");
 
-        long time = System.currentTimeMillis();
-        PEFRasterReader rasterReader = new PEFRasterReader();
+        final long time = System.currentTimeMillis();
+        final PEFRasterReader rasterReader = new PEFRasterReader();
         initializeRasterReader(rasterReader);
 
         logger.finest(">>>> using rasterReader: " + rasterReader);
-        IFD primaryIFD = (IFD)primaryDirectory;
+        final IFD primaryIFD = (IFD)primaryDirectory;
         iis.seek(primaryIFD.getStripOffsets()); // FIXME: set attribute in raster reader, seek done in rasterreader
-        WritableRaster raster = rasterReader.loadRaster(iis, this);
+        final WritableRaster raster = rasterReader.loadRaster(iis, this);
         logger.finer(">>>> loadRAWRaster() completed ok in " + (System.currentTimeMillis() - time) + " msec.");
 
         return raster;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * FIXME: merge with superclass
+     *
+     * {@inheritDoc}
      * 
-     * @param rasterReader
-     * 
-     *******************************************************************************/
-    protected void initializeRasterReader (RasterReader rasterReader)
+     ***************************************************************************/
+    protected void initializeRasterReader (@Nonnull final RasterReader rasterReader)
       {
-        IFD primaryIFD = (IFD)primaryDirectory;
-        IFD exifIFD = (IFD)primaryIFD.getNamedDirectory(IFD.EXIF_NAME);
+        final IFD primaryIFD = (IFD)primaryDirectory;
+        final IFD exifIFD = (IFD)primaryIFD.getNamedDirectory(IFD.EXIF_NAME);
         
-        int bitsPerSample = (primaryIFD.getCompression().intValue() == 1) ? 16 : 12; // packed in words primaryIFD.getBitsPerSample()[0];
-        int width = primaryIFD.getImageWidth();
-        int height = primaryIFD.getImageLength();
+        final int bitsPerSample = (primaryIFD.getCompression().intValue() == 1) ? 16 : 12; // packed in words primaryIFD.getBitsPerSample()[0];
+        final int width = primaryIFD.getImageWidth();
+        final int height = primaryIFD.getImageLength();
         rasterReader.setWidth(width);
         rasterReader.setHeight(height);
         rasterReader.setBitsPerSample(bitsPerSample);
