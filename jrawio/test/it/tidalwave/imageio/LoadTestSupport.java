@@ -28,8 +28,14 @@
 package it.tidalwave.imageio;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
@@ -124,15 +130,23 @@ public class LoadTestSupport extends TestSupport
      * 
      * 
      **************************************************************************/
-    protected void assertRaster (final BufferedImage image, final String path, final String rasterMD5) 
-      throws IOException
+    protected void assertRaster (final BufferedImage image, final String path, final String expectedRasterMD5) 
+      throws IOException, NoSuchAlgorithmException
       {
         final File tmp = new File(System.getProperty("java.io.tmpdir") + "/reajenttest");
         final File tiffFile = new File(tmp, path + ".tiff");
         final File jpegFile = new File(tmp, path + ".jpg"); 
-        assertTrue(tiffFile.getParentFile().mkdirs());
+        tiffFile.getParentFile().mkdirs();
         ImageIO.write(image, "TIFF", tiffFile);
         ImageIO.write(image, "JPG", jpegFile);
+        
+        final int width = image.getWidth();
+        final int height = image.getHeight();
+        final int[] pixels = image.getRaster().getPixels(0, 0, width, height, (int[])null);
+        assertEquals(width * height * 3, pixels.length);
+        final MessageDigest md5 = MessageDigest.getInstance("MD5");
+        final byte[] digest = md5.digest(asBytes(pixels));
+        assertEquals(expectedRasterMD5, asString(digest));
       }
     
     /***************************************************************************
@@ -145,5 +159,48 @@ public class LoadTestSupport extends TestSupport
         final ImageInputStream iis = (ImageInputStream)ir.getInput(); 
         iis.close();
         ir.dispose();
+      }
+
+    /***************************************************************************
+     * 
+     * 
+     **************************************************************************/
+    private static byte[] asBytes (final int[] buffer) 
+      throws IOException 
+      {
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final DataOutputStream dos = new DataOutputStream(baos);
+
+        for (final int value : buffer) 
+          {
+            dos.writeInt(value);
+          }
+
+        dos.close();
+        return baos.toByteArray();
+      }
+    
+    /***************************************************************************
+     * 
+     * 
+     **************************************************************************/
+    private static String asString (final byte[] bytes)
+      {
+        final StringBuilder builder = new StringBuilder();
+        
+        for (final byte b : bytes)
+          {
+            final String s = Integer.toHexString(b & 0xff);  
+            assertTrue(s.length() <= 2);
+            
+            if (s.length() < 2)
+              {
+                builder.append('0');
+              }
+            
+            builder.append(s);
+          }
+        
+        return builder.toString();
       }
   }

@@ -44,7 +44,7 @@ public class NEFProcessorTest extends LoadTestSupport
   {
     @Test
     public void test1() 
-      throws IOException 
+      throws Exception 
       {
         final String path = "fabriziogiudici/Nikon/D100/NEF/NikonCaptureEditor/ccw90.nef";
         final ImageReader ir = getImageReader(path);
@@ -56,12 +56,12 @@ public class NEFProcessorTest extends LoadTestSupport
         assertLoadThumbnail(ir, 0, 120, 160);
         close(ir);
         
-        assertRaster(image, path, "");
+        assertRaster(image, path, "d58c9b90902cc314b9aadf83ddc36fc2");
       }
     
     @Test
     public void test2() 
-      throws IOException 
+      throws Exception 
       {
         final String path = "fabriziogiudici/Nikon/D100/TIFF/TIFF-Large.TIF";
         final ImageReader ir = getImageReader(path);
@@ -74,12 +74,12 @@ public class NEFProcessorTest extends LoadTestSupport
         assertLoadThumbnail(ir, 0, 160, 120);
         close(ir);
         
-        assertRaster(image, path, "");
+        assertRaster(image, path, "00d5d09ec86230753350c9071afc7f6e");
       }
     
     @Test
     public void test3() 
-      throws IOException 
+      throws Exception 
       {
         final String path = "mpetersen/Nikon/D70s/NEF/Nikon_D70s_0001.NEF";
         final ImageReader ir = getImageReader(path);
@@ -93,6 +93,6 @@ public class NEFProcessorTest extends LoadTestSupport
         assertLoadThumbnail(ir, 1, 384, 255);
         close(ir);
         
-        assertRaster(image, path, "");
+        assertRaster(image, path, "aea0cd78a07088e96a59cb894e194704");
       }
   }

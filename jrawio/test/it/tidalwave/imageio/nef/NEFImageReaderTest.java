@@ -30,6 +30,7 @@ package it.tidalwave.imageio.nef;
 import java.io.IOException;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.LoadTestSupport;
+import java.awt.image.BufferedImage;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -43,45 +44,54 @@ public class NEFImageReaderTest extends LoadTestSupport
   {
     @Test
     public void testJRW146() 
-      throws IOException 
+      throws Exception 
       {
-        final ImageReader ir = getImageReader("fabriziogiudici/Nikon/D100/NEF/NikonCaptureEditor/ccw90.nef");
+        final String path = "fabriziogiudici/Nikon/D100/NEF/NikonCaptureEditor/ccw90.nef";
+        final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(1, ir.getNumThumbnails(0));
         assertImage(ir, 3034, 2024);
         assertThumbnail(ir, 0, 120, 160);
-        assertLoadImage(ir, 3034, 2024);
+        final BufferedImage image = assertLoadImage(ir, 3034, 2024);
         assertLoadThumbnail(ir, 0, 120, 160);
         close(ir);
+        
+        assertRaster(image, path, "d06b8c69390bc8d6ec6863376f0911b8");
       }
     
     @Test
     public void testJRW148() 
-      throws IOException 
+      throws Exception 
       {
-        final ImageReader ir = getImageReader("fabriziogiudici/Nikon/D100/TIFF/TIFF-Large.TIF");
+        final String path = "fabriziogiudici/Nikon/D100/TIFF/TIFF-Large.TIF";
+        final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(1, ir.getNumThumbnails(0));
         assertImage(ir, 3008, 2000);
         assertThumbnail(ir, 0, 160, 120);
-        assertLoadImage(ir, 3008, 2000);
+        final BufferedImage image = assertLoadImage(ir, 3008, 2000);
         assertLoadThumbnail(ir, 0, 160, 120);
         close(ir);
+        
+        assertRaster(image, path, "6c77828177385260c656142b00c5d375");
       }
     
     @Test
     public void testJRW149_JRW150() 
-      throws IOException 
+      throws Exception 
       {
-        final ImageReader ir = getImageReader("mpetersen/Nikon/D70s/NEF/Nikon_D70s_0001.NEF");
+        final String path = "mpetersen/Nikon/D70s/NEF/Nikon_D70s_0001.NEF";
+        final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
         assertImage(ir, 3040, 2014);
         assertThumbnail(ir, 0, 106, 160);
         assertThumbnail(ir, 1, 384, 255);
-        assertLoadImage(ir, 3040, 2014);
+        final BufferedImage image = assertLoadImage(ir, 3040, 2014);
         assertLoadThumbnail(ir, 0, 106, 160);
         assertLoadThumbnail(ir, 1, 384, 255);
         close(ir);
+        
+        assertRaster(image, path, "a8509d077417e968a982c2579985d0d6");
       }
   }
