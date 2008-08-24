@@ -22,30 +22,22 @@
  *
  *******************************************************************************
  *
- * $Id: CR2ImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: CR2ImageReader.java 85 2008-08-24 09:35:51Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.cr2;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBuffer;
+import java.util.logging.Logger;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
-import java.util.logging.Logger;
 import javax.imageio.spi.ImageReaderSpi;
-import javax.imageio.stream.ImageInputStream;
-import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.cr2.CanonCR2MakerNote;
-import it.tidalwave.imageio.raw.Directory;
-import it.tidalwave.imageio.raw.RAWMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
-import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CR2ImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: CR2ImageReader.java 85 2008-08-24 09:35:51Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CR2ImageReader extends TIFFImageReaderSupport
@@ -67,7 +59,8 @@ public class CR2ImageReader extends TIFFImageReaderSupport
      * @inheritDoc
      * 
      *******************************************************************************/
-    protected WritableRaster loadRAWRaster() throws IOException
+    protected WritableRaster loadRAWRaster() 
+      throws IOException
       {
         logger.fine("loadRAWRaster(iis: " + iis + ")");
         long time = System.currentTimeMillis();

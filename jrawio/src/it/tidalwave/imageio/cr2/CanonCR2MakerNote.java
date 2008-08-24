@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CanonCR2MakerNote.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: CanonCR2MakerNote.java 85 2008-08-24 09:35:51Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.cr2;
@@ -34,7 +34,7 @@ import java.io.InputStream;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CanonCR2MakerNote.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: CanonCR2MakerNote.java 85 2008-08-24 09:35:51Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CanonCR2MakerNote extends CanonCR2MakerNoteSupport
@@ -76,6 +76,7 @@ public class CanonCR2MakerNote extends CanonCR2MakerNoteSupport
         return getSensorInfo()[2];
       }
     
+    @Override
     public String getOwnerName()
       {
         String artist = super.getOwnerName();

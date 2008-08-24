@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CR2Metadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: CR2Metadata.java 85 2008-08-24 09:35:51Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.cr2;
@@ -30,14 +30,13 @@ package it.tidalwave.imageio.cr2;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.HeaderProcessor;
-import it.tidalwave.imageio.cr2.CanonCR2MakerNote;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
 
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: CR2Metadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: CR2Metadata.java 85 2008-08-24 09:35:51Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CR2Metadata extends TIFFMetadataSupport
@@ -45,7 +44,9 @@ public class CR2Metadata extends TIFFMetadataSupport
     /*******************************************************************************
      *
      ******************************************************************************/
-    public CR2Metadata (Directory primaryIFD, RAWImageInputStream iis, HeaderProcessor headerProcessor)
+    public CR2Metadata (Directory primaryIFD, 
+                        RAWImageInputStream iis, 
+                        HeaderProcessor headerProcessor)
       {
         super(primaryIFD, iis, headerProcessor);
       }
@@ -65,6 +66,7 @@ public class CR2Metadata extends TIFFMetadataSupport
      * @return
      * 
      *******************************************************************************/
+    @Override
     public int getWidth()
       {
         return getExifIFD().getPixelXDimension();
@@ -75,6 +77,7 @@ public class CR2Metadata extends TIFFMetadataSupport
      * @return
      * 
      *******************************************************************************/
+    @Override
     public int getHeight()
       {
         return getExifIFD().getPixelYDimension();
@@ -85,6 +88,7 @@ public class CR2Metadata extends TIFFMetadataSupport
      * @inheritDoc
      *
      ******************************************************************************/
+    @Override
     protected boolean isRasterIFD (IFD ifd)
       {
         return ifd.isCanon50648Available();
@@ -95,6 +99,7 @@ public class CR2Metadata extends TIFFMetadataSupport
      * @inheritDoc
      *
      ******************************************************************************/
+    @Override
     protected boolean isThumbnailIFD (IFD ifd)
       {
         return !ifd.isCanon50648Available();

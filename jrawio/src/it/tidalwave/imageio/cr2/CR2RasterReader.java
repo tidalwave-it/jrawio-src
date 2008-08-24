@@ -22,10 +22,9 @@
  *
  *******************************************************************************
  *
- * $Id: CR2RasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: CR2RasterReader.java 85 2008-08-24 09:35:51Z fabriziogiudici $
  *
  ******************************************************************************/
-
 package it.tidalwave.imageio.cr2;
 
 import java.io.IOException;
@@ -40,10 +39,9 @@ import it.tidalwave.imageio.raw.RasterReader;
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: CR2RasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: CR2RasterReader.java 85 2008-08-24 09:35:51Z fabriziogiudici $
  *
  ******************************************************************************/
-
 public class CR2RasterReader extends RasterReader
   {
     private static final int BUFFER_SIZE = 128 * 1024;
@@ -78,6 +76,7 @@ public class CR2RasterReader extends RasterReader
      * CR2 files are always compressed.
      * 
      *******************************************************************************/
+    @Override
     protected boolean isCompressedRaster ()
       {
         return true;
@@ -88,6 +87,7 @@ public class CR2RasterReader extends RasterReader
      * @inheritDoc
      * 
      *******************************************************************************/
+    @Override
     protected void loadCompressedRaster (RAWImageInputStream iis,
                                          WritableRaster raster,
                                          RAWImageReaderSupport ir) throws IOException
@@ -142,7 +142,6 @@ public class CR2RasterReader extends RasterReader
                         yy = scan / canonLastTileWidth;
                       }
                   }
-
               //
               // This is a very strange thing. EOS 1Ds Mark II has an odd number of rows on the sensor.
               // Looks like it's a GBRG Bayer pattern, but DNG marks it as a RGGB. So we skip the first
