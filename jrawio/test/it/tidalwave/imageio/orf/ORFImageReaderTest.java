@@ -42,7 +42,8 @@ import static org.junit.Assert.*;
 public class ORFImageReaderTest extends LoadTestSupport
   {
     @Test
-    public void testJRW151() 
+    // JIRA issues JRW-151, JRW-154
+    public void testJRW151_JRW154() 
       throws IOException 
       {
         final ImageReader ir = getImageReader("others/josephandre/Olympus/E510/ORF/_2090037.ORF");
@@ -52,6 +53,15 @@ public class ORFImageReaderTest extends LoadTestSupport
         assertThumbnail(ir, 0, 1600, 1200);
         assertLoadImage(ir, 3720, 2800);
         assertLoadThumbnail(ir, 0, 1600, 1200);
+        
+        final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
+        assertNotNull(metadata);
+        final OlympusMakerNote makerNote = metadata.getOlympusMakerNote();
+        assertNotNull(makerNote);
+        assertEquals(8, makerNote.getTags().size());
+        final CameraSettings cameraSettings = makerNote.getOlympusCameraSettings();
+        assertNotNull(makerNote);
+        assertEquals(44, cameraSettings.getTags().size());
         close(ir);
       }
   }
