@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImageReaderSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: RAWImageReaderSupport.java 94 2008-08-24 13:59:44Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -49,13 +49,15 @@ import java.awt.image.ComponentColorModel;
 import java.awt.image.DataBuffer;
 import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.io.RAWImageInputStream;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 
 /*******************************************************************************
  *
  * This class provides support for all RAW image readers.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: RAWImageReaderSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: RAWImageReaderSupport.java 94 2008-08-24 13:59:44Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class RAWImageReaderSupport extends ImageReader
@@ -314,19 +316,20 @@ public abstract class RAWImageReaderSupport extends ImageReader
         return 1;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * {@inheritDoc}
      *
-     ******************************************************************************/
-    public Iterator getImageTypes (int imageIndex)
+     **************************************************************************/
+    @Nonnull
+    public Iterator<ImageTypeSpecifier> getImageTypes (@Nonnegative final int imageIndex)
       {
         checkImageIndex(imageIndex);
-        List imageTypes = new ArrayList();
-        ColorSpace rgb = ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB);
-        int type = DataBuffer.TYPE_USHORT;
-        int[] bandOffsets = { RasterReader.R_OFFSET, RasterReader.G_OFFSET, RasterReader.B_OFFSET };
-        ImageTypeSpecifier imageType = ImageTypeSpecifier.createInterleaved(rgb, bandOffsets, type, false, false);
+        final List<ImageTypeSpecifier> imageTypes = new ArrayList<ImageTypeSpecifier>();
+        final ColorSpace rgb = ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB);
+        final int type = DataBuffer.TYPE_USHORT;
+        final int[] bandOffsets = { RasterReader.R_OFFSET, RasterReader.G_OFFSET, RasterReader.B_OFFSET };
+        final ImageTypeSpecifier imageType = ImageTypeSpecifier.createInterleaved(rgb, bandOffsets, type, false, false);
         imageTypes.add(imageType);
         
         return imageTypes.iterator();
