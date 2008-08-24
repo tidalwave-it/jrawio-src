@@ -22,16 +22,18 @@
  *
  *******************************************************************************
  *
- * $Id: Directory.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: Directory.java 83 2008-08-24 09:19:45Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -44,12 +46,12 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: Directory.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: Directory.java 83 2008-08-24 09:19:45Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class Directory implements Serializable
   {
-    private final static String CLASS = "it.tidalwave.imageio.raw.Directory";
+    private final static String CLASS = Directory.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
     private final static long serialVersionUID = 7068468438676854749L;
 
@@ -57,30 +59,30 @@ public abstract class Directory implements Serializable
     
     protected long end;
     
-    /** The map of tags. */
-    private Map tagMapByKey = new HashMap();
+    /** The map of getTags. */
+    private final Map<Object, AbstractTag> tagMapByKey = new HashMap<Object, AbstractTag>();
 
-    /** The list of tags, in the same order as they were added. */
-    private List tagList = new ArrayList();
+    /** The list of tag keys, in the same order as they were added. */
+    private final List<Object> keyList = new ArrayList<Object>();
     
-    public Directory nextDirectory; // FIXME
+    protected Directory nextDirectory; // FIXME it's protected - better to make private
     
     /** The list of sub-directories. */
-    private Collection directoryList = new ArrayList();
+    private final Collection<Directory> directoryList = new ArrayList<Directory>();
 
     /** The map of named directories. */
     private Map<String, Directory> directoryMapByName = new HashMap<String, Directory>();
 
-    /** The registry the contained tags belongs to. This is transient so that this class can
-     * be serialized without carrying along the whole registry! Upon deserialization
+    /** The name of the registry this tag belongs to. */
+    private String registryName;
+
+    /** The registry the contained getTags belongs to. This is transient so that this class can
+     * be serialized without carrying along the whole registry. Upon deserialization
      * the link to the registry must be restored by using the registryName.
      */
     protected transient TagRegistry tagRegistry;
 
-    /** The name of the registry this tag belongs to. */
-    private String registryName;
-
-    /*******************************************************************************
+    /***************************************************************************
      *
      * This class models an enumerated value for a tag.
      *
@@ -194,111 +196,117 @@ public abstract class Directory implements Serializable
           }
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * For de-serialization only.
      * 
-     *******************************************************************************/
+     **************************************************************************/
     protected Directory()
       {
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * Creates a new <code>Directory</code> whose tags belong to the given registry.
+     * Creates a new <code>Directory</code> whose getTags belong to the given registry.
      * 
      * @param tagRegistry  the registry
      * 
-     *******************************************************************************/
-    protected Directory (final TagRegistry tagRegistry)
+     **************************************************************************/
+    protected Directory (@Nonnull final TagRegistry tagRegistry)
       {
         this.tagRegistry = tagRegistry;
         registryName = tagRegistry.getName();
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * Returns the registry the contained tags belong to.
+     * Returns the registry the contained getTags belong to.
      * 
      * @return  the registry
      * 
-     *******************************************************************************/
+     **************************************************************************/
+    @Nonnull
     public TagRegistry getRegistry()
       {
         return tagRegistry;
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * 
-     *******************************************************************************/
+     **************************************************************************/
+    @Nonnegative
     public long getStart()
       {
         return start;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * 
-     *******************************************************************************/
+     **************************************************************************/
+    @Nonnegative
     public long getEnd()
       {
         return end;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * @param iis
      * @param offset
      * @throws IOException
      * 
-     *******************************************************************************/
-    public abstract long load (RAWImageInputStream iis, long offset) 
+     **************************************************************************/
+    public abstract long load (@Nonnull final RAWImageInputStream iis, 
+                               long offset) 
       throws IOException;
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * @param iis
      * @param offset
      * @throws IOException
      *
-     *******************************************************************************/
-    public void loadAll (final RAWImageInputStream iis, final long offset)       
+     **************************************************************************/
+    public void loadAll (@Nonnull final RAWImageInputStream iis, 
+                         @Nonnull final long offset)       
       throws IOException
       {
         load(iis, offset);   
       }
      
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Adds a tag to this <code>Directory</code>.
      * 
      * @param  tag  the tag to add
      * 
      **************************************************************************/
-    public void addTag (final AbstractTag tag)
+    public void addTag (@Nonnull final AbstractTag tag)
       {
         if (tag != null)
           {
             Object key = new Integer(tag.getCode());
             tagMapByKey.put(tagRegistry.getKey(key), tag);
-            tagList.add(tagRegistry.getKey(key));
+            keyList.add(tagRegistry.getKey(key));
           }
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Retrieves a contained tag given its key.
      * 
      * @param  key  the tag key
      * 
      **************************************************************************/
-    public AbstractTag getTag (final Object key)
+    @CheckForNull
+    public AbstractTag getTag (@Nonnull final Object key)
       {
-        return (AbstractTag)tagMapByKey.get(tagRegistry.getKey(key));
+        return tagMapByKey.get(tagRegistry.getKey(key));
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Checks if this <code>Directory</code> contains a given tag.
      * 
@@ -306,12 +314,12 @@ public abstract class Directory implements Serializable
      * @return      true if this <code>Directory</code> contains the tag
      * 
      **************************************************************************/
-    public boolean containsTag (final Object key)
+    public boolean containsTag (@Nonnull final Object key)
       {
         return (tagRegistry != null) && tagMapByKey.containsKey(tagRegistry.getKey(key));
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Removes a given tag from this </code>Directory</code>
      * 
@@ -319,13 +327,14 @@ public abstract class Directory implements Serializable
      * @return      the remove tag
      * 
      **************************************************************************/
-    public AbstractTag removeTag (final Object key)
+    @CheckForNull
+    public AbstractTag removeTag (@Nonnull final Object key)
       {
-        tagList.remove(tagRegistry.getKey(key));
-        return (AbstractTag)tagMapByKey.remove(tagRegistry.getKey(key));
+        keyList.remove(tagRegistry.getKey(key));
+        return tagMapByKey.remove(tagRegistry.getKey(key));
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the name of the given tag. FIXME: is meaningful here?
      * 
@@ -333,12 +342,13 @@ public abstract class Directory implements Serializable
      * @return      the tag name
      * 
      **************************************************************************/
-    public String getTagName (final Object key)
+    @Nonnull
+    public String getTagName (@Nonnull final Object key)
       {
         return tagRegistry.getTagName(((Number)key).intValue());
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * FIXME: This method is only provided for supporting 
      * it.tidalwave.image.DirectorySupport, but should be replaced with a more
@@ -346,13 +356,14 @@ public abstract class Directory implements Serializable
      * could be expected.
      * 
      **************************************************************************/
-    public Object getObject (final Object key)
+    @CheckForNull
+    public Object getObject (@Nonnull final Object key)
       {
-        AbstractTag tag = getTag(key);
+        final AbstractTag tag = getTag(key);
         return (tag != null) ? tag.getValue() : null;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the tag values as bytes.
      * 
@@ -360,13 +371,14 @@ public abstract class Directory implements Serializable
      * @return      the bytes or null if the tag is not present
      * 
      **************************************************************************/
-    public byte[] getBytes (final Object key)
+    @CheckForNull
+    public byte[] getBytes (@Nonnull final Object key)
       {
-        AbstractTag tag = getTag(key);
+        final AbstractTag tag = getTag(key);
         return (tag != null) ? tag.getByteValues() : null;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the tag value as a byte.
      * 
@@ -375,7 +387,7 @@ public abstract class Directory implements Serializable
      * @throws      NoSuchElementException  if the tag is not present
      * 
      **************************************************************************/
-    public int getByte (final Object key)
+    public int getByte (@Nonnull final Object key)
       {
         if (!containsTag(key))
           {
@@ -385,7 +397,7 @@ public abstract class Directory implements Serializable
         return getBytes(key)[0];
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the tag values as rationals.
      * 
@@ -393,13 +405,14 @@ public abstract class Directory implements Serializable
      * @return      the rationals or null if the tag is not present
      * 
      **************************************************************************/
-    public TagRational[] getRationals (final Object key)
+    @CheckForNull
+    public TagRational[] getRationals (@Nonnull final Object key)
       {
         AbstractTag tag = getTag(key);
         return (tag != null) ? tag.getRationalValues() : null;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the tag value as a rational.
      * 
@@ -408,7 +421,8 @@ public abstract class Directory implements Serializable
      * @throws      NoSuchElementException  if the tag is not present
      * 
      **************************************************************************/
-    public TagRational getRational (final Object key)
+    @Nonnull
+    public TagRational getRational (@Nonnull final Object key)
       {
         if (!containsTag(key))
           {
@@ -418,7 +432,7 @@ public abstract class Directory implements Serializable
         return getRationals(key)[0];
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the tag values as doubles.
      * 
@@ -426,13 +440,14 @@ public abstract class Directory implements Serializable
      * @return      the doubles or null if the tag is not present
      * 
      **************************************************************************/
-    public double[] getDoubles (final Object key)
+    @CheckForNull
+    public double[] getDoubles (@Nonnull final Object key)
       {
-        AbstractTag tag = getTag(key);
+        final AbstractTag tag = getTag(key);
         return (tag != null) ? asDoubles(tag.getRationalValues()) : null;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the tag value as a double.
      * 
@@ -441,7 +456,7 @@ public abstract class Directory implements Serializable
      * @throws      NoSuchElementException  if the tag is not present
      * 
      **************************************************************************/
-    public double getDouble (final Object key)
+    public double getDouble (@Nonnull final Object key)
       {
         if (!containsTag(key))
           {
@@ -451,7 +466,7 @@ public abstract class Directory implements Serializable
         return getRationals(key)[0].doubleValue();
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the tag values as floats.
      * 
@@ -459,13 +474,14 @@ public abstract class Directory implements Serializable
      * @return      the floats or null if the tag is not present
      * 
      **************************************************************************/
-    public float[] getFloats (final Object key)
+    @CheckForNull
+    public float[] getFloats (@Nonnull final Object key)
       {
-        AbstractTag tag = getTag(key);
+        final AbstractTag tag = getTag(key);
         return (tag != null) ? tag.getFloatValues() : null;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the tag value as a float.
      * 
@@ -474,7 +490,7 @@ public abstract class Directory implements Serializable
      * @throws      NoSuchElementException  if the tag is not present
      * 
      **************************************************************************/
-    public float getFloat (final Object key)
+    public float getFloat (@Nonnull final Object key)
       {
         if (!containsTag(key))
           {
@@ -484,7 +500,7 @@ public abstract class Directory implements Serializable
         return getRationals(key)[0].floatValue();
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the tag values as integers.
      * 
@@ -492,9 +508,10 @@ public abstract class Directory implements Serializable
      * @return      the integers or null if the tag is not present
      * 
      **************************************************************************/
-    public int[] getIntegers (final Object key)
+    @CheckForNull
+    public int[] getIntegers (@Nonnull final Object key)
       {
-        AbstractTag tag = getTag(key);
+        final AbstractTag tag = getTag(key);
 
         if (tag == null)
           {
@@ -508,7 +525,7 @@ public abstract class Directory implements Serializable
             return intValues;
           }
 
-        byte[] byteValues = tag.getByteValues();
+        final byte[] byteValues = tag.getByteValues();
 
         if (byteValues != null)
           {
@@ -525,7 +542,7 @@ public abstract class Directory implements Serializable
         return null;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the tag value as an integer.
      * <br>
@@ -540,7 +557,7 @@ public abstract class Directory implements Serializable
      * @throws      NoSuchElementException  if the tag is not present
      * 
      **************************************************************************/
-    public int getInteger (final Object key) 
+    public int getInteger (@Nonnull final Object key) 
       throws NoSuchElementException
       {
         if (!containsTag(key))
@@ -558,7 +575,7 @@ public abstract class Directory implements Serializable
         return i[0];
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns the tag value as a string.
      * 
@@ -566,35 +583,36 @@ public abstract class Directory implements Serializable
      * @return      the string or null if the tag has not been found
      * 
      **************************************************************************/
-    public String getString (final Object key)
+    @CheckForNull
+    public String getString (@Nonnull final Object key)
       {
-        AbstractTag tag = getTag(key);
-
+        final AbstractTag tag = getTag(key);
         return (tag != null) ? tag.getASCIIValue() : null;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * 
      **************************************************************************/
+    @CheckForNull
     public Directory getNextDirectory()
       {
         return nextDirectory;
       }
       
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Adds a sub-directory.
      * 
      * @param   subDirectory  the sub-directory
      * 
      **************************************************************************/
-    public void addDirectory (final Directory subDirectory)
+    public void addDirectory (@Nonnull final Directory subDirectory)
       {
         directoryList.add(subDirectory);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns an iterator over sub-directories. Note that named directories are 
      * not returned.
@@ -602,12 +620,13 @@ public abstract class Directory implements Serializable
      * @return  the yterator
      * 
      **************************************************************************/
-    public Iterator<Directory> subDirectories()
+    @Nonnull
+    public Collection<Directory> getSubDirectories()
       {
-        return Collections.unmodifiableCollection(directoryList).iterator();
+        return Collections.unmodifiableCollection(directoryList);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Adds a named sub-directory.
      * 
@@ -615,13 +634,13 @@ public abstract class Directory implements Serializable
      * @param  subDirectory  the sub-directory
      * 
      **************************************************************************/
-    public void addNamedDirectory (final String name,
-                                   final Directory subDirectory)
+    public void addNamedDirectory (@Nonnull final String name,
+                                   @Nonnull final Directory subDirectory)
       {
         directoryMapByName.put(name, subDirectory);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Returns a named sub-directory
      * 
@@ -629,43 +648,46 @@ public abstract class Directory implements Serializable
      * @return        the sub-directory
      * 
      **************************************************************************/
-    public Directory getNamedDirectory (String name)
+    @CheckForNull
+    public Directory getNamedDirectory (@Nonnull final String name)
       {
         return directoryMapByName.get(name);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * Returns the names of named sub directories
      * 
      * @return  the subdirectory names
      * 
-     *******************************************************************************/
+     **************************************************************************/
+    @CheckForNull
     public String[] getSubDirectoryNames()
       {
         return directoryMapByName.keySet().toArray(new String[0]);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * Returns the contained tags in the same order as they were added.
+     * Returns the contained getTags in the same order as they were added.
      * 
-     * @return  the contained tags
+     * @return  the contained getTags
      * 
      **************************************************************************/
-    public Collection tags()
+    @Nonnull
+    public Collection<AbstractTag> getTags()
       {
-        final List result = new ArrayList();
+        final List<AbstractTag> result = new ArrayList<AbstractTag>();
         
-        for (final Iterator i = tagList.iterator (); i.hasNext (); )
+        for (final Object key : keyList)
           {
-            result.add(tagMapByKey.get(i.next()));
+            result.add(tagMapByKey.get(key));
           }
 
         return result;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * Convenience method that converts an array of rationals into floats.
      * 
@@ -673,7 +695,8 @@ public abstract class Directory implements Serializable
      * @return  the floats
      * 
      **************************************************************************/
-    public static float[] asFloats (final TagRational[] rationals)
+    @CheckForNull
+    public static float[] asFloats (@CheckForNull final TagRational[] rationals)
       {
         if (rationals == null)
           {
@@ -698,7 +721,8 @@ public abstract class Directory implements Serializable
      * @return  the doubles
      * 
      **************************************************************************/
-    public static double[] asDoubles (final TagRational[] rationals)
+    @CheckForNull
+    public static double[] asDoubles (@CheckForNull final TagRational[] rationals)
       {
         if (rationals == null)
           {
@@ -715,20 +739,20 @@ public abstract class Directory implements Serializable
         return doubles;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      * @inheritDoc
      * 
      **************************************************************************/
     @Override
+    @Nonnull
     public String toString()
       {
-        StringBuffer buffer = new StringBuffer("\n\t");
+        final StringBuilder buffer = new StringBuilder("\n\t");
 
-        for (Iterator i = tagMapByKey.keySet().iterator(); i.hasNext();)
+        for (final Object key : tagMapByKey.keySet())
           {
-            Object name = i.next();
-            Object value = tagMapByKey.get(name);
+            final Object value = tagMapByKey.get(key);
             buffer.append(value);
             buffer.append("\n\t");
           }
@@ -736,17 +760,18 @@ public abstract class Directory implements Serializable
         return buffer.toString();
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      **************************************************************************/
-    protected String toString (byte[] array)
+    @Nonnull
+    protected String toString (@Nonnull final byte[] array)
       {
         if (array.length > 64)
           {
             return "" + array.length + " bytes";
           }
 
-        StringBuffer buffer = new StringBuffer("");
+        final StringBuilder buffer = new StringBuilder("");
 
         for (int i = 0; i < array.length; i++)
           {
@@ -761,17 +786,18 @@ public abstract class Directory implements Serializable
         return buffer.toString();
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      **************************************************************************/
-    protected String toString (int[] array)
+    @Nonnull
+    protected String toString (@Nonnull final int[] array)
       {
         if (array.length > 64)
           {
             return "" + array.length + " integers";
           }
 
-        StringBuffer buffer = new StringBuffer("");
+        final StringBuilder buffer = new StringBuilder("");
 
         for (int i = 0; i < array.length; i++)
           {
@@ -786,17 +812,18 @@ public abstract class Directory implements Serializable
         return buffer.toString();
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      **************************************************************************/
-    protected String toString (double[] array)
+    @Nonnull
+    protected String toString (@Nonnull final double[] array)
       {
         if (array.length > 64)
           {
             return "" + array.length + " doubles";
           }
 
-        StringBuffer buffer = new StringBuffer("");
+        final StringBuilder buffer = new StringBuilder("");
 
         for (int i = 0; i < array.length; i++)
           {
@@ -811,12 +838,13 @@ public abstract class Directory implements Serializable
         return buffer.toString();
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      **************************************************************************/
-    protected String toString (TagRational[] array)
+    @Nonnull
+    protected String toString (@Nonnull final TagRational[] array)
       {
-        StringBuffer buffer = new StringBuffer("");
+        final StringBuilder buffer = new StringBuilder("");
 
         for (int i = 0; i < array.length; i++)
           {
@@ -831,7 +859,7 @@ public abstract class Directory implements Serializable
         return buffer.toString();
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * Customized deserialization code. This method restores the link to the registry
      * this tag belongs to.
@@ -840,8 +868,9 @@ public abstract class Directory implements Serializable
      * @throws IOException
      * @throws ClassNotFoundException
      * 
-     *******************************************************************************/
-    private void readObject (ObjectInputStream is) throws IOException, ClassNotFoundException
+     **************************************************************************/
+    private void readObject (@Nonnull final ObjectInputStream is) 
+      throws IOException, ClassNotFoundException
       {
         is.defaultReadObject();
         tagRegistry = TagRegistry.getRegistry(registryName);
