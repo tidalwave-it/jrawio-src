@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: CRWRasterReader.java 86 2008-08-24 09:43:45Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -45,13 +45,12 @@ import it.tidalwave.imageio.raw.RAWImageReaderSupport;
  * compression scheme.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: CRWRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: CRWRasterReader.java 86 2008-08-24 09:43:45Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWRasterReader extends RasterReader
   {
-    private final static String CLASS = "it.tidalwave.imageio.crw.CRWRasterReader";
-
+    private final static String CLASS = CRWRasterReader.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
 
     /** The size of the CRW header. */
@@ -180,6 +179,7 @@ public class CRWRasterReader extends RasterReader
      * CRW files are always compressed.
      * 
      *******************************************************************************/
+    @Override
     protected boolean isCompressedRaster ()
       {
         return true;
@@ -192,9 +192,11 @@ public class CRWRasterReader extends RasterReader
      * This method implements raster data loading for compressed CRW.
      *
      ******************************************************************************/
+    @Override
     protected void loadCompressedRaster (RAWImageInputStream iis,
                                          WritableRaster raster,
-                                         RAWImageReaderSupport ir) throws IOException
+                                         RAWImageReaderSupport ir)
+      throws IOException
       {
         assert rasterOffset >= 0 : "rasterOffset not set";
         assert decoderPairIndex >= 0 : "decoderPairIndex not set";
@@ -283,7 +285,8 @@ public class CRWRasterReader extends RasterReader
      *******************************************************************************/
     private void loadBlock (RAWImageInputStream iis,
                             int[] diffBlock,
-                            HuffmannDecoder[] decoderPair) throws IOException
+                            HuffmannDecoder[] decoderPair) 
+      throws IOException
       {
         for (int i = 0; i < diffBlock.length; i++)
           {
@@ -329,7 +332,8 @@ public class CRWRasterReader extends RasterReader
     private void loadLowBits (ImageInputStream iis,
                               int width,
                               short[] pixel,
-                              int row) throws IOException
+                              int row) 
+      throws IOException
       {
         iis.mark();
         iis.seek(HEADER_SIZE + row * width / 4); // FIXME: shouldn't it be lowBitsOffset?
@@ -366,7 +370,8 @@ public class CRWRasterReader extends RasterReader
      * 
      *******************************************************************************/
     private static boolean hasLowBits (ImageInputStream iis,
-                                       int offset) throws IOException
+                                       int offset) 
+      throws IOException
       {
         byte[] buffer = new byte[16 * 1024];
         boolean compressed = true;

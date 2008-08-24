@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWImageInputStream.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: CRWImageInputStream.java 86 2008-08-24 09:43:45Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -38,13 +38,12 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: CRWImageInputStream.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: CRWImageInputStream.java 86 2008-08-24 09:43:45Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWImageInputStream extends RAWImageInputStream
   {
-    private final static String CLASS = "it.tidalwave.imageio.crw.CRWImageInputStream";
-
+    private final static String CLASS = CRWImageInputStream.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
 
     private final static String[] THM_EXTENSIONS = { "THM", "Thm", "thm" };
@@ -59,7 +58,8 @@ public class CRWImageInputStream extends RAWImageInputStream
      * @throws IOException 
      *      
      *******************************************************************************/
-    public CRWImageInputStream (ImageInputStream delegate) throws IOException
+    public CRWImageInputStream (ImageInputStream delegate) 
+      throws IOException
       {
         super(delegate);
         crwInputStream = delegate;
@@ -135,13 +135,14 @@ public class CRWImageInputStream extends RAWImageInputStream
      * @inheritDoc
      * 
      *******************************************************************************/
-    public void close () throws IOException
+    @Override
+    public void close() 
+      throws IOException
       {
         try
           {
             super.close();
           }
-
         finally
           {
             if (thmInputStream != null)

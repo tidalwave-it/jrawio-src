@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWMetadata.java 84 2008-08-24 09:20:11Z fabriziogiudici $
+ * $Id: CRWMetadata.java 86 2008-08-24 09:43:45Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -42,13 +42,12 @@ import it.tidalwave.imageio.tiff.IFD;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWMetadata.java 84 2008-08-24 09:20:11Z fabriziogiudici $
+ * @version $Id: CRWMetadata.java 86 2008-08-24 09:43:45Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWMetadata extends TIFFMetadataSupport
   {
-    private final static String CLASS = "it.tidalwave.imageio.crw.CRWMetadata";
-
+    private final static String CLASS = CRWMetadata.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
 
 //    private final static String NATIVE_FORMAT_NAME = "it_tidalwave_imageio_plugins_crw_image_1.0";
@@ -71,7 +70,10 @@ public class CRWMetadata extends TIFFMetadataSupport
     /*******************************************************************************
      *
      ******************************************************************************/
-    public CRWMetadata (CanonCRWMakerNote canonMakerNote, Directory imageIFD, RAWImageInputStream iis, HeaderProcessor headerProcessor)
+    public CRWMetadata (CanonCRWMakerNote canonMakerNote, 
+                        Directory imageIFD, 
+                        RAWImageInputStream iis, 
+                        HeaderProcessor headerProcessor)
       {
         super((IFD)imageIFD, iis, headerProcessor);
         this.canonMakerNote = canonMakerNote;
@@ -91,6 +93,7 @@ public class CRWMetadata extends TIFFMetadataSupport
      * @inheritDoc
      * 
      *******************************************************************************/
+    @Override
     public int getWidth()
       {
         return getImageWidth();
@@ -101,6 +104,7 @@ public class CRWMetadata extends TIFFMetadataSupport
      * @inheritDoc
      * 
      *******************************************************************************/
+    @Override
     public int getHeight()
       {
         return getImageHeight();
@@ -377,6 +381,7 @@ public class CRWMetadata extends TIFFMetadataSupport
      * @inheritDoc
      * 
      *******************************************************************************/
+    @Override
     public String toString ()
       {
         StringBuffer buffer = new StringBuffer(super.toString());

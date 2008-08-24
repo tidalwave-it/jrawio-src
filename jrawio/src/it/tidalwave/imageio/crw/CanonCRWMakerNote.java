@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CanonCRWMakerNote.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: CanonCRWMakerNote.java 86 2008-08-24 09:43:45Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -34,19 +34,17 @@ import java.util.Properties;
 import java.util.logging.Logger;
 import java.io.IOException;
 import java.io.InputStream;
-import it.tidalwave.imageio.crw.CIFFTag;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CanonCRWMakerNote.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: CanonCRWMakerNote.java 86 2008-08-24 09:43:45Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CanonCRWMakerNote extends CanonCRWMakerNoteSupport
   {
-    private final static String CLASS = "it.tidalwave.imageio.crw.CanonCRWMakerNote";
-
+    private final static String CLASS = CanonCRWMakerNote.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
 
     private static Properties lensNameByID = new Properties();
@@ -69,7 +67,10 @@ public class CanonCRWMakerNote extends CanonCRWMakerNoteSupport
      *
      *
      ******************************************************************************/
-    public void loadAll (RAWImageInputStream iis, long directoryOffset) throws IOException 
+    @Override
+    public void loadAll (RAWImageInputStream iis, 
+                         long directoryOffset) 
+      throws IOException 
       {
         logger.fine("loadAll(iis=" + iis + ", directoryOffset=" + directoryOffset + ")");
         loadAll(iis, directoryOffset, 0);
@@ -79,7 +80,10 @@ public class CanonCRWMakerNote extends CanonCRWMakerNoteSupport
      *
      *
      ******************************************************************************/
-    private void loadAll (RAWImageInputStream iis, long directoryOffset, int size) throws IOException 
+    private void loadAll (RAWImageInputStream iis, 
+                          long directoryOffset, 
+                          int size)
+      throws IOException 
       {
         logger.fine("loadAll(iis=" + iis + ", directoryOffset=" + directoryOffset + ", size=" + size + ")");
         
@@ -140,7 +144,7 @@ public class CanonCRWMakerNote extends CanonCRWMakerNoteSupport
      *
      *
      ******************************************************************************/
-    public int getLensType ()
+    public int getLensType()
       {
         return getCanonCameraSettings()[22];
       }
@@ -149,7 +153,7 @@ public class CanonCRWMakerNote extends CanonCRWMakerNoteSupport
      *
      *
      ******************************************************************************/
-    public String getLensName ()
+    public String getLensName()
       {
         return lensNameByID.getProperty("" + getLensType());
       }

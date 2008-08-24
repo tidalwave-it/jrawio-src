@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: CRWImageReaderSpi.java 86 2008-08-24 09:43:45Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: CRWImageReaderSpi.java 86 2008-08-24 09:43:45Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWImageReaderSpi extends RAWImageReaderSpiSupport
@@ -65,7 +65,8 @@ public class CRWImageReaderSpi extends RAWImageReaderSpiSupport
      * @inheritDoc
      * 
      *******************************************************************************/
-    public ImageReader createReaderInstance (Object extension) throws IOException
+    public ImageReader createReaderInstance (Object extension)
+      throws IOException
       {
         return new CRWImageReader(this);
       }
@@ -75,7 +76,8 @@ public class CRWImageReaderSpi extends RAWImageReaderSpiSupport
      * @inheritDoc
      * 
      *******************************************************************************/
-    public boolean canDecodeInput (RAWImageInputStream iis) throws IOException
+    public boolean canDecodeInput (RAWImageInputStream iis)
+      throws IOException
       {
         iis.seek(6);
         byte[] marker = new byte[8];

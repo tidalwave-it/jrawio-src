@@ -22,14 +22,11 @@
  *
  *******************************************************************************
  *
- * $Id: CRWImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: CRWImageReader.java 86 2008-08-24 09:43:45Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Logger;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
@@ -46,13 +43,12 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: CRWImageReader.java 86 2008-08-24 09:43:45Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWImageReader extends RAWImageReaderSupport
   {
-    private final static String CLASS = "it.tidalwave.imageio.crw.CRWImageReader";
-
+    private final static String CLASS = CRWImageReader.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
 
     /** The thumbnail count. */
@@ -85,7 +81,9 @@ public class CRWImageReader extends RAWImageReaderSupport
      * @inheritDoc
      *
      ******************************************************************************/
-    public int getNumThumbnails (int imageIndex) throws IOException
+    @Override
+    public int getNumThumbnails (int imageIndex)
+      throws IOException
       {
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
@@ -97,7 +95,8 @@ public class CRWImageReader extends RAWImageReaderSupport
      * @inheritDoc
      *
      ******************************************************************************/
-    public int getWidth (int imageIndex) throws IOException
+    public int getWidth (int imageIndex) 
+      throws IOException
       {
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
@@ -109,7 +108,8 @@ public class CRWImageReader extends RAWImageReaderSupport
      * @inheritDoc
      *
      ******************************************************************************/
-    public int getHeight (int imageIndex) throws IOException
+    public int getHeight (int imageIndex) 
+      throws IOException
       {
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
@@ -121,7 +121,9 @@ public class CRWImageReader extends RAWImageReaderSupport
      * @inheritDoc
      *
      ******************************************************************************/
-    public int getThumbnailWidth (int imageIndex, int thumbnailIndex) throws IOException
+    @Override
+    public int getThumbnailWidth (int imageIndex, int thumbnailIndex) 
+      throws IOException
       {
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
@@ -134,7 +136,9 @@ public class CRWImageReader extends RAWImageReaderSupport
      * @inheritDoc
      *
      ******************************************************************************/
-    public int getThumbnailHeight (int imageIndex, int thumbnailIndex) throws IOException
+    @Override
+    public int getThumbnailHeight (int imageIndex, int thumbnailIndex) 
+      throws IOException
       {
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
@@ -147,7 +151,8 @@ public class CRWImageReader extends RAWImageReaderSupport
      * @inheritDoc
      * 
      *******************************************************************************/
-    protected Directory loadPrimaryDirectory() throws IOException
+    protected Directory loadPrimaryDirectory() 
+      throws IOException
       {
         logger.info("loadPrimaryDirectory(iis=" + iis + ")");
         long directoryOffset = processHeader(iis, true);
@@ -162,7 +167,8 @@ public class CRWImageReader extends RAWImageReaderSupport
      * @inheritDoc
      *
      ******************************************************************************/
-    protected BufferedImage loadThumbnail (int imageIndex, int thumbnailIndex) throws IOException
+    protected BufferedImage loadThumbnail (int imageIndex, int thumbnailIndex) 
+      throws IOException
       {
         logger.info("loadThumbnail(iis=" + iis + ", imageIndex=" + imageIndex + ", thumbnailIndex=" + thumbnailIndex
             + ")");
@@ -198,7 +204,8 @@ public class CRWImageReader extends RAWImageReaderSupport
      * @inheritDoc
      *
      ******************************************************************************/
-    protected WritableRaster loadRAWRaster() throws IOException
+    protected WritableRaster loadRAWRaster() 
+      throws IOException
       {
         logger.fine("loadRAWRaster(iis: " + iis + ")");
 
@@ -240,7 +247,8 @@ public class CRWImageReader extends RAWImageReaderSupport
      * @inheritDoc
      *
      ******************************************************************************/
-    protected void processMetadata() throws IOException
+    protected void processMetadata() 
+      throws IOException
       {
         primaryDirectory = loadPrimaryDirectory();
         logger.fine("PRIMARY DIRECTORY: " + primaryDirectory);
@@ -269,6 +277,7 @@ public class CRWImageReader extends RAWImageReaderSupport
      * Releases all the allocated resources.
      * 
      *******************************************************************************/
+    @Override
     protected void disposeAll ()
       {
         super.disposeAll();
@@ -281,6 +290,7 @@ public class CRWImageReader extends RAWImageReaderSupport
      * @inheritDoc
      * 
      *******************************************************************************/
+    @Override
     protected Object wrapInput (Object input)
       {
         // FIXME: should use the superclass to check if input is a good object
@@ -299,7 +309,8 @@ public class CRWImageReader extends RAWImageReaderSupport
      * @throws IOException
      * 
      *******************************************************************************/
-    private void tryToReadEXIFFromTHM() throws IOException
+    private void tryToReadEXIFFromTHM()
+      throws IOException
       {
         CRWImageInputStream iis = (CRWImageInputStream)this.iis;
         long fileOffsetSave = iis.getBaseOffset(); // FIXME: terrific kludge!
@@ -341,7 +352,8 @@ public class CRWImageReader extends RAWImageReaderSupport
      *
      ******************************************************************************/
     protected void processEXIFAndMakerNote (Directory directory,
-                                            RAWImageInputStream iis) throws IOException
+                                            RAWImageInputStream iis)
+      throws IOException
       {
         if (((IFD)directory).isExifIFDPointerAvailable())
           {
@@ -381,7 +393,8 @@ public class CRWImageReader extends RAWImageReaderSupport
      * @inheritDoc
      * 
      *******************************************************************************/
-    protected RAWMetadataSupport createMetadata (Directory primaryDirectory, Directory imageDirector)
+    protected RAWMetadataSupport createMetadata (Directory primaryDirectory, 
+                                                 Directory imageDirector)
       {
         return new CRWMetadata((CanonCRWMakerNote)primaryDirectory, imageDirector, iis, headerProcessor);
       }
@@ -395,7 +408,8 @@ public class CRWImageReader extends RAWImageReaderSupport
      * @throws  IOException  if an I/O error occurs
      *
      ******************************************************************************/
-    protected void processMakerNote (RAWImageInputStream iis) throws IOException
+    protected void processMakerNote (RAWImageInputStream iis)
+      throws IOException
       {
         int makerNoteOffset = exifIFD.getMakerNoteOffset();
         makerNote = new CanonCRWMakerNote();
@@ -413,7 +427,8 @@ public class CRWImageReader extends RAWImageReaderSupport
      * 
      *******************************************************************************/
     private static long processHeader (ImageInputStream iis,
-                                       boolean reset) throws IOException
+                                       boolean reset) 
+      throws IOException
       {
         logger.fine("processHeader(iis=" + iis + ", reset=" + reset + ")");
 

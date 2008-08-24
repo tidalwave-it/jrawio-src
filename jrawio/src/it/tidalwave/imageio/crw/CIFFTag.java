@@ -22,22 +22,21 @@
  *
  *******************************************************************************
  *
- * $Id: CIFFTag.java 79 2008-08-24 08:37:33Z fabriziogiudici $
+ * $Id: CIFFTag.java 86 2008-08-24 09:43:45Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
-
-import javax.annotation.Nonnull;
 import it.tidalwave.imageio.raw.AbstractTag;
 import it.tidalwave.imageio.raw.TagRegistry;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CIFFTag.java 79 2008-08-24 08:37:33Z fabriziogiudici $
+ * @version $Id: CIFFTag.java 86 2008-08-24 09:43:45Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CIFFTag extends AbstractTag
