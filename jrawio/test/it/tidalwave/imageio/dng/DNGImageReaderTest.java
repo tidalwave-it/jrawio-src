@@ -53,12 +53,12 @@ public class DNGImageReaderTest extends LoadTestSupport
         assertImage(ir, 3088, 2055);
         assertThumbnail(ir, 0, 256, 171);
         assertThumbnail(ir, 1, 1024, 683);
-        final BufferedImage image = assertLoadImage(ir, 3088, 2055);
+        final BufferedImage image = assertLoadImage(ir, 3088, 2055, 3, 16);
         assertLoadThumbnail(ir, 0, 256, 171);
         assertLoadThumbnail(ir, 1, 1024, 683);
         close(ir);
         
-//        assertRaster(image, path, "");
+        assertRaster(image, path, "");
       }
     
     @Test
@@ -72,11 +72,11 @@ public class DNGImageReaderTest extends LoadTestSupport
         assertImage(ir, 3088, 2055);
         assertThumbnail(ir, 0, 256, 171);
         assertThumbnail(ir, 1, 1024, 683);
-        final BufferedImage image = assertLoadImage(ir, 3088, 2055);
+        final BufferedImage image = assertLoadImage(ir, 3088, 2055, 3, 16);
         assertLoadThumbnail(ir, 0, 256, 171);
         assertLoadThumbnail(ir, 1, 1024, 683);
         close(ir);
         
-//        assertRaster(image, path, "");
+        assertRaster(image, path, "");
       }
   }

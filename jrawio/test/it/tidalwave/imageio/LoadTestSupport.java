@@ -87,13 +87,24 @@ public class LoadTestSupport extends TestSupport
      * 
      * 
      **************************************************************************/
-    protected BufferedImage assertLoadImage (final ImageReader ir, final int width, final int height) 
+    protected BufferedImage assertLoadImage (final ImageReader ir, 
+                                             final int width, 
+                                             final int height, 
+                                             final int bandCount, 
+                                             final int sampleSize) 
       throws IOException 
       {
         final BufferedImage image = ir.read(0);
         assertNotNull(image);
         assertEquals(width, image.getWidth());
         assertEquals(height, image.getHeight());
+        assertEquals(bandCount, image.getData().getNumBands());
+        
+        for (int i = 0; i < bandCount; i++)
+          {
+            assertEquals(sampleSize, image.getData().getSampleModel().getSampleSize(i));
+          }
+        
         return image;
       }
     

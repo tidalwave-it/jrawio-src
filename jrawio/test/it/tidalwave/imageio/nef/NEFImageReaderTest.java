@@ -52,7 +52,7 @@ public class NEFImageReaderTest extends LoadTestSupport
         assertEquals(1, ir.getNumThumbnails(0));
         assertImage(ir, 3034, 2024);
         assertThumbnail(ir, 0, 120, 160);
-        final BufferedImage image = assertLoadImage(ir, 3034, 2024);
+        final BufferedImage image = assertLoadImage(ir, 3034, 2024, 3, 16);
         assertLoadThumbnail(ir, 0, 120, 160);
         close(ir);
         
@@ -69,7 +69,7 @@ public class NEFImageReaderTest extends LoadTestSupport
         assertEquals(1, ir.getNumThumbnails(0));
         assertImage(ir, 3008, 2000);
         assertThumbnail(ir, 0, 160, 120);
-        final BufferedImage image = assertLoadImage(ir, 3008, 2000);
+        final BufferedImage image = assertLoadImage(ir, 3008, 2000, 3, 16);
         assertLoadThumbnail(ir, 0, 160, 120);
         close(ir);
         
@@ -87,7 +87,7 @@ public class NEFImageReaderTest extends LoadTestSupport
         assertImage(ir, 3040, 2014);
         assertThumbnail(ir, 0, 106, 160);
         assertThumbnail(ir, 1, 384, 255);
-        final BufferedImage image = assertLoadImage(ir, 3040, 2014);
+        final BufferedImage image = assertLoadImage(ir, 3040, 2014, 3, 16);
         assertLoadThumbnail(ir, 0, 106, 160);
         assertLoadThumbnail(ir, 1, 384, 255);
         close(ir);

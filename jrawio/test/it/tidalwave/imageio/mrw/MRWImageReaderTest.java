@@ -52,7 +52,7 @@ public class MRWImageReaderTest extends LoadTestSupport
         assertEquals(1, ir.getNumThumbnails(0));
         assertImage(ir, 3008, 2000);
         assertThumbnail(ir, 0, 640, 480);
-        final BufferedImage image = assertLoadImage(ir, 3016, 2008);
+        final BufferedImage image = assertLoadImage(ir, 3016, 2008, 3, 16);
         assertLoadThumbnail(ir, 0, 640, 480);
         close(ir);
         
