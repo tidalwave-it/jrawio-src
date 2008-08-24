@@ -22,16 +22,17 @@
  *
  *******************************************************************************
  *
- * $Id: ORFImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: ORFImageReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 import java.util.logging.Logger;
 import java.io.IOException;
 import javax.imageio.spi.ImageReaderSpi;
 import java.awt.image.WritableRaster;
-import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RasterReader;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
@@ -39,59 +40,62 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: ORFImageReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFImageReader extends TIFFImageReaderSupport
   {
-    private final static Logger logger = Logger.getLogger("it.tidalwave.imageio.orf.ORFImageReader");
+    private final static String CLASS = ORFImageReader.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     ******************************************************************************/
-    protected ORFImageReader (ImageReaderSpi originatingProvider, Object extension)
+     **************************************************************************/
+    protected ORFImageReader (@Nonnull final ImageReaderSpi originatingProvider, 
+                              @CheckForNull final Object extension)
       {
         super(originatingProvider, OlympusMakerNote.class, ORFMetadata.class);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     ******************************************************************************/
-    protected WritableRaster loadRAWRaster() throws IOException
+     **************************************************************************/
+    protected WritableRaster loadRAWRaster() 
+      throws IOException
       {
         logger.fine("loadRAWRaster(iis: " + iis + ")");
 
-        long time = System.currentTimeMillis();
-        String model = ((IFD)primaryDirectory).getModel();
-        ORFRasterReader rasterReader = ORFRasterReader.getInstance(model);
+        final long time = System.currentTimeMillis();
+        final String model = ((IFD)primaryDirectory).getModel();
+        final ORFRasterReader rasterReader = ORFRasterReader.getInstance(model);
         initializeRasterReader(rasterReader);
 
         logger.finest(">>>> using rasterReader: " + rasterReader);
-        IFD primaryIFD = (IFD)primaryDirectory;
+        final IFD primaryIFD = (IFD)primaryDirectory;
         iis.seek(primaryIFD.getStripOffsets()); // FIXME: set attribute in raster reader, seek done in rasterreader
-        WritableRaster raster = rasterReader.loadRaster(iis, this);
+        final WritableRaster raster = rasterReader.loadRaster(iis, this);
         logger.finer(">>>> loadRAWRaster() completed ok in " + (System.currentTimeMillis() - time) + " msec.");
 
         return raster;
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * FIXME: merge with superclass
      * 
      * @param rasterReader
      * 
-     *******************************************************************************/
-    protected void initializeRasterReader (RasterReader rasterReader)
+     **************************************************************************/
+    protected void initializeRasterReader (@Nonnull final RasterReader rasterReader)
       {
-        IFD primaryIFD = (IFD)primaryDirectory;
-        IFD exifIFD = (IFD)primaryIFD.getNamedDirectory(IFD.EXIF_NAME);
+        final IFD primaryIFD = (IFD)primaryDirectory;
+        final IFD exifIFD = (IFD)primaryIFD.getNamedDirectory(IFD.EXIF_NAME);
         
-        int bitsPerSample =  primaryIFD.getBitsPerSample()[0]; 
-        int width = primaryIFD.getImageWidth();
-        int height = primaryIFD.getImageLength();
+        final int bitsPerSample =  primaryIFD.getBitsPerSample()[0]; 
+        final int width = primaryIFD.getImageWidth();
+        final int height = primaryIFD.getImageLength();
         rasterReader.setWidth(width);
         rasterReader.setHeight(height);
         rasterReader.setBitsPerSample(bitsPerSample);
@@ -105,8 +109,8 @@ public class ORFImageReader extends TIFFImageReaderSupport
 
         if (primaryIFD.isTileWidthAvailable())
           {
-            int tileWidth = primaryIFD.getTileWidth();
-            int tileLength = primaryIFD.getTileLength();
+            final int tileWidth = primaryIFD.getTileWidth();
+            final int tileLength = primaryIFD.getTileLength();
             rasterReader.setTileWidth(tileWidth);
             rasterReader.setTileHeight(tileLength);
             rasterReader.setTilesAcross((width + tileWidth - 1) / tileWidth);

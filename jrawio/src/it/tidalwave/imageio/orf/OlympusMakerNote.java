@@ -22,35 +22,39 @@
  *
  *******************************************************************************
  *
- * $Id: OlympusMakerNote.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: OlympusMakerNote.java 81 2008-08-24 08:44:10Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
 
-import java.util.Properties;
+import javax.annotation.Nonnull;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.ByteOrder;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: OlympusMakerNote.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: OlympusMakerNote.java 81 2008-08-24 08:44:10Z fabriziogiudici $
  *
  ******************************************************************************/
 public class OlympusMakerNote extends OlympusMakerNoteSupport
   {
     private final static long serialVersionUID = 6357805620960118907L;
 
-    public void loadAll (RAWImageInputStream iis, long offset) throws IOException
+    /***************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     **************************************************************************/
+    @Override
+    public void loadAll (@Nonnull final RAWImageInputStream iis, final long offset) 
+       throws IOException
       {
         long baseOffsetSave = iis.getBaseOffset();
         iis.seek(offset);
-        byte[] buffer = new byte[8];
+        final byte[] buffer = new byte[8];
         iis.read(buffer);
-        String s = new String(buffer, 0, 5);
+        final String s = new String(buffer, 0, 5);
 
         if (s.equals("OLYMP"))
           {

@@ -22,14 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: ORFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: ORFRasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
 
-import it.tidalwave.imageio.io.RAWImageInputStream;
-import java.awt.image.WritableRaster;
-import java.util.logging.Logger;
+import javax.annotation.Nonnull;
 import it.tidalwave.imageio.raw.RasterReader;
 
 /*******************************************************************************
@@ -37,19 +35,24 @@ import it.tidalwave.imageio.raw.RasterReader;
  * This class implements the ORF (Olympus raw Format) raster loading.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: ORFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: ORFRasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFRasterReader extends RasterReader
   {
-    /*******************************************************************************
+    /***************************************************************************
      * 
+     * Creates the proper {@link RasterReader} for the given model.
      * 
-     *******************************************************************************/
-    public static ORFRasterReader getInstance (String model)
+     * @param  model  the camera model
+     * @return        the <code>RasterReader</code>
+     * 
+     **************************************************************************/
+    public static ORFRasterReader getInstance (@Nonnull String model)
       {
         model = model.toUpperCase().trim();
         
+        // FIXME: replace with a Map
         if (model.startsWith("C"))
           {
             return new CSeriesRasterReader();    

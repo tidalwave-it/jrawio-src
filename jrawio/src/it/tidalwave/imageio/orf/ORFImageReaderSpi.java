@@ -22,14 +22,15 @@
  *
  *******************************************************************************
  *
- * $Id: ORFImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: ORFImageReaderSpi.java 81 2008-08-24 08:44:10Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
 
+import javax.annotation.Nonnull;
 import java.util.Locale;
-import java.io.IOException;
 import java.util.logging.Logger;
+import java.io.IOException;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
@@ -40,46 +41,56 @@ import it.tidalwave.imageio.pef.PEFImageReader;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: ORFImageReaderSpi.java 81 2008-08-24 08:44:10Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFImageReaderSpi extends RAWImageReaderSpiSupport
   {
-    private final static Logger logger = Logger.getLogger("it.tidalwave.imageio.orf.ORFImageReaderSpi");
+    private final static String CLASS = ORFImageReaderSpi.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
     
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * 
-     *******************************************************************************/
-    public ORFImageReaderSpi ()
+     *
+     **************************************************************************/
+    public ORFImageReaderSpi()
       {
         super("ORF", "orf", "image/orf", PEFImageReader.class);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     ******************************************************************************/
-    public String getDescription (Locale locale)
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    public String getDescription (final Locale locale)
       {
         return "Standard ORF Image Reader";
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     ******************************************************************************/
-    public ImageReader createReaderInstance (Object extension) throws IOException
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    @Nonnull
+    public ImageReader createReaderInstance (final Object extension) 
+      throws IOException
       {
         return new ORFImageReader(this, extension);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
-     ******************************************************************************/
-    public boolean canDecodeInput (RAWImageInputStream iis) throws IOException
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    public boolean canDecodeInput (@Nonnull final RAWImageInputStream iis) 
+      throws IOException
       {
         iis.seek(0);
         long ifdOffset = TIFFImageReaderSupport.processHeader(iis, null);
-        IFD primaryIFD = new IFD();
+        final IFD primaryIFD = new IFD();
         primaryIFD.load(iis, ifdOffset);
         
         if (primaryIFD.isDNGVersionAvailable())
@@ -87,8 +98,8 @@ public class ORFImageReaderSpi extends RAWImageReaderSpiSupport
             return false;    
           }
         
-        String make = primaryIFD.getMake();
-        String model = primaryIFD.getModel();
+        final String make = primaryIFD.getMake();
+        final String model = primaryIFD.getModel();
 
         if ((make == null) || !make.toUpperCase().startsWith("OLYMPUS"))
           {

@@ -22,40 +22,48 @@
  *
  *******************************************************************************
  *
- * $Id: E300RasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: E300RasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
 
-import it.tidalwave.imageio.raw.RAWImageReaderSupport;
+import javax.annotation.Nonnull;
+import java.io.IOException;
 import java.awt.image.DataBufferUShort;
 import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import java.io.IOException;
+import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 
 /*******************************************************************************
  *
  * This class implements the ORF (Olympus raw Format) raster loading for E-300.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: E300RasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: E300RasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
  *
  ******************************************************************************/
 public class E300RasterReader extends ORFRasterReader
   {
-    protected void loadUncompressedRaster (RAWImageInputStream iis,
-                                           WritableRaster raster,
-                                           RAWImageReaderSupport ir) throws IOException      
+    /***************************************************************************
+     * 
+     * {@inheritDoc}
+     * 
+     **************************************************************************/
+    @Override
+    protected void loadUncompressedRaster (@Nonnull final RAWImageInputStream iis,
+                                           @Nonnull final WritableRaster raster,
+                                           @Nonnull final RAWImageReaderSupport ir) 
+      throws IOException
       {
 //        logger.fine("loadUncompressedRaster()");
 //        logger.finer(">>>> CFA pattern: " + cfaOffsets[0] + " " + cfaOffsets[1] + " " + cfaOffsets[2] + " " + cfaOffsets[3]);
 
-        DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
-        short[] data = dataBuffer.getData();
-        int width = raster.getWidth();
-        int height = raster.getHeight();
-        int pixelStride = 3; // FIXME
-        int scanStride = width * pixelStride;
+        final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
+        final short[] data = dataBuffer.getData();
+        final int width = raster.getWidth();
+        final int height = raster.getHeight();
+        final int pixelStride = 3; // FIXME
+        final int scanStride = width * pixelStride;
         setBitsPerSample(12);
         selectBitReader(iis, raster, -1);
         //
@@ -64,15 +72,15 @@ public class E300RasterReader extends ORFRasterReader
         //
         for (int y = 0; y < height; y++)
           {
-            int row = getRow(y, height);
+            final int row = getRow(y, height);
+            final int k = (row % 2) * 2;
             int i = row * scanStride;
-            int k = (row % 2) * 2;
 
             for (int x = 0; x < width; x++)
               {
-                int b0 = iis.readByte() & 0xff;
-                int b1 = iis.readByte() & 0xff;
-                int b2 = iis.readByte() & 0xff;
+                final int b0 = iis.readByte() & 0xff;
+                final int b1 = iis.readByte() & 0xff;
+                final int b2 = iis.readByte() & 0xff;
                 
                 int sample1 = ((b1 << 8) | b0) & 0xfff;
                 int sample2 = ((b2 << 4) | (b1 >>> 4)) & 0xfff;
@@ -91,7 +99,7 @@ public class E300RasterReader extends ORFRasterReader
                 data[i + cfaOffsets[j + k]] = (short)sample2;
                 i += pixelStride;
                 
-                if (((x+1) % 10) == 0)
+                if (((x + 1) % 10) == 0)
                   {
                     iis.readByte();  
                   }

@@ -22,74 +22,83 @@
  *
  *******************************************************************************
  *
- * $Id: CSeriesRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: CSeriesRasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
 
-import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.RAWImageReaderSupport;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
+import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 
 /*******************************************************************************
  *
  * This class implements the ORF (Olympus raw Format) raster loading for C-series.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: CSeriesRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: CSeriesRasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CSeriesRasterReader extends ORFRasterReader
   {
-    /** Size of a row in bytes. */
-    private int rowByteCount;
-    
     private final static int BITS_PER_PIXEL = 8;
     
     private final static int BITS_COUNT = 11;
     
     private final static int MASK = (1 << (BITS_COUNT + 1)) - 1;
     
-    /*******************************************************************************
+    /** Size of a row in bytes. */
+    private int rowByteCount;
+    
+    /***************************************************************************
      * 
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     *******************************************************************************/
-    protected void loadUncompressedRaster (RAWImageInputStream iis,
-                                           WritableRaster raster,
-                                           RAWImageReaderSupport ir) throws IOException
+     **************************************************************************/
+    @Override
+    protected void loadUncompressedRaster (@Nonnull final RAWImageInputStream iis,
+                                           @Nonnull final WritableRaster raster,
+                                           @Nonnull final RAWImageReaderSupport ir) 
+      throws IOException
       {
         rowByteCount = (raster.getWidth() * bitsPerSample) / 8;
         super.loadUncompressedRaster(iis, raster, ir);  
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      * 
-     * @inheritDoc
+     * {@inheritDoc}
      * 
      * C-series rasters are interlaced.
      * 
-     *******************************************************************************/
-    protected int getRow (int y, int height)
+     **************************************************************************/
+    @Override
+    protected int getRow (@Nonnegative final int y, 
+                          @Nonnegative final int height)
       {
         return (y <= (height / 2)) ? (y * 2) : ((y - height / 2) * 2 - 1);
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      * 
      * The second set of interlaced rows starts at an offset with the BITS_COUNT
      * least significant bits to zero. Pad appropriately.
      * 
-     *******************************************************************************/
-    protected int getSkipCountAtEndOfRow (int y, int height)
+     **************************************************************************/
+    @Override
+    @Nonnegative
+    protected int getSkipCountAtEndOfRow (@Nonnegative final int y,
+                                          @Nonnegative final int height)
       {
         if (y != (height / 2))
           {
             return 0;  
           }
         
-        int delta = MASK + 1 - (((y + 1) * rowByteCount) & MASK);
+        final int delta = MASK + 1 - (((y + 1) * rowByteCount) & MASK);
         
         return delta * BITS_PER_PIXEL;
       }
