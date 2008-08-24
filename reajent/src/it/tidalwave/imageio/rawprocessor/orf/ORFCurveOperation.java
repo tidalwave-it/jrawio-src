@@ -22,11 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: ORFCurveOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: ORFCurveOperation.java 96 2008-08-24 14:51:54Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.orf;
 
+import javax.annotation.Nonnull;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 import it.tidalwave.imageio.orf.OlympusMakerNote;
@@ -35,7 +36,7 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFCurveOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: ORFCurveOperation.java 96 2008-08-24 14:51:54Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFCurveOperation extends CurveOperation
@@ -44,15 +45,18 @@ public class ORFCurveOperation extends CurveOperation
     
     private int validBits;
     
-    /*******************************************************************************
+    /***************************************************************************
      *
+     * {@inheritDoc}
      *
-     ******************************************************************************/
-    public void init (RAWImage image) throws Exception
+     **************************************************************************/
+    @Override
+    public void init (@Nonnull final RAWImage image) 
+      throws Exception
       {        
         OlympusMakerNote orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
-        blackLevels = orfMakernote.getBlackLevel();
-        validBits = orfMakernote.getValidBits();
+//        blackLevels = orfMakernote.getBlackLevel();
+//        validBits = orfMakernote.getValidBits();
         
         String model = ((TIFFMetadataSupport)image.getRAWMetadata()).getPrimaryIFD().getModel();
         model = model.toUpperCase().trim();
@@ -63,25 +67,28 @@ public class ORFCurveOperation extends CurveOperation
           }
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
-     ******************************************************************************/
-    protected int[] getBlackLevel(RAWImage image)
+     **************************************************************************/
+    @Override
+    @Nonnull
+    protected int[] getBlackLevel (@Nonnull final RAWImage image)
       {
-        int blackLevel = (blackLevels[0] + blackLevels[1] + blackLevels[2] + blackLevels[3]) / 4;
+        final int blackLevel = (blackLevels[0] + blackLevels[1] + blackLevels[2] + blackLevels[3]) / 4;
         return new int[] { blackLevel, blackLevel, blackLevel };
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
+     * {@inheritDoc}
      *
-     ******************************************************************************/
-    protected double getWhiteLevel (RAWImage image)
+     **************************************************************************/
+    @Override
+    protected double getWhiteLevel (@Nonnull final RAWImage image)
       {
-        double whiteLevel = (1 << validBits) - 1;
-        
+        double whiteLevel = (1 << validBits) - 1;    
         return whiteLevel;
       }
   }

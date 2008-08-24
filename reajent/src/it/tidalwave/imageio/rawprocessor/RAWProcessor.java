@@ -22,11 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: RAWProcessor.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: RAWProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -38,31 +39,30 @@ import it.tidalwave.imageio.raw.RAWMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RAWProcessor.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: RAWProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class RAWProcessor implements PostProcessor
   {
-    private final static String CLASS = "it.tidalwave.imageio.rawprocessor.RAWProcessor";
-    
+    private final static String CLASS = RAWProcessor.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
     
-    private List operationList = new ArrayList();
+    private final List<OperationSupport> operationList = new ArrayList<OperationSupport>();
     
     /*******************************************************************************
      *
      *
      ******************************************************************************/
-    public RAWProcessor ()
+    public RAWProcessor()
       {
         buildPipeline(operationList);
       }
 
-    /*******************************************************************************
+    /***************************************************************************
      *
      *
-     ******************************************************************************/
-    protected abstract void buildPipeline (List operationList);
+     **************************************************************************/
+    protected abstract void buildPipeline (@Nonnull List<OperationSupport> operationList);
     
     /*******************************************************************************
      *

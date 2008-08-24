@@ -22,11 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: ORFWhiteBalanceOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: ORFWhiteBalanceOperation.java 96 2008-08-24 14:51:54Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.orf;
 
+import javax.annotation.Nonnull;
 import java.util.logging.Logger;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
@@ -35,25 +36,26 @@ import it.tidalwave.imageio.orf.OlympusMakerNote;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFWhiteBalanceOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: ORFWhiteBalanceOperation.java 96 2008-08-24 14:51:54Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFWhiteBalanceOperation extends OperationSupport
   {
-    private final static Logger logger = getLogger(ORFWhiteBalanceOperation.class);
+    private final static String CLASS = ORFWhiteBalanceOperation.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
     
-    /*******************************************************************************
+    /***************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
-    public void process (RAWImage image)
+     **************************************************************************/
+    public void process (@Nonnull final RAWImage image)
       {
         logger.fine("process()");
-        OlympusMakerNote orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
-        int[] redBias = orfMakernote.getRedBias();
-        int[] blueBias = orfMakernote.getBlueBias();
-        image.multiplyRedCoefficient((double)redBias[0] / 256); 
-        image.multiplyBlueCoefficient((double)blueBias[0] / 256);
+        final OlympusMakerNote orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
+//        int[] redBias = orfMakernote.getRedBias();
+//        int[] blueBias = orfMakernote.getBlueBias();
+//        image.multiplyRedCoefficient((double)redBias[0] / 256); 
+//        image.multiplyBlueCoefficient((double)blueBias[0] / 256);
       }    
   }

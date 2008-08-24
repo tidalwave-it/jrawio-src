@@ -22,11 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: NEFProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: NEFProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.logging.Logger;
 import it.tidalwave.imageio.nef.NEFMetadata;
@@ -41,18 +42,19 @@ import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: NEFProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFProcessor extends RAWProcessor
   {
     private final static String CLASS = NEFProcessor.class.getName();
-     
     private final static Logger logger = Logger.getLogger(CLASS);
         
     class BindNCEMetadata extends OperationSupport
       {
-        public void init (RAWImage image) throws Exception
+        @Override
+        public void init (@Nonnull final RAWImage image)
+          throws Exception
           {
             NEFMetadata metadata = (NEFMetadata)image.getRAWMetadata();
             NikonMakerNote3 makerNote = metadata.getNikonMakerNote();
@@ -65,17 +67,18 @@ public class NEFProcessor extends RAWProcessor
               }            
           }        
 
-        public void process (RAWImage image) throws Exception
+        public void process (@Nonnull final RAWImage image) 
+          throws Exception
           {
           }        
       }
     
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
-     ******************************************************************************/
-    protected void buildPipeline (List operationList)
+     **************************************************************************/
+    protected void buildPipeline (@Nonnull final List<OperationSupport> operationList)
       {
         operationList.add(new BindNCEMetadata());
         operationList.add(new NEFWhiteBalanceOperation());

@@ -22,12 +22,14 @@
  *
  *******************************************************************************
  *
- * $Id: ORFProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: ORFProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.orf;
 
+import javax.annotation.Nonnull;
 import java.util.List;
+import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWProcessor;
 import it.tidalwave.imageio.rawprocessor.raw.ColorProfileOperation;
 import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
@@ -35,17 +37,17 @@ import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: ORFProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFProcessor extends RAWProcessor
   {
-    /*******************************************************************************
+    /***************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
-    protected void buildPipeline (List operationList)
+     **************************************************************************/
+    protected void buildPipeline (@Nonnull final List<OperationSupport> operationList)
       {
         operationList.add(new ORFWhiteBalanceOperation());
 //        operationList.add(new ORFExposureOperation());

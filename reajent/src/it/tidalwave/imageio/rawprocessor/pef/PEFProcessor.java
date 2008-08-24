@@ -22,31 +22,32 @@
  *
  *******************************************************************************
  *
- * $Id: PEFProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: PEFProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.pef;
 
+import javax.annotation.Nonnull;
 import java.util.List;
+import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWProcessor;
-import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 import it.tidalwave.imageio.rawprocessor.raw.ColorProfileOperation;
 import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: PEFProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
  *
  ******************************************************************************/
 public class PEFProcessor extends RAWProcessor
   {
-    /*******************************************************************************
+    /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
-     ******************************************************************************/
-    protected void buildPipeline (List operationList)
+     **************************************************************************/
+    protected void buildPipeline (@Nonnull final List<OperationSupport> operationList)
       {
         operationList.add(new PEFWhiteBalanceOperation());
 //        operationList.add(new PEFExposureOperation());
