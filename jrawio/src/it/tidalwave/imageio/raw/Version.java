@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: Version.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: Version.java 77 2008-08-24 08:32:14Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -30,19 +30,19 @@ package it.tidalwave.imageio.raw;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: Version.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: Version.java 77 2008-08-24 08:32:14Z fabriziogiudici $
  *
  ******************************************************************************/
 public final class Version
   {
     public final static String BUILD = "1.5SNAPSHOT";
 
-    /******************************************************************************
+    /***************************************************************************
      *
      * Used by ant to get the current tag and use it in the build process.
      *
-     ******************************************************************************/
-    public static void main (String[] args)
+     **************************************************************************/
+    public static void main (final String ... args)
       {
         System.out.println("tag: " + BUILD);
       }
