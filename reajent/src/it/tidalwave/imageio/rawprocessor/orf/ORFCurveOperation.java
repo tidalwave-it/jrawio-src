@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ORFCurveOperation.java 97 2008-08-24 15:58:54Z fabriziogiudici $
+ * $Id: ORFCurveOperation.java 120 2008-08-24 23:10:13Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.orf;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFCurveOperation.java 97 2008-08-24 15:58:54Z fabriziogiudici $
+ * @version $Id: ORFCurveOperation.java 120 2008-08-24 23:10:13Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFCurveOperation extends CurveOperation
@@ -68,7 +68,7 @@ public class ORFCurveOperation extends CurveOperation
             validBits = 16;   
           }
         
-        blackLevels = new int[]{ 2 << validBits - 1, 2 << validBits - 1, 2 << validBits - 1 }; 
+        blackLevels = new int[]{ 0, 0, 0 };
       }
     
     /***************************************************************************

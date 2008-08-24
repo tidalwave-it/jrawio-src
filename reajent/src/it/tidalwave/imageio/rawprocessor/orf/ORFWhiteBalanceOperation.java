@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ORFWhiteBalanceOperation.java 96 2008-08-24 14:51:54Z fabriziogiudici $
+ * $Id: ORFWhiteBalanceOperation.java 120 2008-08-24 23:10:13Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.orf;
@@ -32,11 +32,12 @@ import java.util.logging.Logger;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.orf.OlympusMakerNote;
+import it.tidalwave.imageio.orf.ImageProcessing;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFWhiteBalanceOperation.java 96 2008-08-24 14:51:54Z fabriziogiudici $
+ * @version $Id: ORFWhiteBalanceOperation.java 120 2008-08-24 23:10:13Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFWhiteBalanceOperation extends OperationSupport
@@ -46,16 +47,24 @@ public class ORFWhiteBalanceOperation extends OperationSupport
     
     /***************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
      **************************************************************************/
     public void process (@Nonnull final RAWImage image)
       {
         logger.fine("process()");
         final OlympusMakerNote orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
-//        int[] redBias = orfMakernote.getRedBias();
-//        int[] blueBias = orfMakernote.getBlueBias();
-//        image.multiplyRedCoefficient((double)redBias[0] / 256); 
-//        image.multiplyBlueCoefficient((double)blueBias[0] / 256);
+        
+        if (orfMakernote != null)
+          {
+            final ImageProcessing imageProcessing = orfMakernote.getOlympusImageProcessing();
+            
+            if ((imageProcessing != null) && imageProcessing.isRBCoefficientsAvailable())
+              {
+                final int[] rbCoefficients = imageProcessing.getRBCoefficients();
+                image.multiplyRedCoefficient(rbCoefficients[0] / 256.0); 
+                image.multiplyBlueCoefficient(rbCoefficients[1] / 256.0);
+              }
+          }
       }    
   }
