@@ -42,7 +42,7 @@ import static org.junit.Assert.*;
  * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-public class LoadTestSupport 
+public class LoadTestSupport extends TestSupport
   {
     private String testFolder = "/home/fritz/Projects/Imaging/trunk/www/TestSets";
     
