@@ -97,9 +97,11 @@ public class ORFImageReaderTest extends LoadTestSupport
         assertEquals(2, ir.getNumThumbnails(0));
         assertImage(ir, 3360, 2504);
         assertThumbnail(ir, 0, 160, 120);
+        assertThumbnail(ir, 1, 0, 0); //  FIXME: broken
         final BufferedImage image = assertLoadImage(ir, 3360, 2504, 3, 16);
         assertLoadThumbnail(ir, 0, 160, 120);
-        
+//        assertLoadThumbnail(ir, 1, 0, 0); //  FIXME: broken
+       
         assertRaster(image, path, "59dece63d3298d425e64e57f24ce1d46");
         
         final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
