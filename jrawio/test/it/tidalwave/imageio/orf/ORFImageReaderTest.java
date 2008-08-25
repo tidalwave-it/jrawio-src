@@ -27,10 +27,9 @@
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
 
-import java.io.IOException;
 import javax.imageio.ImageReader;
-import it.tidalwave.imageio.LoadTestSupport;
 import java.awt.image.BufferedImage;
+import it.tidalwave.imageio.LoadTestSupport;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -95,7 +94,7 @@ public class ORFImageReaderTest extends LoadTestSupport
         final String path = "others/victoriagracia/Olympus/E500/V7020205.ORF";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
-        assertEquals(1, ir.getNumThumbnails(0));
+        assertEquals(2, ir.getNumThumbnails(0));
         assertImage(ir, 3360, 2504);
         assertThumbnail(ir, 0, 160, 120);
         final BufferedImage image = assertLoadImage(ir, 3360, 2504, 3, 16);
@@ -103,32 +102,31 @@ public class ORFImageReaderTest extends LoadTestSupport
         
         assertRaster(image, path, "59dece63d3298d425e64e57f24ce1d46");
         
-        // TODO: check with exifprobe, there must be a slight variation
-//        final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
-//        assertNotNull(metadata);
-//        final OlympusMakerNote makerNote = metadata.getOlympusMakerNote();
-//        assertNotNull(makerNote);
-//        assertEquals(7, makerNote.getTags().size());
-//        
-//        final CameraSettings cameraSettings = makerNote.getOlympusCameraSettings();
-//        assertNotNull(cameraSettings);
-//        assertEquals(44, cameraSettings.getTags().size());
-//
-//        final Equipment equipment = makerNote.getOlympusEquipment();
-//        assertNotNull(equipment);
-//        assertEquals(23, equipment.getTags().size());
-//        
-//        final FocusInfo focusInfo = makerNote.getOlympusFocusInfo();
-//        assertNotNull(focusInfo);
-//        assertEquals(59, focusInfo.getTags().size());
-//        
-//        final ImageProcessing imageProcessing = makerNote.getOlympusImageProcessing();
-//        assertNotNull(imageProcessing);
-//        assertEquals(142, imageProcessing.getTags().size());
-//        
-//        final RawDevelopment rawDevelopment = makerNote.getOlympusRawDevelopment();
-//        assertNotNull(rawDevelopment);
-//        assertEquals(14, rawDevelopment.getTags().size());
+        final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
+        assertNotNull(metadata);
+        final OlympusMakerNote makerNote = metadata.getOlympusMakerNote();
+        assertNotNull(makerNote);
+        assertEquals(27, makerNote.getTags().size());
+        
+        final CameraSettings cameraSettings = makerNote.getOlympusCameraSettings();
+        assertNotNull(cameraSettings);
+        assertEquals(40, cameraSettings.getTags().size());
+
+        final Equipment equipment = makerNote.getOlympusEquipment();
+        assertNotNull(equipment);
+        assertEquals(23, equipment.getTags().size());
+        
+        final FocusInfo focusInfo = makerNote.getOlympusFocusInfo();
+        assertNotNull(focusInfo);
+        assertEquals(52, focusInfo.getTags().size());
+        
+        final ImageProcessing imageProcessing = makerNote.getOlympusImageProcessing();
+        assertNotNull(imageProcessing);
+        assertEquals(109, imageProcessing.getTags().size());
+        
+        final RawDevelopment rawDevelopment = makerNote.getOlympusRawDevelopment();
+        assertNotNull(rawDevelopment);
+        assertEquals(14, rawDevelopment.getTags().size());
         
         close(ir);
       }
