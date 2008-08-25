@@ -90,6 +90,53 @@ public class ORFProcessorTest extends LoadTestSupport
         
         close(ir);
         
-        assertRaster(image, path, "0393843e83dcf9a6a9b4b621aa4e24f8");
+        assertRaster(image, path, "50b6d6b4f6b0edeac02dc9f11dd6dce8");
+      }
+    
+    @Test
+    // JIRA JRW-160
+    public void test2() 
+      throws Exception 
+      {
+        final String path = "others/victoriagracia/Olympus/E500/V7020205.ORF";
+        final ImageReader ir = getImageReader(path);
+        assertEquals(1, ir.getNumImages(false));
+        assertEquals(2, ir.getNumThumbnails(0));
+        assertImage(ir, 3360, 2504);
+        assertThumbnail(ir, 0, 160, 120);
+        assertThumbnail(ir, 1, 0, 0); //  FIXME: broken
+        final BufferedImage image = assertLoadImage(ir, 3360, 2504, 3, 8); // FIXME: wrong, should be 16
+        assertLoadThumbnail(ir, 0, 160, 120);
+//        assertLoadThumbnail(ir, 1, 0, 0); //  FIXME: broken
+       
+        assertRaster(image, path, "77ecfb8e426555ee23740b52d2223db0");
+        
+        final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
+        assertNotNull(metadata);
+        final OlympusMakerNote makerNote = metadata.getOlympusMakerNote();
+        assertNotNull(makerNote);
+        assertEquals(27, makerNote.getTags().size());
+        
+        final CameraSettings cameraSettings = makerNote.getOlympusCameraSettings();
+        assertNotNull(cameraSettings);
+        assertEquals(40, cameraSettings.getTags().size());
+
+        final Equipment equipment = makerNote.getOlympusEquipment();
+        assertNotNull(equipment);
+        assertEquals(23, equipment.getTags().size());
+        
+        final FocusInfo focusInfo = makerNote.getOlympusFocusInfo();
+        assertNotNull(focusInfo);
+        assertEquals(52, focusInfo.getTags().size());
+        
+        final ImageProcessing imageProcessing = makerNote.getOlympusImageProcessing();
+        assertNotNull(imageProcessing);
+        assertEquals(109, imageProcessing.getTags().size());
+        
+        final RawDevelopment rawDevelopment = makerNote.getOlympusRawDevelopment();
+        assertNotNull(rawDevelopment);
+        assertEquals(14, rawDevelopment.getTags().size());
+        
+        close(ir);
       }
   }
