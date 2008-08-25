@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: TIFFTag.java 93 2008-08-24 13:57:07Z fabriziogiudici $
+ * $Id: TIFFTag.java 125 2008-08-25 01:05:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -41,7 +41,7 @@ import it.tidalwave.imageio.raw.TagRegistry;
  * This class represents a TIFF tag and is able to read from an IFD block.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: TIFFTag.java 93 2008-08-24 13:57:07Z fabriziogiudici $
+ * @version $Id: TIFFTag.java 125 2008-08-25 01:05:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class TIFFTag extends AbstractTag
@@ -96,6 +96,8 @@ public class TIFFTag extends AbstractTag
         typeToString[TYPE_DOUBLE] = "double"; 
         typeToString[TYPE_ORF_13] = "orf13"; // used in the Olympus ORF makernote
       }
+    
+    private long valueOffset;
 
     /*******************************************************************************
      * 
@@ -110,6 +112,11 @@ public class TIFFTag extends AbstractTag
         super(registry, code);
       }
 
+    public int getValueOffset() 
+      {
+        return (int)valueOffset;
+      }
+    
     /*******************************************************************************
      * 
      * @inheritDoc
@@ -575,7 +582,7 @@ public class TIFFTag extends AbstractTag
 
         else
           {
-            long valueOffset = iis.readUnsignedInt();
+            valueOffset = iis.readUnsignedInt();
             iis.mark();
             iis.seek(valueOffset);
             iis.read(buffer);

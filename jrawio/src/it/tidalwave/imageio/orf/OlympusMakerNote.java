@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: OlympusMakerNote.java 95 2008-08-24 14:48:47Z fabriziogiudici $
+ * $Id: OlympusMakerNote.java 125 2008-08-25 01:05:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -34,11 +34,13 @@ import java.util.logging.Logger;
 import java.io.IOException;
 import it.tidalwave.imageio.tiff.ThumbnailHelper;
 import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.raw.Directory;
+import it.tidalwave.imageio.tiff.TIFFTag;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: OlympusMakerNote.java 95 2008-08-24 14:48:47Z fabriziogiudici $
+ * @version $Id: OlympusMakerNote.java 125 2008-08-25 01:05:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class OlympusMakerNote extends OlympusMakerNoteSupport
@@ -74,7 +76,14 @@ public class OlympusMakerNote extends OlympusMakerNoteSupport
 
         if (s.equals("OLYMP"))
           {
-            iis.skipBytes(4);
+            final long savePosition = iis.getStreamPosition();
+            final int xxx = iis.readInt();
+            
+            if (xxx != 0x34949) // e.g. E-500
+              {
+                iis.seek(savePosition);  
+              }
+
             super.load(iis, iis.getStreamPosition()); // not loadAll(), there's no next-IFD pointer at the end
             loadCameraSettings(iis);
           }
@@ -155,46 +164,69 @@ public class OlympusMakerNote extends OlympusMakerNoteSupport
 
     /***************************************************************************
      *
+     * 
+     **************************************************************************/
+    private void loadMakerNoteIFD (@Nonnull final RAWImageInputStream iis,
+                                   @Nonnull final Directory directory, 
+                                   @Nonnull final Object key, 
+                                   @Nonnull final String string) 
+      throws IOException 
+      {
+        // Tags describing IFDs in the makernote can be of two types:
+        // 1. the classic TIFF 'undefined' type, in which case the tag contains
+        //    an array of bytes where the IFD is stored. Unfortunately, this
+        //    IFD can reference 'undefined' or 'ascii' tags that are physically
+        //    located outside of the array of bytes, so we can't just wrap
+        //    an InputStream around the bytes and get the IFD out of it. But
+        //    getting the 'valueOffset' of the tag, we can load the IFD as usual.
+        // 2. a non standard 'type C', which contains an integer that is the
+        //    offset of the IFD, relative to the current MakerNote position.
+        final Object value = getObject(key);
+        
+        if (value instanceof byte[])
+          {
+            final TIFFTag tag = (TIFFTag)getTag(key);
+            directory.load(iis, tag.getValueOffset());
+          }
+        else
+          {
+            final int makerNoteOffset = (int)getStart() - 12;
+            directory.load(iis, makerNoteOffset + (Integer)value);
+          }
+        
+        logger.fine(string + ": " + directory);
+      }
+
+    /***************************************************************************
      *
+     * 
      **************************************************************************/
     private void loadCameraSettings (@Nonnull final RAWImageInputStream iis)
       throws IOException
       {
-        final int makerNoteOffset = (int)getStart() - 12;
-        
         if (isEquipmentAvailable())
           {
-            equipment = new Equipment();
-            equipment.load(iis, makerNoteOffset + getEquipment());
-            logger.fine("Equipment: " + equipment);
+            loadMakerNoteIFD(iis, equipment = new Equipment(), EQUIPMENT, "Equipment");
           }
         
         if (isCameraSettingsAvailable())
           {
-            cameraSettings = new CameraSettings();
-            cameraSettings.load(iis, makerNoteOffset + getCameraSettings());
-            logger.fine("CameraSettings: " + cameraSettings);
+            loadMakerNoteIFD(iis, cameraSettings = new CameraSettings(), CAMERASETTINGS, "CameraSettings");
           }
         
         if (isRawDevelopmentAvailable())
           {
-            rawDevelopment = new RawDevelopment();
-            rawDevelopment.load(iis, makerNoteOffset + getRawDevelopment());
-            logger.fine("RawDevelopment: " + rawDevelopment);
+            loadMakerNoteIFD(iis, rawDevelopment = new RawDevelopment(), RAWDEVELOPMENT, "RawDevelopment");
           }
         
         if (isImageProcessingAvailable())
           {
-            imageProcessing = new ImageProcessing();
-            imageProcessing.load(iis, makerNoteOffset + getImageProcessing());
-            logger.fine("ImageProcessing: " + imageProcessing);
+            loadMakerNoteIFD(iis, imageProcessing = new ImageProcessing(), IMAGEPROCESSING, "ImageProcessing");
           }
         
         if (isFocusInfoAvailable())
           {
-            focusInfo = new FocusInfo();
-            focusInfo.load(iis, makerNoteOffset + getFocusInfo());
-            logger.fine("FocusInfo: " + focusInfo);
+            loadMakerNoteIFD(iis, focusInfo = new FocusInfo(), FOCUSINFO, "FocusInfo");
           }
       }
   }
