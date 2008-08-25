@@ -22,12 +22,14 @@
  *
  *******************************************************************************
  *
- * $Id: ORFRasterReader.java 118 2008-08-24 23:09:13Z fabriziogiudici $
+ * $Id: ORFRasterReader.java 122 2008-08-25 00:15:14Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
 import it.tidalwave.imageio.raw.RasterReader;
 
 /*******************************************************************************
@@ -35,11 +37,26 @@ import it.tidalwave.imageio.raw.RasterReader;
  * This class implements the ORF (Olympus raw Format) raster loading.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: ORFRasterReader.java 118 2008-08-24 23:09:13Z fabriziogiudici $
+ * @version $Id: ORFRasterReader.java 122 2008-08-25 00:15:14Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFRasterReader extends RasterReader
   {
+    private static final CSeriesRasterReader C_SERIES_RASTER_READER = new CSeriesRasterReader();
+    private static final E300RasterReader E300_RASTER_READER = new E300RasterReader();
+    private static final E410RasterReader E410_RASTER_READER = new E410RasterReader();
+    
+    private static final Map<String, ORFRasterReader> rasterReaderMapByModel =
+            new HashMap<String, ORFRasterReader>();
+    
+    static
+      {
+        rasterReaderMapByModel.put("E-300", E300_RASTER_READER);
+        rasterReaderMapByModel.put("E-410", E410_RASTER_READER);
+        rasterReaderMapByModel.put("E-500", E300_RASTER_READER);
+        rasterReaderMapByModel.put("E-510", E410_RASTER_READER);
+      }
+    
     /***************************************************************************
      * 
      * Creates the proper {@link RasterReader} for the given model.
@@ -52,21 +69,16 @@ public class ORFRasterReader extends RasterReader
     public static ORFRasterReader getInstance (@Nonnull String model)
       {
         model = model.toUpperCase().trim();
+        final ORFRasterReader rasterReader = rasterReaderMapByModel.get(model);
         
-        // FIXME: replace with a Map
+        if (rasterReader != null)
+          {
+            return rasterReader;
+          }
+
         if (model.startsWith("C"))
           {
-            return new CSeriesRasterReader();    
-          }
-        
-        if (model.equals("E-300"))
-          {
-            return new E300RasterReader();    
-          }
-        
-        if (model.equals("E-510"))
-          {
-            return new E410RasterReader();    
+            return C_SERIES_RASTER_READER;    
           }
         
         return new ORFRasterReader();
