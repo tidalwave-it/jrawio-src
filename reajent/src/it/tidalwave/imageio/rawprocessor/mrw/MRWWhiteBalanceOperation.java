@@ -22,21 +22,20 @@
  *
  *******************************************************************************
  *
- * $Id: MRWWhiteBalanceOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: MRWWhiteBalanceOperation.java 136 2008-09-04 12:56:41Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.mrw;
 
-import it.tidalwave.imageio.mrw.MRWHeaderProcessor;
 import java.util.logging.Logger;
-import it.tidalwave.imageio.raw.TagRational;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.mrw.MRWHeaderProcessor;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWWhiteBalanceOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: MRWWhiteBalanceOperation.java 136 2008-09-04 12:56:41Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWWhiteBalanceOperation extends OperationSupport
@@ -51,8 +50,8 @@ public class MRWWhiteBalanceOperation extends OperationSupport
     public void process (RAWImage image)
       {
         logger.fine("process()");
-        MRWHeaderProcessor mrwHeaderProcessor = (MRWHeaderProcessor)image.getRAWMetadata().getHeaderProcessor();
-        double[] coefficients = mrwHeaderProcessor.getCoefficients();
+        final MRWHeaderProcessor mrwHeaderProcessor = (MRWHeaderProcessor)image.getRAWMetadata().getHeaderProcessor();
+        final double[] coefficients = mrwHeaderProcessor.getMinoltaRawData().getCoefficients();
         image.multiplyRedCoefficient(coefficients[0]);
         image.multiplyGreenCoefficient(coefficients[1]);
         image.multiplyBlueCoefficient(coefficients[2]);

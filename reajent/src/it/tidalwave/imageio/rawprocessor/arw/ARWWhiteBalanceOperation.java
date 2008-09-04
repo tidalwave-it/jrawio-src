@@ -22,43 +22,38 @@
  *
  *******************************************************************************
  *
- * $Id: ThumbnailHelper.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: MRWWhiteBalanceOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.arw;
 
-import javax.imageio.ImageReader;
-import it.tidalwave.imageio.LoadTestSupport;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import it.tidalwave.imageio.arw.ARWMetadata;
+import java.util.logging.Logger;
+import it.tidalwave.imageio.rawprocessor.OperationSupport;
+import it.tidalwave.imageio.rawprocessor.RAWImage;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: MRWWhiteBalanceOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-public class ARWProcessorTest extends LoadTestSupport
+public class ARWWhiteBalanceOperation extends OperationSupport
   {
-    // JIRA issue JRW-127
-    @Test
-    public void testJRW127() 
-      throws Exception 
+    private final static Logger logger = getLogger(ARWWhiteBalanceOperation.class);
+    
+    /*******************************************************************************
+     *
+     * @inheritDoc
+     *
+     ******************************************************************************/
+    public void process (RAWImage image)
       {
-        final String path = "kijiro/Sony/A100/ARW/DSC00041.ARW";
-        final ImageReader ir = getImageReader(path);
-        assertEquals(1, ir.getNumImages(false));
-        assertEquals(2, ir.getNumThumbnails(0));
-        assertImage(ir, 3880, 2608); // FIXME should be cropped
-        // FIXME: you should swap them, smaller first
-        assertThumbnail(ir, 0, 3880, 2608); // FIXME: should be cropped
-        assertThumbnail(ir, 1, 160, 120);
-//        final BufferedImage image = assertLoadImage(ir, 3720, 2800, 3, 16);
-        assertLoadThumbnail(ir, 0, 640, 480); // FIXME: this is wrong, should be the 3872x2592
-        assertLoadThumbnail(ir, 1, 160, 120);
-        
-//        assertRaster(image, path, "0f73316ca3d30507b2d67a1edc2e4f43");
-        
-//        close(ir);
-      }
+        logger.fine("process()");
+        final ARWMetadata mrwHeaderProcessor = (ARWMetadata)image.getRAWMetadata();
+        final double[] coefficients = mrwHeaderProcessor.getMinoltaRawData().getCoefficients();
+        image.multiplyRedCoefficient(coefficients[0]);
+        image.multiplyGreenCoefficient(coefficients[1]);
+        image.multiplyBlueCoefficient(coefficients[2]);
+      }    
   }

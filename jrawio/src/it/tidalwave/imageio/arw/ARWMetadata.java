@@ -97,6 +97,17 @@ public class ARWMetadata extends TIFFMetadataSupport
       }
 
     /***************************************************************************
+     * 
+     * @return
+     * 
+     **************************************************************************/
+    @Nonnull
+    public MinoltaRawData getMinoltaRawData() 
+      {
+        return minoltaRawData;
+      }
+
+    /***************************************************************************
      *
      * {@inheritDoc}
      *

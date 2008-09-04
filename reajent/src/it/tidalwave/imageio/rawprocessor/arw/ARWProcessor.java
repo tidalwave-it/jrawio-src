@@ -50,7 +50,7 @@ public class ARWProcessor extends RAWProcessor
      **************************************************************************/
     protected void buildPipeline (@Nonnull final List<OperationSupport> operationList)
       {
-//        operationList.add(new NEFWhiteBalanceOperation());
+        operationList.add(new ARWWhiteBalanceOperation());
 //        operationList.add(new NEFExposureOperation());
 //        operationList.add(new ComputeBlackLevelsOperation());
         operationList.add(new CurveOperation());
