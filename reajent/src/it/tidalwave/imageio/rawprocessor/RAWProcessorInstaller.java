@@ -22,20 +22,14 @@
  *
  *******************************************************************************
  *
- * $Id: RAWProcessorInstaller.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: RAWProcessorInstaller.java 131 2008-09-04 00:33:02Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
 
-import java.io.IOException;
-import java.util.Locale;
 import java.util.logging.Logger;
-import javax.imageio.ImageReader;
-import javax.imageio.spi.IIORegistry;
-import javax.imageio.spi.ImageReaderSpi;
-import javax.imageio.stream.ImageInputStream;
 import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
-import it.tidalwave.imageio.raw.PostProcessor;
+import it.tidalwave.imageio.arw.ARWImageReaderSpi;
 import it.tidalwave.imageio.cr2.CR2ImageReaderSpi;
 import it.tidalwave.imageio.crw.CRWImageReaderSpi;
 import it.tidalwave.imageio.dng.DNGImageReaderSpi;
@@ -44,6 +38,7 @@ import it.tidalwave.imageio.nef.NEFImageReaderSpi;
 import it.tidalwave.imageio.orf.ORFImageReaderSpi;
 import it.tidalwave.imageio.pef.PEFImageReaderSpi;
 import it.tidalwave.imageio.srf.SRFImageReaderSpi;
+import it.tidalwave.imageio.rawprocessor.arw.ARWProcessor;
 import it.tidalwave.imageio.rawprocessor.cr2.CR2Processor;
 import it.tidalwave.imageio.rawprocessor.crw.CRWProcessor;
 import it.tidalwave.imageio.rawprocessor.dng.DNGProcessor;
@@ -60,8 +55,7 @@ import it.tidalwave.imageio.rawprocessor.srf.SRFProcessor;
  */
 public class RAWProcessorInstaller 
   {
-    private final static String CLASS = "it.tidalwave.imageio.rawprocessor.RAWProcessorInstaller";
-            
+    private final static String CLASS = RAWProcessorInstaller.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
     
     static
@@ -71,6 +65,7 @@ public class RAWProcessorInstaller
         if (jrawioVersion.startsWith(Version.REQUIRED_JRAWIO_VERSION))
           {
             logger.info("Installing RAWProcessor...");
+            RAWImageReaderSpiSupport.installPostProcessor(ARWImageReaderSpi.class, new ARWProcessor());
             RAWImageReaderSpiSupport.installPostProcessor(CR2ImageReaderSpi.class, new CR2Processor());
             RAWImageReaderSpiSupport.installPostProcessor(CRWImageReaderSpi.class, new CRWProcessor());
             RAWImageReaderSpiSupport.installPostProcessor(DNGImageReaderSpi.class, new DNGProcessor());
