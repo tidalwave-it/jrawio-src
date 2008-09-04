@@ -53,7 +53,7 @@ public class ARWProcessor extends RAWProcessor
         operationList.add(new ARWWhiteBalanceOperation());
 //        operationList.add(new NEFExposureOperation());
 //        operationList.add(new ComputeBlackLevelsOperation());
-        operationList.add(new CurveOperation());
+        operationList.add(new ARWCurveOperation());
         operationList.add(new DemosaicOperation());
 //        operationList.add(new NEFSizeOperation());
         operationList.add(new ColorProfileOperation());
