@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWImageReader.java 80 2008-08-24 08:42:00Z fabriziogiudici $
+ * $Id: MRWImageReader.java 135 2008-09-04 12:50:26Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -41,7 +41,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWImageReader.java 80 2008-08-24 08:42:00Z fabriziogiudici $
+ * @version $Id: MRWImageReader.java 135 2008-09-04 12:50:26Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWImageReader extends TIFFImageReaderSupport
@@ -115,10 +115,11 @@ public class MRWImageReader extends TIFFImageReaderSupport
         final MRWRasterReader rasterReader = new MRWRasterReader();
         initializeRasterReader(rasterReader);
 
-        final MRWHeaderProcessor mrwHeaderProcessor = (MRWHeaderProcessor) headerProcessor;
-        final long rasterOffset = mrwHeaderProcessor.getRasterOffset();
-        final int sensorWidth = mrwHeaderProcessor.getRasterWidth();
-        final int sensorHeight = mrwHeaderProcessor.getRasterHeight();
+        final MRWHeaderProcessor mrwHeaderProcessor = (MRWHeaderProcessor)headerProcessor;
+        final MinoltaRawData minoltaRawData = mrwHeaderProcessor.getMinoltaRawData();
+        final long rasterOffset = minoltaRawData.getRasterOffset();
+        final int sensorWidth = minoltaRawData.getRasterWidth();
+        final int sensorHeight = minoltaRawData.getRasterHeight();
         iis.seek(rasterOffset); // FIXME: set prop in rasterReader, seek in the rasterreader
         logger.finest(">>>> imageDataOffset: " + rasterOffset + ", size: " + sensorWidth + " x " + sensorHeight);
         rasterReader.setWidth(sensorWidth);

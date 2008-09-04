@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWHeaderProcessor.java 73 2008-08-23 21:39:29Z fabriziogiudici $
+ * $Id: MRWHeaderProcessor.java 135 2008-09-04 12:50:26Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.raw.HeaderProcessor;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWHeaderProcessor.java 73 2008-08-23 21:39:29Z fabriziogiudici $
+ * @version $Id: MRWHeaderProcessor.java 135 2008-09-04 12:50:26Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWHeaderProcessor extends HeaderProcessor
@@ -44,15 +44,7 @@ public class MRWHeaderProcessor extends HeaderProcessor
     private final static String CLASS = MRWHeaderProcessor.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
     
-    private int baseOffset;
-    
-    private int rasterOffset;
-    
-    private int rasterWidth;
-    
-    private int rasterHeight;
-    
-    private final double[] coefficients = new double[4];
+    private final MinoltaRawData minoltaRawData = new MinoltaRawData();
     
     /***************************************************************************
      * 
@@ -65,42 +57,7 @@ public class MRWHeaderProcessor extends HeaderProcessor
       {        
         iis.setBaseOffset(0);
         iis.seek(4);
-        rasterOffset = iis.readInt() + 8;
-        long save;
-        
-        while ((save = iis.getStreamPosition()) < rasterOffset)
-          {
-            int tag = iis.readInt();
-            int len = iis.readInt();
-            
-            logger.fine("MRW HEADER TAG " + Integer.toHexString(tag) + " LEN: " +  len);
-
-            switch (tag) 
-              {
-                case 0x505244: // PRD 
-                  iis.skipBytes(8);
-                  rasterHeight = iis.readShort() & 0xFFFF;
-                  rasterWidth = iis.readShort() & 0xFFFF;
-                  break;
-                  
-                case 0x574247: // WBG 
-                  iis.skipBytes(4);
-                  int j = 0; // strstr(model,"A200") ? 3:0;
-                  
-                  for (int i = 0; i < 4; i++)
-                    {
-                      coefficients[i ^ (i >> 1) ^ j] = (1.0/256.0) * iis.readShort();  
-                    }
-
-                  break;
-                  
-                case 0x545457: // TTW 
-                  baseOffset = (int)iis.getStreamPosition();
-                  break;
-              }
-            
-            iis.seek(save + len + 8);
-          }
+        minoltaRawData.load(iis, 8, iis.getByteOrder());
       }
     
     /***************************************************************************
@@ -110,42 +67,16 @@ public class MRWHeaderProcessor extends HeaderProcessor
     @Override
     public int getBaseOffset() 
       {
-        return baseOffset;
+        return minoltaRawData.getBaseOffset();
       }
     
     /***************************************************************************
      * 
      * 
      **************************************************************************/
-    public int getRasterOffset()
-      { 
-        return rasterOffset;  
-      }
-    
-    /***************************************************************************
-     * 
-     * 
-     **************************************************************************/
-    public int getRasterWidth()
-      { 
-        return rasterWidth;  
-      }
-    
-    /***************************************************************************
-     * 
-     * 
-     **************************************************************************/
-    public int getRasterHeight()
-      { 
-        return rasterHeight;  
-      }
-
-    /***************************************************************************
-     * 
-     * 
-     **************************************************************************/
-    public double[] getCoefficients()
+    @Nonnull
+    public MinoltaRawData getMinoltaRawData() 
       {
-        return coefficients.clone();
+        return minoltaRawData;
       }
   }

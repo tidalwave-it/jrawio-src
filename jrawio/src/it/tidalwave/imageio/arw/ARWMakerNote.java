@@ -46,6 +46,6 @@ public class ARWMakerNote extends IFDSupport
     public void loadAll (@Nonnull final RAWImageInputStream iis, final long offset)
       throws IOException
       {
-       // TODO
+       // TODO it's embeedded as UNDEFINED[xxx] in EXIF.MakerNote
       }
   }

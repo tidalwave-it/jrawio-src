@@ -27,13 +27,18 @@
  ******************************************************************************/
 package it.tidalwave.imageio.arw;
 
+import java.io.IOException;
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.mrw.MinoltaRawData;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.HeaderProcessor;
-import javax.annotation.Nonnegative;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.IntBuffer;
 
 /*******************************************************************************
  *
@@ -45,6 +50,8 @@ public class ARWMetadata extends TIFFMetadataSupport
   {
     private final static long serialVersionUID = 3012868418676854749L;
     
+    private final MinoltaRawData minoltaRawData = new MinoltaRawData();
+    
 //    private final IFD exifIFD;
 
     /***************************************************************************
@@ -52,9 +59,29 @@ public class ARWMetadata extends TIFFMetadataSupport
      **************************************************************************/
     public ARWMetadata (@Nonnull final Directory primaryIFD,
                         @Nonnull final RAWImageInputStream iis, 
-                        @Nonnull final HeaderProcessor headerProcessor)
+                        @Nonnull final HeaderProcessor headerProcessor) 
+      throws IOException
       {
         super(primaryIFD, iis, headerProcessor);
+        
+        final IFD ifd = (IFD)primaryIFD;
+        
+        if (ifd.isDNGPrivateDataAvailable())
+          {
+            final ByteBuffer byteBuffer = ByteBuffer.wrap(ifd.getDNGPrivateData());
+            byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
+            final int offset = byteBuffer.asIntBuffer().get();
+            final long save = iis.getStreamPosition();
+            iis.seek(offset);
+            
+            if ((iis.read() == 0) && (iis.read() == 'M') && (iis.read() == 'R'))
+              {
+                final int order = iis.read();
+                minoltaRawData.load(iis, offset, (order == 'I') ? ByteOrder.LITTLE_ENDIAN : ByteOrder.BIG_ENDIAN);
+              }
+            
+            iis.seek(save);
+          }
 //        exifIFD = (IFD)primaryIFD.getNamedDirectory(IFD.EXIF_NAME);
       }
 
@@ -111,7 +138,7 @@ public class ARWMetadata extends TIFFMetadataSupport
     @Override
     public int getWidth()
       {
-        return 3880; // FIXME getExifIFD().getPixelXDimension();
+        return minoltaRawData.getRasterWidth();
       }
     
     /***************************************************************************
@@ -123,6 +150,6 @@ public class ARWMetadata extends TIFFMetadataSupport
     @Override
     public int getHeight()
       {
-        return 2608; // FIXME getExifIFD().getPixelYDimension();
+        return minoltaRawData.getRasterHeight();
       }
   }
