@@ -69,54 +69,15 @@ public class E410RasterReader extends ORFRasterReader
         //
         // We can rely on the fact that the array has been zeroed by the JVM,
         // so we just set nonzero samples.
-        //
-//        for (int y = 0; y < height; y++)
-//          {
-//            final int row = getRow(y, height);
-//            final int k = (row % 2) * 2;
-//            int i = row * scanStride;
-//
-//            for (int x = 0; x < width; x++)
-//              {
-//                final int b0 = iis.readByte() & 0xff;
-//                final int b1 = iis.readByte() & 0xff;
-//                final int b2 = iis.readByte() & 0xff;
-//                
-//                int sample1 = ((b1 << 8) | b0) & 0xfff;
-//                int sample2 = ((b2 << 4) | (b1 >>> 4)) & 0xfff;
-//                
-//                if (linearizationTable != null)
-//                  {
-//                    sample1 = linearizationTable[sample1];
-//                    sample2 = linearizationTable[sample2];
-//                  }
-//
-//                int j = x % 2;
-//                data[i + cfaOffsets[j + k]] = (short)sample1;
-//                x++;
-//                i += pixelStride;
-//                j = x % 2;
-//                data[i + cfaOffsets[j + k]] = (short)sample2;
-//                i += pixelStride;
-//                
-//                if (((x + 1) % 10) == 0)
-//                  {
-//                    iis.readByte();  
-//                  }
-//              }
-//
-//            ir.processImageProgress((100.0f * y) / height);
-//          }
-        
+        //        
         int acarry[][] = new int[2][3];
 
-//  fseek (ifp, 7, SEEK_CUR);
         iis.skipBytes(7);
 
-        for (int row = 0; row < height; row++)
+        for (int y = 0; y < height; y++)
           {
-            final int k = (row % 2) * 2;
-            int ii = row * scanStride;
+            final int k = (y % 2) * 2;
+            int ii = y * scanStride;
             
             // clear acarry
             for (int acar = 0; acar < acarry.length; acar++)
@@ -127,10 +88,10 @@ public class E410RasterReader extends ORFRasterReader
                   }
               }
 
-            for (int col = 0; col < width; col++)
+            for (int x = 0; x < width; x++)
               {
-                int j = col % 2;
-                int carry[] = acarry[col & 1];
+                int j = x % 2;
+                int carry[] = acarry[x & 1];
                 int i = 2 * ((carry[2] < 3) ? 1 : 0);
               
                 int nbits;
@@ -160,15 +121,15 @@ public class E410RasterReader extends ORFRasterReader
                 
                 int pred;
                 
-                if ((row < 2) && (col < 2))
+                if ((y < 2) && (x < 2))
                   {
                     pred = 0;
                   }
-                else if (row < 2) 
+                else if (y < 2) 
                   {
                     pred = data[ii + cfaOffsets[j + k] - 2 * pixelStride]; // BAYER(row,col-2);
                   }
-                else if (col < 2) 
+                else if (x < 2) 
                   {
                     pred = data[ii + cfaOffsets[j + k] - 2 * scanStride]; // BAYER(row-2,col);
                   }
@@ -205,6 +166,8 @@ public class E410RasterReader extends ORFRasterReader
                 
                 ii += pixelStride;
               }
+            
+            ir.processImageProgress((100.0f * y) / height);
           }
       }
   }
