@@ -1,10 +1,11 @@
-it.tidalwave.imageio.nef.NEFImageReaderSpi
+it.tidalwave.imageio.arw.ARWImageReaderSpi
 it.tidalwave.imageio.crw.CRWImageReaderSpi
 it.tidalwave.imageio.cr2.CR2ImageReaderSpi
-it.tidalwave.imageio.srf.SRFImageReaderSpi
-it.tidalwave.imageio.pef.PEFImageReaderSpi
-it.tidalwave.imageio.mrw.MRWImageReaderSpi
-it.tidalwave.imageio.orf.ORFImageReaderSpi
 it.tidalwave.imageio.dcr.DCRImageReaderSpi
 it.tidalwave.imageio.dng.DNGImageReaderSpi
+it.tidalwave.imageio.mrw.MRWImageReaderSpi
+it.tidalwave.imageio.nef.NEFImageReaderSpi
+it.tidalwave.imageio.orf.ORFImageReaderSpi
+it.tidalwave.imageio.pef.PEFImageReaderSpi
+it.tidalwave.imageio.srf.SRFImageReaderSpi
 

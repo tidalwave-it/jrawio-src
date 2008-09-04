@@ -22,10 +22,10 @@
  *
  *******************************************************************************
  *
- * $Id: SRFImageReaderSpi.java 130 2008-09-04 00:31:58Z fabriziogiudici $
+ * $Id: ARWImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-package it.tidalwave.imageio.srf;
+package it.tidalwave.imageio.arw;
 
 import java.util.Locale;
 import java.util.logging.Logger;
@@ -39,21 +39,21 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: SRFImageReaderSpi.java 130 2008-09-04 00:31:58Z fabriziogiudici $
+ * @version $Id: ARWImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-public class SRFImageReaderSpi extends RAWImageReaderSpiSupport
+public class ARWImageReaderSpi extends RAWImageReaderSpiSupport
   {
-    private final static String CLASS = SRFImageReaderSpi.class.getName();
+    private final static String CLASS = ARWImageReaderSpi.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
     
     /*******************************************************************************
      * 
      * 
      *******************************************************************************/
-    public SRFImageReaderSpi()
+    public ARWImageReaderSpi()
       {
-        super("SRF", "srf", "image/srf", SRFImageReader.class);
+        super("ARW", "arw", "image/arw", ARWImageReader.class);
       }
 
     /*******************************************************************************
@@ -61,7 +61,7 @@ public class SRFImageReaderSpi extends RAWImageReaderSpiSupport
      ******************************************************************************/
     public String getDescription (Locale locale)
       {
-        return "Standard SRF Image Reader";
+        return "Standard ARW Image Reader";
       }
 
     /*******************************************************************************
@@ -69,7 +69,7 @@ public class SRFImageReaderSpi extends RAWImageReaderSpiSupport
      ******************************************************************************/
     public ImageReader createReaderInstance (Object extension) throws IOException
       {
-        return new SRFImageReader(this, extension);
+        return new ARWImageReader(this, extension);
       }
 
     /*******************************************************************************
@@ -91,9 +91,9 @@ public class SRFImageReaderSpi extends RAWImageReaderSpiSupport
         String model = primaryIFD.getModel();
 
         if ((make == null) || !make.toUpperCase().startsWith("SONY") || (model == null)
-            || model.toUpperCase().startsWith("DSLR-A100")) // A100 is .ARW
+            || (!model.toUpperCase().startsWith("DSLR-A100"))) // others are .SRF
           {
-            logger.fine("SRFImageReaderSpi giving up on: '" + make + "' / '" + model + "'");
+            logger.fine("ARWImageReaderSpi giving up on: '" + make + "' / '" + model + "'");
             return false;
           }
 
