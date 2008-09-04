@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: TIFFImageReaderSupport.java 72 2008-08-23 21:38:54Z fabriziogiudici $
+ * $Id: TIFFImageReaderSupport.java 129 2008-09-04 00:30:30Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -47,13 +47,12 @@ import it.tidalwave.imageio.raw.RasterReader;
  * an ImageReader for any TIFF-based image format.
  *
  * @author Fabrizio Giudici
- * @version $Id: TIFFImageReaderSupport.java 72 2008-08-23 21:38:54Z fabriziogiudici $
+ * @version $Id: TIFFImageReaderSupport.java 129 2008-09-04 00:30:30Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
   {
-    private final static String CLASS = "it.tidalwave.imageio.tiff.TIFFImageReaderSupport";
-
+    private final static String CLASS = TIFFImageReaderSupport.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
 
     /** The TIFF magic number for TIFF version */
@@ -331,10 +330,19 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
             ((RAWImageInputStream)iis).setBaseOffset(12);
           }
 
-        IFD primaryIFD = new IFD();
+        IFD primaryIFD = createPrimaryIFD();
         primaryIFD.loadAll(iis, directoryOffset);
         
         return primaryIFD;
+      }
+    
+    /*******************************************************************************
+     * 
+     * 
+     *******************************************************************************/
+    protected IFD createPrimaryIFD()
+      {
+        return new IFD();
       }
 
     /*******************************************************************************
