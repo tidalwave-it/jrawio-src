@@ -50,15 +50,15 @@ public class ARWImageReaderTest extends LoadTestSupport
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
-        assertImage(ir, 3872, 2592);
+        assertImage(ir, 3880, 2608);
         // FIXME: you should swap them, smaller first
         assertThumbnail(ir, 0, 3872, 2592);
         assertThumbnail(ir, 1, 160, 120);
-//        final BufferedImage image = assertLoadImage(ir, 3720, 2800, 3, 16);
+        final BufferedImage image = assertLoadImage(ir, 3880, 2608, 3, 16);
         assertLoadThumbnail(ir, 0, 640, 480); // FIXME: this is wrong, should be the 3872x2592
         assertLoadThumbnail(ir, 1, 160, 120);
         
-//        assertRaster(image, path, "0f73316ca3d30507b2d67a1edc2e4f43");
+        assertRaster(image, path, "43375f3493629d6ee80e13441d018649");
         
         close(ir);
       }

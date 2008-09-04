@@ -111,7 +111,7 @@ public class ARWMetadata extends TIFFMetadataSupport
     @Override
     public int getWidth()
       {
-        return getExifIFD().getPixelXDimension();
+        return 3880; // FIXME getExifIFD().getPixelXDimension();
       }
     
     /***************************************************************************
@@ -123,6 +123,6 @@ public class ARWMetadata extends TIFFMetadataSupport
     @Override
     public int getHeight()
       {
-        return getExifIFD().getPixelYDimension();
+        return 2608; // FIXME getExifIFD().getPixelYDimension();
       }
   }

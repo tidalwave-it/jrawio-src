@@ -32,56 +32,63 @@ import javax.annotation.Nonnull;
 import java.util.logging.Logger;
 import java.io.IOException;
 import javax.imageio.spi.ImageReaderSpi;
-import javax.imageio.stream.ImageInputStream;
 import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 import it.tidalwave.imageio.raw.RasterReader;
-import it.tidalwave.imageio.srf.SonyMakerNote;
-import it.tidalwave.imageio.srf.SRFImageInputStream;
-import it.tidalwave.imageio.srf.SRFRasterReader;
 
-class PatchedIFD extends IFD
+/*******************************************************************************
+ *
+ * The ARW samples we have use the SubIFD field in IFD0 to store the offset of
+ * the raster.
+ *
+ ******************************************************************************/
+class ARWPrimaryIFD extends IFD
   {
-    /***************************************************************************
-     *
-     * The ARW samples we have declare a subifd at 0x10000, but it not coded as
-     * a regular IFD and triggers an error, so we are ignoring it.
-     * 
-     * FIXME: try to understand what's there.
-     *
-     **************************************************************************/
+    private static final long serialVersionUID = -7810975852445063637L;
+
+    public int getRasterOffset()
+      {
+        return super.getSubIFDs()[0];
+      }
+    
+    @Override
+    public boolean isSubIFDsAvailable() 
+      {
+        return false;
+      }
+    
     @Override
     public int[] getSubIFDs() 
       {
-        final int[] original = super.getSubIFDs();
-        final int bad = 0x10000;
-        
-        int count = 0;
-        
-        for (int i = 0; i < original.length; i++)
-          {
-            if (original[i] != bad)
-              {
-                count++;  
-              } 
-          }
-        
-        final int[] result = new int[count];
-        
-        int j = 0;
-        for (int i = 0; i < original.length; i++)
-          {
-            if (original[i] != bad)
-              {
-                result[j++] = original[i];  
-              } 
-          }
-        
-        return result;
+        return new int[0];
+//        final int[] original = super.getSubIFDs();
+//        final int bad = 0x10000;
+//        
+//        int count = 0;
+//        
+//        for (int i = 0; i < original.length; i++)
+//          {
+//            if (original[i] != bad)
+//              {
+//                count++;  
+//              } 
+//          }
+//        
+//        final int[] result = new int[count];
+//        
+//        int j = 0;
+//        for (int i = 0; i < original.length; i++)
+//          {
+//            if (original[i] != bad)
+//              {
+//                result[j++] = original[i];  
+//              } 
+//          }
+//        
+//        return result;
       }
   }
-
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
@@ -106,25 +113,12 @@ public class ARWImageReader extends TIFFImageReaderSupport
      * 
      * {@inheritDoc}
      * 
-//     **************************************************************************/
-//    @Override
-//    protected Object wrapInput (@Nonnull final Object input)
-//      {
-//        // FIXME: SRFImageInputStream provides decription, I don't know if it's needed for ARW
-//        // FIXME: should use the superclass to check if input is a good object
-//        return new SRFImageInputStream((ImageInputStream)input);
-//      }
-
-    /***************************************************************************
-     * 
-     * {@inheritDoc}
-     * 
      **************************************************************************/
     @Override
     @Nonnull
     protected IFD createPrimaryIFD() 
       {
-        return new PatchedIFD();
+        return new ARWPrimaryIFD();
       }
     
     /***************************************************************************
@@ -136,21 +130,17 @@ public class ARWImageReader extends TIFFImageReaderSupport
     protected WritableRaster loadRAWRaster() 
       throws IOException
       {
-//        logger.fine("loadRAWRaster(iis: " + iis + ")");
-//
-//        long time = System.currentTimeMillis();
-//        SRFRasterReader rasterReader = new SRFRasterReader();
-//        initializeRasterReader(rasterReader);
-////        SonyMakerNote sonyMakerNote = (SonyMakerNote)makerNote;
-////        rasterReader.setRasterKey(sonyMakerNote.getSRF1().getRasterKey());
-////        rasterReader.setRasterOffset(sonyMakerNote.getSRF2().getRasterOffset());
-//
-//        logger.finest(">>>> using rasterReader: " + rasterReader);
-//        WritableRaster raster = rasterReader.loadRaster(iis, this);
-//        logger.finer(">>>> loadRAWRaster() completed ok in " + (System.currentTimeMillis() - time) + " msec.");
-//
-//        return raster;
-        return null;
+        logger.fine("loadRAWRaster(iis: " + iis + ")");
+
+        long time = System.currentTimeMillis();
+        final ARWRasterReader rasterReader = new ARWRasterReader();
+        initializeRasterReader(rasterReader);
+
+        logger.finest(">>>> using rasterReader: " + rasterReader);
+        final WritableRaster raster = rasterReader.loadRaster(iis, this);
+        logger.finer(">>>> loadRAWRaster() completed ok in " + (System.currentTimeMillis() - time) + " msec.");
+
+        return raster;
       }
 
     /***************************************************************************
@@ -162,39 +152,13 @@ public class ARWImageReader extends TIFFImageReaderSupport
      **************************************************************************/
     protected void initializeRasterReader (@Nonnull final RasterReader rasterReader)
       {
-        IFD exifIFD = ((ARWMetadata)metadata).getExifIFD();
-
 //        int bitsPerSample = exifIFD.getBitsPerSample()[0];
-        int width = exifIFD.getPixelXDimension();
-        int height = exifIFD.getPixelYDimension();
+        final int width = ((ARWMetadata)metadata).getWidth();
+        final int height = ((ARWMetadata)metadata).getHeight();
+        rasterReader.setRasterOffset(((ARWPrimaryIFD)primaryDirectory).getRasterOffset()); 
         rasterReader.setWidth(width);
         rasterReader.setHeight(height);
 //        rasterReader.setBitsPerSample(bitsPerSample);
         rasterReader.setCFAPattern(new byte[] { 0, 1, 1, 2 }); // FIXME
-
-//        //// TODO        imageIFD.getCFAPattern());
-//        rasterReader.setCompression(primaryIFD.getCompression().intValue());
-//
-//        if (primaryIFD.isStripByteCountsAvailable())
-//          {
-//            rasterReader.setStripByteCount(primaryIFD.getStripByteCounts());
-//          }
-//
-//        if (primaryIFD.isTileWidthAvailable())
-//          {
-//            int tileWidth = primaryIFD.getTileWidth();
-//            int tileLength = primaryIFD.getTileLength();
-//            rasterReader.setTileWidth(tileWidth);
-//            rasterReader.setTileHeight(tileLength);
-//            rasterReader.setTilesAcross((width + tileWidth - 1) / tileWidth);
-//            rasterReader.setTilesDown((height + tileLength - 1) / tileLength);
-//            rasterReader.setTileOffsets(primaryIFD.getTileOffsets());
-//            //int[] tileByteCounts = primaryIFD.getTileByteCounts();
-//          }
-//
-//        if (primaryIFD.isLinearizationTableAvailable())
-//          {
-//            rasterReader.setLinearizationTable(primaryIFD.getLinearizationTable());
-//          }
       }
   }
