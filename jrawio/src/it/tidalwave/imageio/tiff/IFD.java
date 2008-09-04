@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: IFD.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: IFD.java 127 2008-09-04 00:29:14Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -35,7 +35,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: IFD.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: IFD.java 127 2008-09-04 00:29:14Z fabriziogiudici $
  *
  ******************************************************************************/
 public class IFD extends IFDGenerated
@@ -82,7 +82,7 @@ public class IFD extends IFDGenerated
      *
      *
      ******************************************************************************/
-    private void loadSubDirectories (RAWImageInputStream iis) throws IOException 
+    protected void loadSubDirectories (RAWImageInputStream iis) throws IOException 
       {
         int[] subIFDOffsetsList = getSubIFDs();
 
