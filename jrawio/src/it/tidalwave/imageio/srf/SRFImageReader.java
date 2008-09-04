@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: SRFImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: SRFImageReader.java 128 2008-09-04 00:29:57Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.srf;
@@ -32,7 +32,6 @@ import java.io.IOException;
 import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.image.WritableRaster;
-import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.srf.SonyMakerNote;
 import it.tidalwave.imageio.raw.RasterReader;
 import it.tidalwave.imageio.tiff.IFD;
@@ -41,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: SRFImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: SRFImageReader.java 128 2008-09-04 00:29:57Z fabriziogiudici $
  *
  ******************************************************************************/
 public class SRFImageReader extends TIFFImageReaderSupport
