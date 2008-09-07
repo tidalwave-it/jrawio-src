@@ -152,9 +152,10 @@ public class ARWImageReader extends TIFFImageReaderSupport
      **************************************************************************/
     protected void initializeRasterReader (@Nonnull final RasterReader rasterReader)
       {
-        int bitsPerSample = 12; // FIXME exifIFD.getBitsPerSample()[0];
-        final int width = ((ARWMetadata)metadata).getWidth();
-        final int height = ((ARWMetadata)metadata).getHeight();
+        final ARWMetadata arwMetadata = (ARWMetadata)metadata;
+        final int bitsPerSample = arwMetadata.getMinoltaRawData().getPRD().getPixelSize();
+        final int width = arwMetadata.getWidth();
+        final int height = arwMetadata.getHeight();
         rasterReader.setRasterOffset(((ARWPrimaryIFD)primaryDirectory).getRasterOffset()); 
         rasterReader.setTileOffsets(new int[1]); // FIXME: useless, but otherwise an assertion fails
         rasterReader.setCompression(1); // FIXME

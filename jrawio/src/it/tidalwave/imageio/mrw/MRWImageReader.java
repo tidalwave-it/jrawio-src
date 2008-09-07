@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWImageReader.java 140 2008-09-07 12:48:37Z fabriziogiudici $
+ * $Id: MRWImageReader.java 141 2008-09-07 13:00:38Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.minolta.MinoltaRawData;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWImageReader.java 140 2008-09-07 12:48:37Z fabriziogiudici $
+ * @version $Id: MRWImageReader.java 141 2008-09-07 13:00:38Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWImageReader extends TIFFImageReaderSupport
@@ -125,34 +125,36 @@ public class MRWImageReader extends TIFFImageReaderSupport
         logger.finest(">>>> imageDataOffset: " + rasterOffset + ", size: " + sensorWidth + " x " + sensorHeight);
         rasterReader.setWidth(sensorWidth);
         rasterReader.setHeight(sensorHeight);
-        int rasterDataSize = 0;
-        int bitsPerSample = 16;
         rasterReader.setByteOrder(ByteOrder.LITTLE_ENDIAN);
+        final int dataSize = minoltaRawData.getPRD().getDataSize();
         
-        MinoltaMakerNote minoltaMakerNote = (MinoltaMakerNote)makerNote;
-        
-//        if (minoltaMakerNote.isRasterDataSizeAvailable())
+////        MinoltaMakerNote minoltaMakerNote = (MinoltaMakerNote)makerNote;
+////        int rasterDataSize = 0;
+//        int bitsPerSample = 16;
+////        if (minoltaMakerNote.isRasterDataSizeAvailable())
+////          {
+////            rasterDataSize = minoltaMakerNote.getRasterDataSize();
+////            bitsPerSample = (rasterDataSize * 8) / (sensorWidth * sensorHeight);
+////          }
+////
+////        else
 //          {
-//            rasterDataSize = minoltaMakerNote.getRasterDataSize();
-//            bitsPerSample = (rasterDataSize * 8) / (sensorWidth * sensorHeight);
+//            final IFD primaryIFD = (IFD)primaryDirectory;
+//            final String model = primaryIFD.getModel();
+//
+//            if ((model != null) && ((model.indexOf("A200") > 0) || (model.indexOf("DYNAX 5D") >= 0)
+//                || (model.indexOf("A2") > 0) || (model.indexOf("A1") > 0)) || (model.indexOf("7D") >= 0))
+//              {
+//                bitsPerSample = 12;
+//              }
+//
+//            rasterDataSize = (sensorWidth * sensorHeight) / bitsPerSample;
+//            logger.finest("MODEL " + model + " BITS " + bitsPerSample);
 //          }
-//        
-//        else
-          {
-            final IFD primaryIFD = (IFD)primaryDirectory;
-            final String model = primaryIFD.getModel();
-        
-            if ((model != null) && ((model.indexOf("A200") > 0) || (model.indexOf("DYNAX 5D") >= 0)
-                || (model.indexOf("A2") > 0) || (model.indexOf("A1") > 0)) || (model.indexOf("7D") >= 0))
-              {
-                bitsPerSample = 12;  
-              }
-        
-            rasterDataSize = (sensorWidth * sensorHeight) / bitsPerSample;
-            logger.finest("MODEL " + model + " BITS " + bitsPerSample);
-          }
-            
-        rasterReader.setBitsPerSample(bitsPerSample);
+//
+//        rasterReader.setBitsPerSample(bitsPerSample);
+        rasterReader.setBitsPerSample(dataSize);
+        final int rasterDataSize = (sensorWidth * sensorHeight) / dataSize;
         rasterReader.setStripByteCount(rasterDataSize);
         
         logger.finest(">>>> using rasterReader: " + rasterReader);

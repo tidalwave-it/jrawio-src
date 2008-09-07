@@ -87,7 +87,6 @@ public class MRWImageReaderTest extends LoadTestSupport
         assertEquals(1.015625, wbg.getGreen2Coefficient().doubleValue());
         assertEquals(1.7734375, wbg.getBlueCoefficient().doubleValue());
 
-
         assertImage(ir, 3008, 2000);
         assertThumbnail(ir, 0, 640, 480);
         final BufferedImage image = assertLoadImage(ir, 3016, 2008, 3, 16);
