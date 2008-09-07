@@ -31,20 +31,24 @@ SOFTWARE.
 
 =============================================================================
 
-$Id: build.xml 108 2008-08-24 18:22:19Z fabriziogiudici $
+$Id: build.xml 143 2008-09-07 22:21:23Z fabriziogiudici $
 -->
 
 <project name="jrawio" default="jar" basedir=".">
     <description>Builds, tests, and runs the project jrawio.</description>
-    <import file="nbproject/build-impl.xml"/>
-  
-    <!-- import file="../tools/ant/findbugs.xml"/ -->
 
+    <property name="tools.dir" value="../tools"/>
+
+    <import file="nbproject/build-impl.xml"/>
+    <import file="${tools.dir}/ant/openbluesky.xml"/>
+  
     <!-- Trick. Don't know why, but the -pre-compile task is called also by building
          reajent (only if launched by the master build.xml). -->
     <property name="src2.dir" value="../jrawio/src"/>
     <property name="metadata.dir" value="../jrawio/metadata"/>
     <property name="metadata.dest" value="../jrawio/src-generated"/>
+
+    <target name="build" depends="jar"/> <!-- needed by OpenBlueSky tools -->
 
     <target name="-pre-compile"> 
         <echo message="Auto-generating some sources..."/>
