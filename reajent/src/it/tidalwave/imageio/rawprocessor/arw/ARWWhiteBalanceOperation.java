@@ -27,10 +27,11 @@
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.arw;
 
-import it.tidalwave.imageio.arw.ARWMetadata;
 import java.util.logging.Logger;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.minolta.MinoltaRawData.WBG;
+import it.tidalwave.imageio.arw.ARWMetadata;
 
 /*******************************************************************************
  *
@@ -50,10 +51,10 @@ public class ARWWhiteBalanceOperation extends OperationSupport
     public void process (RAWImage image)
       {
         logger.fine("process()");
-        final ARWMetadata mrwHeaderProcessor = (ARWMetadata)image.getRAWMetadata();
-        final double[] coefficients = mrwHeaderProcessor.getMinoltaRawData().getCoefficients();
-        image.multiplyRedCoefficient(coefficients[0]);
-        image.multiplyGreenCoefficient(coefficients[1]);
-        image.multiplyBlueCoefficient(coefficients[2]);
+        final ARWMetadata metadata = (ARWMetadata)image.getRAWMetadata();
+        final WBG wbg = metadata.getMinoltaRawData().getWBG();
+        image.multiplyRedCoefficient(wbg.getRedCoefficient().doubleValue());
+        image.multiplyGreenCoefficient(wbg.getGreen1Coefficient().doubleValue());
+        image.multiplyBlueCoefficient(wbg.getBlueCoefficient().doubleValue());
       }    
   }

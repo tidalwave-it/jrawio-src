@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: IFD.java 127 2008-09-04 00:29:14Z fabriziogiudici $
+ * $Id: IFD.java 140 2008-09-07 12:48:37Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -35,15 +35,13 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: IFD.java 127 2008-09-04 00:29:14Z fabriziogiudici $
+ * @version $Id: IFD.java 140 2008-09-07 12:48:37Z fabriziogiudici $
  *
  ******************************************************************************/
 public class IFD extends IFDGenerated
   {
-    private final static String CLASS = "it.tidalwave.imageio.tiff.IFD";
-
+    private final static String CLASS = IFD.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
-
     private final static long serialVersionUID = -4451964246159369585L;
 
     public final static String EXIF_NAME = "EXIF";

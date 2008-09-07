@@ -28,8 +28,13 @@
 package it.tidalwave.imageio.mrw;
 
 import it.tidalwave.imageio.LoadTestSupport;
+import it.tidalwave.imageio.minolta.MinoltaRawData;
+import it.tidalwave.imageio.minolta.MinoltaRawData.PRD;
+import it.tidalwave.imageio.minolta.MinoltaRawData.RIF;
+import it.tidalwave.imageio.minolta.MinoltaRawData.WBG;
+import it.tidalwave.imageio.raw.TagRational;
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import javax.imageio.ImageReader;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -50,6 +55,39 @@ public class MRWImageReaderTest extends LoadTestSupport
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(1, ir.getNumThumbnails(0));
+
+        final MRWMetadata metadata = (MRWMetadata)ir.getImageMetadata(0);
+        assertNotNull(metadata);
+        final MinoltaMakerNote makerNote = metadata.getMinoltaMakerNote();
+        assertNotNull(makerNote);
+        final MinoltaRawData minoltaRawData = metadata.getMinoltaRawData();
+        assertNotNull(minoltaRawData);
+        final PRD prd = minoltaRawData.getPRD();
+        assertEquals("21810002", prd.getVersion());
+        assertEquals(new Dimension(3016, 2008), prd.getCcdSize());
+        assertEquals(new Dimension(3008, 2000), prd.getImageSize());
+        assertEquals(12, prd.getDataSize());
+        assertEquals(12, prd.getPixelSize());
+        assertEquals(0x59, prd.getStorageMethod());
+        assertEquals(0, prd.getUnknown1());
+        assertEquals(0, prd.getUnknown2());
+        assertEquals(0, prd.getUnknown3());
+        assertNotNull(prd);
+        final RIF rif = minoltaRawData.getRIF();
+        assertNotNull(rif);
+        // TODO: assert rif stuff
+        final WBG wbg = minoltaRawData.getWBG();
+        assertNotNull(wbg);
+        assertEquals(new TagRational(447, 256), wbg.getRedCoefficient());
+        assertEquals(new TagRational(260, 256), wbg.getGreen1Coefficient());
+        assertEquals(new TagRational(260, 256), wbg.getGreen2Coefficient());
+        assertEquals(new TagRational(454, 256), wbg.getBlueCoefficient());
+        assertEquals(1.74609375, wbg.getRedCoefficient().doubleValue());
+        assertEquals(1.015625, wbg.getGreen1Coefficient().doubleValue());
+        assertEquals(1.015625, wbg.getGreen2Coefficient().doubleValue());
+        assertEquals(1.7734375, wbg.getBlueCoefficient().doubleValue());
+
+
         assertImage(ir, 3008, 2000);
         assertThumbnail(ir, 0, 640, 480);
         final BufferedImage image = assertLoadImage(ir, 3016, 2008, 3, 16);

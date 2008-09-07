@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWMetadata.java 80 2008-08-24 08:42:00Z fabriziogiudici $
+ * $Id: MRWMetadata.java 140 2008-09-07 12:48:37Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -31,6 +31,7 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.io.InputStream;
 import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.minolta.MinoltaRawData;
 import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
@@ -40,7 +41,7 @@ import it.tidalwave.imageio.tiff.ThumbnailHelper;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWMetadata.java 80 2008-08-24 08:42:00Z fabriziogiudici $
+ * @version $Id: MRWMetadata.java 140 2008-09-07 12:48:37Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWMetadata extends TIFFMetadataSupport
@@ -120,6 +121,16 @@ public class MRWMetadata extends TIFFMetadataSupport
     public MinoltaMakerNote getMinoltaMakerNote()
       {
         return (MinoltaMakerNote)getMakerNote();
+      }
+    
+    /***************************************************************************
+     * 
+     * 
+     **************************************************************************/
+    @CheckForNull
+    public MinoltaRawData getMinoltaRawData()
+      {
+        return ((MRWHeaderProcessor)headerProcessor).getMinoltaRawData();
       }
     
     /***************************************************************************

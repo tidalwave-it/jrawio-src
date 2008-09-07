@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWImageReader.java 135 2008-09-04 12:50:26Z fabriziogiudici $
+ * $Id: MRWImageReader.java 140 2008-09-07 12:48:37Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -31,17 +31,18 @@ import javax.annotation.Nonnull;
 import java.util.logging.Logger;
 import java.io.IOException;
 import java.nio.ByteOrder;
-import javax.imageio.spi.ImageReaderSpi;
 import java.awt.image.WritableRaster;
+import javax.imageio.spi.ImageReaderSpi;
 import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.RasterReader;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
+import it.tidalwave.imageio.minolta.MinoltaRawData;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWImageReader.java 135 2008-09-04 12:50:26Z fabriziogiudici $
+ * @version $Id: MRWImageReader.java 140 2008-09-07 12:48:37Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWImageReader extends TIFFImageReaderSupport
@@ -118,8 +119,8 @@ public class MRWImageReader extends TIFFImageReaderSupport
         final MRWHeaderProcessor mrwHeaderProcessor = (MRWHeaderProcessor)headerProcessor;
         final MinoltaRawData minoltaRawData = mrwHeaderProcessor.getMinoltaRawData();
         final long rasterOffset = minoltaRawData.getRasterOffset();
-        final int sensorWidth = minoltaRawData.getRasterWidth();
-        final int sensorHeight = minoltaRawData.getRasterHeight();
+        final int sensorWidth = minoltaRawData.getPRD().getCcdSize().width;
+        final int sensorHeight = minoltaRawData.getPRD().getCcdSize().height;
         iis.seek(rasterOffset); // FIXME: set prop in rasterReader, seek in the rasterreader
         logger.finest(">>>> imageDataOffset: " + rasterOffset + ", size: " + sensorWidth + " x " + sensorHeight);
         rasterReader.setWidth(sensorWidth);

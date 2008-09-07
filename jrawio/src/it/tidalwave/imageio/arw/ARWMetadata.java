@@ -27,18 +27,17 @@
  ******************************************************************************/
 package it.tidalwave.imageio.arw;
 
-import java.io.IOException;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.mrw.MinoltaRawData;
+import it.tidalwave.imageio.minolta.MinoltaRawData;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.HeaderProcessor;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.IntBuffer;
 
 /*******************************************************************************
  *
@@ -149,7 +148,7 @@ public class ARWMetadata extends TIFFMetadataSupport
     @Override
     public int getWidth()
       {
-        return minoltaRawData.getRasterWidth();
+        return minoltaRawData.getPRD().getCcdSize().width;
       }
     
     /***************************************************************************
@@ -161,6 +160,6 @@ public class ARWMetadata extends TIFFMetadataSupport
     @Override
     public int getHeight()
       {
-        return minoltaRawData.getRasterHeight();
+        return minoltaRawData.getPRD().getCcdSize().height;
       }
   }
