@@ -33,7 +33,6 @@ import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWProcessor;
 import it.tidalwave.imageio.rawprocessor.raw.ColorProfileOperation;
 import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
-import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 
 /*******************************************************************************
  *
@@ -55,7 +54,7 @@ public class ARWProcessor extends RAWProcessor
 //        operationList.add(new ComputeBlackLevelsOperation());
         operationList.add(new ARWCurveOperation());
         operationList.add(new DemosaicOperation());
-//        operationList.add(new NEFSizeOperation());
+        operationList.add(new ARWSizeOperation());
         operationList.add(new ColorProfileOperation());
 //        operationList.add(new SharpenOperation());
       }

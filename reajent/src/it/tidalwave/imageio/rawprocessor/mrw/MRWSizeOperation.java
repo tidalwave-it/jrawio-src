@@ -22,39 +22,50 @@
  *
  *******************************************************************************
  *
- * $Id: MRWWhiteBalanceOperation.java 142 2008-09-07 13:35:19Z fabriziogiudici $
+ * $Id: MRWWhiteBalanceOperation.java 136 2008-09-04 12:56:41Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.mrw;
 
+import javax.annotation.Nonnull;
 import java.util.logging.Logger;
-import it.tidalwave.imageio.rawprocessor.OperationSupport;
+import java.awt.Dimension;
+import java.awt.Insets;
+import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
-import it.tidalwave.imageio.minolta.MinoltaRawData.WBG;
+import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
+import it.tidalwave.imageio.minolta.MinoltaRawData.PRD;
 import it.tidalwave.imageio.mrw.MRWMetadata;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWWhiteBalanceOperation.java 142 2008-09-07 13:35:19Z fabriziogiudici $
+ * @version $Id: MRWWhiteBalanceOperation.java 136 2008-09-04 12:56:41Z fabriziogiudici $
  *
  ******************************************************************************/
-public class MRWWhiteBalanceOperation extends OperationSupport
+public class MRWSizeOperation extends SizeOperation
   {
-    private final static Logger logger = getLogger(MRWWhiteBalanceOperation.class);
-    
+    private final static Logger logger = getLogger(MRWSizeOperation.class);
+
     /*******************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
      ******************************************************************************/
-    public void process (RAWImage image)
+    @Override
+    @Nonnull
+    protected Insets getCrop (final @Nonnull RAWImage image)
       {
-        logger.fine("process()");
         final MRWMetadata metadata = (MRWMetadata)image.getRAWMetadata();
-        final WBG wbg = metadata.getMinoltaRawData().getWBG();
-        image.multiplyRedCoefficient(wbg.getRedCoefficient().doubleValue());
-        image.multiplyGreenCoefficient(wbg.getGreen1Coefficient().doubleValue());
-        image.multiplyBlueCoefficient(wbg.getBlueCoefficient().doubleValue());
-      }    
+        final PRD prd = metadata.getMinoltaRawData().getPRD();
+        final BufferedImage bufferedImage = image.getImage();
+        final int width = bufferedImage.getWidth();
+        final int height = bufferedImage.getHeight();
+        final Dimension newSize = prd.getImageSize();
+        // FIXME: I'm not sure the crop must be centered
+        return new Insets((height - newSize.height) / 2, 
+                          (width - newSize.width) / 2, 
+                          (height - newSize.height) / 2, 
+                          (width - newSize.width) / 2);
+      }
   }

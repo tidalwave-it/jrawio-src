@@ -22,39 +22,41 @@
  *
  *******************************************************************************
  *
- * $Id: MRWWhiteBalanceOperation.java 142 2008-09-07 13:35:19Z fabriziogiudici $
+ * $Id: ThumbnailHelper.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.mrw;
 
-import java.util.logging.Logger;
-import it.tidalwave.imageio.rawprocessor.OperationSupport;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
-import it.tidalwave.imageio.minolta.MinoltaRawData.WBG;
-import it.tidalwave.imageio.mrw.MRWMetadata;
+import javax.imageio.ImageReader;
+import it.tidalwave.imageio.LoadTestSupport;
+import java.awt.image.BufferedImage;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWWhiteBalanceOperation.java 142 2008-09-07 13:35:19Z fabriziogiudici $
+ * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-public class MRWWhiteBalanceOperation extends OperationSupport
+public class MRWProcessorTest extends LoadTestSupport
   {
-    private final static Logger logger = getLogger(MRWWhiteBalanceOperation.class);
-    
-    /*******************************************************************************
-     *
-     * @inheritDoc
-     *
-     ******************************************************************************/
-    public void process (RAWImage image)
+    @Test
+    public void testPICT0652_MRW() 
+      throws Exception 
       {
-        logger.fine("process()");
-        final MRWMetadata metadata = (MRWMetadata)image.getRAWMetadata();
-        final WBG wbg = metadata.getMinoltaRawData().getWBG();
-        image.multiplyRedCoefficient(wbg.getRedCoefficient().doubleValue());
-        image.multiplyGreenCoefficient(wbg.getGreen1Coefficient().doubleValue());
-        image.multiplyBlueCoefficient(wbg.getBlueCoefficient().doubleValue());
-      }    
+        final String path = "others/theoheinze/Minolta/Dynax7D/MRW/PICT0652.MRW";
+        final ImageReader ir = getImageReader(path);
+        assertEquals(1, ir.getNumImages(false));
+        assertEquals(1, ir.getNumThumbnails(0));
+        assertImage(ir, 3008, 2000); // FIXME should be cropped
+        // FIXME: you should swap them, smaller first
+        assertThumbnail(ir, 0, 640, 480);
+        final BufferedImage image = assertLoadImage(ir, 3008, 2000, 3, 8); // FIXME: should be 16
+        assertLoadThumbnail(ir, 0, 640, 480);
+        
+        assertRaster(image, path, "d922d9c067c923de661ebce947a018cd");
+        
+//        close(ir);
+      }
   }

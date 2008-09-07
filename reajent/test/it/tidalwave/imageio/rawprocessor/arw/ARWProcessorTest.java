@@ -54,11 +54,11 @@ public class ARWProcessorTest extends LoadTestSupport
         // FIXME: you should swap them, smaller first
         assertThumbnail(ir, 0, 3872, 2592);
         assertThumbnail(ir, 1, 160, 120);
-        final BufferedImage image = assertLoadImage(ir, 3880, 2608, 3, 8); // FIXME: should be 16
+        final BufferedImage image = assertLoadImage(ir, 3872, 2592, 3, 8); // FIXME: should be 16
         assertLoadThumbnail(ir, 0, 640, 480); // FIXME: this is wrong, should be the 3872x2592
         assertLoadThumbnail(ir, 1, 160, 120);
         
-        assertRaster(image, path, "f97b628c628a6743899f558f76c1b536");
+        assertRaster(image, path, "63caa58990b6e9245ad2123569af8aa4");
         
 //        close(ir);
       }
