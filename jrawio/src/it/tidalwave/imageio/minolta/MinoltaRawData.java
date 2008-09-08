@@ -53,7 +53,8 @@ public class MinoltaRawData
     private int rasterOffset;
     
     private int baseOffset;
-    
+
+    // TODO: replace with a Map and the various getters with a single T get(Class<T>)
     @CheckForNull
     private PRD prd;
 

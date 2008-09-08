@@ -31,7 +31,7 @@ SOFTWARE.
 
 =============================================================================
 
-$Id: build.xml 145 2008-09-08 08:21:50Z fabriziogiudici $
+$Id: build.xml 146 2008-09-08 11:45:40Z fabriziogiudici $
 -->
 <project name="reajent" default="jar" basedir=".">
     <description>Builds, tests, and runs the project reajent-src.</description>
@@ -41,4 +41,7 @@ $Id: build.xml 145 2008-09-08 08:21:50Z fabriziogiudici $
     <import file="nbproject/build-impl.xml"/>
     <import file="${tools.dir}/ant/openbluesky.xml"/>
     <import file="nbproject/profiler-build-impl.xml"/>
+
+    <target name="build" depends="jar"/> <!-- needed by OpenBlueSky tools -->
+
 </project>
