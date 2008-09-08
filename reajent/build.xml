@@ -31,11 +31,14 @@ SOFTWARE.
 
 =============================================================================
 
-$Id: build.xml 97 2008-08-24 15:58:54Z fabriziogiudici $
+$Id: build.xml 145 2008-09-08 08:21:50Z fabriziogiudici $
 -->
 <project name="reajent" default="jar" basedir=".">
     <description>Builds, tests, and runs the project reajent-src.</description>
-    <import file="nbproject/build-impl.xml"/>
 
+    <property name="tools.dir" value="../tools"/>
+
+    <import file="nbproject/build-impl.xml"/>
+    <import file="${tools.dir}/ant/openbluesky.xml"/>
     <import file="nbproject/profiler-build-impl.xml"/>
 </project>
