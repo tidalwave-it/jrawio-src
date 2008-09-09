@@ -7,8 +7,7 @@ Project home page: http://jrawio.tidalwave.it
  
 ==============================================================================
 
-Copyright (C) 2003-2006 by Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
-                       and Emmanuele Sordini (Emmanuele@Sordini.com)
+Copyright (C) 2003-2008 by Fabrizio Giudici 
 
 Licensed under the Apache License, Version 2.0 (the "License"); 
 you may not use this file except in compliance with the License. 
@@ -24,7 +23,7 @@ limitations under the License.
  
 ==============================================================================
  
-$Id: build.xml 144 2008-09-08 05:43:52Z fabriziogiudici $
+$Id: build.xml 147 2008-09-09 12:34:28Z fabriziogiudici $
 -->
 
 <project name="jrawio" default="jar" basedir=".">
@@ -75,17 +74,11 @@ $Id: build.xml 144 2008-09-08 05:43:52Z fabriziogiudici $
     </target>
     
     <!-- =======================================================================
-    Creates all the javadocs and copies them in the www folder.
+    Creates all the javadocs 
     ======================================================================== -->
     <target name="javadoc" depends="gettag">
         <ant dir="jrawio" target="javadoc" inheritall="false"/>
-        <copy todir="../www/javadoc/jrawio">
-            <fileset dir="jrawio/dist/javadoc"/>
-        </copy>
         <ant dir="reajent" target="javadoc" inheritall="false"/>
-        <copy todir="../www/javadoc/reajent">
-            <fileset dir="reajent/dist/javadoc"/>
-        </copy>
     </target>
     
     <!-- =======================================================================
@@ -102,33 +95,6 @@ $Id: build.xml 144 2008-09-08 05:43:52Z fabriziogiudici $
     Runs the performance tests.
     ======================================================================== -->
     <target name="performance-tests">
-    </target>
-    
-    <!-- =======================================================================
-    Creates the WebStart examples and copies them in the www folder.
-    ======================================================================== -->
-    <target name="publish-examples">
-        <ant dir="Examples/ViewerExample" target="default" inheritall="false"/>
-        <copy todir="../www/jnlp/ViewerExample">
-            <fileset dir="Examples/ViewerExample/dist" includes="**/*.jar"/>
-            <fileset file="Examples/ViewerExample/src/ViewerExample.jnlp"/>
-        </copy>
-        <ant dir="Examples/HistogramViewerExample" target="default" inheritall="false"/>
-        <copy todir="../www/jnlp/HistogramViewerExample">
-            <fileset dir="Examples/HistogramViewerExample/dist" includes="**/*.jar" excludes="**/*jai*.jar, **/*JAI*.jar"/>
-            <fileset file="Examples/HistogramViewerExample/src/HistogramViewerExample.jnlp"/>
-        </copy>
-        <!-- remove references to the JAI stuff from MANIFEST.MF or the JWS will complain. -->
-        <unzip src="../www/jnlp/HistogramViewerExample/HistogramViewerExample.jar" dest="tmp"/>
-        <manifest file="tmp/META-INF/MANIFEST.MF" mode="update"> 
-            <attribute name="Class-Path" value="lib/EditableImage.jar"/>
-        </manifest>
-        <jar destfile="../www/jnlp/HistogramViewerExample/HistogramViewerExample.jar" basedir="tmp"/>
-        <delete dir="tmp"/>
-        <copy todir="../www/jnlp/HistogramViewerExampleJAI">
-            <fileset dir="Examples/HistogramViewerExample/dist" includes="**/*.jar"/>
-            <fileset file="Examples/HistogramViewerExample/src/HistogramViewerExampleJAI.jnlp"/>
-        </copy>
     </target>
     
 </project>
