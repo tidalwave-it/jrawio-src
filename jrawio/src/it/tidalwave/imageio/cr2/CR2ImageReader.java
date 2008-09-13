@@ -22,12 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: CR2ImageReader.java 85 2008-08-24 09:35:51Z fabriziogiudici $
+ * $Id: CR2ImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.cr2;
 
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
 import javax.imageio.spi.ImageReaderSpi;
@@ -37,7 +37,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CR2ImageReader.java 85 2008-08-24 09:35:51Z fabriziogiudici $
+ * @version $Id: CR2ImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CR2ImageReader extends TIFFImageReaderSupport

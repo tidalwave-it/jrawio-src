@@ -22,14 +22,14 @@
  *
  *******************************************************************************
  *
- * $Id: IFDSupport.java 69 2008-08-23 15:09:09Z fabriziogiudici $
+ * $Id: IFDSupport.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.TagRegistry;
 import it.tidalwave.imageio.io.RAWImageInputStream;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * This class provides the capability of loading an IFD.
  * 
  * @author Fabrizio Giudici
- * @version $Id: IFDSupport.java 69 2008-08-23 15:09:09Z fabriziogiudici $
+ * @version $Id: IFDSupport.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class IFDSupport extends Directory

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: OlympusMakerNote.java 125 2008-08-25 01:05:22Z fabriziogiudici $
+ * $Id: OlympusMakerNote.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -30,7 +30,7 @@ package it.tidalwave.imageio.orf;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.util.NoSuchElementException;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import it.tidalwave.imageio.tiff.ThumbnailHelper;
 import it.tidalwave.imageio.io.RAWImageInputStream;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFTag;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: OlympusMakerNote.java 125 2008-08-25 01:05:22Z fabriziogiudici $
+ * @version $Id: OlympusMakerNote.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class OlympusMakerNote extends OlympusMakerNoteSupport

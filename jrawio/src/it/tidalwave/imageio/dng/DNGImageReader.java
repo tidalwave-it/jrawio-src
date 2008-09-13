@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DNGImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: DNGImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.dng;
@@ -30,7 +30,7 @@ package it.tidalwave.imageio.dng;
 import it.tidalwave.imageio.makernote.LeicaMakerNote;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import javax.imageio.spi.ImageReaderSpi;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.Directory;
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DNGImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: DNGImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DNGImageReader extends TIFFImageReaderSupport

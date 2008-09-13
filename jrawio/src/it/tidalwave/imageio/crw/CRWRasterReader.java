@@ -22,12 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: CRWRasterReader.java 86 2008-08-24 09:43:45Z fabriziogiudici $
+ * $Id: CRWRasterReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
 
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.image.DataBufferUShort;
@@ -45,7 +45,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSupport;
  * compression scheme.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: CRWRasterReader.java 86 2008-08-24 09:43:45Z fabriziogiudici $
+ * @version $Id: CRWRasterReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWRasterReader extends RasterReader

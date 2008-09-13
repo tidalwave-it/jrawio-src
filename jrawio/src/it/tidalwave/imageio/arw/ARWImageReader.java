@@ -29,7 +29,7 @@ package it.tidalwave.imageio.arw;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import javax.imageio.spi.ImageReaderSpi;
 import java.awt.image.WritableRaster;

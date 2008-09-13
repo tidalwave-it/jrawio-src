@@ -22,13 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: DCRImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: DCRImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.dcr;
 
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import javax.imageio.spi.ImageReaderSpi;
 import java.awt.image.WritableRaster;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DCRImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: DCRImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DCRImageReader extends TIFFImageReaderSupport

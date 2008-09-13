@@ -28,7 +28,7 @@
 package it.tidalwave.imageio.arw;
 
 import java.util.Locale;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.io.RAWImageInputStream;

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ORFMetadata.java 93 2008-08-24 13:57:07Z fabriziogiudici $
+ * $Id: ORFMetadata.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -30,7 +30,7 @@ package it.tidalwave.imageio.orf;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.util.NoSuchElementException;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.Directory;
@@ -41,7 +41,7 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFMetadata.java 93 2008-08-24 13:57:07Z fabriziogiudici $
+ * @version $Id: ORFMetadata.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFMetadata extends TIFFMetadataSupport

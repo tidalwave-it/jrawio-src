@@ -22,14 +22,14 @@
  *
  *******************************************************************************
  *
- * $Id: PEFImageReaderSpi.java 82 2008-08-24 08:46:20Z fabriziogiudici $
+ * $Id: PEFImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.pef;
 
 import javax.annotation.Nonnull;
 import java.util.Locale;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.io.RAWImageInputStream;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFImageReaderSpi.java 82 2008-08-24 08:46:20Z fabriziogiudici $
+ * @version $Id: PEFImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class PEFImageReaderSpi extends RAWImageReaderSpiSupport

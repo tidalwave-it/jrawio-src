@@ -22,12 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: SonyMakerNote.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: SonyMakerNote.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.srf;
 
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;

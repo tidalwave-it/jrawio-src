@@ -22,13 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: RasterReader.java 116 2008-08-24 21:52:21Z fabriziogiudici $
+ * $Id: RasterReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import java.nio.ByteOrder;
 import java.awt.image.DataBuffer;
@@ -61,7 +61,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * </ul>
  * 
  * @author  Fabrizio Giudici
- * @version $Id: RasterReader.java 116 2008-08-24 21:52:21Z fabriziogiudici $
+ * @version $Id: RasterReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RasterReader

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CanonCRWMakerNote.java 86 2008-08-24 09:43:45Z fabriziogiudici $
+ * $Id: CanonCRWMakerNote.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import it.tidalwave.imageio.io.RAWImageInputStream;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CanonCRWMakerNote.java 86 2008-08-24 09:43:45Z fabriziogiudici $
+ * @version $Id: CanonCRWMakerNote.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CanonCRWMakerNote extends CanonCRWMakerNoteSupport

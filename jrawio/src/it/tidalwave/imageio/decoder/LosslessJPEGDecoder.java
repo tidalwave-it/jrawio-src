@@ -22,12 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: LosslessJPEGDecoder.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: LosslessJPEGDecoder.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.decoder;
 
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * widely used by some RAW formats which include blocks of encoded data.
  * 
  * @author  fritz
- * @version $Id: LosslessJPEGDecoder.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: LosslessJPEGDecoder.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class LosslessJPEGDecoder

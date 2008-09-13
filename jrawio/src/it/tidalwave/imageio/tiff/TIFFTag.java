@@ -22,14 +22,14 @@
  *
  *******************************************************************************
  *
- * $Id: TIFFTag.java 125 2008-08-25 01:05:22Z fabriziogiudici $
+ * $Id: TIFFTag.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
 import it.tidalwave.imageio.raw.AbstractTag;
@@ -41,7 +41,7 @@ import it.tidalwave.imageio.raw.TagRegistry;
  * This class represents a TIFF tag and is able to read from an IFD block.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: TIFFTag.java 125 2008-08-25 01:05:22Z fabriziogiudici $
+ * @version $Id: TIFFTag.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class TIFFTag extends AbstractTag

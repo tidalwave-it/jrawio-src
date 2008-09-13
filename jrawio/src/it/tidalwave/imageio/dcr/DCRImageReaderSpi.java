@@ -22,14 +22,14 @@
  *
  *******************************************************************************
  *
- * $Id: DCRImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: DCRImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.dcr;
 
 import java.util.Locale;
 import java.io.IOException;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.pef.PEFImageReader;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DCRImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: DCRImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DCRImageReaderSpi extends RAWImageReaderSpiSupport

@@ -22,13 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: TIFFImageReaderSupport.java 129 2008-09-04 00:30:30Z fabriziogiudici $
+ * $Id: TIFFImageReaderSupport.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
 
 import java.lang.reflect.Constructor;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import java.nio.ByteOrder;
 import java.awt.image.BufferedImage;
@@ -47,7 +47,7 @@ import it.tidalwave.imageio.raw.RasterReader;
  * an ImageReader for any TIFF-based image format.
  *
  * @author Fabrizio Giudici
- * @version $Id: TIFFImageReaderSupport.java 129 2008-09-04 00:30:30Z fabriziogiudici $
+ * @version $Id: TIFFImageReaderSupport.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport

@@ -29,7 +29,7 @@ package it.tidalwave.imageio.minolta;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.awt.Dimension;
 import java.io.IOException;
 import java.io.Serializable;

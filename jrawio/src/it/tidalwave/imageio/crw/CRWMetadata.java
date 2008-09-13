@@ -22,14 +22,14 @@
  *
  *******************************************************************************
  *
- * $Id: CRWMetadata.java 86 2008-08-24 09:43:45Z fabriziogiudici $
+ * $Id: CRWMetadata.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
 
 import java.util.Date;
 import java.util.Iterator;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.ShortBuffer;
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.tiff.IFD;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWMetadata.java 86 2008-08-24 09:43:45Z fabriziogiudici $
+ * @version $Id: CRWMetadata.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWMetadata extends TIFFMetadataSupport

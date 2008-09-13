@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFImageReader.java 58 2008-08-22 19:17:28Z fabriziogiudici $
+ * $Id: NEFImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -30,7 +30,7 @@ package it.tidalwave.imageio.nef;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import javax.imageio.spi.ImageReaderSpi;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
@@ -41,7 +41,7 @@ import javax.annotation.Nonnull;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFImageReader.java 58 2008-08-22 19:17:28Z fabriziogiudici $
+ * @version $Id: NEFImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFImageReader extends TIFFImageReaderSupport

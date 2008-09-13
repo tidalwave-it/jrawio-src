@@ -22,12 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: CRWImageReader.java 86 2008-08-24 09:43:45Z fabriziogiudici $
+ * $Id: CRWImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
 
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -43,7 +43,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWImageReader.java 86 2008-08-24 09:43:45Z fabriziogiudici $
+ * @version $Id: CRWImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWImageReader extends RAWImageReaderSupport

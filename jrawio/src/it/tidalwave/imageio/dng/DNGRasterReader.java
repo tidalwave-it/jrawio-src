@@ -22,13 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: DNGRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: DNGRasterReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 
 package it.tidalwave.imageio.dng;
 
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import java.nio.ByteOrder;
 import java.awt.image.DataBufferUShort;
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.tiff.IFD;
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: DNGRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: DNGRasterReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DNGRasterReader extends RasterReader

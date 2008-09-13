@@ -22,13 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: MRWImageReader.java 141 2008-09-07 13:00:38Z fabriziogiudici $
+ * $Id: MRWImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import java.nio.ByteOrder;
 import java.awt.image.WritableRaster;
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.minolta.MinoltaRawData;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWImageReader.java 141 2008-09-07 13:00:38Z fabriziogiudici $
+ * @version $Id: MRWImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWImageReader extends TIFFImageReaderSupport

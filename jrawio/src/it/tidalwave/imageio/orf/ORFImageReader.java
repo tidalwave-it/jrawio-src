@@ -22,14 +22,14 @@
  *
  *******************************************************************************
  *
- * $Id: ORFImageReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
+ * $Id: ORFImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import javax.imageio.spi.ImageReaderSpi;
 import java.awt.image.WritableRaster;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFImageReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
+ * @version $Id: ORFImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFImageReader extends TIFFImageReaderSupport

@@ -22,13 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: NEFRasterReader.java 58 2008-08-22 19:17:28Z fabriziogiudici $
+ * $Id: NEFRasterReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import java.awt.image.DataBufferUShort;
 import java.awt.image.WritableRaster;
@@ -43,7 +43,7 @@ import javax.annotation.Nonnegative;
  * This class implements the compressed NEF raster loading.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: NEFRasterReader.java 58 2008-08-22 19:17:28Z fabriziogiudici $
+ * @version $Id: NEFRasterReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFRasterReader extends RasterReader

@@ -22,20 +22,20 @@
  *
  *******************************************************************************
  *
- * $Id: IFD.java 140 2008-09-07 12:48:37Z fabriziogiudici $
+ * $Id: IFD.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
 
 import java.awt.color.ICC_Profile;
 import java.io.IOException;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: IFD.java 140 2008-09-07 12:48:37Z fabriziogiudici $
+ * @version $Id: IFD.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class IFD extends IFDGenerated

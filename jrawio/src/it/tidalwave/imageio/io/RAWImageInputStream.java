@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImageInputStream.java 114 2008-08-24 21:50:46Z fabriziogiudici $
+ * $Id: RAWImageInputStream.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.io;
@@ -30,7 +30,7 @@ package it.tidalwave.imageio.io;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.ImageInputStreamImpl;
@@ -38,7 +38,7 @@ import javax.imageio.stream.ImageInputStreamImpl;
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: RAWImageInputStream.java 114 2008-08-24 21:50:46Z fabriziogiudici $
+ * @version $Id: RAWImageInputStream.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RAWImageInputStream extends ImageInputStreamImpl

@@ -87,34 +87,8 @@ public class SingleLineLogFormatter extends Formatter
        sb.append("] ");
        sb.append(padded(record.getLevel().getName(), 7));
        sb.append(" ");
-
-       String s = record.getSourceClassName();
-
-       if (s == null)
-         {
-           s = record.getLoggerName();
-           sb.append(padded(s, 32));
-         }
-
-       else
-         {
-           int j = s.lastIndexOf('.');
-
-           if (j > 0)
-             {
-               s = s.substring(j + 1);
-             }
-
-           j = s.lastIndexOf('$');
-
-           if (j > 0)
-             {
-               s = s.substring(0, j);
-             }
-
-           sb.append(padded(s, -26));
-         }
-
+       String s = record.getLoggerName();
+       sb.append(padded(s, 32));
        sb.append(" - ");
 
        String message = formatMessage(record);

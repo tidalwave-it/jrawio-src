@@ -22,13 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: SRFImageReaderSpi.java 130 2008-09-04 00:31:58Z fabriziogiudici $
+ * $Id: SRFImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.srf;
 
 import java.util.Locale;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.io.RAWImageInputStream;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: SRFImageReaderSpi.java 130 2008-09-04 00:31:58Z fabriziogiudici $
+ * @version $Id: SRFImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class SRFImageReaderSpi extends RAWImageReaderSpiSupport

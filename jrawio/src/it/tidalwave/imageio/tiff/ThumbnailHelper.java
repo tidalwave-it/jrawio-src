@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ThumbnailHelper.java 93 2008-08-24 13:57:07Z fabriziogiudici $
+ * $Id: ThumbnailHelper.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -30,7 +30,7 @@ package it.tidalwave.imageio.tiff;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Properties;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.IOException;
@@ -54,7 +54,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * an ImageReader for any TIFF-based image format.
  *
  * @author Fabrizio Giudici
- * @version $Id: ThumbnailHelper.java 93 2008-08-24 13:57:07Z fabriziogiudici $
+ * @version $Id: ThumbnailHelper.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ThumbnailHelper

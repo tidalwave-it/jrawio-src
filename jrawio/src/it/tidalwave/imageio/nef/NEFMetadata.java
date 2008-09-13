@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFMetadata.java 69 2008-08-23 15:09:09Z fabriziogiudici $
+ * $Id: NEFMetadata.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -30,7 +30,7 @@ package it.tidalwave.imageio.nef;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -45,7 +45,7 @@ import it.tidalwave.imageio.tiff.ThumbnailHelper;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFMetadata.java 69 2008-08-23 15:09:09Z fabriziogiudici $
+ * @version $Id: NEFMetadata.java 151 2008-09-13 15:13:22Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFMetadata extends TIFFMetadataSupport
