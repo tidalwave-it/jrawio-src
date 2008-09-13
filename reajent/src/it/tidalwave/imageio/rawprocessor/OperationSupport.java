@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: OperationSupport.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * $Id: OperationSupport.java 158 2008-09-13 18:46:09Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -49,7 +49,7 @@ import java.awt.image.SinglePixelPackedSampleModel;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: OperationSupport.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * @version $Id: OperationSupport.java 158 2008-09-13 18:46:09Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class OperationSupport implements Operation
@@ -63,16 +63,7 @@ public abstract class OperationSupport implements Operation
     @Nonnull 
     protected static Logger getLogger (@Nonnull final Class clazz)
       {
-        return Logger.getLogger(getQualifiedName(clazz));
-      }
-
-    /***************************************************************************
-     *
-     *
-     **************************************************************************/
-    protected static String getQualifiedName (@Nonnull final Class clazz)
-      {
-        return clazz.getPackage().getName() + "." + clazz.getName();
+        return Logger.getLogger(clazz.getName());
       }
 
     /***************************************************************************
