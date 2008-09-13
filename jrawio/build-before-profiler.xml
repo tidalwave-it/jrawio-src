@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="jrawio" default="jar" basedir=".">
+    <description>Builds, tests, and runs the project jrawio.</description>
+
+    <property name="tools.dir" value="${basedir}/../tools"/>
+
+    <import file="nbproject/build-impl.xml"/>
+    <import file="${tools.dir}/ant/openbluesky.xml"/>
+
+    <target name="build" depends="jar"/> <!-- required by OpenBlueSky -->
+
+    <!-- Trick. Don't know why, but the -pre-compile task is called also by building
+         reajent (only if launched by the master build.xml). -->
+    <property name="src2.dir" value="../jrawio/src"/>
+    <property name="metadata.dir" value="../jrawio/metadata"/>
+    <property name="metadata.dest" value="../jrawio/src-generated"/>
+
+    <target name="-pre-compile"> 
+        <echo message="Auto-generating some sources..."/>
+        <mkdir dir="${basedir}/src-generated"/>
+        <xslt in="${metadata.dir}/Nikon3MakerNote.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/nef/Nikon3MakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt">
+            <param name="serialVersionUID" expression="1237805638960118907L"/>
+            <param name="package" expression="it.tidalwave.imageio.nef"/>
+        </xslt>
+        <xslt in="${metadata.dir}/CanonCR2MakerNote.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/cr2/CanonCR2MakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt">
+            <param name="serialVersionUID" expression="6347805638960118907L"/>
+            <param name="package" expression="it.tidalwave.imageio.cr2"/>
+        </xslt>
+        <xslt in="${metadata.dir}/LeicaMakerNote.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/makernote/LeicaMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="2517342348960118907L"/>
+            <param name="package" expression="it.tidalwave.imageio.makernote"/>
+        </xslt>
+        <xslt in="${metadata.dir}/SonyMakerNote.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/srf/SonySRFMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="3029403930493230394L"/>
+            <param name="package" expression="it.tidalwave.imageio.srf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/PentaxMakerNote.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/pef/PentaxMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt">
+            <param name="serialVersionUID" expression="4059509303945039494L"/>
+            <param name="package" expression="it.tidalwave.imageio.pef"/>
+        </xslt>
+        <xslt in="${metadata.dir}/MinoltaMakerNote.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/mrw/MinoltaMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="4358973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.mrw"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusMakerNote.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="7930973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusCameraSettings.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusCameraSettingsMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="1050973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusEquipment.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusEquipmentMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="2050973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusFocusInfo.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusFocusInfoMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="3050973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusImageProcessing.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusImageProcessingMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="4050973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusRawDevelopment.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusRawDevelopmentMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="5050973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/KodakMakerNote.xml" 
+            out="${metadata.dest}/it/tidalwave/imageio/dcr/KodakMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="3049583459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.dcr"/>
+        </xslt>
+        <echo message="Auto-generating some sources (2)..."/>
+        <javac srcdir="${src2.dir}" 
+            destdir="${build.classes.dir}" 
+            classpath="${javac.classpath}" 
+            source="1.5" 
+            target="1.5" 
+            includes="IFDGenerator.java"
+            optimize="yes" 
+            deprecation="on" 
+            debug="on">
+        </javac>
+        <mkdir dir="${basedir}/${metadata.dest}" />
+        <java classname="IFDGenerator">
+            <arg value="${basedir}/${src.dir}" />
+            <arg value="${basedir}/${metadata.dest}" />
+            <classpath>
+                <pathelement path="${build.classes.dir}" />
+            </classpath>
+        </java>
+    </target>
+
+    <target name="-post-clean">
+        <delete dir="${basedir}/src-generated" failonerror="false"/>
+    </target>
+
+    <target name="-post-jar">
+    </target>
+
+<!--
+    <target name="makedocs">
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=211" dest="ChangeLog.html"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=212" dest="README.html"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=213" dest="ReleaseNotes.html"/>
+    </target>
+
+    <target name="getdescriptors">
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=234" dest="${metadata.dir}/CanonCR2MakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=235" dest="${metadata.dir}/CanonCRWMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=240" dest="${metadata.dir}/KodakMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=236" dest="${metadata.dir}/MinoltaMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=239" dest="${metadata.dir}/Nikon3MakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=237" dest="${metadata.dir}/OlympusMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=241" dest="${metadata.dir}/PentaxMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=238" dest="${metadata.dir}/SonyMakerNote.xml"/>
+    </target>
+-->
+
+<!--
+    <target name="gettag">
+        <delete failonerror="false" file="tag.properties" />
+        <java classpath="${build.classes.dir}" classname="it.tidalwave.imageio.raw.Version" output="tag.properties" />
+        <property file="tag.properties" />
+        <delete failonerror="false" file="tag.properties" />
+        <echo message="Current tag is ${tag}" />
+    </target>
+-->
+
+    <target name="wiki">
+        <mkdir dir="${metadata.dir}/wiki"/>
+        <xslt in="${metadata.dir}/Nikon3MakerNote.xml"
+             out="${metadata.dir}/wiki/Nikon3MakerNote.wiki"
+           style="${metadata.dir}/xslt/DirectoryToWiki.xslt">
+        </xslt>
+    </target>
+
+</project>
+
