@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DNGSizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: DNGSizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DNGSizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: DNGSizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DNGSizeOperation extends SizeOperation
@@ -80,8 +80,8 @@ public class DNGSizeOperation extends SizeOperation
             top = temp;
           }
 
-        logger.finest(String.format(">>>> getCrop(): width: %d, height: %d, left: %d, top: %d, cropWidth: %d, cropHeight: %d",
-                                    imageWidth, imageHeight, left, top, cropWidth, cropHeight));
+        logger.finest(">>>> getCrop(): width: %d, height: %d, left: %d, top: %d, cropWidth: %d, cropHeight: %d",
+                      imageWidth, imageHeight, left, top, cropWidth, cropHeight);
         
         return new Insets(top, 
                           left, 

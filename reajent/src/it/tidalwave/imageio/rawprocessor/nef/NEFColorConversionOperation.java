@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFColorConversionOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: NEFColorConversionOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
@@ -41,7 +41,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFColorConversionOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: NEFColorConversionOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFColorConversionOperation extends ColorConversionOperation  
@@ -65,7 +65,7 @@ public class NEFColorConversionOperation extends ColorConversionOperation
         if (makerNote.isColorModeAvailable())
           {
             ColorMatrix colorMatrix = getColorModeColorMatrix(primaryIFD.getModel(), makerNote.getColorMode());
-            logger.finer(">>>> model: " + primaryIFD.getModel() + " colorMode: " + makerNote.getColorMode() + " matrixXYZ: " + colorMatrix);
+            logger.finer(">>>> model: %s colorMode: %s matrixXYZ: %s", primaryIFD.getModel(), makerNote.getColorMode(), colorMatrix);
         
              return colorMatrix;
           }
@@ -196,8 +196,8 @@ public class NEFColorConversionOperation extends ColorConversionOperation
                             colorMatrixProfileMap.put(getCompositeKey(model, colorMode), colorMatrix);
                           }
 
-                        logger.info("Model: " + model + ", colorMode: " + colorMode + ", nce code: " + nceCode);
-                        logger.info(">>>> Color matrix:   " + colorMatrix);
+                        logger.info("Model: %s, colorMode: %s, nce code: %s", model, colorMode, nceCode);
+                        logger.info(">>>> Color matrix:   %s", colorMatrix);
                       }
 
                     colorModesMap.put(model, colorModes);

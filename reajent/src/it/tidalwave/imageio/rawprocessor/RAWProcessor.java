@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWProcessor.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: RAWProcessor.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.raw.RAWMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RAWProcessor.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: RAWProcessor.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class RAWProcessor implements PostProcessor
@@ -90,7 +90,7 @@ public abstract class RAWProcessor implements PostProcessor
         for (Iterator i = operationList.iterator(); i.hasNext(); )
           {
             Operation operation = (Operation)i.next();
-            logger.fine(">>> Initializing: " + operation.getClass());
+            logger.fine(">>> Initializing: %s", operation.getClass());
             
             try
               {
@@ -121,15 +121,15 @@ public abstract class RAWProcessor implements PostProcessor
             try
               {
                 long time = System.currentTimeMillis();
-                logger.info("Executing: " + operationName);
+                logger.info("Executing: %s", operationName);
                 operation.process(rawImage);
                 time = System.currentTimeMillis() - time;
-                logger.fine(">>>> " + operationName + " completed ok in " + time + " msec");
+                logger.fine(">>>> %s completed ok in %d msec", operationName, time);
               } 
             
             catch (Exception e)
               {
-                logger.warning(operationName + " FAILED");
+                logger.warning("%s FAILED", operationName);
                 throw new RuntimeException(e); // FIXME: temporary until we design a declared exception
               }
           }

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: SizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: SizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
@@ -47,7 +47,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: SizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: SizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class SizeOperation extends OperationSupport
@@ -96,7 +96,7 @@ public abstract class SizeOperation extends OperationSupport
         
         if (crop != null)
           {
-            logger.finer(">>>> crop: " + crop);
+            logger.finer(">>>> crop: %s", crop);
             image.setImage(crop(image.getImage(), crop));
           }
         
@@ -104,7 +104,7 @@ public abstract class SizeOperation extends OperationSupport
         
         if ((size != null)) // && ((cropRectangle == null) || !cropRectangle.getSize().equals(size)))
           {
-            logger.finer(">>>> size: " + size);
+            logger.finer(">>>> size: %s", size);
             image.setImage(resample(image.getImage(), size));  
           }
       }
@@ -164,7 +164,7 @@ public abstract class SizeOperation extends OperationSupport
     protected BufferedImage crop (@Nonnull BufferedImage image, 
                                   @Nonnull final Insets crop)
       {
-        logger.finer("crop(" + crop + ")");
+        logger.finer("crop(%s)", crop);
         logImage(logger, ">>>> image: ", image);
         image = image.getSubimage(crop.left, 
                                   crop.top, 
@@ -218,7 +218,7 @@ public abstract class SizeOperation extends OperationSupport
               throw new IllegalArgumentException("rotation=" + rotation);
           }
         
-        logger.finest(">>>> returning: " + result);
+        logger.finest(">>>> returning: %s", result);
         
         return result;
       }
@@ -232,7 +232,7 @@ public abstract class SizeOperation extends OperationSupport
                                        @Nonnull final Dimension size,
                                        @Nonnegative int rotation)
       {
-        logger.finest(String.format("rotate(%s, %s, %d)", rectangle, size, rotation));        
+        logger.finest("rotate(%s, %s, %d)", rectangle, size, rotation);        
         final Rectangle result = new Rectangle(0, 0, 0, 0);
         
         switch (rotation)
@@ -269,7 +269,7 @@ public abstract class SizeOperation extends OperationSupport
               throw new IllegalArgumentException("rotation=" + rotation);
           }
         
-        logger.finest(">>>> returning: " + result);
+        logger.finest(">>>> returning: %s", result);
         
         return result;
       }
@@ -282,7 +282,7 @@ public abstract class SizeOperation extends OperationSupport
     public Dimension getStandardSize (@Nonnull String model)
       {
         model = model.trim();
-        logger.fine("getStandardSize(" + model + ")");
+        logger.fine("getStandardSize(%s)", model);
         String string = properties.getProperty(model);
         Dimension size = null;
         
@@ -294,7 +294,7 @@ public abstract class SizeOperation extends OperationSupport
             size = new Dimension(width, height);
           }
         
-        logger.finer(">>>> size: " + size);
+        logger.finer(">>>> size: %s", size);
         
         return size;
       }
@@ -307,7 +307,7 @@ public abstract class SizeOperation extends OperationSupport
     public Insets getStandardCrop (@Nonnull String model)
       {
         model = model.trim();
-        logger.fine("getStandardCrop(" + model + ")");
+        logger.fine("getStandardCrop(%s)", model);
         String string = properties.getProperty(model);
         Insets cropInsets = null;
         
@@ -323,7 +323,7 @@ public abstract class SizeOperation extends OperationSupport
             cropInsets = new Insets(t, l, b, r);
           }
 
-        logger.finer(">>>> cropInsets: " + cropInsets);
+        logger.finer(">>>> cropInsets: %s", cropInsets);
         
         return cropInsets;
       }

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFExposureOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: NEFExposureOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFExposureOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: NEFExposureOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFExposureOperation extends ExposureOperation
@@ -59,7 +59,7 @@ public class NEFExposureOperation extends ExposureOperation
         if ((nceMetadata != null) && nceMetadata.isAdvancedRawEnabled())
           {
             double exposureCompensation = nceMetadata.getEVCompensation() / 100.0;
-            logger.finer (">>>> NCE exposure compensation: " + exposureCompensation);
+            logger.finer (">>>> NCE exposure compensation: %s", exposureCompensation);
             double coefficient = Math.pow(2, exposureCompensation);
             image.multiplyRedCoefficient(coefficient);
             image.multiplyGreenCoefficient(coefficient);

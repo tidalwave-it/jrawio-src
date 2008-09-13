@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFCurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: NEFCurveOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFCurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: NEFCurveOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFCurveOperation extends CurveOperation  
@@ -59,7 +59,7 @@ public class NEFCurveOperation extends CurveOperation
           {
             int[] linearizationTable = makerNote.getLinearizationTable();  
             whiteLevel = linearizationTable[linearizationTable.length - 1];
-            logger.finer(">>>> whiteLevel from linearizationTable: " + whiteLevel);
+            logger.finer(">>>> whiteLevel from linearizationTable: %s", whiteLevel);
           }
         
         else

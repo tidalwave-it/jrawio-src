@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ColorMatrix.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: ColorMatrix.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -33,7 +33,7 @@ import java.text.DecimalFormat;
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: ColorMatrix.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: ColorMatrix.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ColorMatrix
@@ -161,7 +161,7 @@ public class ColorMatrix
         nc[8] = cof8 / det;
         ColorMatrix result = new ColorMatrix(nc);
 
-        logger.finest("inverse(" + this + ") = " + result);
+        logger.finest("inverse(%s) = %s", this, result);
         //        logger.finest(">>>> det = " + det);
 
         return result;

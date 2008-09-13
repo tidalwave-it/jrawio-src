@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DemosaicFilterProcessor.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: DemosaicFilterProcessor.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.demosaic;
@@ -34,7 +34,7 @@ import it.tidalwave.imageio.rawprocessor.Curve;
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: DemosaicFilterProcessor.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: DemosaicFilterProcessor.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DemosaicFilterProcessor
@@ -94,8 +94,7 @@ public class DemosaicFilterProcessor
      ******************************************************************************/
     public void process (BufferedImage image)
       {
-        logger.info("Demosaicing: R:" + redCoeff + " G:" + greenCoeff + " B:" + blueCoeff + " black: " + blackLevel
-            + " Curve: " + curve);
+        logger.info("Demosaicing: R: %f, G: %f, B: %f, black: %f, Curve: %s", redCoeff, greenCoeff, blueCoeff, blackLevel, curve);
 
         if (bayerInfo != null)
           {

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: NEFWhiteBalanceOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: NEFWhiteBalanceOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFWhiteBalanceOperation extends OperationSupport
@@ -83,9 +83,9 @@ public class NEFWhiteBalanceOperation extends OperationSupport
         if ((whiteBalanceInfo != null) && whiteBalanceInfo.isValid())
           {
             int[] coefficients = whiteBalanceInfo.getCoefficients();
-            logger.finer(">>>> NEFWhiteBalanceInfo : " + cameraWhiteBalance + " " + image.getCFAPatternAsString() + " "
-                         + " v" + Integer.toHexString(whiteBalanceInfo.getVersion()) 
-                         + " " + coefficients[0] + " " + coefficients[1] + " " + coefficients[2] + " " + coefficients[3]);
+            logger.finer(">>>> NEFWhiteBalanceInfo: %s %s v%s %s %s %s %s",
+                         cameraWhiteBalance, image.getCFAPatternAsString(), Integer.toHexString(whiteBalanceInfo.getVersion()),
+                         coefficients[0],  coefficients[1], coefficients[2], coefficients[3]);
             image.multiplyRedCoefficient(whiteBalanceInfo.getRedCoefficient());
             image.multiplyGreenCoefficient(whiteBalanceInfo.getGreen1Coefficient());
             image.multiplyBlueCoefficient(whiteBalanceInfo.getBlueCoefficient());
@@ -93,7 +93,7 @@ public class NEFWhiteBalanceOperation extends OperationSupport
         
         else if (whiteBalanceCoefficients != null)
           {
-            logger.finer(">>>> using WhiteBalanceRB coefficients: " + cameraWhiteBalance);
+            logger.finer(">>>> using WhiteBalanceRB coefficients: %s", cameraWhiteBalance);
             image.multiplyRedCoefficient(whiteBalanceCoefficients[0].doubleValue());    
             image.multiplyBlueCoefficient(whiteBalanceCoefficients[1].doubleValue());    
           }

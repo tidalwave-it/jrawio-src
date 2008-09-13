@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ColorConversionOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: ColorConversionOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
@@ -38,7 +38,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ColorConversionOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: ColorConversionOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class ColorConversionOperation extends OperationSupport
@@ -70,13 +70,13 @@ public abstract class ColorConversionOperation extends OperationSupport
         
         if (colorMatrix != null)
           {
-            logger.info(">>>> colorMatrix in XYZ space: " + colorMatrix);
+            logger.info(">>>> colorMatrix in XYZ space: %s", colorMatrix);
             ColorMatrix colorMatrixRGB = colorMatrix.product(ColorMatrix.XYZ_TO_RGB);
-            logger.info(">>>> colorMatrix in RGB space: " + colorMatrixRGB);
+            logger.info(">>>> colorMatrix in RGB space: %s", colorMatrixRGB);
             colorMatrixRGB.normalizeRows(); // FIXME: investigate if it's correct
-            logger.info(">>>> colorMatrix in RGB space, normalized: " + colorMatrixRGB);
+            logger.info(">>>> colorMatrix in RGB space, normalized: %s", colorMatrixRGB);
             colorMatrixRGB = colorMatrixRGB.inverse();
-            logger.info(">>>> final colorMatrix:  " + colorMatrixRGB);
+            logger.info(">>>> final colorMatrix: %s", colorMatrixRGB);
             return colorMatrixRGB;
           }
         
@@ -137,7 +137,7 @@ public abstract class ColorConversionOperation extends OperationSupport
     private static void applyMatrix (WritableRaster raster, ColorMatrix colorMatrix1)
       {
         logger.fine("applyMatrix()");
-        logger.finer(">>>> raster: " + raster);
+        logger.finer(">>>> raster: %s", raster);
         
         long time = System.currentTimeMillis();
         DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
@@ -153,8 +153,8 @@ public abstract class ColorConversionOperation extends OperationSupport
         int pixelStride = raster.getNumBands();
         int scanStride = raster.getWidth() * pixelStride;
         
-        logger.finer(">>>> pixelStride: " + pixelStride + ", scanStride: " + scanStride);
-        logger.finer(">>>> offset: " + dataBuffer.getOffset());
+        logger.finer(">>>> pixelStride: %d, scanStride: %d", pixelStride, scanStride);
+        logger.finer(">>>> offset: %d", dataBuffer.getOffset());
         
         // FIXME: you should be able to find the offset of the child raster within the parent
         // Until you don't do, scan over the whole parent raster
@@ -174,6 +174,6 @@ public abstract class ColorConversionOperation extends OperationSupport
             Thread.yield();
           }
         
-        logger.finest(">>>> applyMatrix() completed ok in " + (System.currentTimeMillis() - time) + " msec");
+        logger.finest(">>>> applyMatrix() completed ok in %d msec.", + (System.currentTimeMillis() - time));
       }
   }

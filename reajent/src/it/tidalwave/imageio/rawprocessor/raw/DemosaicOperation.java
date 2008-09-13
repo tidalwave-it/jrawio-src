@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DemosaicOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: DemosaicOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
@@ -38,7 +38,7 @@ import it.tidalwave.imageio.rawprocessor.demosaic.DemosaicFilterProcessor;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DemosaicOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: DemosaicOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DemosaicOperation extends OperationSupport
@@ -70,7 +70,7 @@ public class DemosaicOperation extends OperationSupport
         double blackLevel = image.getBlackLevel();
         Curve curve = image.getCurve();
         processor = new DemosaicFilterProcessor(cfaPatternAsString, algorithm, redCoeff, greenCoeff, blueCoeff, blackLevel, curve);
-        logger.finer("Bayer pattern: " + cfaPatternAsString);
+        logger.finer("Bayer pattern: %s", cfaPatternAsString);
         processor.process(image.getImage());
       }    
     

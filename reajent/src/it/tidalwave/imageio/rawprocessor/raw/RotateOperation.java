@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RotateOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: RotateOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
@@ -44,7 +44,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RotateOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: RotateOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RotateOperation extends OperationSupport
@@ -103,7 +103,7 @@ public class RotateOperation extends OperationSupport
             orientation = 90;
           }
 
-        logger.finer(">>>> camera orientation: " + tiffOrientation + ", degrees: "+ orientation);
+        logger.finer(">>>> camera orientation: %s, degrees: %d", tiffOrientation, orientation);
 
         return orientation;
       }
@@ -114,7 +114,7 @@ public class RotateOperation extends OperationSupport
      ******************************************************************************/
     protected static BufferedImage rotateQuadrant (BufferedImage image, int degrees)
       {
-        logger.finer("rotateQuadrant(" + degrees + ")");
+        logger.finer("rotateQuadrant(%d)", degrees);
         logImage(logger, ">>>> image: ", image);
         SampleModel sampleModel = image.getSampleModel();
         

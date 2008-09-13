@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: OperationSupport.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: OperationSupport.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -49,7 +49,7 @@ import java.awt.image.SinglePixelPackedSampleModel;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: OperationSupport.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: OperationSupport.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class OperationSupport implements Operation
@@ -208,10 +208,10 @@ public abstract class OperationSupport implements Operation
     protected static void logImage (Logger logger, String prefix, RenderedImage image)
       {
         ColorModel colorModel = image.getColorModel();
-        logger.fine(prefix + ".class:          " + image.getClass().getName());
-        logger.fine(prefix + ".sampleModel:    " + toString(image.getSampleModel()));
-        logger.fine(prefix + ".colorModel:     " + colorModel.getClass().getName() + " : " + colorModel);
-        logger.fine(prefix + ".colorSpace:     " + toString(colorModel.getColorSpace()));
+        logger.fine("%s.class:       %s", prefix, image.getClass().getName());
+        logger.fine("%s.sampleModel: %s", prefix, toString(image.getSampleModel()));
+        logger.fine("%s.colorModel:  %s : %s", prefix, colorModel.getClass().getName(), colorModel);
+        logger.fine("%s.colorSpace:  %s", prefix, toString(colorModel.getColorSpace()));
 
         //      log.debug(">>>> iccProfile is now: " + getICCProfileName(bufferedImage));
       }

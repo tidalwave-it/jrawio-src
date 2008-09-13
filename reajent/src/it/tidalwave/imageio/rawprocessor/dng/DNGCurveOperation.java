@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DNGCurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: DNGCurveOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DNGCurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: DNGCurveOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DNGCurveOperation extends CurveOperation  
@@ -91,20 +91,20 @@ public class DNGCurveOperation extends CurveOperation
         if (primaryIFD.isWhiteLevelAvailable())
           {
             whiteLevel = primaryIFD.getWhiteLevel()[0];  
-            logger.finer(">>>> whiteLevel from WhiteLevel in primaryIFD: " + whiteLevel);
+            logger.finer(">>>> whiteLevel from WhiteLevel in primaryIFD: %d", whiteLevel);
           }
         
         else if (rasterIFD.isWhiteLevelAvailable())
           {
             whiteLevel = rasterIFD.getWhiteLevel()[0];  
-            logger.finer(">>>> whiteLevel from WhiteLevel in rasterIFD: " + whiteLevel);
+            logger.finer(">>>> whiteLevel from WhiteLevel in rasterIFD: %d", whiteLevel);
           }
         
         else
           {
             int bitsPerSample = rasterIFD.getBitsPerSample()[0];
             whiteLevel = (1 << bitsPerSample) - 1;
-            logger.finer(">>>> whiteLevel from BitsPerSample: " + whiteLevel);
+            logger.finer(">>>> whiteLevel from BitsPerSample: %d", whiteLevel);
           }
         
         return whiteLevel;

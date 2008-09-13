@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NikonCaptureEditorMetadata.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: NikonCaptureEditorMetadata.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.util.Logger;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NikonCaptureEditorMetadata.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: NikonCaptureEditorMetadata.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NikonCaptureEditorMetadata
@@ -493,7 +493,7 @@ public class NikonCaptureEditorMetadata
      *******************************************************************************/
     public NikonCaptureEditorMetadata (byte[] buffer)
       {
-        logger.finer("Creating a CaptureEditorMetadata from " + buffer.length + " bytes");
+        logger.finer("Creating a CaptureEditorMetadata from %d bytes", buffer.length);
         byteBuffer = ByteBuffer.allocate(buffer.length);
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN); // FIXME check this
         byteBuffer.put(buffer);
@@ -527,52 +527,52 @@ public class NikonCaptureEditorMetadata
               {
                 case UNSHARP_MASK_MARKER:
                   unsharpMaskBuffer = subBuffer;
-                  logger.finer(">>>> UNSHARP MASK: " + s);
+                  logger.finer(">>>> UNSHARP MASK: %s", s);
                   break;
 
                 case UNSHARP_MASK_DATA_MARKER:
                   unsharpMaskDataBuffer = subBuffer;
-                  logger.finer(">>>> UNSHARP MASK DATA: " + s);
+                  logger.finer(">>>> UNSHARP MASK DATA: %s", s);
                   break;
 
                 case CURVES_MARKER:
                   curvesBuffer = subBuffer;
-                  logger.finer(">>>> CURVES: " + s);
+                  logger.finer(">>>> CURVES: %s", s);
                   break;
 
                 case COLOR_BALANCE_MARKER:
                   colorBalanceBuffer = subBuffer;
-                  logger.finer(">>>> COLOR BALANCE: " + s);
+                  logger.finer(">>>> COLOR BALANCE: %s", s);
                   break;
 
                 case ADVANCED_RAW_MARKER:
                   advancedRawBuffer = subBuffer;
-                  logger.finer(">>>> ADVANCED RAW: " + s);
+                  logger.finer(">>>> ADVANCED RAW: %s", s);
                   break;
 
                 case ADVANCED_RAW_DATA_MARKER:
                   advancedRawDataBuffer = subBuffer;
-                  logger.finer(">>>> ADVANCED RAW DATA: " + s);
+                  logger.finer(">>>> ADVANCED RAW DATA: %s", s);
                   break;
 
                 case WHITE_BALANCE_MARKER:
                   whiteBalanceBuffer = subBuffer;
-                  logger.finer(">>>> WHITE BALANCE: " + s);
+                  logger.finer(">>>> WHITE BALANCE: %s", s);
                   break;
 
                 case WHITE_BALANCE_DATA_MARKER:
                   whiteBalanceDataBuffer = subBuffer;
-                  logger.finer(">>>> WHITE BALANCE DATA: " + s);
+                  logger.finer(">>>> WHITE BALANCE DATA: %s", s);
                   break;
 
                 case VIGNETTE_MARKER:
                   vignetteBuffer = subBuffer;
-                  logger.finer(">>>> VIGNETTE: " + s);
+                  logger.finer(">>>> VIGNETTE: %s", s);
                   break;
 
                 case ORIENTATION_MARKER:
                   orientationBuffer = subBuffer;
-                  logger.finer(">>>> ORIENTATION: " + s);
+                  logger.finer(">>>> ORIENTATION: %s", s);
                   break;
 
                 case CROP_MARKER:
@@ -582,36 +582,36 @@ public class NikonCaptureEditorMetadata
 
                 case NOISE_REDUCTION_MARKER:
                   noiseReductionBuffer = subBuffer;
-                  logger.finer(">>>> NOISE REDUCTION: " + s);
+                  logger.finer(">>>> NOISE REDUCTION: %s", s);
                   break;
 
                 case NOISE_REDUCTION_DATA_MARKER:
                   noiseReductionDataBuffer = subBuffer;
-                  logger.finer(">>>> NOISE REDUCTION DATA: " + s);
+                  logger.finer(">>>> NOISE REDUCTION DATA: %s", s);
                   break;
 
                 case COLOR_BOOSTER_MARKER:
                   colorBoosterBuffer = subBuffer;
-                  logger.finer(">>>> COLOR BOOSTER: " + s);
+                  logger.finer(">>>> COLOR BOOSTER: %s", s);
                   break;
 
                 case COLOR_BOOSTER_DATA_MARKER:
                   colorBoosterDataBuffer = subBuffer;
-                  logger.finer(">>>> COLOR BOOSTER DATA: " + s);
+                  logger.finer(">>>> COLOR BOOSTER DATA: %s", s);
                   break;
 
                 case DUST_REFERENCE_MARKER:
-                  logger.finer(">>>> DUST REFERENCE: " + s);
+                  logger.finer(">>>> DUST REFERENCE: %s", s);
                   break;
 
                 case PHOTO_EFFECTS_MARKER:
                   photoEffectBuffer = subBuffer;
-                  logger.finer(">>>> PHOTO EFFECTS: " + s);
+                  logger.finer(">>>> PHOTO EFFECTS: %s", s);
                   break;
 
                 case PHOTO_EFFECTS_DATA_MARKER:
                   photoEffectDataBuffer = subBuffer;
-                  logger.finer(">>>> PHOTO EFFECTS DATA: " + s);
+                  logger.finer(">>>> PHOTO EFFECTS DATA: %s", s);
                   break;
 
                 default:
@@ -620,7 +620,7 @@ public class NikonCaptureEditorMetadata
               }
           }
 
-        logger.finer(">>>> " + toString());
+        logger.finer(">>>> %s", toString());
       }
 
     /*******************************************************************************

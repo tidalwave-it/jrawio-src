@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWSizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: CRWSizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.crw;
@@ -37,7 +37,7 @@ import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWSizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: CRWSizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWSizeOperation extends SizeOperation
@@ -58,7 +58,7 @@ public class CRWSizeOperation extends SizeOperation
         int r = metadata.getSensorWidth() - metadata.getSensorRightBorder() - 1;
         int b = metadata.getSensorHeight() - metadata.getSensorBottomBorder() - 1;
         Insets crop = new Insets(t, l, b, r);        
-        logger.fine(">>>> returning: " + crop);
+        logger.fine(">>>> returning: %s", crop);
         
         return crop;
       }
@@ -73,7 +73,7 @@ public class CRWSizeOperation extends SizeOperation
         logger.fine("getSize()");
         CRWMetadata crwMetadata = (CRWMetadata)image.getRAWMetadata();
         Dimension dimension = new Dimension(crwMetadata.getImageWidth(), crwMetadata.getImageHeight());
-        logger.fine(">>>> returning: " + dimension);
+        logger.fine(">>>> returning: %s", dimension);
         return dimension;
       }
   }

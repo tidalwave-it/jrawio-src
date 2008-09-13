@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImage.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: RAWImage.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.raw.RAWMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RAWImage.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: RAWImage.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RAWImage
@@ -264,7 +264,7 @@ public class RAWImage
     private void multiplyRGBCoefficient (int channel, double value)
       {
         coefficients[channel] *= value;
-        logger.finer ("Coefficient[" + channel + "] = " + coefficients[channel] + " - has been multiplied by " + value);
+        logger.finer ("Coefficient[%d] = %f - has been multiplied by %f", channel, coefficients[channel], value);
       }
     
     /*******************************************************************************
@@ -280,7 +280,7 @@ public class RAWImage
       {
         int channel = cfaPattern[cfaIndex];
         coefficients[channel] *= value;
-        logger.finer ("Coefficient[" + channel + "] = " + coefficients[channel] + " - has been multiplied by " + value);
+        logger.finer ("Coefficient[%d] = %f - has been multiplied by %f", channel, coefficients[channel], value);
       }
     
     /*******************************************************************************

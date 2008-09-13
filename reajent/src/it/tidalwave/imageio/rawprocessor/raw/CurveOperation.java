@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: CurveOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
@@ -37,7 +37,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: CurveOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CurveOperation extends OperationSupport
@@ -70,8 +70,8 @@ public class CurveOperation extends OperationSupport
         int[] blackLevel = getBlackLevel(image);
         double whiteLevel = getWhiteLevel(image);        
         double[] normalizationFactor = new double[3];
-        logger.finer(">>>> blackLevel: " + blackLevel[0] + " " + blackLevel[1] + " " + blackLevel[2]);
-        logger.finer(">>>> whiteLevel: " + whiteLevel);
+        logger.finer(">>>> blackLevel: %d %d %d", blackLevel[0], blackLevel[1], blackLevel[2]);
+        logger.finer(">>>> whiteLevel: %f", whiteLevel);
         
         for (int i = 0; i < normalizationFactor.length; i++)
           {
@@ -79,7 +79,7 @@ public class CurveOperation extends OperationSupport
           }
 
         image.setBlackLevel((blackLevel[0] + blackLevel[1] + blackLevel[2]) / 3);
-        logger.finer(">>>> normalizationFactor: " + normalizationFactor[0] + " " + normalizationFactor[1] + " " + normalizationFactor[2]);
+        logger.finer(">>>> normalizationFactor: %f %f %f", normalizationFactor[0], normalizationFactor[1], normalizationFactor[2]);
         
         return normalizationFactor;
       }
@@ -104,7 +104,7 @@ public class CurveOperation extends OperationSupport
         IFD rasterIFD = metadata.getRasterIFD();
         int bitsPerSample = rasterIFD.getBitsPerSample()[0];
         double whiteLevel = (1 << bitsPerSample) - 1;
-        logger.finer(">>>> whiteLevel from bitsPerSample: " + whiteLevel);
+        logger.finer(">>>> whiteLevel from bitsPerSample: %f", whiteLevel);
         
         return whiteLevel;
       }

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFSizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: NEFSizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFSizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id: NEFSizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFSizeOperation extends SizeOperation
@@ -119,7 +119,7 @@ public class NEFSizeOperation extends SizeOperation
             crop.bottom += size.height - nceCrop.height;
           }
         
-        logger.fine(">>>> returning crop: " + crop);
+        logger.fine(">>>> returning crop: %s", crop);
         
         return crop;
       }
