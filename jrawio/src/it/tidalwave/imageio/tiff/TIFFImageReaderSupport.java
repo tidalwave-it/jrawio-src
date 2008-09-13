@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: TIFFImageReaderSupport.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: TIFFImageReaderSupport.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -47,7 +47,7 @@ import it.tidalwave.imageio.raw.RasterReader;
  * an ImageReader for any TIFF-based image format.
  *
  * @author Fabrizio Giudici
- * @version $Id: TIFFImageReaderSupport.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: TIFFImageReaderSupport.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
@@ -174,13 +174,14 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      * @throws IOException     if an I/O error occurs
      *
      ******************************************************************************/
+    @Override
     protected BufferedImage loadImage (int imageIndex) throws IOException
       {
-        logger.fine("loadImage(iis: " + iis + ", imageIndex: " + imageIndex + ")");
+        logger.fine("loadImage(%d) - iis: %s", imageIndex, iis);
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
         BufferedImage image = loadRAWImage();
-        logger.fine(">>>> loadImage() completed ok, returning " + image);
+        logger.fine(">>>> loadImage() completed ok, returning %s", image);
 
         return image;
       }
@@ -196,18 +197,18 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      *
      ******************************************************************************/
     public static long processHeader (ImageInputStream iis,
-                                      HeaderProcessor skipper) throws IOException
+                                      HeaderProcessor headerProcessor) throws IOException
       {
         int fileOffset = 0;
-        logger.fine("processHeader(iis=" + iis + ", skipper=" + skipper + ")");
+        logger.fine("processHeader(%s, %s)", iis, headerProcessor);
 
-        if (skipper != null)
+        if (headerProcessor != null)
           {
-            fileOffset = skipper.getOffset();
+            fileOffset = headerProcessor.getOffset();
           }
 
         iis.skipBytes(fileOffset);
-        logger.finest(">>>> reading byte order at " + iis.getStreamPosition());
+        logger.finest(">>>> reading byte order at %d", iis.getStreamPosition());
         setByteOrder(iis);
 
         short magic = iis.readShort();
@@ -218,7 +219,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
           }
 
         long offset = iis.readUnsignedInt() + fileOffset;
-        logger.finer(">>>> processHeader() returning offset is " + offset);
+        logger.finer(">>>> processHeader() returning offset is %d", offset);
 
         return offset;
       }
@@ -251,7 +252,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
             throw new IOException("Invalid byte order: 0x" + Integer.toHexString(byteOrder));
           }
 
-        logger.finer(">>>> Byte order is " + iis.getByteOrder());
+        logger.finer(">>>> Byte order is %s", iis.getByteOrder());
       }
 
     /*******************************************************************************
@@ -319,7 +320,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      ******************************************************************************/
     protected Directory loadPrimaryDirectory() throws IOException
       {
-        logger.info("loadPrimaryDirectory(" + iis + ")");
+        logger.fine("loadPrimaryDirectory() - %s", iis);
         headerProcessor.process(iis);
         iis.seek(0);
         long directoryOffset = processHeader(iis, headerProcessor); // FIXME: refactor so that processHeader doe snot use headerSkipper
@@ -371,7 +372,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
     protected void processMetadata() throws IOException
       {
         primaryDirectory = loadPrimaryDirectory();
-        logger.fine("PRIMARY DIRECTORY: " + primaryDirectory);
+        logger.fine(">>>> primary directory: %s", primaryDirectory);
         processEXIFAndMakerNote(primaryDirectory);
         metadata = createMetadata(primaryDirectory, null);
       }
@@ -392,7 +393,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
             IFD exifIFD = new IFD(); 
             exifIFD.loadAll(iis, ((IFD)directory).getExifIFDPointer());
             directory.addNamedDirectory(IFD.EXIF_NAME, exifIFD);
-            logger.fine("EXIF IFD: " + exifIFD);
+            logger.fine("EXIF IFD: %s", exifIFD);
 
             if (exifIFD.isMakerNoteAvailable())
               {
@@ -404,7 +405,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
                 IFD interoperabilityIFD = new IFD();
                 interoperabilityIFD.loadAll(iis, exifIFD.getInteroperabilityIFD());
                 exifIFD.addNamedDirectory(IFD.INTEROPERABILITY_NAME, interoperabilityIFD); 
-                logger.fine("INTEROPERABILITY IFD: " + interoperabilityIFD);
+                logger.fine("INTEROPERABILITY IFD: %s", interoperabilityIFD);
               }
           }
 
@@ -413,7 +414,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
             IFD gpsIFD = new IFD();
             gpsIFD.loadAll(iis, ((IFD)directory).getGPSInfoIFDPointer());
             directory.addNamedDirectory(IFD.GPS_NAME, gpsIFD); 
-            logger.fine("GPS IFD: " + gpsIFD);
+            logger.fine("GPS IFD: %s", gpsIFD);
           }
       }
 
@@ -437,7 +438,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         int makerNoteOffset = exifIFD.getMakerNoteOffset();        
         makerNote.loadAll(iis, makerNoteOffset);
         exifIFD.addNamedDirectory(IFD.MAKER_NOTE_NAME, makerNote);
-        logger.fine("MakerNote: " + makerNote);
+        logger.fine("MakerNote: %s", makerNote);
       }
 
     /*******************************************************************************

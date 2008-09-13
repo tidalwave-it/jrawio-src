@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CR2ImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: CR2ImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.cr2;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: CR2ImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: CR2ImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CR2ImageReaderSpi extends RAWImageReaderSpiSupport
@@ -94,7 +94,7 @@ public class CR2ImageReaderSpi extends RAWImageReaderSpiSupport
         if ((make == null) || !make.toUpperCase().startsWith("CANON") || (model == null)
             || (!model.toUpperCase().startsWith("CANON EOS")))
           {
-            logger.fine("CR2ImageReaderSpi giving up on: '" + make + "' / '" + model + "'");
+            logger.fine("CR2ImageReaderSpi giving up on: '%s' / %s'", make, model);
             return false;
           }
 

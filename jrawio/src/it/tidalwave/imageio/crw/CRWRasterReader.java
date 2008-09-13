@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWRasterReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: CRWRasterReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -45,7 +45,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSupport;
  * compression scheme.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: CRWRasterReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: CRWRasterReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWRasterReader extends RasterReader
@@ -223,10 +223,9 @@ public class CRWRasterReader extends RasterReader
 
         iis.seek(rawOffset);
         HuffmannDecoder[] decoderPair = canonDecoders[decoderPairIndex];
-        logger.finest(">>>> decoderTable: " + decoderPairIndex + ", lowBitsOffset: " + lowBitsOffset + ", rawOffset: "
-            + rawOffset);
-        logger.finest("firstDecoder: " + decoderPair[0]);
-        logger.finest("secondDecoder: " + decoderPair[1]);
+        logger.finest(">>>> decoderTable: %d, lowBitsOffset: %d, rawOffset: %d", decoderPairIndex, lowBitsOffset, rawOffset);
+        logger.finest("firstDecoder: %s", decoderPair[0]);
+        logger.finest("secondDecoder: %s", decoderPair[1]);
 
         int[] diffBlock = new int[BLOCK_WIDTH * BLOCK_HEIGHT];
         short[] pixel = new short[width * BLOCK_HEIGHT];

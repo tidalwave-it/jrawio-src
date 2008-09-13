@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DCRImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: DCRImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.dcr;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.pef.PEFImageReader;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DCRImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: DCRImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DCRImageReaderSpi extends RAWImageReaderSpiSupport
@@ -92,7 +92,7 @@ public class DCRImageReaderSpi extends RAWImageReaderSpiSupport
 
         if ((make == null) || !make.toUpperCase().startsWith("KODAK"))
           {
-            logger.fine("DCRImageReaderSpi giving up on: '" + make + "' / '" + model + "'");
+            logger.fine("DCRImageReaderSpi giving up on: '%s' / '%s'", make, model);
             return false;
           }
 

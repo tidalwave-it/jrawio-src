@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: CRWImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -43,7 +43,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: CRWImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWImageReader extends RAWImageReaderSupport
@@ -154,7 +154,7 @@ public class CRWImageReader extends RAWImageReaderSupport
     protected Directory loadPrimaryDirectory() 
       throws IOException
       {
-        logger.info("loadPrimaryDirectory(iis=" + iis + ")");
+        logger.info("loadPrimaryDirectory() - iis: %s", iis);
         long directoryOffset = processHeader(iis, true);
         primaryDirectory = new CanonCRWMakerNote();
         primaryDirectory.loadAll(iis, directoryOffset);
@@ -170,8 +170,7 @@ public class CRWImageReader extends RAWImageReaderSupport
     protected BufferedImage loadThumbnail (int imageIndex, int thumbnailIndex) 
       throws IOException
       {
-        logger.info("loadThumbnail(iis=" + iis + ", imageIndex=" + imageIndex + ", thumbnailIndex=" + thumbnailIndex
-            + ")");
+        logger.info("loadThumbnail(%d, %d) - iis: %s", imageIndex, thumbnailIndex, iis);
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
         checkThumbnailIndex(thumbnailIndex);
@@ -207,7 +206,7 @@ public class CRWImageReader extends RAWImageReaderSupport
     protected WritableRaster loadRAWRaster() 
       throws IOException
       {
-        logger.fine("loadRAWRaster(iis: " + iis + ")");
+        logger.fine("loadRAWRaster() - iis: %s", iis);
 
         long time = System.currentTimeMillis();
         CRWMetadata crwMetadata = ((CRWMetadata)metadata);
@@ -221,10 +220,10 @@ public class CRWImageReader extends RAWImageReaderSupport
         rasterReader.setDecoderPairIndex(decoderTable[0]);
         rasterReader.setStripByteCount(1);
         rasterReader.setCompression(0);
-        logger.fine(">>>> using RasterReader: " + rasterReader);
+        logger.fine(">>>> using RasterReader: %s", rasterReader);
 
         WritableRaster raster = rasterReader.loadRaster(iis, this);
-        logger.fine(">>>> loadRAWRaster() completed ok in " + (System.currentTimeMillis() - time) + " msec.");
+        logger.fine(">>>> loadRAWRaster() completed ok in %d msec", (System.currentTimeMillis() - time));
 
         return raster;
       }
@@ -251,7 +250,7 @@ public class CRWImageReader extends RAWImageReaderSupport
       throws IOException
       {
         primaryDirectory = loadPrimaryDirectory();
-        logger.fine("PRIMARY DIRECTORY: " + primaryDirectory);
+        logger.fine("PRIMARY DIRECTORY: %s", primaryDirectory);
 
         CanonCRWMakerNote crwMakerNote = ((CanonCRWMakerNote)primaryDirectory);
         thumbnailImageAvailable = crwMakerNote.isThumbnailImageAvailable();
@@ -269,7 +268,7 @@ public class CRWImageReader extends RAWImageReaderSupport
 
         tryToReadEXIFFromTHM();
         metadata = createMetadata(primaryDirectory, imageIFD);
-        logger.fine(">>>> metadata: " + metadata);
+        logger.fine(">>>> metadata: %s", metadata);
       }
 
     /*******************************************************************************
@@ -329,7 +328,7 @@ public class CRWImageReader extends RAWImageReaderSupport
                 long directoryOffset = TIFFImageReaderSupport.processHeader(iis, null);
                 imageIFD = new IFD();
                 imageIFD.loadAll(iis, directoryOffset);
-                logger.finer("THM PRIMARY IFD: " + imageIFD);
+                logger.finer("THM PRIMARY IFD: %s", imageIFD);
                 processEXIFAndMakerNote(imageIFD, iis);
               }
           }
@@ -360,7 +359,7 @@ public class CRWImageReader extends RAWImageReaderSupport
             exifIFD = new IFD();
             exifIFD.loadAll(iis, ((IFD)directory).getExifIFDPointer());
             imageIFD.addNamedDirectory(IFD.EXIF_NAME, exifIFD);
-            logger.fine("EXIF IFD: " + exifIFD);
+            logger.fine("EXIF IFD: %s", exifIFD);
 
             if (exifIFD.isMakerNoteAvailable())
               {
@@ -371,7 +370,7 @@ public class CRWImageReader extends RAWImageReaderSupport
                          {
                            IFD interoperabilityIFD = new IFD();
                            interoperabilityIFD.loadAll(iis, exifIFD.getInteroperabilityIFD());
-                           logger.fine("Interoperability IFD: " + interoperabilityIFD);
+                           logger.fine("Interoperability IFD: %s", interoperabilityIFD);
                            // TODO: add to EXIF IFD
                          }
             //               interoperabilityIFD = (IFD)Directory.loadDirectory(iis, exifIFD.getInteroperabilityIFD(), fileOffset, IFD.class);
@@ -415,7 +414,7 @@ public class CRWImageReader extends RAWImageReaderSupport
         makerNote = new CanonCRWMakerNote();
         makerNote.load(iis, makerNoteOffset);
         exifIFD.addNamedDirectory(IFD.MAKER_NOTE_NAME, makerNote);
-        logger.fine("MakerNote: " + makerNote);
+        logger.fine("MakerNote: %s", makerNote);
       }
 
     /*******************************************************************************
@@ -430,17 +429,17 @@ public class CRWImageReader extends RAWImageReaderSupport
                                        boolean reset) 
       throws IOException
       {
-        logger.fine("processHeader(iis=" + iis + ", reset=" + reset + ")");
+        logger.fine("processHeader(iis=%s, reset=%s)", iis, reset);
 
         if (reset)
           {
             iis.seek(0);
           }
 
-        logger.finest(">>>> reading byte order at " + iis.getStreamPosition());
+        logger.finest(">>>> reading byte order at %d", iis.getStreamPosition());
         TIFFImageReaderSupport.setByteOrder(iis);
         long offset = iis.readUnsignedInt();
-        logger.finer(">>>> processHeader() returning offset is " + offset);
+        logger.finer(">>>> processHeader() returning offset is %d", offset);
 
         return offset;
       }

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: NEFImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -43,7 +43,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: NEFImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
@@ -113,7 +113,7 @@ public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
         
         String make = primaryIFD.getMake();
         String model = primaryIFD.getModel();
-        logger.finest("Make: " + make + ", Model: " + model);
+        logger.finest("Make: %s, Model: %s", make, model);
         //
         // Beware that TIFF files out of Nikon scanners are tagged as Nikon.
         // Check the model name too.
@@ -121,7 +121,7 @@ public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
         if ((make == null) || !make.toUpperCase().startsWith("NIKON") || (model == null)
             || (!model.toUpperCase().startsWith("NIKON D") && !supportedModels.contains(model.toUpperCase())))
           {
-            logger.finest(">>>> FAILING, supportedModels: " + supportedModels);
+            logger.finest(">>>> FAILING, supportedModels: %s", supportedModels);
             return false;
           }
 

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: SRFImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: SRFImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.srf;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: SRFImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: SRFImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class SRFImageReader extends TIFFImageReaderSupport
@@ -73,7 +73,7 @@ public class SRFImageReader extends TIFFImageReaderSupport
      ******************************************************************************/
     protected WritableRaster loadRAWRaster() throws IOException
       {
-        logger.fine("loadRAWRaster(iis: " + iis + ")");
+        logger.fine("loadRAWRaster() - iis: %s", iis);
 
         long time = System.currentTimeMillis();
         SRFRasterReader rasterReader = new SRFRasterReader();
@@ -82,9 +82,9 @@ public class SRFImageReader extends TIFFImageReaderSupport
         rasterReader.setRasterKey(sonyMakerNote.getSRF1().getRasterKey());
         rasterReader.setRasterOffset(sonyMakerNote.getSRF2().getRasterOffset());
 
-        logger.finest(">>>> using rasterReader: " + rasterReader);
+        logger.finest(">>>> using rasterReader: %s", rasterReader);
         WritableRaster raster = rasterReader.loadRaster(iis, this);
-        logger.finer(">>>> loadRAWRaster() completed ok in " + (System.currentTimeMillis() - time) + " msec.");
+        logger.finer(">>>> loadRAWRaster() completed ok in %d msec", (System.currentTimeMillis() - time));
 
         return raster;
       }

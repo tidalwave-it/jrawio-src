@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DCRImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: DCRImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.dcr;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DCRImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: DCRImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DCRImageReader extends TIFFImageReaderSupport
@@ -64,17 +64,17 @@ public class DCRImageReader extends TIFFImageReaderSupport
      ******************************************************************************/
     protected WritableRaster loadRAWRaster() throws IOException
       {
-        logger.fine("loadRAWRaster(iis: " + iis + ")");
+        logger.fine("loadRAWRaster() - iis: %s", iis);
 
         long time = System.currentTimeMillis();
         DCRRasterReader rasterReader = new DCRRasterReader();
         initializeRasterReader(rasterReader);
 
-        logger.finest(">>>> using rasterReader: " + rasterReader);
+        logger.finest(">>>> using rasterReader: %s", rasterReader);
         IFD primaryIFD = (IFD)primaryDirectory;
         iis.seek(primaryIFD.getStripOffsets()); // FIXME: set attribute in raster reader, seek done in rasterreader
         WritableRaster raster = rasterReader.loadRaster(iis, this);
-        logger.finer(">>>> loadRAWRaster() completed ok in " + (System.currentTimeMillis() - time) + " msec.");
+        logger.finer(">>>> loadRAWRaster() completed ok in %d msec", (System.currentTimeMillis() - time));
 
         return raster;
       }

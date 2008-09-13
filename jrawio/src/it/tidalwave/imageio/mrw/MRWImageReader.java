@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: MRWImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.minolta.MinoltaRawData;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: MRWImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWImageReader extends TIFFImageReaderSupport
@@ -72,7 +72,7 @@ public class MRWImageReader extends TIFFImageReaderSupport
     protected Directory loadPrimaryDirectory() 
       throws IOException
       {
-        logger.info("loadPrimaryDirectory(" + iis + ")");
+        logger.fine("loadPrimaryDirectory() - %s", iis);
         headerProcessor.process(iis);
         iis.setBaseOffset(headerProcessor.getBaseOffset());
         iis.seek(headerProcessor.getOffset());
@@ -110,7 +110,7 @@ public class MRWImageReader extends TIFFImageReaderSupport
     protected WritableRaster loadRAWRaster() 
       throws IOException
       {
-        logger.fine("loadRAWRaster(iis: " + iis + ")");
+        logger.fine("loadRAWRaster() - iis: %s", iis);
 
         final long time = System.currentTimeMillis();
         final MRWRasterReader rasterReader = new MRWRasterReader();
@@ -122,7 +122,7 @@ public class MRWImageReader extends TIFFImageReaderSupport
         final int sensorWidth = minoltaRawData.getPRD().getCcdSize().width;
         final int sensorHeight = minoltaRawData.getPRD().getCcdSize().height;
         iis.seek(rasterOffset); // FIXME: set prop in rasterReader, seek in the rasterreader
-        logger.finest(">>>> imageDataOffset: " + rasterOffset + ", size: " + sensorWidth + " x " + sensorHeight);
+        logger.finest(">>>> rasterOffset: %d, size: %d x %d", rasterOffset, sensorWidth, sensorHeight);
         rasterReader.setWidth(sensorWidth);
         rasterReader.setHeight(sensorHeight);
         rasterReader.setByteOrder(ByteOrder.LITTLE_ENDIAN);
@@ -157,9 +157,9 @@ public class MRWImageReader extends TIFFImageReaderSupport
         final int rasterDataSize = (sensorWidth * sensorHeight) / dataSize;
         rasterReader.setStripByteCount(rasterDataSize);
         
-        logger.finest(">>>> using rasterReader: " + rasterReader);
+        logger.finest(">>>> using rasterReader: %s", rasterReader);
         final WritableRaster raster = rasterReader.loadRaster(iis, this);
-        logger.finer(">>>> loadRAWRaster() completed ok in " + (System.currentTimeMillis() - time) + " msec.");
+        logger.finer(">>>> loadRAWRaster() completed ok in %d msec.", (System.currentTimeMillis() - time));
 
         return raster;
       }

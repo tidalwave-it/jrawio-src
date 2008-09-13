@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ThumbnailHelper.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: ThumbnailHelper.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -54,7 +54,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * an ImageReader for any TIFF-based image format.
  *
  * @author Fabrizio Giudici
- * @version $Id: ThumbnailHelper.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: ThumbnailHelper.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ThumbnailHelper
@@ -186,7 +186,7 @@ public class ThumbnailHelper
     public BufferedImage load (@Nonnull final ImageInputStream iis) 
       throws IOException
       {
-        logger.fine(String.format("load(%s)", iis));
+        logger.fine("load(%s)", iis);
         final byte[] buffer = getBuffer(iis);
         BufferedImage image = ImageIO.read(createInputStream(buffer));
         

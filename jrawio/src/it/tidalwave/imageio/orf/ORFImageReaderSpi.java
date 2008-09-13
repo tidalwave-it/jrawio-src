@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ORFImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: ORFImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -41,7 +41,7 @@ import it.tidalwave.imageio.pef.PEFImageReader;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: ORFImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFImageReaderSpi extends RAWImageReaderSpiSupport
@@ -103,7 +103,7 @@ public class ORFImageReaderSpi extends RAWImageReaderSpiSupport
 
         if ((make == null) || !make.toUpperCase().startsWith("OLYMPUS"))
           {
-            logger.fine("ORFImageReaderSpi giving up on: '" + make + "' / '" + model + "'");
+            logger.fine("ORFImageReaderSpi giving up on: '%s' / '%s'", make, model);
             return false;
           }
 

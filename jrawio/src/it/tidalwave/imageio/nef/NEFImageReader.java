@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: NEFImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -41,7 +41,7 @@ import javax.annotation.Nonnull;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: NEFImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFImageReader extends TIFFImageReaderSupport
@@ -86,7 +86,7 @@ public class NEFImageReader extends TIFFImageReaderSupport
     protected BufferedImage loadImage (@Nonnull final int imageIndex) 
       throws IOException
       {
-        logger.fine("loadImage(iis: " + iis + ", imageIndex: " + imageIndex + ")");
+        logger.fine("loadImage(%d) - iis: %s", imageIndex, iis);
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
 
@@ -125,7 +125,7 @@ public class NEFImageReader extends TIFFImageReaderSupport
     protected WritableRaster loadRAWRaster() 
       throws IOException
       {
-        logger.fine("loadRAWRaster(iis: " + iis + ")");
+        logger.fine("loadRAWRaster() - iis: %s", iis);
         IFD primaryIFD = ((IFD)primaryDirectory);
         IFD rasterIFD = ((TIFFMetadataSupport)metadata).getRasterIFD();
         IFD exifIFD = ((TIFFMetadataSupport)metadata).getExifIFD();
@@ -150,9 +150,9 @@ public class NEFImageReader extends TIFFImageReaderSupport
             rasterReader.setVPredictor(nikonMakerNote.getVPredictor());
           }
 
-        logger.finest(">>>> using rasterReader: " + rasterReader);
+        logger.finest(">>>> using rasterReader: %s", rasterReader);
         WritableRaster raster = rasterReader.loadRaster(iis, this);
-        logger.finer(">>>> loadRAWRaster() completed ok in " + (System.currentTimeMillis() - time) + " msec.");
+        logger.finer(">>>> loadRAWRaster() completed ok in %d msec.", (System.currentTimeMillis() - time));
 
         return raster;
       }

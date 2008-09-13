@@ -298,7 +298,7 @@ public class MinoltaRawData
             iis.setByteOrder(byteOrderSave2); 
             final int len = iis.readInt();
             
-            logger.fine("MRW header tag 0x" + Integer.toHexString(tag) + " LEN: " +  len);
+            logger.fine("MRW header tag 0x%s length: %d", Integer.toHexString(tag), len);
 
             switch (tag) 
               {

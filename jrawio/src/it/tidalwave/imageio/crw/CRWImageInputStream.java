@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWImageInputStream.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: CRWImageInputStream.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -38,7 +38,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: CRWImageInputStream.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: CRWImageInputStream.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWImageInputStream extends RAWImageInputStream
@@ -95,7 +95,7 @@ public class CRWImageInputStream extends RAWImageInputStream
 
             else
               {
-                logger.fine("THM file is " + thmFile);
+                logger.fine("THM file is %s", thmFile);
                 thmInputStream = new FileImageInputStream(thmFile);
               }
           }

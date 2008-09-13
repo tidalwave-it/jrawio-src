@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: MRWImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWImageReaderSpi.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: MRWImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWImageReaderSpi extends RAWImageReaderSpiSupport
@@ -97,7 +97,7 @@ public class MRWImageReaderSpi extends RAWImageReaderSpiSupport
         
         if (magic != MRW_MAGIC)
           {
-            logger.fine("MRWImageReaderSpi giving up on: '" + Integer.toHexString(magic) + "'");
+            logger.fine("MRWImageReaderSpi giving up on: '%s'", Integer.toHexString(magic));
             return false;
           }
 

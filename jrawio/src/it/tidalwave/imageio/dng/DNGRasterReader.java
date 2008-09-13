@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DNGRasterReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: DNGRasterReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.tiff.IFD;
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: DNGRasterReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: DNGRasterReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DNGRasterReader extends RasterReader
@@ -56,7 +56,8 @@ public class DNGRasterReader extends RasterReader
      * @inheritDoc
      * 
      *******************************************************************************/
-    protected boolean isCompressedRaster ()
+    @Override
+    protected boolean isCompressedRaster()
       {
         return compression == IFD.Compression.JPEG.intValue();
       }
@@ -66,12 +67,13 @@ public class DNGRasterReader extends RasterReader
      * @inheritDoc
      * 
      *******************************************************************************/
+    @Override
     protected void loadCompressedRaster (RAWImageInputStream iis,
                                          WritableRaster raster,
                                          RAWImageReaderSupport ir) throws IOException
       {
-        logger.finest(">>>> tileSize:    " + tileWidth + " x " + tileHeight);
-        logger.finest(">>>> tileCount:   " + tilesAcross + " x " + tilesDown);
+        logger.finest(">>>> tileSize:    %d x %d", tileWidth, tileHeight);
+        logger.finest(">>>> tileCount:   %d x %d", tilesAcross, tilesDown);
         ByteOrder byteOrderSaved = iis.getByteOrder();
         iis.setByteOrder(ByteOrder.BIG_ENDIAN);
         DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();

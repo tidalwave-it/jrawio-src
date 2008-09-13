@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: IFDSupport.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: IFDSupport.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * This class provides the capability of loading an IFD.
  * 
  * @author Fabrizio Giudici
- * @version $Id: IFDSupport.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: IFDSupport.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class IFDSupport extends Directory
@@ -76,7 +76,7 @@ public class IFDSupport extends Directory
     public long load (@Nonnull final RAWImageInputStream iis, long offset)
       throws IOException
       {
-        logger.finer(">>>> Reading IFD at offset: " + offset + " + " + iis.getBaseOffset());
+        logger.finer(">>>> Reading IFD at offset: %d + %d", offset, iis.getBaseOffset());
         int entryCount;
 
         try
@@ -99,11 +99,11 @@ public class IFDSupport extends Directory
 //        catch (EOFException e)
         catch (Exception e)
           {
-            logger.warning("Ignoring invalid ifdOffset: " + offset);
+            logger.warning("Ignoring invalid ifdOffset: %d", offset);
             return 0;
           }
 
-        logger.finest(">>>> entryCount: " + entryCount);
+        logger.finest(">>>> entryCount: %d", entryCount);
 
         for (int i = 0; i < entryCount; i++)
           {
@@ -115,8 +115,8 @@ public class IFDSupport extends Directory
 
         offset = iis.readUnsignedInt();
         end = iis.getStreamPosition() + iis.getBaseOffset() - 1;
-        logger.finest(">>>> next ifdOffset: " + offset);
-        logger.finest(">>>> loaded: " + this);
+        logger.finest(">>>> next ifdOffset: %d", offset);
+        logger.finest(">>>> loaded: %s", this);
  
         return offset;
       }

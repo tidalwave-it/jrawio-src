@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImageReaderSupport.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: RAWImageReaderSupport.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -57,7 +57,7 @@ import javax.annotation.Nonnull;
  * This class provides support for all RAW image readers.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: RAWImageReaderSupport.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: RAWImageReaderSupport.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class RAWImageReaderSupport extends ImageReader
@@ -107,7 +107,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
     public final BufferedImage read (int imageIndex, ImageReadParam param) 
       throws IOException
       {
-        logger.info("read(imageIndex=" + imageIndex + ", param=" + param + ")");
+        logger.fine("read(%d, %s)", imageIndex, param);
 
         int imageCount = getNumImages(true);
 
@@ -151,10 +151,11 @@ public abstract class RAWImageReaderSupport extends ImageReader
      * {@inheritDoc}
      *
      ******************************************************************************/
+    @Override
     public final BufferedImage readThumbnail (int imageIndex, int thumbnailIndex) 
       throws IOException
       {
-        logger.info("readThumbnail(imageIndex=" + imageIndex + ", thumbnailIndex=" + thumbnailIndex + ")");
+        logger.info("readThumbnail(%d, %d)", imageIndex, thumbnailIndex);
 
         if (!readerSupportsThumbnails())
           {
@@ -250,7 +251,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
 
         if (input != null)
           {
-            logger.finer("Wrapped input is: " + input.getClass());
+            logger.finer("Wrapped input is: %s", input.getClass());
           }
 
         super.setInput(input, seekForwardOnly, ignoreMetadata);
@@ -356,7 +357,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
      *******************************************************************************/
     protected BufferedImage loadImage (int imageIndex) throws IOException
       {
-        logger.fine("loadImage(iis: " + iis + ", imageIndex: " + imageIndex + ")");
+        logger.fine("loadImage(%d) - iis: %s", imageIndex, iis);
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
         return loadRAWImage();
@@ -543,7 +544,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
      *******************************************************************************/
     protected final BufferedImage loadRAWImage() throws IOException
       {
-        logger.fine("loadImage(iis: " + iis + ")");
+        logger.fine("loadRAWImage() - iis: %s", iis);
         WritableRaster raster = loadRAWRaster();
         int dataType = raster.getDataBuffer().getDataType();
         BufferedImage bufferedImage = createImage(dataType, ColorSpace.CS_LINEAR_RGB, raster);
@@ -563,7 +564,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
      ******************************************************************************/
     protected synchronized RAWMetadataSupport loadMetadata (int imageIndex) throws IOException
       {
-        logger.fine("loadMetadata(iis: " + iis + ", imageIndex: " + imageIndex + ")");
+        logger.fine("loadMetadata(%d) - iis: %s", imageIndex, iis);
         checkImageIndex(imageIndex);
 
         if (!metadataLoaded)
@@ -594,7 +595,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
                                                       int offset,
                                                       int length) throws IOException
       {
-        logger.fine("loadEmbeddedImage(iis: " + iis + ", offset: " + offset + ", length: " + length + ")");
+        logger.fine("loadEmbeddedImage(%s, %d, %d)", iis, offset, length);
         long time = System.currentTimeMillis();
         byte[] buffer = new byte[length];
         iis.seek(offset);
@@ -604,8 +605,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
         BufferedImage image = ImageIO.read(is);
         is.close();
 
-        logger.fine(">>>> loadEmbeddedImage() completed ok in " + (System.currentTimeMillis() - time)
-            + " msec., returning " + image);
+        logger.fine(">>>> loadEmbeddedImage() completed ok in %d msec, returning %s", (System.currentTimeMillis() - time), image);
 
         return image;
       }

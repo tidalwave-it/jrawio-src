@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RasterReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: RasterReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -61,7 +61,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * </ul>
  * 
  * @author  Fabrizio Giudici
- * @version $Id: RasterReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: RasterReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RasterReader
@@ -408,7 +408,7 @@ public class RasterReader
       throws IOException      
       {
         logger.fine("loadUncompressedRaster()");
-        logger.finer(">>>> CFA pattern: " + cfaOffsets[0] + " " + cfaOffsets[1] + " " + cfaOffsets[2] + " " + cfaOffsets[3]);
+        logger.finer(">>>> CFA pattern: %d %d %d %d", cfaOffsets[0], cfaOffsets[1], cfaOffsets[2], cfaOffsets[3]);
 
         DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
         short[] data = dataBuffer.getData();
@@ -464,9 +464,9 @@ public class RasterReader
       throws IOException
       {
         long position = iis.getStreamPosition();
-        logger.fine(String.format("loadUncompressedRaster16() at %d (0x%x), %dx%d %dbps", 
+        logger.fine(String.format("loadUncompressedRaster16() at %d (0x%x), %d x %d %dbps",
                                   position, position, width, height, bitsPerSample));
-        logger.finer(">>>> CFA pattern: " + cfaOffsets[0] + " " + cfaOffsets[1] + " " + cfaOffsets[2] + " " + cfaOffsets[3]);
+        logger.finer(">>>> CFA pattern: %d %d %d %d", cfaOffsets[0], cfaOffsets[1], cfaOffsets[2], cfaOffsets[3]);
 
         final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
         final short[] data = dataBuffer.getData();
@@ -481,7 +481,7 @@ public class RasterReader
             byteOrder = iis.getByteOrder();  
           }
         
-        logger.finer(">>>> byte order: " + byteOrder);
+        logger.finer(">>>> byte order: %s", byteOrder);
         boolean swap16 = byteOrder == ByteOrder.BIG_ENDIAN;
         //
         // We can rely on the fact that the array has been zeroed by the JVM,

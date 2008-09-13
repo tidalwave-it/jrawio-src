@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: LosslessJPEGDecoder.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: LosslessJPEGDecoder.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.decoder;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * widely used by some RAW formats which include blocks of encoded data.
  * 
  * @author  fritz
- * @version $Id: LosslessJPEGDecoder.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: LosslessJPEGDecoder.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class LosslessJPEGDecoder
@@ -108,7 +108,7 @@ public class LosslessJPEGDecoder
             short tag = iis.readShort();
             int length = iis.readShort() - 2;
 
-            logger.finer("TAG:" + Integer.toHexString(tag & SHORT_MASK) + " LEN: " + length);
+            logger.finer(">>>> tag: %s length: %d", Integer.toHexString(tag & SHORT_MASK), length);
 
             if (((tag & SHORT_MASK) <= 0xff00) || (length > 255))
               {
@@ -132,8 +132,8 @@ public class LosslessJPEGDecoder
                       vPredictors[i] = 1 << (bitsPerSample - 1);
                     }
 
-                  logger.fine("bitsPerSample: " + bitsPerSample + " height: " + height + " width: " + rowSize
-                      + " channelCount: " + channelCount);
+                  logger.fine("bitsPerSample: %d, height: %d, width: %d, channelCount: %d",
+                      bitsPerSample, height, rowSize, channelCount);
                   break;
 
                 case (short)0xffc4:
@@ -153,7 +153,7 @@ public class LosslessJPEGDecoder
                       byte[] temp = new byte[decoderLen];
                       System.arraycopy(data, scan, temp, 0, temp.length);
                       decoders[channel] = HuffmannDecoder.createDecoderWithJpegHack(temp, 0);
-                      logger.fine("Decoder[" + channel + "] = " + decoders[channel]);
+                      logger.fine("Decoder[%d] = %s", channel, decoders[channel]);
                       scan += decoderLen;
                     }
 

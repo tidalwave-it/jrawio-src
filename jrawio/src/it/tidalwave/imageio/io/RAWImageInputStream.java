@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImageInputStream.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: RAWImageInputStream.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.io;
@@ -38,7 +38,7 @@ import javax.imageio.stream.ImageInputStreamImpl;
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: RAWImageInputStream.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: RAWImageInputStream.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RAWImageInputStream extends ImageInputStreamImpl
@@ -117,7 +117,7 @@ public class RAWImageInputStream extends ImageInputStreamImpl
             bitReader = new FastBitReader(delegate, bufferSize);
           }
 
-        logger.finest(">>>> Using bitReader: " + bitReader);
+        logger.finest(">>>> Using bitReader: %s", bitReader);
       }
 
     /***************************************************************************

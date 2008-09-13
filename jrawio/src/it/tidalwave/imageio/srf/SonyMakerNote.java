@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: SonyMakerNote.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: SonyMakerNote.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.srf;
@@ -68,7 +68,7 @@ public class SonyMakerNote extends IFDSupport
         //
         SonySRF0 srf0 = new SonySRF0();
         setSRF(0, srf0);
-        logger.fine("Loading plaintext SRF0 AT " + offset);
+        logger.fine("Loading plaintext SRF0 AT %d", offset);
         long nextOffset = srf0.load(iis, offset);
         //
         // Follows a block of encrypted data. Part of this block is encrypted twice,
@@ -96,7 +96,7 @@ public class SonyMakerNote extends IFDSupport
         ((SRFImageInputStream)iis).startEncryptedSection(nextOffset, bb);
         SonySRF1 srf1 = new SonySRF1();
         setSRF(1, srf1);
-        logger.fine("Loading encrypted SRF1 AT " + nextOffset);
+        logger.fine("Loading encrypted SRF1 AT %d", nextOffset);
         long srf1Offset = nextOffset;
         nextOffset = srf1.load(iis, nextOffset);
         //
@@ -130,7 +130,7 @@ public class SonyMakerNote extends IFDSupport
               }
 
             setSRF(srfIndex, srf);
-            logger.fine("Loading encrypted SRF" + srfIndex + " AT " + nextOffset);
+            logger.fine("Loading encrypted SRF%d AT %d", srfIndex, nextOffset);
             nextOffset = srf.load(iis, nextOffset);
           }
 

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CanonCRWMakerNote.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: CanonCRWMakerNote.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CanonCRWMakerNote.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: CanonCRWMakerNote.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CanonCRWMakerNote extends CanonCRWMakerNoteSupport
@@ -72,7 +72,7 @@ public class CanonCRWMakerNote extends CanonCRWMakerNoteSupport
                          long directoryOffset) 
       throws IOException 
       {
-        logger.fine("loadAll(iis=" + iis + ", directoryOffset=" + directoryOffset + ")");
+        logger.fine("loadAll(%s, %d)", iis, directoryOffset);
         loadAll(iis, directoryOffset, 0);
       }
     
@@ -85,7 +85,7 @@ public class CanonCRWMakerNote extends CanonCRWMakerNoteSupport
                           int size)
       throws IOException 
       {
-        logger.fine("loadAll(iis=" + iis + ", directoryOffset=" + directoryOffset + ", size=" + size + ")");
+        logger.fine("loadAll(%s, %d, %d)", iis, directoryOffset, size);
         
         if (size <= 0) 
           {
@@ -98,10 +98,10 @@ public class CanonCRWMakerNote extends CanonCRWMakerNoteSupport
           }
         
         int dirStart = iis.readInt();
-        logger.finer(">>>>>>>> dirStart: " + dirStart);
+        logger.finer(">>>>>>>> dirStart: %d", dirStart);
         iis.seek(directoryOffset + dirStart);
         int tagCount = iis.readShort();
-        logger.finer(">>>>>>>> tagCount: " + tagCount);
+        logger.finer(">>>>>>>> tagCount: %d", tagCount);
         List subDirectoryList = new ArrayList();
         
         for (int i = 0; i < tagCount; i++) 
@@ -117,7 +117,7 @@ public class CanonCRWMakerNote extends CanonCRWMakerNoteSupport
               }
           }
         
-        logger.finest(">>>> " + tagCount + " fields read: " + this);
+        logger.finest(">>>> %d fields read: %s", tagCount, this);
         CanonCRWMakerNote currentMakerNote = this;
         
         for (Iterator i = subDirectoryList.iterator(); i.hasNext();) 
@@ -132,7 +132,7 @@ public class CanonCRWMakerNote extends CanonCRWMakerNoteSupport
             
             if (tag.getCode() == 12299) // CanonMakerNote.EXIF_INFORMATION) FIXME
               {
-                logger.finer("CanonMakerNote: " + subDirectory);
+                logger.finer("CanonMakerNote: %s", subDirectory);
                 currentMakerNote = subDirectory; // FIXME
               }
             }

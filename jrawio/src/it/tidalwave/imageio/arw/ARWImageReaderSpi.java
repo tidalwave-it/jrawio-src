@@ -93,7 +93,7 @@ public class ARWImageReaderSpi extends RAWImageReaderSpiSupport
         if ((make == null) || !make.toUpperCase().startsWith("SONY") || (model == null)
             || (!model.toUpperCase().startsWith("DSLR-A100"))) // others are .SRF
           {
-            logger.fine("ARWImageReaderSpi giving up on: '" + make + "' / '" + model + "'");
+            logger.fine("ARWImageReaderSpi giving up on: '%s' / %s'", make, model);
             return false;
           }
 

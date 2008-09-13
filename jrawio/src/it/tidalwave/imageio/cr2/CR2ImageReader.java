@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CR2ImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: CR2ImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.cr2;
@@ -37,7 +37,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CR2ImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: CR2ImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CR2ImageReader extends TIFFImageReaderSupport
@@ -62,7 +62,7 @@ public class CR2ImageReader extends TIFFImageReaderSupport
     protected WritableRaster loadRAWRaster() 
       throws IOException
       {
-        logger.fine("loadRAWRaster(iis: " + iis + ")");
+        logger.fine("loadRAWRaster() - iis: %s", iis);
         long time = System.currentTimeMillis();
         
         CR2RasterReader rasterReader = new CR2RasterReader();
@@ -84,7 +84,7 @@ public class CR2ImageReader extends TIFFImageReaderSupport
           }
         
         WritableRaster raster = rasterReader.loadRaster(iis, this);
-        logger.finer(">>>> loadRAWRaster() completed ok in " + (System.currentTimeMillis() - time) + " msec.");
+        logger.finer(">>>> loadRAWRaster() completed ok in %d msec", (System.currentTimeMillis() - time));
         
         return raster;
       }

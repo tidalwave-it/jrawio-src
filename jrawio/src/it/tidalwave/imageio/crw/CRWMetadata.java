@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWMetadata.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: CRWMetadata.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.tiff.IFD;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWMetadata.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: CRWMetadata.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWMetadata extends TIFFMetadataSupport
@@ -296,7 +296,7 @@ public class CRWMetadata extends TIFFMetadataSupport
             short[] xx = new short[sb.capacity()];
             sb.get(xx);
             int scan = 36;
-            logger.fine("GETTING RB COEFF FROM D30 TAG AT " + scan);
+            logger.fine("GETTING RB COEFF FROM D30 TAG AT %d", scan);
 
             int[] obfuscator = NO_OBFUSCATOR;
             if ("Canon PowerShot G6".equals(model) || "Canon PowerShot S60".equals(model)
@@ -307,7 +307,6 @@ public class CRWMetadata extends TIFFMetadataSupport
                 / ((xx[scan + 0] & 0xffff) ^ obfuscator[0]);
             rbCoefficients[1] = (double)((xx[scan + 2] & 0xffff) ^ obfuscator[0])
                 / ((xx[scan + 3] & 0xffff) ^ obfuscator[1]);
-
           }
 
         else if (g2tag != null)
@@ -321,7 +320,7 @@ public class CRWMetadata extends TIFFMetadataSupport
              scan += 4; // FORC4 cam_mul[c ^ 2] = get2();
              }
              */
-            logger.fine("GETTING RB COEFF FROM G2 TAG AT " + scan);
+            logger.fine("GETTING RB COEFF FROM G2 TAG AT %d", scan);
             rbCoefficients[0] = (double)(xx[scan + 1] ^ RB_OBFUSCATOR[1]) / (xx[scan + 0] ^ RB_OBFUSCATOR[0]);
             rbCoefficients[1] = (double)(xx[scan + 2] ^ RB_OBFUSCATOR[0]) / (xx[scan + 3] ^ RB_OBFUSCATOR[1]);
           }
@@ -330,7 +329,7 @@ public class CRWMetadata extends TIFFMetadataSupport
           {
             int[] xx = d60tag.getIntValues();
             int scan = 1 + wb * 4;
-            logger.fine("GETTING RB COEFF FROM D60 TAG AT " + scan);
+            logger.fine("GETTING RB COEFF FROM D60 TAG AT %d", scan);
             rbCoefficients[0] = (double)xx[scan + 0] / xx[scan + 1];
             rbCoefficients[1] = (double)xx[scan + 3] / xx[scan + 2];
           }

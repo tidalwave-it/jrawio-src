@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DNGImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: DNGImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.dng;
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DNGImageReader.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: DNGImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DNGImageReader extends TIFFImageReaderSupport
@@ -62,9 +62,10 @@ public class DNGImageReader extends TIFFImageReaderSupport
      * @inheritDoc
      *
      ******************************************************************************/
-    protected WritableRaster loadRAWRaster() throws IOException
+    protected WritableRaster loadRAWRaster()
+      throws IOException
       {
-        logger.fine("loadRaster(iis: " + iis + ")");
+        logger.fine("loadRaster() - iis: %s", iis);
         long time = System.currentTimeMillis();
         IFD rasterIFD = ((TIFFMetadataSupport)metadata).getRasterIFD();
         DNGRasterReader rasterReader = new DNGRasterReader();
@@ -79,7 +80,7 @@ public class DNGImageReader extends TIFFImageReaderSupport
           }
 
         WritableRaster raster = rasterReader.loadRaster(iis, this);
-        logger.fine(">>>> loadRAWRaster() completed ok in " + (System.currentTimeMillis() - time) + " msec.");
+        logger.fine(">>>> loadRAWRaster() completed ok in %d msec", (System.currentTimeMillis() - time));
         
         return raster;
       }

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: OlympusMakerNote.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: OlympusMakerNote.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFTag;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: OlympusMakerNote.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: OlympusMakerNote.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class OlympusMakerNote extends OlympusMakerNoteSupport
@@ -194,7 +194,7 @@ public class OlympusMakerNote extends OlympusMakerNoteSupport
             directory.load(iis, makerNoteOffset + (Integer)value);
           }
         
-        logger.fine(string + ": " + directory);
+        logger.fine("%s: %s", string, directory);
       }
 
     /***************************************************************************

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: IFD.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: IFD.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -35,7 +35,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: IFD.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: IFD.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
  ******************************************************************************/
 public class IFD extends IFDGenerated
@@ -56,9 +56,11 @@ public class IFD extends IFDGenerated
      *
      *
      ******************************************************************************/
-    public void loadAll (RAWImageInputStream iis, long offset) throws IOException
+    @Override
+    public void loadAll (RAWImageInputStream iis, long offset)
+      throws IOException
       {
-        logger.fine("loadAll(iis=" + iis + ", offset=" + offset + ")");
+        logger.fine("loadAll(%s, %d)", iis, offset);
         IFD currentIFD = this;
         
         while (offset > 0)
@@ -88,11 +90,11 @@ public class IFD extends IFDGenerated
           {
             for (int i = 0; i < subIFDOffsetsList.length; i++)
               {
-                logger.finer(">>>> Processing subIFD #" + i);
+                logger.finer(">>>> Processing subIFD #%d", i);
                 IFD subIFD = new IFD();
                 addDirectory(subIFD);
                 subIFD.loadAll(iis, subIFDOffsetsList[i]);
-                logger.finer(">>>>>>>> Completed processing subIFD #" + i);
+                logger.finer(">>>>>>>> Completed processing subIFD #%d", i);
               }
           }
       }
