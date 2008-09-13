@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NikonCaptureEditorMetadata.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * $Id: NikonCaptureEditorMetadata.java 161 2008-09-13 19:51:45Z fabriziogiudici $
  *
  ******************************************************************************/
 
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.util.Logger;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NikonCaptureEditorMetadata.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * @version $Id: NikonCaptureEditorMetadata.java 161 2008-09-13 19:51:45Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NikonCaptureEditorMetadata
@@ -857,15 +857,16 @@ public class NikonCaptureEditorMetadata
       }
 
     ////////////////////////////////////////////////////////////////////////////////
+    @Override
     public String toString ()
       {
-        StringBuffer buffer = new StringBuffer("CaptureEditorMetadata[");
-        buffer.append("\n\tOrientation: " + getOrientation() + " degrees, ");        
-        buffer.append("\n\tcrop: " + getCropLeft() + ", " + getCropTop() + ", " + getCropWidth() + ", " + getCropHeight());
+        StringBuilder buffer = new StringBuilder("CaptureEditorMetadata[");
+        buffer.append("\n>>>>Orientation: " + getOrientation() + " degrees, ");
+        buffer.append("\n>>>>crop: " + getCropLeft() + ", " + getCropTop() + ", " + getCropWidth() + ", " + getCropHeight());
 
         if (isAdvancedRawEnabled())
           {
-            buffer.append("\n\tEV compensation: " + (getEVCompensation() / 100.0) + ", ");
+            buffer.append("\n>>>>EV compensation: " + (getEVCompensation() / 100.0) + ", ");
             buffer.append("Sharpening: " + getConstant(sharpeningMap, getSharpening()) + ", ");
             buffer.append("Tone comp: " + getConstant(toneCompMap, getToneCompensation()) + ", ");
             buffer.append("Color mode: " + getConstant(colorModeMap, getColorMode()) + ", ");
@@ -883,7 +884,7 @@ public class NikonCaptureEditorMetadata
 
         if (isWhiteBalanceEnabled())
           {
-            buffer.append("\n\tRed: " + getWhiteBalanceRedCoeff() + ", ");
+            buffer.append("\n>>>>Red: " + getWhiteBalanceRedCoeff() + ", ");
             buffer.append("Blue: " + getWhiteBalanceBlueCoeff() + ", ");
             buffer.append("White point: " + getWhitePointAsString(getWhiteBalanceWhitePoint()) + ", ");
             buffer.append("White point fine: " + getWhiteBalanceWhitePointFine() + ", ");
@@ -892,20 +893,20 @@ public class NikonCaptureEditorMetadata
 
         if (isColorBoosterEnabled())
           {
-            buffer.append("\n\tColorBooster type: " + getConstant(colorBoosterMap, getColorBoosterType()) + ", ");
+            buffer.append("\n>>>>ColorBooster type: " + getConstant(colorBoosterMap, getColorBoosterType()) + ", ");
             buffer.append("ColorBooster value: " + getColorBoosterLevel());
           }
 
         if (isNoiseReductionEnabled())
           {
-            buffer.append("\n\tNoise reduction: " + getNoiseReduction() + ", ");
+            buffer.append("\n>>>>Noise reduction: " + getNoiseReduction() + ", ");
             buffer.append("Edge reduction: " + isEdgeNoiseReductionEnabled() + ", ");
             buffer.append("Moire reduction: " + getConstant(moireReductionMap, getMoireReduction()));
           }
 
         if (isPhotoEffectEnabled())
           {
-            buffer.append("\n\tEffect: " + getConstant(photoEffectMap, getPhotoEffect()) + ", ");
+            buffer.append("\n>>>>Effect: " + getConstant(photoEffectMap, getPhotoEffect()) + ", ");
             buffer.append("Cyan/Red balance: " + getCyanRedBalance() + ", ");
             buffer.append("Magenta/Green balance: " + getMagentaGreenBalance() + ", ");
             buffer.append("Yellow/Bluebalance: " + getYellowBlueBalance());
@@ -917,7 +918,7 @@ public class NikonCaptureEditorMetadata
 
             for (int i = 0; i < unsharpMaskData.length; i++)
               {
-                buffer.append("\n\tUnsharp mask[" + i + "]: ");
+                buffer.append("\n>>>>Unsharp mask[" + i + "]: ");
                 buffer.append("type: " + getConstant(unsharpMaskMap, unsharpMaskData[i].getType()) + ", ");
                 buffer.append("intensity: " + unsharpMaskData[i].getIntensity() + "%, ");
                 buffer.append("halo width: " + unsharpMaskData[i].getHaloWidth() + "%, ");
@@ -925,7 +926,7 @@ public class NikonCaptureEditorMetadata
               }
           }
 
-        buffer.append("\n\t]");
+        buffer.append("\n]");
 
         return buffer.toString();
       }
