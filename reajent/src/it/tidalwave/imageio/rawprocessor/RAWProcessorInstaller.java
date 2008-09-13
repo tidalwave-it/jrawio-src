@@ -22,12 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: RAWProcessorInstaller.java 131 2008-09-04 00:33:02Z fabriziogiudici $
+ * $Id: RAWProcessorInstaller.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
 
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
 import it.tidalwave.imageio.arw.ARWImageReaderSpi;
 import it.tidalwave.imageio.cr2.CR2ImageReaderSpi;

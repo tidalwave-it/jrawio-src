@@ -22,13 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: ORFWhiteBalanceOperation.java 120 2008-08-24 23:10:13Z fabriziogiudici $
+ * $Id: ORFWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.orf;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.orf.OlympusMakerNote;
@@ -37,7 +37,7 @@ import it.tidalwave.imageio.orf.ImageProcessing;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFWhiteBalanceOperation.java 120 2008-08-24 23:10:13Z fabriziogiudici $
+ * @version $Id: ORFWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFWhiteBalanceOperation extends OperationSupport

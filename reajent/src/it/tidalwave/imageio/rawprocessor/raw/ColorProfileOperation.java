@@ -22,12 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: ColorProfileOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: ColorProfileOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.awt.RenderingHints;
 import java.awt.color.ColorSpace;
 import java.awt.color.ICC_Profile;
@@ -38,7 +38,7 @@ import it.tidalwave.imageio.rawprocessor.OperationSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ColorProfileOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: ColorProfileOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ColorProfileOperation extends OperationSupport

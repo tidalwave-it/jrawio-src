@@ -22,13 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: NEFSizeOperation.java 68 2008-08-23 14:51:27Z fabriziogiudici $
+ * $Id: NEFSizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Insets;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFSizeOperation.java 68 2008-08-23 14:51:27Z fabriziogiudici $
+ * @version $Id: NEFSizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFSizeOperation extends SizeOperation

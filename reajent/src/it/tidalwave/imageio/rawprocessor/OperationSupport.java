@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: OperationSupport.java 67 2008-08-23 14:50:02Z fabriziogiudici $
+ * $Id: OperationSupport.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Properties;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.InputStream;
 import java.io.IOException;
 import java.awt.color.ColorSpace;
@@ -49,7 +49,7 @@ import java.awt.image.SinglePixelPackedSampleModel;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: OperationSupport.java 67 2008-08-23 14:50:02Z fabriziogiudici $
+ * @version $Id: OperationSupport.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class OperationSupport implements Operation

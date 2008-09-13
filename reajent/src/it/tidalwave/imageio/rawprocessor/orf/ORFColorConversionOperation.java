@@ -22,12 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: ORFColorConversionOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: ORFColorConversionOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.orf;
 
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.ColorMatrix;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.rawprocessor.raw.ColorConversionOperation;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.orf.OlympusMakerNote;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFColorConversionOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: ORFColorConversionOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ORFColorConversionOperation extends ColorConversionOperation

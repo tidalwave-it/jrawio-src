@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NikonCaptureEditorMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: NikonCaptureEditorMetadata.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 
@@ -37,12 +37,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NikonCaptureEditorMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: NikonCaptureEditorMetadata.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NikonCaptureEditorMetadata

@@ -22,12 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: NEFRotateOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: NEFRotateOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
 
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;
 import it.tidalwave.imageio.rawprocessor.raw.RotateOperation;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFRotateOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: NEFRotateOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFRotateOperation extends RotateOperation

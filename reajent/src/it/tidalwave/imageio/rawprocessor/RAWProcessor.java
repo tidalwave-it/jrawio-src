@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
+ * $Id: RAWProcessor.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.raw.PostProcessor;
 import it.tidalwave.imageio.raw.RAWMetadataSupport;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.raw.RAWMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RAWProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
+ * @version $Id: RAWProcessor.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class RAWProcessor implements PostProcessor

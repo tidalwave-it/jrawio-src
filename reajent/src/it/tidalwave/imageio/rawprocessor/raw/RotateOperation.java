@@ -22,13 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: RotateOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: RotateOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
 import java.util.Properties;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.ColorModel;
@@ -44,7 +44,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RotateOperation.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: RotateOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RotateOperation extends OperationSupport

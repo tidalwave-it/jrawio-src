@@ -22,12 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImage.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: RAWImage.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
 
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.raw.RAWMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RAWImage.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id: RAWImage.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RAWImage

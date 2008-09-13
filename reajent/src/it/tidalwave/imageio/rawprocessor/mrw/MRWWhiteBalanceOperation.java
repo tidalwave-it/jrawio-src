@@ -22,12 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: MRWWhiteBalanceOperation.java 142 2008-09-07 13:35:19Z fabriziogiudici $
+ * $Id: MRWWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.mrw;
 
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.minolta.MinoltaRawData.WBG;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.mrw.MRWMetadata;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWWhiteBalanceOperation.java 142 2008-09-07 13:35:19Z fabriziogiudici $
+ * @version $Id: MRWWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWWhiteBalanceOperation extends OperationSupport

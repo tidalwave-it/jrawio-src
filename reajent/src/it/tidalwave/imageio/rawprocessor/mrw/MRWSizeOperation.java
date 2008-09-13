@@ -28,7 +28,7 @@
 package it.tidalwave.imageio.rawprocessor.mrw;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;

@@ -22,13 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: CurveOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: CurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
 import it.tidalwave.imageio.raw.TagRational;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
@@ -37,7 +37,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CurveOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: CurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CurveOperation extends OperationSupport

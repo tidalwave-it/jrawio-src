@@ -22,13 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: CRWSizeOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: CRWSizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.crw;
 
 import java.awt.Dimension;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.awt.Insets;
 import it.tidalwave.imageio.crw.CRWMetadata;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
@@ -37,7 +37,7 @@ import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWSizeOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: CRWSizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWSizeOperation extends SizeOperation

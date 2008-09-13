@@ -27,7 +27,7 @@
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.arw;
 
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 

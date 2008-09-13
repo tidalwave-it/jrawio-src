@@ -22,14 +22,14 @@
  *
  *******************************************************************************
  *
- * $Id: NEFProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
+ * $Id: NEFProcessor.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;
 import it.tidalwave.imageio.nef.NikonMakerNote3;
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
+ * @version $Id: NEFProcessor.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFProcessor extends RAWProcessor

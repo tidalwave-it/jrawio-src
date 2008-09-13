@@ -22,13 +22,13 @@
  *
  *******************************************************************************
  *
- * $Id: DNGSizeOperation.java 68 2008-08-23 14:51:27Z fabriziogiudici $
+ * $Id: DNGSizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
 
 import javax.annotation.Nonnull;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.awt.Dimension;
 import java.awt.Insets;
 import it.tidalwave.imageio.raw.TagRational;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DNGSizeOperation.java 68 2008-08-23 14:51:27Z fabriziogiudici $
+ * @version $Id: DNGSizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DNGSizeOperation extends SizeOperation

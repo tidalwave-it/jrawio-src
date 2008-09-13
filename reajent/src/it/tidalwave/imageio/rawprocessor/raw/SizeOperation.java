@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: SizeOperation.java 68 2008-08-23 14:51:27Z fabriziogiudici $
+ * $Id: SizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
@@ -31,7 +31,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Properties;
 import java.util.StringTokenizer;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.awt.Dimension;
@@ -47,7 +47,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: SizeOperation.java 68 2008-08-23 14:51:27Z fabriziogiudici $
+ * @version $Id: SizeOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class SizeOperation extends OperationSupport

@@ -22,12 +22,12 @@
  *
  *******************************************************************************
  *
- * $Id: DNGWhiteBalanceOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: DNGWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
 
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.raw.TagRational;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
@@ -37,7 +37,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DNGWhiteBalanceOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: DNGWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DNGWhiteBalanceOperation extends OperationSupport
