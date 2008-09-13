@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: OlympusMakerNote.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id: OlympusMakerNote.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFTag;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: OlympusMakerNote.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id: OlympusMakerNote.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 public class OlympusMakerNote extends OlympusMakerNoteSupport
@@ -71,7 +71,7 @@ public class OlympusMakerNote extends OlympusMakerNoteSupport
         long baseOffsetSave = iis.getBaseOffset();
         iis.seek(offset);
         final byte[] buffer = new byte[8];
-        iis.read(buffer);
+        iis.readFully(buffer);
         final String s = new String(buffer, 0, 5);
 
         if (s.equals("OLYMP"))

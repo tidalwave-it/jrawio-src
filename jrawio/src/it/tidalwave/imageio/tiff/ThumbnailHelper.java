@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ThumbnailHelper.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id: ThumbnailHelper.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -54,7 +54,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * an ImageReader for any TIFF-based image format.
  *
  * @author Fabrizio Giudici
- * @version $Id: ThumbnailHelper.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id: ThumbnailHelper.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ThumbnailHelper
@@ -163,6 +163,7 @@ public class ThumbnailHelper
      *
      *
      **************************************************************************/
+    @Nonnegative
     public int getWidth()
       {
         return width;
@@ -173,6 +174,7 @@ public class ThumbnailHelper
      *
      *
      **************************************************************************/
+    @Nonnegative
     public int getHeight()
       {
         return height;
@@ -183,6 +185,7 @@ public class ThumbnailHelper
      *
      *
      **************************************************************************/
+    @Nonnull
     public BufferedImage load (@Nonnull final ImageInputStream iis) 
       throws IOException
       {
@@ -215,7 +218,7 @@ public class ThumbnailHelper
           {
             final byte[] buffer = new byte[byteCount];
             iis.seek(offset);
-            iis.read(buffer);
+            iis.readFully(buffer);
             return buffer;
           }
       }
@@ -243,7 +246,7 @@ public class ThumbnailHelper
           } 
         catch (IOException e)
           {
-            e.printStackTrace(); // FIXME
+            logger.throwing(CLASS, "getSizeFromEmbeddedJPEG()", e);
           }
         finally
           {

@@ -134,7 +134,7 @@ public class MinoltaRawData
           throws IOException
           {
             final byte[] bytes = new byte[8];
-            iis.read(bytes);
+            iis.readFully(bytes);
             version = new String(bytes);
             final int h1 = iis.readShort() & 0xFFFF;
             final int w1 = iis.readShort() & 0xFFFF;
@@ -189,7 +189,7 @@ public class MinoltaRawData
           throws IOException
           {
             final byte[] denominators = new byte[4];
-            iis.read(denominators);
+            iis.readFully(denominators);
             int j = 0; // strstr(model,"A200") ? 3:0;
 
             for (int i = 0; i < 4; i++)

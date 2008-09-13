@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFHeaderProcessor.java 58 2008-08-22 19:17:28Z fabriziogiudici $
+ * $Id: NEFHeaderProcessor.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -35,7 +35,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFHeaderProcessor.java 58 2008-08-22 19:17:28Z fabriziogiudici $
+ * @version $Id: NEFHeaderProcessor.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFHeaderProcessor extends HeaderProcessor
@@ -57,7 +57,7 @@ public class NEFHeaderProcessor extends HeaderProcessor
         iis.mark();
         byte[] buffer = new byte[NDF_OFFSET];
         iis.seek(0);
-        iis.read(buffer, 0, buffer.length);
+        iis.readFully(buffer);
         isNDF = new String(buffer, 0, 3).equals("NDF");         
         iis.reset();
       }

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: PentaxMakerNote.java 82 2008-08-24 08:46:20Z fabriziogiudici $
+ * $Id: PentaxMakerNote.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.pef;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PentaxMakerNote.java 82 2008-08-24 08:46:20Z fabriziogiudici $
+ * @version $Id: PentaxMakerNote.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 public class PentaxMakerNote extends PentaxMakerNoteSupport
@@ -59,7 +59,7 @@ public class PentaxMakerNote extends PentaxMakerNoteSupport
           {
             iis.seek(offset);
             final byte[] buffer = new byte[4];
-            iis.read(buffer);
+            iis.readFully(buffer);
             final String s = new String(buffer, 0, 3);
 
             if (s.equals("AOC")) // Pentax / Asahi Type 2 Makernote

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFMetadata.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: NEFMetadata.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -45,7 +45,7 @@ import it.tidalwave.imageio.tiff.ThumbnailHelper;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFMetadata.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: NEFMetadata.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFMetadata extends TIFFMetadataSupport
@@ -125,7 +125,7 @@ public class NEFMetadata extends TIFFMetadataSupport
                 final long offset = rasterIFD.getJPEGInterchangeFormat();
                 final byte[] buffer = new byte[byteCount];
                 iis.seek(offset);
-                iis.read(buffer);
+                iis.readFully(buffer);
                 final ImageReader ir = ImageIO.getImageReadersByFormatName("JPEG").next();
                 
                 try

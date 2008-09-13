@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: LosslessJPEGDecoder.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id: LosslessJPEGDecoder.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.decoder;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * widely used by some RAW formats which include blocks of encoded data.
  * 
  * @author  fritz
- * @version $Id: LosslessJPEGDecoder.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id: LosslessJPEGDecoder.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 public class LosslessJPEGDecoder
@@ -138,7 +138,7 @@ public class LosslessJPEGDecoder
 
                 case (short)0xffc4:
                   byte[] data = new byte[length];
-                  iis.read(data);
+                  iis.readFully(data);
 
                   for (int scan = 0; (scan < length) && (data[scan] < 4);)
                     {

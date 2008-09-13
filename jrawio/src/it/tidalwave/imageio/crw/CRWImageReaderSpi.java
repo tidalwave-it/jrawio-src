@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWImageReaderSpi.java 86 2008-08-24 09:43:45Z fabriziogiudici $
+ * $Id: CRWImageReaderSpi.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWImageReaderSpi.java 86 2008-08-24 09:43:45Z fabriziogiudici $
+ * @version $Id: CRWImageReaderSpi.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWImageReaderSpi extends RAWImageReaderSpiSupport
@@ -81,7 +81,7 @@ public class CRWImageReaderSpi extends RAWImageReaderSpiSupport
       {
         iis.seek(6);
         byte[] marker = new byte[8];
-        iis.read(marker);
+        iis.readFully(marker);
 
         return "HEAPCCDR".equals(new String(marker));
       }

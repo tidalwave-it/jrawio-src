@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: TagRational.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: TagRational.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -35,7 +35,7 @@ import java.io.Serializable;
  * integer denominator.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: TagRational.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: TagRational.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 public class TagRational extends Number implements Serializable
@@ -116,11 +116,13 @@ public class TagRational extends Number implements Serializable
             || ((denominator == 0) && (numerator == 0));
       }
 
+    @Override
     public String toString ()
       {
         return numerator + "/" + denominator;
       }
 
+    @Override
     public boolean equals (Object obj)
       {
         if (!(obj instanceof TagRational))
@@ -131,5 +133,14 @@ public class TagRational extends Number implements Serializable
         TagRational rational = (TagRational)obj;
 
         return (numerator == rational.numerator) && (denominator == rational.denominator);
+      }
+
+    @Override
+    public int hashCode()
+      {
+        int hash = 5;
+        hash = 89 * hash + this.numerator;
+        hash = 89 * hash + this.denominator;
+        return hash;
       }
   }

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NikonMakerNote3.java 58 2008-08-22 19:17:28Z fabriziogiudici $
+ * $Id: NikonMakerNote3.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -40,7 +40,7 @@ import javax.annotation.Nonnull;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NikonMakerNote3.java 58 2008-08-22 19:17:28Z fabriziogiudici $
+ * @version $Id: NikonMakerNote3.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
@@ -76,7 +76,7 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
         offset = iis.getStreamPosition();
 
         byte[] buffer = new byte[10];
-        iis.read(buffer);
+        iis.readFully(buffer);
         String s = new String(buffer);
 
         if (s.startsWith("Nikon"))

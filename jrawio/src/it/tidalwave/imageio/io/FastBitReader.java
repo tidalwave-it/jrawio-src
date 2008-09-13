@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: FastBitReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: FastBitReader.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.io;
@@ -37,7 +37,7 @@ import javax.imageio.stream.ImageInputStream;
  * a byte after a 0xff is encountered, which is a requirement of many RAW formats.
  *
  * @author  Fabrizio Giudici
- * @version $Id: FastBitReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: FastBitReader.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 
@@ -163,6 +163,6 @@ import javax.imageio.stream.ImageInputStream;
               }
           }
 
-        return r &= mask;
+        return r & mask;
       }
   }

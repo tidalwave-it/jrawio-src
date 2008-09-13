@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImageInputStream.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id: RAWImageInputStream.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.io;
@@ -38,7 +38,7 @@ import javax.imageio.stream.ImageInputStreamImpl;
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: RAWImageInputStream.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id: RAWImageInputStream.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RAWImageInputStream extends ImageInputStreamImpl
@@ -235,7 +235,7 @@ public class RAWImageInputStream extends ImageInputStreamImpl
 
     ////////// Delegate methods follow /////////////////////////////////////////////
 
-    public int read () throws IOException
+    public int read() throws IOException
       {
         return delegate.read();
       }

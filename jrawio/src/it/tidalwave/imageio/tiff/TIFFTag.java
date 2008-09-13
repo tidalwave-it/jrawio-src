@@ -22,26 +22,27 @@
  *
  *******************************************************************************
  *
- * $Id: TIFFTag.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id: TIFFTag.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.raw.AbstractTag;
 import it.tidalwave.imageio.raw.TagRational;
 import it.tidalwave.imageio.raw.TagRegistry;
+import java.util.Arrays;
 
 /*******************************************************************************
  * 
  * This class represents a TIFF tag and is able to read from an IFD block.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: TIFFTag.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id: TIFFTag.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 public class TIFFTag extends AbstractTag
@@ -350,6 +351,38 @@ public class TIFFTag extends AbstractTag
         return true;
       }
 
+    @Override
+    public int hashCode()
+      {
+        int hash = 3;
+        hash = 97 * hash + (int) (this.valueOffset ^ (this.valueOffset >>> 32));
+        hash = 97 * hash + code;
+        hash = 97 * hash + type;
+        hash = 97 * hash + valuesCount;
+
+        if (intValue != null)
+          {
+            hash = 97 * hash + Arrays.hashCode(intValue);
+          }
+
+        else if (rationalValue != null)
+          {
+            hash = 97 * hash + Arrays.hashCode(rationalValue);
+          }
+
+        else if (asciiValue != null)
+          {
+            hash = 97 * hash + asciiValue.hashCode();
+          }
+
+        else if (undefinedValue != null)
+          {
+            hash = 97 * hash + Arrays.hashCode(undefinedValue);
+          }
+        
+        return hash;
+      }
+
     /*******************************************************************************
      *
      * @inheritDoc
@@ -585,7 +618,7 @@ public class TIFFTag extends AbstractTag
             valueOffset = iis.readUnsignedInt();
             iis.mark();
             iis.seek(valueOffset);
-            iis.read(buffer);
+            iis.readFully(buffer);
             iis.reset();
           }
 

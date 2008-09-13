@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWRasterReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id: CRWRasterReader.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -45,7 +45,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSupport;
  * compression scheme.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: CRWRasterReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id: CRWRasterReader.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWRasterReader extends RasterReader
@@ -376,11 +376,11 @@ public class CRWRasterReader extends RasterReader
         boolean compressed = true;
 
         iis.seek(0);
-        iis.read(buffer);
+        iis.readFully(buffer);
 
         for (int i = offset; i < buffer.length - 1; i++)
           {
-            if (buffer[i] == 0xff)
+            if (buffer[i] == 0xff) // FIXME: signed vs unsigned
               {
                 if (buffer[i + 1] != 0)
                   {
