@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ImageReaderTest.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id: ImageReaderTest.java 152 2008-09-13 15:13:29Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.test;
@@ -32,7 +32,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Logger;
+import it.tidalwave.imageio.util.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
