@@ -6,7 +6,8 @@
     <property name="tools.dir" value="${basedir}/../tools"/>
 
     <import file="nbproject/build-impl.xml"/>
-    <import file="${tools.dir}/ant/openbluesky.xml"/>
+
+    <import file="nbproject/profiler-build-impl.xml"/>    <import file="${tools.dir}/ant/openbluesky.xml"/>
 
     <target name="build" depends="jar"/> <!-- required by OpenBlueSky -->
 
