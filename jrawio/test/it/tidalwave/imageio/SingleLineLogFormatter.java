@@ -27,13 +27,13 @@
  ******************************************************************************/
 package it.tidalwave.imageio;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 /*******************************************************************************
  *
@@ -74,26 +74,27 @@ public class SingleLineLogFormatter extends Formatter
     * @param record the log record to be formatted.
     * @return a formatted log record
     */
-   public synchronized String format (LogRecord record)
+   public synchronized String format (final LogRecord record)
      {
-       StringBuffer sb = new StringBuffer();
-
+       final StringBuffer buffer1 = new StringBuffer();
        // Minimize memory allocations here.
        now.setTime(record.getMillis());
-       sb.append(dateFormat.format(now));
-       sb.append(" ");
-       sb.append("[");
-       sb.append(padded(Thread.currentThread().getName(), 18));
-       sb.append("] ");
-       sb.append(padded(record.getLevel().getName(), 7));
-       sb.append(" ");
-       String s = record.getLoggerName();
-       sb.append(padded(s, 32));
-       sb.append(" - ");
+       buffer1.append(dateFormat.format(now));
+       buffer1.append(" ");
+       buffer1.append("[");
+       buffer1.append(padded(Thread.currentThread().getName(), 18));
+       buffer1.append("] ");
+       buffer1.append(padded(record.getLevel().getName(), 7));
+       buffer1.append(" ");
+       buffer1.append(padded(record.getLoggerName(), 32));
+       buffer1.append(" - ");
 
+       final String prefix = buffer1.toString();
+
+       final StringBuffer buffer2 = new StringBuffer();
        String message = formatMessage(record);
-       sb.append(message);
-       sb.append(lineSeparator);
+       buffer2.append(message);
+       buffer2.append(lineSeparator);
 
        if (record.getThrown() != null)
          {
@@ -103,13 +104,22 @@ public class SingleLineLogFormatter extends Formatter
                PrintWriter pw = new PrintWriter(sw);
                record.getThrown().printStackTrace(pw);
                pw.close();
-               sb.append(sw.toString());
+               buffer2.append(sw.toString());
              }
            catch (Exception e)
              {
              }
          }
 
-       return sb.toString();
+       final StringBuffer buffer3 = new StringBuffer();
+
+       for (final String part : buffer2.toString().split("\n"))
+         {
+           buffer3.append(prefix);
+           buffer3.append(part);
+           buffer3.append("\n");
+         }
+
+       return buffer3.toString();
      }
  }

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWMetadata.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id: CRWMetadata.java 160 2008-09-13 19:51:30Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.tiff.IFD;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWMetadata.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id: CRWMetadata.java 160 2008-09-13 19:51:30Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWMetadata extends TIFFMetadataSupport
@@ -385,39 +385,39 @@ public class CRWMetadata extends TIFFMetadataSupport
       {
         StringBuffer buffer = new StringBuffer(super.toString());
 
-        buffer.append("\n\tFileNumber: " + getFileNumber());
-        buffer.append("\n\tFocalLengh: " + getFocalLength());
-        buffer.append("\n\tImageWidth: " + getImageWidth());
-        buffer.append("\n\tImageHeight: " + getImageHeight());
-        //        buffer.append("\n\tThumbnailWidth: " + getThumbnailWidth());
-        //        buffer.append("\n\tThumbnailHeight: " + getThumbnailHeight());
-        buffer.append("\n\tPixelAspectRatio: " + getPixelAspectRatio());
-        buffer.append("\n\tRotation: " + getRotation());
-        buffer.append("\n\tComponentBitDepth: " + getComponentBitDepth());
-        buffer.append("\n\tColorBitDepth: " + getColorBitDepth());
-        buffer.append("\n\tColorBW: " + getColorBW());
-        buffer.append("\n\tTimeStampAsDate: " + getTimeStampAsDate());
-        buffer.append("\n\tBaseISO: " + getBaseISO());
-        buffer.append("\n\tFirmwareVersion: " + getFirmwareVersion());
-        buffer.append("\n\tModel: " + getModel());
-        buffer.append("\n\tSensorWidth: " + getSensorWidth());
-        buffer.append("\n\tSensorHeight: " + getSensorHeight());
-        buffer.append("\n\tSensorLeftBorder: " + getSensorLeftBorder());
-        buffer.append("\n\tSensorTopBorder: " + getSensorTopBorder());
-        buffer.append("\n\tSensorRightBorder: " + getSensorRightBorder());
-        buffer.append("\n\tSensorBottomBorder: " + getSensorBottomBorder());
-        buffer.append("\n\tWhiteBalance: " + getWhiteBalance() + " - " + getWhiteBalanceAsString());
+        buffer.append("\n>>>>FileNumber: " + getFileNumber());
+        buffer.append("\n>>>>FocalLengh: " + getFocalLength());
+        buffer.append("\n>>>>ImageWidth: " + getImageWidth());
+        buffer.append("\n>>>>ImageHeight: " + getImageHeight());
+        //        buffer.append("\n>>>>ThumbnailWidth: " + getThumbnailWidth());
+        //        buffer.append("\n>>>>ThumbnailHeight: " + getThumbnailHeight());
+        buffer.append("\n>>>>PixelAspectRatio: " + getPixelAspectRatio());
+        buffer.append("\n>>>>Rotation: " + getRotation());
+        buffer.append("\n>>>>ComponentBitDepth: " + getComponentBitDepth());
+        buffer.append("\n>>>>ColorBitDepth: " + getColorBitDepth());
+        buffer.append("\n>>>>ColorBW: " + getColorBW());
+        buffer.append("\n>>>>TimeStampAsDate: " + getTimeStampAsDate());
+        buffer.append("\n>>>>BaseISO: " + getBaseISO());
+        buffer.append("\n>>>>FirmwareVersion: " + getFirmwareVersion());
+        buffer.append("\n>>>>Model: " + getModel());
+        buffer.append("\n>>>>SensorWidth: " + getSensorWidth());
+        buffer.append("\n>>>>SensorHeight: " + getSensorHeight());
+        buffer.append("\n>>>>SensorLeftBorder: " + getSensorLeftBorder());
+        buffer.append("\n>>>>SensorTopBorder: " + getSensorTopBorder());
+        buffer.append("\n>>>>SensorRightBorder: " + getSensorRightBorder());
+        buffer.append("\n>>>>SensorBottomBorder: " + getSensorBottomBorder());
+        buffer.append("\n>>>>WhiteBalance: " + getWhiteBalance() + " - " + getWhiteBalanceAsString());
 
         if (isColorTemperatureAvailable())
           {
-            buffer.append("\n\tColorTemperature: " + getColorTemperature());
+            buffer.append("\n>>>>ColorTemperature: " + getColorTemperature());
           }
 
         double[] rbCoefficients = getRBCoefficients();
 
         if (rbCoefficients != null)
           {
-            buffer.append("\n\tRed-Blue Coefficients: " + rbCoefficients[0] + ", " + rbCoefficients[1]);
+            buffer.append("\n>>>>Red-Blue Coefficients: " + rbCoefficients[0] + ", " + rbCoefficients[1]);
           }
 
         return buffer.toString();

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NikonMakerNote3.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * $Id: NikonMakerNote3.java 160 2008-09-13 19:51:30Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -40,7 +40,7 @@ import javax.annotation.Nonnull;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NikonMakerNote3.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * @version $Id: NikonMakerNote3.java 160 2008-09-13 19:51:30Z fabriziogiudici $
  *
  ******************************************************************************/
 public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
@@ -226,7 +226,7 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
 
         if (isLensInfoAvailable())
           {
-            buffer.append("\n\tLensInfo:" + getLensInfo2());
+            buffer.append("\n>>>>LensInfo:" + getLensInfo2());
           }
 
         return buffer.toString();

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: ThumbnailHelper.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * $Id: ThumbnailHelper.java 160 2008-09-13 19:51:30Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -54,7 +54,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * an ImageReader for any TIFF-based image format.
  *
  * @author Fabrizio Giudici
- * @version $Id: ThumbnailHelper.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * @version $Id: ThumbnailHelper.java 160 2008-09-13 19:51:30Z fabriziogiudici $
  *
  ******************************************************************************/
 public class ThumbnailHelper
@@ -237,12 +237,23 @@ public class ThumbnailHelper
           {
             final long save = iis.getStreamPosition(); // TEMP FIX for a bug
             final byte[] buffer = getBuffer(iis);
-            ir = ImageIO.getImageReadersByFormatName("JPEG").next();
-            is = ImageIO.createImageInputStream(createInputStream(buffer));
-            ir.setInput(is);
-            width = ir.getWidth(0);
-            height = ir.getHeight(0);
-            iis.seek(save);
+            final int b0 = buffer[0] & 0xff;
+            final int b1 = buffer[1] & 0xff;
+            final int magic = (b0 << 8) | b1;
+
+            if ((magic != 0xffd8) && (magic != 0x02d8))
+              {
+                logger.warning("Ignoring thumbnail JPEG, starts with 0x%04x", magic);
+              }
+            else
+              {
+                ir = ImageIO.getImageReadersByFormatName("JPEG").next();
+                is = ImageIO.createImageInputStream(createInputStream(buffer));
+                ir.setInput(is);
+                width = ir.getWidth(0);
+                height = ir.getHeight(0);
+                iis.seek(save);
+              }
           } 
         catch (IOException e)
           {
