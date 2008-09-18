@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: IFDGenerator.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: IFDGenerator.java 162 2008-09-18 19:33:44Z fabriziogiudici $
  *
  ******************************************************************************/
 import java.io.BufferedReader;
@@ -36,7 +36,7 @@ import java.util.StringTokenizer;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: IFDGenerator.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: IFDGenerator.java 162 2008-09-18 19:33:44Z fabriziogiudici $
  *
  ******************************************************************************/
 public class IFDGenerator
@@ -318,7 +318,7 @@ public class IFDGenerator
                             //  }
 
                             String name = st.nextToken().trim();
-                            String name2 = name.replace(' ', '_').replace('-', '_').toUpperCase();
+                            String name2 = name.replace(' ', '_').replace('-', '_').replace('.', '_').toUpperCase();
 
                             pw.println("         public final static " + capitalizedTagName + " " + name2 + " = new "
                                 + capitalizedTagName + "(" + value + ", \"" + name + "\");");
@@ -459,7 +459,7 @@ public class IFDGenerator
                   uName.append("_");
               }
 
-            if (!Character.isJavaIdentifierPart(c))
+            if (!Character.isJavaIdentifierPart(c) || c == '.')
               c = '_';
 
             uName.append(Character.toUpperCase(c));
