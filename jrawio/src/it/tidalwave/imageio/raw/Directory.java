@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: Directory.java 160 2008-09-13 19:51:30Z fabriziogiudici $
+ * $Id: Directory.java 163 2008-09-20 21:13:23Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -46,7 +46,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: Directory.java 160 2008-09-13 19:51:30Z fabriziogiudici $
+ * @version $Id: Directory.java 163 2008-09-20 21:13:23Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class Directory implements Serializable
@@ -198,10 +198,11 @@ public abstract class Directory implements Serializable
 
     /***************************************************************************
      * 
-     * For de-serialization only.
+     * For de-serialization and for supporting CGLIB only. CGLIB is needed by
+     * blueMarine. For this reason it must be public too.
      * 
      **************************************************************************/
-    protected Directory()
+    public Directory()
       {
       }
 

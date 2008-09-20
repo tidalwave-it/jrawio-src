@@ -23,7 +23,7 @@ limitations under the License.
  
 ==============================================================================
  
-$Id: build.xml 147 2008-09-09 12:34:28Z fabriziogiudici $
+$Id: build.xml 163 2008-09-20 21:13:23Z fabriziogiudici $
 -->
 
 <project name="jrawio" default="jar" basedir=".">
@@ -55,6 +55,14 @@ $Id: build.xml 147 2008-09-09 12:34:28Z fabriziogiudici $
     <target name="findbugs">
         <ant dir="jrawio" target="findbugs" inheritall="false"/>
         <ant dir="reajent" target="findbugs" inheritall="false"/> 
+    </target>
+
+    <!-- =======================================================================
+
+    ======================================================================== -->
+    <target name="findbugs-html">
+        <ant dir="jrawio" target="findbugs-html" inheritall="false"/>
+        <ant dir="reajent" target="findbugs-html" inheritall="false"/> 
     </target>
 
     <!-- =======================================================================
