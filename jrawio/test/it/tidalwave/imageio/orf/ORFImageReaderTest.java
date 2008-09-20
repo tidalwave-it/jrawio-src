@@ -91,7 +91,7 @@ public class ORFImageReaderTest extends LoadTestSupport
     public void testJRW160() 
       throws Exception 
       {
-        final String path = "others/victoriagracia/Olympus/E500/V7020205.ORF";
+        final String path = "others/victoriagracia/Olympus/E500/ORF/V7020205.ORF";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
