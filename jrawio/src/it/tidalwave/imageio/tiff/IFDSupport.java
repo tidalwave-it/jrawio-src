@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: IFDSupport.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id: IFDSupport.java 165 2008-09-20 23:44:28Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * This class provides the capability of loading an IFD.
  * 
  * @author Fabrizio Giudici
- * @version $Id: IFDSupport.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id: IFDSupport.java 165 2008-09-20 23:44:28Z fabriziogiudici $
  *
  ******************************************************************************/
 public class IFDSupport extends Directory
@@ -49,10 +49,12 @@ public class IFDSupport extends Directory
     private final static long serialVersionUID = -8252917582886315978L;
 
     /***************************************************************************
-     * 
-     * 
+     *
+     * For de-serialization and for supporting CGLIB only. CGLIB is needed by
+     * blueMarine. For this reason it must be public too.
+     *
      **************************************************************************/
-    protected IFDSupport()
+    public IFDSupport()
       {
       }
 
