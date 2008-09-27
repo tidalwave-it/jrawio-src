@@ -61,7 +61,7 @@ public class NEFImageReaderTest extends ImageReaderSupport
         assertLoadThumbnail(ir, 0, 120, 160);
         close(ir);
         
-        assertRaster(image, path, "d06b8c69390bc8d6ec6863376f0911b8");
+        assertRaster(image, path, "a370faff7f544f8ec51d872cf2d227f1");
       }
     
     @Test
@@ -78,7 +78,7 @@ public class NEFImageReaderTest extends ImageReaderSupport
         assertLoadThumbnail(ir, 0, 160, 120);
         close(ir);
         
-        assertRaster(image, path, "6c77828177385260c656142b00c5d375");
+        assertRaster(image, path, "09b14dcaaabb6004ad9df4d4999904eb");
       }
     
     @Test
@@ -97,6 +97,6 @@ public class NEFImageReaderTest extends ImageReaderSupport
         assertLoadThumbnail(ir, 1, 384, 255);
         close(ir);
         
-        assertRaster(image, path, "a8509d077417e968a982c2579985d0d6");
+        assertRaster(image, path, "3c9baff5d7f0fc4cd0ad5f381a518e7a");
       }
   }

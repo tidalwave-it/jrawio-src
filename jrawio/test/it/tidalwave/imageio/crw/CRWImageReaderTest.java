@@ -63,7 +63,7 @@ public class CRWImageReaderTest extends ImageReaderSupport
         final BufferedImage image = assertLoadImage(ir, 3152, 2068, 3, 16);
         assertLoadThumbnail(ir, 0, 2048, 1360); 
         
-        assertRaster(image, path, "5ecda7d8c4120a468a29c8dc5fd135c2");
+        assertRaster(image, path, "aed3e6acfc31ed26b4bc43194ebeded6");
         
         close(ir);
       }

@@ -61,7 +61,7 @@ public class ORFImageReaderTest extends ImageReaderSupport
         final BufferedImage image = assertLoadImage(ir, 3720, 2800, 3, 16);
         assertLoadThumbnail(ir, 0, 1600, 1200);
         
-        assertRaster(image, path, "0f73316ca3d30507b2d67a1edc2e4f43");
+        assertRaster(image, path, "8941352d9953d9a0b09636144a9a29f6");
         
         final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
         assertNotNull(metadata);
@@ -108,7 +108,7 @@ public class ORFImageReaderTest extends ImageReaderSupport
         assertLoadThumbnail(ir, 0, 160, 120);
 //        assertLoadThumbnail(ir, 1, 0, 0); //  FIXME: broken
        
-        assertRaster(image, path, "59dece63d3298d425e64e57f24ce1d46");
+        assertRaster(image, path, "343e1553251fe7d17bd18df717cbf1a5");
         
         final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
         assertNotNull(metadata);

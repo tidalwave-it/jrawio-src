@@ -101,7 +101,7 @@ public class ARWImageReaderTest extends ImageReaderSupport
         assertLoadThumbnail(ir, 0, 640, 480); // FIXME: this is wrong, should be the 3872x2592
         assertLoadThumbnail(ir, 1, 160, 120);
         
-        assertRaster(image, path, "43375f3493629d6ee80e13441d018649");
+        assertRaster(image, path, "70a6d55ea48fe9130e1d34e972fa8662");
         
         close(ir);
       }

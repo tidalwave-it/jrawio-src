@@ -27,6 +27,7 @@
  ******************************************************************************/
 package it.tidalwave.imageio;
 
+import java.awt.image.DataBuffer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.io.ByteArrayOutputStream;
@@ -37,6 +38,10 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.DataBufferUShort;
+import java.nio.ByteBuffer;
+import java.nio.ShortBuffer;
 import java.util.Iterator;
 import javax.imageio.spi.ImageReaderSpi;
 import org.junit.BeforeClass;
@@ -169,10 +174,40 @@ public class ImageReaderSupport extends TestSupport
         
         final int width = image.getWidth();
         final int height = image.getHeight();
-        final int[] pixels = image.getRaster().getPixels(0, 0, width, height, (int[])null);
-        assertEquals(width * height * 3, pixels.length);
+        final DataBuffer dataBuffer = image.getData().getDataBuffer();
+
         final MessageDigest md5 = MessageDigest.getInstance("MD5");
-        final byte[] digest = md5.digest(asBytes(pixels));
+        
+        if (dataBuffer instanceof DataBufferUShort)
+          {
+            final DataBufferUShort bufferUShort = (DataBufferUShort) dataBuffer;
+
+            for (final short[] data : bufferUShort.getBankData())
+              {
+                md5.update(asBytes(data));
+              }
+          }
+
+        else if (dataBuffer instanceof DataBufferByte)
+          {
+            final DataBufferByte bufferUShort = (DataBufferByte) dataBuffer;
+
+            for (final byte[] data : bufferUShort.getBankData())
+              {
+                md5.update(data);
+              }
+          }
+
+        else
+          {
+            throw new RuntimeException("Unsupported type: " + dataBuffer.getClass());
+          }
+
+//        final File bytesFile =  new File(tmp, path + ".dump");
+//        final FileOutputStream fos = new FileOutputStream(bytesFile);
+//        fos.write(asBytes);
+//        fos.close();
+        final byte[] digest = md5.digest();
         assertEquals(expectedRasterMD5, asString(digest));
       }
     
@@ -189,16 +224,16 @@ public class ImageReaderSupport extends TestSupport
       }
 
     /***************************************************************************
-     * 
-     * 
+     *
+     *
      **************************************************************************/
-    private static byte[] asBytes (final int[] buffer) 
-      throws IOException 
+    private static byte[] asBytes (final int[] buffer)
+      throws IOException
       {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         final DataOutputStream dos = new DataOutputStream(baos);
 
-        for (final int value : buffer) 
+        for (final int value : buffer)
           {
             dos.writeInt(value);
           }
@@ -206,7 +241,26 @@ public class ImageReaderSupport extends TestSupport
         dos.close();
         return baos.toByteArray();
       }
-    
+
+    /***************************************************************************
+     *
+     *
+     **************************************************************************/
+    private static byte[] asBytes (final short[] buffer)
+      throws IOException
+      {
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final DataOutputStream dos = new DataOutputStream(baos);
+
+        for (final short value : buffer)
+          {
+            dos.writeShort(value);
+          }
+
+        dos.close();
+        return baos.toByteArray();
+      }
+
     /***************************************************************************
      * 
      * 

@@ -99,6 +99,6 @@ public class MRWImageReaderTest extends ImageReaderSupport
         assertLoadThumbnail(ir, 0, 640, 480);
         close(ir);
         
-        assertRaster(image, path, "1f83f407e5afe3299c4a6df1c9fd1710");
+        assertRaster(image, path, "9d72c3bed12267308c5914d48aec5197");
       }
   }
