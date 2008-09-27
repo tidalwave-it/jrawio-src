@@ -37,6 +37,8 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
+import java.util.Iterator;
+import javax.imageio.spi.ImageReaderSpi;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 
@@ -46,7 +48,7 @@ import static org.junit.Assert.*;
  * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-public class LoadTestSupport extends TestSupport
+public class ImageReaderSupport extends TestSupport
   {
     private static String testFolder;
         
@@ -60,6 +62,21 @@ public class LoadTestSupport extends TestSupport
         testFolder = System.getProperty("testset.folder");
         assertNotNull("You must set a property named 'test-sys-prop.testset.folder' " +
                       "in nbproject/private/private.properties to point to the test files", testFolder);
+      }
+
+    /***************************************************************************
+     *
+     *
+     **************************************************************************/
+    protected void assertMIMETypes (final String extension, final String ... mimeTypes)
+      {
+        final Iterator<ImageReader> i = ImageIO.getImageReadersBySuffix(extension);
+        assertTrue(i.hasNext());
+        final ImageReader ir = i.next();
+        assertNotNull(ir);
+        assertFalse(i.hasNext());
+        final ImageReaderSpi provider = ir.getOriginatingProvider();
+        assertEquals(mimeTypes, provider.getMIMETypes());
       }
 
     /***************************************************************************

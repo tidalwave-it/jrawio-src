@@ -28,7 +28,7 @@
 package it.tidalwave.imageio.dng;
 
 import javax.imageio.ImageReader;
-import it.tidalwave.imageio.LoadTestSupport;
+import it.tidalwave.imageio.ImageReaderSupport;
 import java.awt.image.BufferedImage;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -39,8 +39,14 @@ import static org.junit.Assert.*;
  * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-public class DNGImageReaderTest extends LoadTestSupport
+public class DNGImageReaderTest extends ImageReaderSupport
   {
+    @Test
+    public void testMIMEType()
+      {
+        assertMIMETypes("dng", "image/x-adobe-dng");
+      }
+
     @Test
     public void testLoadMetadata()
       throws Exception

@@ -29,12 +29,11 @@ package it.tidalwave.imageio.arw;
 
 import javax.imageio.ImageReader;
 import java.awt.image.BufferedImage;
-import it.tidalwave.imageio.LoadTestSupport;
+import it.tidalwave.imageio.ImageReaderSupport;
 import it.tidalwave.imageio.minolta.MinoltaRawData;
 import it.tidalwave.imageio.minolta.MinoltaRawData.PRD;
 import it.tidalwave.imageio.minolta.MinoltaRawData.RIF;
 import it.tidalwave.imageio.minolta.MinoltaRawData.WBG;
-import it.tidalwave.imageio.mrw.MinoltaMakerNote;
 import it.tidalwave.imageio.raw.TagRational;
 import java.awt.Dimension;
 import org.junit.Test;
@@ -46,8 +45,14 @@ import static org.junit.Assert.*;
  * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-public class ARWImageReaderTest extends LoadTestSupport
+public class ARWImageReaderTest extends ImageReaderSupport
   {
+    @Test
+    public void testMIMEType()
+      {
+        assertMIMETypes("arw", "image/x-sony-arw");
+      }
+
     // JIRA issue JRW-127
     @Test
     public void testJRW127() 

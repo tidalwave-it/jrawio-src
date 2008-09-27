@@ -27,9 +27,8 @@
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
 
-import java.io.IOException;
 import javax.imageio.ImageReader;
-import it.tidalwave.imageio.LoadTestSupport;
+import it.tidalwave.imageio.ImageReaderSupport;
 import java.awt.image.BufferedImage;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -40,8 +39,14 @@ import static org.junit.Assert.*;
  * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-public class NEFImageReaderTest extends LoadTestSupport
+public class NEFImageReaderTest extends ImageReaderSupport
   {
+    @Test
+    public void testMIMEType()
+      {
+        assertMIMETypes("nef", "image/x-nikon-nef");
+      }
+
     @Test
     public void testJRW146() 
       throws Exception 

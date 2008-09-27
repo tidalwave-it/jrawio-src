@@ -29,7 +29,7 @@ package it.tidalwave.imageio.orf;
 
 import javax.imageio.ImageReader;
 import java.awt.image.BufferedImage;
-import it.tidalwave.imageio.LoadTestSupport;
+import it.tidalwave.imageio.ImageReaderSupport;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -39,8 +39,14 @@ import static org.junit.Assert.*;
  * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-public class ORFImageReaderTest extends LoadTestSupport
+public class ORFImageReaderTest extends ImageReaderSupport
   {
+    @Test
+    public void testMIMEType()
+      {
+        assertMIMETypes("orf", "image/x-olympus-orf");
+      }
+
     @Test
     // JIRA issues JRW-151, JRW-154, JRW-155, JRW-159
     public void testJRW151_JRW154_JRW155_JRW159() 
