@@ -7,5 +7,6 @@ it.tidalwave.imageio.mrw.MRWImageReaderSpi
 it.tidalwave.imageio.nef.NEFImageReaderSpi
 it.tidalwave.imageio.orf.ORFImageReaderSpi
 it.tidalwave.imageio.pef.PEFImageReaderSpi
+it.tidalwave.imageio.raf.RAFImageReaderSpi
 it.tidalwave.imageio.srf.SRFImageReaderSpi
 

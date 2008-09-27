@@ -92,11 +92,17 @@
             <param name="serialVersionUID" expression="5050973459348573495L"/>
             <param name="package" expression="it.tidalwave.imageio.orf"/>
         </xslt>
-        <xslt in="${metadata.dir}/KodakMakerNote.xml" 
-            out="${metadata.dest}/it/tidalwave/imageio/dcr/KodakMakerNoteSupport.java" 
+        <xslt in="${metadata.dir}/KodakMakerNote.xml"
+            out="${metadata.dest}/it/tidalwave/imageio/dcr/KodakMakerNoteSupport.java"
             style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
             <param name="serialVersionUID" expression="3049583459348573495L"/>
             <param name="package" expression="it.tidalwave.imageio.dcr"/>
+        </xslt>
+        <xslt in="${metadata.dir}/FujiMakerNote.xml"
+            out="${metadata.dest}/it/tidalwave/imageio/raf/FujiMakerNoteSupport.java"
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="4390583459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.raf"/>
         </xslt>
         <echo message="Auto-generating some sources (2)..."/>
         <javac srcdir="${src2.dir}" 
