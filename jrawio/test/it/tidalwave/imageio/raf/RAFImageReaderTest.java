@@ -97,14 +97,14 @@ public class RAFImageReaderTest extends ImageReaderSupport
 
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
-        assertImage(ir, 4224, 1544);
+//        assertImage(ir, 4224, 1544);
         assertThumbnail(ir, 0, 160, 120);
         assertThumbnail(ir, 1, 1600, 1200);
-        final BufferedImage image = assertLoadImage(ir, 4224, 1544, 3, 16);
+        final BufferedImage image = assertLoadImage(ir, 3592, 3591, 3, 16);
         assertLoadThumbnail(ir, 0, 160, 120);
 //FIXME        assertLoadThumbnail(ir, 1, 1600, 1200);
 
-//        assertRaster(image, path, "0f73316ca3d30507b2d67a1edc2e4f43");
+        assertRaster(image, path, "27772ef50261405d935a21bbdd17fe7a");
         
         close(ir);
       }

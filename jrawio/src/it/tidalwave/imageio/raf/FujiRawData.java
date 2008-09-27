@@ -13,7 +13,7 @@ import java.nio.ByteOrder;
  *
  * @author fritz
  */
-class FujiRawData
+public class FujiRawData
   {
     private String header;
     private byte[] b1 = new byte[16];

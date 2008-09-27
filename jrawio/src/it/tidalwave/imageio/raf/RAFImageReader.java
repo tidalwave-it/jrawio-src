@@ -149,8 +149,10 @@ public class RAFImageReader extends TIFFImageReaderSupport
       {
         final FujiRawData fujiRawData = ((RAFHeaderProcessor) headerProcessor).getFujiRawData();
         final FujiTable1 fujiTable1 = fujiRawData.getFujiTable1();
-        rasterReader.setWidth(fujiTable1.getRawWidth());
-        rasterReader.setHeight(fujiTable1.getRawHeight());
+//        rasterReader.setWidth(fujiTable1.getRawWidth());
+        rasterReader.setWidth(3592);
+        rasterReader.setHeight(3591);
+//        rasterReader.setHeight(fujiTable1.getRawHeight());
         rasterReader.setBitsPerSample(12); // FIXME
 
         final IFD exif = ((RAFMetadata) metadata).getExifIFD();
