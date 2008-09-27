@@ -97,7 +97,7 @@ public class RAFImageReaderTest extends ImageReaderSupport
 
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
-//        assertImage(ir, 4224, 1544);
+        assertImage(ir, 3592, 3591);
         assertThumbnail(ir, 0, 160, 120);
         assertThumbnail(ir, 1, 1600, 1200);
         final BufferedImage image = assertLoadImage(ir, 3592, 3591, 3, 16);

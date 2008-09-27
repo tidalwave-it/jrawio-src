@@ -95,9 +95,8 @@ public class RAFImageReader extends TIFFImageReaderSupport
       {
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
-        final FujiRawData fujiRawData = ((RAFHeaderProcessor) headerProcessor).getFujiRawData();
-        final FujiTable1 fujiTable1 = fujiRawData.getFujiTable1();
-        return fujiTable1.getRawWidth();
+        final FujiRawData fujiRawData = ((RAFHeaderProcessor)headerProcessor).getFujiRawData();
+        return fujiRawData.getFujiTable1().getRotatedWidth();
       }
 
     /***************************************************************************
@@ -111,9 +110,8 @@ public class RAFImageReader extends TIFFImageReaderSupport
       {
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
-        final FujiRawData fujiRawData = ((RAFHeaderProcessor) headerProcessor).getFujiRawData();
-        final FujiTable1 fujiTable1 = fujiRawData.getFujiTable1();
-        return fujiTable1.getRawHeight();
+        final FujiRawData fujiRawData = ((RAFHeaderProcessor)headerProcessor).getFujiRawData();
+        return fujiRawData.getFujiTable1().getRotatedHeight();
       }
 
     /***************************************************************************
@@ -148,16 +146,14 @@ public class RAFImageReader extends TIFFImageReaderSupport
         final FujiRawData fujiRawData = ((RAFHeaderProcessor) headerProcessor).getFujiRawData();
         final FujiTable1 fujiTable1 = fujiRawData.getFujiTable1();
         final boolean fujiLayout = fujiTable1.isFujiLayout();
-        final int offset = fujiTable1.getWidth() / (fujiLayout ? 1 : 2);
-        final int width = offset + fujiTable1.getHeight() / (fujiLayout ? 2 : 1);
-        rasterReader.setWidth(width);
-        rasterReader.setHeight(width - 1);
+        rasterReader.setWidth(fujiTable1.getRotatedWidth());
+        rasterReader.setHeight(fujiTable1.getRotatedHeight());
         final int topMargin = (fujiTable1.getRawHeight() - fujiTable1.getHeight())/2;
         final int leftMargin = (fujiTable1.getRawWidth() - fujiTable1.getWidth())/2;
         ((RAFRasterReader)rasterReader).setCFAWidth(fujiTable1.getRawWidth());
         ((RAFRasterReader)rasterReader).setCFAHeight(fujiTable1.getRawHeight());
         ((RAFRasterReader)rasterReader).setFujiLayout(fujiLayout);
-        ((RAFRasterReader)rasterReader).setOffset(offset);
+        ((RAFRasterReader)rasterReader).setOffset(fujiTable1.getWidth() / (fujiLayout ? 1 : 2));
         ((RAFRasterReader)rasterReader).setTopMargin(topMargin);
         ((RAFRasterReader)rasterReader).setLeftMargin(leftMargin);
         rasterReader.setBitsPerSample(12); // FIXME

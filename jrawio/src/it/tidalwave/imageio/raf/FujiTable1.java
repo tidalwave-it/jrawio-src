@@ -41,6 +41,16 @@ public class FujiTable1 implements Serializable
         return rawHeight;
       }
 
+    public int getRotatedWidth()
+      {
+        return getWidth() / (fujiLayout ? 1 : 2) + getHeight() / (fujiLayout ? 2 : 1);
+      }
+
+    public int getRotatedHeight()
+      {
+        return getRotatedWidth() - 1;
+      }
+
     public boolean isFujiLayout()
       {
         return fujiLayout;
