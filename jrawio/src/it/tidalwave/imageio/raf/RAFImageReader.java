@@ -88,22 +88,6 @@ public class RAFImageReader extends TIFFImageReaderSupport
      *
      * {@inheritDoc}
      *
-     * FIXME: merge with super implementation
-     *
-     **************************************************************************/
-//    @Override
-//    protected void processEXIFAndMakerNote (@Nonnull final Directory directory)
-//      throws IOException
-//      {
-//        iis.setBaseOffset(0);
-//        super.processEXIFAndMakerNote(directory);
-//        iis.setBaseOffset(headerProcessor.getBaseOffset());
-//      }
-    
-    /***************************************************************************
-     *
-     * {@inheritDoc}
-     *
      **************************************************************************/
     @Override
     public int getWidth (final int imageIndex)
@@ -148,8 +132,6 @@ public class RAFImageReader extends TIFFImageReaderSupport
         initializeRasterReader(rasterReader);
 
         logger.finest(">>>> using rasterReader: %s", rasterReader);
-        final IFD primaryIFD = (IFD)primaryDirectory;
-        iis.seek(primaryIFD.getStripOffsets()); // FIXME: set attribute in raster reader, seek done in rasterreader
         final WritableRaster raster = rasterReader.loadRaster(iis, this);
         logger.finer(">>>> loadRAWRaster() completed ok in %d msec.", (System.currentTimeMillis() - time));
 
@@ -165,38 +147,17 @@ public class RAFImageReader extends TIFFImageReaderSupport
      ***************************************************************************/
     protected void initializeRasterReader (@Nonnull final RasterReader rasterReader)
       {
-        final IFD primaryIFD = (IFD)primaryDirectory;
-        final IFD exifIFD = (IFD)primaryIFD.getNamedDirectory(IFD.EXIF_NAME);
-        
-        final int bitsPerSample = (primaryIFD.getCompression().intValue() == 1) ? 16 : 12; // packed in words primaryIFD.getBitsPerSample()[0];
-        final int width = primaryIFD.getImageWidth();
-        final int height = primaryIFD.getImageLength();
-        rasterReader.setWidth(width);
-        rasterReader.setHeight(height);
-        rasterReader.setBitsPerSample(bitsPerSample);
-        rasterReader.setCFAPattern(exifIFD.getEXIFCFAPattern());
-        rasterReader.setCompression(primaryIFD.getCompression().intValue());
+        final FujiRawData fujiRawData = ((RAFHeaderProcessor) headerProcessor).getFujiRawData();
+        final FujiTable1 fujiTable1 = fujiRawData.getFujiTable1();
+        rasterReader.setWidth(fujiTable1.getRawWidth());
+        rasterReader.setHeight(fujiTable1.getRawHeight());
+        rasterReader.setBitsPerSample(12); // FIXME
 
-        if (primaryIFD.isStripByteCountsAvailable())
-          {
-            rasterReader.setStripByteCount(primaryIFD.getStripByteCounts());
-          }
-
-        if (primaryIFD.isTileWidthAvailable())
-          {
-            int tileWidth = primaryIFD.getTileWidth();
-            int tileLength = primaryIFD.getTileLength();
-            rasterReader.setTileWidth(tileWidth);
-            rasterReader.setTileHeight(tileLength);
-            rasterReader.setTilesAcross((width + tileWidth - 1) / tileWidth);
-            rasterReader.setTilesDown((height + tileLength - 1) / tileLength);
-            rasterReader.setTileOffsets(primaryIFD.getTileOffsets());
-            //int[] tileByteCounts = primaryIFD.getTileByteCounts();
-          }
-
-        if (primaryIFD.isLinearizationTableAvailable())
-          {
-            rasterReader.setLinearizationTable(primaryIFD.getLinearizationTable());
-          }
+        final IFD exif = ((RAFMetadata) metadata).getExifIFD();
+        rasterReader.setRasterOffset(fujiRawData.getCFAOffset());
+        rasterReader.setStripByteCount(fujiRawData.getCFALength());
+        rasterReader.setCFAPattern(exif.getComponentConfiguration());
+        rasterReader.setCompression(0); // FIXME
+//        rasterReader.setCompression(primaryIFD.getCompression().intValue());
       }
   }

@@ -27,7 +27,11 @@
  ******************************************************************************/
 package it.tidalwave.imageio.raf;
 
+import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 import it.tidalwave.imageio.raw.RasterReader;
+import java.awt.image.WritableRaster;
+import java.io.IOException;
 
 /*******************************************************************************
  *
@@ -39,4 +43,18 @@ import it.tidalwave.imageio.raw.RasterReader;
  ******************************************************************************/
 public class RAFRasterReader extends RasterReader
   {
-  }
+    @Override
+    protected boolean isCompressedRaster()
+      {
+        return false;
+      }
+
+    @Override
+    protected void loadUncompressedRaster (final RAWImageInputStream iis,
+                                           final WritableRaster raster,
+                                           final RAWImageReaderSupport ir)
+      throws IOException
+      {
+        iis.seek(this.rasterOffset);
+      }
+   }

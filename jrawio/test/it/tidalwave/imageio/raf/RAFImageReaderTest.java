@@ -100,9 +100,10 @@ public class RAFImageReaderTest extends ImageReaderSupport
         assertImage(ir, 4224, 1544);
         assertThumbnail(ir, 0, 160, 120);
         assertThumbnail(ir, 1, 1600, 1200);
-//        final BufferedImage image = assertLoadImage(ir, 3720, 2800, 3, 16);
-//        assertLoadThumbnail(ir, 0, 1600, 1200);
-//
+        final BufferedImage image = assertLoadImage(ir, 4224, 1544, 3, 16);
+        assertLoadThumbnail(ir, 0, 160, 120);
+//FIXME        assertLoadThumbnail(ir, 1, 1600, 1200);
+
 //        assertRaster(image, path, "0f73316ca3d30507b2d67a1edc2e4f43");
         
         close(ir);
