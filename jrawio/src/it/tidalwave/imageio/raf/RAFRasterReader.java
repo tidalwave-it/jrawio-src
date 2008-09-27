@@ -50,6 +50,8 @@ public class RAFRasterReader extends RasterReader
 
     private boolean fujiLayout;
 
+    private int offset;
+
     public void setCFAHeight (final int cfaHeight)
       {
         this.cfaHeight = cfaHeight;
@@ -63,6 +65,11 @@ public class RAFRasterReader extends RasterReader
     public void setFujiLayout (final boolean fujiLayout)
       {
         this.fujiLayout = fujiLayout;
+      }
+
+    public void setOffset (final int offset)
+      {
+        this.offset = offset;
       }
 
     @Override
@@ -83,28 +90,28 @@ public class RAFRasterReader extends RasterReader
 
         int top_margin = 0;
         int left_margin = 64;
-        int fuji_width = 2048;
 
         iis.skipBytes((top_margin * cfaWidth + left_margin) * 2);
-        int wide = fuji_width * (fujiLayout ? 1 : 2);
+        final int width = offset * (fujiLayout ? 1 : 2);
         final int pixelStride = 3;
         final int scanStride = pixelStride * raster.getWidth();
-        final short[] pixel = new short[wide];
+        final short[] pixel = new short[width];
 
         for (int row = 0; row < cfaHeight - 1; row++) // FIXME: - 1
           {
-            for (int ii = 0; ii < wide; ii++)
+            for (int ii = 0; ii < width; ii++)
               {
                 pixel[ii] = iis.readShort();
               }
 
-            iis.skipBytes(2 * (cfaWidth - wide));
+            iis.skipBytes(2 * (cfaWidth - width));
 
             if (fujiLayout)
               {
-                for (int col = 0; col < wide; col++)
+                for (int col = 0; col < width; col++)
                   {
-                    int r = fuji_width - 1 - col + (row >> 1);
+                    // TODO: refactor as the case below
+                    int r = offset - 1 - col + (row >> 1);
                     int c = col + ((row+1) >> 1);
                     final int cfaIndex = (2 * (r & 1)) + (c & 1);
                     data[c * pixelStride + r * scanStride + cfaOffsets[cfaIndex]] = (short)pixel[col];
@@ -113,11 +120,11 @@ public class RAFRasterReader extends RasterReader
 
             else
               {
-                int r = fuji_width + row;
+                int r = offset + row;
                 int c = row;
                 int scan = c * pixelStride + r * scanStride;
                 
-                for (int col = 0; col < wide; col++)
+                for (int col = 0; col < width; col++)
                   {
                     if ((col % 2) == 0)
                       {
