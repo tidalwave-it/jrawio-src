@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWProcessorInstaller.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id: RAWProcessorInstaller.java 190 2008-09-27 22:51:11Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -37,6 +37,7 @@ import it.tidalwave.imageio.mrw.MRWImageReaderSpi;
 import it.tidalwave.imageio.nef.NEFImageReaderSpi;
 import it.tidalwave.imageio.orf.ORFImageReaderSpi;
 import it.tidalwave.imageio.pef.PEFImageReaderSpi;
+import it.tidalwave.imageio.raf.RAFImageReaderSpi;
 import it.tidalwave.imageio.srf.SRFImageReaderSpi;
 import it.tidalwave.imageio.rawprocessor.arw.ARWProcessor;
 import it.tidalwave.imageio.rawprocessor.cr2.CR2Processor;
@@ -46,6 +47,7 @@ import it.tidalwave.imageio.rawprocessor.mrw.MRWProcessor;
 import it.tidalwave.imageio.rawprocessor.nef.NEFProcessor;
 import it.tidalwave.imageio.rawprocessor.orf.ORFProcessor;
 import it.tidalwave.imageio.rawprocessor.pef.PEFProcessor;
+import it.tidalwave.imageio.rawprocessor.raf.RAFProcessor;
 import it.tidalwave.imageio.rawprocessor.srf.SRFProcessor;
 
 /**
@@ -73,6 +75,7 @@ public class RAWProcessorInstaller
             RAWImageReaderSpiSupport.installPostProcessor(NEFImageReaderSpi.class, new NEFProcessor());
             RAWImageReaderSpiSupport.installPostProcessor(ORFImageReaderSpi.class, new ORFProcessor());
             RAWImageReaderSpiSupport.installPostProcessor(PEFImageReaderSpi.class, new PEFProcessor());
+            RAWImageReaderSpiSupport.installPostProcessor(RAFImageReaderSpi.class, new RAFProcessor());
             RAWImageReaderSpiSupport.installPostProcessor(SRFImageReaderSpi.class, new SRFProcessor());
             logger.info("Installed RAWProcessor");
           }
