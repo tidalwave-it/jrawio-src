@@ -115,20 +115,23 @@ public class RAFRasterReader extends RasterReader
               {
                 int r = fuji_width + row;
                 int c = row;
+                int scan = c * pixelStride + r * scanStride;
                 
                 for (int col = 0; col < wide; col++)
                   {
                     if ((col % 2) == 0)
                       {
                         r--;
+                        scan -= scanStride;
                       }
                     else 
                       {
                         c++;
+                        scan += pixelStride;
                       }
 
                     final int cfaIndex = (2 * (r & 1)) + (c & 1);
-                    data[c * pixelStride + r * scanStride + cfaOffsets[cfaIndex]] = (short)pixel[col];
+                    data[scan + cfaOffsets[cfaIndex]] = (short)pixel[col];
                   }
               }
           }
