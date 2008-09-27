@@ -100,23 +100,26 @@ public class RAFRasterReader extends RasterReader
 
             iis.skipBytes(2 * (cfaWidth - wide));
 
-            for (int col = 0; col < wide; col++)
+            if (fujiLayout)
               {
-                int r, c;
-
-                if (fujiLayout)
+                for (int col = 0; col < wide; col++)
                   {
-                    r = fuji_width - 1 - col + (row >> 1);
-                    c = col + ((row+1) >> 1);
+                    final int r = fuji_width - 1 - col + (row >> 1);
+                    final int c = col + ((row+1) >> 1);
+                    final int cfaIndex = (2 * (r & 1)) + (c & 1);
+                    data[c * pixelStride + r * scanStride + cfaOffsets[cfaIndex]] = (short)pixel[col];
                   }
-                else
-                  {
-                    r = fuji_width - 1 + row - (col >> 1);
-                    c = row + ((col+1) >> 1);
-                  }
+              }
 
-                final int cfaIndex = (2 * (r & 1)) + (c & 1);
-                data[c * pixelStride + r * scanStride + cfaOffsets[cfaIndex]] = (short)pixel[col];
+            else
+              {
+                for (int col = 0; col < wide; col++)
+                  {
+                    final int r = fuji_width - 1 + row - (col >> 1);
+                    final int c = row + ((col+1) >> 1);
+                    final int cfaIndex = (2 * (r & 1)) + (c & 1);
+                    data[c * pixelStride + r * scanStride + cfaOffsets[cfaIndex]] = (short)pixel[col];
+                  }
               }
           }
       }
