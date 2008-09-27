@@ -30,7 +30,7 @@ package it.tidalwave.imageio.rawprocessor.orf;
 import java.io.IOException;
 import javax.imageio.ImageReader;
 import java.awt.image.BufferedImage;
-import it.tidalwave.imageio.LoadTestSupport;
+import it.tidalwave.imageio.ImageReaderSupport;
 import it.tidalwave.imageio.orf.CameraSettings;
 import it.tidalwave.imageio.orf.Equipment;
 import it.tidalwave.imageio.orf.FocusInfo;
@@ -47,7 +47,7 @@ import static org.junit.Assert.*;
  * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-public class ORFProcessorTest extends LoadTestSupport 
+public class ORFProcessorTest extends ImageReaderSupport
   {
     @Test
     public void test1() 
