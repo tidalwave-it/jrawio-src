@@ -78,10 +78,26 @@ public class RAFImageReaderTest extends ImageReaderSupport
         assertEquals(0, fujiRawData.getUnused8());
         assertEquals(0, fujiRawData.getUnused9());
         assertEquals(0, fujiRawData.getUnused10());
-        
+
+        final FujiTable1 fujiTable1 = fujiRawData.getFujiTable1();
+        assertNotNull(fujiTable1);
+        assertEquals(4096, fujiTable1.getWidth());
+        assertEquals(1544, fujiTable1.getHeight());
+        assertEquals(4224, fujiTable1.getRawWidth());
+        assertEquals(1544, fujiTable1.getRawHeight());
+        assertFalse(fujiTable1.isFujiLayout());
+
+        final short[] coefficients = fujiTable1.getCoefficients();
+        assertNotNull(coefficients);
+        assertEquals(4, coefficients.length);
+        assertEquals((short)336, coefficients[0]);
+        assertEquals((short)518, coefficients[1]);
+        assertEquals((short)336, coefficients[2]);
+        assertEquals((short)489, coefficients[3]);
+
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
-        assertImage(ir, 2905, 4490);
+        assertImage(ir, 4224, 1544);
         assertThumbnail(ir, 0, 160, 120);
         assertThumbnail(ir, 1, 1600, 1200);
 //        final BufferedImage image = assertLoadImage(ir, 3720, 2800, 3, 16);

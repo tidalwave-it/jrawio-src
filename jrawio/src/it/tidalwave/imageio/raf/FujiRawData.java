@@ -36,6 +36,8 @@ class FujiRawData
     private int unused9;
     private int unused10;
 
+    private FujiTable1 fujiTable1;
+
     public int getBaseOffset()
       {
         return jpegImageOffset + 12;
@@ -68,6 +70,20 @@ class FujiRawData
         unused8 = iis.readInt();
         unused9 = iis.readInt();
         unused10 = iis.readInt();
+
+        if (table1Offset > 0)
+          {
+            fujiTable1 = new FujiTable1();
+            final long baseOffsetSave = iis.getBaseOffset();
+            iis.setBaseOffset(0);
+            fujiTable1.load(iis, table1Offset, table1Length);
+            iis.setBaseOffset(baseOffsetSave);
+          }
+      }
+
+    public FujiTable1 getFujiTable1()
+      {
+        return fujiTable1;
       }
 
     public byte[] getB1()

@@ -112,9 +112,8 @@ public class RAFImageReader extends TIFFImageReaderSupport
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
         final FujiRawData fujiRawData = ((RAFHeaderProcessor) headerProcessor).getFujiRawData();
-        final int table1Length = fujiRawData.getTable1Length();
-        final int cfaLength = fujiRawData.getCFALength();
-        return (cfaLength - 262) / table1Length; // FIXME: check
+        final FujiTable1 fujiTable1 = fujiRawData.getFujiTable1();
+        return fujiTable1.getRawWidth();
       }
 
     /***************************************************************************
@@ -128,7 +127,9 @@ public class RAFImageReader extends TIFFImageReaderSupport
       {
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
-        return ((RAFHeaderProcessor)headerProcessor).getFujiRawData().getTable1Length();
+        final FujiRawData fujiRawData = ((RAFHeaderProcessor) headerProcessor).getFujiRawData();
+        final FujiTable1 fujiTable1 = fujiRawData.getFujiTable1();
+        return fujiTable1.getRawHeight();
       }
 
     /***************************************************************************
