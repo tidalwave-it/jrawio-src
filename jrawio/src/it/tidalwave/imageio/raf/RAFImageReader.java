@@ -88,6 +88,22 @@ public class RAFImageReader extends TIFFImageReaderSupport
      *
      * {@inheritDoc}
      *
+     * FIXME: merge with super implementation
+     *
+     **************************************************************************/
+//    @Override
+//    protected void processEXIFAndMakerNote (@Nonnull final Directory directory)
+//      throws IOException
+//      {
+//        iis.setBaseOffset(0);
+//        super.processEXIFAndMakerNote(directory);
+//        iis.setBaseOffset(headerProcessor.getBaseOffset());
+//      }
+    
+    /***************************************************************************
+     *
+     * {@inheritDoc}
+     *
      **************************************************************************/
     @Override
     public int getWidth (final int imageIndex)

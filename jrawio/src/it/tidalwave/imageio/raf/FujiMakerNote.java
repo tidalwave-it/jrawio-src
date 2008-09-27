@@ -29,9 +29,7 @@ package it.tidalwave.imageio.raf;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
-import java.nio.ByteOrder;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 
 /*******************************************************************************
  *
@@ -42,36 +40,25 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 public class FujiMakerNote extends FujiMakerNoteSupport
   {
     private final static long serialVersionUID = 6347805620960118907L;
-    
+
     /***************************************************************************
      *
      * {@inheritDoc}
      *
      **************************************************************************/
     @Override
-    public void loadAll (@Nonnull final RAWImageInputStream iis, final long offset) 
+    public void loadAll (@Nonnull final RAWImageInputStream iis, final long offset)
        throws IOException
       {
-        final long baseOffsetSave = iis.getBaseOffset();
-        final ByteOrder byteOrderSave = iis.getByteOrder();
+        iis.seek(offset);
+        final byte[] buffer = new byte[8];
+        iis.readFully(buffer);
+        final String s = new String(buffer);
 
-        try
+        if (s.equals("FUJIFILM"))
           {
-            iis.seek(offset);
-            final byte[] buffer = new byte[4];
-            iis.readFully(buffer);
-            final String s = new String(buffer, 0, 3);
-
-            if (s.equals("AOC")) // Pentax / Asahi Type 2 Makernote
-              {
-                TIFFImageReaderSupport.setByteOrder(iis);
-                super.load(iis, iis.getStreamPosition()); // not loadAll(), there's no next-IFD pointer at the end
-              }
-          }
-        finally
-          { 
-            iis.setBaseOffset(baseOffsetSave);
-            iis.setByteOrder(byteOrderSave);       
+            iis.skipBytes(4);
+            super.load(iis, iis.getStreamPosition()); // not loadAll(), there's no next-IFD pointer at the end
           }
       }
   }
