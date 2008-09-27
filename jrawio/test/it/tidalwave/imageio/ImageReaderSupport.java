@@ -40,8 +40,7 @@ import javax.imageio.stream.ImageInputStream;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferUShort;
-import java.nio.ByteBuffer;
-import java.nio.ShortBuffer;
+import java.io.FileOutputStream;
 import java.util.Iterator;
 import javax.imageio.spi.ImageReaderSpi;
 import org.junit.BeforeClass;
@@ -192,8 +191,10 @@ public class ImageReaderSupport extends TestSupport
           {
             final DataBufferByte bufferUShort = (DataBufferByte) dataBuffer;
 
+//            int i = 0;
             for (final byte[] data : bufferUShort.getBankData())
               {
+//                dump(new File(tmp, path + ".dump" + i++), data);
                 md5.update(data);
               }
           }
@@ -203,10 +204,6 @@ public class ImageReaderSupport extends TestSupport
             throw new RuntimeException("Unsupported type: " + dataBuffer.getClass());
           }
 
-//        final File bytesFile =  new File(tmp, path + ".dump");
-//        final FileOutputStream fos = new FileOutputStream(bytesFile);
-//        fos.write(asBytes);
-//        fos.close();
         final byte[] digest = md5.digest();
         assertEquals(expectedRasterMD5, asString(digest));
       }
@@ -227,19 +224,12 @@ public class ImageReaderSupport extends TestSupport
      *
      *
      **************************************************************************/
-    private static byte[] asBytes (final int[] buffer)
+    private static void dump (final File file, final byte[] buffer)
       throws IOException
       {
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        final DataOutputStream dos = new DataOutputStream(baos);
-
-        for (final int value : buffer)
-          {
-            dos.writeInt(value);
-          }
-
-        dos.close();
-        return baos.toByteArray();
+        final FileOutputStream fos = new FileOutputStream(file);
+        fos.write(buffer);
+        fos.close();
       }
 
     /***************************************************************************
