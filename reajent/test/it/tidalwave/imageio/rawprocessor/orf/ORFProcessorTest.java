@@ -90,7 +90,7 @@ public class ORFProcessorTest extends ImageReaderSupport
         
         close(ir);
         
-        assertRaster(image, path, "50b6d6b4f6b0edeac02dc9f11dd6dce8");
+        assertRaster(image, path, "df6dca1db04cb9e85c3429a68fbe88db");
       }
     
     @Test
@@ -98,7 +98,7 @@ public class ORFProcessorTest extends ImageReaderSupport
     public void test2() 
       throws Exception 
       {
-        final String path = "others/victoriagracia/Olympus/E500/V7020205.ORF";
+        final String path = "others/victoriagracia/Olympus/E500/ORF/V7020205.ORF";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
@@ -109,7 +109,7 @@ public class ORFProcessorTest extends ImageReaderSupport
         assertLoadThumbnail(ir, 0, 160, 120);
 //        assertLoadThumbnail(ir, 1, 0, 0); //  FIXME: broken
        
-        assertRaster(image, path, "77ecfb8e426555ee23740b52d2223db0");
+        assertRaster(image, path, "6ad55b40e6ccda056cb6acb865292abe");
         
         final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
         assertNotNull(metadata);

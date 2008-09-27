@@ -56,7 +56,7 @@ public class DNGProcessorTest extends ImageReaderSupport
         assertLoadThumbnail(ir, 0, 256, 171);
         assertLoadThumbnail(ir, 1, 1024, 683);
         
-        assertRaster(image, path, "c3053e364d17441b68171f6ef0b0e7a8");
+        assertRaster(image, path, "f9237fbf2478110b6c12f7cb42c78757");
         
 //        close(ir);
       }

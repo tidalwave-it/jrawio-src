@@ -27,7 +27,6 @@
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
 
-import java.io.IOException;
 import javax.imageio.ImageReader;
 import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.ImageReaderSupport;
@@ -56,7 +55,7 @@ public class NEFProcessorTest extends ImageReaderSupport
         assertLoadThumbnail(ir, 0, 120, 160);
         close(ir);
         
-        assertRaster(image, path, "d58c9b90902cc314b9aadf83ddc36fc2");
+        assertRaster(image, path, "76f41c2dd922e79ae605f5e042aa4d9c");
       }
     
     @Test
@@ -74,7 +73,7 @@ public class NEFProcessorTest extends ImageReaderSupport
         assertLoadThumbnail(ir, 0, 160, 120);
         close(ir);
         
-        assertRaster(image, path, "00d5d09ec86230753350c9071afc7f6e");
+        assertRaster(image, path, "d2693ae031e35e2899a11cd817d7c255");
       }
     
     @Test
@@ -93,6 +92,6 @@ public class NEFProcessorTest extends ImageReaderSupport
         assertLoadThumbnail(ir, 1, 384, 255);
         close(ir);
         
-        assertRaster(image, path, "aea0cd78a07088e96a59cb894e194704");
+        assertRaster(image, path, "b151891922a90a61ca93dd849107a593");
       }
   }
