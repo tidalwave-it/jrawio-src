@@ -137,17 +137,9 @@ public class RAFRasterReader extends RasterReader
         final int width = offset * (fujiLayout ? 1 : 2);
         final int pixelStride = 3;
         final int scanStride = pixelStride * raster.getWidth();
-        final short[] pixel = new short[width];
 
         for (int row = 0; row < cfaHeight - 1; row++) // FIXME: - 1
           {
-            for (int ii = 0; ii < width; ii++)
-              {
-                pixel[ii] = iis.readShort();
-              }
-
-            iis.skipBytes(2 * (cfaWidth - width));
-
             if (fujiLayout)
               {
                 for (int col = 0; col < width; col++)
@@ -156,7 +148,7 @@ public class RAFRasterReader extends RasterReader
                     int r = offset - 1 - col + (row >> 1);
                     int c = col + ((row+1) >> 1);
                     final int cfaIndex = (2 * (r & 1)) + (c & 1);
-                    data[c * pixelStride + r * scanStride + cfaOffsets[cfaIndex]] = (short)pixel[col];
+                    data[c * pixelStride + r * scanStride + cfaOffsets[cfaIndex]] = iis.readShort();
                   }
               }
 
@@ -180,9 +172,11 @@ public class RAFRasterReader extends RasterReader
                       }
 
                     final int cfaIndex = (2 * (r & 1)) + (c & 1);
-                    data[scan + cfaOffsets[cfaIndex]] = (short)pixel[col];
+                    data[scan + cfaOffsets[cfaIndex]] = iis.readShort();
                   }
               }
+
+            iis.skipBytes(2 * (cfaWidth - width));
           }
       }
   }
