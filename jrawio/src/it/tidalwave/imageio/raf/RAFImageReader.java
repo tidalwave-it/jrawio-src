@@ -139,8 +139,6 @@ public class RAFImageReader extends TIFFImageReaderSupport
       }
 
     /***************************************************************************
-     * 
-     * FIXME: merge with superclass
      *
      * {@inheritDoc}
      * 
@@ -154,10 +152,14 @@ public class RAFImageReader extends TIFFImageReaderSupport
         final int width = offset + fujiTable1.getHeight() / (fujiLayout ? 2 : 1);
         rasterReader.setWidth(width);
         rasterReader.setHeight(width - 1);
+        final int topMargin = (fujiTable1.getRawHeight() - fujiTable1.getHeight())/2;
+        final int leftMargin = (fujiTable1.getRawWidth() - fujiTable1.getWidth())/2;
         ((RAFRasterReader)rasterReader).setCFAWidth(fujiTable1.getRawWidth());
         ((RAFRasterReader)rasterReader).setCFAHeight(fujiTable1.getRawHeight());
         ((RAFRasterReader)rasterReader).setFujiLayout(fujiLayout);
         ((RAFRasterReader)rasterReader).setOffset(offset);
+        ((RAFRasterReader)rasterReader).setTopMargin(topMargin);
+        ((RAFRasterReader)rasterReader).setLeftMargin(leftMargin);
         rasterReader.setBitsPerSample(12); // FIXME
 
         final IFD exif = ((RAFMetadata) metadata).getExifIFD();

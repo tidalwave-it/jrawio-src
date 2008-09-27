@@ -52,32 +52,78 @@ public class RAFRasterReader extends RasterReader
 
     private int offset;
 
+    private int topMargin;
+
+    private int leftMargin;
+
+    /***************************************************************************
+     *
+     *
+     ***************************************************************************/
     public void setCFAHeight (final int cfaHeight)
       {
         this.cfaHeight = cfaHeight;
       }
 
+    /***************************************************************************
+     *
+     *
+     ***************************************************************************/
     public void setCFAWidth (final int cfaWidth)
       {
         this.cfaWidth = cfaWidth;
       }
 
+    /***************************************************************************
+     *
+     *
+     ***************************************************************************/
     public void setFujiLayout (final boolean fujiLayout)
       {
         this.fujiLayout = fujiLayout;
       }
 
+    /***************************************************************************
+     *
+     *
+     ***************************************************************************/
     public void setOffset (final int offset)
       {
         this.offset = offset;
       }
 
+    /***************************************************************************
+     *
+     *
+     ***************************************************************************/
+    public void setLeftMargin (final int leftMargin)
+      {
+        this.leftMargin = leftMargin;
+      }
+
+    /***************************************************************************
+     *
+     *
+     ***************************************************************************/
+    public void setTopMargin (final int topMargin)
+      {
+        this.topMargin = topMargin;
+      }
+
+    /***************************************************************************
+     *
+     *
+     ***************************************************************************/
     @Override
     protected boolean isCompressedRaster()
       {
         return false;
       }
 
+    /***************************************************************************
+     *
+     *
+     ***************************************************************************/
     @Override
     protected void loadUncompressedRaster (final RAWImageInputStream iis,
                                            final WritableRaster raster,
@@ -87,11 +133,7 @@ public class RAFRasterReader extends RasterReader
         iis.seek(this.rasterOffset);
         final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
         final short[] data = dataBuffer.getData();
-
-        int top_margin = 0;
-        int left_margin = 64;
-
-        iis.skipBytes((top_margin * cfaWidth + left_margin) * 2);
+        iis.skipBytes((topMargin * cfaWidth + leftMargin) * 2);
         final int width = offset * (fujiLayout ? 1 : 2);
         final int pixelStride = 3;
         final int scanStride = pixelStride * raster.getWidth();
