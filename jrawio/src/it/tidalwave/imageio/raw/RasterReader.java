@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RasterReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id: RasterReader.java 180 2008-09-27 20:29:01Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -61,7 +61,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * </ul>
  * 
  * @author  Fabrizio Giudici
- * @version $Id: RasterReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id: RasterReader.java 180 2008-09-27 20:29:01Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RasterReader
@@ -115,7 +115,7 @@ public class RasterReader
     protected long rasterOffset;
     
     protected ByteOrder byteOrder;
-    
+
     /*******************************************************************************
      * 
      * Sets the width of the raster to read.

@@ -44,6 +44,20 @@ import java.io.IOException;
  ******************************************************************************/
 public class RAFRasterReader extends RasterReader
   {
+    private int cfaWidth;
+
+    private int cfaHeight;
+
+    public void setCFAHeight (final int cfaHeight)
+      {
+        this.cfaHeight = cfaHeight;
+      }
+
+    public void setCFAWidth (final int cfaWidth)
+      {
+        this.cfaWidth = cfaWidth;
+      }
+    
     @Override
     protected boolean isCompressedRaster()
       {
@@ -60,8 +74,8 @@ public class RAFRasterReader extends RasterReader
         final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
         final short[] data = dataBuffer.getData();
 
-        int raw_width = 4224;
-        int raw_height = 1544;
+        int raw_width = cfaWidth;
+        int raw_height = cfaHeight;
         int top_margin = 0;
         int left_margin = 64;
         int fuji_width = 2048;
