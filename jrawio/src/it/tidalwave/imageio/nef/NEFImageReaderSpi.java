@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: NEFImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id: NEFImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -43,7 +43,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id: NEFImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
  ******************************************************************************/
 public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
@@ -59,7 +59,7 @@ public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
      *******************************************************************************/
     public NEFImageReaderSpi()
       {
-        super("NEF", new String[] { "nef", "ndf" }, "image/nef", NEFImageReader.class);
+        super("NEF", new String[] { "nef", "ndf" }, "image/x-nikon-nef", NEFImageReader.class);
       }
 
     /*******************************************************************************

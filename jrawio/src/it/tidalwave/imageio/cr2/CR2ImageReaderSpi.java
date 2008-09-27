@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CR2ImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id: CR2ImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.cr2;
@@ -39,19 +39,20 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: CR2ImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id: CR2ImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CR2ImageReaderSpi extends RAWImageReaderSpiSupport
   {
-    private final static Logger logger = Logger.getLogger("it.tidalwave.imageio.cr2.CR2ImageReaderSpi");
+    private final static String CLASS = CR2ImageReaderSpi.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
     
     /*******************************************************************************
      *
      ******************************************************************************/
     public CR2ImageReaderSpi ()
       {
-        super("CR2", "cr2", "image/cr2", CR2ImageReader.class);
+        super("CR2", "cr2", "image/x-canon-cr2", CR2ImageReader.class);
       }
 
     /*******************************************************************************

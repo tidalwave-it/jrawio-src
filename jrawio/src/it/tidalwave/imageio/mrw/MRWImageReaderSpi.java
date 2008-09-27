@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: MRWImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id: MRWImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id: MRWImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
  ******************************************************************************/
 public class MRWImageReaderSpi extends RAWImageReaderSpiSupport
@@ -55,7 +55,7 @@ public class MRWImageReaderSpi extends RAWImageReaderSpiSupport
      **************************************************************************/
     public MRWImageReaderSpi()
       {
-        super("MRW", "mrw", "image/mrw", MRWImageReader.class);
+        super("MRW", "mrw", "image/x-minolta-mrw", MRWImageReader.class);
       }
 
     /***************************************************************************

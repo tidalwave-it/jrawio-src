@@ -53,7 +53,7 @@ public class ARWImageReaderSpi extends RAWImageReaderSpiSupport
      *******************************************************************************/
     public ARWImageReaderSpi()
       {
-        super("ARW", "arw", "image/arw", ARWImageReader.class);
+        super("ARW", "arw", "image/x-sony-arw", ARWImageReader.class);
       }
 
     /*******************************************************************************

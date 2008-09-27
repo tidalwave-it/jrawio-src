@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: CRWImageReaderSpi.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * $Id: CRWImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWImageReaderSpi.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * @version $Id: CRWImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
  ******************************************************************************/
 public class CRWImageReaderSpi extends RAWImageReaderSpiSupport
@@ -47,7 +47,7 @@ public class CRWImageReaderSpi extends RAWImageReaderSpiSupport
      *******************************************************************************/
     public CRWImageReaderSpi ()
       {
-        super("CRW", "crw", "image/crw", CRWImageReader.class);
+        super("CRW", "crw", "image/x-canon-crw", CRWImageReader.class);
       }
 
     /*******************************************************************************

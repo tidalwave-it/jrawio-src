@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DNGImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: DNGImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.dng;
@@ -38,7 +38,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DNGImageReaderSpi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: DNGImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DNGImageReaderSpi extends RAWImageReaderSpiSupport
@@ -49,7 +49,7 @@ public class DNGImageReaderSpi extends RAWImageReaderSpiSupport
      *******************************************************************************/
     public DNGImageReaderSpi ()
       {
-        super("DNG", "dng", "image/dng", DNGImageReader.class);
+        super("DNG", "dng", "image/x-adobe-dng", DNGImageReader.class);
       }
 
     /*******************************************************************************

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: DCRImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id: DCRImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.dcr;
@@ -35,17 +35,17 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
-import it.tidalwave.imageio.pef.PEFImageReader;
 
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DCRImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id: DCRImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
  ******************************************************************************/
 public class DCRImageReaderSpi extends RAWImageReaderSpiSupport
   {
-    private final static Logger logger = Logger.getLogger("it.tidalwave.imageio.dcr.DCRImageReaderSpi");
+    private final static String CLASS = DCRImageReaderSpi.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
     
     /*******************************************************************************
      * 
@@ -53,7 +53,7 @@ public class DCRImageReaderSpi extends RAWImageReaderSpiSupport
      *******************************************************************************/
     public DCRImageReaderSpi ()
       {
-        super("DCR", "dcr", "image/dcr", DCRImageReader.class);
+        super("DCR", "dcr", "image/x-kodak-dcr", DCRImageReader.class);
       }
 
     /*******************************************************************************

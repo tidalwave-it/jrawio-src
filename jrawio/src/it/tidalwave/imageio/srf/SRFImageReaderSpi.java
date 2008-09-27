@@ -1,4 +1,4 @@
-/*******************************************************************************
+    /*******************************************************************************
  *
  * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
  * ==========================================================
@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: SRFImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id: SRFImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.srf;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: SRFImageReaderSpi.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id: SRFImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
  ******************************************************************************/
 public class SRFImageReaderSpi extends RAWImageReaderSpiSupport
@@ -53,7 +53,7 @@ public class SRFImageReaderSpi extends RAWImageReaderSpiSupport
      *******************************************************************************/
     public SRFImageReaderSpi()
       {
-        super("SRF", "srf", "image/srf", SRFImageReader.class);
+        super("SRF", "srf", "image/x-sony-srf", SRFImageReader.class);
       }
 
     /*******************************************************************************
