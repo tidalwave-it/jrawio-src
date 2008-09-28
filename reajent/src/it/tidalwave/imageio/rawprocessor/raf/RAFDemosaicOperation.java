@@ -61,7 +61,7 @@ public class RAFDemosaicOperation extends OperationSupport
       {
         logger.fine("process()");
         cfaPattern = image.getCFAPattern();
-        String cfaPatternAsString = "BGGR"; // no RGGB, GBRG, GRBG
+        String cfaPatternAsString = "GBRG";
         algorithm = chooseDemosaicAlgorithm(cfaPatternAsString);
         double redCoeff = image.getRedCoefficient();
         double greenCoeff = image.getGreenCoefficient();

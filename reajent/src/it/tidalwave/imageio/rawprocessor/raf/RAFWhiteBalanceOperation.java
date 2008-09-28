@@ -56,10 +56,12 @@ public class RAFWhiteBalanceOperation extends OperationSupport
         final FujiRawData fujiRawData = rafMetadata.getFujiRawData();
         final FujiTable1 fujiTable1 = fujiRawData.getFujiTable1();
         final short[] coefficients = fujiTable1.getCoefficients();
-        
-        for (int i = 0; i < 4; i++)
-          {
-            image.multiplyCFACoefficient(i, coefficients[i]);
-          }
+        image.multiplyRedCoefficient(coefficients[1] / 256.0);
+        image.multiplyGreenCoefficient(coefficients[0] / 256.0);
+        image.multiplyBlueCoefficient(coefficients[3] / 256.0);
+//        for (int i = 0; i < 4; i++)
+//          {
+//            image.multiplyCFACoefficient(i, coefficients[i]);
+//          }
       }    
   }

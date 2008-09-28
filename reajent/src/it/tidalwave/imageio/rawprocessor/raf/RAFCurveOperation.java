@@ -60,6 +60,6 @@ public class RAFCurveOperation extends CurveOperation
      ******************************************************************************/
     protected double getWhiteLevel (RAWImage image)
       {
-        return 4095; // FIXME
+        return 8191; // FIXME
       }
   }

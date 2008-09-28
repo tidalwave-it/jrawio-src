@@ -52,7 +52,7 @@ public class RAFProcessor extends RAWProcessor
         operationList.add(new RAFWhiteBalanceOperation());
 //        operationList.add(new RAFExposureOperation());
         operationList.add(new RAFCurveOperation());
-//        operationList.add(new RAFDemosaicOperation());
+        operationList.add(new RAFDemosaicOperation());
         operationList.add(new RAFRotateOperation());
 ////        operationList.add(new RAFSizeOperation());
         operationList.add(new ColorProfileOperation());
