@@ -179,4 +179,15 @@ public class RAFRasterReader extends RasterReader
             iis.skipBytes(2 * (cfaWidth - width));
           }
       }
+
+    /***************************************************************************
+     *
+     * Fuji seems to be GMYC, so we need four bands.
+     *
+     ***************************************************************************/
+//    @Override
+//    protected int[] getBandOffsets()
+//      {
+//        return new int[] { 0, 1, 2, 3};
+//      }
   }

@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RasterReader.java 180 2008-09-27 20:29:01Z fabriziogiudici $
+ * $Id: RasterReader.java 191 2008-09-28 01:01:26Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -61,7 +61,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * </ul>
  * 
  * @author  Fabrizio Giudici
- * @version $Id: RasterReader.java 180 2008-09-27 20:29:01Z fabriziogiudici $
+ * @version $Id: RasterReader.java 191 2008-09-28 01:01:26Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RasterReader
@@ -545,13 +545,13 @@ public class RasterReader
      * @return  the raster
      * 
      *******************************************************************************/
-    protected WritableRaster createRaster ()
+    final protected WritableRaster createRaster()
       {
-        int type = DataBuffer.TYPE_USHORT;
-        int[] bandOffsets = { RasterReader.R_OFFSET, RasterReader.G_OFFSET, RasterReader.B_OFFSET };
-        int bandCount = bandOffsets.length;
-        int pixelStride = bandCount;
-        int scanlineStride = pixelStride * width;
+        final int type = DataBuffer.TYPE_USHORT;
+        final int[] bandOffsets = getBandOffsets();
+        final int bandCount = bandOffsets.length;
+        final int pixelStride = bandCount;
+        final int scanlineStride = pixelStride * width;
 
         return Raster.createInterleavedRaster(type, width, height, scanlineStride, pixelStride, bandOffsets, null);
       }
@@ -653,5 +653,14 @@ public class RasterReader
     protected int getSkipCountAtEndOfRow (int y, int height)
       {
         return 0;
+      }
+
+    /***************************************************************************
+     *
+     *
+     **************************************************************************/
+    protected int[] getBandOffsets()
+      {
+        return new int[] {RasterReader.R_OFFSET, RasterReader.G_OFFSET, RasterReader.B_OFFSET};
       }
   }

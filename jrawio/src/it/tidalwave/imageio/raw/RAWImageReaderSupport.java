@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImageReaderSupport.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id: RAWImageReaderSupport.java 191 2008-09-28 01:01:26Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -57,7 +57,7 @@ import javax.annotation.Nonnull;
  * This class provides support for all RAW image readers.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: RAWImageReaderSupport.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id: RAWImageReaderSupport.java 191 2008-09-28 01:01:26Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class RAWImageReaderSupport extends ImageReader
@@ -242,6 +242,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
      * a chance to use a decorator for the input.
      * 
      *******************************************************************************/
+    @Override
     public void setInput (Object input,
                           boolean seekForwardOnly,
                           boolean ignoreMetadata)
@@ -263,6 +264,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
      * @inheritDoc
      *
      ******************************************************************************/
+    @Override
     public final void reset ()
       {
         logger.fine("reset()");
@@ -275,6 +277,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
      * @inheritDoc
      *
      ******************************************************************************/
+    @Override
     public final void dispose ()
       {
         logger.fine("dispose()");
@@ -288,6 +291,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
      * RasterReader. FIXME: this is not elegant.
      *
      ******************************************************************************/
+    @Override
     public void processImageProgress (float progress)
       {
         super.processImageProgress(progress);
@@ -298,6 +302,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
      * @inheritDoc
      * 
      ******************************************************************************/
+    @Override
     public boolean readerSupportsThumbnails()
       {
         return true;
@@ -458,13 +463,12 @@ public abstract class RAWImageReaderSupport extends ImageReader
      * @return				the new BufferedImage
      * 
      *******************************************************************************/
-    protected BufferedImage createImage (int transferType,
-                                         int colorSpaceType,
-                                         WritableRaster raster)
+    protected final BufferedImage createImage (final int transferType,
+                                               final ColorSpace colorSpace,
+                                               final WritableRaster raster)
       {
-        ColorSpace colorSpace = ColorSpace.getInstance(colorSpaceType);
-        ColorModel colorModel = new ComponentColorModel(colorSpace, false, false, Transparency.OPAQUE, transferType);
-        Properties properties = new Properties();
+        final ColorModel colorModel = new ComponentColorModel(colorSpace, false, false, Transparency.OPAQUE, transferType);
+        final Properties properties = new Properties();
 
         return new BufferedImage(colorModel, raster, false, properties);
       }
@@ -474,7 +478,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
      * Releases all the allocated resources.
      * 
      *******************************************************************************/
-    protected void disposeAll ()
+    protected void disposeAll()
       {
         image = null;
         thumbnail = null;
@@ -542,15 +546,30 @@ public abstract class RAWImageReaderSupport extends ImageReader
      * @throws IOException  if an I/O error occurs
      * 
      *******************************************************************************/
-    protected final BufferedImage loadRAWImage() throws IOException
+    protected final BufferedImage loadRAWImage()
+      throws IOException
       {
         logger.fine("loadRAWImage() - iis: %s", iis);
-        WritableRaster raster = loadRAWRaster();
-        int dataType = raster.getDataBuffer().getDataType();
-        BufferedImage bufferedImage = createImage(dataType, ColorSpace.CS_LINEAR_RGB, raster);
-        logger.fine(">>>> loadImage() completed ok");
+        final WritableRaster raster = loadRAWRaster();
+        final int dataType = raster.getDataBuffer().getDataType();
+        final BufferedImage bufferedImage = createImage(dataType, getColorSpace(), raster);
+        logger.fine(">>>> loadRAWImage() completed ok");
 
         return bufferedImage;
+      }
+
+    /***************************************************************************
+     *
+     * Returns the {@link ColorSpace} used to create the image. By default this
+     * method returns a linear RGB space which is fine for all formats based
+     * on a RGB Bayer array.
+     *
+     * @return   the <code>ColorSpace</code>
+     *
+     **************************************************************************/
+    protected ColorSpace getColorSpace()
+      {
+        return ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB);
       }
 
     /*******************************************************************************

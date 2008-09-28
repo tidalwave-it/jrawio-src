@@ -37,6 +37,9 @@ import javax.imageio.spi.ImageReaderSpi;
 import it.tidalwave.imageio.raw.RasterReader;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
+import java.awt.color.ColorSpace;
+import java.awt.image.BufferedImage;
+import java.awt.image.ComponentColorModel;
 
 /*******************************************************************************
  *
@@ -116,6 +119,42 @@ public class RAFImageReader extends TIFFImageReaderSupport
 
     /***************************************************************************
      *
+     * Fuji has 4 bands, not a RGB, so we can't use CS_LINEAR_RGB.
+     *
+     **************************************************************************/
+//    @Override
+//    protected ColorSpace getColorSpace()
+//      {
+//        return new ColorSpace(ColorSpace.TYPE_4CLR, 4)
+//          {
+//            @Override
+//            public float[] toRGB(float[] arg0)
+//              {
+//                throw new UnsupportedOperationException("Not supported yet.");
+//              }
+//
+//            @Override
+//            public float[] fromRGB(float[] arg0)
+//              {
+//                throw new UnsupportedOperationException("Not supported yet.");
+//              }
+//
+//            @Override
+//            public float[] toCIEXYZ(float[] arg0)
+//              {
+//                throw new UnsupportedOperationException("Not supported yet.");
+//              }
+//
+//            @Override
+//            public float[] fromCIEXYZ(float[] arg0)
+//              {
+//                throw new UnsupportedOperationException("Not supported yet.");
+//              }
+//          };
+//      }
+    
+    /***************************************************************************
+     *
      * {@inheritDoc}
      * 
      **************************************************************************/
@@ -161,7 +200,8 @@ public class RAFImageReader extends TIFFImageReaderSupport
         final IFD exif = ((RAFMetadata) metadata).getExifIFD();
         rasterReader.setRasterOffset(fujiRawData.getCFAOffset());
         rasterReader.setStripByteCount(fujiRawData.getCFALength());
-        rasterReader.setCFAPattern(exif.getComponentConfiguration());
+        rasterReader.setCFAPattern(new byte[]{ 1, 2, 0, 1});
+//        rasterReader.setCFAPattern(exif.getComponentConfiguration());
         rasterReader.setCompression(0); // FIXME
 //        rasterReader.setCompression(primaryIFD.getCompression().intValue());
       }
