@@ -133,45 +133,45 @@ public class RAFRasterReader extends RasterReader
         iis.seek(this.rasterOffset);
         final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
         final short[] data = dataBuffer.getData();
-        iis.skipBytes((topMargin * cfaWidth + leftMargin) * 2);
+//        iis.skipBytes((topMargin * cfaWidth + leftMargin) * 2);
         final int width = offset * (fujiLayout ? 1 : 2);
         final int pixelStride = 3;
         final int scanStride = pixelStride * raster.getWidth();
 
-        for (int row = 0; row < cfaHeight - 1; row++) // FIXME: - 1
+        for (int y = 0; y < cfaHeight - 1; y++) // FIXME: - 1
           {
             if (fujiLayout)
               {
-                for (int col = 0; col < width; col++)
+                for (int x = 0; x < width; x++)
                   {
                     // TODO: refactor as the case below
-                    int r = offset - 1 - col + (row >> 1);
-                    int c = col + ((row+1) >> 1);
-                    final int cfaIndex = (2 * (r & 1)) + (c & 1);
-                    data[c * pixelStride + r * scanStride + cfaOffsets[cfaIndex]] = iis.readShort();
+                    int y0 = offset - 1 - x + (y >> 1);
+                    int x0 = x + ((y + 1) >> 1);
+                    final int cfaIndex = (2 * (y0 & 1)) + (x0 & 1);
+                    data[x0 * pixelStride + y0 * scanStride + cfaOffsets[cfaIndex]] = iis.readShort();
                   }
               }
 
             else
               {
-                int r = offset + row;
-                int c = row;
-                int scan = c * pixelStride + r * scanStride;
+                int y0 = offset + y;
+                int x0 = y;
+                int scan = x0 * pixelStride + y0 * scanStride;
                 
                 for (int col = 0; col < width; col++)
                   {
                     if ((col % 2) == 0)
                       {
-                        r--;
+                        y0--;
                         scan -= scanStride;
                       }
                     else 
                       {
-                        c++;
+                        x0++;
                         scan += pixelStride;
                       }
 
-                    final int cfaIndex = (2 * (r & 1)) + (c & 1);
+                    final int cfaIndex = (2 * (y0 & 1)) + (x0 & 1);
                     data[scan + cfaOffsets[cfaIndex]] = iis.readShort();
                   }
               }
