@@ -209,7 +209,7 @@ public class ImageReaderTestSupport extends TestSupport
 
         // Comparisons are broken with JDK 1.5.0, don't make tests fail under Hudson.
         // See http://jrawio.tidalwave.it/issues/browse/JRW-162
-        if ("JDK 1.5.0".equals(System.getProperty("jdk")))
+        if (System.getProperty("java.version").contains("1.5.0"))
           {
             Logger.getAnonymousLogger().warning("Not testing raster's MD5 on Java 5 because of JRW-162");
           }
