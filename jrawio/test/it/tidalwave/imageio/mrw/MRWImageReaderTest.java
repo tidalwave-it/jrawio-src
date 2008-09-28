@@ -27,7 +27,7 @@
  ******************************************************************************/
 package it.tidalwave.imageio.mrw;
 
-import it.tidalwave.imageio.ImageReaderSupport;
+import it.tidalwave.imageio.ImageReaderTestSupport;
 import it.tidalwave.imageio.minolta.MinoltaRawData;
 import it.tidalwave.imageio.minolta.MinoltaRawData.PRD;
 import it.tidalwave.imageio.minolta.MinoltaRawData.RIF;
@@ -45,7 +45,7 @@ import static org.junit.Assert.*;
  * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-public class MRWImageReaderTest extends ImageReaderSupport
+public class MRWImageReaderTest extends ImageReaderTestSupport
   {
     @Test
     public void testMIMEType()

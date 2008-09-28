@@ -42,6 +42,7 @@ import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferUShort;
 import java.io.FileOutputStream;
 import java.util.Iterator;
+import java.util.logging.Logger;
 import javax.imageio.spi.ImageReaderSpi;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
@@ -52,7 +53,7 @@ import static org.junit.Assert.*;
  * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-public class ImageReaderSupport extends TestSupport
+public class ImageReaderTestSupport extends TestSupport
   {
     private static String testFolder;
         
@@ -205,7 +206,17 @@ public class ImageReaderSupport extends TestSupport
           }
 
         final byte[] digest = md5.digest();
-        assertEquals(expectedRasterMD5, asString(digest));
+
+        // Comparisons are broken with JDK 1.5.0, don't make tests fail under Hudson.
+        // See http://jrawio.tidalwave.it/issues/browse/JRW-162
+        if ("JDK 1.5.0".equals(System.getProperty("jdk")))
+          {
+            Logger.getAnonymousLogger().warning("Not testing raster's MD5 on Java 5 because of JRW-162");
+          }
+        else
+          {
+            assertEquals(expectedRasterMD5, asString(digest));
+          }
       }
     
     /***************************************************************************

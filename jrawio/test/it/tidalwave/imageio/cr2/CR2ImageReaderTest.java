@@ -27,7 +27,7 @@
  ******************************************************************************/
 package it.tidalwave.imageio.cr2;
 
-import it.tidalwave.imageio.ImageReaderSupport;
+import it.tidalwave.imageio.ImageReaderTestSupport;
 import org.junit.Test;
 
 /*******************************************************************************
@@ -36,7 +36,7 @@ import org.junit.Test;
  * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-public class CR2ImageReaderTest extends ImageReaderSupport
+public class CR2ImageReaderTest extends ImageReaderTestSupport
   {
     @Test
     public void testMIMEType()

@@ -29,7 +29,7 @@ package it.tidalwave.imageio.rawprocessor.nef;
 
 import javax.imageio.ImageReader;
 import java.awt.image.BufferedImage;
-import it.tidalwave.imageio.ImageReaderSupport;
+import it.tidalwave.imageio.ImageReaderTestSupport;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -39,7 +39,7 @@ import static org.junit.Assert.*;
  * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-public class NEFProcessorTest extends ImageReaderSupport
+public class NEFProcessorTest extends ImageReaderTestSupport
   {
     @Test
     public void test1() 

@@ -28,7 +28,7 @@
 package it.tidalwave.imageio.nef;
 
 import javax.imageio.ImageReader;
-import it.tidalwave.imageio.ImageReaderSupport;
+import it.tidalwave.imageio.ImageReaderTestSupport;
 import java.awt.image.BufferedImage;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -39,7 +39,7 @@ import static org.junit.Assert.*;
  * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
  ******************************************************************************/
-public class NEFImageReaderTest extends ImageReaderSupport
+public class NEFImageReaderTest extends ImageReaderTestSupport
   {
     @Test
     public void testMIMEType()
