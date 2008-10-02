@@ -75,13 +75,21 @@
 
     ======================================================================== -->
     <target name="gettag">
-        <delete failonerror="false" file="subversion.properties" />
-        <exec command="svn info -r HEAD" output="subversion.properties"/>
-        <property file="subversion.properties"/>
+        <delete failonerror="false" file="subversion1.properties" />
+        <delete failonerror="false" file="subversion2.properties" />
+        <exec executable="svn" output="subversion1.properties">
+            <arg line="info -r HEAD"/>
+        </exec>
+        <exec executable="svn" output="subversion2.properties">
+            <arg line="info -r HEAD tools"/>
+        </exec>
+        <property prefix="subversion1" file="subversion1.properties"/>
+        <property prefix="subversion2" file="subversion2.properties"/>
+        <delete file="subversion1.properties" />
+        <delete file="subversion2.properties" />
+
+        <property name="tag" value="${subversion1.Revision}-${subversion2.Revision}"/>
+        <echo message="Current build is ${tag}..." />
         <property file="RELEASE"/>
-        <property name="tag" value="${Release}.${Revision}"/>
-        <delete failonerror="false" file="subversion.properties" />
-        <echo message="Current tag is ${tag}..." />
-        <echo message="PLEASE VERIFY THAT THE CURRENT TAG IS DIFFERENT THAN THE PREVIOUS RELEASE" />
     </target>
 </project>
