@@ -88,8 +88,8 @@
         <delete file="subversion1.properties" />
         <delete file="subversion2.properties" />
 
-        <property name="tag" value="${subversion1.Revision}-${subversion2.Revision}"/>
+        <property prefix="release" file="RELEASE"/>
+        <property name="tag" value="${release.Release}-${subversion1.Revision}-${subversion2.Revision}"/>
         <echo message="Current build is ${tag}..." />
-        <property file="RELEASE"/>
     </target>
 </project>
