@@ -82,8 +82,8 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
       }
     
     @Test
-    public void testJRW149_JRW150() 
-      throws Exception 
+    public void testJRW149_JRW150()
+      throws Exception
       {
         final String path = "mpetersen/Nikon/D70s/NEF/Nikon_D70s_0001.NEF";
         final ImageReader ir = getImageReader(path);
@@ -96,7 +96,26 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 0, 106, 160);
         assertLoadThumbnail(ir, 1, 384, 255);
         close(ir);
-        
+
         assertRaster(image, path, "3c9baff5d7f0fc4cd0ad5f381a518e7a");
+      }
+
+    @Test
+    public void testJRW129()
+      throws Exception
+      {
+        final String path = "others/konstantinmaslov/Nikon/D50/NEF/France_Collioure_1.NEF";
+        final ImageReader ir = getImageReader(path);
+        assertEquals(1, ir.getNumImages(false));
+        assertEquals(2, ir.getNumThumbnails(0));
+        assertImage(ir, 3040, 2014);
+        assertThumbnail(ir, 0, 160, 120);
+        assertThumbnail(ir, 1, 3008, 2000);
+        final BufferedImage image = assertLoadImage(ir, 3040, 2014, 3, 16);
+        assertLoadThumbnail(ir, 0, 160, 120);
+        assertLoadThumbnail(ir, 1, 3008, 2000);
+        close(ir);
+
+        assertRaster(image, path, "13c348ef117741937f77f9971e4d52fb");
       }
   }
