@@ -77,8 +77,8 @@ public class NEFProcessorTest extends ImageReaderTestSupport
       }
     
     @Test
-    public void test3() 
-      throws Exception 
+    public void test3()
+      throws Exception
       {
         final String path = "mpetersen/Nikon/D70s/NEF/Nikon_D70s_0001.NEF";
         final ImageReader ir = getImageReader(path);
@@ -91,7 +91,26 @@ public class NEFProcessorTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 0, 106, 160);
         assertLoadThumbnail(ir, 1, 384, 255);
         close(ir);
-        
+
         assertRaster(image, path, "b151891922a90a61ca93dd849107a593");
+      }
+
+    @Test
+    public void testJSR129()
+      throws Exception
+      {
+        final String path = "others/konstantinmaslov/Nikon/D50/NEF/France_Collioure_1.NEF";
+        final ImageReader ir = getImageReader(path);
+        assertEquals(1, ir.getNumImages(false));
+        assertEquals(2, ir.getNumThumbnails(0));
+        assertImage(ir, 3040, 2014);
+        assertThumbnail(ir, 0, 160, 120);
+        assertThumbnail(ir, 1, 3008, 2000);
+        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 8); // FIXME: WRONG, should be 16 bits
+        assertLoadThumbnail(ir, 0, 160, 120);
+        assertLoadThumbnail(ir, 1, 3008, 2000);
+        close(ir);
+
+        assertRaster(image, path, "f5befb9e45972491aa951afa98216d25");
       }
   }
