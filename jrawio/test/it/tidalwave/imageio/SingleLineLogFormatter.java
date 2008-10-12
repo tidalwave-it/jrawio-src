@@ -86,7 +86,8 @@ public class SingleLineLogFormatter extends Formatter
        buffer1.append("] ");
        buffer1.append(padded(record.getLevel().getName(), 7));
        buffer1.append(" ");
-       buffer1.append(padded(record.getLoggerName(), 32));
+       final String loggerName = record.getLoggerName();
+       buffer1.append(padded((loggerName != null) ? loggerName : "", 32));
        buffer1.append(" - ");
 
        final String prefix = buffer1.toString();
