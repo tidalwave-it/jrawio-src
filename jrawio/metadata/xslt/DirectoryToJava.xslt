@@ -54,7 +54,7 @@ $Id: DirectoryToJava.xslt,v 1.2 2006/02/13 22:41:17 fabriziogiudici Exp $
         import it.tidalwave.imageio.raw.TagRegistry;
         import it.tidalwave.imageio.tiff.IFDSupport;
  
-        class <xsl:value-of select='@name'/>MakerNoteSupport extends IFDSupport
+        public class <xsl:value-of select='@name'/>MakerNoteSupport extends IFDSupport
         {
         private final static long serialVersionUID = <xsl:value-of select='$serialVersionUID'/>;
         public final static TagRegistry REGISTRY = TagRegistry.getRegistry("<xsl:value-of select='@name'/>");
