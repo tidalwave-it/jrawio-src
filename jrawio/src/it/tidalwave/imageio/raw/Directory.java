@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: Directory.java 163 2008-09-20 21:13:23Z fabriziogiudici $
+ * $Id: Directory.java 203 2008-10-12 12:43:28Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -46,7 +46,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: Directory.java 163 2008-09-20 21:13:23Z fabriziogiudici $
+ * @version $Id: Directory.java 203 2008-10-12 12:43:28Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class Directory implements Serializable
@@ -187,12 +187,22 @@ public abstract class Directory implements Serializable
         
         protected static boolean equals (String s1, String s2)
           {
+            if (s1 == s2)
+              {
+                return true;
+              }
+
+            if (s1 == null)
+              {
+                return false;
+              }
+
             return trim(s1).equals(trim(s2));   
           }
         
         private static String trim (String s)
           {
-            return s.trim(); // TODO: also remove leading zeros   
+            return (s == null) ? null : s.trim(); // TODO: also remove leading zeros
           }
       }
 
