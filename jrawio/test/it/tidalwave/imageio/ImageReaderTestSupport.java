@@ -152,7 +152,7 @@ public class ImageReaderTestSupport extends TestSupport
     protected ImageReader getImageReader (final String path)
       throws IOException
       {
-        final File file = new File(testFolder + "/" + path); 
+        final File file = new File(path.startsWith("/") ? path : (testFolder + "/" + path));
         assertTrue("File not found: " + file, file.exists()); 
         final ImageReader imageReader = ImageIO.getImageReaders(file).next();
         assertNotNull(imageReader);
