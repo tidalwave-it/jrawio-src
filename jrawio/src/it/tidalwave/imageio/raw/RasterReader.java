@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RasterReader.java 191 2008-09-28 01:01:26Z fabriziogiudici $
+ * $Id: RasterReader.java 209 2008-10-16 08:18:42Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -61,7 +61,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * </ul>
  * 
  * @author  Fabrizio Giudici
- * @version $Id: RasterReader.java 191 2008-09-28 01:01:26Z fabriziogiudici $
+ * @version $Id: RasterReader.java 209 2008-10-16 08:18:42Z fabriziogiudici $
  *
  ******************************************************************************/
 public class RasterReader
@@ -347,7 +347,7 @@ public class RasterReader
         assert height > 0 : "height not set";
         assert bitsPerSample > 0 : "bitsPerSample not set";
         assert (stripByteCount > 0) || (tileOffsets.length > 0) : "strips or tiles not set";
-        assert cfaOffsets != null : "cfaOffsets not set";
+//        assert cfaOffsets != null : "cfaOffsets not set"; can be plain RGB
         assert compression != -1 : "compression not set";
 
         WritableRaster raster = createRaster();
@@ -383,12 +383,26 @@ public class RasterReader
       {
         if (bitsPerSample == 16)
           {
-            loadUncompressedRaster16(iis, raster, ir);  
+            if (cfaOffsets != null)
+              {
+                loadUncompressedRaster16(iis, raster, ir);
+              }
+            else
+              {
+                loadRGBUncompressedRasterNot16(iis, raster, ir);
+              }
           }
         
         else
           {
-            loadUncompressedRasterNot16(iis, raster, ir);  
+            if (cfaOffsets != null)
+              {
+                loadUncompressedRasterNot16(iis, raster, ir);
+              }
+            else
+              {
+                loadRGBUncompressedRasterNot16(iis, raster, ir);
+              }
           }
       }
 
@@ -440,6 +454,61 @@ public class RasterReader
 
                 data[i + cfaOffsets[j + k]] = (short)sample;
                 i += pixelStride;
+              }
+
+            iis.skipBits(getSkipCountAtEndOfRow(y, height));
+            ir.processImageProgress((100.0f * y) / height);
+          }
+      }
+
+    /*******************************************************************************
+     *
+     * Reads an uncompressed raster.
+     *
+     * @param  iis          the image input stream
+     * @param  raster       the raster to read data into
+     * @param  ir           the image reader
+     * @throws IOException  if an I/O error occurs
+     *
+     ******************************************************************************/
+    protected void loadRGBUncompressedRasterNot16 (RAWImageInputStream iis,
+                                                   WritableRaster raster,
+                                                   RAWImageReaderSupport ir)
+      throws IOException
+      {
+        logger.fine("loadRGBUncompressedRasterNot16()");
+
+        DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
+        short[] data = dataBuffer.getData();
+        int width = raster.getWidth();
+        int height = raster.getHeight();
+        int pixelStride = 3; // FIXME
+        int scanStride = width * pixelStride;
+        selectBitReader(iis, raster, bitsPerSample);
+        //
+        // We can rely on the fact that the array has been zeroed by the JVM,
+        // so we just set nonzero samples.
+        //
+        for (int y = 0; y < height; y++)
+          {
+            int row = getRow(y, height);
+            int i = row * scanStride;
+
+            for (int x = 0; x < width; x++)
+              {
+                iis.skipBits(getSkipCountAtColumn(x));
+
+                for (int c = 0; c < 3; c++)
+                  {
+                    int sample = (int)iis.readBits(bitsPerSample);
+
+                    if (linearizationTable != null)
+                      {
+                        sample = linearizationTable[sample];
+                      }
+
+                    data[i++] = (short)sample;
+                  }
               }
 
             iis.skipBits(getSkipCountAtEndOfRow(y, height));
