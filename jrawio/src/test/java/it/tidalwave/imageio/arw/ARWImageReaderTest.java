@@ -88,10 +88,10 @@ public class ARWImageReaderTest extends ImageReaderTestSupport
         assertEquals(new TagRational(256, 256), wbg.getGreen1Coefficient());
         assertEquals(new TagRational(256, 256), wbg.getGreen2Coefficient());
         assertEquals(new TagRational(736, 256), wbg.getBlueCoefficient());
-        assertEquals(1.40234375, wbg.getRedCoefficient().doubleValue());
-        assertEquals(1.0, wbg.getGreen1Coefficient().doubleValue());
-        assertEquals(1.0, wbg.getGreen2Coefficient().doubleValue());
-        assertEquals(2.875, wbg.getBlueCoefficient().doubleValue());
+        assertEquals(1.40234375, wbg.getRedCoefficient().doubleValue(), 0);
+        assertEquals(1.0, wbg.getGreen1Coefficient().doubleValue(), 0);
+        assertEquals(1.0, wbg.getGreen2Coefficient().doubleValue(), 0);
+        assertEquals(2.875, wbg.getBlueCoefficient().doubleValue(), 0);
         
         assertImage(ir, 3880, 2608);
         // FIXME: you should swap them, smaller first

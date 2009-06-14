@@ -88,10 +88,10 @@ public class MRWImageReaderTest extends ImageReaderTestSupport
         assertEquals(new TagRational(260, 256), wbg.getGreen1Coefficient());
         assertEquals(new TagRational(260, 256), wbg.getGreen2Coefficient());
         assertEquals(new TagRational(454, 256), wbg.getBlueCoefficient());
-        assertEquals(1.74609375, wbg.getRedCoefficient().doubleValue());
-        assertEquals(1.015625, wbg.getGreen1Coefficient().doubleValue());
-        assertEquals(1.015625, wbg.getGreen2Coefficient().doubleValue());
-        assertEquals(1.7734375, wbg.getBlueCoefficient().doubleValue());
+        assertEquals(1.74609375, wbg.getRedCoefficient().doubleValue(), 0);
+        assertEquals(1.015625, wbg.getGreen1Coefficient().doubleValue(), 0);
+        assertEquals(1.015625, wbg.getGreen2Coefficient().doubleValue(), 0);
+        assertEquals(1.7734375, wbg.getBlueCoefficient().doubleValue(), 0);
 
         assertImage(ir, 3008, 2000);
         assertThumbnail(ir, 0, 640, 480);
