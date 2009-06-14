@@ -7,10 +7,10 @@
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <explicit-platform explicit-source-supported="true"/>
             <source-roots>
-                <root id="src.src.dir"/>
+                <root id="src.src.dir" name="Source packages"/>
             </source-roots>
             <test-roots>
-                <root id="test.test.dir"/>
+                <root id="test.test.dir" name="Test packages"/>
             </test-roots>
         </data>
         <references xmlns="http://www.netbeans.org/ns/ant-project-references/1">
