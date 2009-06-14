@@ -109,6 +109,7 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
         if (!new File(path).exists()) // DSCF0001.dng can't be disclosed
           {
             System.err.println("WARNING: JRW165 skipped");
+            return;
           }
 
         final ImageReader ir = getImageReader(path);
