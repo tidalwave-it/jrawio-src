@@ -66,7 +66,7 @@ public class ImageReaderTestSupport extends TestSupport
       {                
         testFolder = System.getProperty("testset.folder");
         assertNotNull("You must set a property named 'testset.folder' " +
-                      "in nbproject/private/private.properties to point to the test files", testFolder);
+                      "to point to the test files", testFolder);
       }
 
     /***************************************************************************

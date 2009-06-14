@@ -3,13 +3,10 @@
 <project name="jrawio-generate-sources" default="generate-sources" basedir=".">
     <description>Builds, tests, and runs the project jrawio.</description>
    
-    <echo message="JAVA_HOME=${JAVA_HOME}"/>
-    <!-- Trick. Don't know why, but the -pre-compile task is called also by building
-         reajent (only if launched by the master build.xml). -->
     <property name="src.dir" value="src/main/java"/>
-    <property name="src2.dir" value="src/tool"/>
-    <property name="build.dir" value="target/tool-classes"/>
-    <property name="build.classes.dir" value="${build.dir}/classes"/>
+    <property name="tool.src.dir" value="src/tool"/>
+    <property name="build.dir" value="target"/>
+    <property name="build.classes.dir" value="${build.dir}/tool-classes"/>
     <property name="metadata.dir" value="src/main/metadata"/>
     <property name="metadata.dest" value="target/src-generated"/>
 
@@ -104,7 +101,7 @@
 
         <echo message="Auto-generating some sources (2)..."/>
         <mkdir dir="${build.classes.dir}"/>
-        <javac srcdir="${src2.dir}"
+        <javac srcdir="${tool.src.dir}"
                destdir="${build.classes.dir}"
                classpath="${javac.classpath}"
                source="1.5"
