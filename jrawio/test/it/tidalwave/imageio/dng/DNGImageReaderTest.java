@@ -79,10 +79,10 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
         
         assertRaster(image, path, "4225d6706501a9f0b6a5b225a0183e94");
       }
-    
+
     @Test
-    public void testJRW145() 
-      throws Exception 
+    public void testJRW145()
+      throws Exception
       {
         final String path = "esordini/Canon/EOS300D/Adobe/DNG/100_0043.DNG";
         final ImageReader ir = getImageReader(path);
@@ -95,7 +95,26 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 0, 256, 171);
         assertLoadThumbnail(ir, 1, 1024, 683);
         close(ir);
-        
+
         assertRaster(image, path, "6f9babc450b6fb414bbcca57918847a7");
+      }
+
+    @Test
+    public void testJRW165()
+      throws Exception
+      {
+        final String path = "/home/fritz/Desktop/DSCF0001.dng";
+        final ImageReader ir = getImageReader(path);
+        assertEquals(1, ir.getNumImages(false));
+        assertEquals(2, ir.getNumThumbnails(0));
+        assertImage(ir, 3024, 2016);
+        assertThumbnail(ir, 0, 256, 171);
+        assertThumbnail(ir, 1, 1024, 683);
+        final BufferedImage image = assertLoadImage(ir, 3024, 2016, 3, 16);
+        assertLoadThumbnail(ir, 0, 256, 171);
+        assertLoadThumbnail(ir, 1, 1024, 683);
+        close(ir);
+
+        assertRaster(image, path, "9e4d2ce859bcb61601e118d0cd08a19b");
       }
   }
