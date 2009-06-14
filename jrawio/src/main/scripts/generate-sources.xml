@@ -5,15 +5,16 @@
     
     <!-- Trick. Don't know why, but the -pre-compile task is called also by building
          reajent (only if launched by the master build.xml). -->
-    <property name="src.dir" value="../../../../jrawio/src/main/java"/>
-    <property name="src2.dir" value="../../../../jrawio/src/"/>
-    <property name="build.classes.dir" value="../../../build/classes"/>
-    <property name="metadata.dir" value="../../../../jrawio/src/main/metadata"/>
-    <property name="metadata.dest" value="../../../../jrawio/src-generated"/>
+    <property name="src.dir" value="../jrawio/src/main/java"/>
+    <property name="src2.dir" value="../jrawio/src/"/>
+    <property name="build.classes.dir" value="${build.dir}/classes"/>
+    <property name="metadata.dir" value="../jrawio/src/main/metadata"/>
+    <property name="metadata.dest" value="../jrawio/target/src-generated"/>
 
     <target name="generate-sources">
         <echo message="Auto-generating some sources..."/>
-        <mkdir dir="${basedir}/src-generated"/>
+        <mkdir dir="${basedir}/target/src-generated"/>
+
         <xslt in="${metadata.dir}/Nikon3MakerNote.xml" 
             out="${metadata.dest}/it/tidalwave/imageio/nef/Nikon3MakerNoteSupport.java" 
             style="${metadata.dir}/xslt/DirectoryToJava.xslt">
@@ -98,7 +99,9 @@
             <param name="serialVersionUID" expression="4390583459348573495L"/>
             <param name="package" expression="it.tidalwave.imageio.raf"/>
         </xslt>
+
         <echo message="Auto-generating some sources (2)..."/>
+        <mkdir dir="${build.classes.dir}"/> 
         <javac srcdir="${src2.dir}" 
             destdir="${build.classes.dir}" 
             classpath="${javac.classpath}" 
