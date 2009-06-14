@@ -160,8 +160,8 @@
 
     <modules>
         <module>jrawio</module>
-        <module>jrawio-test</module>
-        <module>reajent</module>
+        <!-- module>jrawio-test</module -->
+        <!-- module>reajent</module -->
     </modules>
 
 </project>

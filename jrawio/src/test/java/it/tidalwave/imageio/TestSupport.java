@@ -48,7 +48,7 @@ public class TestSupport
       {
         try 
           {
-            new File("logs").mkdirs();
+            new File("target/logs").mkdirs();
             final InputStream is = TestSupport.class.getResourceAsStream("log.properties");
             LogManager.getLogManager().readConfiguration(is);
             is.close();
@@ -76,5 +76,4 @@ public class TestSupport
             e.printStackTrace();
           }
       }
-    
   }
