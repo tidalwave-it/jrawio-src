@@ -67,6 +67,4 @@ public class CRWImageReaderTest extends ImageReaderTestSupport
         
         close(ir);
       }
-    
-
   }
