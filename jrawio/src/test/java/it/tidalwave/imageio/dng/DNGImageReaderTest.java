@@ -106,7 +106,7 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
       {
         final String path = "/home/fritz/Desktop/DSCF0001.dng";
 
-        if (!new File(path).exists()) // DSCF0001.dng can't be disclosed
+        if (!new File(path).exists()) // DSCF0001.dng can't be disclosed - FIXME
           {
             System.err.println("WARNING: JRW165 skipped");
             return;
