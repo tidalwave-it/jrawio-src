@@ -28,8 +28,9 @@
 package it.tidalwave.imageio.dng;
 
 import javax.imageio.ImageReader;
-import it.tidalwave.imageio.ImageReaderTestSupport;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import it.tidalwave.imageio.ImageReaderTestSupport;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -104,6 +105,12 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
       throws Exception
       {
         final String path = "/home/fritz/Desktop/DSCF0001.dng";
+
+        if (!new File(path).exists()) // DSCF0001.dng can't be disclosed
+          {
+            System.err.println("WARNING: JRW165 skipped");
+          }
+
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
