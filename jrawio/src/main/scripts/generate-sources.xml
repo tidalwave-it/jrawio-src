@@ -2,7 +2,8 @@
  
 <project name="jrawio-generate-sources" default="generate-sources" basedir=".">
     <description>Builds, tests, and runs the project jrawio.</description>
-    
+   
+    <echo message="JAVA_HOME=${JAVA_HOME}"/>
     <!-- Trick. Don't know why, but the -pre-compile task is called also by building
          reajent (only if launched by the master build.xml). -->
     <property name="src.dir" value="src/main/java"/>
@@ -14,7 +15,7 @@
 
     <target name="generate-sources">
         <echo message="Auto-generating some sources..."/>
-        <mkdir dir="${basedir}/target/src-generated"/>
+        <mkdir dir="${metadata.dest}"/>
 
         <xslt in="${metadata.dir}/Nikon3MakerNote.xml" 
             out="${metadata.dest}/it/tidalwave/imageio/nef/Nikon3MakerNoteSupport.java" 

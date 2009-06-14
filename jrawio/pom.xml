@@ -41,7 +41,9 @@
                      <phase>generate-sources</phase>
                      <configuration>
                         <tasks>
-                           <ant antfile="src/main/scripts/generate-sources.xml" target="generate-sources"/>
+                           <echo message="JAVA_HOME=${JAVA_HOME}"/>
+                           <ant antfile="src/main/scripts/generate-sources.xml" target="generate-sources" inheritAll="true">
+                           </ant>
                         </tasks>
                      </configuration>
                      <goals>
