@@ -33,6 +33,7 @@ import java.util.logging.Logger;
 import java.io.File;
 import java.io.InputStream;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 /*******************************************************************************
  *
@@ -75,5 +76,10 @@ public class TestSupport
           {
             e.printStackTrace();
           }
+      }
+
+    @Test
+    public void dummy() // FIXME: drop it, make this class ignored
+      {
       }
   }
