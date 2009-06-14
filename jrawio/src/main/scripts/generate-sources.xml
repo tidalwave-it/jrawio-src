@@ -5,11 +5,11 @@
     
     <!-- Trick. Don't know why, but the -pre-compile task is called also by building
          reajent (only if launched by the master build.xml). -->
-    <property name="src.dir" value="../jrawio/src/main/java"/>
-    <property name="src2.dir" value="../jrawio/src/"/>
-    <property name="build.classes.dir" value="build/classes"/>
-    <property name="metadata.dir" value="../jrawio/src/main/metadata"/>
-    <property name="metadata.dest" value="../jrawio/src-generated"/>
+    <property name="src.dir" value="../../../../jrawio/src/main/java"/>
+    <property name="src2.dir" value="../../../../jrawio/src/"/>
+    <property name="build.classes.dir" value="../../../build/classes"/>
+    <property name="metadata.dir" value="../../../../jrawio/src/main/metadata"/>
+    <property name="metadata.dest" value="../../../../jrawio/src-generated"/>
 
     <target name="generate-sources">
         <echo message="Auto-generating some sources..."/>

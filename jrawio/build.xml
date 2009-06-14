@@ -5,7 +5,6 @@
 
     <property name="tools.dir" value="${basedir}/../tools"/>
 
-    <import file="generate-sources.xml"/>
     <import file="nbproject/build-impl.xml"/>
     <import file="nbproject/profiler-build-impl.xml"/>    
     <import file="${tools.dir}/ant/openbluesky.xml"/>
@@ -13,7 +12,7 @@
     <target name="build" depends="jar"/> <!-- required by OpenBlueSky -->
 
     <target name="-pre-compile"> 
-        <ant antfile="generate-sources.xml" inheritall="false"/>
+        <ant antfile="src/main/scripts/generate-sources.xml" inheritall="false"/>
     </target>
 
     <target name="-post-clean">
