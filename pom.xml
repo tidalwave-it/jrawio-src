@@ -108,8 +108,8 @@
                     <systemProperties>
                         <property>
                             <name>testset.folder</name>
-                            <value>/Users/fritz/Business/Tidalwave/Projects/Imaging/trunk/www/TestSets/</value>
-                            <!-- value>${testset.folder}</value -->
+                            <!-- value>/Users/fritz/Business/Tidalwave/Projects/Imaging/trunk/www/TestSets/</value -->
+                            <value>${testset.folder}</value>
                         </property>
                     </systemProperties>
                 </configuration>
