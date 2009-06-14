@@ -13,7 +13,7 @@
 
     <!-- Trick. Don't know why, but the -pre-compile task is called also by building
          reajent (only if launched by the master build.xml). -->
-    <property name="src2.dir" value="../jrawio/src/main/java"/>
+    <property name="src2.dir" value="../jrawio/src/"/>
     <property name="metadata.dir" value="../jrawio/metadata"/>
     <property name="metadata.dest" value="../jrawio/src-generated"/>
 
