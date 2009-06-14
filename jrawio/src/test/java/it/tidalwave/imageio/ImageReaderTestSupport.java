@@ -65,7 +65,7 @@ public class ImageReaderTestSupport extends TestSupport
     public static void setupTestFolderPath() 
       {                
         testFolder = System.getProperty("testset.folder");
-        assertNotNull("You must set a property named 'test-sys-prop.testset.folder' " +
+        assertNotNull("You must set a property named 'testset.folder' " +
                       "in nbproject/private/private.properties to point to the test files", testFolder);
       }
 
