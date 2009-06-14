@@ -6,7 +6,7 @@
     <!-- Trick. Don't know why, but the -pre-compile task is called also by building
          reajent (only if launched by the master build.xml). -->
     <property name="src.dir" value="src/main/java"/>
-    <property name="src2.dir" value="src/"/>
+    <property name="src2.dir" value="src/tool"/>
     <property name="build.dir" value="target/tool-classes"/>
     <property name="build.classes.dir" value="${build.dir}/classes"/>
     <property name="metadata.dir" value="src/main/metadata"/>
