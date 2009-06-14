@@ -23,7 +23,7 @@ limitations under the License.
  
 ==============================================================================
  
-$Id: build.xml 224 2009-06-14 12:07:24Z fabriziogiudici $
+$Id: build.xml 225 2009-06-14 12:52:38Z fabriziogiudici $
 -->
 
 <project name="jrawio" default="jar" basedir=".">
@@ -91,7 +91,7 @@ $Id: build.xml 224 2009-06-14 12:07:24Z fabriziogiudici $
     <!-- =======================================================================
     
     ======================================================================== -->
-    <target name="coverage-report">
+    <target name="coverage-report" depends="-cobertura-init">
         <delete failonerror="false">
             <fileset dir=".">
                 <include name="**/cobertura.ser" />
