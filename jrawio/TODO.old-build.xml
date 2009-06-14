@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project name="jrawio" default="jar" basedir=".">
-    <description>Builds, tests, and runs the project jrawio.</description>
-
-    <property name="tools.dir" value="${basedir}/../tools"/>
-
-    <import file="nbproject/build-impl.xml"/>
-    <import file="nbproject/profiler-build-impl.xml"/>    
-    <import file="${tools.dir}/ant/openbluesky.xml"/>
-
-    <target name="build" depends="jar"/> <!-- required by OpenBlueSky -->
-
-    <target name="-pre-compile"> 
-        <ant antfile="src/main/scripts/generate-sources.xml" inheritall="false"/>
-    </target>
-
-    <target name="-post-clean">
-        <delete dir="${basedir}/src-generated" failonerror="false"/>
-    </target>
-
-    <target name="-post-jar">
-    </target>
-
 <!--
     <target name="makedocs">
         <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=211" dest="ChangeLog.html"/>
@@ -38,16 +17,6 @@
         <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=237" dest="${metadata.dir}/OlympusMakerNote.xml"/>
         <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=241" dest="${metadata.dir}/PentaxMakerNote.xml"/>
         <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=238" dest="${metadata.dir}/SonyMakerNote.xml"/>
-    </target>
--->
-
-<!--
-    <target name="gettag">
-        <delete failonerror="false" file="tag.properties" />
-        <java classpath="${build.classes.dir}" classname="it.tidalwave.imageio.raw.Version" output="tag.properties" />
-        <property file="tag.properties" />
-        <delete failonerror="false" file="tag.properties" />
-        <echo message="Current tag is ${tag}" />
     </target>
 -->
 
