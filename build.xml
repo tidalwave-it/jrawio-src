@@ -23,7 +23,7 @@ limitations under the License.
  
 ==============================================================================
  
-$Id: build.xml 163 2008-09-20 21:13:23Z fabriziogiudici $
+$Id: build.xml 224 2009-06-14 12:07:24Z fabriziogiudici $
 -->
 
 <project name="jrawio" default="jar" basedir=".">
@@ -35,12 +35,35 @@ $Id: build.xml 163 2008-09-20 21:13:23Z fabriziogiudici $
     <import file="publish.xml"/>
     
     
+    <property name="tools.dir" value="tools"/>
+    <property name="cobertura.dir" value="${tools.dir}/cobertura"/>
+
+    <target name="-cobertura-init">
+        <path id="cobertura.classpath">
+            <fileset dir="${cobertura.dir}">
+                <include name="cobertura.jar" />
+                <include name="lib/**/*.jar" />
+            </fileset>
+        </path>
+
+        <taskdef classpathref="cobertura.classpath" resource="tasks.properties"/>
+
+        <property name="cobertura.report.dir" value="build/test/cobertura-report"/>
+        <property name="cobertura.datafile" value="build/test/global-cobertura.ser"/>
+        <mkdir dir="build/test"/>
+
+        <delete file="${cobertura.datafile}" failonerror="false"/>
+        <delete dir="${cobertura.report.dir}" failonerror="false"/>
+
+    </target>
+
     <taskdef resource="org/kohsuke/javanettasks.properties">
         <classpath>
             <fileset dir="tools/javaNetTasks" />
         </classpath>
     </taskdef>    
-    
+
+ 
     <!-- =======================================================================
     Creates all the jar files in the project. 
     ======================================================================== -->
@@ -69,8 +92,32 @@ $Id: build.xml 163 2008-09-20 21:13:23Z fabriziogiudici $
     
     ======================================================================== -->
     <target name="coverage-report">
+        <delete failonerror="false">
+            <fileset dir=".">
+                <include name="**/cobertura.ser" />
+            </fileset>
+        </delete>
+
         <ant dir="jrawio" target="coverage-report" inheritall="false"/>
         <ant dir="reajent" target="coverage-report" inheritall="false"/> 
+
+        <delete file="${cobertura.datafile}" failonerror="false"/>
+        <cobertura-merge datafile="${cobertura.datafile}">
+            <fileset dir=".">
+                <include name="**/cobertura.ser" />
+            </fileset>
+        </cobertura-merge>
+        <cobertura-report datafile="${cobertura.datafile}" srcdir="${src.dir}" destdir="${cobertura.report.dir}">
+            <fileset dir=".">
+                <include name="**/*.java" />
+            </fileset>
+        </cobertura-report>
+        <cobertura-report datafile="${cobertura.datafile}" srcdir="${src.dir}" destdir="${cobertura.report.dir}" format="xml">
+            <fileset dir=".">
+                <include name="**/*.java" />
+            </fileset>
+        </cobertura-report>
+
     </target>
 
     <!-- =======================================================================
