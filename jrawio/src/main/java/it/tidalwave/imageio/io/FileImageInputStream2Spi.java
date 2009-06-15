@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: FileImageInputStream2Spi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: FileImageInputStream2Spi.java 263 2009-06-15 09:18:57Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.io;
@@ -38,14 +38,14 @@ import it.tidalwave.imageio.raw.Version;
 /*******************************************************************************
  *
  * @author  fritz
- * @version $Id: FileImageInputStream2Spi.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: FileImageInputStream2Spi.java 263 2009-06-15 09:18:57Z fabriziogiudici $
  *
  ******************************************************************************/
 public class FileImageInputStream2Spi extends ImageInputStreamSpi 
   {
     private static final String VENDOR_NAME = "www.tidalwave.it";
 
-    private static final String VERSION = Version.BUILD;
+    private static final String VERSION = Version.TAG;
 
     private static final Class INPUT_CLASS = File.class;
 

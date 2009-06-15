@@ -22,20 +22,22 @@
  *
  *******************************************************************************
  *
- * $Id: Version.java 261 2009-06-15 08:05:49Z fabriziogiudici $
+ * $Id: Version.java 263 2009-06-15 09:18:57Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
 
+import it.tidalwave.imageio.util.VersionLoader;
+
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: Version.java 261 2009-06-15 08:05:49Z fabriziogiudici $
+ * @version $Id: Version.java 263 2009-06-15 09:18:57Z fabriziogiudici $
  *
  ******************************************************************************/
 public final class Version
   {
-    public final static String BUILD = "1.5.0SNAPSHOT";
+    public final static String TAG = VersionLoader.getVersion(Version.class);
 
     private Version()
       {
@@ -43,6 +45,6 @@ public final class Version
 
     public static void main (final String ... args)
       {
-        System.out.println("tag: " + BUILD);
+        System.out.println("tag: " + TAG);
       }
   }

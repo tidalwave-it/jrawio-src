@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWProcessorInstaller.java 190 2008-09-27 22:51:11Z fabriziogiudici $
+ * $Id: RAWProcessorInstaller.java 263 2009-06-15 09:18:57Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -62,7 +62,7 @@ public class RAWProcessorInstaller
     
     static
       {
-        String jrawioVersion = it.tidalwave.imageio.raw.Version.BUILD;
+        String jrawioVersion = it.tidalwave.imageio.raw.Version.TAG;
         
         if (jrawioVersion.startsWith(Version.REQUIRED_JRAWIO_VERSION))
           {

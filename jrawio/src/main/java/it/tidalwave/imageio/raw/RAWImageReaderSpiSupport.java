@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWImageReaderSpiSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: RAWImageReaderSpiSupport.java 263 2009-06-15 09:18:57Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RAWImageReaderSpiSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: RAWImageReaderSpiSupport.java 263 2009-06-15 09:18:57Z fabriziogiudici $
  *
  ******************************************************************************/
 public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
@@ -80,7 +80,7 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
                                         String[] extraImageMetadataFormatNames,
                                         String[] extraImageMetadataFormatClassNames)
       {
-        super("tidalwave.it", Version.BUILD, names, suffixes, MIMETypes, readerClass.getName(), inputTypes,
+        super("tidalwave.it", Version.TAG, names, suffixes, MIMETypes, readerClass.getName(), inputTypes,
             writerSpiNames, supportsStandardStreamMetadataFormat, nativeStreamMetadataFormatName,
             nativeStreamMetadataFormatClassName, extraStreamMetadataFormatNames, extraStreamMetadataFormatClassNames,
             supportsStandardImageMetadataFormat, nativeImageMetadataFormatName, nativeImageMetadataFormatClassName,
