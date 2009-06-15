@@ -22,34 +22,27 @@
  *
  *******************************************************************************
  *
- * $Id: Version.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: Version.java 261 2009-06-15 08:05:49Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
 
-import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: Version.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: Version.java 261 2009-06-15 08:05:49Z fabriziogiudici $
  *
  ******************************************************************************/
 public final class Version
   {
-    public final static DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd_HHmm");
-    
-    public final static String REQUIRED_JRAWIO_VERSION = "1.5SNAPSHOT";
+    public final static String REQUIRED_JRAWIO_VERSION = "1.5.0SNAPSHOT";
 
-    /******************************************************************************
-     *
-     * Used by ant to get the current tag and use it in the build process.
-     *
-     ******************************************************************************/
-    public static void main (String[] args)
+    private Version()
       {
-        System.out.println("tag: " + dateFormat.format(new Date()) + "-" + REQUIRED_JRAWIO_VERSION);
+      }
+
+    public static void main (final String[] args)
+      {
+        System.out.println("tag: " + REQUIRED_JRAWIO_VERSION);
       }
   }
