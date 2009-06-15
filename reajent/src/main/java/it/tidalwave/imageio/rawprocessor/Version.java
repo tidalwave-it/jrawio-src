@@ -22,20 +22,22 @@
  *
  *******************************************************************************
  *
- * $Id: Version.java 261 2009-06-15 08:05:49Z fabriziogiudici $
+ * $Id: Version.java 264 2009-06-15 09:31:03Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
 
+import it.tidalwave.imageio.util.VersionLoader;
+
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: Version.java 261 2009-06-15 08:05:49Z fabriziogiudici $
+ * @version $Id: Version.java 264 2009-06-15 09:31:03Z fabriziogiudici $
  *
  ******************************************************************************/
 public final class Version
   {
-    public final static String REQUIRED_JRAWIO_VERSION = "1.5.0SNAPSHOT";
+    public final static String REQUIRED_JRAWIO_TAG = VersionLoader.getVersion(Version.class);
 
     private Version()
       {
@@ -43,6 +45,6 @@ public final class Version
 
     public static void main (final String[] args)
       {
-        System.out.println("tag: " + REQUIRED_JRAWIO_VERSION);
+        System.out.println("tag: " + REQUIRED_JRAWIO_TAG);
       }
   }

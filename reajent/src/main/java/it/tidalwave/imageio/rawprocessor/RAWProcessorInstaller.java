@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: RAWProcessorInstaller.java 263 2009-06-15 09:18:57Z fabriziogiudici $
+ * $Id: RAWProcessorInstaller.java 264 2009-06-15 09:31:03Z fabriziogiudici $
  *
  ******************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -64,7 +64,7 @@ public class RAWProcessorInstaller
       {
         String jrawioVersion = it.tidalwave.imageio.raw.Version.TAG;
         
-        if (jrawioVersion.startsWith(Version.REQUIRED_JRAWIO_VERSION))
+        if (jrawioVersion.startsWith(Version.REQUIRED_JRAWIO_TAG))
           {
             logger.info("Installing RAWProcessor...");
             RAWImageReaderSpiSupport.installPostProcessor(ARWImageReaderSpi.class, new ARWProcessor());
@@ -83,7 +83,7 @@ public class RAWProcessorInstaller
         else
           {
             logger.warning("This RAWProcessor cannot be installed!");    
-            logger.warning(">>>> Found jrawio version: " + jrawioVersion + ", required: " + Version.REQUIRED_JRAWIO_VERSION);    
+            logger.warning(">>>> Found jrawio version: " + jrawioVersion + ", required: " + Version.REQUIRED_JRAWIO_TAG);
           }
       }
   }
