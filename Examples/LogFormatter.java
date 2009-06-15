@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: LogFormatter.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: LogFormatter.java 259 2009-06-15 07:59:41Z fabriziogiudici $
  *
  ******************************************************************************/
 import java.io.PrintWriter;
@@ -36,7 +36,7 @@ import java.util.logging.LogRecord;
 /*******************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: LogFormatter.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: LogFormatter.java 259 2009-06-15 07:59:41Z fabriziogiudici $
  *
  ******************************************************************************/
 public class LogFormatter extends Formatter

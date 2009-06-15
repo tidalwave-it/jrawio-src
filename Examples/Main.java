@@ -22,7 +22,7 @@
  *
  *******************************************************************************
  *
- * $Id: Main.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id: Main.java 259 2009-06-15 07:59:41Z fabriziogiudici $
  *
  ******************************************************************************/
 import java.awt.Dimension;
@@ -52,7 +52,7 @@ import org.w3c.dom.Node;
  * A quick and dirty test program.
  *
  * @author  Fabrizio Giudici
- * @version $Id: Main.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id: Main.java 259 2009-06-15 07:59:41Z fabriziogiudici $
  *
  ******************************************************************************/
 public class Main
