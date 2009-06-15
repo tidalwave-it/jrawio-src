@@ -13,14 +13,15 @@
     
     <artifactId>jrawio</artifactId>
     <version>1.5.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>nbm</packaging>
     <name>jrawio</name>
 
     <dependencies>
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
-            <version>1.3.8</version>
+            <version>1.3.7</version>
+            <!-- WARNING: don't use 1.3.8, it has got a broken pom which brings is tons of useless stuff! -->
         </dependency>
     </dependencies>
 
@@ -70,15 +71,12 @@
             </plugin>
 
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
                     <instructions>
+                        <Export-Package>it.tidalwave.imageio.*</Export-Package>
+                        <!-- FIXME: some packages are needed by reajent - how to do friends?
                         <Private-Package>it.tidalwave.imageio.*</Private-Package>
                         <Export-Package>it.tidalwave.imageio.arw,
                                         it.tidalwave.imageio.cr2,
@@ -97,6 +95,7 @@
                                         it.tidalwave.imageio.srf,
                                         it.tidalwave.imageio.tiff
                         </Export-Package>
+                        -->
                     </instructions>
                 </configuration>
             </plugin>
