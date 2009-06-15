@@ -1,5 +1,0 @@
-# REMEMBER to keep these files in sync:
-# ./jrawio/src/it/tidalwave/imageio/raw/Version.java
-# ./reajent/src/it/tidalwave/imageio/rawprocessor/Version.java
-
-Release: 1.5SNAPSHOT
