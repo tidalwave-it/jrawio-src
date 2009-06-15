@@ -45,10 +45,6 @@
         </developer>
     </developers>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <mailingLists>
         <mailingList>
             <name>Commits</name>
@@ -70,8 +66,12 @@
         </license>
     </licenses>
 
-    <build>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <bundle.namespace>${pom.groupId}.${pom.artifactId}</bundle.namespace>
+    </properties>
 
+    <build>
         <resources>
             <resource>
                 <filtering>true</filtering>
@@ -151,11 +151,29 @@
                 <version>2.0</version>
                 <configuration>
                     <archive>
+                        <!-- Needed to put the OSGi stuff -->
+                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
                         <manifestEntries>
                             <Implementation-Build>${buildNumber}</Implementation-Build>
                         </manifestEntries>
                     </archive>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>1.4.0</version>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>manifest</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
@@ -177,6 +195,7 @@
                     </execution>
                 </executions>
             </plugin>
+            
         </plugins>
     </build>
 

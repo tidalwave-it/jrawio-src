@@ -75,13 +75,32 @@
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.0.2</version>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
                 <configuration>
-                    <debug>true</debug>
+                    <instructions>
+                        <Private-Package>it.tidalwave.imageio.*</Private-Package>
+                        <Export-Package>it.tidalwave.imageio.arw,
+                                        it.tidalwave.imageio.cr2,
+                                        it.tidalwave.imageio.crw,
+                                        it.tidalwave.imageio.dcr,
+                                        it.tidalwave.imageio.dng,
+                                        it.tidalwave.imageio.makernote,
+                                        it.tidalwave.imageio.minolta,
+                                        it.tidalwave.imageio.mrw,
+                                        it.tidalwave.imageio.nef,
+                                        it.tidalwave.imageio.orf,
+                                        it.tidalwave.imageio.pef,
+                                        it.tidalwave.imageio.raf,
+                                        it.tidalwave.imageio.raw,
+                                        it.tidalwave.imageio.rawprocessor,
+                                        it.tidalwave.imageio.srf,
+                                        it.tidalwave.imageio.tiff
+                        </Export-Package>
+                    </instructions>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 </project>

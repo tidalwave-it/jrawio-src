@@ -31,18 +31,35 @@
 
     <build>
         <plugins>
+            
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Private-Package>it.tidalwave.imageio.rawprocessor.*</Private-Package>
+                        <Export-Package>it.tidalwave.imageio.rawprocessor,
+                                        it.tidalwave.imageio.rawprocessor.arw,
+                                        it.tidalwave.imageio.rawprocessor.cr2,
+                                        it.tidalwave.imageio.rawprocessor.crw,
+                                        it.tidalwave.imageio.rawprocessor.dcr,
+                                        it.tidalwave.imageio.rawprocessor.dng,
+                                        it.tidalwave.imageio.rawprocessor.mrw,
+                                        it.tidalwave.imageio.rawprocessor.nef,
+                                        it.tidalwave.imageio.rawprocessor.orf,
+                                        it.tidalwave.imageio.rawprocessor.pef,
+                                        it.tidalwave.imageio.rawprocessor.raf,
+                                        it.tidalwave.imageio.rawprocessor.raw,
+                                        it.tidalwave.imageio.rawprocessor.srf,
+                                        it.tidalwave.imageio.nef
+                        </Export-Package>
+                    </instructions>
+                </configuration>
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.0.2</version>
-                <configuration>
-                    <debug>true</debug>
-                </configuration>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
