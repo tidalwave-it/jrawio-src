@@ -105,10 +105,12 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.4.2</version>
                 <configuration>
+                    <includes>
+                        <include>**/Test*.java</include>
+                    </includes>
                     <systemProperties>
                         <property>
                             <name>testset.folder</name>
-                            <!-- value>/Users/fritz/Business/Tidalwave/Projects/Imaging/trunk/www/TestSets/</value -->
                             <value>${testset.folder}</value>
                         </property>
                     </systemProperties>
