@@ -1,0 +1,16 @@
+    <assembly>
+        <id>project</id>
+        <formats>
+            <format>tar.gz</format>
+        </formats>
+        <fileSets>
+            <fileSet>
+                <directory>.</directory>
+                <outputDirectory>/</outputDirectory>
+                <useDefaultExcludes>true</useDefaultExcludes>
+                <excludes>
+                    <exclude>**/target/**</exclude>
+                </excludes>
+            </fileSet>
+        </fileSets>
+    </assembly>

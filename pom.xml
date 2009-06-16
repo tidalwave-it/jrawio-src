@@ -111,7 +111,7 @@
                 <configuration>
                     <descriptors>
                         <descriptor>etc/bin.xml</descriptor>
-                        <!-- descriptor>etc/project.xml</descripto -->
+                        <descriptor>etc/project.xml</descriptor>
                     </descriptors>
                 </configuration>
             </plugin>
