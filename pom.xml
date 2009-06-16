@@ -72,6 +72,8 @@
     </properties>
 
     <build>
+        <finalName>${project.artifactId}-${project.version}.${buildNumber}</finalName>
+        <!-- For buildNumber to be properly evaluated by assembly:assembly, use also the validate goal -->
         <resources>
             <resource>
                 <filtering>true</filtering>
