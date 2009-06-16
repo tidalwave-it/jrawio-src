@@ -148,7 +148,7 @@
                 <version>2.4.2</version>
                 <configuration>
                     <includes>
-                        <include>**/Test*.java</include>
+                        <include>**/*Test.java</include>
                     </includes>
                     <systemProperties>
                         <property>
