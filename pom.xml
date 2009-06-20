@@ -4,7 +4,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    
+
+    <!-- ***************************************************************************************************************
+    *
+    * Project description
+    *
+    **************************************************************************************************************** -->
     <groupId>it.tidalwave.imageio</groupId>
     <artifactId>jrawio-all</artifactId>
     <packaging>pom</packaging>
@@ -71,9 +76,36 @@
         <bundle.namespace>${pom.groupId}.${pom.artifactId}</bundle.namespace>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>1.3.7</version>
+            <!-- WARNING: don't use 1.3.8, it has got a broken pom which brings is tons of useless stuff! -->
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.5</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.7</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- ***************************************************************************************************************
+    *
+    *
+    *
+    **************************************************************************************************************** -->
     <build>
         <finalName>${project.artifactId}-${project.version}.${buildNumber}</finalName>
         <!-- For buildNumber to be properly evaluated by assembly:assembly, use also the validate goal -->
+        
         <resources>
             <resource>
                 <filtering>true</filtering>
@@ -84,20 +116,102 @@
             </resource>
         </resources>
 
+        <!-- ***********************************************************************************************************
+        *
+        * We want reproducible builds, so all Maven plugins have explicit version numbers.
+        *
+        ************************************************************************************************************ -->
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.0.2</version>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>2.5</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.2-beta-2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.4.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>2.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.3</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>1.0-beta-1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>1.0-beta-1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>nbm-maven-plugin</artifactId>
+                    <version>3.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>cobertura-maven-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>2.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.3</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>1.4.0</version>
+                </plugin>
             </plugins>
         </pluginManagement>
 
+        <!-- ***********************************************************************************************************
+        *
+        *
+        *
+        ************************************************************************************************************ -->
         <plugins>
+            <!-- Compiler -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.0.2</version>
                 <configuration>
                     <debug>true</debug>
                     <source>1.5</source>
@@ -107,9 +221,9 @@
                 </configuration>
             </plugin>
 
+            <!-- Assembler to produce final artifacts. Creates a -bin and -project (source) tarball. -->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.2-beta-2</version>
                 <configuration>
                     <descriptors>
                         <descriptor>etc/bin.xml</descriptor>
@@ -118,10 +232,10 @@
                 </configuration>
             </plugin>
 
+            <!-- Retrieves the 4th build number from Subversion revision. -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>1.0-beta-1</version>
                 <executions>
                     <execution>
                         <phase>validate</phase>
@@ -136,16 +250,10 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.5</version>
-            </plugin>
-
+            <!-- Executes tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.4.2</version>
                 <configuration>
                     <includes>
                         <include>**/*Test.java</include>
@@ -159,9 +267,9 @@
                 </configuration>
             </plugin>
 
+            <!-- Produces the JARs, with OSGi support and the Subversion revision in the Manifest -->
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.0</version>
                 <configuration>
                     <archive>
                         <!-- Needed to put the OSGi stuff -->
@@ -169,30 +277,22 @@
                         <manifestEntries>
                             <Implementation-Build>${buildNumber}</Implementation-Build>
                         </manifestEntries>
+                        <useDefaultManifestFile>true</useDefaultManifestFile> <!-- required since nbm-plugin 3.0-->
                     </archive>
                 </configuration>
             </plugin>
 
+            <!-- Produces the NBMs for the NetBeans Platform -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>nbm-maven-plugin</artifactId>
-                <version>3.0</version>
                 <extensions>true</extensions>
             </plugin>
             
-            <plugin> <!-- required since nbm-plugin 3.0-->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <useDefaultManifestFile>true</useDefaultManifestFile>
-                </configuration>
-            </plugin>
-
+            <!-- Produces the OSGi bundle information. -->
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
-                <version>1.4.0</version>
                 <extensions>true</extensions>
                 <executions>
                     <execution>
@@ -205,10 +305,10 @@
                 </executions>
             </plugin>
 
+            <!-- Cobertura support -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.2</version>
                 <configuration>
                     <formats>
                         <format>xml</format>
@@ -228,33 +328,11 @@
         </plugins>
     </build>
 
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.5</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>1.7</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
     <reporting>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.5</version>
-            </plugin>
-
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.0</version>
                 <configuration>
                     <xmlOutput>true</xmlOutput>
                     <threshold>Low</threshold>
@@ -268,7 +346,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.3</version>
                 <configuration>
                     <targetJdk>1.5</targetJdk>
                 </configuration>
@@ -277,7 +354,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.2</version>
                 <configuration>
                     <configLocation>etc/checkstyle.xml</configLocation>
                 </configuration>
