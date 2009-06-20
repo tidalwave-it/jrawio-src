@@ -383,7 +383,6 @@
         <module>jrawio</module>
         <!-- module>jrawio-test</module -->
         <module>reajent</module>
-        <!-- module>CoberturaMerge</module -->
     </modules>
 
 </project>
