@@ -163,6 +163,11 @@
                     <artifactId>maven-antrun-plugin</artifactId>
                     <version>1.3</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>1.2.1</version>
+                </plugin>
 
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -269,15 +274,16 @@
 
             <!-- Produces the JARs, with OSGi support and the Subversion revision in the Manifest -->
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
+                    <useDefaultManifestFile>true</useDefaultManifestFile> <!-- required since nbm-plugin 3.0-->
                     <archive>
                         <!-- Needed to put the OSGi stuff -->
                         <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
                         <manifestEntries>
                             <Implementation-Build>${buildNumber}</Implementation-Build>
                         </manifestEntries>
-                        <useDefaultManifestFile>true</useDefaultManifestFile> <!-- required since nbm-plugin 3.0-->
                     </archive>
                 </configuration>
             </plugin>
@@ -324,12 +330,17 @@
                     </execution>
                 </executions>
             </plugin>
-            
         </plugins>
     </build>
 
+    <!-- ***************************************************************************************************************
+    *
+    *
+    *
+    **************************************************************************************************************** -->
     <reporting>
         <plugins>
+            <!-- FindBugs support -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
@@ -343,6 +354,7 @@
                 </configuration>
             </plugin>
 
+            <!-- PMD support -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
@@ -351,6 +363,7 @@
                 </configuration>
             </plugin>
 
+            <!-- CheckStyle support -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -358,10 +371,14 @@
                     <configLocation>etc/checkstyle.xml</configLocation>
                 </configuration>
             </plugin>
-
         </plugins>
     </reporting>
 
+    <!-- ***************************************************************************************************************
+    *
+    *
+    *
+    **************************************************************************************************************** -->
     <modules>
         <module>jrawio</module>
         <!-- module>jrawio-test</module -->

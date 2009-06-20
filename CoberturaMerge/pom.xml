@@ -25,7 +25,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: pom.xml 275 2009-06-19 21:57:27Z fabriziogiudici $
+ * $Id: pom.xml 277 2009-06-20 12:48:33Z fabriziogiudici $
  *
  ******************************************************************************************************************* -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
@@ -42,10 +42,22 @@
     
     <artifactId>CoberturaMerge</artifactId>
     <version>1.5.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>Generate Merged Cobertura Report</name>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>bundle-manifest</id>
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
