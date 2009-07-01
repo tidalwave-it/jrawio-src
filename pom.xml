@@ -292,6 +292,7 @@
                             <value>${testset.folder}</value>
                         </property>
                     </systemProperties>
+                    <argLine>-Xmx512M</argLine>
                 </configuration>
             </plugin>
 
