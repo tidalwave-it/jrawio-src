@@ -13,7 +13,7 @@
     <groupId>it.tidalwave.imageio</groupId>
     <artifactId>jrawio-all</artifactId>
     <packaging>pom</packaging>
-    <version>${jrawio.version}</version>
+    <version>1.5.0.SNAPSHOT</version>
     <name>jrawio-all</name>
 
     <url>http://jrawio.tidalwave.it</url>
@@ -72,7 +72,6 @@
     </licenses>
 
     <properties>
-        <jrawio.version>1.5.0-SNAPSHOT</jrawio.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <bundle.namespace>${pom.groupId}.${pom.artifactId}</bundle.namespace>
     </properties>

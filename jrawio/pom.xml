@@ -8,11 +8,10 @@
     <parent>
         <groupId>it.tidalwave.imageio</groupId>
         <artifactId>jrawio-all</artifactId>
-        <version>${jrawio.version}</version>
+        <version>1.5.0.SNAPSHOT</version>
     </parent>
 
     <artifactId>jrawio</artifactId>
-    <version>${jrawio.version}</version>
     <packaging>jar</packaging>
     <!-- packaging>nbm</packaging FIXME -->
     <name>jrawio</name>
