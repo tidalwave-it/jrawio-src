@@ -108,6 +108,12 @@
             <version>1.7</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>it.tidalwave</groupId>
+            <artifactId>singlelinelogformatter</artifactId>
+            <version>1.0.0</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <!-- ***************************************************************************************************************

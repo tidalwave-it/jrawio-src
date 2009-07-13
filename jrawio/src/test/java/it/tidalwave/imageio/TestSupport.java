@@ -32,6 +32,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 import java.io.File;
 import java.io.InputStream;
+import it.tidalwave.util.logging.SingleLineLogFormatter;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
