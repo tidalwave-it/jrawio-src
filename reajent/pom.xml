@@ -18,7 +18,14 @@
         <dependency>
             <groupId>it.tidalwave.imageio</groupId>
             <artifactId>jrawio</artifactId>
-            <version>${version}</version>
+            <version>1.5.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>it.tidalwave.imageio</groupId>
+            <artifactId>jrawio</artifactId>
+            <version>1.5.1-SNAPSHOT</version>
+            <classifier>tests</classifier>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -51,3 +58,4 @@
         </plugins>
     </build>
 </project>
+

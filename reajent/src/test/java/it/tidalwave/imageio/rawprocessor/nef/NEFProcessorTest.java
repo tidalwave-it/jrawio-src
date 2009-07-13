@@ -45,7 +45,7 @@ public class NEFProcessorTest extends ImageReaderTestSupport
     public void test1() 
       throws Exception 
       {
-        final String path = "fabriziogiudici/Nikon/D100/NEF/NikonCaptureEditor/ccw90.nef";
+        final String path = "https://imaging.dev.java.net/nonav/TestSets/fabriziogiudici/Nikon/D100/NEF/NikonCaptureEditor/ccw90.nef";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(1, ir.getNumThumbnails(0));
@@ -62,7 +62,7 @@ public class NEFProcessorTest extends ImageReaderTestSupport
     public void test2() 
       throws Exception 
       {
-        final String path = "fabriziogiudici/Nikon/D100/TIFF/TIFF-Large.TIF";
+        final String path = "https://imaging.dev.java.net/nonav/TestSets/fabriziogiudici/Nikon/D100/TIFF/TIFF-Large.TIF";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(1, ir.getNumThumbnails(0));
@@ -80,7 +80,7 @@ public class NEFProcessorTest extends ImageReaderTestSupport
     public void test3()
       throws Exception
       {
-        final String path = "mpetersen/Nikon/D70s/NEF/Nikon_D70s_0001.NEF";
+        final String path = "https://imaging.dev.java.net/nonav/TestSets/mpetersen/Nikon/D70s/NEF/Nikon_D70s_0001.NEF";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
@@ -99,7 +99,7 @@ public class NEFProcessorTest extends ImageReaderTestSupport
     public void testJSR129()
       throws Exception
       {
-        final String path = "others/konstantinmaslov/Nikon/D50/NEF/France_Collioure_1.NEF";
+        final String path = "https://imaging.dev.java.net/nonav/TestSets/others/konstantinmaslov/Nikon/D50/NEF/France_Collioure_1.NEF";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));

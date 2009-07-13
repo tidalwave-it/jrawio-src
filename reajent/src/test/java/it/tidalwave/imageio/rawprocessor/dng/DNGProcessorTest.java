@@ -45,7 +45,7 @@ public class DNGProcessorTest extends ImageReaderTestSupport
     public void test1()
       throws Exception 
       {
-        final String path = "esordini/Canon/EOS300D/Adobe/DNG/100_0056.DNG";
+        final String path = "https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0056.DNG";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));

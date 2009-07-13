@@ -46,7 +46,7 @@ public class RAFProcessorTest extends ImageReaderTestSupport
     public void testJRW127() 
       throws Exception 
       {
-        final String path = "tmlehto/Fujifilm/S6500fd/RAF/DSCF6315.RAF";
+        final String path = "https://imaging.dev.java.net/nonav/TestSets/tmlehto/Fujifilm/S6500fd/RAF/DSCF6315.RAF";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
