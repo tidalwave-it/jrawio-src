@@ -57,7 +57,7 @@ public class MRWImageReaderTest extends ImageReaderTestSupport
     public void testJRW152() 
       throws Exception 
       {
-        final String path = "others/theoheinze/Minolta/Dynax7D/MRW/PICT0652.MRW";
+        final String path = "https://imaging.dev.java.net/nonav/TestSets/others/theoheinze/Minolta/Dynax7D/MRW/PICT0652.MRW";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(1, ir.getNumThumbnails(0));

@@ -51,7 +51,7 @@ public class RAFImageReaderTest extends ImageReaderTestSupport
     public void testS6500fd()
       throws Exception 
       {
-        final String path = "tmlehto/Fujifilm/S6500fd/RAF/DSCF6315.RAF";
+        final String path = "https://imaging.dev.java.net/nonav/TestSets/tmlehto/Fujifilm/S6500fd/RAF/DSCF6315.RAF";
         final ImageReader ir = getImageReader(path);
 
         final RAFMetadata metadata = (RAFMetadata)ir.getImageMetadata(0);

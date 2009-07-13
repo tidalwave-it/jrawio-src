@@ -52,7 +52,7 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
     public void testLoadMetadata()
       throws Exception
       {
-        final String path = "esordini/Canon/EOS300D/Adobe/DNG/100_0056.DNG";
+        final String path = "https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0056.DNG";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
@@ -66,7 +66,7 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
     public void testJRW144() 
       throws Exception 
       {
-        final String path = "esordini/Canon/EOS300D/Adobe/DNG/100_0056.DNG";
+        final String path = "https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0056.DNG";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
@@ -85,7 +85,7 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
     public void testJRW145()
       throws Exception
       {
-        final String path = "esordini/Canon/EOS300D/Adobe/DNG/100_0043.DNG";
+        final String path = "https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0043.DNG";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));

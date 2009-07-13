@@ -27,23 +27,26 @@
  ******************************************************************************/
 package it.tidalwave.imageio;
 
-import java.awt.image.DataBuffer;
+import java.util.Iterator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
+import java.io.FileOutputStream;
+import java.awt.image.DataBuffer;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.awt.image.DataBufferUShort;
-import java.io.FileOutputStream;
-import java.util.Iterator;
-import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.ImageInputStream;
 import javax.imageio.spi.ImageReaderSpi;
+import it.tidalwave.imageio.util.Logger;
+import java.io.OutputStream;
+import java.net.URL;
+import org.apache.commons.io.FileUtils;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 
@@ -55,6 +58,9 @@ import static org.junit.Assert.*;
  ******************************************************************************/
 public class ImageReaderTestSupport extends TestSupport
   {
+    private final static String CLASS = ImageReaderTestSupport.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+
     private static String testFolder;
         
     /***************************************************************************
@@ -152,7 +158,30 @@ public class ImageReaderTestSupport extends TestSupport
     protected ImageReader getImageReader (final String path)
       throws IOException
       {
-        final File file = new File(path.startsWith("/") ? path : (testFolder + "/" + path));
+        logger.info("************* TESTING FILE: %s", path);
+
+        File file = null;
+
+        if (path.startsWith("http"))
+          {
+            final String tmp = System.getProperty("java.io.tmpdir");
+            final File cacheFolder = new File(System.getProperty("testset.cached.folder", tmp + "/TestFolder"));
+            file = new File(cacheFolder, path.replace("http://", "").
+                                              replace("https://", "").
+                                              replace(':', '_'));
+
+            if (!file.exists())
+              {
+                file.getParentFile().mkdirs();
+                logger.info(">>>> downloading to %s...", file.getAbsolutePath());
+                FileUtils.copyURLToFile(new URL(path), file);
+              }
+          }
+        else
+          {
+            file = new File(path.startsWith("/") ? path : (testFolder + "/" + path));
+          }
+        
         assertTrue("File not found: " + file, file.exists()); 
         final ImageReader imageReader = ImageIO.getImageReaders(file).next();
         assertNotNull(imageReader);
@@ -211,7 +240,7 @@ public class ImageReaderTestSupport extends TestSupport
         // See http://jrawio.tidalwave.it/issues/browse/JRW-162
         if (System.getProperty("java.version").contains("1.5.0"))
           {
-            Logger.getAnonymousLogger().warning("Not testing raster's MD5 on Java 5 because of JRW-162");
+            logger.warning("Not testing raster's MD5 on Java 5 because of JRW-162");
           }
         else
           {

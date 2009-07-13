@@ -58,7 +58,7 @@ public class ARWImageReaderTest extends ImageReaderTestSupport
     public void testJRW127() 
       throws Exception 
       {
-        final String path = "kijiro/Sony/A100/ARW/DSC00041.ARW";
+        final String path = "https://imaging.dev.java.net/nonav/TestSets/kijiro/Sony/A100/ARW/DSC00041.ARW";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
@@ -105,6 +105,4 @@ public class ARWImageReaderTest extends ImageReaderTestSupport
         
         close(ir);
       }
-    
-
   }

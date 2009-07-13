@@ -52,7 +52,7 @@ public class ORFImageReaderTest extends ImageReaderTestSupport
     public void testJRW151_JRW154_JRW155_JRW159() 
       throws Exception 
       {
-        final String path = "others/josephandre/Olympus/E510/ORF/_2090037.ORF";
+        final String path = "https://imaging.dev.java.net/nonav/TestSets/others/josephandre/Olympus/E510/ORF/_2090037.ORF";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(1, ir.getNumThumbnails(0));
@@ -97,7 +97,7 @@ public class ORFImageReaderTest extends ImageReaderTestSupport
     public void testJRW160() 
       throws Exception 
       {
-        final String path = "others/victoriagracia/Olympus/E500/ORF/V7020205.ORF";
+        final String path = "https://imaging.dev.java.net/nonav/TestSets/others/victoriagracia/Olympus/E500/ORF/V7020205.ORF";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));

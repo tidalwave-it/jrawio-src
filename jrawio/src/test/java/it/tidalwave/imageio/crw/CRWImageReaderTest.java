@@ -51,7 +51,7 @@ public class CRWImageReaderTest extends ImageReaderTestSupport
     public void testEOS300D()
       throws Exception 
       {
-        final String path = "esordini/Canon/EOS300D/CRW/100_0056.CRW";
+        final String path = "https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/CRW/100_0056.CRW";
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(1, ir.getNumThumbnails(0));
