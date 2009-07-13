@@ -293,6 +293,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <!-- Don't fail, or it won't produce the tests artifact and won't compile
+                         tests of other modules depending on the current. -->
+                    <testFailureIgnore>true</testFailureIgnore>
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
@@ -320,6 +323,15 @@
                         </manifestEntries>
                     </archive>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Produces the NBMs for the NetBeans Platform -->
