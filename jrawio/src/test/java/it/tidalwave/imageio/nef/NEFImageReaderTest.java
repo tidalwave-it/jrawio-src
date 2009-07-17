@@ -139,7 +139,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
       }
 
     @Test
-    public void testNikonXXX()
+    public void testNikonD200_2()
       throws Exception
       {
         final String path = "http://s179771984.onlinehome.us/RAWpository/images/nikon/D200/1.00/DCC_0280.NEF";
