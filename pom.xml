@@ -323,7 +323,7 @@
                     <useDefaultManifestFile>true</useDefaultManifestFile> <!-- required since nbm-plugin 3.0-->
                     <archive>
                         <!-- Needed to put the OSGi stuff -->
-                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                        <!-- manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile -->
                         <manifestEntries>
                             <Implementation-Build>${buildNumber}</Implementation-Build>
                         </manifestEntries>
