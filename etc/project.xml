@@ -10,6 +10,7 @@
                 <useDefaultExcludes>true</useDefaultExcludes>
                 <excludes>
                     <exclude>**/target/**</exclude>
+                    <exclude>.hg/**</exclude>
                 </excludes>
             </fileSet>
         </fileSets>
