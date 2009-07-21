@@ -28,9 +28,9 @@
     </issueManagement>
 
     <scm>
-        <connection>scm:svn:https://jrawio.dev.java.net/svn/jrawio/trunk/src</connection>
-        <developerConnection>scm:svn:https://jrawio.dev.java.net/svn/jrawio/trunk/src</developerConnection>
-        <url>https://jrawio.dev.java.net/svn/jrawio/trunk/src</url>
+        <connection>scm:hg:http://kenai.com/hg/jrawio~src</connection>
+        <developerConnection>scm:hg:https://kenai.com/hg/jrawio~src</developerConnection>
+        <url>http://kenai.com/projects/jrawio/sources/src/show</url>
     </scm>
 
     <developers>
@@ -72,6 +72,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <bundle.namespace>${pom.groupId}.${pom.artifactId}</bundle.namespace>
+        <buildNumber>${buildNumber}</buildNumber>
     </properties>
 
     <repositories>
@@ -130,6 +131,18 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>default</id>
+            <properties>
+                <buildNumber>unknown</buildNumber>            
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 
     <!-- ***************************************************************************************************************
     *
