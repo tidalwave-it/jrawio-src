@@ -322,6 +322,7 @@
                     <!-- Don't fail, or it won't produce the tests artifact and won't compile
                          tests of other modules depending on the current. -->
                     <testFailureIgnore>true</testFailureIgnore>
+<forkedProcessTimeoutInSeconds>60</forkedProcessTimeoutInSeconds>
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
