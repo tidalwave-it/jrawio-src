@@ -41,13 +41,13 @@ import static org.junit.Assert.*;
  ******************************************************************************/
 public class CRWImageReaderTest extends ImageReaderTestSupport
   {
-    @Test
+    @Test(timeout=60000)
     public void testMIMEType()
       {
         assertMIMETypes("crw", "image/x-canon-crw");
       }
 
-    @Test
+    @Test(timeout=60000)
     public void testEOS300D()
       throws Exception 
       {

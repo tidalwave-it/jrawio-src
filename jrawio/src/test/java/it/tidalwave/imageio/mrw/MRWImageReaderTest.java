@@ -47,13 +47,13 @@ import static org.junit.Assert.*;
  ******************************************************************************/
 public class MRWImageReaderTest extends ImageReaderTestSupport
   {
-    @Test
+    @Test(timeout=60000)
     public void testMIMEType()
       {
         assertMIMETypes("mrw", "image/x-minolta-mrw");
       }
 
-    @Test
+    @Test(timeout=60000)
     public void testJRW152() 
       throws Exception 
       {

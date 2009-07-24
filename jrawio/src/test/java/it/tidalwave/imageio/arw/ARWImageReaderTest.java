@@ -47,14 +47,14 @@ import static org.junit.Assert.*;
  ******************************************************************************/
 public class ARWImageReaderTest extends ImageReaderTestSupport
   {
-    @Test
+    @Test(timeout=60000)
     public void testMIMEType()
       {
         assertMIMETypes("arw", "image/x-sony-arw");
       }
 
     // JIRA issue JRW-127
-    @Test
+    @Test(timeout=60000)
     public void testJRW127() 
       throws Exception 
       {

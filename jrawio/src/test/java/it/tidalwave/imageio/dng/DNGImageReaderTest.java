@@ -42,13 +42,13 @@ import static org.junit.Assert.*;
  ******************************************************************************/
 public class DNGImageReaderTest extends ImageReaderTestSupport
   {
-    @Test
+    @Test(timeout=60000)
     public void testMIMEType()
       {
         assertMIMETypes("dng", "image/x-adobe-dng");
       }
 
-    @Test
+    @Test(timeout=60000)
     public void testLoadMetadata()
       throws Exception
       {
@@ -62,7 +62,7 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
         close(ir);
       }
 
-    @Test
+    @Test(timeout=60000)
     public void testJRW144() 
       throws Exception 
       {
@@ -81,7 +81,7 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "4225d6706501a9f0b6a5b225a0183e94");
       }
 
-    @Test
+    @Test(timeout=60000)
     public void testJRW145()
       throws Exception
       {
@@ -100,7 +100,7 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "6f9babc450b6fb414bbcca57918847a7");
       }
 
-    @Test
+    @Test(timeout=60000)
     public void testJRW165()
       throws Exception
       {

@@ -41,13 +41,13 @@ import static org.junit.Assert.*;
  ******************************************************************************/
 public class RAFImageReaderTest extends ImageReaderTestSupport
   {
-    @Test
+    @Test(timeout=60000)
     public void testMIMEType()
       {
         assertMIMETypes("raf", "image/x-fuji-raf");
       }
 
-    @Test
+    @Test(timeout=60000)
     public void testS6500fd()
       throws Exception 
       {

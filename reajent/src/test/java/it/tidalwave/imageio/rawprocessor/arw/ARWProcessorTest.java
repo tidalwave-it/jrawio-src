@@ -42,7 +42,7 @@ import static org.junit.Assert.*;
 public class ARWProcessorTest extends ImageReaderTestSupport
   {
     // JIRA issue JRW-127
-    @Test
+    @Test(timeout=60000)
     public void testJRW127() 
       throws Exception 
       {

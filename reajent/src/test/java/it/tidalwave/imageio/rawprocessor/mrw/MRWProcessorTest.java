@@ -41,7 +41,7 @@ import static org.junit.Assert.*;
  ******************************************************************************/
 public class MRWProcessorTest extends ImageReaderTestSupport
   {
-    @Test
+    @Test(timeout=60000)
     public void testPICT0652_MRW() 
       throws Exception 
       {

@@ -41,7 +41,7 @@ import static org.junit.Assert.*;
  ******************************************************************************/
 public class DNGProcessorTest extends ImageReaderTestSupport
   {
-    @Test
+    @Test(timeout=60000)
     public void test1()
       throws Exception 
       {

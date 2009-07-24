@@ -38,7 +38,7 @@ import org.junit.Test;
  ******************************************************************************/
 public class SRFImageReaderTest extends ImageReaderTestSupport
   {
-    @Test
+    @Test(timeout=60000)
     public void testMIMEType()
       {
         assertMIMETypes("srf", "image/x-sony-srf");

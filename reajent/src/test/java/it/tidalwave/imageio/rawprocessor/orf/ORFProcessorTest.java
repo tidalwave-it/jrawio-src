@@ -49,7 +49,7 @@ import static org.junit.Assert.*;
  ******************************************************************************/
 public class ORFProcessorTest extends ImageReaderTestSupport
   {
-    @Test
+    @Test(timeout=60000)
     public void test1() 
       throws Exception 
       {
@@ -93,7 +93,7 @@ public class ORFProcessorTest extends ImageReaderTestSupport
         assertRaster(image, path, "df6dca1db04cb9e85c3429a68fbe88db");
       }
     
-    @Test
+    @Test(timeout=60000)
     // JIRA JRW-160
     public void test2() 
       throws Exception 

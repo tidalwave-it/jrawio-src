@@ -41,13 +41,13 @@ import static org.junit.Assert.*;
  ******************************************************************************/
 public class ORFImageReaderTest extends ImageReaderTestSupport
   {
-    @Test
+    @Test(timeout=60000)
     public void testMIMEType()
       {
         assertMIMETypes("orf", "image/x-olympus-orf");
       }
 
-    @Test
+    @Test(timeout=60000)
     // JIRA issues JRW-151, JRW-154, JRW-155, JRW-159
     public void testJRW151_JRW154_JRW155_JRW159() 
       throws Exception 
@@ -92,7 +92,7 @@ public class ORFImageReaderTest extends ImageReaderTestSupport
         close(ir);
       }
     
-    @Test
+    @Test(timeout=60000)
     // JIRA issues JRW-160
     public void testJRW160() 
       throws Exception 

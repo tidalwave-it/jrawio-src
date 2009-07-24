@@ -41,13 +41,13 @@ import static org.junit.Assert.*;
  ******************************************************************************/
 public class NEFImageReaderTest extends ImageReaderTestSupport
   {
-    @Test
+    @Test(timeout=60000)
     public void testMIMEType()
       {
         assertMIMETypes("nef", "image/x-nikon-nef");
       }
 
-    @Test
+    @Test(timeout=60000)
     public void testJRW146() 
       throws Exception 
       {
@@ -64,7 +64,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "a370faff7f544f8ec51d872cf2d227f1");
       }
     
-    @Test
+    @Test(timeout=60000)
     public void testJRW148() 
       throws Exception 
       {
@@ -81,7 +81,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "09b14dcaaabb6004ad9df4d4999904eb");
       }
     
-    @Test
+    @Test(timeout=60000)
     public void testJRW149_JRW150()
       throws Exception
       {
@@ -100,7 +100,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "3c9baff5d7f0fc4cd0ad5f381a518e7a");
       }
 
-    @Test
+    @Test(timeout=60000)
     public void testJRW129()
       throws Exception
       {
@@ -119,7 +119,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "13c348ef117741937f77f9971e4d52fb");
       }
 
-    @Test
+    @Test(timeout=60000)
     public void testNikonD200()
       throws Exception
       {
@@ -138,7 +138,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
 //        assertRaster(image, path, "13c348ef117741937f77f9971e4d52fb");
       }
 
-    @Test
+    @Test(timeout=60000)
     public void testNikonD200_2()
       throws Exception
       {

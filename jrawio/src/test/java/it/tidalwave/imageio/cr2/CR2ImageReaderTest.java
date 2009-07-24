@@ -38,7 +38,7 @@ import org.junit.Test;
  ******************************************************************************/
 public class CR2ImageReaderTest extends ImageReaderTestSupport
   {
-    @Test
+    @Test(timeout=60000)
     public void testMIMEType()
       {
         assertMIMETypes("cr2", "image/x-canon-cr2");

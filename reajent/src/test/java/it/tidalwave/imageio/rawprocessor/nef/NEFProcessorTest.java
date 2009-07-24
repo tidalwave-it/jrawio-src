@@ -41,7 +41,7 @@ import static org.junit.Assert.*;
  ******************************************************************************/
 public class NEFProcessorTest extends ImageReaderTestSupport
   {
-    @Test
+    @Test(timeout=60000)
     public void test1() 
       throws Exception 
       {
@@ -58,7 +58,7 @@ public class NEFProcessorTest extends ImageReaderTestSupport
         assertRaster(image, path, "76f41c2dd922e79ae605f5e042aa4d9c");
       }
     
-    @Test
+    @Test(timeout=60000)
     public void test2() 
       throws Exception 
       {
@@ -76,7 +76,7 @@ public class NEFProcessorTest extends ImageReaderTestSupport
         assertRaster(image, path, "d2693ae031e35e2899a11cd817d7c255");
       }
     
-    @Test
+    @Test(timeout=60000)
     public void test3()
       throws Exception
       {
@@ -95,7 +95,7 @@ public class NEFProcessorTest extends ImageReaderTestSupport
         assertRaster(image, path, "b151891922a90a61ca93dd849107a593");
       }
 
-    @Test
+    @Test(timeout=60000)
     public void testJSR129()
       throws Exception
       {

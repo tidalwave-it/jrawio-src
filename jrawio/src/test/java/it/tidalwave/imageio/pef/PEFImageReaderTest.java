@@ -38,7 +38,7 @@ import org.junit.Test;
  ******************************************************************************/
 public class PEFImageReaderTest extends ImageReaderTestSupport
   {
-    @Test
+    @Test(timeout=60000)
     public void testMIMEType()
       {
         assertMIMETypes("pef", "image/x-pentax-pef");
