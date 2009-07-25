@@ -76,17 +76,10 @@
     </properties>
 
     <repositories>
-<!--
         <repository>
             <id>maven2-repository.tidalwave.kenai.com</id>
             <name>Tidalwave Maven Release Repository</name>
             <url>https://kenai.com/svn/tidalwave~maven-repo/release/2</url>
-        </repository>
--->
-        <repository>
-            <id>maven2-snapshot-repository.tidalwave.kenai.com</id>
-            <name>Tidalwave Maven Snapshot Repository</name>
-            <url>https://kenai.com/svn/tidalwave~maven-repo/snapshot/2</url>
         </repository>
     </repositories>
 
@@ -125,9 +118,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>it.tidalwave</groupId>
-            <artifactId>singlelinelogformatter</artifactId>
-            <version>1.0.1-SNAPSHOT</version>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it.tidalwave.singlelinelogformatter</artifactId>
+            <version>1.0.2</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
