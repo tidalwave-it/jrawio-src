@@ -51,7 +51,7 @@ public class NEFProcessorTest extends ImageReaderTestSupport
         assertEquals(1, ir.getNumThumbnails(0));
         assertImage(ir, 3034, 2024);
         assertThumbnail(ir, 0, 120, 160);
-        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 8); // FIXME: WRONG, should be 16 bits
+        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 8, BufferedImage.TYPE_INT_RGB); // FIXME: WRONG, should be 16 bits
         assertLoadThumbnail(ir, 0, 120, 160);
         close(ir);
         
@@ -69,7 +69,7 @@ public class NEFProcessorTest extends ImageReaderTestSupport
         assertImage(ir, 3008, 2000);
         assertThumbnail(ir, 0, 160, 120);
         // FIXME: this is wrong, the TIF is being processed as it were a RAW
-        final BufferedImage image = assertLoadImage(ir, 2982, 1976, 3, 8); // FIXME: WRONG, should be 16 bits
+        final BufferedImage image = assertLoadImage(ir, 2982, 1976, 3, 8, BufferedImage.TYPE_INT_RGB); // FIXME: WRONG, should be 16 bits
         assertLoadThumbnail(ir, 0, 160, 120);
         close(ir);
         
@@ -87,7 +87,7 @@ public class NEFProcessorTest extends ImageReaderTestSupport
         assertImage(ir, 3040, 2014);
         assertThumbnail(ir, 0, 106, 160);
         assertThumbnail(ir, 1, 384, 255);
-        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 8); // FIXME: WRONG, should be 16 bits
+        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 8, BufferedImage.TYPE_INT_RGB); // FIXME: WRONG, should be 16 bits
         assertLoadThumbnail(ir, 0, 106, 160);
         assertLoadThumbnail(ir, 1, 384, 255);
         close(ir);
@@ -106,7 +106,7 @@ public class NEFProcessorTest extends ImageReaderTestSupport
         assertImage(ir, 3040, 2014);
         assertThumbnail(ir, 0, 160, 120);
         assertThumbnail(ir, 1, 3008, 2000);
-        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 8); // FIXME: WRONG, should be 16 bits
+        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 8, BufferedImage.TYPE_INT_RGB); // FIXME: WRONG, should be 16 bits
         assertLoadThumbnail(ir, 0, 160, 120);
         assertLoadThumbnail(ir, 1, 3008, 2000);
         close(ir);
@@ -125,7 +125,7 @@ public class NEFProcessorTest extends ImageReaderTestSupport
         assertImage(ir, 4352, 2868);
         assertThumbnail(ir, 0, 160, 120);
         assertThumbnail(ir, 1, 4288, 2848);
-        final BufferedImage image = assertLoadImage(ir, 4352, 2868, 3, 8); // FIXME: WRONG, should be 16 bits
+        final BufferedImage image = assertLoadImage(ir, 4352, 2868, 3, 8, BufferedImage.TYPE_INT_RGB); // FIXME: WRONG, should be 16 bits
         assertLoadThumbnail(ir, 0, 160, 120);
         assertLoadThumbnail(ir, 1, 4288, 2848);
         close(ir);
