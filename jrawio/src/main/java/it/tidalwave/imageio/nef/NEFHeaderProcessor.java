@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: NEFHeaderProcessor.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
 
 import javax.annotation.Nonnull;
@@ -32,19 +32,19 @@ import java.io.IOException;
 import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: NEFHeaderProcessor.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class NEFHeaderProcessor extends HeaderProcessor
   {
     public static final int NDF_OFFSET = 12;
     
     private boolean isNDF;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param iis
      * @throws IOException
@@ -62,7 +62,7 @@ public class NEFHeaderProcessor extends HeaderProcessor
         iis.reset();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 

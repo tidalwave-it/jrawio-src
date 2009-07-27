@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: TIFFMetadataSupport.java 84 2008-08-24 09:20:11Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.arw;
 
 import javax.annotation.Nonnull;
@@ -32,12 +32,12 @@ import java.io.IOException;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.tiff.IFDSupport;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: TIFFMetadataSupport.java 84 2008-08-24 09:20:11Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class ARWMakerNote extends IFDSupport
   {
     private static final long serialVersionUID = 4019349837473239457L;

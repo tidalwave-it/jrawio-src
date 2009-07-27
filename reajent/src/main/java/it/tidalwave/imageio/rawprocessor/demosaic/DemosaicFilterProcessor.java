@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,23 +20,23 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: DemosaicFilterProcessor.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.demosaic;
 
 import it.tidalwave.imageio.util.Logger;
 import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.rawprocessor.Curve;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  fritz
  * @version $Id: DemosaicFilterProcessor.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class DemosaicFilterProcessor
   {
     private final static String CLASS = "it.tidalwave.imageio.rawprocessor.demosaic.DemosaicFilterProcessor";
@@ -54,7 +54,7 @@ public class DemosaicFilterProcessor
     
     private Curve curve;
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param bayerPattern
      * @throws InstantiationException
@@ -87,11 +87,11 @@ public class DemosaicFilterProcessor
         this.curve = curve;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public void process (BufferedImage image)
       {
         logger.info("Demosaicing: R: %f, G: %f, B: %f, black: %f, Curve: %s", redCoeff, greenCoeff, blueCoeff, blackLevel, curve);

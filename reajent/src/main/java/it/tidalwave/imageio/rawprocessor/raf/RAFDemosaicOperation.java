@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: DemosaicOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raf;
 
 import it.tidalwave.imageio.rawprocessor.raw.*;
@@ -34,12 +34,12 @@ import it.tidalwave.imageio.rawprocessor.Curve;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.demosaic.DemosaicFilterProcessor;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: DemosaicOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class RAFDemosaicOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(RAFDemosaicOperation.class);
@@ -52,11 +52,11 @@ public class RAFDemosaicOperation extends OperationSupport
 
     private String cfaPatternAsString;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public void process (RAWImage image) throws Exception
       {
         logger.fine("process()");
@@ -73,7 +73,7 @@ public class RAFDemosaicOperation extends OperationSupport
         processor.process(image.getImage());
       }    
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Chooses the demosaic algorithm. Can be overridden if a particular RAW format
      * processor wants to make it own selection.

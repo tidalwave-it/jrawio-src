@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: DNGImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.dng;
 
 import it.tidalwave.imageio.makernote.LeicaMakerNote;
@@ -39,29 +39,29 @@ import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: DNGImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class DNGImageReader extends TIFFImageReaderSupport
   {
     private static Logger logger = Logger.getLogger("it.tidalwave.imageio.dng.DNGImageReader");
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected DNGImageReader (ImageReaderSpi originatingProvider, Object extension)
       {
         super(originatingProvider, IFD.class, DNGMetadata.class);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected WritableRaster loadRAWRaster()
       throws IOException
       {
@@ -85,14 +85,14 @@ public class DNGImageReader extends TIFFImageReaderSupport
         return raster;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Processes the maker note.
      *
      * @param   iis          the image input stream
      * @throws  IOException  if an I/O error occurs
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected void processMakerNote() throws IOException
       {
         String make = ((IFD)primaryDirectory).getMake();

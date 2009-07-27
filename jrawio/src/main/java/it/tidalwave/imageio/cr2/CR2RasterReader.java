@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: CR2RasterReader.java 85 2008-08-24 09:35:51Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.cr2;
 
 import java.io.IOException;
@@ -36,12 +36,12 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 import it.tidalwave.imageio.raw.RasterReader;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  fritz
  * @version $Id: CR2RasterReader.java 85 2008-08-24 09:35:51Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class CR2RasterReader extends RasterReader
   {
     private static final int BUFFER_SIZE = 128 * 1024;
@@ -50,7 +50,7 @@ public class CR2RasterReader extends RasterReader
 
     private int canonLastTileWidth;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param canonTileWidth The canonTileWidth to set.
      * 
@@ -60,7 +60,7 @@ public class CR2RasterReader extends RasterReader
         this.canonTileWidth = canonTileWidth;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param canonLastTileWidth The canonLastTileWidth to set.
      * 
@@ -70,7 +70,7 @@ public class CR2RasterReader extends RasterReader
         this.canonLastTileWidth = canonLastTileWidth;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * CR2 files are always compressed.
@@ -82,7 +82,7 @@ public class CR2RasterReader extends RasterReader
         return true;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 

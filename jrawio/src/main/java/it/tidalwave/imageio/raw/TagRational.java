@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,16 +20,16 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: TagRational.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.raw;
 
 import java.io.Serializable;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * This class holds a rational value, modeled by an integer numerator and an
  * integer denominator.
@@ -37,7 +37,7 @@ import java.io.Serializable;
  * @author  Fabrizio Giudici
  * @version $Id: TagRational.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class TagRational extends Number implements Serializable
   {
     private final static long serialVersionUID = 3088068438676854749L;
@@ -97,7 +97,7 @@ public class TagRational extends Number implements Serializable
         return new TagRational(denominator, numerator);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param i
      * @param j

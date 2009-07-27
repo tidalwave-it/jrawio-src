@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,18 +20,18 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: HuffmannDecoder.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.decoder;
 
 import java.io.IOException;
 
 import javax.imageio.stream.ImageInputStream;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * This class is capable to decode bit strings encoded with a Huffman table.
  * PENDING: give a short description of what a Huffman table is.
@@ -43,7 +43,7 @@ import javax.imageio.stream.ImageInputStream;
  * @author  Fabrizio Giudici
  * @version $Id: HuffmannDecoder.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class HuffmannDecoder
   {
     /** The offset where leaves starts. */
@@ -58,7 +58,7 @@ public class HuffmannDecoder
     /** The value of the current leaf. */
     private int leafValue;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * 
      * 
@@ -67,7 +67,7 @@ public class HuffmannDecoder
       {
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Creates a decode tree according the specification in source.
      * The first 16 bytes specify how many codes should be 1-bit, 2-bit
@@ -114,7 +114,7 @@ public class HuffmannDecoder
         return createDecoder(bytes, 0);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Creates a decode tree according the specification in source. See
      * {@link #createDecoder(short[])} for more information.
@@ -131,7 +131,7 @@ public class HuffmannDecoder
         return createDecoder(source, start, 0, false);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Creates a decode tree according the specification in source. See
      * {@link #createDecoder(short[])} for more information. This version should be
@@ -150,7 +150,7 @@ public class HuffmannDecoder
         return createDecoder(source, start, 0, true);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param source
      * @param start
@@ -169,7 +169,7 @@ public class HuffmannDecoder
         return dest;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param dest
      * @param source
@@ -205,7 +205,7 @@ public class HuffmannDecoder
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Reads an encoded value from a {@link BitReader} and returns the decoded value.
      *  
@@ -226,7 +226,7 @@ public class HuffmannDecoder
         return d.leafValue;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -236,7 +236,7 @@ public class HuffmannDecoder
         return toString("");
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * 
      *******************************************************************************/

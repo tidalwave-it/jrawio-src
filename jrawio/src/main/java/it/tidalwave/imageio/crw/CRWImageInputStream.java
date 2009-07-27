@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: CRWImageInputStream.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.crw;
 
 import it.tidalwave.imageio.util.Logger;
@@ -35,12 +35,12 @@ import javax.imageio.stream.ImageInputStream;
 import it.tidalwave.imageio.io.FileImageInputStream2;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  fritz
  * @version $Id: CRWImageInputStream.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class CRWImageInputStream extends RAWImageInputStream
   {
     private final static String CLASS = CRWImageInputStream.class.getName();
@@ -52,7 +52,7 @@ public class CRWImageInputStream extends RAWImageInputStream
 
     private ImageInputStream thmInputStream;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param delegate
      * @throws IOException 
@@ -106,7 +106,7 @@ public class CRWImageInputStream extends RAWImageInputStream
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * 
      *******************************************************************************/
@@ -115,7 +115,7 @@ public class CRWImageInputStream extends RAWImageInputStream
         super.delegate = crwInputStream;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * 
      *******************************************************************************/
@@ -130,7 +130,7 @@ public class CRWImageInputStream extends RAWImageInputStream
         return false;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 

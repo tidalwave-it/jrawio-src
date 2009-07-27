@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: DNGSizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
 
 import javax.annotation.Nonnull;
@@ -37,22 +37,22 @@ import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: DNGSizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class DNGSizeOperation extends SizeOperation
   {
     private static final String CLASS = DNGSizeOperation.class.getName();
     private static final Logger logger = Logger.getLogger(CLASS);
     
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * {@inheritDoc}
      *
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Override
     @Nonnull
     protected Insets getCrop (@Nonnull final RAWImage image)
@@ -89,11 +89,11 @@ public class DNGSizeOperation extends SizeOperation
                           imageWidth - left - cropWidth);
       }
     
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * {@inheritDoc}
      *
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Override
     @Nonnull
     protected Dimension getSize (@Nonnull final RAWImage image)

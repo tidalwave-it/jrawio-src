@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: RotateOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
 import java.util.Properties;
@@ -41,21 +41,21 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: RotateOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class RotateOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(RotateOperation.class);
         
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public void process (RAWImage image) throws Exception
       {
         logger.fine("process()");
@@ -69,12 +69,12 @@ public class RotateOperation extends OperationSupport
           }
       }
         
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Reads the camera embedded orientation. This method works with EXIF data:
      * RAW processors for other formats should override this method. 
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected int getCameraOrientation (RAWImage image)
       {
         TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
@@ -108,10 +108,10 @@ public class RotateOperation extends OperationSupport
         return orientation;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected static BufferedImage rotateQuadrant (BufferedImage image, int degrees)
       {
         logger.finer("rotateQuadrant(%d)", degrees);
@@ -174,10 +174,10 @@ public class RotateOperation extends OperationSupport
         return result;
       }
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     private static Properties getProperties (BufferedImage image)
       {
         Properties properties = new Properties();

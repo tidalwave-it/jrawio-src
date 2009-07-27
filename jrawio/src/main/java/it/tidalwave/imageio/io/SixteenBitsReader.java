@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,18 +20,18 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: SixteenBitsReader.java 115 2008-08-24 21:51:12Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.io;
 
 import java.io.IOException;
 import javax.annotation.Nonnull;
 import javax.imageio.stream.ImageInputStream;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * Facility class to read strings of 16 bits from an ImageInputStream, it is 
  * much faster than ImageInputStream.readBits(). 
@@ -47,10 +47,10 @@ import javax.imageio.stream.ImageInputStream;
  * @author Fabrizio Giudici
  * @version $Id: SixteenBitsReader.java 115 2008-08-24 21:51:12Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 /* package */class SixteenBitsReader extends BitReader
   {
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Creates a new <code>SixteenBitsReader</code> linking to an existing input stream.
      * This version allows to specify the buffer size to use.
@@ -59,7 +59,7 @@ import javax.imageio.stream.ImageInputStream;
      * @param  bufferSize  the bufferSize
      * 
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public SixteenBitsReader (ImageInputStream iis, int bufferSize)
       {
         this.iis = iis;
@@ -67,17 +67,17 @@ import javax.imageio.stream.ImageInputStream;
         bytePointer = byteBuffer.length;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public void resync ()
       {
         bytePointer = byteBuffer.length; // force a reload next time
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      * 
@@ -85,7 +85,7 @@ import javax.imageio.stream.ImageInputStream;
      * 
      * @throws IllegalArgumentException  if bitsToGet is not equal to 16
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public int readBits (int bitsToGet) throws IOException
       {
         if (bitsToGet != 16)
@@ -105,7 +105,7 @@ import javax.imageio.stream.ImageInputStream;
         return (b0 << 8) | (b1 & 0xff);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      * 
@@ -113,7 +113,7 @@ import javax.imageio.stream.ImageInputStream;
      * 
      * @throws IllegalArgumentException  if bitsToGet is not a multiple of 8
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     public void skipBits (int bitsToSkip)
       {
@@ -126,7 +126,7 @@ import javax.imageio.stream.ImageInputStream;
         bytePointer += bytes;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -136,7 +136,7 @@ import javax.imageio.stream.ImageInputStream;
         throw new UnsupportedOperationException(); // FIXME
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param bitPosition
      * 
@@ -150,11 +150,11 @@ import javax.imageio.stream.ImageInputStream;
           }
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      * 
      * {@inheritDoc}
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Override
     @Nonnull
     public String toString() 

@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: RasterReader.java 209 2008-10-16 08:18:42Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.raw;
 
 import javax.annotation.Nonnull;
@@ -37,7 +37,7 @@ import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * A <code>RasterReader</code> is capable of reading raster data from an image 
  * stream. Different format SPI will subclass it to implement specialized
@@ -63,7 +63,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * @author  Fabrizio Giudici
  * @version $Id: RasterReader.java 209 2008-10-16 08:18:42Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class RasterReader
   {
     private final static String CLASS = RasterReader.class.getName();
@@ -116,7 +116,7 @@ public class RasterReader
     
     protected ByteOrder byteOrder;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Sets the width of the raster to read.
      * 
@@ -128,7 +128,7 @@ public class RasterReader
         this.width = width;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Sets the height of the raster to read.
      * 
@@ -140,7 +140,7 @@ public class RasterReader
         this.height = height;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Sets the CFA pattern of the raster to read
      * 
@@ -172,7 +172,7 @@ public class RasterReader
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Sets the bits per sample of the raster to read.
      * 
@@ -184,7 +184,7 @@ public class RasterReader
         this.bitsPerSample = bitsPerSample;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Sets the tile width of tiled rasters.
      * 
@@ -196,7 +196,7 @@ public class RasterReader
         this.tileWidth = tileWidth;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Sets the tile height of tiled rasters.
      * 
@@ -208,7 +208,7 @@ public class RasterReader
         this.tileHeight = tileHeight;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Sets the count of horizontal tiles for tiled rasters.
      * 
@@ -220,7 +220,7 @@ public class RasterReader
         this.tilesAcross = tilesAcross;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Sets the count of vertical tiles for tiled rasters.
      * 
@@ -232,7 +232,7 @@ public class RasterReader
         this.tilesDown = tilesDown;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Sets the offsets to tile data for tiled rasters. The size of the array must
      * be equal to the total number of tiles, which is tilesAcross * tilesDown.
@@ -245,7 +245,7 @@ public class RasterReader
         this.tileOffsets = tileOffsets;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Sets the offset of the raster data
      * 
@@ -257,7 +257,7 @@ public class RasterReader
         this.rasterOffset = rasterOffset;
       }
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Sets the number of strips for stripped rasters.
      * 
@@ -269,7 +269,7 @@ public class RasterReader
         this.stripByteCount = stripByteCount;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Sets the compression type.
      * 
@@ -281,7 +281,7 @@ public class RasterReader
         this.compression = compression;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Sets the linearization table. The table should hold 2^16 entries. If it is 
      * shorter, is padded to 2^16 entries equals to the last specified value.
@@ -309,7 +309,7 @@ public class RasterReader
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * If not set defaults to the stream order.
      * 
@@ -319,7 +319,7 @@ public class RasterReader
         this.byteOrder = byteOrder;
       }
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Loads the raster from the stream and creates a {@link java.awt.image.WritableRaster}.
      * This method makes sure that the mandatory attributes have been set, then 
@@ -365,7 +365,7 @@ public class RasterReader
         return raster;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Reads an uncompressed raster. This method provides a reasonable 
      * implementation for most RAW types which use plain, uncompressed rasters.
@@ -375,7 +375,7 @@ public class RasterReader
      * @param  ir           the image reader
      * @throws IOException  if an I/O error occurs
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected void loadUncompressedRaster (RAWImageInputStream iis,
                                            WritableRaster raster,
                                            RAWImageReaderSupport ir) 
@@ -406,7 +406,7 @@ public class RasterReader
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Reads an uncompressed raster. 
      * 
@@ -415,7 +415,7 @@ public class RasterReader
      * @param  ir           the image reader
      * @throws IOException  if an I/O error occurs
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected void loadUncompressedRasterNot16 (RAWImageInputStream iis,
                                                 WritableRaster raster,
                                                 RAWImageReaderSupport ir) 
@@ -461,7 +461,7 @@ public class RasterReader
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Reads an uncompressed raster.
      *
@@ -470,7 +470,7 @@ public class RasterReader
      * @param  ir           the image reader
      * @throws IOException  if an I/O error occurs
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected void loadRGBUncompressedRasterNot16 (RAWImageInputStream iis,
                                                    WritableRaster raster,
                                                    RAWImageReaderSupport ir)
@@ -516,7 +516,7 @@ public class RasterReader
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Reads an uncompressed raster. 
      * TODO: Refactor out, hide details in RAWImageInputStream.
@@ -526,7 +526,7 @@ public class RasterReader
      * @param  ir           the image reader
      * @throws IOException  if an I/O error occurs
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected void loadUncompressedRaster16 (@Nonnull final RAWImageInputStream iis,
                                              @Nonnull final WritableRaster raster,
                                              @Nonnull final RAWImageReaderSupport ir) 
@@ -584,7 +584,7 @@ public class RasterReader
         logger.fine(String.format(">>>> loadUncompressedRaster16() completed at %d (0x%x)", position, position));
       }    
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Reads a compressed raster. This method is empty and specific subclasses for
      * various RAW formats should override it, if a compressed raster is available.
@@ -594,14 +594,14 @@ public class RasterReader
      * @param  ir           the image reader
      * @throws IOException  if an I/O error occurs
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected void loadCompressedRaster (RAWImageInputStream iis,
                                          WritableRaster raster,
                                          RAWImageReaderSupport ir) throws IOException
       {
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Creates a raster compatible with the specified attributes. The current
      * implementation creates a {@link java.awt.image.PixelInterleavedSampleModel} 
@@ -625,7 +625,7 @@ public class RasterReader
         return Raster.createInterleavedRaster(type, width, height, scanlineStride, pixelStride, bandOffsets, null);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Creates the most efficient {@link it.tidalwave.imageio.io.BitReader}, which
      * is the faster for the given number of bits per sample.
@@ -664,7 +664,7 @@ public class RasterReader
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * This method returns true if a compressed raster is supported. It returns 
      * <code>false</code> by default: subclasses should implement a test and return
@@ -678,7 +678,7 @@ public class RasterReader
         return false;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * This method returns the row number given the current row. It returns the
      * row value unchanged by default. For RAW formats that implements interlaced
@@ -695,7 +695,7 @@ public class RasterReader
         return interlacedRow;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Some RAW formats require that a certain number of bits is skipped at certain
      * columns. This method controls this behaviour. It returns 0 by default, and 
@@ -710,7 +710,7 @@ public class RasterReader
         return 0;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Some RAW formats require that a certain number of bits s skipped at the end
      * of each row. This method controls this behaviour. It returns 0 by default, 
@@ -724,10 +724,10 @@ public class RasterReader
         return 0;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      *
-     **************************************************************************/
+     ******************************************************************************************************************/
     protected int[] getBandOffsets()
       {
         return new int[] {RasterReader.R_OFFSET, RasterReader.G_OFFSET, RasterReader.B_OFFSET};

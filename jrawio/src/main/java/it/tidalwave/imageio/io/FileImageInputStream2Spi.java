@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: FileImageInputStream2Spi.java 263 2009-06-15 09:18:57Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.io;
 
 import java.util.Iterator;
@@ -35,12 +35,12 @@ import javax.imageio.spi.ServiceRegistry;
 import javax.imageio.stream.ImageInputStream;
 import it.tidalwave.imageio.raw.Version;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  fritz
  * @version $Id: FileImageInputStream2Spi.java 263 2009-06-15 09:18:57Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class FileImageInputStream2Spi extends ImageInputStreamSpi 
   {
     private static final String VENDOR_NAME = "www.tidalwave.it";
@@ -49,7 +49,7 @@ public class FileImageInputStream2Spi extends ImageInputStreamSpi
 
     private static final Class INPUT_CLASS = File.class;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * 
      *******************************************************************************/
@@ -58,7 +58,7 @@ public class FileImageInputStream2Spi extends ImageInputStreamSpi
         super(VENDOR_NAME, VERSION, INPUT_CLASS);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -68,7 +68,7 @@ public class FileImageInputStream2Spi extends ImageInputStreamSpi
         return "Service provider that wraps a FileImageInputStream";
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Upon registration, this method ensures that this SPI is listed at the top
      * of the ImageInputStreamSpi items, so that it will be invoked before the
@@ -95,7 +95,7 @@ public class FileImageInputStream2Spi extends ImageInputStreamSpi
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 

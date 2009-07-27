@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: NEFRasterReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
 
 import javax.annotation.Nonnull;
@@ -38,14 +38,14 @@ import it.tidalwave.imageio.raw.RasterReader;
 import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 import javax.annotation.Nonnegative;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * This class implements the compressed NEF raster loading.
  * 
  * @author  Fabrizio Giudici
  * @version $Id: NEFRasterReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class NEFRasterReader extends RasterReader
   {
     private final static String CLASS = NEFRasterReader.class.getName();
@@ -100,7 +100,7 @@ public class NEFRasterReader extends RasterReader
         logger.fine("NEF HuffmannDecoder: %s", decoder);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Returns the most appropriate {@link it.tidalwave.imageio.raw.RasterReader} 
      * for the given Nikon model. A generic <code>RasterReader</code> is used for
@@ -140,7 +140,7 @@ public class NEFRasterReader extends RasterReader
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * 
      *******************************************************************************/
@@ -149,7 +149,7 @@ public class NEFRasterReader extends RasterReader
         vPredictor = new int[4]; // default value
       }
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Sets the vertical predictor values.
      * 
@@ -161,27 +161,27 @@ public class NEFRasterReader extends RasterReader
         this.vPredictor = vPredictor;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      * 
      * A NEF raster is compressed if the {@link #compression} value is 
      * {@link #COMPRESSED_NEF}.
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     protected boolean isCompressedRaster()
       {
         return compression == COMPRESSED_NEF;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      * 
      * This method implements raster data loading for compressed NEF.
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     protected void loadCompressedRaster (@Nonnull final RAWImageInputStream iis,
                                          @Nonnull final WritableRaster raster,
@@ -229,7 +229,7 @@ public class NEFRasterReader extends RasterReader
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Clips an integer value in the 0..max-1 range.
      * 

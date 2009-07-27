@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: TIFFImageReaderSupport.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.tiff;
 
 import java.lang.reflect.Constructor;
@@ -41,7 +41,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 import it.tidalwave.imageio.raw.RAWMetadataSupport;
 import it.tidalwave.imageio.raw.RasterReader;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * This abstract class is provided as a support for implementing, by subclassing,
  * an ImageReader for any TIFF-based image format.
@@ -49,7 +49,7 @@ import it.tidalwave.imageio.raw.RasterReader;
  * @author Fabrizio Giudici
  * @version $Id: TIFFImageReaderSupport.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
   {
     private final static String CLASS = TIFFImageReaderSupport.class.getName();
@@ -70,11 +70,11 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
     /** The class of the metadata. */
     private Class metadataClass;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      *
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected TIFFImageReaderSupport (ImageReaderSpi originatingProvider, Class makerNoteClass, Class metadataClass)
       {
         super(originatingProvider);
@@ -82,11 +82,11 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         this.metadataClass = metadataClass;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public int getWidth (int imageIndex) throws IOException
       {
         checkImageIndex(imageIndex);
@@ -94,11 +94,11 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         return ((TIFFMetadataSupport)metadata).getWidth();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public int getHeight (int imageIndex) throws IOException
       {
         checkImageIndex(imageIndex);
@@ -106,7 +106,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         return ((TIFFMetadataSupport)metadata).getHeight();
       }
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -120,12 +120,12 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         return thumbnailInfo.length;
       }
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Overrides the default ImageReader implementation by avoiding to actually
      * load the thumbnail.
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     public int getThumbnailWidth (int imageIndex, int thumbnailIndex) throws IOException
       {
@@ -135,12 +135,12 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         return ((TIFFMetadataSupport)metadata).getThumbnailWidth(thumbnailIndex);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Overrides the default ImageReader implementation to avoid to actually
      * load the thumbnail.
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     public int getThumbnailHeight (int imageIndex, int thumbnailIndex) throws IOException
       {
@@ -150,7 +150,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         return ((TIFFMetadataSupport)metadata).getThumbnailHeight(thumbnailIndex);
      }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -164,7 +164,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         return thumbnailInfo[thumbnailIndex].load(iis);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * A default implementation that just invokes loadRAWImage().
      *
@@ -173,7 +173,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      * @return                 the thumbnail
      * @throws IOException     if an I/O error occurs
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     protected BufferedImage loadImage (int imageIndex) throws IOException
       {
@@ -186,7 +186,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         return image;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Processes a TIFF header and sets the endianness property for the given
      * ImageInputStream. Returns the offset of the primary IFD.
@@ -195,7 +195,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      * @return              the offset of the primary IFD
      * @throws IOException  if validation errors occur
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public static long processHeader (ImageInputStream iis,
                                       HeaderProcessor headerProcessor) throws IOException
       {
@@ -224,7 +224,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         return offset;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Sets the byteorder of the given ImageInputStream guessing it by the marker
      * in the next 16-bit integer.
@@ -232,7 +232,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      * @param  iis          the ImageInputSream to set the byte order to
      * @throws IOException  if an error occurs
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public static void setByteOrder (ImageInputStream iis) throws IOException
       {
         short byteOrder = iis.readShort();
@@ -255,7 +255,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         logger.finer(">>>> Byte order is %s", iis.getByteOrder());
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param bitsPerSample
      * @param rasterReader
@@ -313,11 +313,11 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * {@inheritDoc}
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected Directory loadPrimaryDirectory() throws IOException
       {
         logger.fine("loadPrimaryDirectory() - %s", iis);
@@ -337,7 +337,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         return primaryIFD;
       }
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * 
      *******************************************************************************/
@@ -346,7 +346,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         return new IFD();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -364,7 +364,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -377,7 +377,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         metadata = createMetadata(primaryDirectory, null);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Processes the EXIF metadata, if present. The EXIF data is added to the
      * imageMetadata. The MakerNote is processed too.
@@ -385,7 +385,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      * @param   directory    the primary directory
      * @throws  IOException  if an I/O error occurs
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected void processEXIFAndMakerNote (Directory directory) throws IOException
       {
         if (((IFD)directory).isExifIFDPointerAvailable())
@@ -418,7 +418,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -441,7 +441,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         logger.fine("MakerNote: %s", makerNote);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Checks the validity of a thumbnail index.
      * 
