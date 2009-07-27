@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,17 +20,17 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: BitReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.io;
 
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * This is the base class for a number of specialized, high performance bit readers.
  * The class javax.imageio.stream.ImageInputStream is able to read string of
@@ -41,7 +41,7 @@ import javax.imageio.stream.ImageInputStream;
  * @author  Fabrizio Giudici
  * @version $Id: BitReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 /* package */abstract class BitReader
   {
     /** The linked input stream. */
@@ -59,7 +59,7 @@ import javax.imageio.stream.ImageInputStream;
     /** The pointer to the next unread bit in the current byte.*/
     protected int bitPosition;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Read another string of bits. If bitsToGet is zero, nothing is read from the
      * stream and zero is returned.
@@ -69,23 +69,23 @@ import javax.imageio.stream.ImageInputStream;
      * @throws IOException               if any I/O error occurs
      * @throws IllegalArgumentException  if bitsToGet is negative
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public abstract int readBits (int bitsToGet) throws IOException;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Skip another string of bits.
      *
      * @param  bitsToSkip   how many bits to skip
      * @throws IOException  if any I/O error occurs
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public void skipBits (int bitsToSkip) throws IOException
       {
         readBits(bitsToSkip);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @return
      * @throws IOException 
@@ -96,7 +96,7 @@ import javax.imageio.stream.ImageInputStream;
         return iis.getStreamPosition() - bufferSize + bytePointer;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param position
      * @throws IOException
@@ -108,7 +108,7 @@ import javax.imageio.stream.ImageInputStream;
         iis.seek(position);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param bitPosition
      * 
@@ -118,7 +118,7 @@ import javax.imageio.stream.ImageInputStream;
         this.bitPosition = bitPosition;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @return
      * 
@@ -128,7 +128,7 @@ import javax.imageio.stream.ImageInputStream;
         return bitPosition;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * This method should be called whenever a seek() is performed on the associated
      * stream to flush the internal buffer and re-sync.
@@ -136,7 +136,7 @@ import javax.imageio.stream.ImageInputStream;
      *******************************************************************************/
     protected abstract void resync ();
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * If this property is set to true, a byte is skipped whenever a 0xFF byte is
      * read. This is a requirement of many RAW formats - usually the skipped byte is

@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: CRWMetadata.java 160 2008-09-13 19:51:30Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.crw;
 
 import java.util.Date;
@@ -39,12 +39,12 @@ import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: CRWMetadata.java 160 2008-09-13 19:51:30Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class CRWMetadata extends TIFFMetadataSupport
   {
     private final static String CLASS = CRWMetadata.class.getName();
@@ -67,9 +67,9 @@ public class CRWMetadata extends TIFFMetadataSupport
     private final static String[] WHITE_BALANCE_NAMES = {
       "auto", "daylight", "cloudy", "tungsten", "fluorescent", "flash", "custom", "b&w", "shade" };
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public CRWMetadata (CanonCRWMakerNote canonMakerNote, 
                         Directory imageIFD, 
                         RAWImageInputStream iis, 
@@ -88,7 +88,7 @@ public class CRWMetadata extends TIFFMetadataSupport
          */
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -99,7 +99,7 @@ public class CRWMetadata extends TIFFMetadataSupport
         return getImageWidth();
       }
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -241,7 +241,7 @@ public class CRWMetadata extends TIFFMetadataSupport
         return findDirectory(CanonCRWMakerNote.CANON_CAMERA_SETTINGS);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @return
      * 
@@ -264,7 +264,7 @@ public class CRWMetadata extends TIFFMetadataSupport
         return wb;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @return
      * 
@@ -276,7 +276,7 @@ public class CRWMetadata extends TIFFMetadataSupport
         return (whiteBalance < WHITE_BALANCE_NAMES.length) ? WHITE_BALANCE_NAMES[whiteBalance] : ("" + whiteBalance);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @return
      * 
@@ -342,7 +342,7 @@ public class CRWMetadata extends TIFFMetadataSupport
         return rbCoefficients;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Returns true if the color temperature is available.
      * 
@@ -354,7 +354,7 @@ public class CRWMetadata extends TIFFMetadataSupport
         return findTag(CanonCRWMakerNote.COLOR_TEMPERATURE) != null;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Return the color temperature.
      * 
@@ -375,7 +375,7 @@ public class CRWMetadata extends TIFFMetadataSupport
      SerialNumber type: long[2] 1135765596,-1420655045
      */
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -423,7 +423,7 @@ public class CRWMetadata extends TIFFMetadataSupport
         return buffer.toString();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param dir
      * @param code
@@ -452,7 +452,7 @@ public class CRWMetadata extends TIFFMetadataSupport
         return tag;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param code
      * @return
@@ -463,7 +463,7 @@ public class CRWMetadata extends TIFFMetadataSupport
         return findTag(canonMakerNote, code);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param dir
      * @param code
@@ -492,7 +492,7 @@ public class CRWMetadata extends TIFFMetadataSupport
         return null;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param code
      * @return

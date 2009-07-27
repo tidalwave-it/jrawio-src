@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: DNGCurveOperation.java 164 2008-09-20 23:39:55Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
 
 import it.tidalwave.imageio.util.Logger;
@@ -33,23 +33,23 @@ import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: DNGCurveOperation.java 164 2008-09-20 23:39:55Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class DNGCurveOperation extends CurveOperation  
   {
     private final static String CLASS = "it.tidalwave.imageio.rawprocessor.dng.DNGCurveOperation";
     
     private final static Logger logger = Logger.getLogger(CLASS);
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected int[] getBlackLevel (RAWImage image)
       {
         TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
@@ -74,11 +74,11 @@ public class DNGCurveOperation extends CurveOperation
         return new int[] { (int)blackLevel, (int)blackLevel, (int)blackLevel };
       }
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected double getWhiteLevel (RAWImage image)
       {
         logger.fine("getWhiteLevel()");

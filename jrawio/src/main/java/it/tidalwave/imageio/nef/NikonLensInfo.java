@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: NikonLensInfo.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
 
 import java.util.Properties;
@@ -33,12 +33,12 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import javax.annotation.Nonnull;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  fritz
  * @version $Id: NikonLensInfo.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class NikonLensInfo // NOT Serializable, it is rebuilt on demand
   {
     private static Properties lensNameByID = new Properties();
@@ -85,7 +85,7 @@ public class NikonLensInfo // NOT Serializable, it is rebuilt on demand
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param bytes
      * 
@@ -116,7 +116,7 @@ public class NikonLensInfo // NOT Serializable, it is rebuilt on demand
         mcuVersion = buffer.get(12);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @return
      * 
@@ -126,7 +126,7 @@ public class NikonLensInfo // NOT Serializable, it is rebuilt on demand
         return lensName;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 

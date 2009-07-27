@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: NEFImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
 
 import java.awt.image.BufferedImage;
@@ -38,12 +38,12 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: NEFImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class NEFImageReader extends TIFFImageReaderSupport
   {
     private final static String CLASS = NEFImageReader.class.getName();
@@ -51,9 +51,9 @@ public class NEFImageReader extends TIFFImageReaderSupport
 
     private boolean isNDF = false;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected NEFImageReader (@Nonnull final ImageReaderSpi originatingProvider, 
                               @CheckForNull final Object extension)
       {
@@ -61,7 +61,7 @@ public class NEFImageReader extends TIFFImageReaderSupport
         headerProcessor = new NEFHeaderProcessor();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      * 
@@ -81,7 +81,7 @@ public class NEFImageReader extends TIFFImageReaderSupport
      * @return              the image
      * @throws IOException  if an I/O error occurs
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     protected BufferedImage loadImage (@Nonnull final int imageIndex) 
       throws IOException
@@ -116,11 +116,11 @@ public class NEFImageReader extends TIFFImageReaderSupport
         return image;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     protected WritableRaster loadRAWRaster() 
       throws IOException
@@ -157,7 +157,7 @@ public class NEFImageReader extends TIFFImageReaderSupport
         return raster;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 

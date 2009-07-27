@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: NEFColorConversionOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
 
 import java.util.HashMap;
@@ -38,12 +38,12 @@ import it.tidalwave.imageio.rawprocessor.ColorMatrix;
 import it.tidalwave.imageio.rawprocessor.raw.ColorConversionOperation;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: NEFColorConversionOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class NEFColorConversionOperation extends ColorConversionOperation  
   {
     private final static Logger logger = getLogger(NEFColorConversionOperation.class);
@@ -52,7 +52,7 @@ public class NEFColorConversionOperation extends ColorConversionOperation
 
     private static Map colorModesMap;
         
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * 
      *******************************************************************************/
@@ -73,7 +73,7 @@ public class NEFColorConversionOperation extends ColorConversionOperation
         return null;
       }
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param colorMatrix
      * @return
@@ -100,11 +100,11 @@ public class NEFColorConversionOperation extends ColorConversionOperation
         return new ColorMatrix(c);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Returns the color matrix for a given model and color mode.
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public static ColorMatrix getColorModeColorMatrix (String model, NikonMakerNote3.ColorMode cameraColorMode)
       {
         loadICCProfileMap();
@@ -112,11 +112,11 @@ public class NEFColorConversionOperation extends ColorConversionOperation
         return (ColorMatrix)colorMatrixProfileMap.get(getCompositeKey(model, cameraColorMode));
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Returns the color matrix for a given model and color mode.
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public static ColorMatrix getColorModeColorMatrix (String model,
                                                 int nceColorMode)
       {
@@ -125,11 +125,11 @@ public class NEFColorConversionOperation extends ColorConversionOperation
         return (ColorMatrix)colorMatrixProfileMap.get(getCompositeKey(model, new Integer(nceColorMode)));
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Returns the color modes for the given model.
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public static int[] getColorModes (String model)
       {
         loadICCProfileMap();
@@ -137,21 +137,21 @@ public class NEFColorConversionOperation extends ColorConversionOperation
         return (int[])colorModesMap.get(model);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     private static Object getCompositeKey (String model,
                                            Object colorMode)
       {
         return model.toString().trim() + "." + colorMode.toString().trim();
       }
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * This should be called once after metadata has been set (it needs the model
      * name).
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     private static void loadICCProfileMap ()
       {
         if (colorMatrixProfileMap == null)

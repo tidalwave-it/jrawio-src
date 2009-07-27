@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: CRWImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.crw;
 
 import it.tidalwave.imageio.util.Logger;
@@ -40,12 +40,12 @@ import it.tidalwave.imageio.raw.RAWMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: CRWImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class CRWImageReader extends RAWImageReaderSupport
   {
     private final static String CLASS = CRWImageReader.class.getName();
@@ -68,19 +68,19 @@ public class CRWImageReader extends RAWImageReaderSupport
     /** The CRW Maker Note. */
     private CanonCRWMakerNote canonMakerNote;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected CRWImageReader (ImageReaderSpi originatingProvider)
       {
         super(originatingProvider);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     public int getNumThumbnails (int imageIndex)
       throws IOException
@@ -90,11 +90,11 @@ public class CRWImageReader extends RAWImageReaderSupport
         return thumbnailCount;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public int getWidth (int imageIndex) 
       throws IOException
       {
@@ -103,11 +103,11 @@ public class CRWImageReader extends RAWImageReaderSupport
         return ((CRWMetadata)metadata).getImageWidth();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public int getHeight (int imageIndex) 
       throws IOException
       {
@@ -116,11 +116,11 @@ public class CRWImageReader extends RAWImageReaderSupport
         return ((CRWMetadata)metadata).getImageHeight();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     public int getThumbnailWidth (int imageIndex, int thumbnailIndex) 
       throws IOException
@@ -131,11 +131,11 @@ public class CRWImageReader extends RAWImageReaderSupport
         return ((CRWMetadata)metadata).getThumbnailWidth();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     public int getThumbnailHeight (int imageIndex, int thumbnailIndex) 
       throws IOException
@@ -146,7 +146,7 @@ public class CRWImageReader extends RAWImageReaderSupport
         return ((CRWMetadata)metadata).getThumbnailHeight();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -162,11 +162,11 @@ public class CRWImageReader extends RAWImageReaderSupport
         return primaryDirectory;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected BufferedImage loadThumbnail (int imageIndex, int thumbnailIndex) 
       throws IOException
       {
@@ -198,11 +198,11 @@ public class CRWImageReader extends RAWImageReaderSupport
         return loadEmbeddedImage(iis, jpegOffset, jpegSize);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected WritableRaster loadRAWRaster() 
       throws IOException
       {
@@ -228,11 +228,11 @@ public class CRWImageReader extends RAWImageReaderSupport
         return raster;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected void checkThumbnailIndex (int thumbnailIndex)
       {
         if (thumbnailIndex >= thumbnailCount)
@@ -241,11 +241,11 @@ public class CRWImageReader extends RAWImageReaderSupport
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected void processMetadata() 
       throws IOException
       {
@@ -271,7 +271,7 @@ public class CRWImageReader extends RAWImageReaderSupport
         logger.fine(">>>> metadata: %s", metadata);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Releases all the allocated resources.
      * 
@@ -284,7 +284,7 @@ public class CRWImageReader extends RAWImageReaderSupport
         imageIFD = null;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -303,7 +303,7 @@ public class CRWImageReader extends RAWImageReaderSupport
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @throws IOException
      * 
@@ -340,7 +340,7 @@ public class CRWImageReader extends RAWImageReaderSupport
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Processes the EXIF metadata, if present. The EXIF data is added to the
      * imageMetadata. The MakerNote is processed too.
@@ -349,7 +349,7 @@ public class CRWImageReader extends RAWImageReaderSupport
      * @param   iis          the image input stream
      * @throws  IOException  if an I/O error occurs
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected void processEXIFAndMakerNote (Directory directory,
                                             RAWImageInputStream iis)
       throws IOException
@@ -387,7 +387,7 @@ public class CRWImageReader extends RAWImageReaderSupport
         //         }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -398,7 +398,7 @@ public class CRWImageReader extends RAWImageReaderSupport
         return new CRWMetadata((CanonCRWMakerNote)primaryDirectory, imageDirector, iis, headerProcessor);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Processes the maker note.
      * FIXME: try to merge with super implementation.
@@ -406,7 +406,7 @@ public class CRWImageReader extends RAWImageReaderSupport
      * @param   iis          the ImageInputStream
      * @throws  IOException  if an I/O error occurs
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected void processMakerNote (RAWImageInputStream iis)
       throws IOException
       {
@@ -417,7 +417,7 @@ public class CRWImageReader extends RAWImageReaderSupport
         logger.fine("MakerNote: %s", makerNote);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param iis
      * @param reset

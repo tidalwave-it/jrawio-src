@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: ORFRasterReader.java 122 2008-08-25 00:15:14Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.orf;
 
 import javax.annotation.Nonnull;
@@ -32,14 +32,14 @@ import java.util.HashMap;
 import java.util.Map;
 import it.tidalwave.imageio.raw.RasterReader;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * This class implements the ORF (Olympus raw Format) raster loading.
  * 
  * @author  Fabrizio Giudici
  * @version $Id: ORFRasterReader.java 122 2008-08-25 00:15:14Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class ORFRasterReader extends RasterReader
   {
     private static final CSeriesRasterReader C_SERIES_RASTER_READER = new CSeriesRasterReader();
@@ -57,14 +57,14 @@ public class ORFRasterReader extends RasterReader
         rasterReaderMapByModel.put("E-510", E410_RASTER_READER);
       }
     
-    /***************************************************************************
+    /*******************************************************************************************************************
      * 
      * Creates the proper {@link RasterReader} for the given model.
      * 
      * @param  model  the camera model
      * @return        the <code>RasterReader</code>
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     public static ORFRasterReader getInstance (@Nonnull String model)
       {
@@ -84,11 +84,11 @@ public class ORFRasterReader extends RasterReader
         return new ORFRasterReader();
       }
     
-    /***************************************************************************
+    /*******************************************************************************************************************
      * 
      * {@inheritDoc}
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Override
     @Nonnull
     public String toString()

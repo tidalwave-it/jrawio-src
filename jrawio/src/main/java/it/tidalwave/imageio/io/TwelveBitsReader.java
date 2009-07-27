@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,17 +20,17 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: TwelveBitsReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.io;
 
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * Facility class to read strings of 12 bits from an ImageInputStream, it is 
  * much faster than ImageInputStream.readBits(). 
@@ -46,14 +46,14 @@ import javax.imageio.stream.ImageInputStream;
  * @author Fabrizio Giudici
  * @version $Id: TwelveBitsReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 /* package */class TwelveBitsReader extends BitReader
   {
     private int[] buffer;
 
     private int bufferPointer;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Creates a new <code>TwelveBitsReader</code> linking to an existing input stream.
      * This version allows to specify the buffer size to use.
@@ -62,7 +62,7 @@ import javax.imageio.stream.ImageInputStream;
      * @param  bufferSize  the bufferSize
      * 
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public TwelveBitsReader (ImageInputStream iis, int bufferSize)
       {
         this.iis = iis;
@@ -72,18 +72,18 @@ import javax.imageio.stream.ImageInputStream;
         bytePointer = byteBuffer.length;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public void resync ()
       {
         bufferPointer = buffer.length; // force a reload next time
         bytePointer = buffer.length;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      * 
@@ -91,7 +91,7 @@ import javax.imageio.stream.ImageInputStream;
      * 
      * @throws IllegalArgumentException  if bitsToGet is not equal to 12
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public int readBits (int bitsToGet) throws IOException
       {
         if (bitsToGet != 12)
@@ -121,7 +121,7 @@ import javax.imageio.stream.ImageInputStream;
         return buffer[bufferPointer++];
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      * 
@@ -129,7 +129,7 @@ import javax.imageio.stream.ImageInputStream;
      * 
      * @throws IllegalArgumentException  if bitsToGet is not a multiple of 8
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public void skipBits (int bitsToSkip)
       {
         if ((bitsToSkip % 8) != 0)
@@ -141,7 +141,7 @@ import javax.imageio.stream.ImageInputStream;
         bytePointer += bytes;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -158,7 +158,7 @@ import javax.imageio.stream.ImageInputStream;
       }
 
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -175,7 +175,7 @@ import javax.imageio.stream.ImageInputStream;
         return p;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 

@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: AbstractTag.java 88 2008-08-24 10:45:39Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.raw;
 
 import javax.annotation.CheckForNull;
@@ -35,7 +35,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import javax.imageio.stream.ImageInputStream;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * This class represents an abstract tag, which is an aggregate of a numeric code,
  * a type and a value. The value can be an integer, a short, a byte, a float or
@@ -48,7 +48,7 @@ import javax.imageio.stream.ImageInputStream;
  * @author  Fabrizio Giudici
  * @version $Id: AbstractTag.java 88 2008-08-24 10:45:39Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public abstract class AbstractTag implements Serializable
   {
     private final static long serialVersionUID = 2694868438676854749L;
@@ -91,14 +91,14 @@ public abstract class AbstractTag implements Serializable
     /** The values as an ASCII string. */
     protected String asciiValue;
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * Creates an <code>AbstractTag</code> in a registry given s numeric code.
      * 
      * @param  registry  the registry this tag belongs to
      * @param  code      the code
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     public AbstractTag (@Nonnull final TagRegistry registry, final int code)
       {
         this.registry = registry;
@@ -106,49 +106,49 @@ public abstract class AbstractTag implements Serializable
         registryName = registry.getName();
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * Returns the numeric code of this tag.
      * 
      * @return  the code
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     public int getCode()
       {
         return code;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * Return the type of values contained in this tag.
      * 
      * @return   the type
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     public int getType()
       {
         return type;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * Returns the count of values in this tag.
      * 
      * @return  the count of values
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     public int getValuesCount()
       {
         return valuesCount;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      * 
      * Returns the value(s) contained in this tag as the most pertinent type.
      * 
      * @return  the value
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @CheckForNull
     public Object getValue()
       {
@@ -178,13 +178,13 @@ public abstract class AbstractTag implements Serializable
           }
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * Returns the value as bytes.
      * 
      * @return  the values as bytes
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @CheckForNull
     public byte[] getByteValues()
       {
@@ -204,59 +204,59 @@ public abstract class AbstractTag implements Serializable
         return undefinedValue;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * Returns the value as integers.
      * 
      * @return  the values as integers
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @CheckForNull
     public int[] getIntValues()
       {
         return intValue;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * Returns the value as floats.
      * 
      * @return  the values as floats
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @CheckForNull
     public float[] getFloatValues()
       {
         return floatValue;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * Returns the value as rationals.
      * 
      * @return  the values as rationals
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @CheckForNull
     public TagRational[] getRationalValues ()
       {
         return rationalValue;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * Returns the value as an ASCII string.
      * 
      * @return  the values as an ASCII string
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @CheckForNull
     public String getASCIIValue ()
       {
         return asciiValue;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      * 
      * Reads integer values from the given image input stream.
      * 
@@ -266,7 +266,7 @@ public abstract class AbstractTag implements Serializable
      * @return              the integers
      * @throws IOException  if a I/O error occurs
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     protected int[] readIntValues (@Nonnull final ImageInputStream iis,
                                    final long valueOffset,
@@ -287,7 +287,7 @@ public abstract class AbstractTag implements Serializable
         return buffer;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      * 
      * Reads short values from the given image input stream.
      * 
@@ -297,7 +297,7 @@ public abstract class AbstractTag implements Serializable
      * @return              the integers
      * @throws IOException  if a I/O error occurs
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     protected int[] readShortValues (@Nonnull final ImageInputStream iis,
                                      final long valueOffset,
@@ -318,7 +318,7 @@ public abstract class AbstractTag implements Serializable
         return buffer;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      * 
      * Reads byte values from the given image input stream.
      * 
@@ -328,7 +328,7 @@ public abstract class AbstractTag implements Serializable
      * @return              the integers
      * @throws IOException  if a I/O error occurs
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     protected int[] readByteValues (@Nonnull final ImageInputStream iis,
                                     final long valueOffset,
@@ -349,14 +349,14 @@ public abstract class AbstractTag implements Serializable
         return buffer;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      * 
      * Appends the contained value(s) to the given <code>StringBuffer</code>. This
      * method is used by {@link #toString()}.
      * 
      * @param buffer  buffer
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     protected void appendValues (@Nonnull final StringBuilder buffer)
       {
         if (undefinedValue != null)
@@ -427,7 +427,7 @@ public abstract class AbstractTag implements Serializable
           }
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      * 
      * Customized deserialization code. This method restores the link to the registry
      * this tag belongs to.
@@ -436,7 +436,7 @@ public abstract class AbstractTag implements Serializable
      * @throws IOException
      * @throws ClassNotFoundException
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     private void readObject (@Nonnull final ObjectInputStream is) 
       throws IOException, ClassNotFoundException
       {

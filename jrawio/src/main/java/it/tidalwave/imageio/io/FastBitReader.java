@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,17 +20,17 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: FastBitReader.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.io;
 
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * Facility class to read bits from an ImageInputStream, it is much faster
  * than ImageInputStream.readBits(). It also supports the behaviour of skipping
@@ -39,7 +39,7 @@ import javax.imageio.stream.ImageInputStream;
  * @author  Fabrizio Giudici
  * @version $Id: FastBitReader.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 
 /* package */class FastBitReader extends BitReader
   {
@@ -51,20 +51,20 @@ import javax.imageio.stream.ImageInputStream;
     /** If true, a zero byte is skipped whenever a FF byte is read. */
     private boolean skipZeroAfterFF;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Creates a new <code>FastBitReader</code> linking to an existing input stream.
      * A default buffer size of 64k is used.
      * 
      * @param  iis  the input stream
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public FastBitReader (ImageInputStream iis)
       {
         this(iis, DEFAULT_BUFFER_SIZE);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Creates a new <code>FastBitReader</code> linking to an existing input stream.
      * This version allows to specify the buffer size to use.
@@ -72,14 +72,14 @@ import javax.imageio.stream.ImageInputStream;
      * @param  iis         the input stream
      * @param  bufferSize  the bufferSize
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public FastBitReader (ImageInputStream iis, int bufferSize)
       {
         this.iis = iis;
         byteBuffer = new byte[bufferSize];
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -89,7 +89,7 @@ import javax.imageio.stream.ImageInputStream;
         this.skipZeroAfterFF = skipZeroAfterFF;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -99,11 +99,11 @@ import javax.imageio.stream.ImageInputStream;
         bytePointer = bitPosition = bufferSize = 0;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public int readBits (int bitsToGet) throws IOException
       {
         if (bitsToGet < 0)

@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: SRFImageInputStream.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.srf;
 
 import java.io.IOException;
@@ -32,12 +32,12 @@ import java.nio.ByteBuffer;
 import javax.imageio.stream.ImageInputStream;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: SRFImageInputStream.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class SRFImageInputStream extends RAWImageInputStream
   {
     private SonyDecipher decipher;
@@ -50,7 +50,7 @@ public class SRFImageInputStream extends RAWImageInputStream
 
     private long startOfEncryptedSection;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param delegate
      * 
@@ -61,7 +61,7 @@ public class SRFImageInputStream extends RAWImageInputStream
         this.delegate = originalDelegate = delegate;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param key
      * 
@@ -71,7 +71,7 @@ public class SRFImageInputStream extends RAWImageInputStream
         decipher = new SonyDecipher(key);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param size
      * 
@@ -96,7 +96,7 @@ public class SRFImageInputStream extends RAWImageInputStream
         this.byteBuffer = byteBuffer;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @throws IOException 
      * 
@@ -109,7 +109,7 @@ public class SRFImageInputStream extends RAWImageInputStream
         //System.err.println("encrypted section ended at " + getStreamPosition());
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -124,7 +124,7 @@ public class SRFImageInputStream extends RAWImageInputStream
         return delegate.read();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -142,7 +142,7 @@ public class SRFImageInputStream extends RAWImageInputStream
         return delegate.read(b, off, len);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -158,7 +158,7 @@ public class SRFImageInputStream extends RAWImageInputStream
         return delegate.skipBytes(n);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -174,7 +174,7 @@ public class SRFImageInputStream extends RAWImageInputStream
         return delegate.skipBytes(n);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -189,7 +189,7 @@ public class SRFImageInputStream extends RAWImageInputStream
         return delegate.getStreamPosition();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 

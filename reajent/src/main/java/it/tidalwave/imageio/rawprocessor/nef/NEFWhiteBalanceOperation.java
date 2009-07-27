@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: NEFWhiteBalanceOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
 
 import it.tidalwave.imageio.util.Logger;
@@ -36,21 +36,21 @@ import it.tidalwave.imageio.nef.NikonMakerNote3;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: NEFWhiteBalanceOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class NEFWhiteBalanceOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(NEFWhiteBalanceOperation.class);
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public void process (RAWImage image)
       {
         logger.fine("process()");
@@ -69,11 +69,11 @@ public class NEFWhiteBalanceOperation extends OperationSupport
           }
       }    
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      *
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     private void applyCameraSettings (RAWImage image, NikonMakerNote3 makerNote)
       {
         NikonMakerNote3.WhiteBalance cameraWhiteBalance = makerNote.getWhiteBalance();       
@@ -99,11 +99,11 @@ public class NEFWhiteBalanceOperation extends OperationSupport
           }
       }
   
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      *
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     private boolean isNCESettingAvailable (NikonCaptureEditorMetadata nceMetadata)
       {
       //   
@@ -115,11 +115,11 @@ public class NEFWhiteBalanceOperation extends OperationSupport
               || (nceMetadata.getWhiteBalanceWhitePoint() == NikonCaptureEditorMetadata.WHITE_BALANCE_USE_GRAY_POINT));
       }
         
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      *
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     private void applyNCESettings (RAWImage image, NikonCaptureEditorMetadata nceMetadata)
       {
         logger.finer(">>>> using NCE coefficients");

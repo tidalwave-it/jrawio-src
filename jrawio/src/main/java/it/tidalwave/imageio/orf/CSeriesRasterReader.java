@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: CSeriesRasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.orf;
 
 import javax.annotation.Nonnegative;
@@ -34,14 +34,14 @@ import java.io.IOException;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * This class implements the ORF (Olympus raw Format) raster loading for C-series.
  * 
  * @author  Fabrizio Giudici
  * @version $Id: CSeriesRasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class CSeriesRasterReader extends ORFRasterReader
   {
     private final static int BITS_PER_PIXEL = 8;
@@ -53,11 +53,11 @@ public class CSeriesRasterReader extends ORFRasterReader
     /** Size of a row in bytes. */
     private int rowByteCount;
     
-    /***************************************************************************
+    /*******************************************************************************************************************
      * 
      * {@inheritDoc}
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Override
     protected void loadUncompressedRaster (@Nonnull final RAWImageInputStream iis,
                                            @Nonnull final WritableRaster raster,
@@ -68,13 +68,13 @@ public class CSeriesRasterReader extends ORFRasterReader
         super.loadUncompressedRaster(iis, raster, ir);  
       }
     
-    /***************************************************************************
+    /*******************************************************************************************************************
      * 
      * {@inheritDoc}
      * 
      * C-series rasters are interlaced.
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Override
     protected int getRow (@Nonnegative final int y, 
                           @Nonnegative final int height)
@@ -82,12 +82,12 @@ public class CSeriesRasterReader extends ORFRasterReader
         return (y <= (height / 2)) ? (y * 2) : ((y - height / 2) * 2 - 1);
       }
     
-    /***************************************************************************
+    /*******************************************************************************************************************
      * 
      * The second set of interlaced rows starts at an offset with the BITS_COUNT
      * least significant bits to zero. Pad appropriately.
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Override
     @Nonnegative
     protected int getSkipCountAtEndOfRow (@Nonnegative final int y,

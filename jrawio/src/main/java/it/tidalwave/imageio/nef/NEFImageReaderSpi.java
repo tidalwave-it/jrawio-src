@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2007 by Fabrizio Giudici (Fabrizio.Giudici@tidalwave.it)
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it) (Fabrizio.Giudici@tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: NEFImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
 
 import javax.annotation.CheckForNull;
@@ -40,12 +40,12 @@ import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: NEFImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
   {
     private final static String CLASS = NEFImageReaderSpi.class.getName();
@@ -53,7 +53,7 @@ public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
 
     private final static List supportedModels = Arrays.asList(new String[] { "E5700", "E8700", "E5400", "E8800" });
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * 
      *******************************************************************************/
@@ -62,18 +62,18 @@ public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
         super("NEF", new String[] { "nef", "ndf" }, "image/x-nikon-nef", NEFImageReader.class);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     public String getDescription (final Locale locale)
       {
         return "Standard NEF Image Reader";
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     public ImageReader createReaderInstance (@CheckForNull final Object extension) 
       throws IOException
@@ -81,7 +81,7 @@ public class NEFImageReaderSpi extends RAWImageReaderSpiSupport
         return new NEFImageReader(this, extension);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param iis
      * @return

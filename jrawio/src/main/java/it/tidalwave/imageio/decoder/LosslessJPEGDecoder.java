@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: LosslessJPEGDecoder.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.decoder;
 
 import it.tidalwave.imageio.util.Logger;
@@ -34,7 +34,7 @@ import javax.imageio.stream.ImageInputStream;
 
 import it.tidalwave.imageio.io.RAWImageInputStream;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * This class implements a 16-bit Lossless JPEG decoder. This kind of encoding is
  * widely used by some RAW formats which include blocks of encoded data.
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * @author  fritz
  * @version $Id: LosslessJPEGDecoder.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class LosslessJPEGDecoder
   {
     private final static String CLASS = "it.tidalwave.imageio.decoder.LosslessJPEGDecoder";
@@ -74,7 +74,7 @@ public class LosslessJPEGDecoder
 
     private short[] rowBuffer;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Creates an empty decoder. Prior using, the decoder must be bound to an input
      * stream by means of the {@link #reset(ImageInputStream)} method. The same 
@@ -85,7 +85,7 @@ public class LosslessJPEGDecoder
       { 
       }
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Links the decoder to a given input stream. This method also parses the 
      * Lossless JPEG header.
@@ -166,7 +166,7 @@ public class LosslessJPEGDecoder
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Loads and decodes another row of data from this encoder.
      * 

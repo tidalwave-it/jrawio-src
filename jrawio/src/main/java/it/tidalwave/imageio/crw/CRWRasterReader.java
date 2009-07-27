@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: CRWRasterReader.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.crw;
 
 import it.tidalwave.imageio.util.Logger;
@@ -37,7 +37,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RasterReader;
 import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * This class loads raster data for Canon cameras.
  * 
@@ -47,7 +47,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSupport;
  * @author  Fabrizio Giudici
  * @version $Id: CRWRasterReader.java 159 2008-09-13 19:15:44Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class CRWRasterReader extends RasterReader
   {
     private final static String CLASS = CRWRasterReader.class.getName();
@@ -119,7 +119,7 @@ public class CRWRasterReader extends RasterReader
         0xb3, 0xd2, 0x81, 0xe5, 0xd3, 0xaa, 0xc4, 0xca, 0xf2, 0xb1, 0xe4, 0xd1, 0x83, 0x63, 0xea, 0xc3, 0xe2, 0x82,
         0xf1, 0xa3, 0xc2, 0xa1, 0xc1, 0xe3, 0xa2, 0xe1, 0xff, 0xff } };
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * 
      *******************************************************************************/
@@ -135,7 +135,7 @@ public class CRWRasterReader extends RasterReader
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param rasterOffset
      * 
@@ -145,7 +145,7 @@ public class CRWRasterReader extends RasterReader
         this.rasterOffset = rasterOffset;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param decoderPairIndex
      * 
@@ -155,7 +155,7 @@ public class CRWRasterReader extends RasterReader
         this.decoderPairIndex = decoderPairIndex;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Returns the most appropriate RasterReader for the given Canon model.
      * 
@@ -173,7 +173,7 @@ public class CRWRasterReader extends RasterReader
         return new CRWRasterReader();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * CRW files are always compressed.
@@ -185,13 +185,13 @@ public class CRWRasterReader extends RasterReader
         return true;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      * 
      * This method implements raster data loading for compressed CRW.
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     protected void loadCompressedRaster (RAWImageInputStream iis,
                                          WritableRaster raster,
@@ -274,7 +274,7 @@ public class CRWRasterReader extends RasterReader
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param iis
      * @param diffBlock
@@ -319,7 +319,7 @@ public class CRWRasterReader extends RasterReader
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param iis
      * @param width
@@ -357,7 +357,7 @@ public class CRWRasterReader extends RasterReader
         iis.reset();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Return true if the image starts with compressed data. In Canon compressed 
      * data, 0xff is always followed by 0x00.

@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: RAWImageReaderSupport.java 191 2008-09-28 01:01:26Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.raw;
 
 import java.util.ArrayList;
@@ -52,14 +52,14 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * This class provides support for all RAW image readers.
  * 
  * @author  Fabrizio Giudici
  * @version $Id: RAWImageReaderSupport.java 191 2008-09-28 01:01:26Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public abstract class RAWImageReaderSupport extends ImageReader
   {
     private final static String CLASS = "it.tidalwave.imageio.raw.RAWImageReaderSupport";
@@ -89,7 +89,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
     
     protected HeaderProcessor headerProcessor = new HeaderProcessor();
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param originatingProvider
      * 
@@ -99,11 +99,11 @@ public abstract class RAWImageReaderSupport extends ImageReader
         super(originatingProvider);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * {@inheritDoc}
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public final BufferedImage read (int imageIndex, ImageReadParam param) 
       throws IOException
       {
@@ -146,11 +146,11 @@ public abstract class RAWImageReaderSupport extends ImageReader
         return image[imageIndex];
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * {@inheritDoc}
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     public final BufferedImage readThumbnail (int imageIndex, int thumbnailIndex) 
       throws IOException
@@ -211,7 +211,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
         return thumbnail[imageIndex][thumbnailIndex];
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -236,7 +236,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
         return metadata;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Overrides original implementation by calling {@link #wrapInput(Object)} to give
      * a chance to use a decorator for the input.
@@ -259,11 +259,11 @@ public abstract class RAWImageReaderSupport extends ImageReader
         iis = (RAWImageInputStream)input;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     public final void reset ()
       {
@@ -272,11 +272,11 @@ public abstract class RAWImageReaderSupport extends ImageReader
         disposeAll();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     public final void dispose ()
       {
@@ -285,30 +285,30 @@ public abstract class RAWImageReaderSupport extends ImageReader
         disposeAll();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Never use this method. This is to make it public and available to the
      * RasterReader. FIXME: this is not elegant.
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     public void processImageProgress (float progress)
       {
         super.processImageProgress(progress);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     public boolean readerSupportsThumbnails()
       {
         return true;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Returns the number of images managed by this ImageReader. There's only ONE
      * image in a RAW file (thumbnails are not counted here).
@@ -316,17 +316,17 @@ public abstract class RAWImageReaderSupport extends ImageReader
      * @param  allowSearch  unused
      * @return              the number of managed images
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public int getNumImages (boolean allowSearch)
       {
         return 1;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * {@inheritDoc}
      *
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     public Iterator<ImageTypeSpecifier> getImageTypes (@Nonnegative final int imageIndex)
       {
@@ -341,17 +341,17 @@ public abstract class RAWImageReaderSupport extends ImageReader
         return imageTypes.iterator();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * {@inheritDoc}
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     public IIOMetadata getStreamMetadata ()
       {
         return null;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * This default implementation just ensures that metadata is loaded and then
      * calls {@link #loadRAWImage(RAWImageInputStream)}.
@@ -368,7 +368,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
         return loadRAWImage();
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * This method must be implemented by concrete subclasses to load a thumbnail.
      * 
@@ -380,7 +380,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
      *******************************************************************************/
     protected abstract BufferedImage loadThumbnail (int imageIndex, int thumbnailIndex) throws IOException;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * This method must be implemented by concrete subclasses to load an image raster.
      * 
@@ -390,7 +390,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
      *******************************************************************************/
     protected abstract WritableRaster loadRAWRaster () throws IOException;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * This method must be implemented by concrete subclasses to create an instance
      * of {@link RAWMetadataSupport}. Each SPI should use its own subclass.
@@ -402,7 +402,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
      *******************************************************************************/
     protected abstract RAWMetadataSupport createMetadata (Directory primaryDirectory, Directory imageDirectory);
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Loads the primary directory.
      * 
@@ -412,16 +412,16 @@ public abstract class RAWImageReaderSupport extends ImageReader
      *******************************************************************************/
     protected abstract Directory loadPrimaryDirectory() throws IOException;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Analyzes and sets various variables to point at different pieces of metadata.
      *
      * @throws  IOException  if an I/O error occurs
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected abstract void processMetadata() throws IOException;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Gives a chance to use a decorator for the input object. By default 
      * a RAWImageInputStream is wrapped. Subclasses may change this behaviour 
@@ -436,7 +436,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
         return new RAWImageInputStream((ImageInputStream)input);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * This method is provided for subclasses that want to abort the loading
      * process. This calls the abortRequested() method of the ImageInputStream and
@@ -445,14 +445,14 @@ public abstract class RAWImageReaderSupport extends ImageReader
      * @param  message  		  the message relative to the failure
      * @throws RuntimeException  always
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected void failure (String message)
       {
         abortRequested();
         throw new RuntimeException(message);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Create a BufferedImage given a raster.
      *  
@@ -473,7 +473,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
         return new BufferedImage(colorModel, raster, false, properties);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Releases all the allocated resources.
      * 
@@ -488,14 +488,14 @@ public abstract class RAWImageReaderSupport extends ImageReader
         metadataLoaded = false;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Checks the validity of an image index.
      * 
      * @param 	imageIndex					the imageindex
      * @throws	IndexOutOfBoundsException  	if the index is invalid
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected void checkImageIndex (int imageIndex)
       {
         if (imageIndex > 0)
@@ -504,14 +504,14 @@ public abstract class RAWImageReaderSupport extends ImageReader
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Ensures that metadata has been loaded; loads it now otherwise.
      * 
      * @param   imageIndex
      * @throws  IllegalStateException  if metadata can't be loaded
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected void ensureMetadataIsLoaded (int imageIndex) 
       throws IOException 
       {
@@ -522,13 +522,13 @@ public abstract class RAWImageReaderSupport extends ImageReader
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Checks that metadata has been loaded.
      * 
      * @throws  IllegalStateException  if metadata is not loaded
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected void checkMetadataIsLoaded()
       {
         if (!metadataLoaded)
@@ -537,7 +537,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
           }
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Creates a Raster, an image and then invokes loadRAWRaster() to read the 
      * actual image data.
@@ -558,7 +558,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
         return bufferedImage;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * Returns the {@link ColorSpace} used to create the image. By default this
      * method returns a linear RGB space which is fine for all formats based
@@ -566,13 +566,13 @@ public abstract class RAWImageReaderSupport extends ImageReader
      *
      * @return   the <code>ColorSpace</code>
      *
-     **************************************************************************/
+     ******************************************************************************************************************/
     protected ColorSpace getColorSpace()
       {
         return ColorSpace.getInstance(ColorSpace.CS_LINEAR_RGB);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Concrete implementation of the metadata loader.
      * 
@@ -580,7 +580,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
      * @return              the metadata
      * @throws IOException  if an I/O error occurs
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     protected synchronized RAWMetadataSupport loadMetadata (int imageIndex) throws IOException
       {
         logger.fine("loadMetadata(%d) - iis: %s", imageIndex, iis);
@@ -597,7 +597,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
         return metadata;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Loads an embedded image. This method is usually used to laod thumbnails, which
      * are coded as embedded JPEGs. Anyway this method is able to deal with any
@@ -629,11 +629,11 @@ public abstract class RAWImageReaderSupport extends ImageReader
         return image;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * Facility method to retrieve the ImageInputStream.
      *
-     ******************************************************************************/
+     ******************************************************************************************************************/
     /*
     protected RAWImageInputStream getImageInputStream ()
       {

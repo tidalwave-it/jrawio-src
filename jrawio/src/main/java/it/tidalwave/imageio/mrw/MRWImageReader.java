@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: MRWImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.mrw;
 
 import javax.annotation.Nonnull;
@@ -39,20 +39,20 @@ import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 import it.tidalwave.imageio.minolta.MinoltaRawData;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: MRWImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class MRWImageReader extends TIFFImageReaderSupport
   {
     private final static String CLASS = MRWImageReader.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
    
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
-     **************************************************************************/
+     ******************************************************************************************************************/
     protected MRWImageReader (@Nonnull final ImageReaderSpi originatingProvider,
                               final Object extension)
       {
@@ -60,13 +60,13 @@ public class MRWImageReader extends TIFFImageReaderSupport
         headerProcessor = new MRWHeaderProcessor();
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * {@inheritDoc}
      * 
      * FIXME: merge with super implementation
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Override
     @Nonnull
     protected Directory loadPrimaryDirectory() 
@@ -85,13 +85,13 @@ public class MRWImageReader extends TIFFImageReaderSupport
         return primaryIFD;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * {@inheritDoc}
      * 
      * FIXME: merge with super implementation
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Override
     protected void processEXIFAndMakerNote (@Nonnull final Directory directory) 
       throws IOException
@@ -101,11 +101,11 @@ public class MRWImageReader extends TIFFImageReaderSupport
         iis.setBaseOffset(0);
       }
     
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * {@inheritDoc}
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     protected WritableRaster loadRAWRaster() 
       throws IOException
@@ -164,13 +164,13 @@ public class MRWImageReader extends TIFFImageReaderSupport
         return raster;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      * 
      * FIXME: merge with superclass
      * 
      * @param rasterReader
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     protected void initializeRasterReader (@Nonnull final RasterReader rasterReader)
       {
         final IFD primaryIFD = (IFD)primaryDirectory;

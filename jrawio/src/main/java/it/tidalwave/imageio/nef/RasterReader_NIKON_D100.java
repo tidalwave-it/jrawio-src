@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,16 +20,16 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: RasterReader_NIKON_D100.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
 
 import javax.annotation.Nonnegative;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * This class specializes a PixelLoader for the Nikon D100. There is some 
  * trickery to understand if a D100 NEF is compressed and in some cases there
@@ -38,7 +38,7 @@ import javax.annotation.Nonnegative;
  * @author  Fabrizio Giudici
  * @version $Id: RasterReader_NIKON_D100.java 58 2008-08-22 19:17:28Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class RasterReader_NIKON_D100 extends NEFRasterReader
   {
     private final static int D100_PADDED_SIZE = 9844736;
@@ -51,14 +51,14 @@ public class RasterReader_NIKON_D100 extends NEFRasterReader
 
     private boolean padded;
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      *
      * @inheritDoc
      * 
      * There is some special trickery to do for D100: the compression tag sometimes
      * is wrong.
      * 
-     ******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     public boolean isCompressedRaster()
       {
@@ -67,7 +67,7 @@ public class RasterReader_NIKON_D100 extends NEFRasterReader
         return (compression == COMPRESSED_NEF) && (stripByteCount != D100_PADDED_SIZE);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -86,7 +86,7 @@ public class RasterReader_NIKON_D100 extends NEFRasterReader
         return 0;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 

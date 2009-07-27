@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: RAWImageReaderSpiSupport.java 263 2009-06-15 09:18:57Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.raw;
 
 import java.awt.image.BufferedImage;
@@ -36,18 +36,18 @@ import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.stream.ImageInputStream;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: RAWImageReaderSpiSupport.java 263 2009-06-15 09:18:57Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
   {
     /** A postprocessor, if available, will be run against the loaded image. */
     private static Map postProcessorMapBySpiClass = new HashMap();
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param names
      * @param suffixes
@@ -87,7 +87,7 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
             extraImageMetadataFormatNames, extraImageMetadataFormatClassNames);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param name
      * @param suffixes
@@ -115,7 +115,7 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
             null); // extraImageMetadataFormatClassNam
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param name
      * @param suffix
@@ -128,7 +128,7 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
         this(name, new String[] { suffix.toLowerCase(), suffix.toUpperCase() }, mimeType, readerClass);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Installs a postprocessor that will be run against all the instances of images
      * loaded by this Spi.
@@ -141,7 +141,7 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
         postProcessorMapBySpiClass.put(spiClass, postProcessor);
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * Post-processes a raw image using the installed postprocessor, if any.
      *
@@ -155,7 +155,7 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
         return (postProcessor != null) ? postProcessor.process(image, metadata) : image;
       }
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
@@ -193,7 +193,7 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
         return false;
       }
 
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * 
      *******************************************************************************/    
@@ -220,7 +220,7 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
           }
       }
     
-    /*******************************************************************************
+    /*******************************************************************************************************************
      * 
      * @param iis
      * @return

@@ -1,12 +1,12 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
- * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
- * ==========================================================
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
  *
- * Copyright (C) 2003-2008 by Fabrizio Giudici
- * Project home page: http://jrawio.tidalwave.it
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,11 +20,11 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * $Id: ARWImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 package it.tidalwave.imageio.arw;
 
 import javax.annotation.CheckForNull;
@@ -37,12 +37,12 @@ import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 import it.tidalwave.imageio.raw.RasterReader;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * The ARW samples we have use the SubIFD field in IFD0 to store the offset of
  * the raster.
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 class ARWPrimaryIFD extends IFD
   {
     private static final long serialVersionUID = -7810975852445063637L;
@@ -89,31 +89,31 @@ class ARWPrimaryIFD extends IFD
 //        return result;
       }
   }
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id: ARWImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
  *
- ******************************************************************************/
+ **********************************************************************************************************************/
 public class ARWImageReader extends TIFFImageReaderSupport
   {
     private final static String CLASS = ARWImageReader.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
-     **************************************************************************/
+     ******************************************************************************************************************/
     protected ARWImageReader (@Nonnull final ImageReaderSpi originatingProvider, 
                               @CheckForNull final Object extension)
       {
         super(originatingProvider, ARWMakerNote.class, ARWMetadata.class);
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      * 
      * {@inheritDoc}
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Override
     @Nonnull
     protected IFD createPrimaryIFD() 
@@ -121,11 +121,11 @@ public class ARWImageReader extends TIFFImageReaderSupport
         return new ARWPrimaryIFD();
       }
     
-    /***************************************************************************
+    /*******************************************************************************************************************
      *
      * {@inheritDoc}
      *
-     **************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     protected WritableRaster loadRAWRaster() 
       throws IOException
@@ -143,13 +143,13 @@ public class ARWImageReader extends TIFFImageReaderSupport
         return raster;
       }
 
-    /***************************************************************************
+    /*******************************************************************************************************************
      * 
      * FIXME: merge with superclass
      * 
      * @param rasterReader
      * 
-     **************************************************************************/
+     ******************************************************************************************************************/
     protected void initializeRasterReader (@Nonnull final RasterReader rasterReader)
       {
         final ARWMetadata arwMetadata = (ARWMetadata)metadata;
