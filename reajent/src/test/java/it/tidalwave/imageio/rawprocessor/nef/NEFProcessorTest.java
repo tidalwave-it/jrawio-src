@@ -113,4 +113,23 @@ public class NEFProcessorTest extends ImageReaderTestSupport
 
         assertRaster(image, path, "f5befb9e45972491aa951afa98216d25");
       }
+
+    @Test(timeout=60000)
+    public void testJSR187()
+      throws Exception
+      {
+        final String path = "http://jalbum.net/download/DSC_0067.NEF";
+        final ImageReader ir = getImageReader(path);
+        assertEquals(1, ir.getNumImages(false));
+        assertEquals(2, ir.getNumThumbnails(0));
+        assertImage(ir, 4352, 2868);
+        assertThumbnail(ir, 0, 160, 120);
+        assertThumbnail(ir, 1, 4288, 2848);
+        final BufferedImage image = assertLoadImage(ir, 4352, 2868, 3, 8); // FIXME: WRONG, should be 16 bits
+        assertLoadThumbnail(ir, 0, 160, 120);
+        assertLoadThumbnail(ir, 1, 4288, 2848);
+        close(ir);
+
+        assertRaster(image, path, "f5befb9e45972491aa951afa98216d25");
+      }
   }
