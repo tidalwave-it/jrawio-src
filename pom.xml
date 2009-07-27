@@ -72,7 +72,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <bundle.namespace>${pom.groupId}.${pom.artifactId}</bundle.namespace>
-        <buildNumber>${buildNumber}</buildNumber>
     </properties>
 
     <repositories>
