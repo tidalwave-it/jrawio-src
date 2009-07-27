@@ -46,6 +46,8 @@ import javax.imageio.spi.ImageReaderSpi;
 import it.tidalwave.imageio.util.Logger;
 import java.io.OutputStream;
 import java.net.URL;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import org.apache.commons.io.FileUtils;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
@@ -113,14 +115,43 @@ public class ImageReaderTestSupport extends TestSupport
       }
     
     /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    @Deprecated
+    protected BufferedImage assertLoadImage (final @Nonnull ImageReader ir,
+                                             final @Nonnegative int width,
+                                             final @Nonnegative int height,
+                                             final @Nonnegative int bandCount,
+                                             final @Nonnegative int sampleSize)
+      throws IOException
+      {
+        final BufferedImage image = ir.read(0);
+        assertNotNull(image);
+        assertEquals(width, image.getWidth());
+        assertEquals(height, image.getHeight());
+        assertEquals(bandCount, image.getData().getNumBands());
+
+        for (int i = 0; i < bandCount; i++)
+          {
+            assertEquals(sampleSize, image.getData().getSampleModel().getSampleSize(i));
+          }
+
+        return image;
+      }
+
+    /*******************************************************************************************************************
      * 
      * 
      ******************************************************************************************************************/
-    protected BufferedImage assertLoadImage (final ImageReader ir, 
-                                             final int width, 
-                                             final int height, 
-                                             final int bandCount, 
-                                             final int sampleSize) 
+    @Nonnull
+    protected BufferedImage assertLoadImage (final @Nonnull ImageReader ir,
+                                             final @Nonnegative int width,
+                                             final @Nonnegative int height,
+                                             final @Nonnegative int bandCount,
+                                             final @Nonnegative int sampleSize,
+                                             final int type)
       throws IOException 
       {
         final BufferedImage image = ir.read(0);
@@ -128,6 +159,7 @@ public class ImageReaderTestSupport extends TestSupport
         assertEquals(width, image.getWidth());
         assertEquals(height, image.getHeight());
         assertEquals(bandCount, image.getData().getNumBands());
+        assertEquals(type, image.getType());
         
         for (int i = 0; i < bandCount; i++)
           {
@@ -141,7 +173,11 @@ public class ImageReaderTestSupport extends TestSupport
      * 
      * 
      ******************************************************************************************************************/
-    protected BufferedImage assertLoadThumbnail (final ImageReader ir, final int thumbnailIndex, final int width, final int height) 
+    @Nonnull
+    protected BufferedImage assertLoadThumbnail (final @Nonnull ImageReader ir,
+                                                 final @Nonnegative int thumbnailIndex,
+                                                 final @Nonnegative int width,
+                                                 final @Nonnegative int height)
       throws IOException 
       {
         final BufferedImage thumbnail = ir.readThumbnail(0, thumbnailIndex);
@@ -155,7 +191,8 @@ public class ImageReaderTestSupport extends TestSupport
      * 
      * 
      ******************************************************************************************************************/
-    protected ImageReader getImageReader (final String path)
+    @Nonnull
+    protected ImageReader getImageReader (final @Nonnull String path)
       throws IOException
       {
         logger.info("************* TESTING FILE: %s", path);
@@ -199,6 +236,7 @@ public class ImageReaderTestSupport extends TestSupport
         final File tmp = new File(System.getProperty("java.io.tmpdir") + "/jrawio-test");
         final File tiffFile = new File(tmp, path + ".tiff");
         tiffFile.getParentFile().mkdirs();
+        logger.info("Writing %s...", tiffFile.getAbsolutePath());
         ImageIO.write(image, "TIFF", tiffFile);
         
         final int width = image.getWidth();
