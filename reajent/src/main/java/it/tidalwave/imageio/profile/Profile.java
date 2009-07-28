@@ -24,7 +24,11 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.profile;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /***********************************************************************************************************************
  *
@@ -40,14 +44,19 @@ public class Profile
     @Nonnull
     protected final String displayName;
 
+    protected final boolean readOnly;
+
+    private final List<ProcessorOperation> operations = new ArrayList<ProcessorOperation>();
+
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
-    public Profile (final @Nonnull String id, final @Nonnull String displayName)
+    public Profile (final @Nonnull String id, final @Nonnull String displayName, final boolean readOnly)
       {
         this.id = id;
         this.displayName = displayName;
+        this.readOnly = readOnly;
       }
 
     /*******************************************************************************************************************
@@ -68,6 +77,74 @@ public class Profile
     public String getId()
       {
         return id;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Preset profiles are read only and can't be changed. Use ProfileManager.createFrom() instead.
+     *
+     ******************************************************************************************************************/
+    public boolean isReadOnly()
+      {
+        return readOnly;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public List<ProcessorOperation> getOperations()
+      {
+        return new CopyOnWriteArrayList<ProcessorOperation>(operations);
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public Profile addOperation (final @Nonnull ProcessorOperation operation)
+      {
+        ensureNotReadOnly();
+        operations.add(operation);
+        return this;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public Profile insertOperation (final @Nonnull ProcessorOperation operation,
+                                    final @Nonnegative int index)
+      {
+        ensureNotReadOnly();
+        operations.add(index, operation);
+        return this;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public Profile removeOperation (final @Nonnegative int index)
+      {
+        operations.remove(index);
+        return this;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public Profile clearOperations()
+      {
+        ensureNotReadOnly();
+        operations.clear();
+        return this;
       }
 
     /*******************************************************************************************************************
@@ -113,6 +190,18 @@ public class Profile
     @Nonnull
     public String toString()
       {
-        return super.toString();
+        return super.toString(); // TODO
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    private void ensureNotReadOnly()
+      {
+        if (readOnly)
+          {
+            throw new IllegalStateException("Cannot modify a read-only Profile");
+          }
       }
   }

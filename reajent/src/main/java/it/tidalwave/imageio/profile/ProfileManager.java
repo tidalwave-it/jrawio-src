@@ -45,6 +45,31 @@ public class ProfileManager
      *
      ******************************************************************************************************************/
     @Nonnull
+    public Profile createProfile (final @Nonnull String id,
+                                  final @Nonnull String displayName)
+      {
+        // TODO
+        return new Profile(id, displayName, false);
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public Profile createProfileFrom (final @Nonnull String id,
+                                      final @Nonnull String displayName,
+                                      final @Nonnull Profile archetype)
+      {
+        // TODO
+        return new Profile(id, displayName, false);
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
     public Set<String> getProfileNames()
       {
         return new CopyOnWriteArraySet<String>(profileMap.keySet());
