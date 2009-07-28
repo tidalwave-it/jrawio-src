@@ -80,6 +80,11 @@
             <name>Tidalwave Maven Release Repository</name>
             <url>https://kenai.com/svn/tidalwave~maven-repo/release/2</url>
         </repository>
+        <repository>
+            <id>maven2-aux-repository.tidalwave.kenai.com</id>
+            <name>Tidalwave Maven Aux Repository</name>
+            <url>https://kenai.com/svn/tidalwave~maven-repo/aux/2</url>
+        </repository>
     </repositories>
 
     <distributionManagement>
@@ -126,6 +131,12 @@
             <groupId>it.tidalwave.thesefoolishthings</groupId>
             <artifactId>it.tidalwave.singlelinelogformatter</artifactId>
             <version>1.0.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.media</groupId>
+            <artifactId>jai_imageio</artifactId>
+            <version>1.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
