@@ -38,6 +38,26 @@ import java.util.concurrent.CopyOnWriteArrayList;
  **********************************************************************************************************************/
 public abstract class Profile
   {
+    /*******************************************************************************************************************
+     *
+     * @author  Fabrizio Giudici
+     * @version $Id$
+     *
+     ******************************************************************************************************************/
+    public static class NotFoundException extends Exception
+      {
+        public NotFoundException (@Nonnull final Class<? extends ProcessorOperation> operationType)
+          {
+            super("Can't find operation: " + operationType);
+          }
+      }
+
+    /*******************************************************************************************************************
+     *
+     * @author  Fabrizio Giudici
+     * @version $Id$
+     *
+     ******************************************************************************************************************/
     public static enum Changeability
       {
         READ_ONLY, WRITABLE
@@ -127,6 +147,25 @@ public abstract class Profile
         ensureNotReadOnly();
         operations.add(index, operation);
         return this;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public <O extends ProcessorOperation> O getOperation (final @Nonnull Class<O> operationType)
+      throws NotFoundException
+      {
+        for (final ProcessorOperation operation : operations)
+          {
+            if (operationType.isAssignableFrom(operation.getClass()))
+              {
+                // FIXME: if READ_ONLY return a dynamic unmodifiable proxy
+                return (O)operation;
+              }
+          }
+
+        throw new NotFoundException(operationType);
       }
 
     /*******************************************************************************************************************
