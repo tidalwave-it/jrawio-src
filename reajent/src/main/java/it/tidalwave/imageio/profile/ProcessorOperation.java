@@ -19,12 +19,14 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: Curve.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.profile;
 
 import javax.annotation.Nonnull;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import it.tidalwave.imageio.rawprocessor.Operation;
 
 /***********************************************************************************************************************
@@ -32,11 +34,23 @@ import it.tidalwave.imageio.rawprocessor.Operation;
  * Represents a post-processing operation in the user's perspective (while Operation is internal only).
  * 
  * @author  Fabrizio Giudici
- * @version $Id: Curve.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
-public class ProcessorOperation
+public abstract class ProcessorOperation
   {
+    protected final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+
+    public void addPropertyChangeListener (final @Nonnull PropertyChangeListener listener)
+      {
+        propertyChangeSupport.addPropertyChangeListener(listener);
+      }
+
+    public void removePropertyChangeListener (final @Nonnull PropertyChangeListener listener)
+      {
+        propertyChangeSupport.removePropertyChangeListener(listener);
+      }
+
     @Nonnull
     public Operation createOperation()
       {
