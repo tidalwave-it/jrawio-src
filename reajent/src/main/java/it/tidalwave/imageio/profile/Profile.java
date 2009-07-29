@@ -38,13 +38,18 @@ import java.util.concurrent.CopyOnWriteArrayList;
  **********************************************************************************************************************/
 public abstract class Profile
   {
+    public static enum Changeability
+      {
+        READ_ONLY, WRITABLE
+      }
+
     @Nonnull
     protected final String id;
     
     @Nonnull
     protected final String displayName;
 
-    protected final boolean readOnly;
+    protected final Changeability changeability;
 
     private final List<ProcessorOperation> operations = new ArrayList<ProcessorOperation>();
 
@@ -52,11 +57,11 @@ public abstract class Profile
      *
      *
      ******************************************************************************************************************/
-    protected Profile (final @Nonnull String id, final @Nonnull String displayName, final boolean readOnly)
+    protected Profile (final @Nonnull String id, final @Nonnull String displayName, final Changeability changeability)
       {
         this.id = id;
         this.displayName = displayName;
-        this.readOnly = readOnly;
+        this.changeability = changeability;
       }
 
     /*******************************************************************************************************************
@@ -86,7 +91,7 @@ public abstract class Profile
      ******************************************************************************************************************/
     public boolean isReadOnly()
       {
-        return readOnly;
+        return changeability == Changeability.READ_ONLY;
       }
 
     /*******************************************************************************************************************
@@ -199,7 +204,7 @@ public abstract class Profile
      ******************************************************************************************************************/
     private void ensureNotReadOnly()
       {
-        if (readOnly)
+        if (changeability == Changeability.READ_ONLY)
           {
             throw new IllegalStateException("Cannot modify a read-only Profile");
           }

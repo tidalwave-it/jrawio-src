@@ -30,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 import it.tidalwave.imageio.profile.Profile;
+import it.tidalwave.imageio.profile.Profile.Changeability;
 import it.tidalwave.imageio.profile.ProfileManager;
 
 /***********************************************************************************************************************
@@ -46,12 +47,22 @@ public class ProfileManagerImpl extends ProfileManager
      *
      *
      ******************************************************************************************************************/
+    public ProfileManagerImpl()
+      {
+        final Profile dcrawProfile = new DcrawProfile(); // FIXME: discover with META-INF/services
+        profileMap.put(dcrawProfile.getId(), dcrawProfile);
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public Profile createProfile (final @Nonnull String id,
                                   final @Nonnull String displayName)
       {
         // TODO
-        return new ProfileImpl(id, displayName, false);
+        return new ProfileImpl(id, displayName, Changeability.WRITABLE);
       }
 
     /*******************************************************************************************************************
@@ -64,7 +75,7 @@ public class ProfileManagerImpl extends ProfileManager
                                       final @Nonnull Profile archetype)
       {
         // TODO
-        return new ProfileImpl(id, displayName, false);
+        return new ProfileImpl(id, displayName, Changeability.WRITABLE);
       }
 
     /*******************************************************************************************************************

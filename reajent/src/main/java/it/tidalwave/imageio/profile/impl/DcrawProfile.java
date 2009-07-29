@@ -24,23 +24,16 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.profile.impl;
 
-import javax.annotation.Nonnull;
-import it.tidalwave.imageio.profile.Profile;
-
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class ProfileImpl extends Profile
+public class DcrawProfile extends ProfileImpl
   {
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    public ProfileImpl (final @Nonnull String id, final @Nonnull String displayName, final Changeability changeability)
+    public DcrawProfile()
       {
-        super(id, displayName, changeability);
+        super("dcraw", "DCraw Profiles", Changeability.READ_ONLY);
       }
   }
