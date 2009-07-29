@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ThumbnailHelper.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raf;
@@ -36,7 +36,7 @@ import static org.junit.Assert.*;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class RAFProcessorTest extends ImageReaderTestSupport
@@ -57,7 +57,7 @@ public class RAFProcessorTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 0, 160, 120);
 //        assertLoadThumbnail(ir, 1, 1600, 1200); // FIXME
         
-        assertRaster(image, path, "e2b68585e531197c3b2774afbc544a83");
+        assertRaster(image, path, "0e057815b4a297c3d5d8845f2ab038d7");
         
 //        close(ir);
       }

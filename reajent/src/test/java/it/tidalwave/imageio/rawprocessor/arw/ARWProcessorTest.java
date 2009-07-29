@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ThumbnailHelper.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.arw;
@@ -36,7 +36,7 @@ import static org.junit.Assert.*;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ARWProcessorTest extends ImageReaderTestSupport
@@ -58,7 +58,7 @@ public class ARWProcessorTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 0, 640, 480); // FIXME: this is wrong, should be the 3872x2592
         assertLoadThumbnail(ir, 1, 160, 120);
         
-        assertRaster(image, path, "763f5bc58c2e8e835dfbc8179a4d4ca4");
+        assertRaster(image, path, "7c26db64e13c8cabb251cc77ba2a042d");
         
 //        close(ir);
       }
