@@ -22,7 +22,7 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.profile;
+package it.tidalwave.imageio.raw;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;

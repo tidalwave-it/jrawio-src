@@ -22,7 +22,7 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.profile;
+package it.tidalwave.imageio.raw;
 
 import java.awt.Dimension;
 import java.io.Serializable;

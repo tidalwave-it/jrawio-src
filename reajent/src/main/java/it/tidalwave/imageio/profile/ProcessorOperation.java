@@ -28,6 +28,7 @@ import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import it.tidalwave.imageio.raw.ImageDescriptor;
 import it.tidalwave.imageio.util.Lookup;
 
 /***********************************************************************************************************************
