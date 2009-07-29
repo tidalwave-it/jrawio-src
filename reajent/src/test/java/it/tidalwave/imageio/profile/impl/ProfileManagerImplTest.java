@@ -27,6 +27,7 @@ package it.tidalwave.imageio.profile.impl;
 import it.tidalwave.imageio.profile.Profile;
 import it.tidalwave.imageio.profile.ProfileManager;
 import it.tidalwave.imageio.profile.WhiteBalanceOp;
+import java.io.IOException;
 import java.util.Set;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
@@ -48,7 +49,7 @@ public class ProfileManagerImplTest
   {
     @Test
     public void testReadWithProfile()
-      throws ProfileManager.NotFoundException, Profile.NotFoundException
+      throws ProfileManager.NotFoundException, Profile.NotFoundException, IOException
       {
         final ProfileManager profileManager = ProfileManager.getInstance();
         final Profile profile = profileManager.findProfileById("dcraw").createModifiableCopy();
