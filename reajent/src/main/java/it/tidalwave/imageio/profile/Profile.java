@@ -24,12 +24,14 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.profile;
 
-import java.io.Serializable;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.io.Serializable;
 
 /***********************************************************************************************************************
  *
@@ -130,11 +132,12 @@ public abstract class Profile implements Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Profile addOperation (final @Nonnull ProcessorOperation operation)
+    public <O extends ProcessorOperation> O addOperation (final @Nonnull Class<O> operationType)
       {
         ensureNotReadOnly();
+        final O operation = createOperation(operationType);
         operations.add(operation);
-        return this;
+        return operation;
       }
 
     /*******************************************************************************************************************
@@ -142,12 +145,13 @@ public abstract class Profile implements Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Profile insertOperation (final @Nonnull ProcessorOperation operation,
-                                    final @Nonnegative int index)
+    public <O extends ProcessorOperation> O insertOperation (final @Nonnull Class<O> operationType,
+                                                             final @Nonnegative int index)
       {
         ensureNotReadOnly();
+        final O operation = createOperation(operationType);
         operations.add(index, operation);
-        return this;
+        return operation;
       }
 
     /*******************************************************************************************************************
@@ -185,7 +189,7 @@ public abstract class Profile implements Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public Profile clearOperations()
+    public Profile removeAllOperations()
       {
         ensureNotReadOnly();
         operations.clear();
@@ -246,6 +250,39 @@ public abstract class Profile implements Serializable
     public String toString()
       {
         return super.toString(); // TODO
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    private <O extends ProcessorOperation> O createOperation (final @Nonnull Class<O> operationType)
+      {
+        try
+          {
+            final Constructor<O> constructor = operationType.getConstructor(Profile.class);
+            return constructor.newInstance(this);
+          }
+        catch (NoSuchMethodException e)
+          {
+            throw new RuntimeException(e);
+          }
+        catch (SecurityException e)
+          {
+            throw new RuntimeException(e);
+          }
+        catch (InstantiationException e)
+          {
+            throw new RuntimeException(e);
+          }
+        catch (IllegalAccessException e)
+          {
+            throw new RuntimeException(e);
+          }
+        catch (InvocationTargetException e)
+          {
+            throw new RuntimeException(e);
+          }
       }
 
     /*******************************************************************************************************************

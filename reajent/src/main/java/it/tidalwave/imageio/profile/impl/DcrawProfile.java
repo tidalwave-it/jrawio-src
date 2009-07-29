@@ -24,6 +24,12 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.profile.impl;
 
+import java.awt.color.ColorSpace;
+import java.awt.color.ICC_Profile;
+import it.tidalwave.imageio.profile.ColorProfileOp;
+import it.tidalwave.imageio.profile.DemosaicOp;
+import it.tidalwave.imageio.profile.WhiteBalanceOp;
+
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
@@ -35,5 +41,9 @@ public class DcrawProfile extends ProfileImpl
     public DcrawProfile()
       {
         super("dcraw", "DCraw Profiles", Changeability.READ_ONLY);
+
+        addOperation(WhiteBalanceOp.class).setTemperature(5500); // FIXME
+        addOperation(DemosaicOp.class).setAlgorithm("ADR"); // FIXME
+        addOperation(ColorProfileOp.class).setICCProfile(ICC_Profile.getInstance(ColorSpace.CS_sRGB)); // FIXME
       }
   }

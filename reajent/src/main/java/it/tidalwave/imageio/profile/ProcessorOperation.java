@@ -27,6 +27,7 @@ package it.tidalwave.imageio.profile;
 import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 import it.tidalwave.imageio.util.Lookup;
 
 /***********************************************************************************************************************
@@ -37,22 +38,45 @@ import it.tidalwave.imageio.util.Lookup;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public abstract class ProcessorOperation
+public abstract class ProcessorOperation implements Serializable
   {
-    private final Lookup lookup = new Lookup();
+    private final Profile profile;
+
+    private final Lookup lookup = Lookup.fixed();
 
     protected final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    protected ProcessorOperation (final @Nonnull Profile profile)
+      {
+        this.profile = profile;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     public void addPropertyChangeListener (final @Nonnull PropertyChangeListener listener)
       {
         propertyChangeSupport.addPropertyChangeListener(listener);
       }
 
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     public void removePropertyChangeListener (final @Nonnull PropertyChangeListener listener)
       {
         propertyChangeSupport.removePropertyChangeListener(listener);
       }
 
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     @Nonnull
     public Lookup getLookup()
       {
