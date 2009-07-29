@@ -24,9 +24,9 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.profile;
 
-import it.tidalwave.imageio.profile.impl.ProfileManagerImpl;
-import java.util.Set;
 import javax.annotation.Nonnull;
+import java.util.Set;
+import it.tidalwave.imageio.profile.impl.ProfileManagerImpl;
 
 /***********************************************************************************************************************
  *
