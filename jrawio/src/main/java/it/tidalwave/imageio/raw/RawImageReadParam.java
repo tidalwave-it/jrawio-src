@@ -31,6 +31,8 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Nonnull;
 import javax.imageio.ImageReadParam;
 
@@ -55,6 +57,20 @@ public class RawImageReadParam extends ImageReadParam implements Serializable
     public RawImageReadParam (final @Nonnull Serializable ... params)
       {
         this.params = new HashSet<Serializable>(Arrays.asList(params));
+      }
+
+    @Nonnull
+    public <T> T get (final @Nonnull Class<T> type, final @Nonnull T defaultValue)
+      {
+        //TODO: enforce defaultValue not null
+        try
+          {
+            return get(type);
+          }
+        catch (NotFoundException e)
+          {
+            return defaultValue;
+          }
       }
 
     @Nonnull
