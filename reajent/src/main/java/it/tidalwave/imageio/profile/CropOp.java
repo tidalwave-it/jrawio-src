@@ -33,7 +33,7 @@ import java.io.Serializable;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public final class SizeOp extends ProcessorOperation<SizeOp>
+public final class CropOp extends ProcessorOperation<CropOp>
   {
     /*******************************************************************************************************************
      *
@@ -110,7 +110,7 @@ public final class SizeOp extends ProcessorOperation<SizeOp>
      *
      *
      ******************************************************************************************************************/
-    public SizeOp (final @Nonnull Profile profile)
+    public CropOp (final @Nonnull Profile profile)
       {
         super(profile);
       }
@@ -130,7 +130,7 @@ public final class SizeOp extends ProcessorOperation<SizeOp>
      *
      ******************************************************************************************************************/
     @Nonnull
-    public SizeOp setBounds (final @Nonnull Bounds bounds)
+    public CropOp setBounds (final @Nonnull Bounds bounds)
       {
         final Bounds oldBounds = this.bounds;
         this.bounds = bounds;
