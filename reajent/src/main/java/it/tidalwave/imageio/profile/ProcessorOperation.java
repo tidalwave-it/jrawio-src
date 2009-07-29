@@ -28,6 +28,7 @@ import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import javax.imageio.metadata.IIOMetadata;
 import it.tidalwave.imageio.util.Lookup;
 
 /***********************************************************************************************************************
@@ -38,13 +39,68 @@ import it.tidalwave.imageio.util.Lookup;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public abstract class ProcessorOperation implements Serializable
+public abstract class ProcessorOperation<T extends ProcessorOperation> implements Serializable
   {
-    private final Profile profile;
+    /*******************************************************************************************************************
+     *
+     * @author  Fabrizio Giudici
+     * @version $Id$
+     *
+     ******************************************************************************************************************/
+    public static final class ImageDescriptor
+      {
+        @Nonnull
+        private final IIOMetadata metadata;
 
-    private final Lookup lookup = Lookup.fixed();
+        public ImageDescriptor (final @Nonnull IIOMetadata metadata)
+          {
+            this.metadata = metadata;
+          }
+
+        @Nonnull
+        public IIOMetadata getMetadata()
+          {
+            return metadata;
+          }
+      }
+    
+    /*******************************************************************************************************************
+     *
+     * This class implements a callback that is invoked when the image has been loaded, but not processed yet. This
+     * allows to change parameters in function of image properties - for instance, a size operation can compute its
+     * parameters from the image size; or a denoise operation can choose different algorithms in function of the image
+     * size or properties.
+     *
+     * @author  Fabrizio Giudici
+     * @version $Id$
+     *
+     ******************************************************************************************************************/
+    public static abstract class AdaptivePropertiesHandler<O extends ProcessorOperation>
+      {
+        /***************************************************************************************************************
+         *
+         *
+         **************************************************************************************************************/
+        public abstract void adaptProperties (@Nonnull final O operation, @Nonnull final ImageDescriptor imageDescriptor);
+      }
+    
+    public static final String PROP_ADAPTIVEPROPERTIESHANDLER = "adaptivePropertiesHandler";
+
+    protected final Profile profile;
+
+    protected final Lookup lookup = Lookup.fixed();
 
     protected final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
+
+    @Nonnull
+    protected AdaptivePropertiesHandler<T> adaptivePropertiesHandler = new AdaptivePropertiesHandler<T>()
+      {
+        @Override
+        public void adaptProperties (final @Nonnull T operation,
+                                     final @Nonnull ImageDescriptor imageDescriptor)
+          {
+          }
+      };
 
     /*******************************************************************************************************************
      *
@@ -59,18 +115,22 @@ public abstract class ProcessorOperation implements Serializable
      *
      *
      ******************************************************************************************************************/
-    public void addPropertyChangeListener (final @Nonnull PropertyChangeListener listener)
+    @Nonnull
+    public T addPropertyChangeListener (final @Nonnull PropertyChangeListener listener)
       {
         propertyChangeSupport.addPropertyChangeListener(listener);
+        return (T)this;
       }
 
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
-    public void removePropertyChangeListener (final @Nonnull PropertyChangeListener listener)
+    @Nonnull
+    public T removePropertyChangeListener (final @Nonnull PropertyChangeListener listener)
       {
         propertyChangeSupport.removePropertyChangeListener(listener);
+        return (T)this;
       }
 
     /*******************************************************************************************************************
@@ -81,6 +141,30 @@ public abstract class ProcessorOperation implements Serializable
     public Lookup getLookup()
       {
         return lookup;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public AdaptivePropertiesHandler<T> getAdaptivePropertiesHandler()
+      {
+        return adaptivePropertiesHandler;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public T setAdaptivePropertiesHandler (final @Nonnull AdaptivePropertiesHandler<T> adaptivePropertiesHandler)
+      {
+        final AdaptivePropertiesHandler oldAdaptivePropertiesHandler = this.adaptivePropertiesHandler;
+        this.adaptivePropertiesHandler = adaptivePropertiesHandler;
+        propertyChangeSupport.firePropertyChange(PROP_ADAPTIVEPROPERTIESHANDLER, oldAdaptivePropertiesHandler, adaptivePropertiesHandler);
+
+        return (T)this;
       }
 
 //    @Nonnull
