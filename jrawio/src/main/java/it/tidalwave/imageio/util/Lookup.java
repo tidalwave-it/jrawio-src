@@ -56,7 +56,16 @@ public class Lookup implements Serializable
      *
      *
      ******************************************************************************************************************/
-    public Lookup (final @Nonnull Serializable ... contents)
+    public static Lookup fixed (final @Nonnull Serializable ... contents)
+      {
+        return new Lookup(contents);
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    private Lookup (final @Nonnull Serializable ... contents)
       {
         this.contents = new HashSet<Serializable>(Arrays.asList(contents));
       }

@@ -41,7 +41,7 @@ public class RawImageReadParam extends ImageReadParam implements Serializable
 
     public RawImageReadParam (final @Nonnull Serializable ... params)
       {
-        this.lookup = new Lookup(params);
+        this.lookup = Lookup.fixed(params);
       }
 
     @Nonnull
