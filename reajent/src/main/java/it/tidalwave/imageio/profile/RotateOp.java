@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public final class RotateOp extends ProcessorOperation
+public final class RotateOp extends ProcessorOperation<RotateOp>
   {
     public static final String PROP_ANGLE = "angle";
 
