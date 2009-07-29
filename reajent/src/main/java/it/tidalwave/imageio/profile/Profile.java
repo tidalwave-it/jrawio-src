@@ -24,6 +24,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.profile;
 
+import java.io.Serializable;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public abstract class Profile
+public abstract class Profile implements Serializable
   {
     /*******************************************************************************************************************
      *
