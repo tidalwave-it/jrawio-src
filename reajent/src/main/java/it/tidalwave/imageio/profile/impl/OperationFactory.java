@@ -22,46 +22,27 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.profile;
+package it.tidalwave.imageio.profile.impl;
 
 import javax.annotation.Nonnull;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-import it.tidalwave.imageio.util.Lookup;
+import it.tidalwave.imageio.profile.ProcessorOperation;
+import it.tidalwave.imageio.rawprocessor.Operation;
 
 /***********************************************************************************************************************
  *
- * Represents a post-processing operation in the user's perspective (while Operation is internal only).
- * 
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public abstract class ProcessorOperation
+public abstract class OperationFactory
   {
-    private final Lookup lookup = new Lookup();
+    private final ProcessorOperation processorOperation;
 
-    protected final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
-
-    public void addPropertyChangeListener (final @Nonnull PropertyChangeListener listener)
+    protected OperationFactory (@Nonnull final ProcessorOperation processorOperation)
       {
-        propertyChangeSupport.addPropertyChangeListener(listener);
+        this.processorOperation = processorOperation;
       }
 
-    public void removePropertyChangeListener (final @Nonnull PropertyChangeListener listener)
-      {
-        propertyChangeSupport.removePropertyChangeListener(listener);
-      }
+    public abstract Operation createOperation();
 
-    @Nonnull
-    public Lookup getLookup()
-      {
-        return lookup;
-      }
-
-//    @Nonnull
-//    public Operation createOperation() TODO put a OperationFactory into Lookup
-//      {
-//        return null;
-//      }
   }
