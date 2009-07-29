@@ -33,6 +33,7 @@ import it.tidalwave.imageio.profile.DeNoiseOp;
 import it.tidalwave.imageio.profile.ImageDescriptor;
 import it.tidalwave.imageio.profile.MarginSetter;
 import it.tidalwave.imageio.profile.Margins;
+import it.tidalwave.imageio.profile.SourceSelector;
 import it.tidalwave.imageio.profile.WhiteBalanceOp;
 import java.awt.Dimension;
 import java.io.IOException;
@@ -73,7 +74,7 @@ public class ProfileManagerImplTest
                 final int width = dimension.width;
                 final int height = dimension.height;
 
-                operation.setAlgorithm(((width * height) > 2 * 1024 * 1024) ? "xxx" : "yyy");
+                operation.setAlgorithm(((width * height) >= 2 * 1024 * 1024) ? "xxx" : "yyy");
               }
           });
 
@@ -82,5 +83,25 @@ public class ProfileManagerImplTest
 
         final ImageReader reader = ImageIO.getImageReadersByFormatName("NEF").next();
         reader.read(0, new RawImageReadParam(profile));
+
+        // Always read the RAW_DATA (default behaviour)
+        reader.read(0, new RawImageReadParam(SourceSelector.Source.RAW_DATA()));
+
+        // Always read the second thumbnail
+        reader.read(0, new RawImageReadParam(SourceSelector.Source.THUMBNAIL(1)));
+
+        // Read the first thumbnail if larger than 6 megapixels, the raw data instead
+        reader.read(0, new RawImageReadParam(new SourceSelector()
+          {
+            @Override
+            public Source selectSource (@Nonnull final ImageDescriptor imageDescriptor)
+              {
+                final Dimension dimension = imageDescriptor.getDimension();
+                final int width = dimension.width;
+                final int height = dimension.height;
+
+                return ((width * height) >= 6 * 1024 * 1024) ? Source.THUMBNAIL(0) : Source.RAW_DATA();
+              }
+          }));
       }
   }
