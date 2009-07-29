@@ -26,20 +26,21 @@ package it.tidalwave.imageio.profile.impl;
 
 import it.tidalwave.imageio.profile.ColorProfileOp;
 import it.tidalwave.imageio.profile.ProcessorOperation.AdaptivePropertiesHandler;
-import it.tidalwave.imageio.profile.ProcessorOperation.ImageDescriptor;
 import it.tidalwave.imageio.profile.Profile;
 import it.tidalwave.imageio.profile.ProfileManager;
 import it.tidalwave.imageio.profile.CropOp;
-import it.tidalwave.imageio.profile.CropOp.Bounds;
+import it.tidalwave.imageio.profile.DeNoiseOp;
+import it.tidalwave.imageio.profile.ImageDescriptor;
+import it.tidalwave.imageio.profile.MarginSetter;
+import it.tidalwave.imageio.profile.Margins;
 import it.tidalwave.imageio.profile.WhiteBalanceOp;
-import it.tidalwave.imageio.raw.RAWMetadataSupport;
+import java.awt.Dimension;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.raw.RawImageReadParam;
 import java.awt.color.ICC_Profile;
 import javax.annotation.Nonnull;
-import javax.imageio.metadata.IIOMetadata;
 import org.junit.Test;
 
 /***********************************************************************************************************************
@@ -52,27 +53,32 @@ public class ProfileManagerImplTest
   {
     @Test
     public void testReadWithProfile()
+      // NotFoundException doesnt' speak - add the thing that is not found in the name
       throws ProfileManager.NotFoundException, Profile.NotFoundException, IOException
       {
         final ICC_Profile ADOBE_RGB = null; // FIXME
         
         final ProfileManager profileManager = ProfileManager.getInstance();
         final Profile profile = profileManager.findProfileById("dcraw").createModifiableCopy();
+        
         profile.getOperation(WhiteBalanceOp.class).setTemperature(5500);
         profile.getOperation(ColorProfileOp.class).setICCProfile(ADOBE_RGB);
-        profile.getOperation(CropOp.class).setAdaptivePropertiesHandler(new AdaptivePropertiesHandler<CropOp>()
+        profile.getOperation(DeNoiseOp.class).setAdaptivePropertiesHandler(new AdaptivePropertiesHandler<DeNoiseOp>()
           {
             @Override
-            public void adaptProperties (final @Nonnull CropOp sizeOp,
+            public void adaptProperties (final @Nonnull DeNoiseOp operation,
                                          final @Nonnull ImageDescriptor imageDescriptor)
               {
-                final IIOMetadata metadata = imageDescriptor.getMetadata();
-                final int width = 0; // FIXME get from metadata
-                final int height = 0; // FIXME get from metadata
-                final double margin = 10;
-                sizeOp.setBounds(Bounds.create().left(margin).top(margin).right(width - margin).bottom(height - margin));
+                final Dimension dimension = imageDescriptor.getDimension();
+                final int width = dimension.width;
+                final int height = dimension.height;
+
+                operation.setAlgorithm(((width * height) > 2 * 1024 * 1024) ? "xxx" : "yyy");
               }
           });
+
+        final Margins margins = Margins.create().withLeft(10).withRight(10).withTop(10).withBottom(10);
+        profile.getOperation(CropOp.class).setAdaptivePropertiesHandler(new MarginSetter().setMargins(margins));
 
         final ImageReader reader = ImageIO.getImageReadersByFormatName("NEF").next();
         reader.read(0, new RawImageReadParam(profile));
