@@ -1,4 +1,4 @@
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * jrawio - a Java(TM) ImageIO API Spi Provider for RAW files
  * ==========================================================
@@ -6,7 +6,7 @@
  * Copyright (C) 2003-2009 by Fabrizio Giudici
  * Project home page: http://jrawio.tidalwave.it
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); 
  * you may not use this file except in compliance with the License. 
@@ -20,21 +20,55 @@
  * See the License for the specific language governing permissions and 
  * limitations under the License. 
  *
- *******************************************************************************
+ ***********************************************************************************************************************
  *
- * $Id: Version.java 263 2009-06-15 09:18:57Z fabriziogiudici $
+ * $Id$
  *
  ******************************************************************************/
 package it.tidalwave.imageio.raw;
 
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import javax.annotation.Nonnull;
 import javax.imageio.ImageReadParam;
 
-/*******************************************************************************
+/***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: Version.java 263 2009-06-15 09:18:57Z fabriziogiudici $
+ * @version $Id$
  *
- ******************************************************************************/
-public class RawImageReadParam extends ImageReadParam
+ **********************************************************************************************************************/
+public class RawImageReadParam extends ImageReadParam implements Serializable
   {
+    public static class NotFoundException extends Exception
+      {
+        public NotFoundException (final @Nonnull Class<?> type)
+          {
+            super("Parameter type not found: " + type);
+          }
+      }
+
+    private final Set<Serializable> params;
+
+    public RawImageReadParam (final @Nonnull Serializable ... params)
+      {
+        this.params = new HashSet<Serializable>(Arrays.asList(params));
+      }
+
+    @Nonnull
+    public <T> T get (final @Nonnull Class<T> type)
+      throws NotFoundException
+      {
+        for (final Serializable param : params)
+          {
+            if (type.isAssignableFrom(param.getClass()))
+              {
+                return (T)param;
+              }
+          }
+
+        throw new NotFoundException(type);
+      }
   }
