@@ -25,11 +25,9 @@
 package it.tidalwave.imageio.raw;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 import java.io.Serializable;
 import javax.imageio.ImageReadParam;
+import it.tidalwave.imageio.util.Lookup;
 
 /***********************************************************************************************************************
  *
@@ -39,63 +37,16 @@ import javax.imageio.ImageReadParam;
  **********************************************************************************************************************/
 public class RawImageReadParam extends ImageReadParam implements Serializable
   {
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    public static class NotFoundException extends Exception
-      {
-        public NotFoundException (final @Nonnull Class<?> type)
-          {
-            super("Parameter type not found: " + type);
-          }
-      }
+    private final Lookup lookup;
 
-    private final Set<Serializable> params;
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
     public RawImageReadParam (final @Nonnull Serializable ... params)
       {
-        this.params = new HashSet<Serializable>(Arrays.asList(params));
+        this.lookup = new Lookup(params);
       }
 
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
     @Nonnull
-    public <T> T get (final @Nonnull Class<T> type, final @Nonnull T defaultValue)
+    public Lookup getLookup()
       {
-        //TODO: enforce defaultValue not null
-        try
-          {
-            return get(type);
-          }
-        catch (NotFoundException e)
-          {
-            return defaultValue;
-          }
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public <T> T get (final @Nonnull Class<T> type)
-      throws NotFoundException
-      {
-        for (final Serializable param : params)
-          {
-            if (type.isAssignableFrom(param.getClass()))
-              {
-                return (T)param;
-              }
-          }
-
-        throw new NotFoundException(type);
+        return lookup;
       }
   }
