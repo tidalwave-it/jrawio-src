@@ -25,10 +25,7 @@
 package it.tidalwave.imageio.profile;
 
 import it.tidalwave.imageio.profile.impl.ProfileManagerImpl;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************

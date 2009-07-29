@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class DeNoiseOp extends ProcessorOperation 
+public final class DeNoiseOp extends ProcessorOperation
   {
     public static final String PROP_ALGORITHM = "algorithm";
 

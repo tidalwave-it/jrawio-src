@@ -33,7 +33,7 @@ import javax.annotation.Nonnull;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class WhiteBalanceOp extends ProcessorOperation 
+public final class WhiteBalanceOp extends ProcessorOperation
   {
     public static final String PROP_TEMPERATURE = "temperature";
 

@@ -24,7 +24,6 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.profile;
 
-import java.awt.color.ICC_Profile;
 import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
@@ -33,7 +32,7 @@ import javax.annotation.Nonnull;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class RotateOp extends ProcessorOperation 
+public final class RotateOp extends ProcessorOperation
   {
     public static final String PROP_ANGLE = "angle";
 

@@ -33,7 +33,7 @@ import javax.annotation.Nonnull;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class ColorProfileOp extends ProcessorOperation 
+public final class ColorProfileOp extends ProcessorOperation
   {
     public static final String PROP_ICC_PROFILE = "iccProfile";
 
