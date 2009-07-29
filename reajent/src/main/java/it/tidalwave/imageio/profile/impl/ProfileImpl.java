@@ -19,23 +19,28 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: Curve.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.profile;
+package it.tidalwave.imageio.profile.impl;
 
 import javax.annotation.Nonnull;
+import it.tidalwave.imageio.profile.Profile;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: Curve.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
-public class ProfileNotFoundException extends Exception
+public class ProfileImpl extends Profile
   {
-    public ProfileNotFoundException (@Nonnull final String msg)
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public ProfileImpl (final @Nonnull String id, final @Nonnull String displayName, final boolean readOnly)
       {
-        super(msg);
+        super(id, displayName, readOnly);
       }
   }

@@ -19,7 +19,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: Curve.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.profile;
@@ -33,10 +33,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: Curve.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
-public class Profile
+public abstract class Profile
   {
     @Nonnull
     protected final String id;
@@ -52,7 +52,7 @@ public class Profile
      *
      *
      ******************************************************************************************************************/
-    public Profile (final @Nonnull String id, final @Nonnull String displayName, final boolean readOnly)
+    protected Profile (final @Nonnull String id, final @Nonnull String displayName, final boolean readOnly)
       {
         this.id = id;
         this.displayName = displayName;

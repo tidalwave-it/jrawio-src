@@ -22,14 +22,15 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.profile;
+package it.tidalwave.imageio.profile.impl;
 
-import it.tidalwave.imageio.profile.impl.ProfileManagerImpl;
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
-import javax.annotation.Nonnull;
+import it.tidalwave.imageio.profile.Profile;
+import it.tidalwave.imageio.profile.ProfileManager;
 
 /***********************************************************************************************************************
  *
@@ -37,37 +38,20 @@ import javax.annotation.Nonnull;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public abstract class ProfileManager
+public class ProfileManagerImpl extends ProfileManager
   {
-    /*******************************************************************************************************************
-     *
-     * @author  Fabrizio Giudici
-     * @version $Id$
-     *
-     ******************************************************************************************************************/
-    public static class NotFoundException extends Exception
-      {
-        public NotFoundException (@Nonnull final String msg)
-          {
-            super(msg);
-          }
-      }
-
-    private static ProfileManager instance;
+    private final Map<String, Profile> profileMap = new HashMap<String, Profile>();
 
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
-    public synchronized static ProfileManager getInstance()
+    @Nonnull
+    public Profile createProfile (final @Nonnull String id,
+                                  final @Nonnull String displayName)
       {
-        if (instance == null)
-          {
-            // TODO: use META-INF to get the thing.
-            instance = new ProfileManagerImpl();
-          }
-
-        return instance;
+        // TODO
+        return new ProfileImpl(id, displayName, false);
       }
 
     /*******************************************************************************************************************
@@ -75,30 +59,39 @@ public abstract class ProfileManager
      *
      ******************************************************************************************************************/
     @Nonnull
-    public abstract Profile createProfile (final @Nonnull String id,
-                                           final @Nonnull String displayName);
+    public Profile createProfileFrom (final @Nonnull String id,
+                                      final @Nonnull String displayName,
+                                      final @Nonnull Profile archetype)
+      {
+        // TODO
+        return new ProfileImpl(id, displayName, false);
+      }
 
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
     @Nonnull
-    public abstract Profile createProfileFrom (final @Nonnull String id,
-                                               final @Nonnull String displayName,
-                                               final @Nonnull Profile archetype);
+    public Set<String> getProfileNames()
+      {
+        return new CopyOnWriteArraySet<String>(profileMap.keySet());
+      }
 
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
     @Nonnull
-    public abstract Set<String> getProfileNames();
+    public synchronized Profile findProfileById (@Nonnull final String id)
+      throws NotFoundException
+      {
+        final Profile profile = profileMap.get(id);
 
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public abstract  Profile findProfileById (@Nonnull final String id)
-      throws NotFoundException;
+        if (profile == null)
+          {
+            throw new NotFoundException("No such profile id: " + id);
+          }
+
+        return profile;
+      }
   }
