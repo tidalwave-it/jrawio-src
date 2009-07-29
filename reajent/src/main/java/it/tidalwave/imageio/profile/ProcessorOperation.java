@@ -28,7 +28,6 @@ import javax.annotation.Nonnull;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
-import javax.imageio.metadata.IIOMetadata;
 import it.tidalwave.imageio.util.Lookup;
 
 /***********************************************************************************************************************
@@ -41,29 +40,6 @@ import it.tidalwave.imageio.util.Lookup;
  **********************************************************************************************************************/
 public abstract class ProcessorOperation<T extends ProcessorOperation> implements Serializable
   {
-    /*******************************************************************************************************************
-     *
-     * @author  Fabrizio Giudici
-     * @version $Id$
-     *
-     ******************************************************************************************************************/
-    public static final class ImageDescriptor
-      {
-        @Nonnull
-        private final IIOMetadata metadata;
-
-        public ImageDescriptor (final @Nonnull IIOMetadata metadata)
-          {
-            this.metadata = metadata;
-          }
-
-        @Nonnull
-        public IIOMetadata getMetadata()
-          {
-            return metadata;
-          }
-      }
-    
     /*******************************************************************************************************************
      *
      * This class implements a callback that is invoked when the image has been loaded, but not processed yet. This

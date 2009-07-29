@@ -43,7 +43,7 @@ public final class CropOp extends ProcessorOperation<CropOp>
      ******************************************************************************************************************/
     public static class Bounds implements Serializable
       {
-        public final static Bounds ALL = new Bounds(0, 0, Double.MAX_VALUE, Double.MAX_VALUE);
+        public final static Bounds ALL = new Bounds(0, 0, Double.MAX_VALUE - 1, Double.MAX_VALUE - 1); // -1 to keep width and height in range
 
         private final double left;
         private final double top;
@@ -65,25 +65,25 @@ public final class CropOp extends ProcessorOperation<CropOp>
           }
 
         @Nonnull
-        public Bounds left (final double left)
+        public Bounds withLeft (final double left)
           {
             return new Bounds(left, this.top, this.right, this.bottom);
           }
 
         @Nonnull
-        public Bounds right (final double right)
+        public Bounds withRight (final double right)
           {
             return new Bounds(this.left, this.top, right, this.bottom);
           }
 
         @Nonnull
-        public Bounds top (final double top)
+        public Bounds withTop (final double top)
           {
             return new Bounds(this.left, top, this.right, this.bottom);
           }
 
         @Nonnull
-        public Bounds bottom (final double bottom)
+        public Bounds withBottom (final double bottom)
           {
             return new Bounds(this.left, this.top, this.right, bottom);
           }
@@ -98,6 +98,72 @@ public final class CropOp extends ProcessorOperation<CropOp>
         public Bounds height (final double height)
           {
             return new Bounds(this.left, this.top, this.right, bottom + height - 1);
+          }
+
+        public double getBottom()
+          {
+            return bottom;
+          }
+
+        public double getLeft()
+          {
+            return left;
+          }
+
+        public double getRight()
+          {
+            return right;
+          }
+
+        public double getTop()
+          {
+            return top;
+          }
+
+        public double getWidth()
+          {
+            return right - left + 1;
+          }
+
+        public double getHeight()
+          {
+            return top - bottom + 1;
+          }
+
+        @Override
+        public boolean equals (final Object object)
+          {
+            if ((object == null) || (getClass() != object.getClass()))
+              {
+                return false;
+              }
+
+            final Bounds other = (Bounds)object;
+
+            return (this.left == other.left) &&
+                   (this.top == other.top) &&
+                   (this.right == other.right) &&
+                   (this.bottom == other.bottom);
+          }
+
+        @Override
+        public int hashCode()
+          {
+            int hash = 7;
+            hash = 53 * hash + (int)(Double.doubleToLongBits(left)   ^ (Double.doubleToLongBits(left) >>> 32));
+            hash = 53 * hash + (int)(Double.doubleToLongBits(top)    ^ (Double.doubleToLongBits(top) >>> 32));
+            hash = 53 * hash + (int)(Double.doubleToLongBits(right)  ^ (Double.doubleToLongBits(right) >>> 32));
+            hash = 53 * hash + (int)(Double.doubleToLongBits(bottom) ^ (Double.doubleToLongBits(bottom) >>> 32));
+            return hash;
+          }
+
+        @Override
+        public String toString()
+          {
+            return this.equals(ALL) ? 
+                   "Bounds[no bounds]" :
+                   String.format("Bounds[l: %f, t: %f, r: %f, b: %f, w: %f, h: %f]",
+                                 left, top, right, bottom, getWidth(), getHeight());
           }
       }
     
