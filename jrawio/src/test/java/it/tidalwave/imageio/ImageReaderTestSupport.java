@@ -27,24 +27,24 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import java.util.Iterator;
+import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.FileNotFoundException;
-import java.util.Iterator;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.io.File;
 import java.io.IOException;
-import java.awt.image.BufferedImage;
+import java.io.PrintWriter;
+import org.apache.commons.io.FileUtils;
+import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.spi.ImageReaderSpi;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import it.tidalwave.imageio.util.Logger;
-import java.io.PrintWriter;
-import java.net.URL;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import org.apache.commons.io.FileUtils;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 
