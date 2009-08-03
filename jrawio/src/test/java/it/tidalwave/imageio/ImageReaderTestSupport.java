@@ -316,6 +316,7 @@ public class ImageReaderTestSupport extends TestSupport
       throws FileNotFoundException
       {
         file.getParentFile().mkdir();
+        logger.info("***************** Writing %s...", file.getAbsolutePath());
         final PrintWriter pw = new PrintWriter(file);
         dumpRasterAsText(raster, pw);
         pw.close();
