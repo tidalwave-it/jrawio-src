@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ThumbnailHelper.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -36,7 +36,7 @@ import static org.junit.Assert.*;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CRWImageReaderTest extends ImageReaderTestSupport
@@ -63,7 +63,7 @@ public class CRWImageReaderTest extends ImageReaderTestSupport
         final BufferedImage image = assertLoadImage(ir, 3152, 2068, 3, 16);
         assertLoadThumbnail(ir, 0, 2048, 1360); 
         
-        assertRaster(image, path, "aed3e6acfc31ed26b4bc43194ebeded6");
+        assertRaster(image, path, "b499a77c82e5289d043e2f330c6fffba");
         
         close(ir);
       }
