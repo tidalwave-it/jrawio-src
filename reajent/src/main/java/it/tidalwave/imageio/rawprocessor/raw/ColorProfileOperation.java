@@ -22,23 +22,24 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ColorProfileOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
-import it.tidalwave.imageio.util.Logger;
+import javax.annotation.Nonnull;
 import java.awt.RenderingHints;
 import java.awt.color.ColorSpace;
 import java.awt.color.ICC_Profile;
 import java.awt.image.ColorConvertOp;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ColorProfileOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ColorProfileOperation extends OperationSupport
@@ -52,13 +53,13 @@ public class ColorProfileOperation extends OperationSupport
      * FIXME: temporary: always converts in sRGB to 8 bits per channel
      *
      ******************************************************************************************************************/
-    public void process (RAWImage image)
+    public void process (final @Nonnull RAWImage image)
       {
         logger.fine("process()");
         logImage(logger, ">>>> image: ", image.getImage());
-        ICC_Profile colorProfile = ICC_Profile.getInstance(ColorSpace.CS_sRGB);
-        RenderingHints hints = null; // FIXME
-        ColorConvertOp ccOp = new ColorConvertOp(new ICC_Profile[] { colorProfile }, hints);
+        final ICC_Profile colorProfile = ICC_Profile.getInstance(ColorSpace.CS_sRGB);
+        final RenderingHints hints = null; // FIXME
+        final ColorConvertOp ccOp = new ColorConvertOp(new ICC_Profile[] { colorProfile }, hints);
         image.setImage(ccOp.filter(image.getImage(), null));
         logImage(logger, ">>>> process returning: ", image.getImage());
       }    
