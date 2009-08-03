@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ThumbnailHelper.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -36,7 +36,7 @@ import static org.junit.Assert.*;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ORFImageReaderTest extends ImageReaderTestSupport
@@ -61,7 +61,7 @@ public class ORFImageReaderTest extends ImageReaderTestSupport
         final BufferedImage image = assertLoadImage(ir, 3720, 2800, 3, 16);
         assertLoadThumbnail(ir, 0, 1600, 1200);
         
-        assertRaster(image, path, "8941352d9953d9a0b09636144a9a29f6");
+        assertRaster(image, path, "f823981ab27195c2db002ee03a65af84");
         
         final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
         assertNotNull(metadata);
@@ -108,7 +108,7 @@ public class ORFImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 0, 160, 120);
 //        assertLoadThumbnail(ir, 1, 0, 0); //  FIXME: broken
        
-        assertRaster(image, path, "343e1553251fe7d17bd18df717cbf1a5");
+        assertRaster(image, path, "4dfff3c25f1fdc8940ace2d079a09c6f");
         
         final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
         assertNotNull(metadata);
