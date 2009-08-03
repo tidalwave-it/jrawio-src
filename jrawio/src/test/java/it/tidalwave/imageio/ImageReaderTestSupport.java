@@ -32,21 +32,14 @@ import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.FileOutputStream;
-import java.awt.image.DataBuffer;
 import java.awt.image.BufferedImage;
-import java.awt.image.DataBufferByte;
-import java.awt.image.DataBufferUShort;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.spi.ImageReaderSpi;
 import it.tidalwave.imageio.util.Logger;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URL;
 import javax.annotation.Nonnegative;
@@ -236,64 +229,21 @@ public class ImageReaderTestSupport extends TestSupport
     protected void assertRaster (final BufferedImage image, final String path, final String expectedRasterMD5) 
       throws IOException, NoSuchAlgorithmException
       {
-        final File tmp = new File(System.getProperty("java.io.tmpdir") + "/jrawio-test");
-        final File tiffFile = new File(tmp, path.replace("https://", "").replace("http://", "") + path + ".tiff");
+        final File targetDirectory = new File(System.getProperty("java.io.tmpdir") + "/jrawio-test");
+        final File tiffFile = new File(targetDirectory, path.replace("https://", "").replace("http://", "") + ".tiff");
         tiffFile.getParentFile().mkdirs();
         logger.info("***************** Writing %s...", tiffFile.getAbsolutePath());
         ImageIO.write(image, "TIFF", tiffFile);
         
-        final int width = image.getWidth();
-        final int height = image.getHeight();
         final Raster raster = image.getData();
 
-        final File textDumpFile = new File(tiffFile.getAbsolutePath() + "." + System.getProperty("java.version") + ".txt");
-        dumpRasterAsText(raster, textDumpFile);
-//        final DataBuffer dataBuffer = image.getData().getDataBuffer();
-
-        final MessageDigest md5 = MessageDigest.getInstance("MD5");
-
-        for (int b = 0; b < raster.getNumBands(); b++)
+        if (Boolean.getBoolean("jrawio.dumpRasterAsText"))
           {
-            for (int y = 0; y < height; y++)
-              {
-                for (int x = 0; x < width; x++)
-                  {
-                    final int sample = raster.getSample(x, y, b) & 0xffff;
-                    md5.update((byte)((sample >>> 24) & 0xff));
-                    md5.update((byte)((sample >>> 16) & 0xff));
-                    md5.update((byte)((sample >>>  8) & 0xff));
-                    md5.update((byte)((sample >>>  0) & 0xff));
-                  } 
-              }
+            final File textDumpFile = new File(tiffFile.getAbsolutePath() + "-" + System.getProperty("java.version") + ".txt");
+            dumpRasterAsText(raster, textDumpFile);
           }
-//        if (dataBuffer instanceof DataBufferUShort)
-//          {
-//            final DataBufferUShort bufferUShort = (DataBufferUShort) dataBuffer;
-//
-//            for (final short[] data : bufferUShort.getBankData())
-//              {
-//                md5.update(asBytes(data));
-//              }
-//          }
-//
-//        else if (dataBuffer instanceof DataBufferByte)
-//          {
-//            final DataBufferByte bufferUShort = (DataBufferByte) dataBuffer;
-//
-////            int i = 0;
-//            for (final byte[] data : bufferUShort.getBankData())
-//              {
-////                dump(new File(tmp, path + ".dump" + i++), data);
-//                md5.update(data);
-//              }
-//          }
-//
-//        else
-//          {
-//            throw new RuntimeException("Unsupported type: " + dataBuffer.getClass());
-//          }
 
-        final byte[] digest = md5.digest();
+        final MessageDigest md5 = md5(raster);
 
         // Comparisons are broken with JDK 1.5.0, don't make tests fail under Hudson.
         // See http://jrawio.tidalwave.it/issues/browse/JRW-162
@@ -303,8 +253,35 @@ public class ImageReaderTestSupport extends TestSupport
 //          }
 //        else
 //          {
-            assertEquals(expectedRasterMD5, asString(digest));
+            assertEquals(expectedRasterMD5, asString(md5.digest()));
 //          }
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public static MessageDigest md5 (final @Nonnull Raster raster)
+      throws NoSuchAlgorithmException
+      {
+        final MessageDigest md5 = MessageDigest.getInstance("MD5");
+
+        for (int b = 0; b < raster.getNumBands(); b++)
+          {
+            for (int y = 0; y < raster.getHeight(); y++)
+              {
+                for (int x = 0; x < raster.getWidth(); x++)
+                  {
+                    final int sample = raster.getSample(x, y, b) & 0xffff;
+                    md5.update((byte)((sample >>> 24) & 0xff));
+                    md5.update((byte)((sample >>> 16) & 0xff));
+                    md5.update((byte)((sample >>>  8) & 0xff));
+                    md5.update((byte)((sample >>>  0) & 0xff));
+                  }
+              }
+          }
+
+        return md5;
       }
 
     /*******************************************************************************************************************
@@ -329,18 +306,21 @@ public class ImageReaderTestSupport extends TestSupport
     public static void dumpRasterAsText (final @Nonnull Raster raster,
                                          final @Nonnull PrintWriter pw)
       {
-        for (int y = 0; y < raster.getHeight(); y++)
+        final int width = raster.getWidth();
+        final int height = raster.getHeight();
+        final int bandCount = raster.getNumBands();
+        logger.fine("Dumping raster %d x %d x %d", width, height, bandCount);
+
+        for (int y = 0; y < height; y++)
           {
-            pw.printf("y=%04d ", y);
-
-            for (int b = 0; b < raster.getNumBands(); b++)
+            for (int b = 0; b < bandCount; b++)
               {
-                pw.printf("b=%1d ", y);
+                pw.printf("y=%04d b=%1d : ", y, b);
 
-                for (int x = 0; x < raster.getWidth(); x++)
+                for (int x = 0; x < width; x++)
                   {
                     final int sample = raster.getSample(x, y, b) & 0xffff;
-                    pw.printf("%03x ", sample);
+                    pw.printf("%04x ", sample);
                   }
 
                 pw.println();
