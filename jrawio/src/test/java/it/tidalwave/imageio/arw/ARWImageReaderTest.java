@@ -22,27 +22,27 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ThumbnailHelper.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.arw;
 
+import java.awt.Dimension;
 import javax.imageio.ImageReader;
 import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.ImageReaderTestSupport;
+import it.tidalwave.imageio.raw.TagRational;
 import it.tidalwave.imageio.minolta.MinoltaRawData;
 import it.tidalwave.imageio.minolta.MinoltaRawData.PRD;
 import it.tidalwave.imageio.minolta.MinoltaRawData.RIF;
 import it.tidalwave.imageio.minolta.MinoltaRawData.WBG;
-import it.tidalwave.imageio.raw.TagRational;
-import java.awt.Dimension;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ARWImageReaderTest extends ImageReaderTestSupport
@@ -101,7 +101,7 @@ public class ARWImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 0, 640, 480); // FIXME: this is wrong, should be the 3872x2592
         assertLoadThumbnail(ir, 1, 160, 120);
         
-        assertRaster(image, path, "70a6d55ea48fe9130e1d34e972fa8662");
+        assertRaster(image, path, "90e70a15bb3bd63ea4dacb1ea9841653");
         
         close(ir);
       }
