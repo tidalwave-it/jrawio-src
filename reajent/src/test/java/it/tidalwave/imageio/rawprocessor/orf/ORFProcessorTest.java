@@ -90,7 +90,7 @@ public class ORFProcessorTest extends ImageReaderTestSupport
         
         close(ir);
         
-        assertRaster(image, path, "feee420807845f22635ee7ce881d6fe1");
+        assertRaster(image, path, "261e200fcf00a79a3c3402eedcc72993");
       }
     
     @Test(timeout=60000)
@@ -109,7 +109,7 @@ public class ORFProcessorTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 0, 160, 120);
 //        assertLoadThumbnail(ir, 1, 0, 0); //  FIXME: broken
        
-        assertRaster(image, path, "d08b57d7ff20c2c10f0d0dcda3cd6e07");
+        assertRaster(image, path, "1362f5928da9cae1fe0704e69bd5eb53");
         
         final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
         assertNotNull(metadata);

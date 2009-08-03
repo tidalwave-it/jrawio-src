@@ -57,7 +57,7 @@ public class RAFProcessorTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 0, 160, 120);
 //        assertLoadThumbnail(ir, 1, 1600, 1200); // FIXME
         
-        assertRaster(image, path, "0e057815b4a297c3d5d8845f2ab038d7");
+        assertRaster(image, path, "47df2750b17f3734d7ba9a7398033c31");
         
 //        close(ir);
       }

@@ -41,7 +41,7 @@ import static org.junit.Assert.*;
  **********************************************************************************************************************/
 public class NEFProcessorTest extends ImageReaderTestSupport
   {
-//    @Test(timeout=60000)
+    @Test(timeout=60000)
     public void test1() 
       throws Exception 
       {
@@ -51,14 +51,14 @@ public class NEFProcessorTest extends ImageReaderTestSupport
         assertEquals(1, ir.getNumThumbnails(0));
         assertImage(ir, 3034, 2024);
         assertThumbnail(ir, 0, 120, 160);
-        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 8, BufferedImage.TYPE_INT_RGB); // FIXME: WRONG, should be 16 bits
+        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 8, 0 /*BufferedImage.TYPE_INT_RGB*/); // FIXME: WRONG, should be 16 bits
         assertLoadThumbnail(ir, 0, 120, 160);
         close(ir);
         
-        assertRaster(image, path, "76f41c2dd922e79ae605f5e042aa4d9c");
+        assertRaster(image, path, "6e7c4edc6a5389ab6f0887ee5a6f7527");
       }
     
-//    @Test(timeout=60000)
+    @Test(timeout=60000)
     public void test2() 
       throws Exception 
       {
@@ -69,14 +69,14 @@ public class NEFProcessorTest extends ImageReaderTestSupport
         assertImage(ir, 3008, 2000);
         assertThumbnail(ir, 0, 160, 120);
         // FIXME: this is wrong, the TIF is being processed as it were a RAW
-        final BufferedImage image = assertLoadImage(ir, 2982, 1976, 3, 8, BufferedImage.TYPE_INT_RGB); // FIXME: WRONG, should be 16 bits
+        final BufferedImage image = assertLoadImage(ir, 2982, 1976, 3, 8, 0 /*BufferedImage.TYPE_INT_RGB*/); // FIXME: WRONG, should be 16 bits
         assertLoadThumbnail(ir, 0, 160, 120);
         close(ir);
         
-        assertRaster(image, path, "d2693ae031e35e2899a11cd817d7c255");
+        assertRaster(image, path, "7b376e9dd911ab94e0d0a6e20123c582");
       }
     
-//    @Test(timeout=60000)
+    @Test(timeout=60000)
     public void test3()
       throws Exception
       {
@@ -87,15 +87,15 @@ public class NEFProcessorTest extends ImageReaderTestSupport
         assertImage(ir, 3040, 2014);
         assertThumbnail(ir, 0, 106, 160);
         assertThumbnail(ir, 1, 384, 255);
-        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 8, BufferedImage.TYPE_INT_RGB); // FIXME: WRONG, should be 16 bits
+        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 8, 0 /*BufferedImage.TYPE_INT_RGB*/); // FIXME: WRONG, should be 16 bits
         assertLoadThumbnail(ir, 0, 106, 160);
         assertLoadThumbnail(ir, 1, 384, 255);
         close(ir);
 
-        assertRaster(image, path, "b151891922a90a61ca93dd849107a593");
+        assertRaster(image, path, "d62309eab197bb9aced6a56e5fa966a9");
       }
 
-//    @Test(timeout=60000)
+    @Test(timeout=60000)
     public void testJSR129()
       throws Exception
       {
@@ -106,12 +106,12 @@ public class NEFProcessorTest extends ImageReaderTestSupport
         assertImage(ir, 3040, 2014);
         assertThumbnail(ir, 0, 160, 120);
         assertThumbnail(ir, 1, 3008, 2000);
-        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 8, BufferedImage.TYPE_INT_RGB); // FIXME: WRONG, should be 16 bits
+        final BufferedImage image = assertLoadImage(ir, 2000, 3008, 3, 8, 0 /*BufferedImage.TYPE_INT_RGB*/); // FIXME: WRONG, should be 16 bits
         assertLoadThumbnail(ir, 0, 160, 120);
         assertLoadThumbnail(ir, 1, 3008, 2000);
         close(ir);
 
-        assertRaster(image, path, "f5befb9e45972491aa951afa98216d25");
+        assertRaster(image, path, "328f3bdabe9ba80a3e4abe7237fa4084");
       }
 
     @Test(timeout=60000)

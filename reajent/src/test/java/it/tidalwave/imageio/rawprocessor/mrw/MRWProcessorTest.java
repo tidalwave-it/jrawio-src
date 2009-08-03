@@ -55,7 +55,7 @@ public class MRWProcessorTest extends ImageReaderTestSupport
         final BufferedImage image = assertLoadImage(ir, 3008, 2000, 3, 8); // FIXME: should be 16
         assertLoadThumbnail(ir, 0, 640, 480);
         
-        assertRaster(image, path, "0c011c16b6e2b511417dc484377ca23");
+        assertRaster(image, path, "b6409343ca012991318351d5ca004e68");
         
 //        close(ir);
       }
