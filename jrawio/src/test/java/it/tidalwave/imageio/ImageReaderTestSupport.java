@@ -28,6 +28,7 @@
 package it.tidalwave.imageio;
 
 import java.awt.image.Raster;
+import java.io.FileNotFoundException;
 import java.util.Iterator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -46,6 +47,7 @@ import javax.imageio.stream.ImageInputStream;
 import javax.imageio.spi.ImageReaderSpi;
 import it.tidalwave.imageio.util.Logger;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.URL;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -243,7 +245,9 @@ public class ImageReaderTestSupport extends TestSupport
         final int width = image.getWidth();
         final int height = image.getHeight();
         final Raster raster = image.getData();
-        
+
+        final File textDumpFile = new File(tiffFile.getAbsolutePath() + "." + System.getProperty("java.version") + ".txt");
+        dumpRasterAsText(raster, textDumpFile);
 //        final DataBuffer dataBuffer = image.getData().getDataBuffer();
 
         final MessageDigest md5 = MessageDigest.getInstance("MD5");
@@ -302,7 +306,47 @@ public class ImageReaderTestSupport extends TestSupport
             assertEquals(expectedRasterMD5, asString(digest));
 //          }
       }
-    
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public static void dumpRasterAsText (final @Nonnull Raster raster,
+                                         final @Nonnull File file)
+      throws FileNotFoundException
+      {
+        file.getParentFile().mkdir();
+        final PrintWriter pw = new PrintWriter(file);
+        dumpRasterAsText(raster, pw);
+        pw.close();
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public static void dumpRasterAsText (final @Nonnull Raster raster,
+                                         final @Nonnull PrintWriter pw)
+      {
+        for (int y = 0; y < raster.getHeight(); y++)
+          {
+            pw.printf("y=%04d ", y);
+
+            for (int b = 0; b < raster.getNumBands(); b++)
+              {
+                pw.printf("b=%1d ", y);
+
+                for (int x = 0; x < raster.getWidth(); x++)
+                  {
+                    final int sample = raster.getSample(x, y, b) & 0xffff;
+                    pw.printf("%03x ", sample);
+                  }
+
+                pw.println();
+              }
+          }
+      }
+
     /*******************************************************************************************************************
      * 
      * 
