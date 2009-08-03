@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: NEFProcessor.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFProcessor.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class NEFProcessor extends RAWProcessor
@@ -61,7 +61,7 @@ public class NEFProcessor extends RAWProcessor
             
             if (makerNote.isCaptureEditorDataAvailable())
               {
-                NikonCaptureEditorMetadata nceMetadata = new NikonCaptureEditorMetadata(makerNote.getCaptureEditorData()); 
+                final NikonCaptureEditorMetadata nceMetadata = new NikonCaptureEditorMetadata(makerNote.getCaptureEditorData());
                 logger.finer(nceMetadata.toString());
                 metadata._setCaptureEditorMetadata(nceMetadata); 
               }            
