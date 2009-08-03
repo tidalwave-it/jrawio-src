@@ -22,26 +22,26 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ThumbnailHelper.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
 
+import java.awt.image.BufferedImage;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.ImageReaderTestSupport;
-import java.awt.image.BufferedImage;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class NEFImageReaderTest extends ImageReaderTestSupport
   {
-    @Test(timeout=60000)
+    @Test
     public void testMIMEType()
       {
         assertMIMETypes("nef", "image/x-nikon-nef");
@@ -61,7 +61,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 0, 120, 160);
         close(ir);
         
-        assertRaster(image, path, "a370faff7f544f8ec51d872cf2d227f1");
+        assertRaster(image, path, "3659664029723dc8ea29b09a923fca7d");
       }
     
     @Test(timeout=60000)
@@ -78,7 +78,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 0, 160, 120);
         close(ir);
         
-        assertRaster(image, path, "09b14dcaaabb6004ad9df4d4999904eb");
+        assertRaster(image, path, "03383e837402452f7dc553422299f057");
       }
     
     @Test(timeout=60000)
@@ -97,10 +97,10 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 1, 384, 255);
         close(ir);
 
-        assertRaster(image, path, "3c9baff5d7f0fc4cd0ad5f381a518e7a");
+        assertRaster(image, path, "fa9bbd9ebe4b5f652c385c84ce33fd56");
       }
 
-    @Test(timeout=60000)
+//    @Test(timeout=60000)
     public void testJRW129()
       throws Exception
       {
@@ -116,7 +116,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 1, 3008, 2000);
         close(ir);
 
-        assertRaster(image, path, "13c348ef117741937f77f9971e4d52fb");
+        assertRaster(image, path, "fabdb471b9a972acf313ebe29bf338ea");
       }
 
     @Test(timeout=60000)
@@ -135,7 +135,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 1, 3872, 2592);
         close(ir);
 
-//        assertRaster(image, path, "13c348ef117741937f77f9971e4d52fb");
+        assertRaster(image, path, "fabdb471b9a972acf313ebe29bf338ea");
       }
 
     @Test(timeout=60000)
@@ -154,6 +154,25 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 1, 3872, 2592);
         close(ir);
 
-//        assertRaster(image, path, "13c348ef117741937f77f9971e4d52fb");
+        assertRaster(image, path, "eca27d2b7ade85c4803f287b8c413844");
+      }
+
+    @Test(timeout=60000)
+    public void testNikonD90_1()
+      throws Exception
+      {
+        final String path = "http://jalbum.net/download/DSC_0067.NEF";
+        final ImageReader ir = getImageReader(path);
+        assertEquals(1, ir.getNumImages(false));
+        assertEquals(2, ir.getNumThumbnails(0));
+        assertImage(ir, 4352, 2868);
+        assertThumbnail(ir, 0, 160, 120);
+        assertThumbnail(ir, 1, 4288, 2848);
+        final BufferedImage image = assertLoadImage(ir, 4352, 2868, 3, 16, 0 /*BufferedImage.TYPE_INT_RGB*/); // FIXME: WRONG, should be 16 bits
+        assertLoadThumbnail(ir, 0, 160, 120);
+        assertLoadThumbnail(ir, 1, 4288, 2848);
+        close(ir);
+
+        assertRaster(image, path, "d780f19ff45049ba3d0fe17a8e96a08e");
       }
   }
