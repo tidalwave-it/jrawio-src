@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ThumbnailHelper.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.dng;
@@ -37,7 +37,7 @@ import static org.junit.Assert.*;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class DNGImageReaderTest extends ImageReaderTestSupport
@@ -78,7 +78,7 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 1, 1024, 683);
         close(ir);
         
-        assertRaster(image, path, "4225d6706501a9f0b6a5b225a0183e94");
+        assertRaster(image, path, "1601cd0415c7266d0449063661cb1d9c");
       }
 
     @Test(timeout=60000)
@@ -97,7 +97,7 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 1, 1024, 683);
         close(ir);
 
-        assertRaster(image, path, "6f9babc450b6fb414bbcca57918847a7");
+        assertRaster(image, path, "b96e7f37a44071e8a8c675cf97e55dda");
       }
 
     @Test(timeout=60000)
