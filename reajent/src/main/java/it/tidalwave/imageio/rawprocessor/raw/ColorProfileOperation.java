@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ColorProfileOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
@@ -38,7 +38,7 @@ import it.tidalwave.imageio.rawprocessor.OperationSupport;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ColorProfileOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ColorProfileOperation extends OperationSupport

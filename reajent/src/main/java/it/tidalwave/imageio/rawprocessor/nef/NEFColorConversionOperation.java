@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: NEFColorConversionOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
@@ -41,7 +41,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFColorConversionOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class NEFColorConversionOperation extends ColorConversionOperation  
