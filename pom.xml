@@ -407,6 +407,13 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <configuration>
+                    <instrumentation>
+                        <excludes>
+                            <exclude>it/tidalwave/imageio/io/*.class</exclude>
+                            <exclude>it/tidalwave/imageio/decoder/*.class</exclude>
+                            <exclude>it/tidalwave/imageio/cr2/CR2RasterReader.class</exclude>
+                        </excludes>
+                    </instrumentation>
                     <formats>
                         <format>xml</format>
                         <format>html</format>
