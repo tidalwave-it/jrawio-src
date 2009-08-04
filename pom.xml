@@ -417,6 +417,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <!-- arguments>-Dmaven.test.skip</arguments -->
+                    <arguments>-DbuildNumber=${buildNumber} -Dtestset.folder=${testset.folder} -Dtestset.cached.folder=${testset.cached.folder}</arguments>
                 </configuration>
             </plugin>
         </plugins>
