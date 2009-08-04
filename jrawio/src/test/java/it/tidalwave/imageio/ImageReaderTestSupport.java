@@ -59,6 +59,8 @@ public class ImageReaderTestSupport extends TestSupport
     private final static String CLASS = ImageReaderTestSupport.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
 
+    public final static String PROP_TESTSET_CACHED_FOLDER = "testset.cached.folder";
+    
     private static String testFolder;
         
     /*******************************************************************************************************************
@@ -68,8 +70,8 @@ public class ImageReaderTestSupport extends TestSupport
     @BeforeClass
     public static void setupTestFolderPath() 
       {                
-        testFolder = System.getProperty("testset.folder");
-        assertNotNull("You must set a property named 'testset.folder' " +
+        testFolder = System.getProperty(PROP_TESTSET_CACHED_FOLDER);
+        assertNotNull("You must set a property named '" + PROP_TESTSET_CACHED_FOLDER + "' " +
                       "to point to the test files", testFolder);
       }
 
@@ -198,7 +200,7 @@ public class ImageReaderTestSupport extends TestSupport
         if (path.startsWith("http"))
           {
             final String tmp = System.getProperty("java.io.tmpdir");
-            final File cacheFolder = new File(System.getProperty("testset.cached.folder", tmp + "/TestFolder"));
+            final File cacheFolder = new File(System.getProperty(PROP_TESTSET_CACHED_FOLDER, tmp + "/TestFolder"));
             file = new File(cacheFolder, path.replace("http://", "").
                                               replace("https://", "").
                                               replace(':', '_'));
@@ -208,6 +210,10 @@ public class ImageReaderTestSupport extends TestSupport
                 file.getParentFile().mkdirs();
                 logger.info(">>>> downloading to %s...", file.getAbsolutePath());
                 FileUtils.copyURLToFile(new URL(path), file);
+              }
+            else
+              {
+                logger.info(">>>> using cached file %s...", file.getAbsolutePath());
               }
           }
         else
