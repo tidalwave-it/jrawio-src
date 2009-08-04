@@ -41,7 +41,7 @@ import static org.junit.Assert.*;
  **********************************************************************************************************************/
 public class ORFImageReaderTest extends ImageReaderTestSupport
   {
-    @Test(timeout=60000)
+    @Test
     public void testMIMEType()
       {
         assertMIMETypes("orf", "image/x-olympus-orf");
