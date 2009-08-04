@@ -47,7 +47,7 @@ public class CR2ImageReaderTest extends ImageReaderTestSupport
         assertMIMETypes("cr2", "image/x-canon-cr2");
       }
 
-    @Test(timeout=600000)
+    @Test(timeout=60000)
     public void testEOS20D_1_1_0()
       throws Exception
       {
@@ -72,7 +72,7 @@ public class CR2ImageReaderTest extends ImageReaderTestSupport
         close(ir);
       }
 
-    @Test(timeout=600000)
+    @Test(timeout=60000)
     public void testEOS20D_2_0_3()
       throws Exception
       {
@@ -97,7 +97,7 @@ public class CR2ImageReaderTest extends ImageReaderTestSupport
         close(ir);
       }
 
-    @Test(timeout=600000)
+    @Test(timeout=60000)
     public void testEOS30D_1_0_4()
       throws Exception
       {
@@ -122,7 +122,7 @@ public class CR2ImageReaderTest extends ImageReaderTestSupport
         close(ir);
       }
 
-    @Test(timeout=600000)
+    @Test(timeout=60000)
     public void testEOS40D_1_0_3()
       throws Exception
       {
@@ -142,7 +142,7 @@ public class CR2ImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 1, 160, 120);
         assertLoadThumbnail(ir, 2, 486, 324);
 
-        assertRaster(image, path, "da3c1608f2793f3afb344fb41bd363c4");
+        assertRaster(image, path, "1ea35bbc10cf900fca0457ea531226d5");
 
         close(ir);
       }
