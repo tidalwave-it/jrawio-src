@@ -28,6 +28,7 @@ import javax.annotation.Nonnull;
 import java.io.Serializable;
 import javax.imageio.ImageReadParam;
 import it.tidalwave.imageio.util.Lookup;
+import it.tidalwave.imageio.util.Lookup.NotFoundException;
 
 /***********************************************************************************************************************
  *
@@ -35,13 +36,29 @@ import it.tidalwave.imageio.util.Lookup;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class RawImageReadParam extends ImageReadParam implements Serializable
+public class RAWImageReadParam extends ImageReadParam implements Serializable
   {
     private final Lookup lookup;
 
-    public RawImageReadParam (final @Nonnull Serializable ... params)
+    public RAWImageReadParam (final @Nonnull Serializable ... params)
       {
-        this.lookup = Lookup.fixed(params);
+        lookup = Lookup.fixed(params);
+
+        try
+          {
+            setDestinationType(lookup.lookup(ImageTypeSpecifier.class));
+          }
+        catch (Lookup.NotFoundException e)
+          {
+          }
+
+        try
+          {
+            setSourceRenderSize(lookup.lookup(Dimension.class));
+          }
+        catch (Lookup.NotFoundException e)
+          {
+          }
       }
 
     @Nonnull
@@ -50,3 +67,5 @@ public class RawImageReadParam extends ImageReadParam implements Serializable
         return lookup;
       }
   }
+
+
