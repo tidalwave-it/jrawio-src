@@ -145,10 +145,20 @@
         <profile>
             <id>default</id>
             <properties>
-                <buildNumber>unknown</buildNumber>            
+                <buildNumber>unknown</buildNumber>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>fritz</id>
+            <properties>
+                <buildNumber>unknown</buildNumber>
+                <testset.cached.folder>/Users/fritz/Business/Tidalwave/Projects/TestCacheFolder</testset.cached.folder>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
             </activation>
         </profile>
     </profiles>
