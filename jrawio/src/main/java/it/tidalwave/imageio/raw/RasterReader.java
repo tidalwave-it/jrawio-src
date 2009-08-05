@@ -22,13 +22,13 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: RasterReader.java 209 2008-10-16 08:18:42Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.raw;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import java.nio.ByteOrder;
 import java.awt.image.DataBuffer;
@@ -36,6 +36,7 @@ import java.awt.image.DataBufferUShort;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -61,7 +62,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * </ul>
  * 
  * @author  Fabrizio Giudici
- * @version $Id: RasterReader.java 209 2008-10-16 08:18:42Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class RasterReader
@@ -123,7 +124,7 @@ public class RasterReader
      * @param width  the width of the raster
      * 
      *******************************************************************************/
-    public void setWidth (int width)
+    public void setWidth (final @Nonnegative int width)
       {
         this.width = width;
       }
@@ -135,7 +136,7 @@ public class RasterReader
      * @param height  the height of the raster
      * 
      *******************************************************************************/
-    public void setHeight (int height)
+    public void setHeight (final @Nonnegative int height)
       {
         this.height = height;
       }
@@ -146,10 +147,10 @@ public class RasterReader
      * 
      * @param cfaPattern  the CFA pattern
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     // Warning, this relies upon the fact that RGB offsets share the same value as TIFF CFA_PATTERN.
     // FIXME: decouple them
-    public void setCFAPattern (byte[] cfaPattern)
+    public void setCFAPattern (final @Nonnull byte[] cfaPattern)
       {
         int size = cfaPattern.length;
         
@@ -178,8 +179,8 @@ public class RasterReader
      * 
      * @param bitsPerSample  the bits per sample value
      * 
-     *******************************************************************************/
-    public void setBitsPerSample (int bitsPerSample)
+     ******************************************************************************************************************/
+    public void setBitsPerSample (final @Nonnegative int bitsPerSample)
       {
         this.bitsPerSample = bitsPerSample;
       }
@@ -190,8 +191,8 @@ public class RasterReader
      * 
      * @param tileWidth  the tile width
      * 
-     *******************************************************************************/
-    public void setTileWidth (int tileWidth)
+     ******************************************************************************************************************/
+    public void setTileWidth (final @Nonnegative int tileWidth)
       {
         this.tileWidth = tileWidth;
       }
@@ -202,8 +203,8 @@ public class RasterReader
      * 
      * @param tileHeight  the tile height
      * 
-     *******************************************************************************/
-    public void setTileHeight (int tileHeight)
+     ******************************************************************************************************************/
+    public void setTileHeight (final @Nonnegative int tileHeight)
       {
         this.tileHeight = tileHeight;
       }
@@ -214,8 +215,8 @@ public class RasterReader
      * 
      * @param tilesAcross  the count of horizontal tiles
      * 
-     *******************************************************************************/
-    public void setTilesAcross (int tilesAcross)
+     ******************************************************************************************************************/
+    public void setTilesAcross (final @Nonnegative int tilesAcross)
       {
         this.tilesAcross = tilesAcross;
       }
@@ -226,8 +227,8 @@ public class RasterReader
      * 
      * @param tilesDown  the count of vertical tiles
      * 
-     *******************************************************************************/
-    public void setTilesDown (int tilesDown)
+     ******************************************************************************************************************/
+    public void setTilesDown (final @Nonnegative int tilesDown)
       {
         this.tilesDown = tilesDown;
       }
@@ -239,8 +240,8 @@ public class RasterReader
      * 
      * @param tileOffsets  the tile offsets
      * 
-     *******************************************************************************/
-    public void setTileOffsets (int[] tileOffsets)
+     ******************************************************************************************************************/
+    public void setTileOffsets (final @Nonnull int[] tileOffsets)
       {
         this.tileOffsets = tileOffsets;
       }
@@ -251,8 +252,8 @@ public class RasterReader
      * 
      * @param rasterOffset  the offset of raster data
      * 
-     *******************************************************************************/
-    public void setRasterOffset (long rasterOffset)
+     ******************************************************************************************************************/
+    public void setRasterOffset (final @Nonnegative long rasterOffset)
       {
         this.rasterOffset = rasterOffset;
       }
@@ -263,8 +264,8 @@ public class RasterReader
      * 
      * @param stripByteCount  the number of strips
      * 
-     *******************************************************************************/
-    public void setStripByteCount (int stripByteCount)
+     ******************************************************************************************************************/
+    public void setStripByteCount (final @Nonnegative int stripByteCount)
       {
         this.stripByteCount = stripByteCount;
       }
@@ -275,8 +276,8 @@ public class RasterReader
      * 
      * @param compression  the compression type
      * 
-     *******************************************************************************/
-    public void setCompression (int compression)
+     ******************************************************************************************************************/
+    public void setCompression (final int compression)
       {
         this.compression = compression;
       }
@@ -288,8 +289,8 @@ public class RasterReader
      * 
      * @param linearizationTable  the linearization table
      * 
-     *******************************************************************************/
-    public void setLinearizationTable (int[] linearizationTable)
+     ******************************************************************************************************************/
+    public void setLinearizationTable (final @Nonnull int[] linearizationTable)
       {
         if (linearizationTable == null)
           {
@@ -313,8 +314,8 @@ public class RasterReader
      * 
      * If not set defaults to the stream order.
      * 
-     *******************************************************************************/
-    public void setByteOrder (ByteOrder byteOrder)
+     ******************************************************************************************************************/
+    public void setByteOrder (final @Nonnull ByteOrder byteOrder)
       {
         this.byteOrder = byteOrder;
       }
@@ -338,9 +339,9 @@ public class RasterReader
      * @return              the raster
      * @throws IOException  if an I/O error occurs
      * 
-     *******************************************************************************/
-    public final WritableRaster loadRaster (RAWImageInputStream iis,
-                                            RAWImageReaderSupport ir) 
+     ******************************************************************************************************************/
+    public final WritableRaster loadRaster (final @Nonnull RAWImageInputStream iis,
+                                            final @Nonnull RAWImageReaderSupport ir)
       throws IOException
       {
         assert width > 0 : "width not set";
@@ -376,9 +377,9 @@ public class RasterReader
      * @throws IOException  if an I/O error occurs
      *
      ******************************************************************************************************************/
-    protected void loadUncompressedRaster (RAWImageInputStream iis,
-                                           WritableRaster raster,
-                                           RAWImageReaderSupport ir) 
+    protected void loadUncompressedRaster (final @Nonnull RAWImageInputStream iis,
+                                           final @Nonnull WritableRaster raster,
+                                           final @Nonnull RAWImageReaderSupport ir)
       throws IOException
       {
         if (bitsPerSample == 16)
@@ -416,12 +417,12 @@ public class RasterReader
      * @throws IOException  if an I/O error occurs
      *
      ******************************************************************************************************************/
-    protected void loadUncompressedRasterNot16 (RAWImageInputStream iis,
-                                                WritableRaster raster,
-                                                RAWImageReaderSupport ir) 
+    protected void loadUncompressedRasterNot16 (final @Nonnull RAWImageInputStream iis,
+                                                final @Nonnull WritableRaster raster,
+                                                final @Nonnull RAWImageReaderSupport ir)
       throws IOException      
       {
-        logger.fine("loadUncompressedRaster()");
+        logger.fine("loadUncompressedRasterNot16(%s, %s, %s)", iis, raster, ir);
         logger.finer(">>>> CFA pattern: %d %d %d %d", cfaOffsets[0], cfaOffsets[1], cfaOffsets[2], cfaOffsets[3]);
 
         DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
@@ -471,12 +472,12 @@ public class RasterReader
      * @throws IOException  if an I/O error occurs
      *
      ******************************************************************************************************************/
-    protected void loadRGBUncompressedRasterNot16 (RAWImageInputStream iis,
-                                                   WritableRaster raster,
-                                                   RAWImageReaderSupport ir)
+    protected void loadRGBUncompressedRasterNot16 (final @Nonnull RAWImageInputStream iis,
+                                                   final @Nonnull WritableRaster raster,
+                                                   final @Nonnull RAWImageReaderSupport ir)
       throws IOException
       {
-        logger.fine("loadRGBUncompressedRasterNot16()");
+        logger.fine("loadRGBUncompressedRasterNot16(%s, %s, %s)", iis ,raster, ir);
 
         DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
         short[] data = dataBuffer.getData();
@@ -533,8 +534,8 @@ public class RasterReader
       throws IOException
       {
         long position = iis.getStreamPosition();
-        logger.fine(String.format("loadUncompressedRaster16() at %d (0x%x), %d x %d %dbps",
-                                  position, position, width, height, bitsPerSample));
+        logger.fine("loadUncompressedRaster16() at %d (0x%x), %d x %d %dbps",
+                                                position, position, width, height, bitsPerSample);
         logger.finer(">>>> CFA pattern: %d %d %d %d", cfaOffsets[0], cfaOffsets[1], cfaOffsets[2], cfaOffsets[3]);
 
         final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
@@ -581,7 +582,7 @@ public class RasterReader
           }
         
         position = iis.getStreamPosition();
-        logger.fine(String.format(">>>> loadUncompressedRaster16() completed at %d (0x%x)", position, position));
+        logger.fine(">>>> loadUncompressedRaster16() completed at %d (0x%x)", position, position);
       }    
     
     /*******************************************************************************************************************
@@ -595,9 +596,10 @@ public class RasterReader
      * @throws IOException  if an I/O error occurs
      *
      ******************************************************************************************************************/
-    protected void loadCompressedRaster (RAWImageInputStream iis,
-                                         WritableRaster raster,
-                                         RAWImageReaderSupport ir) throws IOException
+    protected void loadCompressedRaster (final @Nonnull RAWImageInputStream iis,
+                                         final @Nonnull WritableRaster raster,
+                                         final @Nonnull RAWImageReaderSupport ir)
+      throws IOException
       {
       }
 
@@ -613,7 +615,8 @@ public class RasterReader
      * 
      * @return  the raster
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
+    @Nonnull
     final protected WritableRaster createRaster()
       {
         final int type = DataBuffer.TYPE_USHORT;
@@ -634,10 +637,10 @@ public class RasterReader
      * @param raster         the raster to read data into
      * @param bitsPerSample  the number of bits per sample
      * 
-     *******************************************************************************/
-    protected void selectBitReader (RAWImageInputStream iis,
-                                    WritableRaster raster,
-                                    int bitsPerSample)
+     ******************************************************************************************************************/
+    protected void selectBitReader (final @Nonnull RAWImageInputStream iis,
+                                    final @Nonnull WritableRaster raster,
+                                    final @Nonnegative int bitsPerSample)
       {
         DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
         // FIXME: typeBits should be indeed bitsPerSample
@@ -672,8 +675,8 @@ public class RasterReader
      * 
      * @return  true if a compressed raster is supported
      * 
-     *******************************************************************************/
-    protected boolean isCompressedRaster ()
+     ******************************************************************************************************************/
+    protected boolean isCompressedRaster()
       {
         return false;
       }
@@ -689,8 +692,9 @@ public class RasterReader
      * @param height         the height of the raster
      * @return               the row number
      * 
-     *******************************************************************************/
-    protected int getRow (int interlacedRow, int height)
+     ******************************************************************************************************************/
+    @Nonnegative
+    protected int getRow (final @Nonnegative int interlacedRow, final @Nonnegative int height)
       {
         return interlacedRow;
       }
@@ -704,8 +708,9 @@ public class RasterReader
      * @param x		the column
      * @return 		the number of bits to skip
      * 
-     *******************************************************************************/
-    protected int getSkipCountAtColumn (int x)
+     ******************************************************************************************************************/
+    @Nonnegative
+    protected int getSkipCountAtColumn (final @Nonnegative int x)
       {
         return 0;
       }
@@ -718,8 +723,9 @@ public class RasterReader
      * 
      * @return 		the number of bits to skip
      * 
-     *******************************************************************************/
-    protected int getSkipCountAtEndOfRow (int y, int height)
+     ******************************************************************************************************************/
+    @Nonnegative
+    protected int getSkipCountAtEndOfRow (final @Nonnegative int y, final @Nonnegative int height)
       {
         return 0;
       }
@@ -728,6 +734,7 @@ public class RasterReader
      *
      *
      ******************************************************************************************************************/
+    @Nonnull
     protected int[] getBandOffsets()
       {
         return new int[] {RasterReader.R_OFFSET, RasterReader.G_OFFSET, RasterReader.B_OFFSET};
