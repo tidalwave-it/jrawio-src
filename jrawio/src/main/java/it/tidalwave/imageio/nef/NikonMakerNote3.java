@@ -22,25 +22,25 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: NikonMakerNote3.java 160 2008-09-13 19:51:30Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
 
-import java.io.IOException;
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 import java.util.NoSuchElementException;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.ShortBuffer;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NikonMakerNote3.java 160 2008-09-13 19:51:30Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
@@ -55,9 +55,9 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
 
     /*******************************************************************************************************************
      * 
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     public void loadAll (@Nonnull final RAWImageInputStream iis, 
                          long offset)
@@ -68,16 +68,15 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
         // "Nikon", then a whole sub-file will occur (including a new header).
         // Otherwise a normal IFD occurs.
         //
- 
         iis.seek(offset);
-        long baseOffsetSave = iis.getBaseOffset();
-        ByteOrder byteOrderSave = iis.getByteOrder();
+        final long baseOffsetSave = iis.getBaseOffset();
+        final ByteOrder byteOrderSave = iis.getByteOrder();
         iis.setBaseOffset(0);
         offset = iis.getStreamPosition();
 
-        byte[] buffer = new byte[10];
+        final byte[] buffer = new byte[10];
         iis.readFully(buffer);
-        String s = new String(buffer);
+        final String s = new String(buffer);
 
         if (s.startsWith("Nikon"))
           {
@@ -95,7 +94,7 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * 
      * @return the lens info
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     public NikonLensInfo getLensInfo2()
       {
@@ -111,10 +110,10 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * 
      * @return true if the lens name is available
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     public boolean isLensNameAvailable ()
       {
-        NikonLensInfo lensInfo = getLensInfo2();
+        final NikonLensInfo lensInfo = getLensInfo2();
 
         return (lensInfo != null) && (lensInfo.getLensName() != null);
       }
@@ -123,7 +122,8 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * 
      * @return the lens name
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
+    @Nonnull
     public String getLensName()
       {
         if (!isLensNameAvailable())
@@ -138,13 +138,13 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * 
      * @return the vertical predictor
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     public int[] getVPredictor()
       {
-        ShortBuffer shortBuffer = getCompressionDataAsShortBuffer();
+        final ShortBuffer shortBuffer = getCompressionDataAsShortBuffer();
         shortBuffer.position(1);
-        int[] vPredictor = new int[4];
+        final int[] vPredictor = new int[4];
 
         for (int i = 0; i < vPredictor.length; i++)
           {
@@ -159,14 +159,14 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * 
      * @return the linearization table
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     @Nonnull
     public int[] getLinearizationTable()
       {
-        ShortBuffer shortBuffer = getCompressionDataAsShortBuffer();
+        final ShortBuffer shortBuffer = getCompressionDataAsShortBuffer();
         shortBuffer.position(5);
-        int lutSize = shortBuffer.get();
-        int[] lut = new int[lutSize];
+        final int lutSize = shortBuffer.get();
+        final int[] lut = new int[lutSize];
 
         for (int i = 0; i < lutSize; i++)
           {
@@ -180,7 +180,7 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * 
      * @return the compression data
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     @CheckForNull
     private ShortBuffer getCompressionDataAsShortBuffer()
       {
@@ -188,7 +188,7 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
 
         if (bytes != null)
           {
-            ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
+            final ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
             byteBuffer.order(ByteOrder.BIG_ENDIAN);
             ShortBuffer shortBuffer = byteBuffer.asShortBuffer();
             
@@ -215,14 +215,14 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
 
     /*******************************************************************************************************************
      * 
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     @Nonnull
     public String toString()
       {
-        StringBuffer buffer = new StringBuffer(super.toString());
+        final StringBuffer buffer = new StringBuffer(super.toString());
 
         if (isLensInfoAvailable())
           {
