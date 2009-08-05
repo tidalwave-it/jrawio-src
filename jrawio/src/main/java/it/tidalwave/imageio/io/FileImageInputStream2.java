@@ -22,11 +22,12 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: FileImageInputStream2.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.io;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -34,18 +35,18 @@ import javax.imageio.stream.FileImageInputStream;
 
 /***********************************************************************************************************************
  *
- * The purpose of this class is to provide a specialized FileImageInputStream
- * which is able to tell which is the input file that we are using. This is
- * needed by SPIs that handle formats in which there are multiple files (e.g.
- * Canon CRW which is composed of a .CRW file and a .THM file).
+ * The purpose of this class is to provide a specialized FileImageInputStream which is able to tell which is the input 
+ * file that we are using. This is needed by SPIs that handle formats in which there are multiple files (e.g. Canon CRW
+ * which is composed of a .CRW file and a .THM file).
  * 
  * @author  fritz
- * @version $Id: FileImageInputStream2.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class FileImageInputStream2 extends FileImageInputStream
   {
-    private File file;
+    @Nonnull
+    private final File file;
 
     /*******************************************************************************************************************
      * 
@@ -53,8 +54,9 @@ public class FileImageInputStream2 extends FileImageInputStream
      * @throws FileNotFoundException
      * @throws IOException
      * 
-     *******************************************************************************/
-    public FileImageInputStream2 (File file) throws FileNotFoundException, IOException
+     ******************************************************************************************************************/
+    public FileImageInputStream2 (final @Nonnull File file)
+      throws FileNotFoundException, IOException
       {
         super(file);
         this.file = file;
@@ -66,9 +68,21 @@ public class FileImageInputStream2 extends FileImageInputStream
      * 
      * @return  the associated file
      * 
-     *******************************************************************************/
-    public File getFile ()
+     ******************************************************************************************************************/
+    @Nonnull
+    public File getFile()
       {
         return file;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    public String toString()
+      {
+        return String.format("FileImageInputStream2@%06x", System.identityHashCode(this));
       }
   }
