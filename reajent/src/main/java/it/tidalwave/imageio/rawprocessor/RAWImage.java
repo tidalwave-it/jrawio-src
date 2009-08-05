@@ -22,13 +22,13 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: RAWImage.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
 
-import it.tidalwave.imageio.util.Logger;
 import java.awt.image.BufferedImage;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.raw.RAWMetadataSupport;
@@ -36,13 +36,12 @@ import it.tidalwave.imageio.raw.RAWMetadataSupport;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RAWImage.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
-public class RAWImage
+public class RAWImage // FIXME: rename into OperationArtifact and refactor with Lookup
   {
     private final static String CLASS = RAWImage.class.getName();
-    
     private final static Logger logger = Logger.getLogger(CLASS);
     
     private final static char[] CHARS = { 'R', 'G', 'B', 'C', 'M', 'Y', 'W' };
