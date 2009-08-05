@@ -206,7 +206,17 @@ public class NEFRasterReader extends RasterReader
         
         if (linearizationTable == null)
           {
-            linearizationTable = DEFAULT_LINEARIZATION_TABLE;  
+            linearizationTable = DEFAULT_LINEARIZATION_TABLE;
+            logger.finer(">>>> using default linearization table (%d items)", linearizationTable.length);
+          }
+        else
+          {
+            logger.finer(">>>> using specified linearization table (%d items)", linearizationTable.length);
+
+//            for (int i = 0; i < linearizationTable.length; i++)
+//              {
+//                logger.finest(">>>>>>>> table[%d] = %d (%x)", i, linearizationTable[i], linearizationTable[i]);
+//              }
           }
 
         for (int i = 0, y = 0; y < height; y++)
@@ -228,9 +238,21 @@ public class NEFRasterReader extends RasterReader
                     hPredictor[x & 1] += diff;
                   }
 
-                data[i + cfaOffsets[cfaIndex]] = (short)linearizationTable[clipped(hPredictor[x & 1], linearizationTable.length)];
+                final short value = (short)linearizationTable[clipped(hPredictor[x & 1], linearizationTable.length)];
+                
+//                if (y == 0)
+//                  {
+//                    System.err.printf("%d:%04x ", hPredictor[x & 1], value);
+//                  }
+
+                data[i + cfaOffsets[cfaIndex]] = value;
                 i += pixelStride;
               }
+
+//            if (y == 0)
+//              {
+//                System.err.println("");
+//              }
 
             ir.processImageProgress((100.0f * y) / height);
           }
@@ -259,6 +281,6 @@ public class NEFRasterReader extends RasterReader
     @Override
     public String toString()
       {
-        return String.format("NEFRasterReader@%06X", System.identityHashCode(this));
+        return String.format("NEFRasterReader@%06x", System.identityHashCode(this));
       }
   }
