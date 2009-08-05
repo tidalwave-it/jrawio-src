@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.raw;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.io.IOException;
@@ -290,8 +291,10 @@ public class RasterReader
      * @param linearizationTable  the linearization table
      * 
      ******************************************************************************************************************/
-    public void setLinearizationTable (final @Nonnull int[] linearizationTable)
+    public void setLinearizationTable (final @CheckForNull int[] linearizationTable)
       {
+        logger.fine("setLinearizationTable(%d items)", linearizationTable.length);
+        
         if (linearizationTable == null)
           {
             this.linearizationTable = null;
@@ -299,8 +302,13 @@ public class RasterReader
 
         else
           {
+//            for (int i = 0; i < linearizationTable.length; i++)
+//              {
+//                logger.finest(">>>>>>>> table[%d] = %d (%x)", i, linearizationTable[i], linearizationTable[i]);
+//              }
+
             this.linearizationTable = new int[1 << 16];
-            int length = linearizationTable.length;
+            final int length = linearizationTable.length;
             System.arraycopy(linearizationTable, 0, this.linearizationTable, 0, length);
 
             for (int i = length; i < this.linearizationTable.length; i++)
