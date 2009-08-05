@@ -47,8 +47,8 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertMIMETypes("nef", "image/x-nikon-nef");
       }
 
-    @Test(timeout=60000)
-    public void testJRW146() 
+//    @Test(timeout=60000)
+    public void testJRW146()
       throws Exception 
       {
         final String path = "https://imaging.dev.java.net/nonav/TestSets/fabriziogiudici/Nikon/D100/NEF/NikonCaptureEditor/ccw90.nef";
@@ -64,7 +64,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "3659664029723dc8ea29b09a923fca7d");
       }
     
-    @Test(timeout=60000)
+//    @Test(timeout=60000)
     public void testJRW148() 
       throws Exception 
       {
@@ -81,7 +81,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "03383e837402452f7dc553422299f057");
       }
     
-    @Test(timeout=60000)
+//    @Test(timeout=60000)
     public void testJRW149_JRW150()
       throws Exception
       {
@@ -119,7 +119,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "fabdb471b9a972acf313ebe29bf338ea");
       }
 
-    @Test(timeout=60000)
+//    @Test(timeout=60000)
     public void testNikonD200()
       throws Exception
       {
@@ -138,7 +138,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "fabdb471b9a972acf313ebe29bf338ea");
       }
 
-    @Test(timeout=60000)
+//    @Test(timeout=60000)
     public void testNikonD200_2()
       throws Exception
       {
@@ -157,7 +157,8 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "eca27d2b7ade85c4803f287b8c413844");
       }
 
-    @Test(timeout=60000)
+//    @Test(timeout=60000)
+    @Test
     public void testNikonD90_1()
       throws Exception
       {
@@ -173,6 +174,6 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 1, 4288, 2848);
         close(ir);
 
-        assertRaster(image, path, "d780f19ff45049ba3d0fe17a8e96a08e");
+        assertRaster(image, path, "676ad504aa6eb786d163d2efa75c8af8");
       }
   }
