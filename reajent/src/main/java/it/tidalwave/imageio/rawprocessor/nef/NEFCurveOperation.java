@@ -22,11 +22,12 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: NEFCurveOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
 
+import javax.annotation.Nonnull;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonMakerNote3;
@@ -36,7 +37,7 @@ import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFCurveOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class NEFCurveOperation extends CurveOperation  
@@ -48,7 +49,8 @@ public class NEFCurveOperation extends CurveOperation
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    protected double getWhiteLevel (RAWImage image)
+    @Override
+    protected double getWhiteLevel (final @Nonnull RAWImage image)
       {
         logger.fine("getWhiteLevel()");
         NEFMetadata metadata = (NEFMetadata)image.getRAWMetadata();
@@ -57,8 +59,9 @@ public class NEFCurveOperation extends CurveOperation
         
         if (makerNote.isCompressionDataAvailable())
           {
-            int[] linearizationTable = makerNote.getLinearizationTable();  
+            final int[] linearizationTable = makerNote.getLinearizationTable().getValues();
             whiteLevel = linearizationTable[linearizationTable.length - 1];
+            whiteLevel = makerNote.getLinearizationTable().getWhiteLevel();
             logger.finer(">>>> whiteLevel from linearizationTable: %s", whiteLevel);
           }
         
