@@ -74,7 +74,7 @@ public class NEFLinearizationTable
             lut[i] = shortBuffer.get() & 0xFFFF;
           }
 
-        logger.finer("NEFLinearizationTable version: 0x%04x", version);
+        logger.finer(toString());
       }
 
     /*******************************************************************************************************************
@@ -150,5 +150,28 @@ public class NEFLinearizationTable
           }
 
         return values;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * @return the white level
+     *
+     ******************************************************************************************************************/
+    @Nonnegative
+    public int getWhiteLevel()
+      {
+        return lut[lut.length - 1];
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    @Override
+    public String toString()
+      {
+        return String.format("NEFLinearizationTable[version: 0x%04x, size: %d, whiteLevel: %d]", version, lut.length, getWhiteLevel());
       }
   }
