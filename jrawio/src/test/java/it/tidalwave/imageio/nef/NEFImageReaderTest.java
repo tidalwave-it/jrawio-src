@@ -47,7 +47,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertMIMETypes("nef", "image/x-nikon-nef");
       }
 
-//    @Test(timeout=60000)
+    @Test(timeout=60000)
     public void testJRW146()
       throws Exception 
       {
@@ -64,7 +64,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "3659664029723dc8ea29b09a923fca7d");
       }
     
-//    @Test(timeout=60000)
+    @Test(timeout=60000)
     public void testJRW148() 
       throws Exception 
       {
@@ -81,7 +81,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "03383e837402452f7dc553422299f057");
       }
     
-//    @Test(timeout=60000)
+    @Test(timeout=60000)
     public void testJRW149_JRW150()
       throws Exception
       {
@@ -100,7 +100,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "fa9bbd9ebe4b5f652c385c84ce33fd56");
       }
 
-//    @Test(timeout=60000)
+    @Test(timeout=60000)
     public void testJRW129()
       throws Exception
       {
@@ -116,10 +116,10 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 1, 3008, 2000);
         close(ir);
 
-        assertRaster(image, path, "fabdb471b9a972acf313ebe29bf338ea");
+        assertRaster(image, path, "8fcbf7e059735e80e0bc2f1211794221");
       }
 
-//    @Test(timeout=60000)
+    @Test(timeout=60000)
     public void testNikonD200()
       throws Exception
       {
@@ -138,7 +138,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "fabdb471b9a972acf313ebe29bf338ea");
       }
 
-//    @Test(timeout=60000)
+    @Test(timeout=60000)
     public void testNikonD200_2()
       throws Exception
       {
@@ -157,8 +157,8 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "eca27d2b7ade85c4803f287b8c413844");
       }
 
-//    @Test(timeout=60000)
-    @Test
+    @Test(timeout=60000)
+//    @Test
     public void testNikonD90_1()
       throws Exception
       {
@@ -169,11 +169,11 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertImage(ir, 4352, 2868);
         assertThumbnail(ir, 0, 160, 120);
         assertThumbnail(ir, 1, 4288, 2848);
-        final BufferedImage image = assertLoadImage(ir, 4352, 2868, 3, 16, 0 /*BufferedImage.TYPE_INT_RGB*/); // FIXME: WRONG, should be 16 bits
+        final BufferedImage image = assertLoadImage(ir, 4352, 2868, 3, 16, 0 /*BufferedImage.TYPE_INT_RGB*/); 
         assertLoadThumbnail(ir, 0, 160, 120);
         assertLoadThumbnail(ir, 1, 4288, 2848);
         close(ir);
 
-        assertRaster(image, path, "676ad504aa6eb786d163d2efa75c8af8");
+        assertRaster(image, path, "d4e48694534da435072e93f04244a37b");
       }
   }
