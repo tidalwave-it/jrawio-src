@@ -130,6 +130,6 @@ public class NEFProcessorTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 1, 4288, 2848);
         close(ir);
 
-        assertRaster(image, path, "64f04a68a3806e4f31f47f40175bf974");
+        assertRaster(image, path, "a23d77ce9ad5e6a666407c4230ce49e9");
       }
   }
