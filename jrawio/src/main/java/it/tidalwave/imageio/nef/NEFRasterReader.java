@@ -27,8 +27,10 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.util.logging.Level;
 import java.io.IOException;
 import java.awt.image.DataBufferUShort;
 import java.awt.image.WritableRaster;
@@ -92,13 +94,13 @@ public class NEFRasterReader extends RasterReader
       };
 
     /** The configuration for the Huffman decoder. */
-    private final static short[] DECODER_CONFIGURATION =
+    private final static short[] CONF_DECODER_12BIT_LOSSY =
       {
         0, 1, 5, 1, 1, 1, 1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 5, 4, 3, 6, 2, 7, 1, 0, 8, 9, 11, 10, 12
       };
 
     /** The Huffman decoder. */
-    private final static HuffmannDecoder DECODER = HuffmannDecoder.createDecoder(DECODER_CONFIGURATION);
+    private final static HuffmannDecoder DECODER = HuffmannDecoder.createDecoder(CONF_DECODER_12BIT_LOSSY);
 
     /** The vertical predictors. */
     @Nonnull
@@ -183,6 +185,51 @@ public class NEFRasterReader extends RasterReader
 
     /*******************************************************************************************************************
      *
+     * Sets the linearization table. The table should hold 2^16 entries. The table is interpolated in order to fit the
+     * elements in the range [0..1 << bitsPerSample] and the last value is copied to pad up to the end of the table.
+     *
+     * @param linearizationTable  the linearization table
+     *
+     ******************************************************************************************************************/
+    @Override
+    public void setLinearizationTable (final @CheckForNull int[] linearizationTable)
+      {
+        logger.fine("setLinearizationTable(%d items)", linearizationTable.length);
+
+        if (linearizationTable == null)
+          {
+            this.linearizationTable = null;
+          }
+
+        else
+          {
+            this.linearizationTable = new int[1 << 16];
+
+            final int max = 1 << bitsPerSample; 
+            final int step = max / (linearizationTable.length - 1);
+
+            for (int i = 0; i < linearizationTable.length; i++)
+              {
+                this.linearizationTable[i * step] = linearizationTable[i];
+              }
+            
+            for (int i = 0; i < max; i++)
+              {
+                this.linearizationTable[i] = (this.linearizationTable[i - i % step] * (step - i % step) +
+                                              this.linearizationTable[i - i % step + step] * (i % step)) / step;
+              }
+
+            for (int i = max; i < this.linearizationTable.length; i++)
+              {
+                this.linearizationTable[i] = this.linearizationTable[max - 1];
+              }
+
+//            dumpLinearizationTable();
+          }
+      }
+
+    /*******************************************************************************************************************
+     *
      * {@inheritDoc}
      * 
      * This method implements raster data loading for compressed NEF.
@@ -212,11 +259,7 @@ public class NEFRasterReader extends RasterReader
         else
           {
             logger.finer(">>>> using specified linearization table (%d items)", linearizationTable.length);
-
-//            for (int i = 0; i < linearizationTable.length; i++)
-//              {
-//                logger.finest(">>>>>>>> table[%d] = %d (%x)", i, linearizationTable[i], linearizationTable[i]);
-//              }
+            // dumpLinearizationTable();
           }
 
         for (int i = 0, y = 0; y < height; y++)
@@ -282,5 +325,20 @@ public class NEFRasterReader extends RasterReader
     public String toString()
       {
         return String.format("NEFRasterReader@%06x", System.identityHashCode(this));
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    private void dumpLinearizationTable()
+      {
+        if (logger.isLoggable(Level.FINEST))
+          {
+            for (int i = 0; i < linearizationTable.length; i++)
+              {
+                logger.finest(">>>>>>>> linearizationTable[%d] = %d (%x)", i, linearizationTable[i], linearizationTable[i]);
+              }
+          }
       }
   }
