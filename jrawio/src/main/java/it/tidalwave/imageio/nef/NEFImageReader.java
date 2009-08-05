@@ -146,11 +146,7 @@ public class NEFImageReader extends TIFFImageReaderSupport
 
         if (nikonMakerNote.isCompressionDataAvailable())
           {
-            if (!"NIKON D90".equals(model)) // FIXME: temporary workaround for JRW-187
-              {
-                rasterReader.setLinearizationTable(nikonMakerNote.getLinearizationTable());
-              }
-            
+            rasterReader.setLinearizationTable(nikonMakerNote.getLinearizationTable());
             rasterReader.setVPredictor(nikonMakerNote.getVPredictor());
           }
 
