@@ -22,25 +22,25 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: FastBitReader.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.io;
 
 import java.io.IOException;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import javax.imageio.stream.ImageInputStream;
 
 /***********************************************************************************************************************
  *
- * Facility class to read bits from an ImageInputStream, it is much faster
- * than ImageInputStream.readBits(). It also supports the behaviour of skipping
- * a byte after a 0xff is encountered, which is a requirement of many RAW formats.
+ * Facility class to read bits from an ImageInputStream, it is much faster than ImageInputStream.readBits(). It also
+ * supports the behaviour of skipping a byte after a 0xff is encountered, which is a requirement of many RAW formats.
  *
  * @author  Fabrizio Giudici
- * @version $Id: FastBitReader.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
-
 /* package */class FastBitReader extends BitReader
   {
     private final static int BITS_PER_BYTE = 8;
@@ -59,7 +59,7 @@ import javax.imageio.stream.ImageInputStream;
      * @param  iis  the input stream
      * 
      ******************************************************************************************************************/
-    public FastBitReader (ImageInputStream iis)
+    public FastBitReader (final @Nonnull ImageInputStream iis)
       {
         this(iis, DEFAULT_BUFFER_SIZE);
       }
@@ -73,7 +73,7 @@ import javax.imageio.stream.ImageInputStream;
      * @param  bufferSize  the bufferSize
      * 
      ******************************************************************************************************************/
-    public FastBitReader (ImageInputStream iis, int bufferSize)
+    public FastBitReader (final @Nonnull ImageInputStream iis, final @Nonnegative int bufferSize)
       {
         this.iis = iis;
         byteBuffer = new byte[bufferSize];
@@ -81,30 +81,32 @@ import javax.imageio.stream.ImageInputStream;
 
     /*******************************************************************************************************************
      * 
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     *******************************************************************************/
-    public void setSkipZeroAfterFF (boolean skipZeroAfterFF)
+     ******************************************************************************************************************/
+    public void setSkipZeroAfterFF (final boolean skipZeroAfterFF)
       {
         this.skipZeroAfterFF = skipZeroAfterFF;
       }
 
     /*******************************************************************************************************************
      * 
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     *******************************************************************************/
-    protected void resync ()
+     ******************************************************************************************************************/
+    protected void resync()
       {
         bytePointer = bitPosition = bufferSize = 0;
       }
 
     /*******************************************************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      * 
      ******************************************************************************************************************/
-    public int readBits (int bitsToGet) throws IOException
+    @Nonnegative
+    public int readBits (@Nonnegative int bitsToGet)
+      throws IOException
       {
         if (bitsToGet < 0)
           {
@@ -117,7 +119,7 @@ import javax.imageio.stream.ImageInputStream;
           }
 
         int r = 0;
-        int mask = (int)((1L << bitsToGet) - 1);
+        final int mask = (int)((1L << bitsToGet) - 1);
 
         while (bitsToGet > 0)
           {
@@ -135,8 +137,8 @@ import javax.imageio.stream.ImageInputStream;
                 bytePointer = 0;
               }
 
-            int currentByte = byteBuffer[bytePointer] & 0xff;
-            int shift = (bitPosition + bitsToGet) - BITS_PER_BYTE;
+            final int currentByte = byteBuffer[bytePointer] & 0xff;
+            final int shift = (bitPosition + bitsToGet) - BITS_PER_BYTE;
             r |= ((shift >= 0) ? (currentByte << shift) : (currentByte >>> (-shift)));
             bitsToGet -= bitsToGetNow;
             bitPosition += bitsToGetNow;
@@ -164,5 +166,16 @@ import javax.imageio.stream.ImageInputStream;
           }
 
         return r & mask;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    public String toString()
+      {
+        return String.format("FastBitReader@%06x", System.identityHashCode(this));
       }
   }
