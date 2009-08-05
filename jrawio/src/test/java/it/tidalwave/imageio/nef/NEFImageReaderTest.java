@@ -100,7 +100,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertRaster(image, path, "fa9bbd9ebe4b5f652c385c84ce33fd56");
       }
 
-//    @Test(timeout=60000)
+    @Test(timeout=60000)
     public void testJRW129()
       throws Exception
       {
@@ -116,7 +116,7 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
         assertLoadThumbnail(ir, 1, 3008, 2000);
         close(ir);
 
-        assertRaster(image, path, "fabdb471b9a972acf313ebe29bf338ea");
+        assertRaster(image, path, "8fcbf7e059735e80e0bc2f1211794221");
       }
 
     @Test(timeout=60000)
