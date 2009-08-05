@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: NEFImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -41,7 +41,7 @@ import javax.annotation.Nonnull;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class NEFImageReader extends TIFFImageReaderSupport
@@ -126,27 +126,31 @@ public class NEFImageReader extends TIFFImageReaderSupport
       throws IOException
       {
         logger.fine("loadRAWRaster() - iis: %s", iis);
-        IFD primaryIFD = ((IFD)primaryDirectory);
-        IFD rasterIFD = ((TIFFMetadataSupport)metadata).getRasterIFD();
-        IFD exifIFD = ((TIFFMetadataSupport)metadata).getExifIFD();
-        IFD thumbnailIFD = ((TIFFMetadataSupport)metadata).getThumbnailHelper()[0].ifd;
-        NikonMakerNote3 nikonMakerNote = (NikonMakerNote3)makerNote;
+        final IFD primaryIFD = ((IFD)primaryDirectory);
+        final IFD rasterIFD = ((TIFFMetadataSupport)metadata).getRasterIFD();
+        final IFD exifIFD = ((TIFFMetadataSupport)metadata).getExifIFD();
+        final IFD thumbnailIFD = ((TIFFMetadataSupport)metadata).getThumbnailHelper()[0].ifd;
+        final NikonMakerNote3 nikonMakerNote = (NikonMakerNote3)makerNote;
 
-        long time = System.currentTimeMillis();
-        int offset = (!isNDF) ? rasterIFD.getStripOffsets() : thumbnailIFD.getJPEGInterchangeFormat()
+        final long time = System.currentTimeMillis();
+        final int offset = (!isNDF) ? rasterIFD.getStripOffsets() : thumbnailIFD.getJPEGInterchangeFormat()
             + thumbnailIFD.getJPEGInterchangeFormatLength(); // FIXME: just a guess
         iis.seek(offset); 
         
-        int bitsPerSample = (!isNDF) ? rasterIFD.getBitsPerSample()[0] : exifIFD.getCompressedBitsPerPixel().intValue();
-        String model = primaryIFD.getModel();
-        NEFRasterReader rasterReader = NEFRasterReader.getInstance(model, isNDF);
-        int width = (!isNDF) ? rasterIFD.getImageWidth() : exifIFD.getPixelXDimension();
-        int height = (!isNDF) ? rasterIFD.getImageLength() : exifIFD.getPixelYDimension();
+        final int bitsPerSample = (!isNDF) ? rasterIFD.getBitsPerSample()[0] : exifIFD.getCompressedBitsPerPixel().intValue();
+        final String model = primaryIFD.getModel();
+        final NEFRasterReader rasterReader = NEFRasterReader.getInstance(model, isNDF);
+        final int width = (!isNDF) ? rasterIFD.getImageWidth() : exifIFD.getPixelXDimension();
+        final int height = (!isNDF) ? rasterIFD.getImageLength() : exifIFD.getPixelYDimension();
         initializeRasterReader(width, height, bitsPerSample, rasterReader);
 
         if (nikonMakerNote.isCompressionDataAvailable())
           {
-            rasterReader.setLinearizationTable(nikonMakerNote.getLinearizationTable());
+            if (!"NIKON D90".equals(model)) // FIXME: temporary workaround for JRW-187
+              {
+                rasterReader.setLinearizationTable(nikonMakerNote.getLinearizationTable());
+              }
+            
             rasterReader.setVPredictor(nikonMakerNote.getVPredictor());
           }
 
