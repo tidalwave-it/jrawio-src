@@ -27,7 +27,6 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.logging.Level;
@@ -181,51 +180,6 @@ public class NEFRasterReader extends RasterReader
     protected boolean isCompressedRaster()
       {
         return compression == COMPRESSED_NEF;
-      }
-
-    /*******************************************************************************************************************
-     *
-     * Sets the linearization table. The table should hold 2^16 entries. The table is interpolated in order to fit the
-     * elements in the range [0..1 << bitsPerSample] and the last value is copied to pad up to the end of the table.
-     *
-     * @param linearizationTable  the linearization table
-     *
-     ******************************************************************************************************************/
-    @Override
-    public void setLinearizationTable (final @CheckForNull int[] linearizationTable)
-      {
-        logger.fine("setLinearizationTable(%d items)", linearizationTable.length);
-
-        if (linearizationTable == null)
-          {
-            this.linearizationTable = null;
-          }
-
-        else
-          {
-            this.linearizationTable = new int[1 << 16];
-
-            final int max = 1 << bitsPerSample; 
-            final int step = max / (linearizationTable.length - 1);
-
-            for (int i = 0; i < linearizationTable.length; i++)
-              {
-                this.linearizationTable[i * step] = linearizationTable[i];
-              }
-            
-            for (int i = 0; i < max; i++)
-              {
-                this.linearizationTable[i] = (this.linearizationTable[i - i % step] * (step - i % step) +
-                                              this.linearizationTable[i - i % step + step] * (i % step)) / step;
-              }
-
-            for (int i = max; i < this.linearizationTable.length; i++)
-              {
-                this.linearizationTable[i] = this.linearizationTable[max - 1];
-              }
-
-//            dumpLinearizationTable();
-          }
       }
 
     /*******************************************************************************************************************

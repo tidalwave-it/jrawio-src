@@ -49,6 +49,8 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
     
     /** Lens info interpreter. */
     private transient NikonLensInfo lensInfo;
+
+    private transient NEFLinearizationTable nefLinearizationTable;
     
     private boolean bigEndian;
     // private ByteOrder byteOrder; // ByteOrder not serializable
@@ -114,7 +116,6 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
     public boolean isLensNameAvailable ()
       {
         final NikonLensInfo lensInfo = getLensInfo2();
-
         return (lensInfo != null) && (lensInfo.getLensName() != null);
       }
 
@@ -161,19 +162,14 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * 
      ******************************************************************************************************************/
     @Nonnull
-    public int[] getLinearizationTable()
+    public synchronized NEFLinearizationTable getLinearizationTable()
       {
-        final ShortBuffer shortBuffer = getCompressionDataAsShortBuffer();
-        shortBuffer.position(5);
-        final int lutSize = shortBuffer.get();
-        final int[] lut = new int[lutSize];
-
-        for (int i = 0; i < lutSize; i++)
+        if (nefLinearizationTable == null)
           {
-            lut[i] = shortBuffer.get() & 0xFFFF;
+            nefLinearizationTable = new NEFLinearizationTable(this);
           }
 
-        return lut;
+        return nefLinearizationTable;
       }
 
     /*******************************************************************************************************************
@@ -182,7 +178,7 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * 
      ******************************************************************************************************************/
     @CheckForNull
-    private ShortBuffer getCompressionDataAsShortBuffer()
+    protected ShortBuffer getCompressionDataAsShortBuffer()
       {
         final byte[] bytes = getCompressionData();
 

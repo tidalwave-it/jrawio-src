@@ -27,16 +27,16 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
-import it.tidalwave.imageio.util.Logger;
 import javax.imageio.spi.ImageReaderSpi;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -146,7 +146,7 @@ public class NEFImageReader extends TIFFImageReaderSupport
 
         if (nikonMakerNote.isCompressionDataAvailable())
           {
-            rasterReader.setLinearizationTable(nikonMakerNote.getLinearizationTable());
+            rasterReader.setLinearizationTable(nikonMakerNote.getLinearizationTable().getExpandedValues(bitsPerSample));
             rasterReader.setVPredictor(nikonMakerNote.getVPredictor());
           }
 
