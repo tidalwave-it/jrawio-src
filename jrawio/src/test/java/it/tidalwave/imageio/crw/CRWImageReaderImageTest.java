@@ -58,6 +58,7 @@ public class CRWImageReaderImageTest extends NewImageReaderTestSupport
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/CRW/100_0056.CRW").
                             image(3152, 2068, 3, 16, "b499a77c82e5289d043e2f330c6fffba").
                             thumbnail(2048, 1360).
+                            issues("JRW-200").
                             extra(new ExpectedResults.Extra()
                               {
                                 public void run (final @Nonnull ImageReader ir)

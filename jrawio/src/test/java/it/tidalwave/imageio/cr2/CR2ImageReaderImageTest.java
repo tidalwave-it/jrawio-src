@@ -60,6 +60,7 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
+                            issues("JRW-199").
                             extra(new ExpectedResults.Extra()
                               {
                                 public void run (final @Nonnull ImageReader ir)
@@ -75,6 +76,7 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
+                            issues("JRW-199").
                             extra(new ExpectedResults.Extra()
                               {
                                 public void run (final @Nonnull ImageReader ir)
@@ -90,6 +92,7 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(1728, 1152).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
+                            issues("JRW-199").
                             extra(new ExpectedResults.Extra()
                               {
                                 public void run (final @Nonnull ImageReader ir)
@@ -105,6 +108,7 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(1936, 1288).
                             thumbnail(160, 120).
                             thumbnail(486, 324).
+                            issues("JRW-199").
                             extra(new ExpectedResults.Extra()
                               {
                                 public void run (final @Nonnull ImageReader ir)

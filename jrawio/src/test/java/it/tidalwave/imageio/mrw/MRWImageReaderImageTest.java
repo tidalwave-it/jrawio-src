@@ -64,7 +64,7 @@ public class MRWImageReaderImageTest extends NewImageReaderTestSupport
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/theoheinze/Minolta/Dynax7D/MRW/PICT0652.MRW").
                             image(3016, 2008, 3, 16, "152b5d95ad3bc6d69eb2f7da721bfc96").
                             thumbnail(640, 480).
-                            issues("JRW-152").
+                            issues("JRW-152", "JRW-201").
                             extra(new ExpectedResults.Extra()
                               {
                                 public void run (final @Nonnull ImageReader ir)

@@ -95,8 +95,8 @@ public class ORFImageReaderImageTest extends NewImageReaderTestSupport
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/victoriagracia/Olympus/E500/ORF/V7020205.ORF").
                             image(3360, 2504, 3, 16, "4dfff3c25f1fdc8940ace2d079a09c6f").
                             thumbnail(160, 120).
-                            thumbnail(0, 0). // FIXME
-                            issues("JRW-160").
+                            thumbnail(1, 1). // FIXME
+                            issues("JRW-160", "JRW-202").
                             extra(new ExpectedResults.Extra()
                               {
                                 public void run (final @Nonnull ImageReader ir)

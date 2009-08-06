@@ -59,6 +59,7 @@ public class RAFImageReaderImageTest extends NewImageReaderTestSupport
                             image(3592, 3591, 3, 16, "8c256e68fe9897a4fac12a06f1a07fb4").
                             thumbnail(160, 120).
                             thumbnail(1600, 1200).
+                            issues("JRW-204").
                             extra(new ExpectedResults.Extra()
                               {
                                 public void run (final @Nonnull ImageReader ir)
