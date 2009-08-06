@@ -27,11 +27,11 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.raf;
 
+import javax.annotation.Nonnull;
+import java.util.Collection;
+import javax.imageio.ImageReader;
 import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
-import javax.imageio.ImageReader;
-import java.util.Collection;
-import javax.annotation.Nonnull;
 import org.junit.runners.Parameterized.Parameters;
 import static org.junit.Assert.*;
 
@@ -60,6 +60,29 @@ public class RAFImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(1600, 1200).
                             issues("JRW-204").
+                            metadata("metadata.fujiRawData.JPEGImageOffset", 148).
+                            metadata("metadata.fujiRawData.JPEGImageLength", 650086).
+                            metadata("metadata.fujiRawData.table1Offset", 650246).
+                            metadata("metadata.fujiRawData.table1Length", 4490).
+                            metadata("metadata.fujiRawData.CFAOffset", 654736).
+                            metadata("metadata.fujiRawData.CFALength", 13043712).
+                            metadata("metadata.fujiRawData.unused1", 0).
+                            metadata("metadata.fujiRawData.unused2", 13043712).
+                            metadata("metadata.fujiRawData.unused3", 0).
+                            metadata("metadata.fujiRawData.unused4", 0).
+                            metadata("metadata.fujiRawData.unused5", 0).
+                            metadata("metadata.fujiRawData.unused6", 0).
+                            metadata("metadata.fujiRawData.unused7", 0).
+                            metadata("metadata.fujiRawData.unused8", 0).
+                            metadata("metadata.fujiRawData.unused9", 0).
+                            metadata("metadata.fujiRawData.unused10", 0).
+                            metadata("metadata.fujiRawData.fujiTable1.width", 4096).
+                            metadata("metadata.fujiRawData.fujiTable1.height", 1544).
+                            metadata("metadata.fujiRawData.fujiTable1.rawWidth", 4224).
+                            metadata("metadata.fujiRawData.fujiTable1.rawHeight", 1544).
+                            metadata("metadata.fujiRawData.fujiTable1.fujiLayout", false).
+                            metadata("metadata.fujiRawData.fujiTable1.coefficients", new short[]{336, 518, 336, 489}).
+
                             extra(new ExpectedResults.Extra()
                               {
                                 public void run (final @Nonnull ImageReader ir)
@@ -71,39 +94,7 @@ public class RAFImageReaderImageTest extends NewImageReaderTestSupport
                             //        assertEquals("FUJIFILMCCD-RAW 0201FF389701FinePix S6500fd", fujiRawData.getHeader());
                             //        assertEquals("", fujiRawData.getB1());
                             //        assertEquals("0100", fujiRawData.getVersion());
-                            //        assertEquals("", fujiRawData.getB2());
-                                    assertEquals(148, fujiRawData.getJPEGImageOffset());
-                                    assertEquals(650086, fujiRawData.getJPEGImageLength());
-                                    assertEquals(650246, fujiRawData.getTable1Offset());
-                                    assertEquals(4490, fujiRawData.getTable1Length());
-                                    assertEquals(654736, fujiRawData.getCFAOffset());
-                                    assertEquals(13043712, fujiRawData.getCFALength());
-                                    assertEquals(0, fujiRawData.getUnused1());
-                                    assertEquals(13043712, fujiRawData.getUnused2());
-                                    assertEquals(0, fujiRawData.getUnused3());
-                                    assertEquals(0, fujiRawData.getUnused4());
-                                    assertEquals(0, fujiRawData.getUnused5());
-                                    assertEquals(0, fujiRawData.getUnused6());
-                                    assertEquals(0, fujiRawData.getUnused7());
-                                    assertEquals(0, fujiRawData.getUnused8());
-                                    assertEquals(0, fujiRawData.getUnused9());
-                                    assertEquals(0, fujiRawData.getUnused10());
-
-                                    final FujiTable1 fujiTable1 = fujiRawData.getFujiTable1();
-                                    assertNotNull(fujiTable1);
-                                    assertEquals(4096, fujiTable1.getWidth());
-                                    assertEquals(1544, fujiTable1.getHeight());
-                                    assertEquals(4224, fujiTable1.getRawWidth());
-                                    assertEquals(1544, fujiTable1.getRawHeight());
-                                    assertFalse(fujiTable1.isFujiLayout());
-
-                                    final short[] coefficients = fujiTable1.getCoefficients();
-                                    assertNotNull(coefficients);
-                                    assertEquals(4, coefficients.length);
-                                    assertEquals((short)336, coefficients[0]);
-                                    assertEquals((short)518, coefficients[1]);
-                                    assertEquals((short)336, coefficients[2]);
-                                    assertEquals((short)489, coefficients[3]);
+                            //        assertEquals("", fujiRawData.getB2());                            
                                   }
                               })
           );
