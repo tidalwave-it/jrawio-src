@@ -22,11 +22,12 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: CRWImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.crw;
 
+import javax.annotation.Nonnull;
 import java.util.Locale;
 import java.io.IOException;
 import javax.imageio.ImageReader;
@@ -36,7 +37,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CRWImageReaderSpi extends RAWImageReaderSpiSupport
@@ -44,28 +45,30 @@ public class CRWImageReaderSpi extends RAWImageReaderSpiSupport
     /*******************************************************************************************************************
      * 
      * 
-     *******************************************************************************/
-    public CRWImageReaderSpi ()
+     ******************************************************************************************************************/
+    public CRWImageReaderSpi()
       {
         super("CRW", "crw", "image/x-canon-crw", CRWImageReader.class);
       }
 
     /*******************************************************************************************************************
      * 
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     *******************************************************************************/
-    public String getDescription (Locale locale)
+     ******************************************************************************************************************/
+    @Nonnull
+    public String getDescription (final @Nonnull Locale locale)
       {
         return "Standard CRW Image Reader";
       }
 
     /*******************************************************************************************************************
      * 
-     * @inheritDoc
-     * 
-     *******************************************************************************/
-    public ImageReader createReaderInstance (Object extension)
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public ImageReader createReaderInstance (final @Nonnull Object extension)
       throws IOException
       {
         return new CRWImageReader(this);
@@ -73,14 +76,14 @@ public class CRWImageReaderSpi extends RAWImageReaderSpiSupport
 
     /*******************************************************************************************************************
      * 
-     * @inheritDoc
-     * 
-     *******************************************************************************/
-    public boolean canDecodeInput (RAWImageInputStream iis)
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    public boolean canDecodeInput (final @Nonnull RAWImageInputStream iis)
       throws IOException
       {
         iis.seek(6);
-        byte[] marker = new byte[8];
+        final byte[] marker = new byte[8];
         iis.readFully(marker);
 
         return "HEAPCCDR".equals(new String(marker));
