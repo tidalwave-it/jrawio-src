@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: CR2Metadata.java 85 2008-08-24 09:35:51Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.cr2;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.tiff.IFD;
 /***********************************************************************************************************************
  *
  * @author  fritz
- * @version $Id: CR2Metadata.java 85 2008-08-24 09:35:51Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CR2Metadata extends TIFFMetadataSupport
@@ -69,7 +69,8 @@ public class CR2Metadata extends TIFFMetadataSupport
     @Override
     public int getWidth()
       {
-        return getExifIFD().getPixelXDimension();
+        return getCanonMakerNote().getSensorInfo().getWidth();
+//        return getExifIFD().getPixelXDimension();
       }
     
     /*******************************************************************************************************************
@@ -80,7 +81,8 @@ public class CR2Metadata extends TIFFMetadataSupport
     @Override
     public int getHeight()
       {
-        return getExifIFD().getPixelYDimension();
+        return getCanonMakerNote().getSensorInfo().getHeight();
+//        return getExifIFD().getPixelYDimension();
       }
     
     /*******************************************************************************************************************
