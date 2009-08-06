@@ -29,12 +29,9 @@ package it.tidalwave.imageio.rawprocessor.cr2;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
-import javax.imageio.ImageReader;
 import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
-import it.tidalwave.imageio.cr2.CR2Metadata;
 import org.junit.runners.Parameterized.Parameters;
-import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
  *
@@ -61,67 +58,35 @@ public class CR2ProcessorTest extends NewImageReaderTestSupport
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                  }
-                              }),
+                            issues("JRW-208"),
             // EOS20D v2.0.3
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/2.0.3/XXXX0000.CR2").
                             image(3504, 2336, 3, 16, "67c7d9692b8f24dfc445896f548f4326").
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                  }
-                              }),
+                            issues("JRW-208"),
             // EOS30D v1.0.4
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS30D/1.0.4/_MG_8882.CR2").
                             image(3504, 2336, 3, 16, "0e020171ca1598e74ce25306fd8b88c3").
                             thumbnail(1728, 1152).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                  }
-                              }),
+                            issues("JRW-208"),
             // EOS40D v1.0.3
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS40D/1.0.3/img_0003.cr2").
                             image(3888, 2592, 3, 16, "65d8c7c06390331b77576ab03572135f") .
                             thumbnail(1936, 1288).
                             thumbnail(160, 120).
                             thumbnail(486, 324).
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                  }
-                              }),
+                            issues("JRW-208"),
             // EOS350D
             ExpectedResults.create("https://stlth.s3.amazonaws.com/assets/production/50b54a30-6324-012c-2155-fe109c37265e/e4fb97a0-6325-012c-6693-f225730bc406/IMG_4707.CR2").
-                            image(3456, 2304, 3, 8, "5f4f3a825b0b3e546321e8dd03f31844").
+                            image(3516, 2328, 3, 8, "5f4f3a825b0b3e546321e8dd03f31844").
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
-                            issues("JRW-206").
+                            issues("JRW-206", "JRW-208").
                             metadata("metadata.canonMakerNote.sensorInfo.width", 3516).
                             metadata("metadata.canonMakerNote.sensorInfo.height", 2328).
                             metadata("metadata.canonMakerNote.sensorInfo.cropLeft", 52).
