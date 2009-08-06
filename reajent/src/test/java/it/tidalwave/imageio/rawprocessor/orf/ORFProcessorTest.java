@@ -27,10 +27,11 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.orf;
 
-import java.io.IOException;
+import javax.annotation.Nonnull;
+import java.util.Collection;
 import javax.imageio.ImageReader;
-import java.awt.image.BufferedImage;
-import it.tidalwave.imageio.ImageReaderTestSupport;
+import it.tidalwave.imageio.ExpectedResults;
+import it.tidalwave.imageio.NewImageReaderTestSupport;
 import it.tidalwave.imageio.orf.CameraSettings;
 import it.tidalwave.imageio.orf.Equipment;
 import it.tidalwave.imageio.orf.FocusInfo;
@@ -38,7 +39,7 @@ import it.tidalwave.imageio.orf.ImageProcessing;
 import it.tidalwave.imageio.orf.ORFMetadata;
 import it.tidalwave.imageio.orf.OlympusMakerNote;
 import it.tidalwave.imageio.orf.RawDevelopment;
-import org.junit.Test;
+import org.junit.runners.Parameterized.Parameters;
 import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
@@ -47,96 +48,94 @@ import static org.junit.Assert.*;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class ORFProcessorTest extends ImageReaderTestSupport
+public class ORFProcessorTest extends NewImageReaderTestSupport
   {
-    @Test(timeout=60000)
-    public void test1() 
-      throws Exception 
+    public ORFProcessorTest (final @Nonnull ExpectedResults expectedResults)
       {
-        final String path = "https://imaging.dev.java.net/nonav/TestSets/others/josephandre/Olympus/E510/ORF/_2090037.ORF";
-        final ImageReader ir = getImageReader(path);
-        assertEquals(1, ir.getNumImages(false));
-        assertEquals(1, ir.getNumThumbnails(0));
-        assertImage(ir, 3720, 2800);
-        assertThumbnail(ir, 0, 1600, 1200);
-        final BufferedImage image = assertLoadImage(ir, 3720, 2800, 3, 8); // FIXME: wrong, should be 16 bits
-        assertLoadThumbnail(ir, 0, 1600, 1200);
-        
-        final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
-        assertNotNull(metadata);
-        final OlympusMakerNote makerNote = metadata.getOlympusMakerNote();
-        assertNotNull(makerNote);
-        assertEquals(8, makerNote.getTags().size());
-        
-        final CameraSettings cameraSettings = makerNote.getOlympusCameraSettings();
-        assertNotNull(cameraSettings);
-        assertEquals(44, cameraSettings.getTags().size());
-
-        final Equipment equipment = makerNote.getOlympusEquipment();
-        assertNotNull(equipment);
-        assertEquals(23, equipment.getTags().size());
-        
-        final FocusInfo focusInfo = makerNote.getOlympusFocusInfo();
-        assertNotNull(focusInfo);
-        assertEquals(59, focusInfo.getTags().size());
-        
-        final ImageProcessing imageProcessing = makerNote.getOlympusImageProcessing();
-        assertNotNull(imageProcessing);
-        assertEquals(142, imageProcessing.getTags().size());
-        
-        final RawDevelopment rawDevelopment = makerNote.getOlympusRawDevelopment();
-        assertNotNull(rawDevelopment);
-        assertEquals(14, rawDevelopment.getTags().size());
-        
-        close(ir);
-        
-        assertRaster(image, path, "261e200fcf00a79a3c3402eedcc72993");
+        super(expectedResults);
       }
-    
-    @Test(timeout=60000)
-    // JIRA JRW-160
-    public void test2() 
-      throws Exception 
-      {
-        final String path = "https://imaging.dev.java.net/nonav/TestSets/others/victoriagracia/Olympus/E500/ORF/V7020205.ORF";
-        final ImageReader ir = getImageReader(path);
-        assertEquals(1, ir.getNumImages(false));
-        assertEquals(2, ir.getNumThumbnails(0));
-        assertImage(ir, 3360, 2504);
-        assertThumbnail(ir, 0, 160, 120);
-        assertThumbnail(ir, 1, 0, 0); //  FIXME: broken
-        final BufferedImage image = assertLoadImage(ir, 3360, 2504, 3, 8); // FIXME: wrong, should be 16
-        assertLoadThumbnail(ir, 0, 160, 120);
-//        assertLoadThumbnail(ir, 1, 0, 0); //  FIXME: broken
-       
-        assertRaster(image, path, "1362f5928da9cae1fe0704e69bd5eb53");
-        
-        final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
-        assertNotNull(metadata);
-        final OlympusMakerNote makerNote = metadata.getOlympusMakerNote();
-        assertNotNull(makerNote);
-        assertEquals(27, makerNote.getTags().size());
-        
-        final CameraSettings cameraSettings = makerNote.getOlympusCameraSettings();
-        assertNotNull(cameraSettings);
-        assertEquals(40, cameraSettings.getTags().size());
 
-        final Equipment equipment = makerNote.getOlympusEquipment();
-        assertNotNull(equipment);
-        assertEquals(23, equipment.getTags().size());
-        
-        final FocusInfo focusInfo = makerNote.getOlympusFocusInfo();
-        assertNotNull(focusInfo);
-        assertEquals(52, focusInfo.getTags().size());
-        
-        final ImageProcessing imageProcessing = makerNote.getOlympusImageProcessing();
-        assertNotNull(imageProcessing);
-        assertEquals(109, imageProcessing.getTags().size());
-        
-        final RawDevelopment rawDevelopment = makerNote.getOlympusRawDevelopment();
-        assertNotNull(rawDevelopment);
-        assertEquals(14, rawDevelopment.getTags().size());
-        
-        close(ir);
+    @Nonnull
+    @Parameters
+    public static Collection<Object[]> expectedResults()
+      {
+        return fixed
+          (
+            // Olympus E510
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/josephandre/Olympus/E510/ORF/_2090037.ORF").
+                            image(3720, 2800, 3, 8, "261e200fcf00a79a3c3402eedcc72993").
+                            thumbnail(1600, 1200).
+                            issues("JRW-151", "JRW-154", "JRW-155", "JRW-159").
+                            extra(new ExpectedResults.Extra()
+                              {
+                                public void run (final @Nonnull ImageReader ir)
+                                  throws Exception
+                                  {
+                                    final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
+                                    assertNotNull(metadata);
+                                    final OlympusMakerNote makerNote = metadata.getOlympusMakerNote();
+                                    assertNotNull(makerNote);
+                                    assertEquals(8, makerNote.getTags().size());
+
+                                    final CameraSettings cameraSettings = makerNote.getOlympusCameraSettings();
+                                    assertNotNull(cameraSettings);
+                                    assertEquals(44, cameraSettings.getTags().size());
+
+                                    final Equipment equipment = makerNote.getOlympusEquipment();
+                                    assertNotNull(equipment);
+                                    assertEquals(23, equipment.getTags().size());
+
+                                    final FocusInfo focusInfo = makerNote.getOlympusFocusInfo();
+                                    assertNotNull(focusInfo);
+                                    assertEquals(59, focusInfo.getTags().size());
+
+                                    final ImageProcessing imageProcessing = makerNote.getOlympusImageProcessing();
+                                    assertNotNull(imageProcessing);
+                                    assertEquals(142, imageProcessing.getTags().size());
+
+                                    final RawDevelopment rawDevelopment = makerNote.getOlympusRawDevelopment();
+                                    assertNotNull(rawDevelopment);
+                                    assertEquals(14, rawDevelopment.getTags().size());
+                                  }
+                              }),
+            // Olympus E500
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/victoriagracia/Olympus/E500/ORF/V7020205.ORF").
+                            image(3360, 2504, 3, 8, "1362f5928da9cae1fe0704e69bd5eb53").
+                            thumbnail(160, 120).
+                            thumbnail(1, 1). // FIXME
+                            issues("JRW-160").
+                            extra(new ExpectedResults.Extra()
+                              {
+                                public void run (final @Nonnull ImageReader ir)
+                                  throws Exception
+                                  {
+                                    final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
+                                    assertNotNull(metadata);
+                                    final OlympusMakerNote makerNote = metadata.getOlympusMakerNote();
+                                    assertNotNull(makerNote);
+                                    assertEquals(27, makerNote.getTags().size());
+
+                                    final CameraSettings cameraSettings = makerNote.getOlympusCameraSettings();
+                                    assertNotNull(cameraSettings);
+                                    assertEquals(40, cameraSettings.getTags().size());
+
+                                    final Equipment equipment = makerNote.getOlympusEquipment();
+                                    assertNotNull(equipment);
+                                    assertEquals(23, equipment.getTags().size());
+
+                                    final FocusInfo focusInfo = makerNote.getOlympusFocusInfo();
+                                    assertNotNull(focusInfo);
+                                    assertEquals(52, focusInfo.getTags().size());
+
+                                    final ImageProcessing imageProcessing = makerNote.getOlympusImageProcessing();
+                                    assertNotNull(imageProcessing);
+                                    assertEquals(109, imageProcessing.getTags().size());
+
+                                    final RawDevelopment rawDevelopment = makerNote.getOlympusRawDevelopment();
+                                    assertNotNull(rawDevelopment);
+                                    assertEquals(14, rawDevelopment.getTags().size());
+                                  }
+                              })
+          );
       }
   }

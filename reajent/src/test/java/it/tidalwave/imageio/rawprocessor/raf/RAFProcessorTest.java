@@ -27,11 +27,11 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raf;
 
-import javax.imageio.ImageReader;
-import it.tidalwave.imageio.ImageReaderTestSupport;
-import java.awt.image.BufferedImage;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import javax.annotation.Nonnull;
+import java.util.Collection;
+import it.tidalwave.imageio.ExpectedResults;
+import it.tidalwave.imageio.NewImageReaderTestSupport;
+import org.junit.runners.Parameterized.Parameters;
 
 /***********************************************************************************************************************
  *
@@ -39,26 +39,26 @@ import static org.junit.Assert.*;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class RAFProcessorTest extends ImageReaderTestSupport
+public class RAFProcessorTest extends NewImageReaderTestSupport
   {
-    // JIRA issue JRW-127
-    @Test(timeout=60000)
-    public void testJRW127() 
-      throws Exception 
+    public RAFProcessorTest (final @Nonnull ExpectedResults expectedResults)
       {
-        final String path = "https://imaging.dev.java.net/nonav/TestSets/tmlehto/Fujifilm/S6500fd/RAF/DSCF6315.RAF";
-        final ImageReader ir = getImageReader(path);
-        assertEquals(1, ir.getNumImages(false));
-        assertEquals(2, ir.getNumThumbnails(0));
-        assertImage(ir, 3592, 3591); // FIXME wrong
-        assertThumbnail(ir, 0, 160, 120);
-        assertThumbnail(ir, 1, 1600, 1200);
-        final BufferedImage image = assertLoadImage(ir, 2896, 2182, 3, 8); // FIXME: should be 16
-        assertLoadThumbnail(ir, 0, 160, 120);
-//        assertLoadThumbnail(ir, 1, 1600, 1200); // FIXME
-        
-        assertRaster(image, path, "47df2750b17f3734d7ba9a7398033c31");
-        
-//        close(ir);
+        super(expectedResults);
+      }
+
+    @Nonnull
+    @Parameters
+    public static Collection<Object[]> expectedResults()
+      {
+        return fixed
+          (
+            // S6500fd
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/tmlehto/Fujifilm/S6500fd/RAF/DSCF6315.RAF").
+                            image(2896, 2182, 3, 8, "47df2750b17f3734d7ba9a7398033c31").
+                            thumbnail(160, 120).
+                            thumbnail(1600, 1200).
+                            issues("JRW-127")
+          );
       }
   }
+
