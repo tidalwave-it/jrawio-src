@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ThumbnailHelper.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.srf;
@@ -33,12 +33,12 @@ import org.junit.Test;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class SRFImageReaderTest extends ImageReaderTestSupport
   {
-    @Test(timeout=60000)
+    @Test
     public void testMIMEType()
       {
         assertMIMETypes("srf", "image/x-sony-srf");
