@@ -28,8 +28,6 @@
 package it.tidalwave.imageio.dng;
 
 import javax.imageio.ImageReader;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import it.tidalwave.imageio.ImageReaderTestSupport;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -42,7 +40,7 @@ import static org.junit.Assert.*;
  **********************************************************************************************************************/
 public class DNGImageReaderTest extends ImageReaderTestSupport
   {
-    @Test(timeout=60000)
+    @Test
     public void testMIMEType()
       {
         assertMIMETypes("dng", "image/x-adobe-dng");
@@ -60,69 +58,5 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
         assertThumbnail(ir, 0, 256, 171);
         assertThumbnail(ir, 1, 1024, 683);
         close(ir);
-      }
-
-    @Test(timeout=60000)
-    public void testJRW144() 
-      throws Exception 
-      {
-        final String path = "https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0056.DNG";
-        final ImageReader ir = getImageReader(path);
-        assertEquals(1, ir.getNumImages(false));
-        assertEquals(2, ir.getNumThumbnails(0));
-        assertImage(ir, 3088, 2055);
-        assertThumbnail(ir, 0, 256, 171);
-        assertThumbnail(ir, 1, 1024, 683);
-        final BufferedImage image = assertLoadImage(ir, 3088, 2055, 3, 16);
-        assertLoadThumbnail(ir, 0, 256, 171);
-        assertLoadThumbnail(ir, 1, 1024, 683);
-        close(ir);
-        
-        assertRaster(image, path, "1601cd0415c7266d0449063661cb1d9c");
-      }
-
-    @Test(timeout=60000)
-    public void testJRW145()
-      throws Exception
-      {
-        final String path = "https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0043.DNG";
-        final ImageReader ir = getImageReader(path);
-        assertEquals(1, ir.getNumImages(false));
-        assertEquals(2, ir.getNumThumbnails(0));
-        assertImage(ir, 3088, 2055);
-        assertThumbnail(ir, 0, 256, 171);
-        assertThumbnail(ir, 1, 1024, 683);
-        final BufferedImage image = assertLoadImage(ir, 3088, 2055, 3, 16);
-        assertLoadThumbnail(ir, 0, 256, 171);
-        assertLoadThumbnail(ir, 1, 1024, 683);
-        close(ir);
-
-        assertRaster(image, path, "b96e7f37a44071e8a8c675cf97e55dda");
-      }
-
-    @Test(timeout=60000)
-    public void testJRW165()
-      throws Exception
-      {
-        final String path = "/home/fritz/Desktop/DSCF0001.dng";
-
-        if (!new File(path).exists()) // DSCF0001.dng can't be disclosed - FIXME
-          {
-            System.err.println("WARNING: JRW165 skipped");
-            return;
-          }
-
-        final ImageReader ir = getImageReader(path);
-        assertEquals(1, ir.getNumImages(false));
-        assertEquals(2, ir.getNumThumbnails(0));
-        assertImage(ir, 3024, 2016);
-        assertThumbnail(ir, 0, 256, 171);
-        assertThumbnail(ir, 1, 1024, 683);
-        final BufferedImage image = assertLoadImage(ir, 3024, 2016, 3, 16);
-        assertLoadThumbnail(ir, 0, 256, 171);
-        assertLoadThumbnail(ir, 1, 1024, 683);
-        close(ir);
-
-        assertRaster(image, path, "9e4d2ce859bcb61601e118d0cd08a19b");
       }
   }
