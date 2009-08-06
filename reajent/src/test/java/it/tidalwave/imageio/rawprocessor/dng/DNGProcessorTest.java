@@ -27,10 +27,13 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
 
+import javax.annotation.Nonnull;
+import java.util.Collection;
 import javax.imageio.ImageReader;
-import it.tidalwave.imageio.ImageReaderTestSupport;
-import java.awt.image.BufferedImage;
-import org.junit.Test;
+import it.tidalwave.imageio.ExpectedResults;
+import it.tidalwave.imageio.NewImageReaderTestSupport;
+import it.tidalwave.imageio.dng.DNGMetadata;
+import org.junit.runners.Parameterized.Parameters;
 import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
@@ -39,25 +42,76 @@ import static org.junit.Assert.*;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class DNGProcessorTest extends ImageReaderTestSupport
+public class DNGProcessorTest extends NewImageReaderTestSupport
   {
-    @Test(timeout=60000)
-    public void test1()
-      throws Exception 
+    public DNGProcessorTest (final @Nonnull ExpectedResults expectedResults)
       {
-        final String path = "https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0056.DNG";
+        super(expectedResults);
+      }
+
+    @Nonnull
+    @Parameters
+    public static Collection<Object[]> expectedResults()
+      {
+        return fixed
+          (
+            // EOS300D
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0056.DNG").
+                            image(3024, 2016, 3, 16, "a5ef709c014ce348c3e7932430bd93e0").
+                            thumbnail(256, 171).
+                            thumbnail(1024, 683).
+                            issues("JRW-144").
+                            extra(new ExpectedResults.Extra()
+                              {
+                                public void run (final @Nonnull ImageReader ir)
+                                  throws Exception
+                                  {
+                                    final DNGMetadata metadata = (DNGMetadata)ir.getImageMetadata(0);
+                                    assertNotNull(metadata);
+                                  }
+                              }),
+            // EOS300D
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0043.DNG").
+                            image(3024, 2016, 3, 16, "b96e7f37a44071e8a8c675cf97e55dda").
+                            thumbnail(256, 171).
+                            thumbnail(1024, 683).
+                            issues("JRW-145").
+                            extra(new ExpectedResults.Extra()
+                              {
+                                public void run (final @Nonnull ImageReader ir)
+                                  throws Exception
+                                  {
+                                    final DNGMetadata metadata = (DNGMetadata)ir.getImageMetadata(0);
+                                    assertNotNull(metadata);
+                                  }
+                              })
+          );
+      }
+
+    /*
+    @Test(timeout=60000)
+    public void testJRW165()
+      throws Exception
+      {
+        final String path = "/home/fritz/Desktop/DSCF0001.dng";
+
+        if (!new File(path).exists()) // DSCF0001.dng can't be disclosed - FIXME
+          {
+            System.err.println("WARNING: JRW165 skipped");
+            return;
+          }
+
         final ImageReader ir = getImageReader(path);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
-        assertImage(ir, 3088, 2055); // FIXME should be cropped
+        assertImage(ir, );
         assertThumbnail(ir, 0, 256, 171);
         assertThumbnail(ir, 1, 1024, 683);
-        final BufferedImage image = assertLoadImage(ir, 3072, 2048, 3, 8); // FIXME: should be 16
+        final BufferedImage image = assertLoadImage(ir, 3024, 2016, 3, 16);
         assertLoadThumbnail(ir, 0, 256, 171);
         assertLoadThumbnail(ir, 1, 1024, 683);
-        
-        assertRaster(image, path, "a5ef709c014ce348c3e7932430bd93e0");
-        
-//        close(ir);
-      }
+        close(ir);
+
+        assertRaster(image, path, "9e4d2ce859bcb61601e118d0cd08a19b");
+      }*/
   }
