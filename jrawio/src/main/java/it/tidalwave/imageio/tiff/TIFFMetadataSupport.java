@@ -143,32 +143,6 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
 
     /*******************************************************************************************************************
      * 
-     * Returns the image width.
-     * 
-     * @return the image width
-     * 
-     ******************************************************************************************************************/
-    @Nonnegative
-    public final int getWidth()
-      {
-        return getSize().width;
-      }
-    
-    /*******************************************************************************************************************
-     * 
-     * Returns the image height.
-     * 
-     * @return the image height
-     * 
-     ******************************************************************************************************************/
-    @Nonnegative
-    public final int getHeight()
-      {
-        return getSize().height;
-      }
-
-    /*******************************************************************************************************************
-     * 
      * Returns the thumbnail width.
      * 
      * @param   thumbnailIndex   the requested thumbnail
@@ -517,7 +491,6 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
     @Nonnull
     protected Dimension getSize()
       {
-        // FIXME: run the postprocessor here
         return new Dimension(rasterIFD.getImageWidth(), rasterIFD.getImageLength());
       }
 

@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: RotateOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
@@ -44,7 +44,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RotateOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class RotateOperation extends OperationSupport
@@ -56,7 +56,7 @@ public class RotateOperation extends OperationSupport
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public void process (RAWImage image) throws Exception
+    public void process (RAWImage image)
       {
         logger.fine("process()");
         
@@ -69,6 +69,24 @@ public class RotateOperation extends OperationSupport
           }
       }
         
+    /*******************************************************************************************************************
+     *
+     * @inheritDoc
+     *
+     ******************************************************************************************************************/
+    @Override
+    public void processMetadata (RAWImage image) 
+      {
+        logger.fine("processMetadata()");
+
+        int rotation = getCameraOrientation(image);
+
+        if (rotation != 0)
+          {
+            image.setRotation(rotation);
+          }
+      }
+
     /*******************************************************************************************************************
      *
      * Reads the camera embedded orientation. This method works with EXIF data:

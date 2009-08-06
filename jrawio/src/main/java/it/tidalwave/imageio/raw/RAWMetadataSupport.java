@@ -22,13 +22,15 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: RAWMetadataSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.raw;
 
 import javax.annotation.CheckForNull;
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.awt.Dimension;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.metadata.IIOMetadataFormatImpl;
 import org.w3c.dom.Node;
@@ -36,7 +38,7 @@ import org.w3c.dom.Node;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RAWMetadataSupport.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public abstract class RAWMetadataSupport extends IIOMetadata
@@ -181,6 +183,52 @@ public abstract class RAWMetadataSupport extends IIOMetadata
     public void reset()
       {
         throw new UnsupportedOperationException("RAWMetadata.reset()");
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns the image width.
+     *
+     * @return the image width
+     *
+     ******************************************************************************************************************/
+    @Nonnegative
+    public final int getWidth()
+      {
+        return ((overriddenSize != null) ? overriddenSize : getSize()).width;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns the image height.
+     *
+     * @return the image height
+     *
+     ******************************************************************************************************************/
+    @Nonnegative
+    public final int getHeight()
+      {
+        return ((overriddenSize != null) ? overriddenSize : getSize()).height;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    protected abstract Dimension getSize();
+
+    @CheckForNull
+    private Dimension overriddenSize;
+
+    /*******************************************************************************************************************
+     *
+     * Don't use - it's not part of the public APIs.
+     *
+     ******************************************************************************************************************/
+    public void setSize (final @Nonnull Dimension overriddenSize)
+      {
+        this.overriddenSize = overriddenSize;
       }
 
     /*******************************************************************************************************************

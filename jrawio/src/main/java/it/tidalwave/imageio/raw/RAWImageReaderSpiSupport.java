@@ -156,11 +156,30 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
       }
     
     /*******************************************************************************************************************
+     *
+     * Post-processes a raw image using the installed postprocessor, if any.
+     *
+     * @param  image  the raw image to postprocess
+     * @return        the post-processed image
+     *
+     *******************************************************************************/
+    protected void postProcessMetadata (RAWMetadataSupport metadata)
+      {
+        final PostProcessor postProcessor = (PostProcessor)postProcessorMapBySpiClass.get(getClass());
+
+        if (postProcessor != null)
+          {
+            postProcessor.processMetadata(metadata);
+          }
+      }
+
+    /*******************************************************************************************************************
      * 
      * @inheritDoc
      * 
      *******************************************************************************/
-    public boolean canDecodeInput (Object source) throws IOException
+    public boolean canDecodeInput (Object source)
+      throws IOException
       {
         if (source instanceof ImageInputStream)
           {

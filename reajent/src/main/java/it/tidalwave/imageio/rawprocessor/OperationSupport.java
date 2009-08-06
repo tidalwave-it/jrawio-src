@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: OperationSupport.java 158 2008-09-13 18:46:09Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Properties;
-import it.tidalwave.imageio.util.Logger;
 import java.io.InputStream;
 import java.io.IOException;
 import java.awt.color.ColorSpace;
@@ -45,11 +44,12 @@ import java.awt.image.PixelInterleavedSampleModel;
 import java.awt.image.RenderedImage;
 import java.awt.image.SampleModel;
 import java.awt.image.SinglePixelPackedSampleModel;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: OperationSupport.java 158 2008-09-13 18:46:09Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public abstract class OperationSupport implements Operation
@@ -75,6 +75,14 @@ public abstract class OperationSupport implements Operation
       {        
       }
     
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public void processMetadata (RAWImage image) throws Exception
+      {
+      }
+
     /*******************************************************************************************************************
      *
      *
@@ -196,15 +204,24 @@ public abstract class OperationSupport implements Operation
      *
      *
      ******************************************************************************************************************/
-    protected static void logImage (Logger logger, String prefix, RenderedImage image)
+    protected static void logImage (final @Nonnull Logger logger,
+                                    final @Nonnull String prefix,
+                                    final @Nonnull RenderedImage image)
       {
-        ColorModel colorModel = image.getColorModel();
-        logger.fine("%s.class:       %s", prefix, image.getClass().getName());
-        logger.fine("%s.sampleModel: %s", prefix, toString(image.getSampleModel()));
-        logger.fine("%s.colorModel:  %s : %s", prefix, colorModel.getClass().getName(), colorModel);
-        logger.fine("%s.colorSpace:  %s", prefix, toString(colorModel.getColorSpace()));
+        if (image == null)
+          {
+            logger.fine("%s.image: null", prefix);
+          }
+        else
+          {
+            final ColorModel colorModel = image.getColorModel();
+            logger.fine("%s.class:       %s", prefix, image.getClass().getName());
+            logger.fine("%s.sampleModel: %s", prefix, toString(image.getSampleModel()));
+            logger.fine("%s.colorModel:  %s : %s", prefix, colorModel.getClass().getName(), colorModel);
+            logger.fine("%s.colorSpace:  %s", prefix, toString(colorModel.getColorSpace()));
 
-        //      log.debug(">>>> iccProfile is now: " + getICCProfileName(bufferedImage));
+            //      log.debug(">>>> iccProfile is now: " + getICCProfileName(bufferedImage));
+          }
       }
 
     /*******************************************************************************************************************

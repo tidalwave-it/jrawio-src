@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: RAWProcessor.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
@@ -31,15 +31,15 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import it.tidalwave.imageio.util.Logger;
 import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.raw.PostProcessor;
 import it.tidalwave.imageio.raw.RAWMetadataSupport;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RAWProcessor.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public abstract class RAWProcessor implements PostProcessor
@@ -69,13 +69,28 @@ public abstract class RAWProcessor implements PostProcessor
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public final BufferedImage process (BufferedImage image, RAWMetadataSupport metadata)
+    @Nonnull
+    public final BufferedImage process (final @Nonnull BufferedImage image,
+                                        final @Nonnull RAWMetadataSupport metadata)
       {
         logger.fine("POSTPROCESSING...");
         RAWImage rawImage = new RAWImage(image, metadata);
         init(rawImage);                
         process(rawImage);                
         return rawImage.getImage();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * @inheritDoc
+     *
+     ******************************************************************************************************************/
+    public final void processMetadata (final @Nonnull RAWMetadataSupport metadata)
+      {
+        logger.fine("POSTPROCESSING METADATA...");
+        RAWImage rawImage = new RAWImage(null, metadata);
+        init(rawImage);
+        processMetadata(rawImage);
       }
 
     /*******************************************************************************************************************
@@ -111,22 +126,51 @@ public abstract class RAWProcessor implements PostProcessor
      * @param  rawImage  the image to process
      *
      ******************************************************************************************************************/
-    private final void process (RAWImage rawImage) 
-      {        
-        for (Iterator i = operationList.iterator(); i.hasNext(); )
+    private final void process (final @Nonnull RAWImage rawImage)
+      {
+        for (final Operation operation : operationList)
           {
-            Operation operation = (Operation)i.next();
-            String operationName = operation.getClass().getName();
-            
+            final String operationName = operation.getClass().getName();
+
             try
               {
-                long time = System.currentTimeMillis();
+               long time = System.currentTimeMillis();
                 logger.info("Executing: %s", operationName);
                 operation.process(rawImage);
                 time = System.currentTimeMillis() - time;
                 logger.fine(">>>> %s completed ok in %d msec", operationName, time);
-              } 
-            
+              }
+
+            catch (Exception e)
+              {
+                logger.warning("%s FAILED", operationName);
+                throw new RuntimeException(e); // FIXME: temporary until we design a declared exception
+              }
+          }
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Executes the operation pipeline.
+     *
+     * @param  rawImage  the image to process
+     *
+     ******************************************************************************************************************/
+    private final void processMetadata (final @Nonnull RAWImage rawImage)
+      {
+        for (final Operation operation : operationList)
+          {
+            final String operationName = operation.getClass().getName();
+
+            try
+              {
+                long time = System.currentTimeMillis();
+                logger.info("Executing: %s", operationName);
+                operation.processMetadata(rawImage);
+                time = System.currentTimeMillis() - time;
+                logger.fine(">>>> %s completed ok in %d msec", operationName, time);
+              }
+
             catch (Exception e)
               {
                 logger.warning("%s FAILED", operationName);

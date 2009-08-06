@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: RAWImageReaderSupport.java 191 2008-09-28 01:01:26Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -57,7 +57,7 @@ import javax.annotation.Nonnull;
  * This class provides support for all RAW image readers.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: RAWImageReaderSupport.java 191 2008-09-28 01:01:26Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public abstract class RAWImageReaderSupport extends ImageReader
@@ -589,6 +589,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
         if (!metadataLoaded)
           {
             processMetadata();
+            ((RAWImageReaderSpiSupport)getOriginatingProvider()).postProcessMetadata(metadata);
             metadataLoaded = true;
           }
 

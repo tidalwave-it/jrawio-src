@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: SizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
@@ -47,7 +47,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: SizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public abstract class SizeOperation extends OperationSupport
@@ -108,6 +108,19 @@ public abstract class SizeOperation extends OperationSupport
             image.setImage(resample(image.getImage(), size));  
           }
       }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    public void processMetadata (@Nonnull final RAWImage image)
+      {
+        logger.fine("processMetadata()");
+        final int rotation = normalizedAngle(image.getRotation());
+        image.getRAWMetadata().setSize(rotate(getSize(image), rotation));
+      } 
     
     /*******************************************************************************************************************
      *
@@ -166,10 +179,10 @@ public abstract class SizeOperation extends OperationSupport
       {
         logger.finer("crop(%s)", crop);
         logImage(logger, ">>>> image: ", image);
-        image = image.getSubimage(crop.left, 
+        image = image.getSubimage(crop.left,
                                   crop.top, 
                                   image.getWidth() - crop.left - crop.right,
-                                  image.getHeight() - crop.top - crop.bottom);  
+                                  image.getHeight() - crop.top - crop.bottom);
         logImage(logger, ">>>> crop returning: ", image);
         return image;
       }
@@ -179,9 +192,41 @@ public abstract class SizeOperation extends OperationSupport
      *
      ******************************************************************************************************************/
     @Nonnull
+    protected static Dimension rotate (@Nonnull final Dimension size, @Nonnegative int rotation)
+      {
+        logger.finer("rotate(%s, %d)", size, rotation);
+
+        Dimension result = null;
+
+        switch (rotation)
+          {
+            case 0:
+            case 180:
+              result = new Dimension(size);
+              break;
+
+            case 90:
+            case 270:
+              result = new Dimension(size.height, size.width);
+              break;
+
+            default:
+              throw new IllegalArgumentException("rotation=" + rotation);
+          }
+
+        logger.finest(">>>> returning: %s", result);
+
+        return result;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
     protected static Insets rotate (@Nonnull final Insets crop, @Nonnegative int rotation)
       {
-        logger.finer(String.format("rotate(%s, %d)", crop, rotation));        
+        logger.finer("rotate(%s, %d)", crop, rotation);
         final Insets result = new Insets(0, 0, 0, 0);
         
         switch (rotation)
