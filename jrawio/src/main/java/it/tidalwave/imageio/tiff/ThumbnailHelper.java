@@ -79,7 +79,7 @@ public class ThumbnailHelper
 
     @CheckForNull
     private byte[] buffer;
-    
+
     /*******************************************************************************************************************
      *
      *
@@ -88,9 +88,15 @@ public class ThumbnailHelper
     public ThumbnailHelper (@Nonnull final RAWImageInputStream iis, 
                             @Nonnull final IFD ifd)
       {
+        logger.finest("ThumbnailHelper(%s, %s)", iis, ifd);
+
         this.ifd = ifd; 
 
-        if (ifd.isImageWidthAvailable())
+        // This is for JRW-198 - not a good solution, but at the moment can't figure out anything better.
+        // TODO: find a better solution
+        boolean trust = !"DSLR-A100".equals(ifd.getModel());
+
+        if (ifd.isImageWidthAvailable() && trust)
           {
             width = ifd.getImageWidth();  
             height = ifd.getImageLength();  
@@ -126,6 +132,7 @@ public class ThumbnailHelper
                             final int offset, 
                             @Nonnegative final int byteCount)
       {
+        logger.finest("ThumbnailHelper(%s, %d, %d)", iis, offset, byteCount);
         this.ifd = null;
         this.offset = offset;
         this.byteCount = byteCount;
@@ -140,6 +147,7 @@ public class ThumbnailHelper
     public ThumbnailHelper (@Nonnull final RAWImageInputStream iis, 
                             @Nonnull final byte[] buffer)
       {
+        logger.finest("ThumbnailHelper(%s, %s)", iis, buffer);
         this.ifd = null;
         this.buffer = buffer;
         getSizeFromEmbeddedJPEG(iis);
@@ -156,6 +164,7 @@ public class ThumbnailHelper
                             @Nonnegative final int width,
                             @Nonnegative final int height)
       {
+        logger.finest("ThumbnailHelper(%s, %d, %d, %d, %d)", iis, offset, byteCount, width, height);
         this.ifd = null;
         this.offset = offset;
         this.byteCount = byteCount;
@@ -215,6 +224,8 @@ public class ThumbnailHelper
     private byte[] getBuffer (@Nonnull final ImageInputStream iis) 
       throws IOException
       {
+        logger.finest("getBuffer(%s)", iis);
+
         if (buffer != null)
           {
             return buffer;  
@@ -235,6 +246,8 @@ public class ThumbnailHelper
      ******************************************************************************************************************/
     private void getSizeFromEmbeddedJPEG (@Nonnull final RAWImageInputStream iis)
       {           
+        logger.finest("getSizeFromEmbeddedJPEG(%s)", iis);
+
         ImageInputStream is = null;
         ImageReader ir = null;
         
@@ -258,6 +271,7 @@ public class ThumbnailHelper
                 width = ir.getWidth(0);
                 height = ir.getHeight(0);
                 iis.seek(save);
+                logger.finest(">>>> size found: %d x %d", width, height);
               }
           } 
         catch (IOException e)
@@ -309,7 +323,8 @@ public class ThumbnailHelper
                                             @Nonnegative int length) 
       throws IOException
       {
-        //  logger.fine("loadPlainImage(iis: " + iis + ", offset: " + offset + ")");          
+        logger.fine("loadPlainImage(%s, %d, %d, %d, %d)", iis, width, height, offset, length);
+        
         final int pixelStride = 3;
         final int scanlineStride = pixelStride * width;
         final int[] bandOffsets = { 0, 1, 2 }; // FIXME
