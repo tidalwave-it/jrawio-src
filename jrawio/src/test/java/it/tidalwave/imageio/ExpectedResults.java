@@ -173,10 +173,27 @@ public final class ExpectedResults
       }
 
     @Nonnull
+    public ExpectedResults image (final @Nonnull Dimension size,
+                                  final @Nonnegative int bandCount,
+                                  final @Nonnegative int bitsPerSample,
+                                  final @Nonnull String fingerprint)
+      {
+        images.add(new Image(size, bandCount, bitsPerSample, fingerprint));
+        return this;
+      }
+
+    @Nonnull
     public ExpectedResults thumbnail (final @Nonnegative int width,
                                       final @Nonnegative int height)
       {
         thumbnails.add(new Image(new Dimension(width, height), 3, 8, ""));
+        return this;
+      }
+
+    @Nonnull
+    public ExpectedResults thumbnail (final @Nonnull Dimension size)
+      {
+        thumbnails.add(new Image(size, 3, 8, ""));
         return this;
       }
 
