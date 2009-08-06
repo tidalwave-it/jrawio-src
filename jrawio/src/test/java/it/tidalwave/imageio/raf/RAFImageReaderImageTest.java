@@ -29,11 +29,9 @@ package it.tidalwave.imageio.raf;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
-import javax.imageio.ImageReader;
 import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
 import org.junit.runners.Parameterized.Parameters;
-import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
  *
@@ -60,6 +58,11 @@ public class RAFImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(1600, 1200).
                             issues("JRW-204").
+                            metadata("metadata.fujiRawData.header", "FUJIFILMCCD-RAW 0201FF389701FinePix S6500fd\u0000\u0000\u0000\u0000\u0000").
+//                            metadata("metadata.fujiRawData.version", "0100").
+                            metadata("metadata.fujiRawData.version", "\u0000\u0000\u0000\u0000").
+                            metadata("metadata.fujiRawData.b1", new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 48, 49, 48, 48}).
+                            metadata("metadata.fujiRawData.b2", new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}).
                             metadata("metadata.fujiRawData.JPEGImageOffset", 148).
                             metadata("metadata.fujiRawData.JPEGImageLength", 650086).
                             metadata("metadata.fujiRawData.table1Offset", 650246).
@@ -81,22 +84,7 @@ public class RAFImageReaderImageTest extends NewImageReaderTestSupport
                             metadata("metadata.fujiRawData.fujiTable1.rawWidth", 4224).
                             metadata("metadata.fujiRawData.fujiTable1.rawHeight", 1544).
                             metadata("metadata.fujiRawData.fujiTable1.fujiLayout", false).
-                            metadata("metadata.fujiRawData.fujiTable1.coefficients", new short[]{336, 518, 336, 489}).
-
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final RAFMetadata metadata = (RAFMetadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                    final FujiRawData fujiRawData = metadata.getFujiRawData();
-                            //        assertEquals("FUJIFILMCCD-RAW 0201FF389701FinePix S6500fd", fujiRawData.getHeader());
-                            //        assertEquals("", fujiRawData.getB1());
-                            //        assertEquals("0100", fujiRawData.getVersion());
-                            //        assertEquals("", fujiRawData.getB2());                            
-                                  }
-                              })
+                            metadata("metadata.fujiRawData.fujiTable1.coefficients", new short[]{336, 518, 336, 489})
           );
       }
   }
