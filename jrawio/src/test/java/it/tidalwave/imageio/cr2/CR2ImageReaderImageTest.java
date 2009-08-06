@@ -32,6 +32,7 @@ import javax.imageio.ImageReader;
 import java.util.Collection;
 import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
+import java.awt.Dimension;
 import org.junit.runners.Parameterized.Parameters;
 import static org.junit.Assert.*;
 
@@ -43,6 +44,10 @@ import static org.junit.Assert.*;
  **********************************************************************************************************************/
 public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
   {
+    private final static Dimension EOS20D_SENSOR_SIZE = new Dimension(3596, 2360);
+    private final static Dimension EOS30D_SENSOR_SIZE = new Dimension(3596, 2360);
+    private final static Dimension EOS40D_SENSOR_SIZE = new Dimension(3944, 2622);
+
     public CR2ImageReaderImageTest (final @Nonnull ExpectedResults expectedResults)
       {
         super(expectedResults);
@@ -56,7 +61,7 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
           (
             // EOS20D v1.1.0
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/1.1.0/_MG_8587.CR2").
-                            image(3504, 2336, 3, 16, "992a061e12ac559e49e040344a9e3bb4").
+                            image(EOS20D_SENSOR_SIZE, 3, 16, "992a061e12ac559e49e040344a9e3bb4").
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
@@ -72,7 +77,7 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                               }),
             // EOS20D v2.0.3
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/2.0.3/XXXX0000.CR2").
-                            image(3504, 2336, 3, 16, "d15a94cfc3615c0a399696f1af2cdbd1").
+                            image(EOS20D_SENSOR_SIZE, 3, 16, "d15a94cfc3615c0a399696f1af2cdbd1").
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
@@ -88,7 +93,7 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                               }),
             // EOS30D v1.0.4
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS30D/1.0.4/_MG_8882.CR2").
-                            image(3504, 2336, 3, 16, "67872b80eca784066a997f0bd6d00d29").
+                            image(EOS30D_SENSOR_SIZE, 3, 16, "67872b80eca784066a997f0bd6d00d29").
                             thumbnail(1728, 1152).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
@@ -104,7 +109,7 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                               }),
             // EOS40D v1.0.3
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS40D/1.0.3/img_0003.cr2").
-                            image(3888, 2592, 3, 16, "1ea35bbc10cf900fca0457ea531226d5").
+                            image(EOS40D_SENSOR_SIZE, 3, 16, "1ea35bbc10cf900fca0457ea531226d5").
                             thumbnail(1936, 1288).
                             thumbnail(160, 120).
                             thumbnail(486, 324).
@@ -121,14 +126,3 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
           );
       }
   }
-
-/*
-        final BufferedImage image = assertLoadImage(ir, 3596, 2360, 3, 16);
-
-        final BufferedImage image = assertLoadImage(ir, 3596, 2360, 3, 16);
-
-        final BufferedImage image = assertLoadImage(ir, 3596, 2360, 3, 16);
-
-        final BufferedImage image = assertLoadImage(ir, 3944, 2622, 3, 16);
-
- */
