@@ -27,11 +27,13 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.cr2;
 
-import java.awt.image.BufferedImage;
+import javax.annotation.Nonnull;
+import java.util.Collection;
 import javax.imageio.ImageReader;
-import it.tidalwave.imageio.ImageReaderTestSupport;
+import it.tidalwave.imageio.ExpectedResults;
+import it.tidalwave.imageio.NewImageReaderTestSupport;
 import it.tidalwave.imageio.cr2.CR2Metadata;
-import org.junit.Test;
+import org.junit.runners.Parameterized.Parameters;
 import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
@@ -40,111 +42,79 @@ import static org.junit.Assert.*;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class CR2ProcessorTest extends ImageReaderTestSupport
+public class CR2ProcessorTest extends NewImageReaderTestSupport
   {
-    @Test(timeout=60000)
-    public void testMIMEType()
+    public CR2ProcessorTest (final @Nonnull ExpectedResults expectedResults)
       {
-        assertMIMETypes("cr2", "image/x-canon-cr2");
+        super(expectedResults);
       }
 
-    @Test(timeout=600000)
-    public void testEOS20D_1_1_0()
-      throws Exception
+    @Nonnull
+    @Parameters
+    public static Collection<Object[]> expectedResults()
       {
-        final String path = "http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/1.1.0/_MG_8587.CR2";
-        final ImageReader ir = getImageReader(path);
-        assertEquals(1, ir.getNumImages(false));
-        assertEquals(3, ir.getNumThumbnails(0));
-        final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
-        assertNotNull(metadata);
-
-        assertImage(ir, 3504, 2336);
-        assertThumbnail(ir, 0, 1536, 1024);
-        assertThumbnail(ir, 1, 160, 120);
-        assertThumbnail(ir, 2, 384, 256);
-        final BufferedImage image = assertLoadImage(ir, 3596, 2360, 3, 8); /** FIXME: must be 16 bits. */
-        assertLoadThumbnail(ir, 0, 1536, 1024);
-        assertLoadThumbnail(ir, 1, 160, 120);
-        assertLoadThumbnail(ir, 2, 384, 256);
-
-        assertRaster(image, path, "b77c62839719971223ff71ef9dc88b6d");
-
-        close(ir);
-      }
-
-    @Test(timeout=600000)
-    public void testEOS20D_2_0_3()
-      throws Exception
-      {
-        final String path = "http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/2.0.3/XXXX0000.CR2";
-        final ImageReader ir = getImageReader(path);
-        assertEquals(1, ir.getNumImages(false));
-        assertEquals(3, ir.getNumThumbnails(0));
-        final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
-        assertNotNull(metadata);
-
-        assertImage(ir, 3504, 2336);
-        assertThumbnail(ir, 0, 1536, 1024);
-        assertThumbnail(ir, 1, 160, 120);
-        assertThumbnail(ir, 2, 384, 256);
-        final BufferedImage image = assertLoadImage(ir, 3596, 2360, 3, 8); /** FIXME: must be 16 bits. */
-        assertLoadThumbnail(ir, 0, 1536, 1024);
-        assertLoadThumbnail(ir, 1, 160, 120);
-        assertLoadThumbnail(ir, 2, 384, 256);
-
-        assertRaster(image, path, "67c7d9692b8f24dfc445896f548f4326");
-
-        close(ir);
-      }
-
-    @Test(timeout=600000)
-    public void testEOS30D_1_0_4()
-      throws Exception
-      {
-        final String path = "http://s179771984.onlinehome.us/RAWpository/images/canon/EOS30D/1.0.4/_MG_8882.CR2";
-        final ImageReader ir = getImageReader(path);
-        assertEquals(1, ir.getNumImages(false));
-        assertEquals(3, ir.getNumThumbnails(0));
-        final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
-        assertNotNull(metadata);
-
-        assertImage(ir, 3504, 2336);
-        assertThumbnail(ir, 0, 1728, 1152);
-        assertThumbnail(ir, 1, 160, 120);
-        assertThumbnail(ir, 2, 384, 256);
-        final BufferedImage image = assertLoadImage(ir, 3596, 2360, 3, 8); /** FIXME: must be 16 bits. */
-        assertLoadThumbnail(ir, 0, 1728, 1152);
-        assertLoadThumbnail(ir, 1, 160, 120);
-        assertLoadThumbnail(ir, 2, 384, 256);
-
-        assertRaster(image, path, "0e020171ca1598e74ce25306fd8b88c3");
-
-        close(ir);
-      }
-
-    @Test(timeout=600000)
-    public void testEOS40D_1_0_3()
-      throws Exception
-      {
-        final String path = "http://s179771984.onlinehome.us/RAWpository/images/canon/EOS40D/1.0.3/img_0003.cr2";
-        final ImageReader ir = getImageReader(path);
-        assertEquals(1, ir.getNumImages(false));
-        assertEquals(3, ir.getNumThumbnails(0));
-        final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
-        assertNotNull(metadata);
-
-        assertImage(ir, 3888, 2592);
-        assertThumbnail(ir, 0, 1936, 1288);
-        assertThumbnail(ir, 1, 160, 120);
-        assertThumbnail(ir, 2, 486, 324);
-        final BufferedImage image = assertLoadImage(ir, 3944, 2622, 3, 8); /** FIXME: must be 16 bits. */
-        assertLoadThumbnail(ir, 0, 1936, 1288);
-        assertLoadThumbnail(ir, 1, 160, 120);
-        assertLoadThumbnail(ir, 2, 486, 324);
-
-        assertRaster(image, path, "65d8c7c06390331b77576ab03572135f");
-
-        close(ir);
+        return fixed
+          (
+            // EOS20D v1.1.0
+            ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/1.1.0/_MG_8587.CR2").
+                            image(3504, 2336, 3, 16, "b77c62839719971223ff71ef9dc88b6d").
+                            thumbnail(1536, 1024).
+                            thumbnail(160, 120).
+                            thumbnail(384, 256).
+                            extra(new ExpectedResults.Extra()
+                              {
+                                public void run (final @Nonnull ImageReader ir)
+                                  throws Exception
+                                  {
+                                    final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
+                                    assertNotNull(metadata);
+                                  }
+                              }),
+            // EOS20D v2.0.3
+            ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/2.0.3/XXXX0000.CR2").
+                            image(3504, 2336, 3, 16, "67c7d9692b8f24dfc445896f548f4326").
+                            thumbnail(1536, 1024).
+                            thumbnail(160, 120).
+                            thumbnail(384, 256).
+                            extra(new ExpectedResults.Extra()
+                              {
+                                public void run (final @Nonnull ImageReader ir)
+                                  throws Exception
+                                  {
+                                    final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
+                                    assertNotNull(metadata);
+                                  }
+                              }),
+            // EOS30D v1.0.4
+            ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS30D/1.0.4/_MG_8882.CR2").
+                            image(3504, 2336, 3, 16, "0e020171ca1598e74ce25306fd8b88c3").
+                            thumbnail(1728, 1152).
+                            thumbnail(160, 120).
+                            thumbnail(384, 256).
+                            extra(new ExpectedResults.Extra()
+                              {
+                                public void run (final @Nonnull ImageReader ir)
+                                  throws Exception
+                                  {
+                                    final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
+                                    assertNotNull(metadata);
+                                  }
+                              }),
+            // EOS40D v1.0.3
+            ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS40D/1.0.3/img_0003.cr2").
+                            image(3888, 2592, 3, 16, "65d8c7c06390331b77576ab03572135f") .
+                            thumbnail(1936, 1288).
+                            thumbnail(160, 120).
+                            thumbnail(486, 324).
+                            extra(new ExpectedResults.Extra()
+                              {
+                                public void run (final @Nonnull ImageReader ir)
+                                  throws Exception
+                                  {
+                                    final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
+                                    assertNotNull(metadata);
+                                  }
+                              })
+          );
       }
   }
