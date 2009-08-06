@@ -33,6 +33,7 @@ import java.io.IOException;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -42,6 +43,9 @@ import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
  **********************************************************************************************************************/
 public class CRWImageReaderSpi extends RAWImageReaderSpiSupport
   {
+    private final static String CLASS = CRWImageReaderSpi.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+
     /*******************************************************************************************************************
      * 
      * 
@@ -85,7 +89,9 @@ public class CRWImageReaderSpi extends RAWImageReaderSpiSupport
         iis.seek(6);
         final byte[] marker = new byte[8];
         iis.readFully(marker);
+        final String markerAsString = new String(marker);
+        logger.finest("canDecodeInput(%s) -- marker: %s", iis, markerAsString);
 
-        return "HEAPCCDR".equals(new String(marker));
+        return "HEAPCCDR".equals(markerAsString);
       }
   }
