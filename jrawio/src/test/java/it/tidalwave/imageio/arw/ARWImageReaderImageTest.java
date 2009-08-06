@@ -60,7 +60,6 @@ public class ARWImageReaderImageTest extends NewImageReaderTestSupport
       {
         return fixed
           (
-            // D2X v1.0.1
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/kijiro/Sony/A100/ARW/DSC00041.ARW").
                             image(3880, 2608, 3, 16, "90e70a15bb3bd63ea4dacb1ea9841653").
                             thumbnail(3872, 2592).
