@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: RAWImageReaderSpiSupport.java 263 2009-06-15 09:18:57Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: RAWImageReaderSpiSupport.java 263 2009-06-15 09:18:57Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
@@ -151,7 +151,7 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
      *******************************************************************************/
     protected BufferedImage postProcess (BufferedImage image, RAWMetadataSupport metadata)
       {
-        PostProcessor postProcessor = (PostProcessor)postProcessorMapBySpiClass.get(getClass());
+        final PostProcessor postProcessor = (PostProcessor)postProcessorMapBySpiClass.get(getClass());
         return (postProcessor != null) ? postProcessor.process(image, metadata) : image;
       }
     

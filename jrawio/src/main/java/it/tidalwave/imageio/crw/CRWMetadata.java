@@ -27,8 +27,11 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.crw;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import java.util.Date;
 import java.util.Iterator;
+import java.awt.Dimension;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.ShortBuffer;
@@ -38,8 +41,6 @@ import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.util.Logger;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
  *
@@ -90,22 +91,6 @@ public class CRWMetadata extends TIFFMetadataSupport
          */
       }
 
-    @Nonnegative
-    @Override
-    public int getWidth()
-      {
-        return getSensorWidth();
-//        return getImageWidth();
-      }
-    
-    @Nonnegative
-    @Override
-    public int getHeight()
-      {
-        return getSensorHeight();
-//        return getImageHeight();
-      }
-    
     public CanonCRWMakerNote getCanonMakerNote()
       {
         return canonMakerNote;
@@ -445,6 +430,18 @@ public class CRWMetadata extends TIFFMetadataSupport
           }
 
         return buffer.toString();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    @Nonnull
+    protected Dimension getSize()
+      {
+        return new Dimension(getSensorWidth(), getSensorHeight());
       }
 
     /*******************************************************************************************************************

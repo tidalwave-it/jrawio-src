@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: NEFMetadata.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -30,9 +30,9 @@ package it.tidalwave.imageio.nef;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import it.tidalwave.imageio.util.Logger;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.awt.Dimension;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.io.RAWImageInputStream;
@@ -41,11 +41,12 @@ import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.ThumbnailHelper;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFMetadata.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class NEFMetadata extends TIFFMetadataSupport
@@ -160,30 +161,6 @@ public class NEFMetadata extends TIFFMetadataSupport
     
     /*******************************************************************************************************************
      * 
-     * {@inheritDoc}
-     * 
-     ******************************************************************************************************************/
-    @Override
-    @Nonnegative
-    public int getWidth()
-      {
-        return width;
-      }
-    
-    /*******************************************************************************************************************
-     * 
-     * {@inheritDoc}
-     * 
-     ******************************************************************************************************************/
-    @Override
-    @Nonnegative
-    public int getHeight()
-      {
-        return height;
-      }
-
-    /*******************************************************************************************************************
-     * 
      * @return
      * 
      ******************************************************************************************************************/
@@ -214,6 +191,18 @@ public class NEFMetadata extends TIFFMetadataSupport
         this.nceMetadata = captureEditorMetadata;
       }
     
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    @Nonnull
+    protected Dimension getSize()
+      {
+        return new Dimension(width, height);
+      }
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}

@@ -27,8 +27,8 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.cr2;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.awt.Dimension;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.HeaderProcessor;
@@ -65,31 +65,18 @@ public class CR2Metadata extends TIFFMetadataSupport
       }
 
     /*******************************************************************************************************************
-     * 
-     * @return
-     * 
+     *
+     * {@inheritDoc}
+     *
      ******************************************************************************************************************/
     @Override
-    @Nonnegative
-    public int getWidth()
+    @Nonnull
+    protected Dimension getSize()
       {
-        return getCanonMakerNote().getSensorInfo().getWidth();
-//        return getExifIFD().getPixelXDimension();
+        final CR2SensorInfo sensorInfo = getCanonMakerNote().getSensorInfo();
+        return new Dimension(sensorInfo.getWidth(), sensorInfo.getHeight());
       }
-    
-    /*******************************************************************************************************************
-     * 
-     * @return
-     * 
-     ******************************************************************************************************************/
-    @Override
-    @Nonnegative
-    public int getHeight()
-      {
-        return getCanonMakerNote().getSensorInfo().getHeight();
-//        return getExifIFD().getPixelYDimension();
-      }
-    
+
     /*******************************************************************************************************************
      *
      * @inheritDoc

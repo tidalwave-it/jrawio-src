@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: TIFFMetadataSupport.java 84 2008-08-24 09:20:11Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -33,6 +33,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.awt.Dimension;
 import javax.imageio.metadata.IIOMetadataNode;
 import org.w3c.dom.Node;
 import it.tidalwave.imageio.io.RAWImageInputStream;
@@ -45,7 +46,7 @@ import it.tidalwave.imageio.raw.TagRegistry;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: TIFFMetadataSupport.java 84 2008-08-24 09:20:11Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class TIFFMetadataSupport extends RAWMetadataSupport
@@ -148,9 +149,9 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
      * 
      ******************************************************************************************************************/
     @Nonnegative
-    public int getWidth()
+    public final int getWidth()
       {
-        return rasterIFD.getImageWidth();
+        return getSize().width;
       }
     
     /*******************************************************************************************************************
@@ -161,11 +162,11 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
      * 
      ******************************************************************************************************************/
     @Nonnegative
-    public int getHeight()
+    public final int getHeight()
       {
-        return rasterIFD.getImageLength();
+        return getSize().height;
       }
-    
+
     /*******************************************************************************************************************
      * 
      * Returns the thumbnail width.
@@ -507,6 +508,17 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
         node.appendChild(child);
 
         return node;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    protected Dimension getSize()
+      {
+        // FIXME: run the postprocessor here
+        return new Dimension(rasterIFD.getImageWidth(), rasterIFD.getImageLength());
       }
 
     /*******************************************************************************************************************

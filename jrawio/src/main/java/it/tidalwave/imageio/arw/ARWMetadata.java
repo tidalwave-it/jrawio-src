@@ -22,13 +22,13 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ARWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.arw;
 
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.awt.Dimension;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -42,7 +42,7 @@ import it.tidalwave.imageio.raw.HeaderProcessor;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ARWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ARWMetadata extends TIFFMetadataSupport
@@ -139,27 +139,16 @@ public class ARWMetadata extends TIFFMetadataSupport
         return ifd.isJPEGInterchangeFormatAvailable();
       }
     
+
     /*******************************************************************************************************************
-     * 
+     *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
-    @Nonnegative
     @Override
-    public int getWidth()
+    @Nonnull
+    protected Dimension getSize()
       {
-        return minoltaRawData.getPRD().getCcdSize().width;
-      }
-    
-    /*******************************************************************************************************************
-     * 
-     * {@inheritDoc}
-     * 
-     ******************************************************************************************************************/
-    @Nonnegative
-    @Override
-    public int getHeight()
-      {
-        return minoltaRawData.getPRD().getCcdSize().height;
+        return minoltaRawData.getPRD().getCcdSize();
       }
   }

@@ -29,6 +29,7 @@ package it.tidalwave.imageio.mrw;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import java.awt.Dimension;
 import java.io.InputStream;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.minolta.MinoltaRawData;
@@ -95,30 +96,6 @@ public class MRWMetadata extends TIFFMetadataSupport
      * {@inheritDoc}
      * 
      ******************************************************************************************************************/
-    @Override
-    public int getWidth()
-      {
-        return getMinoltaRawData().getPRD().getCcdSize().width;
-//        return getPrimaryIFD().getImageWidth();
-      }
-    
-    /*******************************************************************************************************************
-     * 
-     * {@inheritDoc}
-     * 
-     ******************************************************************************************************************/
-    @Override
-    public int getHeight()
-      {
-        return getMinoltaRawData().getPRD().getCcdSize().height;
-//        return getPrimaryIFD().getImageLength();
-      }
-    
-    /*******************************************************************************************************************
-     * 
-     * {@inheritDoc}
-     * 
-     ******************************************************************************************************************/
     @CheckForNull
     public MinoltaMakerNote getMinoltaMakerNote()
       {
@@ -135,6 +112,18 @@ public class MRWMetadata extends TIFFMetadataSupport
         return ((MRWHeaderProcessor)headerProcessor).getMinoltaRawData();
       }
     
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    @Nonnull
+    protected Dimension getSize()
+      {
+        return getMinoltaRawData().getPRD().getCcdSize();
+      }
+
     /*******************************************************************************************************************
      * 
      * {@inheritDoc}
