@@ -56,7 +56,7 @@ public class ARWProcessorTest extends NewImageReaderTestSupport
                             image(3872, 2592, 3, 16, "a59c30e56317e6d18c52ea01accc3468").
                             thumbnail(640, 480).
                             thumbnail(160, 120).
-                            issues("JRW-127")
+                            issues("JRW-127", "JRW-198")
 
           );
       }
