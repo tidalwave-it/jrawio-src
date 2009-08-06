@@ -32,6 +32,8 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Dimension;
+import javax.annotation.CheckForNull;
+import javax.imageio.ImageReader;
 
 /***********************************************************************************************************************
  *
@@ -91,11 +93,26 @@ public final class ExpectedResults
           }
       }
 
+    public static interface Extra
+      {
+        public void run (@Nonnull ImageReader ir)
+          throws Exception;
+      }
+
     @Nonnull
     private final String path;
 
     private final List<Image> images = new ArrayList<Image>();
+
     private final List<Image> thumbnails = new ArrayList<Image>();
+
+    @Nonnegative
+    private Extra extra = new Extra()
+      {
+        public void run (@Nonnull final ImageReader ir)
+          {
+          }
+      };
 
     private ExpectedResults (@Nonnull final String path)
       {
@@ -139,6 +156,12 @@ public final class ExpectedResults
       }
 
     @Nonnull
+    public Extra getExtra()
+      {
+        return extra;
+      }
+
+    @Nonnull
     public ExpectedResults image (final @Nonnegative int width,
                                   final @Nonnegative int height,
                                   final @Nonnegative int bandCount,
@@ -160,6 +183,13 @@ public final class ExpectedResults
     @Nonnull
     public ExpectedResults issues (final @Nonnull String ... issues)
       {
+        return this;
+      }
+
+    @Nonnull
+    public ExpectedResults extra (final @Nonnull Extra extra)
+      {
+        this.extra = extra;
         return this;
       }
   }

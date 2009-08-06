@@ -60,6 +60,8 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
     public final void testImage()
       throws Exception
       {
+        final List<Throwable> errors = new ArrayList<Throwable>();
+        
         final ImageReader ir = getImageReader(expectedResults.getPath());
 
         final int imageCount = expectedResults.getImageCount();
@@ -69,34 +71,81 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
 
         for (int i = 0; i < imageCount; i++)
           {
-            final ExpectedResults.Image expectedImage = expectedResults.getImage(i);
-            final Dimension size = expectedImage.getSize();
-            assertImage(ir, size.width, size.height);
+            try
+              {
+                final ExpectedResults.Image expectedImage = expectedResults.getImage(i);
+                final Dimension size = expectedImage.getSize();
+                assertImage(ir, size.width, size.height);
+              }
+            catch (Throwable e)
+              {
+                errors.add(e);
+              }
           }
 
         for (int t = 0; t < thumbnailCount; t++)
           {
-            final ExpectedResults.Image expectedThumbnail = expectedResults.getThumbnail(t);
-            final Dimension size = expectedThumbnail.getSize();
-            assertThumbnail(ir, t, size.width, size.height);
+            try
+              {
+                final ExpectedResults.Image expectedThumbnail = expectedResults.getThumbnail(t);
+                final Dimension size = expectedThumbnail.getSize();
+                assertThumbnail(ir, t, size.width, size.height);
+              }
+            catch (Throwable e)
+              {
+                errors.add(e);
+              }
           }
 
         for (int i = 0; i < imageCount; i++)
           {
-            final ExpectedResults.Image expectedImage = expectedResults.getImage(i);
-            final Dimension size = expectedImage.getSize();
-            final BufferedImage image = assertLoadImage(ir, size.width, size.height, expectedImage.getBandCount(), expectedImage.getBitsPerSample());
-            assertRaster(image, expectedResults.getPath(), expectedImage.getFingerPrint());
+            try
+              {
+                final ExpectedResults.Image expectedImage = expectedResults.getImage(i);
+                final Dimension size = expectedImage.getSize();
+                final BufferedImage image = assertLoadImage(ir, size.width, size.height, expectedImage.getBandCount(), expectedImage.getBitsPerSample());
+                assertRaster(image, expectedResults.getPath(), expectedImage.getFingerPrint());
+              }
+            catch (Throwable e)
+              {
+                errors.add(e);
+              }
           }
 
         for (int t = 0; t < thumbnailCount; t++)
           {
-            final ExpectedResults.Image expectedThumbnail = expectedResults.getThumbnail(t);
-            final Dimension size = expectedThumbnail.getSize();
-            assertLoadThumbnail(ir, t, size.width, size.height);
+            try
+              {
+                final ExpectedResults.Image expectedThumbnail = expectedResults.getThumbnail(t);
+                final Dimension size = expectedThumbnail.getSize();
+                assertLoadThumbnail(ir, t, size.width, size.height);
+              }
+            catch (Throwable e)
+              {
+                errors.add(e);
+              }
+          }
+
+        try
+          {
+            expectedResults.getExtra().run(ir);
+          }
+        catch (Throwable e)
+          {
+            errors.add(e);
           }
 
         close(ir);
+
+        if (!errors.isEmpty())
+          {
+            fail("" + errors.toString());
+
+            for (final Throwable error : errors)
+              {
+                error.printStackTrace();
+              }
+          }
       }
 
     @Nonnull
