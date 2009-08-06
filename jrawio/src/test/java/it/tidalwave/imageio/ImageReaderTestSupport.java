@@ -97,8 +97,8 @@ public class ImageReaderTestSupport extends TestSupport
     protected void assertImage (final ImageReader ir, final int width, final int height) 
       throws IOException 
       {
-        assertEquals(width, ir.getWidth(0));
-        assertEquals(height, ir.getHeight(0));
+        assertEquals("imageWidth", width, ir.getWidth(0));
+        assertEquals("imageHeight", height, ir.getHeight(0));
       }
 
     /*******************************************************************************************************************
@@ -108,8 +108,8 @@ public class ImageReaderTestSupport extends TestSupport
     protected void assertThumbnail (final ImageReader ir, final int thumbnailIndex, final int width, final int height) 
       throws IOException 
       {
-        assertEquals(width, ir.getThumbnailWidth(0, thumbnailIndex));
-        assertEquals(height, ir.getThumbnailHeight(0, thumbnailIndex));
+        assertEquals("thumbnailWidth", width, ir.getThumbnailWidth(0, thumbnailIndex));
+        assertEquals("thumbnailHeight", height, ir.getThumbnailHeight(0, thumbnailIndex));
       }
     
     /*******************************************************************************************************************

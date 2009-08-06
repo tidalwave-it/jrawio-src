@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ThumbnailHelper.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio;
@@ -39,7 +39,7 @@ import org.junit.Test;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWMetadata.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class TestSupport 
@@ -78,9 +78,9 @@ public class TestSupport
             e.printStackTrace();
           }
       }
-
-    @Test(timeout=60000)
-    public void dummy() // FIXME: drop it, make this class ignored
-      {
-      }
+//
+//    @Test(timeout=60000)
+//    public void dummy() // FIXME: drop it, make this class ignored
+//      {
+//      }
   }
