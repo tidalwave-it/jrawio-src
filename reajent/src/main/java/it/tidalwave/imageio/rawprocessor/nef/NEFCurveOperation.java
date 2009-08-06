@@ -59,8 +59,6 @@ public class NEFCurveOperation extends CurveOperation
         
         if (makerNote.isCompressionDataAvailable())
           {
-            final int[] linearizationTable = makerNote.getLinearizationTable().getValues();
-            whiteLevel = linearizationTable[linearizationTable.length - 1];
             whiteLevel = makerNote.getLinearizationTable().getWhiteLevel();
             logger.finer(">>>> whiteLevel from linearizationTable: %s", whiteLevel);
           }
