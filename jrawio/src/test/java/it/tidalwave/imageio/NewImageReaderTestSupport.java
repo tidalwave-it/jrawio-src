@@ -34,6 +34,7 @@ import java.util.List;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageReader;
+import it.tidalwave.imageio.util.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -48,6 +49,9 @@ import static org.junit.Assert.*;
 @RunWith(value=Parameterized.class)
 public class NewImageReaderTestSupport extends ImageReaderTestSupport
   {
+    private final static String CLASS = NewImageReaderTestSupport.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+    
     @Nonnull
     private final ExpectedResults expectedResults;
 
@@ -63,11 +67,10 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
         final List<Throwable> errors = new ArrayList<Throwable>();
         
         final ImageReader ir = getImageReader(expectedResults.getPath());
-
         final int imageCount = expectedResults.getImageCount();
         final int thumbnailCount = expectedResults.getThumbnailCount();
-        assertEquals("imageCount", imageCount, ir.getNumImages(false));
-        assertEquals("thumbnailCount", thumbnailCount, ir.getNumThumbnails(0));
+        assertEquals("image count", imageCount, ir.getNumImages(false));
+        assertEquals("thumbnail count", thumbnailCount, ir.getNumThumbnails(0));
 
         for (int i = 0; i < imageCount; i++)
           {
@@ -139,12 +142,12 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
 
         if (!errors.isEmpty())
           {
-            fail("" + errors.toString());
-
             for (final Throwable error : errors)
               {
-                error.printStackTrace();
+                logger.throwing(CLASS, "================================================================", error);
               }
+
+            fail("" + errors.toString());
           }
       }
 

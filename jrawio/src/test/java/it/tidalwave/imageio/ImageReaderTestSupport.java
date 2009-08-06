@@ -45,6 +45,7 @@ import javax.imageio.spi.ImageReaderSpi;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import it.tidalwave.imageio.util.Logger;
+import java.awt.Dimension;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 
@@ -97,8 +98,9 @@ public class ImageReaderTestSupport extends TestSupport
     protected void assertImage (final ImageReader ir, final int width, final int height) 
       throws IOException 
       {
-        assertEquals("image width",  width, ir.getWidth(0));
-        assertEquals("image height", height, ir.getHeight(0));
+        final Dimension imageSize = new Dimension(ir.getWidth(0), ir.getHeight(0));
+        final Dimension expectedSize = new Dimension(width, height);
+        assertEquals("metadata image size: ", expectedSize, imageSize);
       }
 
     /*******************************************************************************************************************
@@ -108,8 +110,10 @@ public class ImageReaderTestSupport extends TestSupport
     protected void assertThumbnail (final ImageReader ir, final int thumbnailIndex, final int width, final int height) 
       throws IOException 
       {
-        assertEquals("thumbnail width",  width, ir.getThumbnailWidth(0, thumbnailIndex));
-        assertEquals("thumbnail height", height, ir.getThumbnailHeight(0, thumbnailIndex));
+        final Dimension thumbnailSize = new Dimension(ir.getThumbnailWidth(0, thumbnailIndex),
+                                                      ir.getThumbnailHeight(0, thumbnailIndex));
+        final Dimension expectedSize = new Dimension(width, height);
+        assertEquals("metadata thumbnail size: ", expectedSize, thumbnailSize);
       }
     
     /*******************************************************************************************************************
@@ -127,8 +131,9 @@ public class ImageReaderTestSupport extends TestSupport
       {
         final BufferedImage image = ir.read(0);
         assertNotNull(image);
-        assertEquals("loaded image width",      width, image.getWidth());
-        assertEquals("loaded image height",     height, image.getHeight());
+        final Dimension imageSize = new Dimension(image.getWidth(), image.getHeight());
+        final Dimension expectedSize = new Dimension(width, height);
+        assertEquals("loaded image size: ", expectedSize, imageSize);
         assertEquals("loaded image band count", bandCount, image.getData().getNumBands());
 
         for (int i = 0; i < bandCount; i++)
@@ -154,8 +159,9 @@ public class ImageReaderTestSupport extends TestSupport
       {
         final BufferedImage image = ir.read(0);
         assertNotNull(image);
-        assertEquals("loaded image width",      width, image.getWidth());
-        assertEquals("loaded image height",     height, image.getHeight());
+        final Dimension imageSize = new Dimension(image.getWidth(), image.getHeight());
+        final Dimension expectedSize = new Dimension(width, height);
+        assertEquals("loaded image size: ", expectedSize, imageSize);
         assertEquals("loaded image band count", bandCount, image.getData().getNumBands());
         assertEquals(type, image.getType());
 
@@ -179,9 +185,10 @@ public class ImageReaderTestSupport extends TestSupport
       throws IOException 
       {
         final BufferedImage thumbnail = ir.readThumbnail(0, thumbnailIndex);
-        assertNotNull(thumbnail);
-        assertEquals(width, thumbnail.getWidth());
-        assertEquals(height, thumbnail.getHeight());
+        assertNotNull("loaded thumbnail is null", thumbnail);
+        final Dimension thumbnailSize = new Dimension(thumbnail.getWidth(), thumbnail.getHeight());
+        final Dimension expectedSize = new Dimension(width, height);
+        assertEquals("loaded thumbnail size: ", expectedSize, thumbnailSize);
         return thumbnail;
       }
     
