@@ -27,8 +27,13 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.crw;
 
-import it.tidalwave.imageio.ImageReaderTestSupport;
-import org.junit.Test;
+import javax.annotation.Nonnull;
+import java.util.Collection;
+import javax.imageio.ImageReader;
+import it.tidalwave.imageio.ExpectedResults;
+import it.tidalwave.imageio.NewImageReaderTestSupport;
+import org.junit.runners.Parameterized.Parameters;
+import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
  *
@@ -36,11 +41,34 @@ import org.junit.Test;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class CRWImageReaderTest extends ImageReaderTestSupport
+public class CRWImageReaderImageTest extends NewImageReaderTestSupport
   {
-    @Test
-    public void testMIMEType()
+    public CRWImageReaderImageTest (final @Nonnull ExpectedResults expectedResults)
       {
-        assertMIMETypes("crw", "image/x-canon-crw");
+        super(expectedResults);
       }
+
+    @Nonnull
+    @Parameters
+    public static Collection<Object[]> expectedResults()
+      {
+        return fixed
+          (
+            // EOS300D 
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/CRW/100_0056.CRW").
+                            image(3152, 2068, 3, 16, "b499a77c82e5289d043e2f330c6fffba").
+                            thumbnail(2048, 1360).
+                            extra(new ExpectedResults.Extra()
+                              {
+                                public void run (final @Nonnull ImageReader ir)
+                                  throws Exception
+                                  {
+                                    final CRWMetadata metadata = (CRWMetadata)ir.getImageMetadata(0);
+                                    assertNotNull(metadata);
+                                  }
+                              })
+          );
+      }
+
+//        assertImage(ir, 3072, 2048);
   }
