@@ -145,7 +145,23 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
                   }
                 else
                   {
-                    final Method getter = object.getClass().getMethod("get" + capitalized(property));
+                    Method getter = null;
+                    
+                    try
+                      {
+                        getter = object.getClass().getMethod("get" + capitalized(property));
+                      }
+                    catch (NoSuchMethodException e1)
+                      {
+                        try
+                          {
+                            getter = object.getClass().getMethod("is" + capitalized(property));
+                          }
+                        catch (NoSuchMethodException e2)
+                          {
+                            throw new NoSuchMethodException("Can't find getter for " + property);
+                          }
+                      }
                     object = getter.invoke(object);
                   }
               }
