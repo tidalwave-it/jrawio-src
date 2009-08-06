@@ -162,13 +162,51 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
                             throw new NoSuchMethodException("Can't find getter for " + property);
                           }
                       }
+
                     object = getter.invoke(object);
                   }
               }
 
             try
               {
-                assertEquals(entry.getKey(), entry.getValue(), object);
+                final Object expectedValue = entry.getValue();
+
+                if ((expectedValue != null) && expectedValue instanceof byte[])
+                  {
+                    assertArrayEquals(entry.getKey(), (byte[])expectedValue, (byte[])object);
+                  }
+                else if ((expectedValue != null) && expectedValue instanceof short[])
+                  {
+                    assertArrayEquals(entry.getKey(), (short[])expectedValue, (short[])object);
+                  }
+                else if ((expectedValue != null) && expectedValue instanceof int[])
+                  {
+                    assertArrayEquals(entry.getKey(), (int[])expectedValue, (int[])object);
+                  }
+                else if ((expectedValue != null) && expectedValue instanceof long[])
+                  {
+                    assertArrayEquals(entry.getKey(), (long[])expectedValue, (long[])object);
+                  }
+                else if ((expectedValue != null) && expectedValue instanceof char[])
+                  {
+                    assertArrayEquals(entry.getKey(), (char[])expectedValue, (char[])object);
+                  }
+//                else if ((expectedValue != null) && expectedValue instanceof float[])
+//                  {
+//                    assertArrayEquals(entry.getKey(), (float[])expectedValue, (float[])object);
+//                  }
+//                else if ((expectedValue != null) && expectedValue instanceof double[])
+//                  {
+//                    assertArrayEquals(entry.getKey(), (double[])expectedValue, (double[])object);
+//                  }
+                else if ((expectedValue != null) && expectedValue instanceof Object[])
+                  {
+                    assertArrayEquals(entry.getKey(), (Object[])expectedValue, (Object[])object);
+                  }
+                else
+                  {
+                    assertEquals(entry.getKey(), expectedValue, object);
+                  }
               }
             catch (Throwable e)
               {
