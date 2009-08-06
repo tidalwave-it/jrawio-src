@@ -27,11 +27,11 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.arw;
 
-import javax.imageio.ImageReader;
-import it.tidalwave.imageio.ImageReaderTestSupport;
-import java.awt.image.BufferedImage;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import it.tidalwave.imageio.ExpectedResults;
+import it.tidalwave.imageio.NewImageReaderTestSupport;
+import java.util.Collection;
+import javax.annotation.Nonnull;
+import org.junit.runners.Parameterized.Parameters;
 
 /***********************************************************************************************************************
  *
@@ -39,27 +39,25 @@ import static org.junit.Assert.*;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class ARWProcessorTest extends ImageReaderTestSupport
+public class ARWProcessorTest extends NewImageReaderTestSupport
   {
-    // JIRA issue JRW-127
-    @Test(timeout=60000)
-    public void testJRW127() 
-      throws Exception 
+    public ARWProcessorTest (final @Nonnull ExpectedResults expectedResults)
       {
-        final String path = "https://imaging.dev.java.net/nonav/TestSets/kijiro/Sony/A100/ARW/DSC00041.ARW";
-        final ImageReader ir = getImageReader(path);
-        assertEquals(1, ir.getNumImages(false));
-        assertEquals(2, ir.getNumThumbnails(0));
-        assertImage(ir, 3880, 2608); // FIXME should be cropped
-        // FIXME: you should swap them, smaller first
-        assertThumbnail(ir, 0, 3872, 2592);
-        assertThumbnail(ir, 1, 160, 120);
-        final BufferedImage image = assertLoadImage(ir, 3872, 2592, 3, 8); // FIXME: should be 16
-        assertLoadThumbnail(ir, 0, 640, 480); // FIXME: this is wrong, should be the 3872x2592
-        assertLoadThumbnail(ir, 1, 160, 120);
-        
-        assertRaster(image, path, "a59c30e56317e6d18c52ea01accc3468");
-        
-//        close(ir);
+        super(expectedResults);
+      }
+
+    @Nonnull
+    @Parameters
+    public static Collection<Object[]> expectedResults()
+      {
+        return fixed
+          (
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/kijiro/Sony/A100/ARW/DSC00041.ARW").
+                            image(3872, 2592, 3, 16, "a59c30e56317e6d18c52ea01accc3468").
+                            thumbnail(3872, 2592).
+                            thumbnail(160, 120).
+                            issues("JRW-127")
+
+          );
       }
   }
