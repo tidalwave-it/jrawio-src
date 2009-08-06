@@ -310,7 +310,6 @@ public class NEFImageReaderTest extends ImageReaderTestSupport
       }
 
     @Test(timeout=60000)
-//    @Test
     public void testNikonD90_1()
       throws Exception
       {

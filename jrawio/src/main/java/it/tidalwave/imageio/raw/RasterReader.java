@@ -302,11 +302,6 @@ public class RasterReader
 
         else
           {
-//            for (int i = 0; i < linearizationTable.length; i++)
-//              {
-//                logger.finest(">>>>>>>> table[%d] = %d (%x)", i, linearizationTable[i], linearizationTable[i]);
-//              }
-
             this.linearizationTable = new int[1 << 16];
             final int length = linearizationTable.length;
             System.arraycopy(linearizationTable, 0, this.linearizationTable, 0, length);

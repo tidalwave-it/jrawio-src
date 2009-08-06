@@ -236,20 +236,9 @@ public class NEFRasterReader extends RasterReader
                   }
 
                 final short value = (short)linearizationTable[clipped(hPredictor[x & 1], linearizationTable.length)];
-                
-//                if (y == 0)
-//                  {
-//                    System.err.printf("%d:%04x ", hPredictor[x & 1], value);
-//                  }
-
                 data[i + cfaOffsets[cfaIndex]] = value;
                 i += pixelStride;
               }
-
-//            if (y == 0)
-//              {
-//                System.err.println("");
-//              }
 
             ir.processImageProgress((100.0f * y) / height);
           }

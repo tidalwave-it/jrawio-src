@@ -113,7 +113,7 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
      * @return true if the lens name is available
      * 
      ******************************************************************************************************************/
-    public boolean isLensNameAvailable ()
+    public boolean isLensNameAvailable()
       {
         final NikonLensInfo lensInfo = getLensInfo2();
         return (lensInfo != null) && (lensInfo.getLensName() != null);
