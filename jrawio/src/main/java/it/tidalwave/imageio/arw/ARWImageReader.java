@@ -22,20 +22,21 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ARWImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.arw;
 
 import javax.annotation.CheckForNull;
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
-import javax.imageio.spi.ImageReaderSpi;
 import java.awt.image.WritableRaster;
+import javax.imageio.spi.ImageReaderSpi;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 import it.tidalwave.imageio.raw.RasterReader;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -47,6 +48,7 @@ class ARWPrimaryIFD extends IFD
   {
     private static final long serialVersionUID = -7810975852445063637L;
 
+    @Nonnegative
     public int getRasterOffset()
       {
         return super.getSubIFDs()[0];
@@ -89,10 +91,11 @@ class ARWPrimaryIFD extends IFD
 //        return result;
       }
   }
+
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ARWImageReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ARWImageReader extends TIFFImageReaderSupport
