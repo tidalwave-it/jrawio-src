@@ -22,14 +22,13 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: CRWMetadata.java 160 2008-09-13 19:51:30Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.crw;
 
 import java.util.Date;
 import java.util.Iterator;
-import it.tidalwave.imageio.util.Logger;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.ShortBuffer;
@@ -38,11 +37,14 @@ import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
+import it.tidalwave.imageio.util.Logger;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWMetadata.java 160 2008-09-13 19:51:30Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CRWMetadata extends TIFFMetadataSupport
@@ -70,10 +72,10 @@ public class CRWMetadata extends TIFFMetadataSupport
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    public CRWMetadata (CanonCRWMakerNote canonMakerNote, 
-                        Directory imageIFD, 
-                        RAWImageInputStream iis, 
-                        HeaderProcessor headerProcessor)
+    public CRWMetadata (final @Nonnull CanonCRWMakerNote canonMakerNote,
+                        final @Nonnull Directory imageIFD,
+                        final @Nonnull RAWImageInputStream iis,
+                        final @Nonnull HeaderProcessor headerProcessor)
       {
         super((IFD)imageIFD, iis, headerProcessor);
         this.canonMakerNote = canonMakerNote;
@@ -88,168 +90,183 @@ public class CRWMetadata extends TIFFMetadataSupport
          */
       }
 
-    /*******************************************************************************************************************
-     * 
-     * @inheritDoc
-     * 
-     *******************************************************************************/
+    @Nonnegative
     @Override
     public int getWidth()
       {
         return getImageWidth();
       }
     
-    /*******************************************************************************************************************
-     * 
-     * @inheritDoc
-     * 
-     *******************************************************************************/
+    @Nonnegative
     @Override
     public int getHeight()
       {
         return getImageHeight();
       }
     
-    public CanonCRWMakerNote getCanonMakerNote ()
+    public CanonCRWMakerNote getCanonMakerNote()
       {
         return canonMakerNote;
       }
 
-    public int getFileNumber ()
+    @Nonnegative
+    public int getFileNumber()
       {
         return findTag(CanonCRWMakerNote.FILE_NUMBER).getIntValues()[0];
       }
 
-    public int getImageWidth ()
+    @Nonnegative
+    public int getImageWidth()
       {
         return findTag(CanonCRWMakerNote.IMAGE_INFO).getIntValues()[0];
       }
 
-    public int getImageHeight ()
+    @Nonnegative
+    public int getImageHeight()
       {
         return findTag(CanonCRWMakerNote.IMAGE_INFO).getIntValues()[1];
       }
 
-    public int getThumbnailWidth ()
+    @Nonnegative
+    public int getThumbnailWidth()
       {
         return findTag(CanonCRWMakerNote.THUMBNAIL_INFO).getIntValues()[3];
       }
 
-    public int getThumbnailHeight ()
+    @Nonnegative
+    public int getThumbnailHeight()
       {
         return findTag(CanonCRWMakerNote.THUMBNAIL_INFO).getIntValues()[4];
       }
 
-    public float getPixelAspectRatio ()
+    @Nonnegative
+    public float getPixelAspectRatio()
       {
         return findTag(CanonCRWMakerNote.IMAGE_INFO).getFloatValues()[2];
       }
 
-    public int getRotation ()
+    public int getRotation()
       {
         return findTag(CanonCRWMakerNote.IMAGE_INFO).getIntValues()[3];
       }
 
-    public int getComponentBitDepth ()
+    @Nonnegative
+    public int getComponentBitDepth()
       {
         return findTag(CanonCRWMakerNote.IMAGE_INFO).getIntValues()[4];
       }
 
-    public int getColorBitDepth ()
+    @Nonnegative
+    public int getColorBitDepth()
       {
         return findTag(CanonCRWMakerNote.IMAGE_INFO).getIntValues()[5];
       }
 
-    public int getColorBW ()
+    public int getColorBW()
       {
         return findTag(CanonCRWMakerNote.IMAGE_INFO).getIntValues()[6];
       }
 
-    public Date getTimeStampAsDate ()
+    @Nonnull
+    public Date getTimeStampAsDate()
       {
         return new Date(findTag(CanonCRWMakerNote.TIME_STAMP).getIntValues()[0] * 1000L);
       }
 
-    public int getBaseISO ()
+    @Nonnegative
+    public int getBaseISO()
       {
         return findTag(CanonCRWMakerNote.BASE_ISO).getIntValues()[0];
       }
 
-    public String getFirmwareVersion ()
+    @Nonnull
+    public String getFirmwareVersion()
       {
         return findTag(CanonCRWMakerNote.CANON_FIRMWARE_VERSION).getASCIIValue();
       }
 
-    public String getModel ()
+    @Nonnull
+    public String getModel()
       {
         String s = findTag(CanonCRWMakerNote.CANON_RAW_MAKE_MODEL).getASCIIValue();
-        int i = s.indexOf(0);
+        final int i = s.indexOf(0);
 
         if (i >= 0)
-          s = s.substring(i + 1);
+          {
+            s = s.substring(i + 1);
+          }
 
         return s;
       }
 
-    public int getSensorWidth ()
+    @Nonnegative
+    public int getSensorWidth()
       {
         return findTag(CanonCRWMakerNote.SENSOR_INFO).getIntValues()[1];
       }
 
-    public int getSensorHeight ()
+    @Nonnegative
+    public int getSensorHeight()
       {
         return findTag(CanonCRWMakerNote.SENSOR_INFO).getIntValues()[2];
       }
 
-    public int getSensorLeftBorder ()
+    @Nonnegative
+    public int getSensorLeftBorder()
       {
         return findTag(CanonCRWMakerNote.SENSOR_INFO).getIntValues()[5];
       }
 
-    public int getSensorTopBorder ()
+    @Nonnegative
+    public int getSensorTopBorder()
       {
         return findTag(CanonCRWMakerNote.SENSOR_INFO).getIntValues()[6];
       }
 
-    public int getSensorRightBorder ()
+    @Nonnegative
+    public int getSensorRightBorder()
       {
         return findTag(CanonCRWMakerNote.SENSOR_INFO).getIntValues()[7];
       }
 
-    public int getSensorBottomBorder ()
+    @Nonnegative
+    public int getSensorBottomBorder()
       {
         return findTag(CanonCRWMakerNote.SENSOR_INFO).getIntValues()[8];
       }
 
-    public float getFocalLength ()
+    @Nonnegative
+    public float getFocalLength()
       {
         return findTag(CanonCRWMakerNote.FOCAL_LENGTH).getIntValues()[1];
       }
 
-    public int getSerialNumber ()
+    public int getSerialNumber()
       {
         return findTag(CanonCRWMakerNote.SERIAL_NUMBER).getIntValues()[0];
       }
-    
-    public int[] getDecoderTable ()
+
+    @Nonnull
+    public int[] getDecoderTable()
       {
         return findTag(CanonCRWMakerNote.DECODER_TABLE).getIntValues();
       }
             
-    public CanonCRWMakerNote findCameraSettings ()
+    @Nonnull
+    public CanonCRWMakerNote findCameraSettings()
       {
         return findDirectory(CanonCRWMakerNote.CANON_CAMERA_SETTINGS);
       }
 
     /*******************************************************************************************************************
-     * 
+     *
      * @return
-     * 
-     *******************************************************************************/
-    public int getWhiteBalance ()
+     *
+     ******************************************************************************************************************/
+    public int getWhiteBalance()
       {
         int wb = findTag(CanonCRWMakerNote.CANON_SHOT_INFO).getIntValues()[14];
-        String model = getModel();
+        final String model = getModel();
 
         if ((wb == 6) && ("Canon EOS DIGITAL REBEL".equals(model) || "Canon EOS 300D DIGITAL".equals(model)))
           {
@@ -268,8 +285,9 @@ public class CRWMetadata extends TIFFMetadataSupport
      * 
      * @return
      * 
-     *******************************************************************************/
-    public String getWhiteBalanceAsString ()
+     ******************************************************************************************************************/
+    @Nonnull
+    public String getWhiteBalanceAsString()
       {
         int whiteBalance = getWhiteBalance();
 
@@ -277,42 +295,44 @@ public class CRWMetadata extends TIFFMetadataSupport
       }
 
     /*******************************************************************************************************************
-     * 
+     *
      * @return
-     * 
-     *******************************************************************************/
-    public double[] getRBCoefficients ()
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public double[] getRBCoefficients()
       {
-        double[] rbCoefficients = { 1, 1 };
-        int wb = getWhiteBalance();
-        CIFFTag d60tag = findTag(CanonCRWMakerNote.D60_RED_BLUE_COEFFICIENTS);
-        CIFFTag d30tag = findTag(CanonCRWMakerNote.D30_WHITE_BALANCE);
-        CIFFTag g2tag = findTag(CanonCRWMakerNote.G2_WHITE_BALANCE);
-        String model = getModel();
+        final double[] rbCoefficients = { 1, 1 };
+        final int wb = getWhiteBalance();
+        final CIFFTag d60tag = findTag(CanonCRWMakerNote.D60_RED_BLUE_COEFFICIENTS);
+        final CIFFTag d30tag = findTag(CanonCRWMakerNote.D30_WHITE_BALANCE);
+        final CIFFTag g2tag = findTag(CanonCRWMakerNote.G2_WHITE_BALANCE);
+        final String model = getModel();
 
         if (d30tag != null)
           {
-            ShortBuffer sb = ByteBuffer.wrap(d30tag.getByteValues()).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer();
-            short[] xx = new short[sb.capacity()];
+            final ShortBuffer sb = ByteBuffer.wrap(d30tag.getByteValues()).order(ByteOrder.LITTLE_ENDIAN).asShortBuffer();
+            final short[] xx = new short[sb.capacity()];
             sb.get(xx);
             int scan = 36;
             logger.fine("GETTING RB COEFF FROM D30 TAG AT %d", scan);
 
             int[] obfuscator = NO_OBFUSCATOR;
+
             if ("Canon PowerShot G6".equals(model) || "Canon PowerShot S60".equals(model)
                 || "Canon PowerShot S70".equals(model) || "Canon PowerShot Pro1".equals(model))
-              obfuscator = RB_OBFUSCATOR;
+              {
+                obfuscator = RB_OBFUSCATOR;
+              }
 
-            rbCoefficients[0] = (double)((xx[scan + 1] & 0xffff) ^ obfuscator[1])
-                / ((xx[scan + 0] & 0xffff) ^ obfuscator[0]);
-            rbCoefficients[1] = (double)((xx[scan + 2] & 0xffff) ^ obfuscator[0])
-                / ((xx[scan + 3] & 0xffff) ^ obfuscator[1]);
+            rbCoefficients[0] = (double)((xx[scan + 1] & 0xffff) ^ obfuscator[1]) / ((xx[scan + 0] & 0xffff) ^ obfuscator[0]);
+            rbCoefficients[1] = (double)((xx[scan + 2] & 0xffff) ^ obfuscator[0]) / ((xx[scan + 3] & 0xffff) ^ obfuscator[1]);
           }
 
         else if (g2tag != null)
           {
-            int[] xx = g2tag.getIntValues();
-            int scan = 50;
+            final int[] xx = g2tag.getIntValues();
+            final int scan = 50;
 
             /*            if ("Canon PowerShot G1".equals(model) || "Canon PowerShot Pro90 IS".equals(model))
              {
@@ -327,8 +347,8 @@ public class CRWMetadata extends TIFFMetadataSupport
 
         if (d60tag != null)
           {
-            int[] xx = d60tag.getIntValues();
-            int scan = 1 + wb * 4;
+            final int[] xx = d60tag.getIntValues();
+            final int scan = 1 + wb * 4;
             logger.fine("GETTING RB COEFF FROM D60 TAG AT %d", scan);
             rbCoefficients[0] = (double)xx[scan + 0] / xx[scan + 1];
             rbCoefficients[1] = (double)xx[scan + 3] / xx[scan + 2];
@@ -348,8 +368,8 @@ public class CRWMetadata extends TIFFMetadataSupport
      * 
      * @return true if the color temperature is available
      * 
-     *******************************************************************************/
-    public boolean isColorTemperatureAvailable ()
+     ******************************************************************************************************************/
+    public boolean isColorTemperatureAvailable()
       {
         return findTag(CanonCRWMakerNote.COLOR_TEMPERATURE) != null;
       }
@@ -360,8 +380,9 @@ public class CRWMetadata extends TIFFMetadataSupport
      * 
      * @return  the color temperature
      * 
-     *******************************************************************************/
-    public int getColorTemperature ()
+     ******************************************************************************************************************/
+    @Nonnegative
+    public int getColorTemperature()
       {
         return findTag(CanonCRWMakerNote.COLOR_TEMPERATURE).getIntValues()[0];
       }
@@ -376,14 +397,15 @@ public class CRWMetadata extends TIFFMetadataSupport
      */
 
     /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
      * 
-     * @inheritDoc
-     * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
+    @Nonnull
     @Override
-    public String toString ()
+    public String toString()
       {
-        StringBuffer buffer = new StringBuffer(super.toString());
+        final StringBuilder buffer = new StringBuilder(super.toString());
 
         buffer.append("\n>>>>FileNumber: " + getFileNumber());
         buffer.append("\n>>>>FocalLengh: " + getFocalLength());
@@ -413,7 +435,7 @@ public class CRWMetadata extends TIFFMetadataSupport
             buffer.append("\n>>>>ColorTemperature: " + getColorTemperature());
           }
 
-        double[] rbCoefficients = getRBCoefficients();
+        final double[] rbCoefficients = getRBCoefficients();
 
         if (rbCoefficients != null)
           {
@@ -429,9 +451,10 @@ public class CRWMetadata extends TIFFMetadataSupport
      * @param code
      * @return
      * 
-     *******************************************************************************/
-    private CIFFTag findTag (CanonCRWMakerNote dir,
-                             Object code)
+     ******************************************************************************************************************/
+    @Nonnull
+    private CIFFTag findTag (final @Nonnull CanonCRWMakerNote dir,
+                             final @Nonnull Object code)
       {
         CIFFTag tag = (CIFFTag)dir.getTag(code);
 
@@ -457,8 +480,9 @@ public class CRWMetadata extends TIFFMetadataSupport
      * @param code
      * @return
      * 
-     *******************************************************************************/
-    private CIFFTag findTag (Object code)
+     ******************************************************************************************************************/
+    @Nonnull
+    private CIFFTag findTag (final @Nonnull Object code)
       {
         return findTag(canonMakerNote, code);
       }
@@ -469,9 +493,10 @@ public class CRWMetadata extends TIFFMetadataSupport
      * @param code
      * @return
      * 
-     *******************************************************************************/
-    private CanonCRWMakerNote findDirectory (CanonCRWMakerNote dir,
-                                             Object code)
+     ******************************************************************************************************************/
+    @Nonnull
+    private CanonCRWMakerNote findDirectory (final @Nonnull CanonCRWMakerNote dir,
+                                             final @Nonnull Object code)
       {
         if (dir.containsTag(code))
           {
@@ -497,8 +522,9 @@ public class CRWMetadata extends TIFFMetadataSupport
      * @param code
      * @return
      * 
-     *******************************************************************************/
-    private CanonCRWMakerNote findDirectory (Object code)
+     ******************************************************************************************************************/
+    @Nonnull
+    private CanonCRWMakerNote findDirectory (final @Nonnull Object code)
       {
         return findDirectory(canonMakerNote, code);
       }
