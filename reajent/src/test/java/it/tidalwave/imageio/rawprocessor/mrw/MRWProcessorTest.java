@@ -27,11 +27,11 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.mrw;
 
-import javax.imageio.ImageReader;
-import it.tidalwave.imageio.ImageReaderTestSupport;
-import java.awt.image.BufferedImage;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import javax.annotation.Nonnull;
+import java.util.Collection;
+import it.tidalwave.imageio.ExpectedResults;
+import it.tidalwave.imageio.NewImageReaderTestSupport;
+import org.junit.runners.Parameterized.Parameters;
 
 /***********************************************************************************************************************
  *
@@ -39,24 +39,24 @@ import static org.junit.Assert.*;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class MRWProcessorTest extends ImageReaderTestSupport
+public class MRWProcessorTest  extends NewImageReaderTestSupport
   {
-    @Test(timeout=60000)
-    public void testPICT0652_MRW() 
-      throws Exception 
+    public MRWProcessorTest (final @Nonnull ExpectedResults expectedResults)
       {
-        final String path = "https://imaging.dev.java.net/nonav/TestSets/others/theoheinze/Minolta/Dynax7D/MRW/PICT0652.MRW";
-        final ImageReader ir = getImageReader(path);
-        assertEquals(1, ir.getNumImages(false));
-        assertEquals(1, ir.getNumThumbnails(0));
-        assertImage(ir, 3008, 2000); // FIXME should be cropped
-        // FIXME: you should swap them, smaller first
-        assertThumbnail(ir, 0, 640, 480);
-        final BufferedImage image = assertLoadImage(ir, 3008, 2000, 3, 8); // FIXME: should be 16
-        assertLoadThumbnail(ir, 0, 640, 480);
-        
-        assertRaster(image, path, "b6409343ca012991318351d5ca004e68");
-        
-//        close(ir);
+        super(expectedResults);
+      }
+
+    @Nonnull
+    @Parameters
+    public static Collection<Object[]> expectedResults()
+      {
+        return fixed
+          (
+            // Dynax 7D
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/theoheinze/Minolta/Dynax7D/MRW/PICT0652.MRW").
+                            image(3008, 2000, 3, 8, "b6409343ca012991318351d5ca004e68").
+                            thumbnail(640, 480).
+                            issues("JRW-152")
+          );
       }
   }
