@@ -27,10 +27,13 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.cr2;
 
-import java.util.List;
-import it.tidalwave.imageio.rawprocessor.RAWProcessor;
-import it.tidalwave.imageio.rawprocessor.raw.ColorProfileOperation;
-import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
+import javax.annotation.Nonnull;
+import java.awt.Insets;
+import it.tidalwave.imageio.cr2.CR2Metadata;
+import it.tidalwave.imageio.cr2.CR2SensorInfo;
+import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -38,22 +41,34 @@ import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class CR2Processor extends RAWProcessor
+public class CR2SizeOperation extends SizeOperation
   {
+    private final static Logger logger = getLogger(CR2SizeOperation.class);
+    
     /*******************************************************************************************************************
      *
-     * @inheritDoc
+     * @{@inheritDoc}
      *
      ******************************************************************************************************************/
-    protected void buildPipeline (List operationList)
+    @Override
+    @Nonnull 
+    protected Insets getCrop (@Nonnull final RAWImage image)
       {
-        operationList.add(new CR2WhiteBalanceOperation());
-//        operationList.add(new NEFExposureOperation());
-//        operationList.add(new ComputeBlackLevelsOperation());
-        operationList.add(new CR2CurveOperation());
-        operationList.add(new DemosaicOperation());
-        operationList.add(new CR2SizeOperation());
-        operationList.add(new ColorProfileOperation());
-//        operationList.add(new SharpenOperation());
+        logger.fine("getCrop()");
+        Insets crop = super.getCrop(image);
+        final int rotation = normalizedAngle(image.getRotation());
+//        crop = rotate(crop, rotation);
+        logger.finer(">>>> rotation: %d, crop: %s", rotation, crop);
+
+        final CR2Metadata metadata = (CR2Metadata)image.getRAWMetadata();
+        final CR2SensorInfo sensorInfo = metadata.getCanonMakerNote().getSensorInfo();
+        crop.left = sensorInfo.getCropLeft();
+        crop.top = sensorInfo.getCropTop();
+        crop.right = sensorInfo.getCropRight();
+        crop.bottom = sensorInfo.getCropBottom();
+        
+        logger.fine(">>>> returning crop: %s", crop);
+        
+        return crop;
       }
   }
