@@ -60,7 +60,7 @@ public class MRWImageReaderImageTest extends NewImageReaderTestSupport
       {
         return fixed
           (
-            // EOS300D
+            // Dynax 7D
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/theoheinze/Minolta/Dynax7D/MRW/PICT0652.MRW").
                             image(3016, 2008, 3, 16, "152b5d95ad3bc6d69eb2f7da721bfc96").
                             thumbnail(640, 480).
