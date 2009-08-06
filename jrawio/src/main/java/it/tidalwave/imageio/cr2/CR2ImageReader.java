@@ -22,22 +22,22 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: CR2ImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.cr2;
 
-import it.tidalwave.imageio.util.Logger;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
 import javax.imageio.spi.ImageReaderSpi;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CR2ImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CR2ImageReader extends TIFFImageReaderSupport
@@ -65,11 +65,12 @@ public class CR2ImageReader extends TIFFImageReaderSupport
         logger.fine("loadRAWRaster() - iis: %s", iis);
         long time = System.currentTimeMillis();
         
-        CR2RasterReader rasterReader = new CR2RasterReader();
-        IFD rasterIFD = ((CR2Metadata)metadata).getRasterIFD();
-        CanonCR2MakerNote cr2MakerNote = (CanonCR2MakerNote)makerNote;
-        rasterReader.setWidth(cr2MakerNote.getSensorWidth());
-        rasterReader.setHeight(cr2MakerNote.getSensorHeight());
+        final CR2RasterReader rasterReader = new CR2RasterReader();
+        final IFD rasterIFD = ((CR2Metadata)metadata).getRasterIFD();
+        final CanonCR2MakerNote cr2MakerNote = (CanonCR2MakerNote)makerNote;
+        final CR2SensorInfo sensorInfo = cr2MakerNote.getSensorInfo();
+        rasterReader.setWidth(sensorInfo.getWidth());
+        rasterReader.setHeight(sensorInfo.getHeight());
         rasterReader.setBitsPerSample(12); // FIXME - gets from the model
         rasterReader.setCFAPattern(new byte[] { 0, 1, 1, 2 }); // FIXME RGGB - gets from the model
         iis.seek(rasterIFD.getStripOffsets());

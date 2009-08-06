@@ -22,61 +22,76 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: CanonCR2MakerNote.java 85 2008-08-24 09:35:51Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.cr2;
 
+import it.tidalwave.imageio.util.Logger;
 import java.util.Properties;
 import java.io.IOException;
 import java.io.InputStream;
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CanonCR2MakerNote.java 85 2008-08-24 09:35:51Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CanonCR2MakerNote extends CanonCR2MakerNoteSupport
   {
+    private static final String CLASS = CanonCR2MakerNote.class.getName();
+    private static final Logger logger = Logger.getLogger(CLASS);
+    
     private static Properties lensNameByID = new Properties();
     private final static long serialVersionUID = 6347805638960118907L;
+
+    @CheckForNull
+    private transient CR2SensorInfo sensorInfo;
 
     static
       {
         try
           {
-            InputStream is = CanonCR2MakerNote.class.getResourceAsStream("CanonLens.properties");
+            final InputStream is = CanonCR2MakerNote.class.getResourceAsStream("CanonLens.properties");
             lensNameByID.load(is);
             is.close();
           }
         catch (IOException e)
           {
-            e.printStackTrace(); // TODO
+            logger.warning("Can't load CanonLens.properties: %s", e);
+            logger.throwing(CLASS, "", e);
           }
       }
 
-    public int getLensType ()
+    @Nonnull
+    public synchronized  CR2SensorInfo getSensorInfo()
+      {
+        if (sensorInfo == null)
+          {
+            sensorInfo = new CR2SensorInfo(getSensorInfoAsIntegers());
+          }
+
+        return sensorInfo;
+      }
+
+    @Nonnegative
+    public int getLensType()
       {
         return 0; // getCanonCameraSettings()[22]; FIXME
       }
 
-    public String getLensName ()
+    @Nonnull
+    public String getLensName()
       {
         return lensNameByID.getProperty("" + getLensType());
       }
 
-    public int getSensorWidth ()
-      {
-        return getSensorInfo()[1];
-      }
-
-    public int getSensorHeight()
-      {
-        return getSensorInfo()[2];
-      }
-    
     @Override
+    @Nonnull
     public String getOwnerName()
       {
         String artist = super.getOwnerName();
@@ -90,6 +105,7 @@ public class CanonCR2MakerNote extends CanonCR2MakerNoteSupport
         return artist;
       }
     
+    @Nonnull
     public short[] getWhiteBalanceCoefficients()
       {
         int[] wbi = getWhiteBalanceInfo();
@@ -121,7 +137,7 @@ public class CanonCR2MakerNote extends CanonCR2MakerNoteSupport
             for (int i = 0; i < coefficients.length; i++)
               {
                 coefficients[i] = (short)wbi[offset + i];  
-                System.err.println("COEEFICIENT[" + i + "]=" + coefficients[i]);
+                logger.finer(">>>> wb coefficient[%d]=%f", i, coefficients[i]);
               }
           }
         
