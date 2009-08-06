@@ -28,13 +28,11 @@
 package it.tidalwave.imageio.cr2;
 
 import javax.annotation.Nonnull;
-import javax.imageio.ImageReader;
 import java.util.Collection;
 import java.awt.Dimension;
 import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
 import org.junit.runners.Parameterized.Parameters;
-import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
  *
@@ -66,25 +64,12 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(384, 256).
                             issues("JRW-199").
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                    final CanonCR2MakerNote canonMakerNote = metadata.getCanonMakerNote();
-                                    assertNotNull(canonMakerNote);
-                                    final CR2SensorInfo sensorInfo = canonMakerNote.getSensorInfo();
-                                    assertNotNull(sensorInfo);
-                                    assertEquals(3596, sensorInfo.getWidth());
-                                    assertEquals(2360, sensorInfo.getHeight());
-                                    assertEquals(84,   sensorInfo.getCropLeft());
-                                    assertEquals(3587, sensorInfo.getCropRight());
-                                    assertEquals(19,   sensorInfo.getCropTop());
-                                    assertEquals(2354, sensorInfo.getCropBottom());
-                                  }
-                              }),
+                            metadata("metadata.canonMakerNote.sensorInfo.width", 3596).
+                            metadata("metadata.canonMakerNote.sensorInfo.height", 2360).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropLeft", 84).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropRight", 3587).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropTop", 19).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2354),
             // EOS20D v2.0.3
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/2.0.3/XXXX0000.CR2").
                             image(EOS20D_SENSOR_SIZE, 3, 16, "d15a94cfc3615c0a399696f1af2cdbd1").
@@ -92,25 +77,12 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(384, 256).
                             issues("JRW-199").
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                    final CanonCR2MakerNote canonMakerNote = metadata.getCanonMakerNote();
-                                    assertNotNull(canonMakerNote);
-                                    final CR2SensorInfo sensorInfo = canonMakerNote.getSensorInfo();
-                                    assertNotNull(sensorInfo);
-                                    assertEquals(3596, sensorInfo.getWidth());
-                                    assertEquals(2360, sensorInfo.getHeight());
-                                    assertEquals(84,   sensorInfo.getCropLeft());
-                                    assertEquals(3587, sensorInfo.getCropRight());
-                                    assertEquals(19,   sensorInfo.getCropTop());
-                                    assertEquals(2354, sensorInfo.getCropBottom());
-                                  }
-                              }),
+                            metadata("metadata.canonMakerNote.sensorInfo.width", 3596).
+                            metadata("metadata.canonMakerNote.sensorInfo.height", 2360).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropLeft", 84).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropRight", 3587).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropTop", 19).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2354),
             // EOS30D v1.0.4
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS30D/1.0.4/_MG_8882.CR2").
                             image(EOS30D_SENSOR_SIZE, 3, 16, "67872b80eca784066a997f0bd6d00d29").
@@ -118,25 +90,12 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(384, 256).
                             issues("JRW-199").
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                    final CanonCR2MakerNote canonMakerNote = metadata.getCanonMakerNote();
-                                    assertNotNull(canonMakerNote);
-                                    final CR2SensorInfo sensorInfo = canonMakerNote.getSensorInfo();
-                                    assertNotNull(sensorInfo);
-                                    assertEquals(3596, sensorInfo.getWidth());
-                                    assertEquals(2360, sensorInfo.getHeight());
-                                    assertEquals(84,   sensorInfo.getCropLeft());
-                                    assertEquals(3587, sensorInfo.getCropRight());
-                                    assertEquals(19,   sensorInfo.getCropTop());
-                                    assertEquals(2354, sensorInfo.getCropBottom());
-                                  }
-                              }),
+                            metadata("metadata.canonMakerNote.sensorInfo.width", 3596).
+                            metadata("metadata.canonMakerNote.sensorInfo.height", 2360).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropLeft", 84).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropRight", 3587).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropTop", 19).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2354),
             // EOS40D v1.0.3
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS40D/1.0.3/img_0003.cr2").
                             image(EOS40D_SENSOR_SIZE, 3, 16, "1ea35bbc10cf900fca0457ea531226d5").
@@ -144,25 +103,12 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(486, 324).
                             issues("JRW-199").
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                    final CanonCR2MakerNote canonMakerNote = metadata.getCanonMakerNote();
-                                    assertNotNull(canonMakerNote);
-                                    final CR2SensorInfo sensorInfo = canonMakerNote.getSensorInfo();
-                                    assertNotNull(sensorInfo);
-                                    assertEquals(3944, sensorInfo.getWidth());
-                                    assertEquals(2622, sensorInfo.getHeight());
-                                    assertEquals(40,   sensorInfo.getCropLeft());
-                                    assertEquals(3927, sensorInfo.getCropRight());
-                                    assertEquals(23,   sensorInfo.getCropTop());
-                                    assertEquals(2614, sensorInfo.getCropBottom());
-                                  }
-                              })
+                            metadata("metadata.canonMakerNote.sensorInfo.width", 3944).
+                            metadata("metadata.canonMakerNote.sensorInfo.height", 2622).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropLeft", 40).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropRight", 3927).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropTop", 23).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2614)
           );
       }
   }
