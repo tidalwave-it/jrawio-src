@@ -137,7 +137,7 @@ public class CanonCR2MakerNote extends CanonCR2MakerNoteSupport
             for (int i = 0; i < coefficients.length; i++)
               {
                 coefficients[i] = (short)wbi[offset + i];  
-                logger.finer(">>>> wb coefficient[%d]=%f", i, coefficients[i]);
+                logger.finer(">>>> wb coefficient[%d]=%d", i, coefficients[i]);
               }
           }
         
