@@ -57,8 +57,8 @@ public class CRWImageReaderImageTest extends NewImageReaderTestSupport
                             image(3152, 2068, 3, 16, "b499a77c82e5289d043e2f330c6fffba").
                             thumbnail(2048, 1360).
                             issues("JRW-200").
-                            metadata("metadata.width", 3072).
-                            metadata("metadata.height", 2048).
+                            metadata("metadata.width", 3152).
+                            metadata("metadata.height", 2068).
                             metadata("metadata.fileNumber", 1000056).
                             metadata("metadata.imageWidth", 3072).
                             metadata("metadata.imageHeight", 2048).
@@ -89,6 +89,4 @@ public class CRWImageReaderImageTest extends NewImageReaderTestSupport
                             metadata("metadata.colorTemperature", 5200)
           );
       }
-
-//        assertImage(ir, 3072, 2048);
   }

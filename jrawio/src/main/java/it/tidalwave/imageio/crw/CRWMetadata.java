@@ -94,14 +94,16 @@ public class CRWMetadata extends TIFFMetadataSupport
     @Override
     public int getWidth()
       {
-        return getImageWidth();
+        return getSensorWidth();
+//        return getImageWidth();
       }
     
     @Nonnegative
     @Override
     public int getHeight()
       {
-        return getImageHeight();
+        return getSensorHeight();
+//        return getImageHeight();
       }
     
     public CanonCRWMakerNote getCanonMakerNote()

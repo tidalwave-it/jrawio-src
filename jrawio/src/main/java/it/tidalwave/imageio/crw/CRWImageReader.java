@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: CRWImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.crw;
@@ -43,7 +43,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CRWImageReader extends RAWImageReaderSupport
@@ -100,7 +100,7 @@ public class CRWImageReader extends RAWImageReaderSupport
       {
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
-        return ((CRWMetadata)metadata).getImageWidth();
+        return ((CRWMetadata)metadata).getWidth();
       }
 
     /*******************************************************************************************************************
@@ -113,7 +113,7 @@ public class CRWImageReader extends RAWImageReaderSupport
       {
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
-        return ((CRWMetadata)metadata).getImageHeight();
+        return ((CRWMetadata)metadata).getHeight();
       }
 
     /*******************************************************************************************************************
