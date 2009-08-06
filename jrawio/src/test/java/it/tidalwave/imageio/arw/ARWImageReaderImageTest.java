@@ -66,42 +66,25 @@ public class ARWImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(3872, 2592).
                             thumbnail(160, 120).
                             issues("JRW-127", "JRW-198").
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final ARWMetadata metadata = (ARWMetadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                            //        final MinoltaMakerNote makerNote = metadata.getMinoltaMakerNote();
-                            //        assertNotNull(makerNote);
-                                    final MinoltaRawData minoltaRawData = metadata.getMinoltaRawData();
-                                    assertNotNull(minoltaRawData);
-                                    final PRD prd = minoltaRawData.getPRD();
-                                    assertEquals("21870002", prd.getVersion());
-                                    assertEquals(new Dimension(3880, 2608), prd.getCcdSize());
-                                    assertEquals(new Dimension(3872, 2592), prd.getImageSize());
-                                    assertEquals(16, prd.getDataSize());
-                                    assertEquals(12, prd.getPixelSize());
-                                    assertEquals(0x52, prd.getStorageMethod());
-                                    assertEquals(1, prd.getUnknown1());
-                                    assertEquals(1, prd.getUnknown2());
-                                    assertEquals(0, prd.getUnknown3());
-                                    assertNotNull(prd);
-                                    final RIF rif = minoltaRawData.getRIF();
-                                    assertNotNull(rif);
+                            metadata("metadata.minoltaRawData.PRD.version", "21870002").
+                            metadata("metadata.minoltaRawData.PRD.ccdSize", new Dimension(3880, 2608)).
+                            metadata("metadata.minoltaRawData.PRD.imageSize", new Dimension(3872, 2592)).
+                            metadata("metadata.minoltaRawData.PRD.dataSize", 16).
+                            metadata("metadata.minoltaRawData.PRD.pixelSize", 12).
+                            metadata("metadata.minoltaRawData.PRD.storageMethod", 0x52).
+                            metadata("metadata.minoltaRawData.PRD.unknown1", 1).
+                            metadata("metadata.minoltaRawData.PRD.unknown2", 1).
+                            metadata("metadata.minoltaRawData.PRD.unknown3", 0).
                                     // TODO: assert rif stuff
-                                    final WBG wbg = minoltaRawData.getWBG();
-                                    assertNotNull(wbg);
-                                    assertEquals(new TagRational(359, 256), wbg.getRedCoefficient());
-                                    assertEquals(new TagRational(256, 256), wbg.getGreen1Coefficient());
-                                    assertEquals(new TagRational(256, 256), wbg.getGreen2Coefficient());
-                                    assertEquals(new TagRational(736, 256), wbg.getBlueCoefficient());
-                                    assertEquals(1.40234375, wbg.getRedCoefficient().doubleValue(), 0);
-                                    assertEquals(1.0, wbg.getGreen1Coefficient().doubleValue(), 0);
-                                    assertEquals(1.0, wbg.getGreen2Coefficient().doubleValue(), 0);
-                                    assertEquals(2.875, wbg.getBlueCoefficient().doubleValue(), 0);                                  }
-                              })
+                            metadata("metadata.minoltaRawData.WBG.redCoefficient", new TagRational(359, 256)).
+                            metadata("metadata.minoltaRawData.WBG.green1Coefficient", new TagRational(256, 256)).
+                            metadata("metadata.minoltaRawData.WBG.green2Coefficient", new TagRational(256, 256)).
+                            metadata("metadata.minoltaRawData.WBG.blueCoefficient", new TagRational(736, 256))
+//                                    assertEquals(1.40234375, wbg.getRedCoefficient().doubleValue(), 0);
+//                                    assertEquals(1.0, wbg.getGreen1Coefficient().doubleValue(), 0);
+//                                    assertEquals(1.0, wbg.getGreen2Coefficient().doubleValue(), 0);
+//                                    assertEquals(2.875, wbg.getBlueCoefficient().doubleValue(), 0);                                  }
+
           );
       }
   }
