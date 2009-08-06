@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: MRWMetadata.java 140 2008-09-07 12:48:37Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -41,7 +41,7 @@ import it.tidalwave.imageio.tiff.ThumbnailHelper;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWMetadata.java 140 2008-09-07 12:48:37Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class MRWMetadata extends TIFFMetadataSupport
@@ -98,7 +98,8 @@ public class MRWMetadata extends TIFFMetadataSupport
     @Override
     public int getWidth()
       {
-        return getPrimaryIFD().getImageWidth();
+        return getMinoltaRawData().getPRD().getCcdSize().width;
+//        return getPrimaryIFD().getImageWidth();
       }
     
     /*******************************************************************************************************************
@@ -109,7 +110,8 @@ public class MRWMetadata extends TIFFMetadataSupport
     @Override
     public int getHeight()
       {
-        return getPrimaryIFD().getImageLength();
+        return getMinoltaRawData().getPRD().getCcdSize().height;
+//        return getPrimaryIFD().getImageLength();
       }
     
     /*******************************************************************************************************************
