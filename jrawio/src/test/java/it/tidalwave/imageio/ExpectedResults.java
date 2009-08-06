@@ -32,7 +32,9 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Dimension;
-import javax.annotation.CheckForNull;
+import java.util.HashMap;
+import java.util.Map;
+import javax.annotation.Nullable;
 import javax.imageio.ImageReader;
 
 /***********************************************************************************************************************
@@ -106,6 +108,8 @@ public final class ExpectedResults
 
     private final List<Image> thumbnails = new ArrayList<Image>();
 
+    private Map<String, Object> properties = new HashMap<String, Object>();
+
     @Nonnegative
     private Extra extra = new Extra()
       {
@@ -156,6 +160,12 @@ public final class ExpectedResults
       }
 
     @Nonnull
+    public Map<String, Object> getProperties()
+      {
+        return properties;
+      }
+
+    @Nonnull
     public Extra getExtra()
       {
         return extra;
@@ -200,6 +210,13 @@ public final class ExpectedResults
     @Nonnull
     public ExpectedResults issues (final @Nonnull String ... issues)
       {
+        return this;
+      }
+
+    @Nonnull
+    public ExpectedResults metadata (final @Nonnull String propertyName, final @Nullable Object value)
+      {
+        properties.put(propertyName, value);
         return this;
       }
 

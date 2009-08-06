@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio;
 
+import java.util.Map.Entry;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.ArrayList;
@@ -35,6 +36,8 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.util.Logger;
+import java.lang.reflect.Method;
+import javax.imageio.metadata.IIOMetadata;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -129,6 +132,34 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
               }
           }
 
+        for (final Entry<String, Object> entry : expectedResults.getProperties().entrySet())
+          {
+            final String[] path = entry.getKey().split("\\.");
+            Object object = null;
+
+            for (final String property : path)
+              {
+                if ((object == null) && "metadata".equals(property))
+                  {
+                    object = ir.getImageMetadata(0);
+                  }
+                else
+                  {
+                    final Method getter = object.getClass().getMethod("get" + capitalized(property));
+                    object = getter.invoke(object);
+                  }
+              }
+
+            try
+              {
+                assertEquals(entry.getKey(), entry.getValue(), object);
+              }
+            catch (Throwable e)
+              {
+                errors.add(e);
+              }
+          }
+
         try
           {
             expectedResults.getExtra().run(ir);
@@ -163,5 +194,11 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
           }
 
         return result;
+      }
+
+    @Nonnull
+    private final static String capitalized (final @Nonnull String string)
+      {
+        return string.substring(0, 1).toUpperCase() + string.substring(1);
       }
   }
