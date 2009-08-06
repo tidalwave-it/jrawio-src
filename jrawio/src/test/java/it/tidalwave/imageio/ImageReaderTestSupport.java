@@ -97,8 +97,8 @@ public class ImageReaderTestSupport extends TestSupport
     protected void assertImage (final ImageReader ir, final int width, final int height) 
       throws IOException 
       {
-        assertEquals("imageWidth", width, ir.getWidth(0));
-        assertEquals("imageHeight", height, ir.getHeight(0));
+        assertEquals("image width",  width, ir.getWidth(0));
+        assertEquals("image height", height, ir.getHeight(0));
       }
 
     /*******************************************************************************************************************
@@ -108,8 +108,8 @@ public class ImageReaderTestSupport extends TestSupport
     protected void assertThumbnail (final ImageReader ir, final int thumbnailIndex, final int width, final int height) 
       throws IOException 
       {
-        assertEquals("thumbnailWidth", width, ir.getThumbnailWidth(0, thumbnailIndex));
-        assertEquals("thumbnailHeight", height, ir.getThumbnailHeight(0, thumbnailIndex));
+        assertEquals("thumbnail width",  width, ir.getThumbnailWidth(0, thumbnailIndex));
+        assertEquals("thumbnail height", height, ir.getThumbnailHeight(0, thumbnailIndex));
       }
     
     /*******************************************************************************************************************
@@ -127,13 +127,13 @@ public class ImageReaderTestSupport extends TestSupport
       {
         final BufferedImage image = ir.read(0);
         assertNotNull(image);
-        assertEquals(width, image.getWidth());
-        assertEquals(height, image.getHeight());
-        assertEquals(bandCount, image.getData().getNumBands());
+        assertEquals("loaded image width",      width, image.getWidth());
+        assertEquals("loaded image height",     height, image.getHeight());
+        assertEquals("loaded image band count", bandCount, image.getData().getNumBands());
 
         for (int i = 0; i < bandCount; i++)
           {
-            assertEquals(sampleSize, image.getData().getSampleModel().getSampleSize(i));
+            assertEquals("loaded image sample size for band " + i, sampleSize, image.getData().getSampleModel().getSampleSize(i));
           }
 
         return image;
@@ -154,14 +154,14 @@ public class ImageReaderTestSupport extends TestSupport
       {
         final BufferedImage image = ir.read(0);
         assertNotNull(image);
-        assertEquals(width, image.getWidth());
-        assertEquals(height, image.getHeight());
-        assertEquals(bandCount, image.getData().getNumBands());
+        assertEquals("loaded image width",      width, image.getWidth());
+        assertEquals("loaded image height",     height, image.getHeight());
+        assertEquals("loaded image band count", bandCount, image.getData().getNumBands());
         assertEquals(type, image.getType());
-        
+
         for (int i = 0; i < bandCount; i++)
           {
-            assertEquals(sampleSize, image.getData().getSampleModel().getSampleSize(i));
+            assertEquals("loaded image sample size for band " + i, sampleSize, image.getData().getSampleModel().getSampleSize(i));
           }
         
         return image;
