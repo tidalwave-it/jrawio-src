@@ -30,9 +30,9 @@ package it.tidalwave.imageio.cr2;
 import javax.annotation.Nonnull;
 import javax.imageio.ImageReader;
 import java.util.Collection;
+import java.awt.Dimension;
 import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
-import java.awt.Dimension;
 import org.junit.runners.Parameterized.Parameters;
 import static org.junit.Assert.*;
 
@@ -73,6 +73,16 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                                   {
                                     final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
                                     assertNotNull(metadata);
+                                    final CanonCR2MakerNote canonMakerNote = metadata.getCanonMakerNote();
+                                    assertNotNull(canonMakerNote);
+                                    final CR2SensorInfo sensorInfo = canonMakerNote.getSensorInfo();
+                                    assertNotNull(sensorInfo);
+                                    assertEquals(3596, sensorInfo.getWidth());
+                                    assertEquals(2360, sensorInfo.getHeight());
+                                    assertEquals(84,   sensorInfo.getCropLeft());
+                                    assertEquals(3587, sensorInfo.getCropRight());
+                                    assertEquals(19,   sensorInfo.getCropTop());
+                                    assertEquals(2354, sensorInfo.getCropBottom());
                                   }
                               }),
             // EOS20D v2.0.3
@@ -89,6 +99,16 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                                   {
                                     final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
                                     assertNotNull(metadata);
+                                    final CanonCR2MakerNote canonMakerNote = metadata.getCanonMakerNote();
+                                    assertNotNull(canonMakerNote);
+                                    final CR2SensorInfo sensorInfo = canonMakerNote.getSensorInfo();
+                                    assertNotNull(sensorInfo);
+                                    assertEquals(3596, sensorInfo.getWidth());
+                                    assertEquals(2360, sensorInfo.getHeight());
+                                    assertEquals(84,   sensorInfo.getCropLeft());
+                                    assertEquals(3587, sensorInfo.getCropRight());
+                                    assertEquals(19,   sensorInfo.getCropTop());
+                                    assertEquals(2354, sensorInfo.getCropBottom());
                                   }
                               }),
             // EOS30D v1.0.4
@@ -105,6 +125,16 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                                   {
                                     final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
                                     assertNotNull(metadata);
+                                    final CanonCR2MakerNote canonMakerNote = metadata.getCanonMakerNote();
+                                    assertNotNull(canonMakerNote);
+                                    final CR2SensorInfo sensorInfo = canonMakerNote.getSensorInfo();
+                                    assertNotNull(sensorInfo);
+                                    assertEquals(3596, sensorInfo.getWidth());
+                                    assertEquals(2360, sensorInfo.getHeight());
+                                    assertEquals(84,   sensorInfo.getCropLeft());
+                                    assertEquals(3587, sensorInfo.getCropRight());
+                                    assertEquals(19,   sensorInfo.getCropTop());
+                                    assertEquals(2354, sensorInfo.getCropBottom());
                                   }
                               }),
             // EOS40D v1.0.3
@@ -121,6 +151,16 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                                   {
                                     final CR2Metadata metadata = (CR2Metadata)ir.getImageMetadata(0);
                                     assertNotNull(metadata);
+                                    final CanonCR2MakerNote canonMakerNote = metadata.getCanonMakerNote();
+                                    assertNotNull(canonMakerNote);
+                                    final CR2SensorInfo sensorInfo = canonMakerNote.getSensorInfo();
+                                    assertNotNull(sensorInfo);
+                                    assertEquals(3944, sensorInfo.getWidth());
+                                    assertEquals(2622, sensorInfo.getHeight());
+                                    assertEquals(40,   sensorInfo.getCropLeft());
+                                    assertEquals(3927, sensorInfo.getCropRight());
+                                    assertEquals(23,   sensorInfo.getCropTop());
+                                    assertEquals(2614, sensorInfo.getCropBottom());
                                   }
                               })
           );
