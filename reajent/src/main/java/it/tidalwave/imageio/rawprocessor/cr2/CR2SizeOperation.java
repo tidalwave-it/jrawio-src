@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.cr2;
 
+import java.awt.Dimension;
 import javax.annotation.Nonnull;
 import java.awt.Insets;
 import it.tidalwave.imageio.cr2.CR2Metadata;
@@ -64,11 +65,27 @@ public class CR2SizeOperation extends SizeOperation
         final CR2SensorInfo sensorInfo = metadata.getCanonMakerNote().getSensorInfo();
         crop.left = sensorInfo.getCropLeft();
         crop.top = sensorInfo.getCropTop();
-        crop.right = sensorInfo.getCropRight();
-        crop.bottom = sensorInfo.getCropBottom();
+        crop.right = sensorInfo.getWidth() - 1 - sensorInfo.getCropRight();
+        crop.bottom = sensorInfo.getHeight() - 1 - sensorInfo.getCropBottom();
         
         logger.fine(">>>> returning crop: %s", crop);
         
         return crop;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * @{@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    @Nonnull
+    protected Dimension getSize (@Nonnull final RAWImage image)
+      {
+        logger.fine("getSize()");
+        final CR2Metadata metadata = (CR2Metadata)image.getRAWMetadata();
+        final CR2SensorInfo sensorInfo = metadata.getCanonMakerNote().getSensorInfo();
+        return new Dimension(sensorInfo.getCropRight() - sensorInfo.getCropLeft() + 1,
+                             sensorInfo.getCropBottom() - sensorInfo.getCropTop() + 1);
       }
   }
