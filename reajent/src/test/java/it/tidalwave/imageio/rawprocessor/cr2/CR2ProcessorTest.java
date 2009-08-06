@@ -54,35 +54,35 @@ public class CR2ProcessorTest extends NewImageReaderTestSupport
           (
             // EOS20D v1.1.0
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/1.1.0/_MG_8587.CR2").
-                            image(3504, 2336, 3, 16, "b77c62839719971223ff71ef9dc88b6d").
+                            image(3504, 2336, 3, 8, "b77c62839719971223ff71ef9dc88b6d").
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
                             issues("JRW-208"),
             // EOS20D v2.0.3
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/2.0.3/XXXX0000.CR2").
-                            image(3504, 2336, 3, 16, "67c7d9692b8f24dfc445896f548f4326").
+                            image(3504, 2336, 3, 8, "67c7d9692b8f24dfc445896f548f4326").
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
                             issues("JRW-208"),
             // EOS30D v1.0.4
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS30D/1.0.4/_MG_8882.CR2").
-                            image(3504, 2336, 3, 16, "0e020171ca1598e74ce25306fd8b88c3").
+                            image(3504, 2336, 3, 8, "0e020171ca1598e74ce25306fd8b88c3").
                             thumbnail(1728, 1152).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
                             issues("JRW-208"),
             // EOS40D v1.0.3
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS40D/1.0.3/img_0003.cr2").
-                            image(3888, 2592, 3, 16, "65d8c7c06390331b77576ab03572135f") .
+                            image(3888, 2592, 3, 8, "65d8c7c06390331b77576ab03572135f") .
                             thumbnail(1936, 1288).
                             thumbnail(160, 120).
                             thumbnail(486, 324).
                             issues("JRW-208"),
             // EOS350D
             ExpectedResults.create("https://stlth.s3.amazonaws.com/assets/production/50b54a30-6324-012c-2155-fe109c37265e/e4fb97a0-6325-012c-6693-f225730bc406/IMG_4707.CR2").
-                            image(3516, 2328, 3, 8, "5f4f3a825b0b3e546321e8dd03f31844").
+                            image(3456, 2304, 3, 8, "5f4f3a825b0b3e546321e8dd03f31844").
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
@@ -92,6 +92,7 @@ public class CR2ProcessorTest extends NewImageReaderTestSupport
                             metadata("metadata.canonMakerNote.sensorInfo.cropLeft", 52).
                             metadata("metadata.canonMakerNote.sensorInfo.cropRight", 3507).
                             metadata("metadata.canonMakerNote.sensorInfo.cropTop", 19).
-                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2322)          );
+                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2322)
+          );
       }
   }
