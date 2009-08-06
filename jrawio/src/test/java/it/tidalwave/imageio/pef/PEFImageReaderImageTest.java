@@ -27,8 +27,11 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.pef;
 
-import it.tidalwave.imageio.ImageReaderTestSupport;
-import org.junit.Test;
+import javax.annotation.Nonnull;
+import java.util.Collection;
+import it.tidalwave.imageio.ExpectedResults;
+import it.tidalwave.imageio.NewImageReaderTestSupport;
+import org.junit.runners.Parameterized.Parameters;
 
 /***********************************************************************************************************************
  *
@@ -36,11 +39,22 @@ import org.junit.Test;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class PEFImageReaderTest extends ImageReaderTestSupport
+public class PEFImageReaderImageTest extends NewImageReaderTestSupport
   {
-    @Test
-    public void testMIMEType()
+    public PEFImageReaderImageTest (final @Nonnull ExpectedResults expectedResults)
       {
-        assertMIMETypes("pef", "image/x-pentax-pef");
+        super(expectedResults);
+      }
+
+    @Nonnull
+    @Parameters
+    public static Collection<Object[]> expectedResults()
+      {
+        return fixed
+          (
+//            ExpectedResults.create("http://cid-8d91961e6d878ff6.skydrive.live.com/self.aspx/figure/K20D2132.PEF").
+//                            image(3720, 2800, 3, 16, "f823981ab27195c2db002ee03a65af84").
+//                            thumbnail(1600, 1200)
+          );
       }
   }
