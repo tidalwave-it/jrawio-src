@@ -147,7 +147,8 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
                 logger.throwing(CLASS, "================================================================", error);
               }
 
-            fail("" + errors.toString());
+            final String fileName = expectedResults.getPath().replaceAll("^.*[^/]/", "");
+            fail(fileName + ": " + errors.toString());
           }
       }
 
