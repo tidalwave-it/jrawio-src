@@ -57,7 +57,7 @@ public class ARWImageReaderImageTest extends NewImageReaderTestSupport
             // A100 v1.04
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/kijiro/Sony/A100/ARW/DSC00041.ARW").
                             image(3880, 2608, 3, 16, "90e70a15bb3bd63ea4dacb1ea9841653").
-                            thumbnail(3872, 2592).
+                            thumbnail(640, 480).
                             thumbnail(160, 120).
                             issues("JRW-127", "JRW-198").
                             metadata("metadata.minoltaRawData.PRD.version", "21870002").
