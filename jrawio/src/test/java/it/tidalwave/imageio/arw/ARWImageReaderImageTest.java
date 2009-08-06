@@ -30,16 +30,10 @@ package it.tidalwave.imageio.arw;
 import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.awt.Dimension;
-import javax.imageio.ImageReader;
 import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
 import it.tidalwave.imageio.raw.TagRational;
-import it.tidalwave.imageio.minolta.MinoltaRawData;
-import it.tidalwave.imageio.minolta.MinoltaRawData.PRD;
-import it.tidalwave.imageio.minolta.MinoltaRawData.RIF;
-import it.tidalwave.imageio.minolta.MinoltaRawData.WBG;
 import org.junit.runners.Parameterized.Parameters;
-import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
  *
@@ -60,7 +54,7 @@ public class ARWImageReaderImageTest extends NewImageReaderTestSupport
       {
         return fixed
           (
-            // A100
+            // A100 v1.04
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/kijiro/Sony/A100/ARW/DSC00041.ARW").
                             image(3880, 2608, 3, 16, "90e70a15bb3bd63ea4dacb1ea9841653").
                             thumbnail(3872, 2592).
