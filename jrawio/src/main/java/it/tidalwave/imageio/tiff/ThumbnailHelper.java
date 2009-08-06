@@ -22,18 +22,15 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ThumbnailHelper.java 160 2008-09-13 19:51:30Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.tiff;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Properties;
-import it.tidalwave.imageio.util.Logger;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.IOException;
 import java.awt.Transparency;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
@@ -43,10 +40,14 @@ import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferByte;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -54,7 +55,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * an ImageReader for any TIFF-based image format.
  *
  * @author Fabrizio Giudici
- * @version $Id: ThumbnailHelper.java 160 2008-09-13 19:51:30Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ThumbnailHelper
@@ -64,15 +65,19 @@ public class ThumbnailHelper
     
     @Nonnull
     public final IFD ifd; // FIXME: make it private
-    
+
+    @Nonnegative
     private int width;
-    
+
+    @Nonnegative
     private int height;
     
     private int offset;
-    
+
+    @Nonnegative 
     private int byteCount;
-    
+
+    @CheckForNull
     private byte[] buffer;
     
     /*******************************************************************************************************************
@@ -148,8 +153,8 @@ public class ThumbnailHelper
     public ThumbnailHelper (@Nonnull final RAWImageInputStream iis, 
                             final int offset, 
                             @Nonnegative final int byteCount, 
-                            final int width, 
-                            final int height)
+                            @Nonnegative final int width,
+                            @Nonnegative final int height)
       {
         this.ifd = null;
         this.offset = offset;
@@ -296,6 +301,7 @@ public class ThumbnailHelper
      *
      *
      ******************************************************************************************************************/
+    @Nonnull
     protected BufferedImage loadPlainImage (@Nonnull final ImageInputStream iis, 
                                             @Nonnull final int width, 
                                             @Nonnull final int height, 
