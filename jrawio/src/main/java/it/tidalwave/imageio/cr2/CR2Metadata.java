@@ -27,6 +27,8 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.cr2;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.HeaderProcessor;
@@ -44,9 +46,9 @@ public class CR2Metadata extends TIFFMetadataSupport
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    public CR2Metadata (Directory primaryIFD, 
-                        RAWImageInputStream iis, 
-                        HeaderProcessor headerProcessor)
+    public CR2Metadata (final @Nonnull Directory primaryIFD,
+                        final @Nonnull RAWImageInputStream iis,
+                        final @Nonnull HeaderProcessor headerProcessor)
       {
         super(primaryIFD, iis, headerProcessor);
       }
@@ -55,8 +57,9 @@ public class CR2Metadata extends TIFFMetadataSupport
      * 
      * @return
      * 
-     *******************************************************************************/
-    public CanonCR2MakerNote getCanonMakerNote ()
+     ******************************************************************************************************************/
+    @Nonnull
+    public CanonCR2MakerNote getCanonMakerNote()
       {
         return (CanonCR2MakerNote)getMakerNote();
       }
@@ -65,8 +68,9 @@ public class CR2Metadata extends TIFFMetadataSupport
      * 
      * @return
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     @Override
+    @Nonnegative
     public int getWidth()
       {
         return getCanonMakerNote().getSensorInfo().getWidth();
@@ -77,8 +81,9 @@ public class CR2Metadata extends TIFFMetadataSupport
      * 
      * @return
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     @Override
+    @Nonnegative
     public int getHeight()
       {
         return getCanonMakerNote().getSensorInfo().getHeight();
@@ -91,7 +96,7 @@ public class CR2Metadata extends TIFFMetadataSupport
      *
      ******************************************************************************************************************/
     @Override
-    protected boolean isRasterIFD (IFD ifd)
+    protected boolean isRasterIFD (final @Nonnull IFD ifd)
       {
         return ifd.isCanon50648Available();
       }
@@ -102,7 +107,7 @@ public class CR2Metadata extends TIFFMetadataSupport
      *
      ******************************************************************************************************************/
     @Override
-    protected boolean isThumbnailIFD (IFD ifd)
+    protected boolean isThumbnailIFD (final @Nonnull IFD ifd)
       {
         return !ifd.isCanon50648Available();
       }

@@ -27,13 +27,13 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.cr2;
 
-import it.tidalwave.imageio.util.Logger;
-import java.util.Properties;
-import java.io.IOException;
-import java.io.InputStream;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.util.Properties;
+import java.io.IOException;
+import java.io.InputStream;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -68,7 +68,7 @@ public class CanonCR2MakerNote extends CanonCR2MakerNoteSupport
       }
 
     @Nonnull
-    public synchronized  CR2SensorInfo getSensorInfo()
+    public synchronized CR2SensorInfo getSensorInfo()
       {
         if (sensorInfo == null)
           {
