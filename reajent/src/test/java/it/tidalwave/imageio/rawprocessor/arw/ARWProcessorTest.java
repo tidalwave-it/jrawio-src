@@ -54,7 +54,7 @@ public class ARWProcessorTest extends NewImageReaderTestSupport
           (
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/kijiro/Sony/A100/ARW/DSC00041.ARW").
                             image(3872, 2592, 3, 16, "a59c30e56317e6d18c52ea01accc3468").
-                            thumbnail(3872, 2592).
+                            thumbnail(640, 480).
                             thumbnail(160, 120).
                             issues("JRW-127")
 
