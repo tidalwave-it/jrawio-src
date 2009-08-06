@@ -30,7 +30,6 @@ package it.tidalwave.imageio.raf;
 import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
 import javax.imageio.ImageReader;
-import java.awt.image.BufferedImage;
 import java.util.Collection;
 import javax.annotation.Nonnull;
 import org.junit.runners.Parameterized.Parameters;
