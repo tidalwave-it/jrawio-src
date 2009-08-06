@@ -45,6 +45,7 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
     private final static Dimension EOS20D_SENSOR_SIZE = new Dimension(3596, 2360);
     private final static Dimension EOS30D_SENSOR_SIZE = new Dimension(3596, 2360);
     private final static Dimension EOS40D_SENSOR_SIZE = new Dimension(3944, 2622);
+    private final static Dimension EOS350D_SENSOR_SIZE = new Dimension(3516, 2328);
 
     public CR2ImageReaderImageTest (final @Nonnull ExpectedResults expectedResults)
       {
@@ -108,7 +109,20 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                             metadata("metadata.canonMakerNote.sensorInfo.cropLeft", 40).
                             metadata("metadata.canonMakerNote.sensorInfo.cropRight", 3927).
                             metadata("metadata.canonMakerNote.sensorInfo.cropTop", 23).
-                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2614)
+                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2614),
+            // EOS350D
+            ExpectedResults.create("https://stlth.s3.amazonaws.com/assets/production/50b54a30-6324-012c-2155-fe109c37265e/e4fb97a0-6325-012c-6693-f225730bc406/IMG_4707.CR2").
+                            image(EOS350D_SENSOR_SIZE, 3, 16, "b629606121712938f27e60004880052c").
+                            thumbnail(1536, 1024).
+                            thumbnail(160, 120).
+                            thumbnail(384, 256).
+                            issues("JRW-206").
+                            metadata("metadata.canonMakerNote.sensorInfo.width", 3516).
+                            metadata("metadata.canonMakerNote.sensorInfo.height", 2328).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropLeft", 52).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropRight", 3507).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropTop", 19).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2322)
           );
       }
   }
