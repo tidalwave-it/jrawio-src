@@ -27,17 +27,16 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio;
 
-import java.util.Map.Entry;
 import javax.annotation.Nonnull;
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.util.Logger;
-import java.lang.reflect.Method;
-import javax.imageio.metadata.IIOMetadata;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -191,14 +190,14 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
                   {
                     assertArrayEquals(entry.getKey(), (char[])expectedValue, (char[])object);
                   }
-//                else if ((expectedValue != null) && expectedValue instanceof float[])
-//                  {
-//                    assertArrayEquals(entry.getKey(), (float[])expectedValue, (float[])object);
-//                  }
-//                else if ((expectedValue != null) && expectedValue instanceof double[])
-//                  {
-//                    assertArrayEquals(entry.getKey(), (double[])expectedValue, (double[])object);
-//                  }
+                else if ((expectedValue != null) && expectedValue instanceof float[])
+                  {
+                    assertFArrayEquals(entry.getKey(), (float[])expectedValue, (float[])object);
+                  }
+                else if ((expectedValue != null) && expectedValue instanceof double[])
+                  {
+                    assertDArrayEquals(entry.getKey(), (double[])expectedValue, (double[])object);
+                  }
                 else if ((expectedValue != null) && expectedValue instanceof Object[])
                   {
                     assertArrayEquals(entry.getKey(), (Object[])expectedValue, (Object[])object);
@@ -254,5 +253,29 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
     private final static String capitalized (final @Nonnull String string)
       {
         return string.substring(0, 1).toUpperCase() + string.substring(1);
+      }
+
+    private void assertFArrayEquals (final @Nonnull String message,
+                                     final @Nonnull float[] expected,
+                                     final @Nonnull float[] actual)
+      {
+        assertEquals(message + ": arrays different size", expected.length, actual.length);
+
+        for (int i = 0; i < expected.length; i++)
+          {
+            assertEquals(message + ": arrays first differed at element [" + i + "]", expected[i], actual[i], 0.0f);
+          }
+      }
+
+    private void assertDArrayEquals (final @Nonnull String message,
+                                     final @Nonnull double[] expected,
+                                     final @Nonnull double[] actual)
+      {
+        assertEquals(message + ": arrays different size", expected.length, actual.length);
+
+        for (int i = 0; i < expected.length; i++)
+          {
+            assertEquals(message + ": arrays first differed at element [" + i + "]", expected[i], actual[i], 0.0);
+          }
       }
   }
