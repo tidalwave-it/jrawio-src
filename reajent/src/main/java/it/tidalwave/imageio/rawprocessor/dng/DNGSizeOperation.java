@@ -28,7 +28,6 @@
 package it.tidalwave.imageio.rawprocessor.dng;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.imageio.util.Logger;
 import java.awt.Dimension;
 import java.awt.Insets;
 import it.tidalwave.imageio.raw.TagRational;
@@ -36,6 +35,7 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
