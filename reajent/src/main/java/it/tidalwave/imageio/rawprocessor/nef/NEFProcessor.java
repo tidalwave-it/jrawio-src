@@ -56,8 +56,8 @@ public class NEFProcessor extends RAWProcessor
         public void init (@Nonnull final RAWImage image)
           throws Exception
           {
-            NEFMetadata metadata = (NEFMetadata)image.getRAWMetadata();
-            NikonMakerNote3 makerNote = metadata.getNikonMakerNote();
+            final NEFMetadata metadata = (NEFMetadata)image.getRAWMetadata();
+            final NikonMakerNote3 makerNote = metadata.getNikonMakerNote();
             
             if (makerNote.isCaptureEditorDataAvailable())
               {
