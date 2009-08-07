@@ -27,10 +27,10 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.arw;
 
+import javax.annotation.Nonnull;
+import java.util.Collection;
 import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
-import java.util.Collection;
-import javax.annotation.Nonnull;
 import org.junit.runners.Parameterized.Parameters;
 
 /***********************************************************************************************************************
@@ -53,11 +53,11 @@ public class ARWProcessorTest extends NewImageReaderTestSupport
         return fixed
           (
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/kijiro/Sony/A100/ARW/DSC00041.ARW").
-                            image(3872, 2592, 3, 16, "a59c30e56317e6d18c52ea01accc3468").
+//                            image(3880, 2608, 3, 8, "8ad77dee2cbec75f462b5b19b9e8fe76").
+                            image(3872, 2592, 3, 8, "0fadabd72e76c535e39216d68a55d4b9").
                             thumbnail(640, 480).
                             thumbnail(160, 120).
-                            issues("JRW-127", "JRW-198")
-
+                            issues("JRW-127", "JRW-198", "JRW-209")
           );
       }
   }
