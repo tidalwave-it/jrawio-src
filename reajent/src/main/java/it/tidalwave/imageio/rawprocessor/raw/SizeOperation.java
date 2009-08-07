@@ -131,7 +131,7 @@ public abstract class SizeOperation extends OperationSupport
     @Nonnull
     protected Insets getCrop (@Nonnull final RAWImage image)
       {
-        logger.fine("getCrop()");
+        logger.fine("getCrop(%s)", image);
         final TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
         final IFD primaryIFD = metadata.getPrimaryIFD();
         Insets crop = getStandardCrop(primaryIFD.getModel());
