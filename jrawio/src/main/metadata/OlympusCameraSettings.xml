@@ -29,7 +29,7 @@ http://creativecommons.org/licenses/by-sa/2.5
     </tag>
 </directory>
 
-<--
+<!--
 >0x0000582=1410    :          <000000=    0> CameraSettingsVersion       [7 =UNDEFINED     4]  = 48,49,48,48 = '0100'
 >0x000058e=1422    :          <0x0100=  256> PreviewImageValid           [4 =LONG          1]  = 1 = 'yes'
 >0x000059a=1434    :          <0x0101=  257> PreviewImageOffset          [4 =LONG          1]  = @0x6000=24576
