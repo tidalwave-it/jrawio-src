@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ORFProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.orf;
@@ -37,7 +37,7 @@ import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ORFProcessor extends RAWProcessor
@@ -54,7 +54,7 @@ public class ORFProcessor extends RAWProcessor
 //        operationList.add(new ComputeBlackLevelsOperation());
         operationList.add(new ORFCurveOperation());
         operationList.add(new DemosaicOperation());
-//        operationList.add(new ORFSizeOperation());
+        operationList.add(new ORFSizeOperation());
         operationList.add(new ORFColorConversionOperation());
         operationList.add(new ColorProfileOperation());
 //        operationList.add(new SharpenOperation());
