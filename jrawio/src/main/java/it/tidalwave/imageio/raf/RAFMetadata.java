@@ -65,10 +65,13 @@ public class RAFMetadata extends TIFFMetadataSupport
     @Override
     protected void postInit (@Nonnull final RAWImageInputStream iis)
       {
-        final FujiRawData fujiRawData = ((RAFHeaderProcessor) headerProcessor).getFujiRawData();
+        final FujiRawData fujiRawData = ((RAFHeaderProcessor)headerProcessor).getFujiRawData();
         final IFD exif = getExifIFD();
+        // Testing with ExifProbe reveals a JPEG_SOI, a JPEG_APP1 and then a TIFF - I suppose it's a TIFF embedded
+        // in a JPEG. ImageIO can't read it - we are skipping the JPEG stuff (12 bytes) and directly pointing
+        // to the TIFF.
         thumbnailHelperList.add(new ThumbnailHelper(iis, 
-                                    fujiRawData.getJPEGImageOffset(),
+                                    fujiRawData.getJPEGImageOffset() + 12,
                                     fujiRawData.getJPEGImageLength(),
                                     exif.getPixelXDimension(),
                                     exif.getPixelYDimension()));
