@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: DNGSizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DNGSizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class DNGSizeOperation extends SizeOperation
@@ -57,6 +57,7 @@ public class DNGSizeOperation extends SizeOperation
     @Nonnull
     protected Insets getCrop (@Nonnull final RAWImage image)
       {
+        logger.fine("getCrop(%s)", image);
         final TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
         final IFD rasterIFD = metadata.getRasterIFD();
         final TagRational[] cropOrigin = rasterIFD.getDefaultCropOrigin();
@@ -70,7 +71,7 @@ public class DNGSizeOperation extends SizeOperation
 
         final int rotation = normalizedAngle(image.getRotation());
         
-        if ((rotation == 90) || (rotation == 270))
+        if ((rotation == 90) || (rotation == 270)) // FIXME: use rotate(Dimension)
           {
             int temp = cropWidth;
             cropWidth = cropHeight;
@@ -83,10 +84,10 @@ public class DNGSizeOperation extends SizeOperation
         logger.finest(">>>> getCrop(): width: %d, height: %d, left: %d, top: %d, cropWidth: %d, cropHeight: %d",
                       imageWidth, imageHeight, left, top, cropWidth, cropHeight);
         
-        return new Insets(top, 
-                          left, 
-                          imageHeight - top - cropHeight,
-                          imageWidth - left - cropWidth);
+        final Insets crop = new Insets(top, left, imageHeight - top - cropHeight, imageWidth - left - cropWidth);
+        logger.finer(">>>> returning %s", crop);
+
+        return crop;
       }
     
     /*******************************************************************************************************************
@@ -98,6 +99,7 @@ public class DNGSizeOperation extends SizeOperation
     @Nonnull
     protected Dimension getSize (@Nonnull final RAWImage image)
       {
+        logger.fine("getSize(%s)", image);
         final TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
         final IFD rasterIFD = metadata.getRasterIFD();
 //        final TagRational[] cropOrigin = rasterIFD.getDefaultCropOrigin();
@@ -111,6 +113,9 @@ public class DNGSizeOperation extends SizeOperation
         final int width = (int)Math.round(cropWidth * scale[0].doubleValue());
         final int height = (int)Math.round(cropHeight * scale[1].doubleValue());
                 
-        return new Dimension(width, height);
+        final Dimension size = new Dimension(width, height);
+        logger.finer(">>>> returning %s", size);
+
+        return size;
       }
   }
