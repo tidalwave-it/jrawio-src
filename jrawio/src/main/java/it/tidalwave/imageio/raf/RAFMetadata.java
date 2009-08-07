@@ -22,11 +22,12 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: PEFMetadata.java 82 2008-08-24 08:46:20Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.raf;
 
+import java.awt.Dimension;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import it.tidalwave.imageio.io.RAWImageInputStream;
@@ -39,7 +40,7 @@ import it.tidalwave.imageio.tiff.ThumbnailHelper;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFMetadata.java 82 2008-08-24 08:46:20Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class RAFMetadata extends TIFFMetadataSupport
@@ -110,8 +111,22 @@ public class RAFMetadata extends TIFFMetadataSupport
      *
      *
      ******************************************************************************************************************/
+    @Nonnull
     public FujiRawData getFujiRawData()
       {
         return ((RAFHeaderProcessor)headerProcessor).getFujiRawData();
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    @Nonnull
+    protected Dimension getSize()
+      {
+        final FujiTable1 fujiTable1 = getFujiRawData().getFujiTable1();
+        return new Dimension(fujiTable1.getRotatedWidth(), fujiTable1.getRotatedHeight());
       }
   }

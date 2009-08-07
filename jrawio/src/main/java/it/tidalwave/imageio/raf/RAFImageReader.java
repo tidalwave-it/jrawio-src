@@ -86,36 +86,6 @@ public class RAFImageReader extends TIFFImageReaderSupport
 
     /*******************************************************************************************************************
      *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override
-    public int getWidth (final int imageIndex)
-      throws IOException
-      {
-        checkImageIndex(imageIndex);
-        ensureMetadataIsLoaded(imageIndex);
-        final FujiRawData fujiRawData = ((RAFHeaderProcessor)headerProcessor).getFujiRawData();
-        return fujiRawData.getFujiTable1().getRotatedWidth();
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override
-    public int getHeight (final int imageIndex)
-      throws IOException
-      {
-        checkImageIndex(imageIndex);
-        ensureMetadataIsLoaded(imageIndex);
-        final FujiRawData fujiRawData = ((RAFHeaderProcessor)headerProcessor).getFujiRawData();
-        return fujiRawData.getFujiTable1().getRotatedHeight();
-      }
-
-    /*******************************************************************************************************************
-     *
      * Fuji has 4 bands, not a RGB, so we can't use CS_LINEAR_RGB.
      *
      ******************************************************************************************************************/

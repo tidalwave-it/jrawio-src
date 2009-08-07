@@ -22,16 +22,16 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: TIFFImageReaderSupport.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.tiff;
 
+import javax.annotation.Nonnegative;
 import java.lang.reflect.Constructor;
-import it.tidalwave.imageio.util.Logger;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.ByteOrder;
-import java.awt.image.BufferedImage;
 import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.stream.ImageInputStream;
 import it.tidalwave.imageio.io.RAWImageInputStream;
@@ -40,6 +40,7 @@ import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 import it.tidalwave.imageio.raw.RAWMetadataSupport;
 import it.tidalwave.imageio.raw.RasterReader;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -47,7 +48,7 @@ import it.tidalwave.imageio.raw.RasterReader;
  * an ImageReader for any TIFF-based image format.
  *
  * @author Fabrizio Giudici
- * @version $Id: TIFFImageReaderSupport.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
@@ -87,7 +88,8 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public int getWidth (int imageIndex) throws IOException
+    public int getWidth (final @Nonnegative int imageIndex)
+      throws IOException
       {
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
@@ -99,7 +101,8 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public int getHeight (int imageIndex) throws IOException
+    public final int getHeight (final @Nonnegative int imageIndex)
+      throws IOException
       {
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
@@ -112,7 +115,8 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      * 
      *******************************************************************************/
     @Override
-    public int getNumThumbnails (int imageIndex) throws IOException
+    public final int getNumThumbnails (final @Nonnegative int imageIndex)
+      throws IOException
       {
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
