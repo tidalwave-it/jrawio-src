@@ -22,13 +22,12 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: MRWWhiteBalanceOperation.java 136 2008-09-04 12:56:41Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.mrw;
 
 import javax.annotation.Nonnull;
-import it.tidalwave.imageio.util.Logger;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
@@ -36,11 +35,12 @@ import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 import it.tidalwave.imageio.minolta.MinoltaRawData.PRD;
 import it.tidalwave.imageio.mrw.MRWMetadata;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWWhiteBalanceOperation.java 136 2008-09-04 12:56:41Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class MRWSizeOperation extends SizeOperation
@@ -63,9 +63,30 @@ public class MRWSizeOperation extends SizeOperation
         final int height = bufferedImage.getHeight();
         final Dimension newSize = prd.getImageSize();
         // FIXME: I'm not sure the crop must be centered
-        return new Insets((height - newSize.height) / 2, 
-                          (width - newSize.width) / 2, 
-                          (height - newSize.height) / 2, 
-                          (width - newSize.width) / 2);
+        final Insets crop = new Insets((height - newSize.height) / 2,
+                                       (width - newSize.width) / 2,
+                                       (height - newSize.height) / 2,
+                                       (width - newSize.width) / 2);
+        logger.finer(">>>> returning %s", crop);
+
+        return crop;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    @Nonnull
+    protected Dimension getSize (final @Nonnull RAWImage image)
+      {
+        logger.fine("getSize(%s)", image);
+        final MRWMetadata metadata = (MRWMetadata)image.getRAWMetadata();
+        final PRD prd = metadata.getMinoltaRawData().getPRD();
+        final Dimension size = prd.getImageSize();
+        logger.finer(">>>> returning %s", size);
+
+        return size;
       }
   }

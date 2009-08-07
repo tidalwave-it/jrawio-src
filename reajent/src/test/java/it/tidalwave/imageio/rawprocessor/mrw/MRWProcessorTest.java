@@ -54,9 +54,9 @@ public class MRWProcessorTest  extends NewImageReaderTestSupport
           (
             // Dynax 7D
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/theoheinze/Minolta/Dynax7D/MRW/PICT0652.MRW").
-                            image(3008, 2000, 3, 8, "b6409343ca012991318351d5ca004e68").
+                            image(3008, 2000, 3, 8, "0c011c16b6e2b511417dc484377ca239").
                             thumbnail(640, 480).
-                            issues("JRW-152")
+                            issues("JRW-152", "JRW-209")
           );
       }
   }
