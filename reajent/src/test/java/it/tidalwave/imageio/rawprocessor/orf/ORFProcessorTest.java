@@ -61,43 +61,6 @@ public class ORFProcessorTest extends NewImageReaderTestSupport
       {
         return fixed
           (
-            // Olympus E510
-            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/josephandre/Olympus/E510/ORF/_2090037.ORF").
-                            image(3720, 2800, 3, 8, "feee420807845f22635ee7ce881d6fe1").
-                            thumbnail(1600, 1200).
-                            issues("JRW-151", "JRW-154", "JRW-155", "JRW-159").
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                    final OlympusMakerNote makerNote = metadata.getOlympusMakerNote();
-                                    assertNotNull(makerNote);
-                                    assertEquals(8, makerNote.getTags().size());
-
-                                    final CameraSettings cameraSettings = makerNote.getOlympusCameraSettings();
-                                    assertNotNull(cameraSettings);
-                                    assertEquals(44, cameraSettings.getTags().size());
-
-                                    final Equipment equipment = makerNote.getOlympusEquipment();
-                                    assertNotNull(equipment);
-                                    assertEquals(23, equipment.getTags().size());
-
-                                    final FocusInfo focusInfo = makerNote.getOlympusFocusInfo();
-                                    assertNotNull(focusInfo);
-                                    assertEquals(59, focusInfo.getTags().size());
-
-                                    final ImageProcessing imageProcessing = makerNote.getOlympusImageProcessing();
-                                    assertNotNull(imageProcessing);
-                                    assertEquals(142, imageProcessing.getTags().size());
-
-                                    final RawDevelopment rawDevelopment = makerNote.getOlympusRawDevelopment();
-                                    assertNotNull(rawDevelopment);
-                                    assertEquals(14, rawDevelopment.getTags().size());
-                                  }
-                              }),
             // Olympus E500
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/victoriagracia/Olympus/E500/ORF/V7020205.ORF").
                             image(3360, 2504, 3, 8, "dd496ebfb5232a0b05a3e706f4005806").
@@ -130,6 +93,43 @@ public class ORFProcessorTest extends NewImageReaderTestSupport
                                     final ImageProcessing imageProcessing = makerNote.getOlympusImageProcessing();
                                     assertNotNull(imageProcessing);
                                     assertEquals(109, imageProcessing.getTags().size());
+
+                                    final RawDevelopment rawDevelopment = makerNote.getOlympusRawDevelopment();
+                                    assertNotNull(rawDevelopment);
+                                    assertEquals(14, rawDevelopment.getTags().size());
+                                  }
+                              }),
+            // Olympus E510
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/josephandre/Olympus/E510/ORF/_2090037.ORF").
+                            image(3720, 2800, 3, 8, "feee420807845f22635ee7ce881d6fe1").
+                            thumbnail(1600, 1200).
+                            issues("JRW-151", "JRW-154", "JRW-155", "JRW-159").
+                            extra(new ExpectedResults.Extra()
+                              {
+                                public void run (final @Nonnull ImageReader ir)
+                                  throws Exception
+                                  {
+                                    final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
+                                    assertNotNull(metadata);
+                                    final OlympusMakerNote makerNote = metadata.getOlympusMakerNote();
+                                    assertNotNull(makerNote);
+                                    assertEquals(8, makerNote.getTags().size());
+
+                                    final CameraSettings cameraSettings = makerNote.getOlympusCameraSettings();
+                                    assertNotNull(cameraSettings);
+                                    assertEquals(44, cameraSettings.getTags().size());
+
+                                    final Equipment equipment = makerNote.getOlympusEquipment();
+                                    assertNotNull(equipment);
+                                    assertEquals(23, equipment.getTags().size());
+
+                                    final FocusInfo focusInfo = makerNote.getOlympusFocusInfo();
+                                    assertNotNull(focusInfo);
+                                    assertEquals(59, focusInfo.getTags().size());
+
+                                    final ImageProcessing imageProcessing = makerNote.getOlympusImageProcessing();
+                                    assertNotNull(imageProcessing);
+                                    assertEquals(142, imageProcessing.getTags().size());
 
                                     final RawDevelopment rawDevelopment = makerNote.getOlympusRawDevelopment();
                                     assertNotNull(rawDevelopment);
