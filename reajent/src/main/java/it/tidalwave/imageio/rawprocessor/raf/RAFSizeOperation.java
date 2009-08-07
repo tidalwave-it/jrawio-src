@@ -22,42 +22,31 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: PEFSizeOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raf;
 
-import it.tidalwave.imageio.pef.PentaxMakerNote;
+import javax.annotation.Nonnull;
 import java.awt.Dimension;
 import java.awt.Insets;
-import it.tidalwave.imageio.raw.TagRational;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
-import it.tidalwave.imageio.tiff.IFD;
-import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFSizeOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class RAFSizeOperation extends SizeOperation
   {
-    private int left;
-    
-    private int top;
-    
-    private int width;
-    
-    private int height;
-    
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
     @Override
-    public void init (RAWImage image)
+    public void init (final @Nonnull RAWImage image)
       throws Exception
       {
         // TODO
@@ -65,25 +54,31 @@ public class RAFSizeOperation extends SizeOperation
     
     /*******************************************************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    protected Insets getCrop (RAWImage image)
+    @Override
+    @Nonnull
+    protected Insets getCrop (final @Nonnull RAWImage image)
       {
+        final int left = 4; // FIXME
+        final int top = 4;
+        final Dimension size = getSize(image);
         return new Insets(top, 
                           left, 
-                          image.getImage().getHeight() - top - height,
-                          image.getImage().getWidth() - left - width);
+                          image.getImage().getHeight() - top - size.height,
+                          image.getImage().getWidth() - left - size.width);
       }
     
     /*******************************************************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override
-    protected Dimension getSize (RAWImage image)
+    @Nonnull
+    protected Dimension getSize (final @Nonnull RAWImage image)
       {
-        return new Dimension(width, height);
+        return new Dimension(2848, 2136); // FIXME
       }
   }

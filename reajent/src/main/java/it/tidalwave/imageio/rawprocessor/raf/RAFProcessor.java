@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: PEFProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raf;
@@ -32,12 +32,11 @@ import java.util.List;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWProcessor;
 import it.tidalwave.imageio.rawprocessor.raw.ColorProfileOperation;
-import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFProcessor.java 96 2008-08-24 14:51:54Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class RAFProcessor extends RAWProcessor
@@ -54,7 +53,7 @@ public class RAFProcessor extends RAWProcessor
         operationList.add(new RAFCurveOperation());
         operationList.add(new RAFDemosaicOperation());
         operationList.add(new RAFRotateOperation());
-////        operationList.add(new RAFSizeOperation());
+        operationList.add(new RAFSizeOperation());
         operationList.add(new ColorProfileOperation());
 //        operationList.add(new SharpenOperation());
       }

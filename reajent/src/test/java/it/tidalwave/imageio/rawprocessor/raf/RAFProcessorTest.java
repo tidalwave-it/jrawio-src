@@ -54,10 +54,10 @@ public class RAFProcessorTest extends NewImageReaderTestSupport
           (
             // S6500fd
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/tmlehto/Fujifilm/S6500fd/RAF/DSCF6315.RAF").
-                            image(2896, 2182, 3, 8, "47df2750b17f3734d7ba9a7398033c31").
+                            image(2848, 2136, 3, 8, "230d59e11a1e459b444d40a77f196244").
                             thumbnail(160, 120).
                             thumbnail(1600, 1200).
-                            issues("JRW-127")
+                            issues("JRW-127", "JRW-212")
           );
       }
   }
