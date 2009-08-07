@@ -36,6 +36,22 @@ http://creativecommons.org/licenses/by-sa/2.5
         <description></description>
     </tag>
     <tag>
+        <code>4142</code>
+        <type>int</type>
+        <length>1</length>
+        <name>ImageWidth</name>
+        <example></example>
+        <description>The width of the image for E-500</description>
+    </tag>
+    <tag>
+        <code>4143</code>
+        <type>int</type>
+        <length>1</length>
+        <name>ImageHeight</name>
+        <example></example>
+        <description>The height of the image for E-500</description>
+    </tag>
+    <tag>
         <code>8208</code>
         <type>int</type>
         <length>1</length>
