@@ -59,6 +59,8 @@ public abstract class SizeOperation extends OperationSupport
     protected final static TagRational ONE = new TagRational(1, 1);
 
     protected final static TagRational[] SCALE_UNCHANGED = new TagRational[] { ONE, ONE };
+
+    protected final static Insets NULL_CROP = new Insets(0, 0, 0, 0);
         
     private final Properties properties = new Properties();
 
@@ -96,7 +98,7 @@ public abstract class SizeOperation extends OperationSupport
         logger.fine("process(%s)", image);
         Insets crop = getCrop(image);
 
-        if ((crop != null) && !isNullCrop(crop))
+        if ((crop != null) && !crop.equals(NULL_CROP))
           {
             logger.finer(">>>> crop: %s", crop);
             image.setImage(crop(image.getImage(), crop));
@@ -376,14 +378,5 @@ public abstract class SizeOperation extends OperationSupport
         logger.finer(">>>> cropInsets: %s", cropInsets);
         
         return cropInsets;
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    private boolean isNullCrop (final @Nonnull Insets crop)
-      {
-        return (crop.left == 0) && (crop.right == 0) && (crop.top == 0) && (crop.bottom == 0);
       }
   }
