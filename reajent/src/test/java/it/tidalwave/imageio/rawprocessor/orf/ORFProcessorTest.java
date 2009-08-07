@@ -65,7 +65,7 @@ public class ORFProcessorTest extends NewImageReaderTestSupport
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/victoriagracia/Olympus/E500/ORF/V7020205.ORF").
                             image(3264, 2448, 3, 8, "99c9f7d575ca4af2e1a74320c102a9a5").
                             thumbnail(160, 120).
-                            thumbnail(1, 1). // FIXME
+                            thumbnail(1600, 1200). 
                             issues("JRW-160", "JRW-211").
                             metadata("metadata.olympusMakerNote.imageWidth", 3264).
                             metadata("metadata.olympusMakerNote.imageHeight", 2448).
