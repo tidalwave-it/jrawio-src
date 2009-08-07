@@ -27,8 +27,10 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import it.tidalwave.imageio.util.Logger;
@@ -191,27 +193,30 @@ public abstract class SizeOperation extends OperationSupport
      *
      *
      ******************************************************************************************************************/
-    @Nonnull
-    protected static Dimension rotate (@Nonnull final Dimension size, @Nonnegative int rotation)
+    @CheckForNull
+    protected static Dimension rotate (@Nullable final Dimension size, @Nonnegative int rotation)
       {
         logger.finer("rotate(%s, %d)", size, rotation);
 
         Dimension result = null;
 
-        switch (rotation)
+        if (size != null)
           {
-            case 0:
-            case 180:
-              result = new Dimension(size);
-              break;
+            switch (rotation)
+              {
+                case 0:
+                case 180:
+                  result = new Dimension(size);
+                  break;
 
-            case 90:
-            case 270:
-              result = new Dimension(size.height, size.width);
-              break;
+                case 90:
+                case 270:
+                  result = new Dimension(size.height, size.width);
+                  break;
 
-            default:
-              throw new IllegalArgumentException("rotation=" + rotation);
+                default:
+                  throw new IllegalArgumentException("rotation=" + rotation);
+              }
           }
 
         logger.finest(">>>> returning: %s", result);
