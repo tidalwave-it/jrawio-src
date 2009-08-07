@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: PEFCurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raf;
@@ -43,7 +43,7 @@ import it.tidalwave.imageio.rawprocessor.raw.RotateOperation;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFCurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class RAFRotateOperation extends RotateOperation
@@ -52,7 +52,6 @@ public class RAFRotateOperation extends RotateOperation
 
     @Override
     public void process (final RAWImage image)
-      throws Exception
       {
 //        fuji_width = (fuji_width - 1 + shrink) >> shrink;
         final BufferedImage oldBufferedImage = image.getImage();
