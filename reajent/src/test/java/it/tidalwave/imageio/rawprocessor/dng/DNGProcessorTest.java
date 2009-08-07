@@ -29,12 +29,9 @@ package it.tidalwave.imageio.rawprocessor.dng;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
-import javax.imageio.ImageReader;
 import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
-import it.tidalwave.imageio.dng.DNGMetadata;
 import org.junit.runners.Parameterized.Parameters;
-import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
  *
@@ -57,34 +54,16 @@ public class DNGProcessorTest extends NewImageReaderTestSupport
           (
             // EOS300D
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0056.DNG").
-                            image(3024, 2016, 3, 16, "a5ef709c014ce348c3e7932430bd93e0").
+                            image(3072, 2048, 3, 8, "7d47b714c5d0c09d24db4e8c0bd7915d").
                             thumbnail(256, 171).
                             thumbnail(1024, 683).
-                            issues("JRW-144").
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final DNGMetadata metadata = (DNGMetadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                  }
-                              }),
+                            issues("JRW-144", "JRW-210"),
             // EOS300D
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0043.DNG").
-                            image(3024, 2016, 3, 16, "b96e7f37a44071e8a8c675cf97e55dda").
+                            image(2048, 3072, 3, 8, "f69d5f5b830db85850eb40779353a803").
                             thumbnail(256, 171).
                             thumbnail(1024, 683).
-                            issues("JRW-145").
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final DNGMetadata metadata = (DNGMetadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                  }
-                              })
+                            issues("JRW-145", "JRW-210")
           );
       }
 
