@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: OlympusMakerNote.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -30,17 +30,17 @@ package it.tidalwave.imageio.orf;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.util.NoSuchElementException;
-import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import it.tidalwave.imageio.tiff.ThumbnailHelper;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.tiff.TIFFTag;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: OlympusMakerNote.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class OlympusMakerNote extends OlympusMakerNoteSupport
@@ -58,7 +58,9 @@ public class OlympusMakerNote extends OlympusMakerNoteSupport
     private ImageProcessing imageProcessing;
     
     private FocusInfo focusInfo;
-    
+
+    private boolean offsetCorrection = false;
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
@@ -68,6 +70,8 @@ public class OlympusMakerNote extends OlympusMakerNoteSupport
     public void loadAll (@Nonnull final RAWImageInputStream iis, final long offset) 
        throws IOException
       {
+        logger.fine("loadAll(%S, %d)", iis, offset);
+
         long baseOffsetSave = iis.getBaseOffset();
         iis.seek(offset);
         final byte[] buffer = new byte[8];
@@ -77,12 +81,15 @@ public class OlympusMakerNote extends OlympusMakerNoteSupport
         if (s.equals("OLYMP"))
           {
             final long savePosition = iis.getStreamPosition();
-            final int xxx = iis.readInt();
+            final int tag = iis.readInt();
             
-            if (xxx != 0x34949) // e.g. E-500
+            if (tag != 0x34949) // e.g. E-500
               {
+                offsetCorrection = true;
                 iis.seek(savePosition);  
               }
+
+            logger.finer(">>>> tag: %08x, savePosition: %d", tag, savePosition);
 
             super.load(iis, iis.getStreamPosition()); // not loadAll(), there's no next-IFD pointer at the end
             loadCameraSettings(iis);
@@ -154,7 +161,14 @@ public class OlympusMakerNote extends OlympusMakerNoteSupport
              cameraSettings.isThumbnailSizeAvailable())
           {
             final int makerNoteOffset = (int)getStart() - 12;
-            final int thumbnailOffset = cameraSettings.getThumbnailOffset() + makerNoteOffset;
+            int offset = makerNoteOffset;
+
+            if (offsetCorrection)
+              {
+                offset -= 784; // FIXME: I only know that 12 + 784 = 796 = the value of savePosition when tag != 0x34949
+              }
+
+            final int thumbnailOffset = cameraSettings.getThumbnailOffset() + offset;
             final int thumbnailSize = cameraSettings.getThumbnailSize();
             return new ThumbnailHelper(iis, thumbnailOffset, thumbnailSize);
           }
