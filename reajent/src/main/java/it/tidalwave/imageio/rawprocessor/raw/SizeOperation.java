@@ -33,7 +33,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Properties;
 import java.util.StringTokenizer;
-import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.awt.Dimension;
@@ -45,6 +44,7 @@ import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -95,19 +95,19 @@ public abstract class SizeOperation extends OperationSupport
       {
         logger.fine("process()");
         Insets crop = getCrop(image);
-        
-        if (crop != null)
+
+        if ((crop != null) && !isNullCrop(crop))
           {
             logger.finer(">>>> crop: %s", crop);
             image.setImage(crop(image.getImage(), crop));
           }
-        
-        Dimension size = getSize(image);
-        
-        if ((size != null)) // && ((cropRectangle == null) || !cropRectangle.getSize().equals(size)))
+
+        final Dimension size = getSize(image);
+
+        if ((size != null)) // FIXME && ((cropRectangle == null) || !cropRectangle.getSize().equals(size)))
           {
             logger.finer(">>>> size: %s", size);
-            image.setImage(resample(image.getImage(), size));  
+            image.setImage(resample(image.getImage(), size));
           }
       }
 
@@ -376,5 +376,14 @@ public abstract class SizeOperation extends OperationSupport
         logger.finer(">>>> cropInsets: %s", cropInsets);
         
         return cropInsets;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    private boolean isNullCrop (final @Nonnull Insets crop)
+      {
+        return (crop.left == 0) && (crop.right == 0) && (crop.top == 0) && (crop.bottom == 0);
       }
   }
