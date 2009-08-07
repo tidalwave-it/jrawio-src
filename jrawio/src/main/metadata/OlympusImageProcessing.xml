@@ -19,5 +19,21 @@ http://creativecommons.org/licenses/by-sa/2.5
         <example></example>
         <description></description>
     </tag>
+    <tag>
+        <code>1556</code>
+        <type>int</type>
+        <length>1</length>
+        <name>ImageWidth</name>
+        <example></example>
+        <description>The width of the image for E-510</description>
+    </tag>
+    <tag>
+        <code>1557</code>
+        <type>int</type>
+        <length>1</length>
+        <name>ImageHeight</name>
+        <example></example>
+        <description>The height of the image for E-510</description>
+    </tag>
 </directory>
 
