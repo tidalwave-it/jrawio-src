@@ -57,7 +57,7 @@ public class RAFProcessorTest extends NewImageReaderTestSupport
                             image(2848, 2136, 3, 8, "230d59e11a1e459b444d40a77f196244").
                             thumbnail(160, 120).
                             thumbnail(1600, 1200).
-                            issues("JRW-127", "JRW-212")
+                            issues("JRW-127", "JRW-212", "JRW-213")
           );
       }
   }
