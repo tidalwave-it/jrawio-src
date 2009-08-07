@@ -63,7 +63,7 @@ public class ORFProcessorTest extends NewImageReaderTestSupport
           (
             // Olympus E510
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/josephandre/Olympus/E510/ORF/_2090037.ORF").
-                            image(3720, 2800, 3, 8, "261e200fcf00a79a3c3402eedcc72993").
+                            image(3720, 2800, 3, 8, "feee420807845f22635ee7ce881d6fe1").
                             thumbnail(1600, 1200).
                             issues("JRW-151", "JRW-154", "JRW-155", "JRW-159").
                             extra(new ExpectedResults.Extra()
@@ -100,7 +100,7 @@ public class ORFProcessorTest extends NewImageReaderTestSupport
                               }),
             // Olympus E500
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/victoriagracia/Olympus/E500/ORF/V7020205.ORF").
-                            image(3360, 2504, 3, 8, "1362f5928da9cae1fe0704e69bd5eb53").
+                            image(3360, 2504, 3, 8, "dd496ebfb5232a0b05a3e706f4005806").
                             thumbnail(160, 120).
                             thumbnail(1, 1). // FIXME
                             issues("JRW-160").
