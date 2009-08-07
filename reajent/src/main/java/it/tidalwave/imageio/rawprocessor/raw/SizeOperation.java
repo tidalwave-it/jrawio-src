@@ -93,7 +93,7 @@ public abstract class SizeOperation extends OperationSupport
     public void process (@Nonnull final RAWImage image) 
       throws Exception
       {
-        logger.fine("process()");
+        logger.fine("process(%s)", image);
         Insets crop = getCrop(image);
 
         if ((crop != null) && !isNullCrop(crop))
@@ -119,7 +119,7 @@ public abstract class SizeOperation extends OperationSupport
     @Override
     public void processMetadata (@Nonnull final RAWImage image)
       {
-        logger.fine("processMetadata()");
+        logger.fine("processMetadata(%s)", image);
         final int rotation = normalizedAngle(image.getRotation());
         image.getRAWMetadata().setSize(rotate(getSize(image), rotation));
       } 
