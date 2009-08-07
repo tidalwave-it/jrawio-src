@@ -22,29 +22,26 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: PEFImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.raf;
 
-import it.tidalwave.imageio.raw.Directory;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import it.tidalwave.imageio.util.Logger;
-import java.io.IOException;
 import java.awt.image.WritableRaster;
 import javax.imageio.spi.ImageReaderSpi;
+import java.io.IOException;
+import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.RasterReader;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
-import java.awt.color.ColorSpace;
-import java.awt.image.BufferedImage;
-import java.awt.image.ComponentColorModel;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class RAFImageReader extends TIFFImageReaderSupport
