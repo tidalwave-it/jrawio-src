@@ -212,6 +212,8 @@ public class ThumbnailHelper
             image = loadPlainImage(iis, width, height, offset, byteCount);   
           }
 
+        logger.finer(">>>> read %s", image);
+
         return image;
       }
     
