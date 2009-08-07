@@ -59,6 +59,9 @@ public class ORFImageReaderImageTest extends NewImageReaderTestSupport
                             image(3720, 2800, 3, 16, "f823981ab27195c2db002ee03a65af84").
                             thumbnail(1600, 1200).
                             issues("JRW-151", "JRW-154", "JRW-155", "JRW-159").
+                            metadata("metadata.olympusMakerNote.olympusImageProcessing.imageWidth", 3648).
+                            metadata("metadata.olympusMakerNote.olympusImageProcessing.imageHeight", 2736).
+
                             extra(new ExpectedResults.Extra()
                               {
                                 public void run (final @Nonnull ImageReader ir)
@@ -97,6 +100,8 @@ public class ORFImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(1, 1). // FIXME
                             issues("JRW-160", "JRW-202").
+                            metadata("metadata.olympusMakerNote.imageWidth", 3264).
+                            metadata("metadata.olympusMakerNote.imageHeight", 2448).
                             extra(new ExpectedResults.Extra()
                               {
                                 public void run (final @Nonnull ImageReader ir)
