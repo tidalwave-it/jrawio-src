@@ -22,23 +22,26 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ColorConversionOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
-import it.tidalwave.imageio.util.Logger;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import java.awt.image.DataBufferUShort;
 import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.raw.TagRational;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.ColorMatrix;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.util.Logger;
+import javax.annotation.CheckForNull;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ColorConversionOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public abstract class ColorConversionOperation extends OperationSupport
@@ -50,9 +53,9 @@ public abstract class ColorConversionOperation extends OperationSupport
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public void process (RAWImage image)
+    public void process (final @Nonnull RAWImage image)
       {
-        ColorMatrix colorMatrix = getColorMatrix(image);
+        final ColorMatrix colorMatrix = getColorMatrix(image);
         
         if (colorMatrix != null)
           {
@@ -63,10 +66,11 @@ public abstract class ColorConversionOperation extends OperationSupport
     /*******************************************************************************************************************
      * 
      * 
-     *******************************************************************************/
-    protected ColorMatrix getColorMatrix (RAWImage image)
+     ******************************************************************************************************************/
+    @CheckForNull
+    protected ColorMatrix getColorMatrix (final @Nonnull RAWImage image)
       {
-        ColorMatrix colorMatrix = getColorMatrixXYZ(image);
+        final ColorMatrix colorMatrix = getColorMatrixXYZ(image);
         
         if (colorMatrix != null)
           {
@@ -87,7 +91,8 @@ public abstract class ColorConversionOperation extends OperationSupport
      *
      *
      ******************************************************************************************************************/
-    protected ColorMatrix getColorMatrixXYZ (RAWImage image)
+    @CheckForNull
+    protected ColorMatrix getColorMatrixXYZ (final @Nonnull RAWImage image)
       {
         return null;   
       }
@@ -97,28 +102,30 @@ public abstract class ColorConversionOperation extends OperationSupport
      * @param matrix
      * @return
      *
-     *******************************************************************************/
-    protected static ColorMatrix getMatrix(TagRational[] matrix)
-      {
-        double c[] = new double[matrix.length];
+     ******************************************************************************************************************/
+    @CheckForNull
+     protected static ColorMatrix getMatrix (final @Nonnull TagRational[] matrix)
+        {
+          final double c[] = new double[matrix.length];
         
-        for (int i = 0; i < c.length; i++)
-          {
-            c[i] = matrix[i].doubleValue();
-          }
+          for (int i = 0; i < c.length; i++)
+            {
+              c[i] = matrix[i].doubleValue();
+            }
         
-        return new ColorMatrix(c);
-      }
+          return new ColorMatrix(c);
+        }
     
     /*******************************************************************************************************************
      *
      * @param matrix
      * @return
      *
-     *******************************************************************************/
-    protected static ColorMatrix getMatrix(int[] matrix, double scale)
+     ******************************************************************************************************************/
+    @CheckForNull
+    protected static ColorMatrix getMatrix (final @Nonnull int[] matrix, final @Nonnegative double scale)
       {
-        double c[] = new double[matrix.length];
+        final double c[] = new double[matrix.length];
         
         for (int i = 0; i < c.length; i++)
           {
@@ -133,15 +140,14 @@ public abstract class ColorConversionOperation extends OperationSupport
      * TODO: rewrite using a standard Java library!
      * @param raster
      *
-     *******************************************************************************/
-    private static void applyMatrix (WritableRaster raster, ColorMatrix colorMatrix1)
+     ******************************************************************************************************************/
+    private static void applyMatrix (@Nonnull WritableRaster raster, final @Nonnull ColorMatrix colorMatrix1)
       {
-        logger.fine("applyMatrix()");
-        logger.finer(">>>> raster: %s", raster);
+        logger.fine("applyMatrix(%s, %s)", raster, colorMatrix1);
         
         long time = System.currentTimeMillis();
-        DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
-        short[] data = dataBuffer.getData();
+        final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
+        final short[] data = dataBuffer.getData();
         int w = raster.getWidth();
         int h = raster.getHeight();
         
