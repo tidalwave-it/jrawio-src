@@ -22,26 +22,26 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: CR2CurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.cr2;
 
-import it.tidalwave.imageio.util.Logger;
-import it.tidalwave.imageio.tiff.IFD;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CR2CurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CR2CurveOperation extends CurveOperation  
   {
-    private final static String CLASS = "it.tidalwave.imageio.rawprocessor.cr2.CR2CurveOperation";
-    
+    private final static String CLASS = CR2CurveOperation.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
     
     /*******************************************************************************************************************
@@ -49,7 +49,9 @@ public class CR2CurveOperation extends CurveOperation
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    protected double getWhiteLevel (RAWImage image)
+    @Nonnegative
+    @Override
+    protected double getWhiteLevel (final @Nonnull RAWImage image)
       {
         logger.fine("getWhiteLevel()");
         return (1 << 12) - 1; // FIXME
