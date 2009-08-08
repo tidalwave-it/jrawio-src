@@ -30,6 +30,7 @@ package it.tidalwave.imageio.cr2;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.Properties;
 import java.io.IOException;
 import java.io.InputStream;
@@ -95,7 +96,7 @@ public class CanonCR2MakerNote extends CanonCR2MakerNoteSupport
     public String getOwnerName()
       {
         String artist = super.getOwnerName();
-        int i = artist.indexOf(0);
+        final int i = artist.indexOf(0);
         
         if (i >= 0)
           {
@@ -108,8 +109,8 @@ public class CanonCR2MakerNote extends CanonCR2MakerNoteSupport
     @Nonnull
     public short[] getWhiteBalanceCoefficients()
       {
-        int[] wbi = getWhiteBalanceInfo();
-        short[] coefficients = new short[4];
+        final int[] wbi = getWhiteBalanceInfo();
+        final short[] coefficients = new short[4];
         
         if (wbi != null)
           {
@@ -137,8 +138,9 @@ public class CanonCR2MakerNote extends CanonCR2MakerNoteSupport
             for (int i = 0; i < coefficients.length; i++)
               {
                 coefficients[i] = (short)wbi[offset + i];  
-                logger.finer(">>>> wb coefficient[%d]=%d", i, coefficients[i]);
               }
+
+            logger.finer(">>>> wb coefficients: %s", Arrays.toString(coefficients));
           }
         
         return coefficients;
