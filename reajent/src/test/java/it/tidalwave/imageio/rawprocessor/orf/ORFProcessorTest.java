@@ -63,10 +63,10 @@ public class ORFProcessorTest extends NewImageReaderTestSupport
           (
             // Olympus E500
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/victoriagracia/Olympus/E500/ORF/V7020205.ORF").
-                            image(3264, 2448, 3, 8, "99c9f7d575ca4af2e1a74320c102a9a5").
+                            image(3264, 2448, 3, 8, "0020be22c4224b51d60807502ff8c8af").
                             thumbnail(160, 120).
                             thumbnail(1600, 1200). 
-                            issues("JRW-160", "JRW-211").
+                            issues("JRW-160", "JRW-211", "JRW-214").
                             metadata("metadata.olympusMakerNote.imageWidth", 3264).
                             metadata("metadata.olympusMakerNote.imageHeight", 2448).
                             extra(new ExpectedResults.Extra()
@@ -103,9 +103,9 @@ public class ORFProcessorTest extends NewImageReaderTestSupport
                               }),
             // Olympus E510
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/josephandre/Olympus/E510/ORF/_2090037.ORF").
-                            image(3648, 2736, 3, 8, "c68cee0dba0843e886c4fea1312a0d42").
+                            image(3648, 2736, 3, 8, "4e92f94313383cfaa52f7415ac3c5ad3").
                             thumbnail(1600, 1200).
-                            issues("JRW-151", "JRW-154", "JRW-155", "JRW-159", "JRW-211").
+                            issues("JRW-151", "JRW-154", "JRW-155", "JRW-159", "JRW-211", "JRW-214").
                             metadata("metadata.olympusMakerNote.olympusImageProcessing.imageWidth", 3648).
                             metadata("metadata.olympusMakerNote.olympusImageProcessing.imageHeight", 2736).
                             extra(new ExpectedResults.Extra()
