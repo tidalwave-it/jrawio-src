@@ -35,8 +35,10 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.util.Logger;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -57,11 +59,31 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
     @Nonnull
     private final ExpectedResults expectedResults;
 
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     protected NewImageReaderTestSupport (final @Nonnull ExpectedResults expectedResults)
       {
         this.expectedResults = expectedResults;
       }
 
+    /*******************************************************************************************************************
+     *
+     * Makes sure the test file is loaded outside the time-guarded window.
+     *
+     ******************************************************************************************************************/
+    @Before
+    public final void ensureTestFileIsLoaded()
+      throws IOException
+      {
+        getTestFile(expectedResults.getPath());
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     @Test(timeout=60000)
     public final void testImage()
       throws Exception
@@ -236,6 +258,10 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
           }
       }
 
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     @Nonnull
     protected static Collection<Object[]> fixed (final @Nonnull ExpectedResults ... er)
       {
@@ -249,12 +275,20 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
         return result;
       }
 
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     @Nonnull
     private final static String capitalized (final @Nonnull String string)
       {
         return string.substring(0, 1).toUpperCase() + string.substring(1);
       }
 
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     private void assertFArrayEquals (final @Nonnull String message,
                                      final @Nonnull float[] expected,
                                      final @Nonnull float[] actual)
@@ -267,6 +301,10 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
           }
       }
 
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     private void assertDArrayEquals (final @Nonnull String message,
                                      final @Nonnull double[] expected,
                                      final @Nonnull double[] actual)
