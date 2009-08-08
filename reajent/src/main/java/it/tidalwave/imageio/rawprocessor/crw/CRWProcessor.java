@@ -22,31 +22,32 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: CRWProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.crw;
 
+import javax.annotation.Nonnull;
 import java.util.List;
+import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWProcessor;
 import it.tidalwave.imageio.rawprocessor.raw.ColorProfileOperation;
 import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
-import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CRWProcessor extends RAWProcessor
   {
     /*******************************************************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    protected void buildPipeline (List operationList)
+    protected void buildPipeline (final @Nonnull List<OperationSupport> operationList)
       {
         operationList.add(new CRWWhiteBalanceOperation());
 //        operationList.add(new ExposureOperation());
@@ -54,6 +55,7 @@ public class CRWProcessor extends RAWProcessor
         operationList.add(new CRWCurveOperation());
         operationList.add(new DemosaicOperation());
         operationList.add(new CRWSizeOperation());
+        operationList.add(new CRWColorConversionOperation());
         operationList.add(new ColorProfileOperation());
 //        operationList.add(new SharpenOperation());
       }
