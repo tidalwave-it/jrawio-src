@@ -80,7 +80,7 @@ public class CR2CurveOperation extends CurveOperation
                 final int s2 = raster.getSample(x, y, 1);
                 final int s3 = raster.getSample(x, y, 2);
                 dark[x & 1] += s1 + s2 + s3;
-                  System.err.printf("%d %d %d\n", s1, s2, s3);
+//                  System.err.printf("%d %d %d\n", s1, s2, s3);
               }
           }
 
