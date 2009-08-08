@@ -45,7 +45,7 @@ import it.tidalwave.imageio.util.Logger;
  **********************************************************************************************************************/
 public class OlympusMakerNote extends OlympusMakerNoteSupport
   {
-    private final static String CLASS = ORFMetadata.class.getName();
+    private final static String CLASS = OlympusMakerNote.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
     private final static long serialVersionUID = 6357805620960118907L;
 
@@ -70,7 +70,7 @@ public class OlympusMakerNote extends OlympusMakerNoteSupport
     public void loadAll (@Nonnull final RAWImageInputStream iis, final long offset) 
        throws IOException
       {
-        logger.fine("loadAll(%S, %d)", iis, offset);
+        logger.fine("loadAll(%s, %d)", iis, offset);
 
         long baseOffsetSave = iis.getBaseOffset();
         iis.seek(offset);
