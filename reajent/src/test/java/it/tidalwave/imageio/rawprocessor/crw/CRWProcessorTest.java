@@ -29,12 +29,9 @@ package it.tidalwave.imageio.rawprocessor.crw;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
-import javax.imageio.ImageReader;
 import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
-import it.tidalwave.imageio.crw.CRWMetadata;
 import org.junit.runners.Parameterized.Parameters;
-import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
  *
@@ -57,17 +54,9 @@ public class CRWProcessorTest extends NewImageReaderTestSupport
           (
             // EOS300D 
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/CRW/100_0056.CRW").
-                            image(3072, 2048, 3, 8, "b032586b49d3d22a46ae0ee5faa618a5").
+                            image(3072, 2048, 3, 8, "67994f630322d2bede87a2884f5f0965").
                             thumbnail(2048, 1360).
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final CRWMetadata metadata = (CRWMetadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                  }
-                              })
+                            issues("JRW-218", "JRW-219")
           );
       }
   }
