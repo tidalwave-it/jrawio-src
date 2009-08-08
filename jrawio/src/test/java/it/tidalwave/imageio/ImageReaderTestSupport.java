@@ -191,17 +191,15 @@ public class ImageReaderTestSupport extends TestSupport
         assertEquals("loaded thumbnail size: ", expectedSize, thumbnailSize);
         return thumbnail;
       }
-    
+
     /*******************************************************************************************************************
-     * 
-     * 
+     *
+     *
      ******************************************************************************************************************/
     @Nonnull
-    protected ImageReader getImageReader (final @Nonnull String path)
+    protected File getTestFile (final @Nonnull String path)
       throws IOException
       {
-        logger.info("************* TESTING FILE: %s", path);
-
         File file = null;
 
         if (path.startsWith("http"))
@@ -227,8 +225,23 @@ public class ImageReaderTestSupport extends TestSupport
           {
             file = new File(path.startsWith("/") ? path : (testFolder + "/" + path));
           }
-        
-        assertTrue("File not found: " + file, file.exists()); 
+
+        assertTrue("File not found: " + file, file.exists());
+
+        return file;
+      }
+    
+    /*******************************************************************************************************************
+     * 
+     * 
+     ******************************************************************************************************************/
+    @Nonnull
+    protected ImageReader getImageReader (final @Nonnull String path)
+      throws IOException
+      {
+        logger.info("************* TESTING FILE: %s", path);
+
+        final File file = getTestFile(path);
         final ImageReader imageReader = ImageIO.getImageReaders(file).next();
         assertNotNull(imageReader);
         imageReader.setInput(ImageIO.createImageInputStream(file));
