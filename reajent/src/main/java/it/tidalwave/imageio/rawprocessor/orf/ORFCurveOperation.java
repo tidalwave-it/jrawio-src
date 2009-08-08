@@ -22,11 +22,12 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ORFCurveOperation.java 120 2008-08-24 23:10:13Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.orf;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
@@ -36,15 +37,17 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFCurveOperation.java 120 2008-08-24 23:10:13Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ORFCurveOperation extends CurveOperation
   {
-    private int[] blackLevels;
+    @CheckForNull
+    private OlympusMakerNote orfMakernote;
     
-    private int validBits;
-    
+    @CheckForNull
+    private String model;
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
@@ -54,21 +57,8 @@ public class ORFCurveOperation extends CurveOperation
     public void init (@Nonnull final RAWImage image) 
       throws Exception
       {       
-        // FIXME: everything is temporary
-        validBits = 12;
-        OlympusMakerNote orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
-//        blackLevels = orfMakernote.getBlackLevel();
-//        validBits = orfMakernote.getValidBits();
-        
-        String model = ((TIFFMetadataSupport)image.getRAWMetadata()).getPrimaryIFD().getModel();
-        model = model.toUpperCase().trim();
-        
-        if ("E-1".equals(model) || "E-10".equals(model)) // FIXME: don't know why
-          {
-            validBits = 16;   
-          }
-        
-        blackLevels = new int[]{ 0, 0, 0 };
+        orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
+        model = ((TIFFMetadataSupport)image.getRAWMetadata()).getPrimaryIFD().getModel().toUpperCase().trim();
       }
     
     /*******************************************************************************************************************
@@ -80,8 +70,19 @@ public class ORFCurveOperation extends CurveOperation
     @Nonnull
     protected int[] getBlackLevel (@Nonnull final RAWImage image)
       {
+        final int[] blackLevels = new int[]{ 0, 0, 0 };
+
+        if (orfMakernote.isBlackLevelAvailable())
+          {
+            final int[] orfBlackLevel = orfMakernote.getBlackLevel();
+            // FIXME: ORF has got 4 black levels; don't know if the channel matching is correct
+            blackLevels[0] = orfBlackLevel[0];
+            blackLevels[1] = orfBlackLevel[1];
+            blackLevels[2] = orfBlackLevel[2];
+          }
 //        final int blackLevel = (blackLevels[0] + blackLevels[1] + blackLevels[2] + blackLevels[3]) / 4;
 //        return new int[] { blackLevel, blackLevel, blackLevel };
+        
         return blackLevels;
       }
     
@@ -93,7 +94,19 @@ public class ORFCurveOperation extends CurveOperation
     @Override
     protected double getWhiteLevel (@Nonnull final RAWImage image)
       {
-        double whiteLevel = (1 << validBits) - 1;    
-        return whiteLevel;
+        // FIXME: everything is temporary
+        int validBits = 12;
+
+        if (orfMakernote.isValidBitsAvailable())
+          {
+            validBits = orfMakernote.getValidBits()[0];
+          }
+
+        if ("E-1".equals(model) || "E-10".equals(model)) // FIXME: don't know why
+          {
+            validBits = 16;
+          }
+        
+        return (1 << validBits) - 1;
       }
   }
