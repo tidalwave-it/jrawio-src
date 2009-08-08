@@ -107,7 +107,7 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             issues("JRW-149", "JRW-150"),
             // D80
             ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d80/RAW_NIKON_D80_SRGB.NEF").
-                            image(2616, 3904, 3, 8, "bfce1c1d61ea4769e8ba20e050f3be70").
+                            image(2592, 3872, 3, 8, "bfce1c1d61ea4769e8ba20e050f3be70").
                             thumbnail(160, 120).
                             thumbnail(3872, 2592),
             // D90
