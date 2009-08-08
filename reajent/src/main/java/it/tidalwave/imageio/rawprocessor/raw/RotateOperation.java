@@ -39,7 +39,7 @@ import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 
 /***********************************************************************************************************************
  *
@@ -56,16 +56,16 @@ public class RotateOperation extends OperationSupport
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public void process (RAWImage image)
+    public void process (PipelineArtifact artifact)
       {
         logger.fine("process()");
         
-        int rotation = getCameraOrientation(image);
+        int rotation = getCameraOrientation(artifact);
         
         if (rotation != 0)
           {
-            image.setImage(rotateQuadrant(image.getImage(), rotation));
-            image.setRotation(rotation);
+            artifact.setImage(rotateQuadrant(artifact.getImage(), rotation));
+            artifact.setRotation(rotation);
           }
       }
         
@@ -75,15 +75,15 @@ public class RotateOperation extends OperationSupport
      *
      ******************************************************************************************************************/
     @Override
-    public void processMetadata (RAWImage image) 
+    public void processMetadata (PipelineArtifact artifact)
       {
         logger.fine("processMetadata()");
 
-        int rotation = getCameraOrientation(image);
+        int rotation = getCameraOrientation(artifact);
 
         if (rotation != 0)
           {
-            image.setRotation(rotation);
+            artifact.setRotation(rotation);
           }
       }
 
@@ -93,9 +93,9 @@ public class RotateOperation extends OperationSupport
      * RAW processors for other formats should override this method. 
      *
      ******************************************************************************************************************/
-    protected int getCameraOrientation (RAWImage image)
+    protected int getCameraOrientation (PipelineArtifact artifact)
       {
-        TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
+        TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
         IFD primaryIFD = metadata.getPrimaryIFD();
         IFD exifIFD = metadata.getExifIFD();
         int orientation = 0;

@@ -22,21 +22,21 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: NEFExposureOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
 
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.raw.ExposureOperation;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFExposureOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class NEFExposureOperation extends ExposureOperation
@@ -50,10 +50,10 @@ public class NEFExposureOperation extends ExposureOperation
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public void process (RAWImage image)
+    public void process (PipelineArtifact artifact)
       {
         logger.fine("process()");
-        NEFMetadata metadata = (NEFMetadata)image.getRAWMetadata();
+        NEFMetadata metadata = (NEFMetadata)artifact.getRAWMetadata();
         NikonCaptureEditorMetadata nceMetadata = (NikonCaptureEditorMetadata)metadata.getCaptureEditorMetadata();
         
         if ((nceMetadata != null) && nceMetadata.isAdvancedRawEnabled())
@@ -61,9 +61,9 @@ public class NEFExposureOperation extends ExposureOperation
             double exposureCompensation = nceMetadata.getEVCompensation() / 100.0;
             logger.finer (">>>> NCE exposure compensation: %s", exposureCompensation);
             double coefficient = Math.pow(2, exposureCompensation);
-            image.multiplyRedCoefficient(coefficient);
-            image.multiplyGreenCoefficient(coefficient);
-            image.multiplyBlueCoefficient(coefficient);
+            artifact.multiplyRedCoefficient(coefficient);
+            artifact.multiplyGreenCoefficient(coefficient);
+            artifact.multiplyBlueCoefficient(coefficient);
           }
       }    
   }

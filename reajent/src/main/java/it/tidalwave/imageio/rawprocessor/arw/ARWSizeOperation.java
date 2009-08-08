@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 import it.tidalwave.imageio.minolta.MinoltaRawData.PRD;
 import it.tidalwave.imageio.arw.ARWMetadata;
@@ -54,11 +54,11 @@ public class ARWSizeOperation extends SizeOperation
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Insets getCrop (final @Nonnull RAWImage image)
+    protected Insets getCrop (final @Nonnull PipelineArtifact artifact)
       {
-        logger.fine("getCrop(%s)", image);
-        final Dimension newSize = getSize(image);
-        final BufferedImage bufferedImage = image.getImage();
+        logger.fine("getCrop(%s)", artifact);
+        final Dimension newSize = getSize(artifact);
+        final BufferedImage bufferedImage = artifact.getImage();
         final int width = bufferedImage.getWidth();
         final int height = bufferedImage.getHeight();
         // FIXME: I'm not sure the crop must be centered
@@ -78,10 +78,10 @@ public class ARWSizeOperation extends SizeOperation
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Dimension getSize (final @Nonnull RAWImage image)
+    protected Dimension getSize (final @Nonnull PipelineArtifact artifact)
       {
-        logger.fine("getSize(%s)", image);
-        final ARWMetadata metadata = (ARWMetadata)image.getRAWMetadata();
+        logger.fine("getSize(%s)", artifact);
+        final ARWMetadata metadata = (ARWMetadata)artifact.getRAWMetadata();
         final PRD prd = metadata.getMinoltaRawData().getPRD();
         final Dimension size = prd.getImageSize();
         logger.finer(">>>> returning %s", size);

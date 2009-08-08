@@ -35,7 +35,7 @@ import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
-import it.tidalwave.imageio.tiff.ThumbnailHelper;
+import it.tidalwave.imageio.tiff.ThumbnailLoader;
 
 /***********************************************************************************************************************
  *
@@ -70,7 +70,7 @@ public class RAFMetadata extends TIFFMetadataSupport
         // Testing with ExifProbe reveals a JPEG_SOI, a JPEG_APP1 and then a TIFF - I suppose it's a TIFF embedded
         // in a JPEG. ImageIO can't read it - we are skipping the JPEG stuff (12 bytes) and directly pointing
         // to the TIFF.
-        thumbnailHelperList.add(new ThumbnailHelper(iis, 
+        thumbnailLoaders.add(new ThumbnailLoader(iis,
                                     fujiRawData.getJPEGImageOffset() + 12,
                                     fujiRawData.getJPEGImageLength(),
                                     exif.getPixelXDimension(),
@@ -127,7 +127,7 @@ public class RAFMetadata extends TIFFMetadataSupport
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Dimension getSize()
+    protected Dimension getImageSize()
       {
         final FujiTable1 fujiTable1 = getFujiRawData().getFujiTable1();
         return new Dimension(fujiTable1.getRotatedWidth(), fujiTable1.getRotatedHeight());

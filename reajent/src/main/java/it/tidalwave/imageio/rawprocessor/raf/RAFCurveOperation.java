@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: PEFCurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raf;
@@ -31,13 +31,13 @@ import it.tidalwave.imageio.pef.PentaxMakerNote;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFCurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class RAFCurveOperation extends CurveOperation
@@ -47,7 +47,7 @@ public class RAFCurveOperation extends CurveOperation
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    protected int[] getBlackLevel (RAWImage image)
+    protected int[] getBlackLevel (PipelineArtifact artifact)
       {
         int blackLevel = 0; // TODO
         return new int[] { blackLevel, blackLevel, blackLevel };
@@ -58,7 +58,7 @@ public class RAFCurveOperation extends CurveOperation
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    protected double getWhiteLevel (RAWImage image)
+    protected double getWhiteLevel (PipelineArtifact artifact)
       {
         return 8191; // FIXME
       }

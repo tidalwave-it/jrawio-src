@@ -120,7 +120,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
       {
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
-        ThumbnailHelper[] thumbnailInfo = ((TIFFMetadataSupport)metadata).getThumbnailHelper();
+        ThumbnailLoader[] thumbnailInfo = ((TIFFMetadataSupport)metadata).getThumbnailHelper();
         return thumbnailInfo.length;
       }
     
@@ -164,7 +164,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
         checkThumbnailIndex(thumbnailIndex);
-        ThumbnailHelper[] thumbnailInfo = ((TIFFMetadataSupport)metadata).getThumbnailHelper();
+        ThumbnailLoader[] thumbnailInfo = ((TIFFMetadataSupport)metadata).getThumbnailHelper();
         return thumbnailInfo[thumbnailIndex].load(iis);
       }
 

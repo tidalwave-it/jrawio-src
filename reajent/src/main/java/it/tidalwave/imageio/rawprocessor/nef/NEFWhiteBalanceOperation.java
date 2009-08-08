@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: NEFWhiteBalanceOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
@@ -34,12 +34,12 @@ import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;
 import it.tidalwave.imageio.nef.NEFWhiteBalanceInfo;
 import it.tidalwave.imageio.nef.NikonMakerNote3;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFWhiteBalanceOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class NEFWhiteBalanceOperation extends OperationSupport
@@ -51,21 +51,21 @@ public class NEFWhiteBalanceOperation extends OperationSupport
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public void process (RAWImage image)
+    public void process (PipelineArtifact artifact)
       {
         logger.fine("process()");
-        NEFMetadata metadata = (NEFMetadata)image.getRAWMetadata();
+        NEFMetadata metadata = (NEFMetadata)artifact.getRAWMetadata();
         NikonMakerNote3 makerNote = metadata.getNikonMakerNote();
         NikonCaptureEditorMetadata nceMetadata = (NikonCaptureEditorMetadata)metadata.getCaptureEditorMetadata();
 
         if (isNCESettingAvailable(nceMetadata))
           {
-            applyNCESettings(image, nceMetadata);
+            applyNCESettings(artifact, nceMetadata);
           }
         
         else
           {
-            applyCameraSettings(image, makerNote);
+            applyCameraSettings(artifact, makerNote);
           }
       }    
 
@@ -74,7 +74,7 @@ public class NEFWhiteBalanceOperation extends OperationSupport
      *
      *
      ******************************************************************************************************************/
-    private void applyCameraSettings (RAWImage image, NikonMakerNote3 makerNote)
+    private void applyCameraSettings (PipelineArtifact artifact, NikonMakerNote3 makerNote)
       {
         NikonMakerNote3.WhiteBalance cameraWhiteBalance = makerNote.getWhiteBalance();       
         TagRational[] whiteBalanceCoefficients = makerNote.getWhiteBalanceRBCoefficients();
@@ -84,18 +84,18 @@ public class NEFWhiteBalanceOperation extends OperationSupport
           {
             int[] coefficients = whiteBalanceInfo.getCoefficients();
             logger.finer(">>>> NEFWhiteBalanceInfo: %s %s v%s %s %s %s %s",
-                         cameraWhiteBalance, image.getCFAPatternAsString(), Integer.toHexString(whiteBalanceInfo.getVersion()),
+                         cameraWhiteBalance, artifact.getCFAPatternAsString(), Integer.toHexString(whiteBalanceInfo.getVersion()),
                          coefficients[0],  coefficients[1], coefficients[2], coefficients[3]);
-            image.multiplyRedCoefficient(whiteBalanceInfo.getRedCoefficient());
-            image.multiplyGreenCoefficient(whiteBalanceInfo.getGreen1Coefficient());
-            image.multiplyBlueCoefficient(whiteBalanceInfo.getBlueCoefficient());
+            artifact.multiplyRedCoefficient(whiteBalanceInfo.getRedCoefficient());
+            artifact.multiplyGreenCoefficient(whiteBalanceInfo.getGreen1Coefficient());
+            artifact.multiplyBlueCoefficient(whiteBalanceInfo.getBlueCoefficient());
           }
         
         else if (whiteBalanceCoefficients != null)
           {
             logger.finer(">>>> using WhiteBalanceRB coefficients: %s", cameraWhiteBalance);
-            image.multiplyRedCoefficient(whiteBalanceCoefficients[0].doubleValue());    
-            image.multiplyBlueCoefficient(whiteBalanceCoefficients[1].doubleValue());    
+            artifact.multiplyRedCoefficient(whiteBalanceCoefficients[0].doubleValue());
+            artifact.multiplyBlueCoefficient(whiteBalanceCoefficients[1].doubleValue());
           }
       }
   
@@ -120,10 +120,10 @@ public class NEFWhiteBalanceOperation extends OperationSupport
      *
      *
      ******************************************************************************************************************/
-    private void applyNCESettings (RAWImage image, NikonCaptureEditorMetadata nceMetadata)
+    private void applyNCESettings (PipelineArtifact artifact, NikonCaptureEditorMetadata nceMetadata)
       {
         logger.finer(">>>> using NCE coefficients");
-        image.multiplyRedCoefficient(nceMetadata.getWhiteBalanceRedCoeff());
-        image.multiplyBlueCoefficient(nceMetadata.getWhiteBalanceBlueCoeff());
+        artifact.multiplyRedCoefficient(nceMetadata.getWhiteBalanceRedCoeff());
+        artifact.multiplyBlueCoefficient(nceMetadata.getWhiteBalanceBlueCoeff());
       }
   }

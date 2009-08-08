@@ -22,21 +22,21 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: MRWWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.mrw;
 
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.minolta.MinoltaRawData.WBG;
 import it.tidalwave.imageio.mrw.MRWMetadata;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class MRWWhiteBalanceOperation extends OperationSupport
@@ -48,13 +48,13 @@ public class MRWWhiteBalanceOperation extends OperationSupport
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public void process (RAWImage image)
+    public void process (PipelineArtifact artifact)
       {
         logger.fine("process()");
-        final MRWMetadata metadata = (MRWMetadata)image.getRAWMetadata();
+        final MRWMetadata metadata = (MRWMetadata)artifact.getRAWMetadata();
         final WBG wbg = metadata.getMinoltaRawData().getWBG();
-        image.multiplyRedCoefficient(wbg.getRedCoefficient().doubleValue());
-        image.multiplyGreenCoefficient(wbg.getGreen1Coefficient().doubleValue());
-        image.multiplyBlueCoefficient(wbg.getBlueCoefficient().doubleValue());
+        artifact.multiplyRedCoefficient(wbg.getRedCoefficient().doubleValue());
+        artifact.multiplyGreenCoefficient(wbg.getGreen1Coefficient().doubleValue());
+        artifact.multiplyBlueCoefficient(wbg.getBlueCoefficient().doubleValue());
       }    
   }

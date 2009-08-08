@@ -40,7 +40,7 @@ import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
-import it.tidalwave.imageio.tiff.ThumbnailHelper;
+import it.tidalwave.imageio.tiff.ThumbnailLoader;
 import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
@@ -107,7 +107,7 @@ public class NEFMetadata extends TIFFMetadataSupport
             
             if ((nextDirectory != null) && (nextDirectory instanceof IFD))
               {
-                thumbnailHelperList.add(new ThumbnailHelper(iis, (IFD)nextDirectory));
+                thumbnailLoaders.add(new ThumbnailLoader(iis, (IFD)nextDirectory));
               }          
           }
         // end special case
@@ -198,7 +198,7 @@ public class NEFMetadata extends TIFFMetadataSupport
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Dimension getSize()
+    protected Dimension getImageSize()
       {
         return new Dimension(width, height);
       }

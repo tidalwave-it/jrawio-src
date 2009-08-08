@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: DNGCurveOperation.java 164 2008-09-20 23:39:55Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
@@ -30,13 +30,13 @@ package it.tidalwave.imageio.rawprocessor.dng;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DNGCurveOperation.java 164 2008-09-20 23:39:55Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class DNGCurveOperation extends CurveOperation  
@@ -50,9 +50,9 @@ public class DNGCurveOperation extends CurveOperation
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    protected int[] getBlackLevel (RAWImage image)
+    protected int[] getBlackLevel (PipelineArtifact artifact)
       {
-        TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
+        TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
         IFD primaryIFD = metadata.getPrimaryIFD();
         double blackLevel = 0;
 
@@ -79,10 +79,10 @@ public class DNGCurveOperation extends CurveOperation
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    protected double getWhiteLevel (RAWImage image)
+    protected double getWhiteLevel (PipelineArtifact artifact)
       {
         logger.fine("getWhiteLevel()");
-        TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
+        TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
         IFD primaryIFD = metadata.getPrimaryIFD();
         IFD rasterIFD = metadata.getRasterIFD();
         

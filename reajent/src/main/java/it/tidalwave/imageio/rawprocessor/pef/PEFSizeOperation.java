@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: PEFSizeOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.pef;
@@ -31,7 +31,7 @@ import it.tidalwave.imageio.pef.PentaxMakerNote;
 import java.awt.Dimension;
 import java.awt.Insets;
 import it.tidalwave.imageio.raw.TagRational;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFSizeOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class PEFSizeOperation extends SizeOperation
@@ -56,9 +56,9 @@ public class PEFSizeOperation extends SizeOperation
      *
      *
      ******************************************************************************************************************/
-    public void init (RAWImage image) throws Exception
+    public void init (PipelineArtifact artifact) throws Exception
       {        
-        PentaxMakerNote pefMakernote = (PentaxMakerNote)image.getRAWMetadata().getMakerNote();
+        PentaxMakerNote pefMakernote = (PentaxMakerNote)artifact.getRAWMetadata().getMakerNote();
         int[] tmp = pefMakernote.getImageCropCorner();
         left = tmp[0];
         top = tmp[1];
@@ -72,12 +72,12 @@ public class PEFSizeOperation extends SizeOperation
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    protected Insets getCrop (RAWImage image)
+    protected Insets getCrop (PipelineArtifact artifact)
       {
         return new Insets(top, 
                           left, 
-                          image.getImage().getHeight() - top - height,
-                          image.getImage().getWidth() - left - width);
+                          artifact.getImage().getHeight() - top - height,
+                          artifact.getImage().getWidth() - left - width);
       }
     
     /*******************************************************************************************************************
@@ -85,7 +85,7 @@ public class PEFSizeOperation extends SizeOperation
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    protected Dimension getSize (RAWImage image)
+    protected Dimension getSize (PipelineArtifact artifact)
       {
         return new Dimension(width, height);
       }

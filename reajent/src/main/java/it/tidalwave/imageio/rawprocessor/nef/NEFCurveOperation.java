@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonMakerNote3;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 
 /***********************************************************************************************************************
@@ -50,10 +50,10 @@ public class NEFCurveOperation extends CurveOperation
      *
      ******************************************************************************************************************/
     @Override
-    protected double getWhiteLevel (final @Nonnull RAWImage image)
+    protected double getWhiteLevel (final @Nonnull PipelineArtifact artifact)
       {
         logger.fine("getWhiteLevel()");
-        NEFMetadata metadata = (NEFMetadata)image.getRAWMetadata();
+        NEFMetadata metadata = (NEFMetadata)artifact.getRAWMetadata();
         NikonMakerNote3 makerNote = metadata.getNikonMakerNote();
         double whiteLevel;
         
@@ -65,7 +65,7 @@ public class NEFCurveOperation extends CurveOperation
         
         else
           {
-            whiteLevel = super.getWhiteLevel(image);
+            whiteLevel = super.getWhiteLevel(artifact);
           }
         
         return whiteLevel;

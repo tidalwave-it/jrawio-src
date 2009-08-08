@@ -37,7 +37,7 @@ import it.tidalwave.imageio.raw.RasterReader;
 import it.tidalwave.imageio.raf.FujiRawData;
 import it.tidalwave.imageio.raf.FujiTable1;
 import it.tidalwave.imageio.raf.RAFMetadata;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.RotateOperation;
 
 /***********************************************************************************************************************
@@ -51,16 +51,16 @@ public class RAFRotateOperation extends RotateOperation
     private static final double SQRT05 = Math.sqrt(0.5);
 
     @Override
-    public void process (final RAWImage image)
+    public void process (final PipelineArtifact artifact)
       {
 //        fuji_width = (fuji_width - 1 + shrink) >> shrink;
-        final BufferedImage oldBufferedImage = image.getImage();
+        final BufferedImage oldBufferedImage = artifact.getImage();
         final int originalWidth = oldBufferedImage.getWidth();
         final int originalHeight = oldBufferedImage.getHeight();
         final DataBufferUShort oldDataBuffer = (DataBufferUShort)oldBufferedImage.getData().getDataBuffer();
         final short[] oldData = oldDataBuffer.getData();
 
-        final FujiRawData fujiRawData = ((RAFMetadata)image.getRAWMetadata()).getFujiRawData();
+        final FujiRawData fujiRawData = ((RAFMetadata)artifact.getRAWMetadata()).getFujiRawData();
         final FujiTable1 fujiTable1 = fujiRawData.getFujiTable1();
         final boolean fujiLayout = fujiTable1.isFujiLayout();
         final int offset = fujiTable1.getWidth() / (fujiLayout ? 1 : 2);
@@ -107,6 +107,6 @@ public class RAFRotateOperation extends RotateOperation
               }
           }
 
-        image.setImage(newBufferedImage);
+        artifact.setImage(newBufferedImage);
       }
   }

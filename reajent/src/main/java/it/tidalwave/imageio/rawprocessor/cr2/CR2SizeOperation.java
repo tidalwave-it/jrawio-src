@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
 import java.awt.Insets;
 import it.tidalwave.imageio.cr2.CR2Metadata;
 import it.tidalwave.imageio.cr2.CR2SensorInfo;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 import it.tidalwave.imageio.util.Logger;
 
@@ -53,15 +53,15 @@ public class CR2SizeOperation extends SizeOperation
      ******************************************************************************************************************/
     @Override
     @Nonnull 
-    protected Insets getCrop (@Nonnull final RAWImage image)
+    protected Insets getCrop (@Nonnull final PipelineArtifact artifact)
       {
         logger.fine("getCrop()");
-        Insets crop = super.getCrop(image);
-        final int rotation = normalizedAngle(image.getRotation());
+        Insets crop = super.getCrop(artifact);
+        final int rotation = normalizedAngle(artifact.getRotation());
 //        crop = rotate(crop, rotation);
         logger.finer(">>>> rotation: %d, crop: %s", rotation, crop);
 
-        final CR2Metadata metadata = (CR2Metadata)image.getRAWMetadata();
+        final CR2Metadata metadata = (CR2Metadata)artifact.getRAWMetadata();
         final CR2SensorInfo sensorInfo = metadata.getCanonMakerNote().getSensorInfo();
         crop.left = sensorInfo.getCropLeft();
         crop.top = sensorInfo.getCropTop();
@@ -80,10 +80,10 @@ public class CR2SizeOperation extends SizeOperation
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Dimension getSize (@Nonnull final RAWImage image)
+    protected Dimension getSize (@Nonnull final PipelineArtifact artifact)
       {
         logger.fine("getSize()");
-        final CR2Metadata metadata = (CR2Metadata)image.getRAWMetadata();
+        final CR2Metadata metadata = (CR2Metadata)artifact.getRAWMetadata();
         final CR2SensorInfo sensorInfo = metadata.getCanonMakerNote().getSensorInfo();
         return new Dimension(sensorInfo.getCropRight() - sensorInfo.getCropLeft() + 1,
                              sensorInfo.getCropBottom() - sensorInfo.getCropTop() + 1);

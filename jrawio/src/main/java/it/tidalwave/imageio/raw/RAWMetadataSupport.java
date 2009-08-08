@@ -195,7 +195,7 @@ public abstract class RAWMetadataSupport extends IIOMetadata
     @Nonnegative
     public final int getWidth()
       {
-        return ((overriddenSize != null) ? overriddenSize : getSize()).width;
+        return ((overriddenSize != null) ? overriddenSize : getImageSize()).width;
       }
 
     /*******************************************************************************************************************
@@ -208,7 +208,7 @@ public abstract class RAWMetadataSupport extends IIOMetadata
     @Nonnegative
     public final int getHeight()
       {
-        return ((overriddenSize != null) ? overriddenSize : getSize()).height;
+        return ((overriddenSize != null) ? overriddenSize : getImageSize()).height;
       }
 
     /*******************************************************************************************************************
@@ -216,7 +216,7 @@ public abstract class RAWMetadataSupport extends IIOMetadata
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected abstract Dimension getSize();
+    protected abstract Dimension getImageSize();
 
     @CheckForNull
     private Dimension overriddenSize;

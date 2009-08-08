@@ -58,9 +58,9 @@ import it.tidalwave.imageio.util.Logger;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class ThumbnailHelper
+public class ThumbnailLoader
   {
-    private final static String CLASS = ThumbnailHelper.class.getName();
+    private final static String CLASS = ThumbnailLoader.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
     
     @Nonnull
@@ -85,7 +85,7 @@ public class ThumbnailHelper
      *
      *
      ******************************************************************************************************************/
-    public ThumbnailHelper (@Nonnull final RAWImageInputStream iis, 
+    public ThumbnailLoader (@Nonnull final RAWImageInputStream iis,
                             @Nonnull final IFD ifd)
       {
         logger.finest("ThumbnailHelper(%s, %s)", iis, ifd);
@@ -128,7 +128,7 @@ public class ThumbnailHelper
      *
      *
      ******************************************************************************************************************/
-    public ThumbnailHelper (@Nonnull final RAWImageInputStream iis, 
+    public ThumbnailLoader (@Nonnull final RAWImageInputStream iis,
                             final int offset, 
                             @Nonnegative final int byteCount)
       {
@@ -144,7 +144,7 @@ public class ThumbnailHelper
      *
      *
      ******************************************************************************************************************/
-    public ThumbnailHelper (@Nonnull final RAWImageInputStream iis, 
+    public ThumbnailLoader (@Nonnull final RAWImageInputStream iis,
                             @Nonnull final byte[] buffer)
       {
         logger.finest("ThumbnailHelper(%s, %s)", iis, buffer);
@@ -158,7 +158,7 @@ public class ThumbnailHelper
      *
      *
      ******************************************************************************************************************/
-    public ThumbnailHelper (@Nonnull final RAWImageInputStream iis, 
+    public ThumbnailLoader (@Nonnull final RAWImageInputStream iis,
                             final int offset, 
                             @Nonnegative final int byteCount, 
                             @Nonnegative final int width,

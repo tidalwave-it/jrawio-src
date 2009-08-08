@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: CRWWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.crw;
@@ -30,12 +30,12 @@ package it.tidalwave.imageio.rawprocessor.crw;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.crw.CRWMetadata;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CRWWhiteBalanceOperation extends OperationSupport
@@ -47,16 +47,16 @@ public class CRWWhiteBalanceOperation extends OperationSupport
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public void process (RAWImage image)
+    public void process (PipelineArtifact artifact)
       {
         logger.fine("process()");
-        CRWMetadata metadata = (CRWMetadata)image.getRAWMetadata();
+        CRWMetadata metadata = (CRWMetadata)artifact.getRAWMetadata();
         double[] rbCoefficients = metadata.getRBCoefficients();
 
         if (rbCoefficients != null)
           {
-            image.multiplyRedCoefficient(rbCoefficients[0]);
-            image.multiplyBlueCoefficient(rbCoefficients[1]);
+            artifact.multiplyRedCoefficient(rbCoefficients[0]);
+            artifact.multiplyBlueCoefficient(rbCoefficients[1]);
           }
       }    
   }

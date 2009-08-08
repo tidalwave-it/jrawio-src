@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: NEFRotateOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
@@ -31,12 +31,12 @@ import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;
 import it.tidalwave.imageio.rawprocessor.raw.RotateOperation;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFRotateOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class NEFRotateOperation extends RotateOperation
@@ -50,10 +50,10 @@ public class NEFRotateOperation extends RotateOperation
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public void init (RAWImage image) throws Exception
+    public void init (PipelineArtifact artifact) throws Exception
       {
-        super.init(image);
-        NEFMetadata metadata = (NEFMetadata)image.getRAWMetadata();
+        super.init(artifact);
+        NEFMetadata metadata = (NEFMetadata)artifact.getRAWMetadata();
         nceMetadata = (NikonCaptureEditorMetadata)metadata.getCaptureEditorMetadata();
       }
                 
@@ -62,8 +62,8 @@ public class NEFRotateOperation extends RotateOperation
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    protected int getCameraOrientation (RAWImage image)
+    protected int getCameraOrientation (PipelineArtifact artifact)
       {
-        return (nceMetadata != null) ? nceMetadata.getOrientation() : super.getCameraOrientation(image);      
+        return (nceMetadata != null) ? nceMetadata.getOrientation() : super.getCameraOrientation(artifact);
       }
   }

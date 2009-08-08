@@ -22,19 +22,19 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: MRWCurveOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.arw;
 
 import it.tidalwave.imageio.util.Logger;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWCurveOperation.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ARWCurveOperation extends CurveOperation  
@@ -46,7 +46,7 @@ public class ARWCurveOperation extends CurveOperation
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    protected double getWhiteLevel (RAWImage image)
+    protected double getWhiteLevel (PipelineArtifact artifact)
       {
         logger.fine("getWhiteLevel()");
         return 4095; // FIXME

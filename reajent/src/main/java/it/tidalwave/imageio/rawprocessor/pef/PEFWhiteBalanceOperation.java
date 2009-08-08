@@ -22,20 +22,20 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: PEFWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.pef;
 
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.pef.PentaxMakerNote;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class PEFWhiteBalanceOperation extends OperationSupport
@@ -47,14 +47,14 @@ public class PEFWhiteBalanceOperation extends OperationSupport
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public void process (RAWImage image)
+    public void process (PipelineArtifact artifact)
       {
         logger.fine("process()");
-        PentaxMakerNote pefMakernote = (PentaxMakerNote)image.getRAWMetadata().getMakerNote();
+        PentaxMakerNote pefMakernote = (PentaxMakerNote)artifact.getRAWMetadata().getMakerNote();
         int[] coefficients = pefMakernote.getWhiteBalanceInfo();
         double scale = 1.0 / 8192.0;
-        image.multiplyRedCoefficient(scale * coefficients[0]); 
-        image.multiplyGreenCoefficient(scale * coefficients[1]);
-        image.multiplyBlueCoefficient(scale * coefficients[3]);
+        artifact.multiplyRedCoefficient(scale * coefficients[0]);
+        artifact.multiplyGreenCoefficient(scale * coefficients[1]);
+        artifact.multiplyBlueCoefficient(scale * coefficients[3]);
       }    
   }

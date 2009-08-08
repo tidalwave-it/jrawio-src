@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.ColorMatrix;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.ColorConversionOperation;
 import it.tidalwave.imageio.util.Logger;
 
@@ -70,9 +70,9 @@ public class CRWColorConversionOperation extends ColorConversionOperation
      ******************************************************************************************************************/
     @CheckForNull
     @Override
-    protected ColorMatrix getColorMatrixXYZ (final @Nonnull RAWImage image)
+    protected ColorMatrix getColorMatrixXYZ (final @Nonnull PipelineArtifact artifact)
       {
-        final CRWMetadata metadata = (CRWMetadata)image.getRAWMetadata();
+        final CRWMetadata metadata = (CRWMetadata)artifact.getRAWMetadata();
         final String model = metadata.getModel().toUpperCase().trim();
         // FIXME: try to use the embedded matrix instead of hardwired coefficients.
 

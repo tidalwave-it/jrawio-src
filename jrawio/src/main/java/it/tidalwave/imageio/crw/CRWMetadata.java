@@ -439,7 +439,7 @@ public class CRWMetadata extends TIFFMetadataSupport
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Dimension getSize()
+    protected Dimension getImageSize()
       {
         return new Dimension(getSensorWidth(), getSensorHeight());
       }

@@ -31,7 +31,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.awt.image.WritableRaster;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 import it.tidalwave.imageio.crw.CRWMetadata;
 import it.tidalwave.imageio.util.Logger;
@@ -54,12 +54,12 @@ public class CRWCurveOperation extends CurveOperation
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected int[] getBlackLevel (@Nonnull final RAWImage image)
+    protected int[] getBlackLevel (@Nonnull final PipelineArtifact artifact)
       {
-        logger.fine("getBlackLevel(%s)", image);
+        logger.fine("getBlackLevel(%s)", artifact);
 
-        final WritableRaster raster = image.getImage().getRaster();
-        final CRWMetadata metadata = (CRWMetadata)image.getRAWMetadata();
+        final WritableRaster raster = artifact.getImage().getRaster();
+        final CRWMetadata metadata = (CRWMetadata)artifact.getRAWMetadata();
 
         // TODO: document why use these margins
         final int yMin = metadata.getSensorTopBorder() /*- 5*/;
@@ -96,9 +96,9 @@ public class CRWCurveOperation extends CurveOperation
      ******************************************************************************************************************/
     @Nonnegative
     @Override
-    protected double getWhiteLevel (final @Nonnull RAWImage image)
+    protected double getWhiteLevel (final @Nonnull PipelineArtifact artifact)
       {
-        logger.fine("getWhiteLevel(%s)", image);
+        logger.fine("getWhiteLevel(%s)", artifact);
         return (1 << 12) - 1; // FIXME
       }
   }

@@ -34,7 +34,7 @@ import java.util.Map;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.orf.OlympusMakerNote;
 import it.tidalwave.imageio.rawprocessor.ColorMatrix;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.ColorConversionOperation;
 import it.tidalwave.imageio.util.Logger;
 
@@ -70,10 +70,10 @@ public class ORFColorConversionOperation extends ColorConversionOperation
      ******************************************************************************************************************/
     @CheckForNull
     @Override
-    protected ColorMatrix getColorMatrixXYZ (final @Nonnull RAWImage image)
+    protected ColorMatrix getColorMatrixXYZ (final @Nonnull PipelineArtifact artifact)
       {
-        final String model = ((TIFFMetadataSupport)image.getRAWMetadata()).getPrimaryIFD().getModel().toUpperCase().trim();
-        final OlympusMakerNote orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
+        final String model = ((TIFFMetadataSupport)artifact.getRAWMetadata()).getPrimaryIFD().getModel().toUpperCase().trim();
+        final OlympusMakerNote orfMakernote = (OlympusMakerNote)artifact.getRAWMetadata().getMakerNote();
 
         // FIXME: try to use the embedded matrix instead of hardwired coefficients.
 //        if (orfMakernote.isColorMatrixAvailable())

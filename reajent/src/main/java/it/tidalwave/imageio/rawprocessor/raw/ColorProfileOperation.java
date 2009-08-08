@@ -33,7 +33,7 @@ import java.awt.color.ColorSpace;
 import java.awt.color.ICC_Profile;
 import java.awt.image.ColorConvertOp;
 import it.tidalwave.imageio.util.Logger;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 
 /***********************************************************************************************************************
@@ -53,14 +53,14 @@ public class ColorProfileOperation extends OperationSupport
      * FIXME: temporary: always converts in sRGB to 8 bits per channel
      *
      ******************************************************************************************************************/
-    public void process (final @Nonnull RAWImage image)
+    public void process (final @Nonnull PipelineArtifact artifact)
       {
         logger.fine("process()");
-        logImage(logger, ">>>> image: ", image.getImage());
+        logImage(logger, ">>>> image: ", artifact.getImage());
         final ICC_Profile colorProfile = ICC_Profile.getInstance(ColorSpace.CS_sRGB);
         final RenderingHints hints = null; // FIXME
         final ColorConvertOp ccOp = new ColorConvertOp(new ICC_Profile[] { colorProfile }, hints);
-        image.setImage(ccOp.filter(image.getImage(), null));
-        logImage(logger, ">>>> process returning: ", image.getImage());
+        artifact.setImage(ccOp.filter(artifact.getImage(), null));
+        logImage(logger, ">>>> process returning: ", artifact.getImage());
       }    
   }

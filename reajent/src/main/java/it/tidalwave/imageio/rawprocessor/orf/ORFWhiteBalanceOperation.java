@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ORFWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.orf;
@@ -30,14 +30,14 @@ package it.tidalwave.imageio.rawprocessor.orf;
 import javax.annotation.Nonnull;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.orf.OlympusMakerNote;
 import it.tidalwave.imageio.orf.ImageProcessing;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ORFWhiteBalanceOperation extends OperationSupport
@@ -50,10 +50,10 @@ public class ORFWhiteBalanceOperation extends OperationSupport
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    public void process (@Nonnull final RAWImage image)
+    public void process (@Nonnull final PipelineArtifact artifact)
       {
         logger.fine("process()");
-        final OlympusMakerNote orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
+        final OlympusMakerNote orfMakernote = (OlympusMakerNote)artifact.getRAWMetadata().getMakerNote();
         
         if (orfMakernote != null)
           {
@@ -62,8 +62,8 @@ public class ORFWhiteBalanceOperation extends OperationSupport
             if ((imageProcessing != null) && imageProcessing.isRBCoefficientsAvailable())
               {
                 final int[] rbCoefficients = imageProcessing.getRBCoefficients();
-                image.multiplyRedCoefficient(rbCoefficients[0] / 256.0); 
-                image.multiplyBlueCoefficient(rbCoefficients[1] / 256.0);
+                artifact.multiplyRedCoefficient(rbCoefficients[0] / 256.0);
+                artifact.multiplyBlueCoefficient(rbCoefficients[1] / 256.0);
               }
           }
       }    

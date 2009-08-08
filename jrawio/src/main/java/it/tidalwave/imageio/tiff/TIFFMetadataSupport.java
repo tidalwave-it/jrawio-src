@@ -76,7 +76,7 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
     @CheckForNull
     protected IFD rasterIFD;
     
-    protected final List<ThumbnailHelper> thumbnailHelperList = new ArrayList<ThumbnailHelper>();
+    protected final List<ThumbnailLoader> thumbnailLoaders = new ArrayList<ThumbnailLoader>();
         
     /*******************************************************************************************************************
      * 
@@ -133,7 +133,7 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
                 // no else, sometimes a single IFD will be both raster and thumbnail
                 if (isThumbnailIFD(ifd)) 
                   {
-                    thumbnailHelperList.add(new ThumbnailHelper(iis, ifd));
+                    thumbnailLoaders.add(new ThumbnailLoader(iis, ifd));
                   }
               }        
           }        
@@ -152,7 +152,7 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
     @Nonnegative
     public int getThumbnailWidth (@Nonnegative final int thumbnailIndex)
       {
-        return thumbnailHelperList.get(thumbnailIndex).getWidth();
+        return thumbnailLoaders.get(thumbnailIndex).getWidth();
       }
     
     /*******************************************************************************************************************
@@ -166,7 +166,7 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
     @Nonnegative
     public int getThumbnailHeight (@Nonnegative final int thumbnailIndex)
       {
-        return thumbnailHelperList.get(thumbnailIndex).getHeight();
+        return thumbnailLoaders.get(thumbnailIndex).getHeight();
       }
      
     /*******************************************************************************************************************
@@ -175,9 +175,9 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
      * 
      ******************************************************************************************************************/
     @Nonnull
-    public ThumbnailHelper[] getThumbnailHelper()
+    public ThumbnailLoader[] getThumbnailHelper()
       {
-        return thumbnailHelperList.toArray(new ThumbnailHelper[0]);
+        return thumbnailLoaders.toArray(new ThumbnailLoader[0]);
       }
 
     /*******************************************************************************************************************
@@ -489,7 +489,7 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected Dimension getSize()
+    protected Dimension getImageSize()
       {
         return new Dimension(rasterIFD.getImageWidth(), rasterIFD.getImageLength());
       }

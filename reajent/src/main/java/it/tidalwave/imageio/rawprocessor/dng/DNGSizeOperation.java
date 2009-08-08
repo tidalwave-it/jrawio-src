@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import java.awt.Dimension;
 import java.awt.Insets;
 import it.tidalwave.imageio.raw.TagRational;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
@@ -55,21 +55,21 @@ public class DNGSizeOperation extends SizeOperation
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Insets getCrop (@Nonnull final RAWImage image)
+    protected Insets getCrop (@Nonnull final PipelineArtifact artifact)
       {
-        logger.fine("getCrop(%s)", image);
-        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
+        logger.fine("getCrop(%s)", artifact);
+        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
         final IFD rasterIFD = metadata.getRasterIFD();
         final TagRational[] cropOrigin = rasterIFD.getDefaultCropOrigin();
         final TagRational[] cropSize = rasterIFD.getDefaultCropSize();
-        final int imageWidth = image.getImage().getWidth();
-        final int imageHeight = image.getImage().getHeight();
+        final int imageWidth = artifact.getImage().getWidth();
+        final int imageHeight = artifact.getImage().getHeight();
         int left = (int)Math.round(cropOrigin[0].doubleValue());
         int top = (int)Math.round(cropOrigin[1].doubleValue());
         int cropWidth = (int)Math.round(cropSize[0].doubleValue());
         int cropHeight = (int)Math.round(cropSize[1].doubleValue());
 
-        final int rotation = normalizedAngle(image.getRotation());
+        final int rotation = normalizedAngle(artifact.getRotation());
         
         if ((rotation == 90) || (rotation == 270)) // FIXME: use rotate(Dimension)
           {
@@ -97,10 +97,10 @@ public class DNGSizeOperation extends SizeOperation
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Dimension getSize (@Nonnull final RAWImage image)
+    protected Dimension getSize (@Nonnull final PipelineArtifact artifact)
       {
-        logger.fine("getSize(%s)", image);
-        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
+        logger.fine("getSize(%s)", artifact);
+        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
         final IFD rasterIFD = metadata.getRasterIFD();
 //        final TagRational[] cropOrigin = rasterIFD.getDefaultCropOrigin();
         final TagRational[] cropSize = rasterIFD.getDefaultCropSize();

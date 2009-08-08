@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 import it.tidalwave.imageio.minolta.MinoltaRawData.PRD;
 import it.tidalwave.imageio.mrw.MRWMetadata;
@@ -54,11 +54,11 @@ public class MRWSizeOperation extends SizeOperation
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Insets getCrop (final @Nonnull RAWImage image)
+    protected Insets getCrop (final @Nonnull PipelineArtifact artifact)
       {
-        final MRWMetadata metadata = (MRWMetadata)image.getRAWMetadata();
+        final MRWMetadata metadata = (MRWMetadata)artifact.getRAWMetadata();
         final PRD prd = metadata.getMinoltaRawData().getPRD();
-        final BufferedImage bufferedImage = image.getImage();
+        final BufferedImage bufferedImage = artifact.getImage();
         final int width = bufferedImage.getWidth();
         final int height = bufferedImage.getHeight();
         final Dimension newSize = prd.getImageSize();
@@ -79,10 +79,10 @@ public class MRWSizeOperation extends SizeOperation
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Dimension getSize (final @Nonnull RAWImage image)
+    protected Dimension getSize (final @Nonnull PipelineArtifact artifact)
       {
-        logger.fine("getSize(%s)", image);
-        final MRWMetadata metadata = (MRWMetadata)image.getRAWMetadata();
+        logger.fine("getSize(%s)", artifact);
+        final MRWMetadata metadata = (MRWMetadata)artifact.getRAWMetadata();
         final PRD prd = metadata.getMinoltaRawData().getPRD();
         final Dimension size = prd.getImageSize();
         logger.finer(">>>> returning %s", size);

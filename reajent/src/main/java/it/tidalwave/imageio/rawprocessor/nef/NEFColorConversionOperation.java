@@ -38,7 +38,7 @@ import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonMakerNote3;
 import it.tidalwave.imageio.rawprocessor.ColorMatrix;
 import it.tidalwave.imageio.rawprocessor.raw.ColorConversionOperation;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 
 /***********************************************************************************************************************
  *
@@ -60,9 +60,9 @@ public class NEFColorConversionOperation extends ColorConversionOperation
      *******************************************************************************/
     @Override
     @CheckForNull
-    protected ColorMatrix getColorMatrixXYZ (final @Nonnull RAWImage image)
+    protected ColorMatrix getColorMatrixXYZ (final @Nonnull PipelineArtifact artifact)
       {
-        final NEFMetadata metadata = (NEFMetadata)image.getRAWMetadata();
+        final NEFMetadata metadata = (NEFMetadata)artifact.getRAWMetadata();
         final IFD primaryIFD = metadata.getPrimaryIFD();
         final NikonMakerNote3 makerNote = metadata.getNikonMakerNote();
         

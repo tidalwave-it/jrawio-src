@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: PEFWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raf;
@@ -31,13 +31,13 @@ import it.tidalwave.imageio.raf.FujiRawData;
 import it.tidalwave.imageio.raf.FujiTable1;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.raf.RAFMetadata;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class RAFWhiteBalanceOperation extends OperationSupport
@@ -49,16 +49,16 @@ public class RAFWhiteBalanceOperation extends OperationSupport
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public void process (final RAWImage image)
+    public void process (final PipelineArtifact artifact)
       {
         logger.fine("process()");
-        final RAFMetadata rafMetadata = (RAFMetadata)image.getRAWMetadata();
+        final RAFMetadata rafMetadata = (RAFMetadata)artifact.getRAWMetadata();
         final FujiRawData fujiRawData = rafMetadata.getFujiRawData();
         final FujiTable1 fujiTable1 = fujiRawData.getFujiTable1();
         final short[] coefficients = fujiTable1.getCoefficients();
-        image.multiplyRedCoefficient(coefficients[1] / 256.0);
-        image.multiplyGreenCoefficient(coefficients[0] / 256.0);
-        image.multiplyBlueCoefficient(coefficients[3] / 256.0);
+        artifact.multiplyRedCoefficient(coefficients[1] / 256.0);
+        artifact.multiplyGreenCoefficient(coefficients[0] / 256.0);
+        artifact.multiplyBlueCoefficient(coefficients[3] / 256.0);
 //        for (int i = 0; i < 4; i++)
 //          {
 //            image.multiplyCFACoefficient(i, coefficients[i]);

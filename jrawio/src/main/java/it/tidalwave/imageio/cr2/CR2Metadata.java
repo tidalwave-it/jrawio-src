@@ -71,7 +71,7 @@ public class CR2Metadata extends TIFFMetadataSupport
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Dimension getSize()
+    protected Dimension getImageSize()
       {
         final CR2SensorInfo sensorInfo = getCanonMakerNote().getSensorInfo();
         return new Dimension(sensorInfo.getWidth(), sensorInfo.getHeight());

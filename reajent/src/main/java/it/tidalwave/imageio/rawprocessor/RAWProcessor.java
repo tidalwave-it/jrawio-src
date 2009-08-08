@@ -74,7 +74,7 @@ public abstract class RAWProcessor implements PostProcessor
                                         final @Nonnull RAWMetadataSupport metadata)
       {
         logger.fine("POSTPROCESSING...");
-        RAWImage rawImage = new RAWImage(image, metadata);
+        PipelineArtifact rawImage = new PipelineArtifact(image, metadata);
         init(rawImage);                
         process(rawImage);                
         return rawImage.getImage();
@@ -88,7 +88,7 @@ public abstract class RAWProcessor implements PostProcessor
     public final void processMetadata (final @Nonnull RAWMetadataSupport metadata)
       {
         logger.fine("POSTPROCESSING METADATA...");
-        RAWImage rawImage = new RAWImage(null, metadata);
+        PipelineArtifact rawImage = new PipelineArtifact(null, metadata);
         init(rawImage);
         processMetadata(rawImage);
       }
@@ -100,7 +100,7 @@ public abstract class RAWProcessor implements PostProcessor
      * @param  rawImage  the image to process
      *
      ******************************************************************************************************************/
-    private final void init (RAWImage rawImage) 
+    private final void init (PipelineArtifact rawImage)
       {        
         for (Iterator i = operationList.iterator(); i.hasNext(); )
           {
@@ -126,7 +126,7 @@ public abstract class RAWProcessor implements PostProcessor
      * @param  rawImage  the image to process
      *
      ******************************************************************************************************************/
-    private final void process (final @Nonnull RAWImage rawImage)
+    private final void process (final @Nonnull PipelineArtifact rawImage)
       {
         for (final Operation operation : operationList)
           {
@@ -156,7 +156,7 @@ public abstract class RAWProcessor implements PostProcessor
      * @param  rawImage  the image to process
      *
      ******************************************************************************************************************/
-    private final void processMetadata (final @Nonnull RAWImage rawImage)
+    private final void processMetadata (final @Nonnull PipelineArtifact rawImage)
       {
         for (final Operation operation : operationList)
           {

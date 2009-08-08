@@ -22,13 +22,13 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: DemosaicOperation.java 189 2008-09-27 22:50:55Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
 import it.tidalwave.imageio.util.Logger;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.Curve;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.demosaic.DemosaicFilterProcessor;
@@ -36,7 +36,7 @@ import it.tidalwave.imageio.rawprocessor.demosaic.DemosaicFilterProcessor;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DemosaicOperation.java 189 2008-09-27 22:50:55Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class DemosaicOperation extends OperationSupport
@@ -56,20 +56,20 @@ public class DemosaicOperation extends OperationSupport
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public void process (RAWImage image) throws Exception
+    public void process (PipelineArtifact artifact) throws Exception
       {
         logger.fine("process()");
-        cfaPattern = image.getCFAPattern();
-        String cfaPatternAsString = image.getCFAPatternAsString();
+        cfaPattern = artifact.getCFAPattern();
+        String cfaPatternAsString = artifact.getCFAPatternAsString();
         algorithm = chooseDemosaicAlgorithm(cfaPatternAsString);
-        double redCoeff = image.getRedCoefficient();
-        double greenCoeff = image.getGreenCoefficient();
-        double blueCoeff = image.getBlueCoefficient();
-        double blackLevel = image.getBlackLevel();
-        Curve curve = image.getCurve();
+        double redCoeff = artifact.getRedCoefficient();
+        double greenCoeff = artifact.getGreenCoefficient();
+        double blueCoeff = artifact.getBlueCoefficient();
+        double blackLevel = artifact.getBlackLevel();
+        Curve curve = artifact.getCurve();
         processor = new DemosaicFilterProcessor(cfaPatternAsString, algorithm, redCoeff, greenCoeff, blueCoeff, blackLevel, curve);
         logger.finer("Bayer pattern: %s", cfaPatternAsString);
-        processor.process(image.getImage());
+        processor.process(artifact.getImage());
       }    
     
     /*******************************************************************************************************************

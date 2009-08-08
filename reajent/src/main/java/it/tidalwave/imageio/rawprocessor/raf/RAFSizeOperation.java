@@ -30,7 +30,7 @@ package it.tidalwave.imageio.rawprocessor.raf;
 import javax.annotation.Nonnull;
 import java.awt.Dimension;
 import java.awt.Insets;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 
 /***********************************************************************************************************************
@@ -46,7 +46,7 @@ public class RAFSizeOperation extends SizeOperation
      *
      ******************************************************************************************************************/
     @Override
-    public void init (final @Nonnull RAWImage image)
+    public void init (final @Nonnull PipelineArtifact artifact)
       throws Exception
       {
         // TODO
@@ -59,15 +59,15 @@ public class RAFSizeOperation extends SizeOperation
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Insets getCrop (final @Nonnull RAWImage image)
+    protected Insets getCrop (final @Nonnull PipelineArtifact artifact)
       {
         final int left = 4; // FIXME
         final int top = 4;
-        final Dimension size = getSize(image);
+        final Dimension size = getSize(artifact);
         return new Insets(top, 
                           left, 
-                          image.getImage().getHeight() - top - size.height,
-                          image.getImage().getWidth() - left - size.width);
+                          artifact.getImage().getHeight() - top - size.height,
+                          artifact.getImage().getWidth() - left - size.width);
       }
     
     /*******************************************************************************************************************
@@ -77,7 +77,7 @@ public class RAFSizeOperation extends SizeOperation
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Dimension getSize (final @Nonnull RAWImage image)
+    protected Dimension getSize (final @Nonnull PipelineArtifact artifact)
       {
         return new Dimension(2848, 2136); // FIXME
       }

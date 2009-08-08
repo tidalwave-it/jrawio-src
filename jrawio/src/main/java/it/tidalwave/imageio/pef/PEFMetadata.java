@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: PEFMetadata.java 82 2008-08-24 08:46:20Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.pef;
@@ -34,12 +34,12 @@ import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
-import it.tidalwave.imageio.tiff.ThumbnailHelper;
+import it.tidalwave.imageio.tiff.ThumbnailLoader;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFMetadata.java 82 2008-08-24 08:46:20Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class PEFMetadata extends TIFFMetadataSupport
@@ -72,7 +72,7 @@ public class PEFMetadata extends TIFFMetadataSupport
             final int thumbnailSize = makerNote.getPreviewThumbnailSize();
             final int thumbnailWidth = makerNote.getPreviewThumbnailDimensions()[0];
             final int thumbnailHeight = makerNote.getPreviewThumbnailDimensions()[1];
-            thumbnailHelperList.add(new ThumbnailHelper(iis, thumbnailOffset, thumbnailSize, thumbnailWidth, thumbnailHeight));
+            thumbnailLoaders.add(new ThumbnailLoader(iis, thumbnailOffset, thumbnailSize, thumbnailWidth, thumbnailHeight));
           }
       }
  

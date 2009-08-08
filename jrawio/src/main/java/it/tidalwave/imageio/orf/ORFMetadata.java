@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ORFMetadata.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -41,7 +41,7 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFMetadata.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ORFMetadata extends TIFFMetadataSupport
@@ -65,7 +65,7 @@ public class ORFMetadata extends TIFFMetadataSupport
           {
             try
               {
-                thumbnailHelperList.add(olympusMakerNote.loadThumbnailHelper(iis));
+                thumbnailLoaders.add(olympusMakerNote.loadThumbnailHelper(iis));
               }
             catch (IOException e) 
               {

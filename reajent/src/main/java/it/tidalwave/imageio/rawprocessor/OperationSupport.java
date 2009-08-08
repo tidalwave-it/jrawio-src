@@ -70,7 +70,7 @@ public abstract class OperationSupport implements Operation
      *
      *
      ******************************************************************************************************************/
-    public void init (@Nonnull final RAWImage image) 
+    public void init (@Nonnull final PipelineArtifact artifact)
       throws Exception
       {        
       }
@@ -79,7 +79,7 @@ public abstract class OperationSupport implements Operation
      *
      *
      ******************************************************************************************************************/
-    public void processMetadata (RAWImage image) throws Exception
+    public void processMetadata (PipelineArtifact artifact) throws Exception
       {
       }
 

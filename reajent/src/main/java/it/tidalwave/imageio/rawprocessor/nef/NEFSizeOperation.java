@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: NEFSizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
@@ -34,13 +34,13 @@ import java.awt.Rectangle;
 import java.awt.Insets;
 import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFSizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class NEFSizeOperation extends SizeOperation
@@ -54,15 +54,15 @@ public class NEFSizeOperation extends SizeOperation
      ******************************************************************************************************************/
     @Override
     @Nonnull 
-    protected Insets getCrop (@Nonnull final RAWImage image)
+    protected Insets getCrop (@Nonnull final PipelineArtifact artifact)
       {
         logger.fine("getCrop()");
-        Insets crop = super.getCrop(image);
-        final int rotation = normalizedAngle(image.getRotation());
+        Insets crop = super.getCrop(artifact);
+        final int rotation = normalizedAngle(artifact.getRotation());
         crop = rotate(crop, rotation);
         logger.finer(String.format(">>>> rotation: %d, crop: %s", rotation, crop));
 
-        final NEFMetadata metadata = (NEFMetadata)image.getRAWMetadata();
+        final NEFMetadata metadata = (NEFMetadata)artifact.getRAWMetadata();
         final NikonCaptureEditorMetadata nceMetadata = (NikonCaptureEditorMetadata)metadata.getCaptureEditorMetadata();
 
         if (nceMetadata != null)
@@ -82,7 +82,7 @@ public class NEFSizeOperation extends SizeOperation
                 nceCrop.height /= 2; // ??  
               } 
 
-            final Dimension size = getSize(image);
+            final Dimension size = getSize(artifact);
             logger.fine(String.format(">>>> original size: %s, original NCE crop: %s", size, nceCrop));
  
             // Some images needs to rotate the NCE crop (e.g. ccw90.nef)

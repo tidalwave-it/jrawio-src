@@ -34,7 +34,7 @@ import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.raw.TagRational;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.ColorMatrix;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.util.Logger;
 import javax.annotation.CheckForNull;
 
@@ -53,13 +53,13 @@ public abstract class ColorConversionOperation extends OperationSupport
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public void process (final @Nonnull RAWImage image)
+    public void process (final @Nonnull PipelineArtifact artifact)
       {
-        final ColorMatrix colorMatrix = getColorMatrix(image);
+        final ColorMatrix colorMatrix = getColorMatrix(artifact);
         
         if (colorMatrix != null)
           {
-            applyMatrix(image.getImage().getRaster(), colorMatrix);
+            applyMatrix(artifact.getImage().getRaster(), colorMatrix);
           }
       }
     
@@ -68,9 +68,9 @@ public abstract class ColorConversionOperation extends OperationSupport
      * 
      ******************************************************************************************************************/
     @CheckForNull
-    protected ColorMatrix getColorMatrix (final @Nonnull RAWImage image)
+    protected ColorMatrix getColorMatrix (final @Nonnull PipelineArtifact artifact)
       {
-        final ColorMatrix colorMatrix = getColorMatrixXYZ(image);
+        final ColorMatrix colorMatrix = getColorMatrixXYZ(artifact);
         
         if (colorMatrix != null)
           {
@@ -92,7 +92,7 @@ public abstract class ColorConversionOperation extends OperationSupport
      *
      ******************************************************************************************************************/
     @CheckForNull
-    protected ColorMatrix getColorMatrixXYZ (final @Nonnull RAWImage image)
+    protected ColorMatrix getColorMatrixXYZ (final @Nonnull PipelineArtifact artifact)
       {
         return null;   
       }

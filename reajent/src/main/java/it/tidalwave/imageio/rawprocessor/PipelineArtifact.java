@@ -39,9 +39,9 @@ import it.tidalwave.imageio.raw.RAWMetadataSupport;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class RAWImage // FIXME: rename into OperationArtifact and refactor with Lookup
+public class PipelineArtifact // FIXME: refactor with Lookup
   {
-    private final static String CLASS = RAWImage.class.getName();
+    private final static String CLASS = PipelineArtifact.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
     
     private final static char[] CHARS = { 'R', 'G', 'B', 'C', 'M', 'Y', 'W' };
@@ -65,7 +65,7 @@ public class RAWImage // FIXME: rename into OperationArtifact and refactor with 
      *
      *
      ******************************************************************************************************************/
-    public RAWImage (BufferedImage image, RAWMetadataSupport rawMetadata)
+    public PipelineArtifact (BufferedImage image, RAWMetadataSupport rawMetadata)
       {
         this.image = image;
         this.rawMetadata = rawMetadata;

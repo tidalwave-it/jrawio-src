@@ -39,17 +39,17 @@ public interface Operation
      *
      *
      ******************************************************************************************************************/
-    public void init (RAWImage image) throws Exception;  
+    public void init (PipelineArtifact artifact) throws Exception;
     
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
-    public void process (RAWImage image) throws Exception;  
+    public void process (PipelineArtifact artifact) throws Exception;
 
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
-    public void processMetadata (RAWImage image) throws Exception;
+    public void processMetadata (PipelineArtifact artifact) throws Exception;
   }

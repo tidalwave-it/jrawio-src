@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: DNGWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
@@ -32,12 +32,12 @@ import it.tidalwave.imageio.raw.TagRational;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DNGWhiteBalanceOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class DNGWhiteBalanceOperation extends OperationSupport
@@ -49,25 +49,25 @@ public class DNGWhiteBalanceOperation extends OperationSupport
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public void process (RAWImage image)
+    public void process (PipelineArtifact artifact)
       {
-        TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
+        TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
         IFD primaryIFD = metadata.getPrimaryIFD();
         
         if (primaryIFD.isAsShotNeutralAvailable())
           {
             TagRational[] asn = primaryIFD.getAsShotNeutral();
-            image.multiplyRedCoefficient(asn[0].reciprocal().doubleValue());
-            image.multiplyGreenCoefficient(asn[1].reciprocal().doubleValue());
-            image.multiplyBlueCoefficient(asn[2].reciprocal().doubleValue());
+            artifact.multiplyRedCoefficient(asn[0].reciprocal().doubleValue());
+            artifact.multiplyGreenCoefficient(asn[1].reciprocal().doubleValue());
+            artifact.multiplyBlueCoefficient(asn[2].reciprocal().doubleValue());
           }
         
         if (primaryIFD.isAnalogBalanceAvailable())
           {
             TagRational[] asn = primaryIFD.getAnalogBalance();
-            image.multiplyRedCoefficient(asn[0].reciprocal().doubleValue());
-            image.multiplyGreenCoefficient(asn[1].reciprocal().doubleValue());
-            image.multiplyBlueCoefficient(asn[2].reciprocal().doubleValue());
+            artifact.multiplyRedCoefficient(asn[0].reciprocal().doubleValue());
+            artifact.multiplyGreenCoefficient(asn[1].reciprocal().doubleValue());
+            artifact.multiplyBlueCoefficient(asn[2].reciprocal().doubleValue());
           }
       }    
   }

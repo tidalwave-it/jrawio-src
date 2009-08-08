@@ -30,7 +30,7 @@ package it.tidalwave.imageio.rawprocessor.cr2;
 import javax.annotation.Nonnull;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.cr2.CanonCR2MakerNote;
 
 /***********************************************************************************************************************
@@ -48,14 +48,14 @@ public class CR2WhiteBalanceOperation extends OperationSupport
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    public void process (final @Nonnull RAWImage image)
+    public void process (final @Nonnull PipelineArtifact artifact)
       {
-        logger.fine("process(%s)", image);
-        final CanonCR2MakerNote cr2Makernote = (CanonCR2MakerNote)image.getRAWMetadata().getMakerNote();
+        logger.fine("process(%s)", artifact);
+        final CanonCR2MakerNote cr2Makernote = (CanonCR2MakerNote)artifact.getRAWMetadata().getMakerNote();
         final short[] coefficients = cr2Makernote.getWhiteBalanceCoefficients();
         final double scale = 1.0 / 1024.0;
-        image.multiplyRedCoefficient(scale * coefficients[0]); 
-        image.multiplyGreenCoefficient(scale * coefficients[1]);
-        image.multiplyBlueCoefficient(scale * coefficients[3]);
+        artifact.multiplyRedCoefficient(scale * coefficients[0]);
+        artifact.multiplyGreenCoefficient(scale * coefficients[1]);
+        artifact.multiplyBlueCoefficient(scale * coefficients[3]);
       }    
   }

@@ -147,7 +147,7 @@ public class ARWMetadata extends TIFFMetadataSupport
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Dimension getSize()
+    protected Dimension getImageSize()
       {
         return minoltaRawData.getPRD().getCcdSize();
       }

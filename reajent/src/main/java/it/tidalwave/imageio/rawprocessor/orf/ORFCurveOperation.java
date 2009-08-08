@@ -29,7 +29,7 @@ package it.tidalwave.imageio.rawprocessor.orf;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
 import it.tidalwave.imageio.orf.OlympusMakerNote;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
@@ -54,11 +54,11 @@ public class ORFCurveOperation extends CurveOperation
      *
      ******************************************************************************************************************/
     @Override
-    public void init (@Nonnull final RAWImage image) 
+    public void init (@Nonnull final PipelineArtifact artifact)
       throws Exception
       {       
-        orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
-        model = ((TIFFMetadataSupport)image.getRAWMetadata()).getPrimaryIFD().getModel().toUpperCase().trim();
+        orfMakernote = (OlympusMakerNote)artifact.getRAWMetadata().getMakerNote();
+        model = ((TIFFMetadataSupport)artifact.getRAWMetadata()).getPrimaryIFD().getModel().toUpperCase().trim();
       }
     
     /*******************************************************************************************************************
@@ -68,7 +68,7 @@ public class ORFCurveOperation extends CurveOperation
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected int[] getBlackLevel (@Nonnull final RAWImage image)
+    protected int[] getBlackLevel (@Nonnull final PipelineArtifact artifact)
       {
         final int[] blackLevels = new int[]{ 0, 0, 0 };
 
@@ -92,7 +92,7 @@ public class ORFCurveOperation extends CurveOperation
      *
      ******************************************************************************************************************/
     @Override
-    protected double getWhiteLevel (@Nonnull final RAWImage image)
+    protected double getWhiteLevel (@Nonnull final PipelineArtifact artifact)
       {
         // FIXME: everything is temporary
         int validBits = 12;

@@ -43,7 +43,7 @@ import it.tidalwave.imageio.raw.TagRational;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
@@ -92,24 +92,24 @@ public abstract class SizeOperation extends OperationSupport
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    public void process (@Nonnull final RAWImage image) 
+    public void process (@Nonnull final PipelineArtifact artifact)
       throws Exception
       {
-        logger.fine("process(%s)", image);
-        Insets crop = getCrop(image);
+        logger.fine("process(%s)", artifact);
+        Insets crop = getCrop(artifact);
 
         if ((crop != null) && !crop.equals(NULL_CROP))
           {
             logger.finer(">>>> crop: %s", crop);
-            image.setImage(crop(image.getImage(), crop));
+            artifact.setImage(crop(artifact.getImage(), crop));
           }
 
-        final Dimension size = getSize(image);
+        final Dimension size = getSize(artifact);
 
         if ((size != null)) // FIXME && ((cropRectangle == null) || !cropRectangle.getSize().equals(size)))
           {
             logger.finer(">>>> size: %s", size);
-            image.setImage(resample(image.getImage(), size));
+            artifact.setImage(resample(artifact.getImage(), size));
           }
       }
 
@@ -119,11 +119,11 @@ public abstract class SizeOperation extends OperationSupport
      *
      ******************************************************************************************************************/
     @Override
-    public void processMetadata (@Nonnull final RAWImage image)
+    public void processMetadata (@Nonnull final PipelineArtifact artifact)
       {
-        logger.fine("processMetadata(%s)", image);
-        final int rotation = normalizedAngle(image.getRotation());
-        image.getRAWMetadata().setSize(rotate(getSize(image), rotation));
+        logger.fine("processMetadata(%s)", artifact);
+        final int rotation = normalizedAngle(artifact.getRotation());
+        artifact.getRAWMetadata().setSize(rotate(getSize(artifact), rotation));
       } 
     
     /*******************************************************************************************************************
@@ -131,10 +131,10 @@ public abstract class SizeOperation extends OperationSupport
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected Insets getCrop (@Nonnull final RAWImage image)
+    protected Insets getCrop (@Nonnull final PipelineArtifact artifact)
       {
-        logger.fine("getCrop(%s)", image);
-        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
+        logger.fine("getCrop(%s)", artifact);
+        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
         final IFD primaryIFD = metadata.getPrimaryIFD();
         Insets crop = getStandardCrop(primaryIFD.getModel());
         
@@ -151,10 +151,10 @@ public abstract class SizeOperation extends OperationSupport
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected Dimension getSize (@Nonnull final RAWImage image)
+    protected Dimension getSize (@Nonnull final PipelineArtifact artifact)
       {
         logger.fine("getSize()");
-        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
+        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
         final IFD primaryIFD = metadata.getPrimaryIFD();
         return getStandardSize(primaryIFD.getModel());
       }

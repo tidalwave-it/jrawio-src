@@ -37,7 +37,7 @@ import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
-import it.tidalwave.imageio.tiff.ThumbnailHelper;
+import it.tidalwave.imageio.tiff.ThumbnailLoader;
 
 /***********************************************************************************************************************
  *
@@ -74,7 +74,7 @@ public class MRWMetadata extends TIFFMetadataSupport
                 final MRWHeaderProcessor mrwhp = (MRWHeaderProcessor)headerProcessor;        
                 final int offset = minoltaMakerNote.getJpegThumbnailOffset() + mrwhp.getBaseOffset();
                 final int length = minoltaMakerNote.getJpegThumbnailLength();
-                thumbnailHelperList.add(new ThumbnailHelper(iis, offset, length)
+                thumbnailLoaders.add(new ThumbnailLoader(iis, offset, length)
                   {
                     // The embedded JPEG thumbnail lacks the JPEG header
                     @Override
@@ -119,7 +119,7 @@ public class MRWMetadata extends TIFFMetadataSupport
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Dimension getSize()
+    protected Dimension getImageSize()
       {
         return getMinoltaRawData().getPRD().getCcdSize();
       }

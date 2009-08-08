@@ -31,7 +31,7 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.util.NoSuchElementException;
 import java.io.IOException;
-import it.tidalwave.imageio.tiff.ThumbnailHelper;
+import it.tidalwave.imageio.tiff.ThumbnailLoader;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.tiff.TIFFTag;
@@ -153,7 +153,7 @@ public class OlympusMakerNote extends OlympusMakerNoteSupport
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected ThumbnailHelper loadThumbnailHelper (@Nonnull final RAWImageInputStream iis)
+    protected ThumbnailLoader loadThumbnailHelper (@Nonnull final RAWImageInputStream iis)
       throws IOException, NoSuchElementException
       {
         if ((cameraSettings != null) &&
@@ -170,7 +170,7 @@ public class OlympusMakerNote extends OlympusMakerNoteSupport
 
             final int thumbnailOffset = cameraSettings.getThumbnailOffset() + offset;
             final int thumbnailSize = cameraSettings.getThumbnailSize();
-            return new ThumbnailHelper(iis, thumbnailOffset, thumbnailSize);
+            return new ThumbnailLoader(iis, thumbnailOffset, thumbnailSize);
           }
         
         throw new NoSuchElementException();

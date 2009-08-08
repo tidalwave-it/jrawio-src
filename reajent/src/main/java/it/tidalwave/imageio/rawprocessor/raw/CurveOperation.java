@@ -34,7 +34,7 @@ import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 
 /***********************************************************************************************************************
  *
@@ -52,25 +52,25 @@ public class CurveOperation extends OperationSupport
      *
      *
      ******************************************************************************************************************/
-    public void process (@Nonnull final RAWImage image)
+    public void process (@Nonnull final PipelineArtifact artifact)
       {
-        logger.fine("process(%s)", image);
-        final double[] normalizationFactor = getNormalizationFactor(image);
+        logger.fine("process(%s)", artifact);
+        final double[] normalizationFactor = getNormalizationFactor(artifact);
         
-        image.multiplyRedCoefficient(normalizationFactor[0]);
-        image.multiplyGreenCoefficient(normalizationFactor[1]);
-        image.multiplyBlueCoefficient( normalizationFactor[2]);
+        artifact.multiplyRedCoefficient(normalizationFactor[0]);
+        artifact.multiplyGreenCoefficient(normalizationFactor[1]);
+        artifact.multiplyBlueCoefficient( normalizationFactor[2]);
       }    
 
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
-    protected double[] getNormalizationFactor (@Nonnull final RAWImage image)
+    protected double[] getNormalizationFactor (@Nonnull final PipelineArtifact artifact)
       {
-        logger.fine("getNormalizationFactor(%s)", image);
-        final int[] blackLevel = getBlackLevel(image);
-        final double whiteLevel = getWhiteLevel(image);
+        logger.fine("getNormalizationFactor(%s)", artifact);
+        final int[] blackLevel = getBlackLevel(artifact);
+        final double whiteLevel = getWhiteLevel(artifact);
         final double[] normalizationFactor = new double[3];
         logger.finer(">>>> blackLevel: %s", Arrays.toString(blackLevel));
         logger.finer(">>>> whiteLevel: %f", whiteLevel);
@@ -80,7 +80,7 @@ public class CurveOperation extends OperationSupport
             normalizationFactor[i] = MAX_LEVEL / (whiteLevel - blackLevel[i]);
           }
 
-        image.setBlackLevel((blackLevel[0] + blackLevel[1] + blackLevel[2]) / 3);
+        artifact.setBlackLevel((blackLevel[0] + blackLevel[1] + blackLevel[2]) / 3);
         logger.finer(">>>> normalizationFactor: %f %f %f", normalizationFactor[0], normalizationFactor[1], normalizationFactor[2]);
         
         return normalizationFactor;
@@ -91,7 +91,7 @@ public class CurveOperation extends OperationSupport
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected int[] getBlackLevel (@Nonnull final RAWImage image)
+    protected int[] getBlackLevel (@Nonnull final PipelineArtifact artifact)
       { 
         return new int[] {0, 0, 0, 0, 0, 0, 0, 0};  
       }
@@ -100,10 +100,10 @@ public class CurveOperation extends OperationSupport
      *
      *
      ******************************************************************************************************************/
-    protected double getWhiteLevel (@Nonnull final RAWImage image)
+    protected double getWhiteLevel (@Nonnull final PipelineArtifact artifact)
       {
-        logger.fine("getWhiteLevel(%s)", image);
-        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
+        logger.fine("getWhiteLevel(%s)", artifact);
+        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
         final IFD rasterIFD = metadata.getRasterIFD();
         final int bitsPerSample = rasterIFD.getBitsPerSample()[0];
         final double whiteLevel = (1 << bitsPerSample) - 1;

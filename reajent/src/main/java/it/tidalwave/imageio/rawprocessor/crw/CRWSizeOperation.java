@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: CRWSizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.crw;
@@ -31,13 +31,13 @@ import java.awt.Dimension;
 import it.tidalwave.imageio.util.Logger;
 import java.awt.Insets;
 import it.tidalwave.imageio.crw.CRWMetadata;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWSizeOperation.java 157 2008-09-13 18:43:49Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CRWSizeOperation extends SizeOperation
@@ -49,10 +49,10 @@ public class CRWSizeOperation extends SizeOperation
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    protected Insets getCrop (RAWImage image)
+    protected Insets getCrop (PipelineArtifact artifact)
       {
         logger.fine("getCrop()");
-        CRWMetadata metadata = (CRWMetadata)image.getRAWMetadata();
+        CRWMetadata metadata = (CRWMetadata)artifact.getRAWMetadata();
         int l = metadata.getSensorLeftBorder();
         int t = metadata.getSensorTopBorder();
         int r = metadata.getSensorWidth() - metadata.getSensorRightBorder() - 1;
@@ -68,10 +68,10 @@ public class CRWSizeOperation extends SizeOperation
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    protected Dimension getSize (RAWImage image)
+    protected Dimension getSize (PipelineArtifact artifact)
       {
         logger.fine("getSize()");
-        CRWMetadata crwMetadata = (CRWMetadata)image.getRAWMetadata();
+        CRWMetadata crwMetadata = (CRWMetadata)artifact.getRAWMetadata();
         Dimension dimension = new Dimension(crwMetadata.getImageWidth(), crwMetadata.getImageHeight());
         logger.fine(">>>> returning: %s", dimension);
         return dimension;

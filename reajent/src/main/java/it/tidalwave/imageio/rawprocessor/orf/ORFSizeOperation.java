@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 import it.tidalwave.imageio.orf.ImageProcessing;
 import it.tidalwave.imageio.orf.ORFMetadata;
@@ -55,12 +55,12 @@ public class ORFSizeOperation extends SizeOperation
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Insets getCrop (final @Nonnull RAWImage image)
+    protected Insets getCrop (final @Nonnull PipelineArtifact artifact)
       {
-        final BufferedImage bufferedImage = image.getImage();
+        final BufferedImage bufferedImage = artifact.getImage();
         final int width = bufferedImage.getWidth();
         final int height = bufferedImage.getHeight();
-        final Dimension newSize = getSize(image);
+        final Dimension newSize = getSize(artifact);
 
         Insets crop = NULL_CROP;
 
@@ -89,13 +89,13 @@ public class ORFSizeOperation extends SizeOperation
      ******************************************************************************************************************/
     @Override
     @Nonnull
-    protected Dimension getSize (final @Nonnull RAWImage image)
+    protected Dimension getSize (final @Nonnull PipelineArtifact artifact)
       {
-        logger.fine("getSize(%s)", image);
+        logger.fine("getSize(%s)", artifact);
 
         Dimension size = null;
 
-        final ORFMetadata metadata = (ORFMetadata)image.getRAWMetadata();
+        final ORFMetadata metadata = (ORFMetadata)artifact.getRAWMetadata();
         final OlympusMakerNote makerNote = metadata.getOlympusMakerNote();
 
         if (makerNote.isImageWidthAvailable())

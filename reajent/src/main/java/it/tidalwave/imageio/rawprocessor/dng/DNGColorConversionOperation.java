@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: DNGColorConversionOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
@@ -31,13 +31,13 @@ import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.ColorMatrix;
-import it.tidalwave.imageio.rawprocessor.RAWImage;
+import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.ColorConversionOperation;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DNGColorConversionOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class DNGColorConversionOperation extends ColorConversionOperation
@@ -49,9 +49,9 @@ public class DNGColorConversionOperation extends ColorConversionOperation
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    protected ColorMatrix getColorMatrixXYZ (RAWImage image)
+    protected ColorMatrix getColorMatrixXYZ (PipelineArtifact artifact)
       {
-        TIFFMetadataSupport metadata = (TIFFMetadataSupport)image.getRAWMetadata();
+        TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
         IFD primaryIFD = metadata.getPrimaryIFD();
         
         if (primaryIFD.isColorMatrix1Available())
