@@ -22,14 +22,15 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: NikonCaptureEditorMetadata.java 161 2008-09-13 19:51:45Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 
 package it.tidalwave.imageio.nef;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,12 +38,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NikonCaptureEditorMetadata.java 161 2008-09-13 19:51:45Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class NikonCaptureEditorMetadata
@@ -71,7 +74,7 @@ public class NikonCaptureEditorMetadata
 
         private int threshold;
 
-        public UnsharpMaskData (int type, int intensity, int haloWidth, int threshold)
+        public UnsharpMaskData (final int type, final int intensity, final int haloWidth, final int threshold)
           {
             super();
             this.type = type;
@@ -80,29 +83,28 @@ public class NikonCaptureEditorMetadata
             this.threshold = threshold;
           }
 
-        public int getHaloWidth ()
+        public int getHaloWidth()
           {
             return haloWidth;
           }
 
-        public int getIntensity ()
+        public int getIntensity()
           {
             return intensity;
           }
 
-        public int getThreshold ()
+        public int getThreshold()
           {
             return threshold;
           }
 
-        public int getType ()
+        public int getType()
           {
             return type;
           }
       }
 
-    private final static String CLASS = "it.tidalwave.imageio.rawprocessor.nef.NikonCaptureEditorMetadata";
-    
+    private final static String CLASS = NikonCaptureEditorMetadata.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
 
     private static final int NOISE_REDUCTION_MARKER = 0x753dcbc0;
@@ -484,14 +486,14 @@ public class NikonCaptureEditorMetadata
 
     private ByteBuffer photoEffectDataBuffer;
 
-    private Map bufferMapById = new HashMap();
+    private Map<Integer, ByteBuffer> bufferMapById = new HashMap<Integer, ByteBuffer>();
 
     /*******************************************************************************************************************
      * 
      * @param buffer
      * 
      *******************************************************************************/
-    public NikonCaptureEditorMetadata (byte[] buffer)
+    public NikonCaptureEditorMetadata (final @Nonnull byte[] buffer)
       {
         logger.finer("Creating a CaptureEditorMetadata from %d bytes", buffer.length);
         byteBuffer = ByteBuffer.allocate(buffer.length);
@@ -499,22 +501,22 @@ public class NikonCaptureEditorMetadata
         byteBuffer.put(buffer);
 
         int offset = 0x16; // FIXME: parse the header in a better way!
-        List temp = new ArrayList();
+        final List temp = new ArrayList();
 
         while ((offset + 24) /* FIXME: ? */< byteBuffer.limit())
           {
-            int id = byteBuffer.getInt(offset);
-            int size = (int)byteBuffer.getLong(offset + 18) - 4;
+            final int id = byteBuffer.getInt(offset);
+            final int size = (int)byteBuffer.getLong(offset + 18) - 4;
             offset += 22;
             byteBuffer.position(offset);
 
-            ByteBuffer subBuffer = byteBuffer.slice();
+            final ByteBuffer subBuffer = byteBuffer.slice();
             subBuffer.order(byteBuffer.order());
             subBuffer.limit(size);
             bufferMapById.put(new Integer(id), subBuffer);
             offset += size;
 
-            int index = temp.size() - 1;
+            final int index = temp.size() - 1;
 
             String s = "";
 
@@ -629,7 +631,8 @@ public class NikonCaptureEditorMetadata
      * @return
      * 
      *******************************************************************************/
-    public ByteBuffer getBuffer (Integer id)
+    @CheckForNull
+    public ByteBuffer getBuffer (final @Nonnull Integer id)
       {
         return (ByteBuffer)bufferMapById.get(id);
       }
@@ -640,7 +643,8 @@ public class NikonCaptureEditorMetadata
      * @return
      * 
      *******************************************************************************/
-    public static String getBufferName (Integer id)
+    @CheckForNull
+    public static String getBufferName (final @Nonnull Integer id)
       {
         return getConstant(markerMap, id.intValue());
       }
@@ -650,12 +654,13 @@ public class NikonCaptureEditorMetadata
      * @return
      * 
      *******************************************************************************/
-    public Set bufferIdSet ()
+    @Nonnull
+    public Set bufferIdSet()
       {
         return Collections.unmodifiableSet(bufferMapById.keySet());
       }
 
-    public int getOrientation ()
+    public int getOrientation()
       {
         return orientationBuffer.getShort(ORIENTATION_ORIENTATION_OFFSET);
       }
@@ -672,169 +677,177 @@ public class NikonCaptureEditorMetadata
     //    private final static int CROP_PIXEL_HEIGHT_OFFSET = 206;
     //    private final static int CROP_PIXEL_AREA_OFFSET   = 214;
     //    private final static int CROP_RATIO_OFFSET        = 222;
-    public double getCropLeft ()
+    @Nonnegative
+    public double getCropLeft()
       {
         return cropBuffer.getDouble(CROP_LEFT_OFFSET);
       }
 
-    public double getCropTop ()
+    @Nonnegative
+    public double getCropTop()
       {
         return cropBuffer.getDouble(CROP_TOP_OFFSET);
       }
 
-    public double getCropWidth ()
+    @Nonnegative
+    public double getCropWidth()
       {
         return cropBuffer.getDouble(CROP_RIGHT_OFFSET);
       }
 
-    public double getCropHeight ()
+    @Nonnegative
+    public double getCropHeight()
       {
         return cropBuffer.getDouble(CROP_BOTTOM_OFFSET);
       }
 
-    public boolean isAdvancedRawEnabled ()
+    public boolean isAdvancedRawEnabled()
       {
         return (advancedRawBuffer != null) && (advancedRawBuffer.get(ADVANCED_RAW_ENABLED_OFFSET) != 0);
       }
 
-    public int getEVCompensation ()
+    public int getEVCompensation()
       {
         return advancedRawDataBuffer.getShort(ADVANCED_RAW_EV_OVERRIDE_OFFSET);
       }
 
-    public int getToneCompensation ()
+    public int getToneCompensation()
       {
         return advancedRawDataBuffer.getShort(ADVANCED_RAW_CONTRAST_OFFSET);
       }
 
-    public int getColorMode ()
+    public int getColorMode()
       {
         return advancedRawDataBuffer.getShort(ADVANCED_RAW_COLOR_MODE_OFFSET);
       }
 
-    public boolean isHueCorrectionEnabled ()
+    public boolean isHueCorrectionEnabled()
       {
         return advancedRawDataBuffer.get(ADVANCED_RAW_HUE_CORRECTION_ENABLED_OFFSET) != 0;
       }
 
-    public int getHueCorrection ()
+    public int getHueCorrection()
       {
         return advancedRawDataBuffer.get(ADVANCED_RAW_HUE_CORRECTION_OFFSET);
       }
 
-    public boolean isSaturationCompensationEnabled ()
+    public boolean isSaturationCompensationEnabled()
       {
         return advancedRawDataBuffer.get(ADVANCED_RAW_SATURATION_ENABLED_OFFSET) != 0;
       }
 
-    public int getSaturationCompensation ()
+    public int getSaturationCompensation()
       {
         return advancedRawDataBuffer.get(ADVANCED_RAW_SATURATION_COMPENSATION_OFFSET);
       }
 
-    public int getSharpening ()
+    public int getSharpening()
       {
         return advancedRawDataBuffer.get(ADVANCED_RAW_SHARPENING_OFFSET);
       }
 
-    public boolean isWhiteBalanceEnabled ()
+    public boolean isWhiteBalanceEnabled()
       {
         return (whiteBalanceBuffer != null) && (whiteBalanceBuffer.get(WHITE_BALANCE_ENABLED_OFFSET) == 0x01);
       }
 
-    public double getWhiteBalanceRedCoeff ()
+    @Nonnegative
+    public double getWhiteBalanceRedCoeff()
       {
         return whiteBalanceDataBuffer.getDouble(WHITE_BALANCE_RED_COEFF_OFFSET);
       }
 
-    public double getWhiteBalanceBlueCoeff ()
+    @Nonnegative
+    public double getWhiteBalanceBlueCoeff()
       {
         return whiteBalanceDataBuffer.getDouble(WHITE_BALANCE_BLUE_COEFF_OFFSET);
       }
 
-    public int getWhiteBalanceWhitePoint ()
+    public int getWhiteBalanceWhitePoint()
       {
         return whiteBalanceDataBuffer.getInt(WHITE_BALANCE_WHITEPOINT_OFFSET);
       }
 
-    public int getWhiteBalanceWhitePointFine ()
+    public int getWhiteBalanceWhitePointFine()
       {
         return whiteBalanceDataBuffer.getInt(WHITE_BALANCE_WHITEPOINT_FINE_OFFSET);
       }
 
-    public int getWhiteBalanceTemperature ()
+    @Nonnegative
+    public int getWhiteBalanceTemperature()
       {
         return whiteBalanceDataBuffer.getInt(WHITE_BALANCE_TEMPERATURE_OFFSET);
       }
 
-    public boolean isColorBoosterEnabled ()
+    public boolean isColorBoosterEnabled()
       {
         return (colorBoosterBuffer != null) && (colorBoosterBuffer.get(COLOR_BOOSTER_ENABLED_OFFSET) == 0x01);
       }
 
-    public int getColorBoosterType ()
+    public int getColorBoosterType()
       {
         return colorBoosterDataBuffer.get(COLOR_BOOSTER_TYPE_OFFSET);
       }
 
-    public int getColorBoosterLevel ()
+    public int getColorBoosterLevel()
       {
         return colorBoosterDataBuffer.getInt(COLOR_BOOSTER_LEVEL_OFFSET);
       }
 
-    public boolean isNoiseReductionEnabled ()
+    public boolean isNoiseReductionEnabled()
       {
         return (noiseReductionBuffer != null) && (noiseReductionBuffer.get(NOISE_REDUCTION_ENABLED_OFFSET) == 0x01);
       }
 
-    public int getNoiseReduction ()
+    public int getNoiseReduction()
       {
         return noiseReductionDataBuffer.getInt(NOISE_REDUCTION_OFFSET);
       }
 
-    public boolean isEdgeNoiseReductionEnabled ()
+    public boolean isEdgeNoiseReductionEnabled()
       {
         return (noiseReductionDataBuffer.limit() > NOISE_REDUCTION_EDGE_OFFSET)
             && (noiseReductionDataBuffer.get(NOISE_REDUCTION_EDGE_OFFSET) == 0x01);
       }
 
-    public int getMoireReduction ()
+    public int getMoireReduction()
       {
         return (noiseReductionDataBuffer.limit() > NOISE_REDUCTION_MOIRE_OFFSET) ? noiseReductionDataBuffer
             .getInt(NOISE_REDUCTION_MOIRE_OFFSET) : NOISE_REDUCTION_MOIRE_OFF;
       }
 
-    public boolean isPhotoEffectEnabled ()
+    public boolean isPhotoEffectEnabled()
       {
         return (photoEffectBuffer != null) && (photoEffectDataBuffer != null) && (photoEffectBuffer.get(0x00) == 1);
       }
 
-    public int getPhotoEffect ()
+    public int getPhotoEffect()
       {
         return photoEffectDataBuffer.getShort(PHOTO_EFFECTS_EFFECT_OFFSET);
       }
 
-    public int getCyanRedBalance ()
+    public int getCyanRedBalance()
       {
         return photoEffectDataBuffer.getShort(PHOTO_EFFECTS_CYAN_RED_BALANCE_OFFSET);
       }
 
-    public int getMagentaGreenBalance ()
+    public int getMagentaGreenBalance()
       {
         return photoEffectDataBuffer.getShort(PHOTO_EFFECTS_MAGENTA_GREEN_BALANCE_OFFSET);
       }
 
-    public int getYellowBlueBalance ()
+    public int getYellowBlueBalance()
       {
         return photoEffectDataBuffer.getShort(PHOTO_EFFECTS_YELLOW_BLUE_BALANCE_OFFSET);
       }
 
-    public boolean isUnsharpMaskEnabled ()
+    public boolean isUnsharpMaskEnabled()
       {
         return getUnsharpMaskData() != null; // unsharpMaskBuffer.get(0x00) == 1; FIXME
       }
 
-    public UnsharpMaskData[] getUnsharpMaskData ()
+    @CheckForNull
+    public UnsharpMaskData[] getUnsharpMaskData()
       {
         if (unsharpMaskDataBuffer.limit() < 19)
           {
@@ -858,9 +871,10 @@ public class NikonCaptureEditorMetadata
 
     ////////////////////////////////////////////////////////////////////////////////
     @Override
-    public String toString ()
+    @Nonnull
+    public String toString()
       {
-        StringBuilder buffer = new StringBuilder("CaptureEditorMetadata[");
+        final StringBuilder buffer = new StringBuilder("CaptureEditorMetadata[");
         buffer.append("\n>>>>Orientation: " + getOrientation() + " degrees, ");
         buffer.append("\n>>>>crop: " + getCropLeft() + ", " + getCropTop() + ", " + getCropWidth() + ", " + getCropHeight());
 
@@ -934,47 +948,54 @@ public class NikonCaptureEditorMetadata
     /**
      * @return
      */
-    public String getWhitePointAsString (int whitePoint)
+    @CheckForNull
+    public String getWhitePointAsString (final int whitePoint)
       {
         return getConstant(white1Map, whitePoint);
       }
 
-    public String getWhitePointFineAsString (int whitePoint)
+    @CheckForNull
+    public String getWhitePointFineAsString (final int whitePoint)
       {
         return getConstant(white2Map, whitePoint);
       }
 
-    private static void registerConstant (Map map,
-                                          int key,
-                                          String text)
+    private static void registerConstant (final @Nonnull Map map,
+                                          final int key,
+                                          final @Nonnull String text)
       {
         map.put(new Integer(key), text);
       }
 
-    private static String getConstant (Map map,
-                                       int key)
+    @CheckForNull
+    private static String getConstant (final @Nonnull Map map,
+                                       final int key)
       {
         String string = (String)map.get(new Integer(key));
 
         return (string != null) ? string : ("#" + key + " - 0x" + Integer.toHexString(key));
       }
 
-    public static String getColorModeAsString (int colorMode)
+    @CheckForNull
+    public static String getColorModeAsString (final int colorMode)
       {
         return getConstant(colorModeMap, colorMode);
       }
 
-    public static String getSharpeningAsString (int sharpening)
+    @CheckForNull
+    public static String getSharpeningAsString (final int sharpening)
       {
         return getConstant(sharpeningMap, sharpening);
       }
 
-    public static String getToneCompensationAsString (int toneComp)
+    @CheckForNull
+    public static String getToneCompensationAsString (final int toneComp)
       {
         return getConstant(toneCompMap, toneComp);
       }
 
-    public static String getUnsharpMaskTypeAsString (int type)
+    @CheckForNull
+    public static String getUnsharpMaskTypeAsString (final int type)
       {
         return getConstant(unsharpMaskMap, type);
       }
@@ -987,16 +1008,17 @@ public class NikonCaptureEditorMetadata
      * @param i
      * @return
      */
-    private String getDebugString (int offset,
-                                   int id,
-                                   int size,
-                                   ByteBuffer subBuffer,
-                                   int i)
+    @Nonnull
+    private String getDebugString (final @Nonnegative int offset,
+                                   final int id,
+                                   final @Nonnegative int size,
+                                   final @Nonnull ByteBuffer subBuffer,
+                                   final int index)
       {
         String s;
-        StringBuffer bbb = new StringBuffer();
+        final StringBuilder bbb = new StringBuilder();
         bbb.append("subBuffer #");
-        bbb.append(i);
+        bbb.append(index);
         bbb.append(" ");
         bbb.append(Integer.toHexString(id));
         bbb.append(" at ");
