@@ -53,6 +53,7 @@ public class CR2Processor extends RAWProcessor
         operationList.add(new CR2CurveOperation());
         operationList.add(new DemosaicOperation());
         operationList.add(new CR2SizeOperation());
+        operationList.add(new CR2ColorConversionOperation());
         operationList.add(new ColorProfileOperation());
 //        operationList.add(new SharpenOperation());
       }
