@@ -55,6 +55,10 @@ public class NEFImageReaderImageTest extends NewImageReaderTestSupport
       {
         return fixed
           (
+            // D1
+            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d1/RAW_NIKON_D1.NEF").
+                            image(2012, 1324, 3, 16, "69c3916e9a583f7e48ca3918d31db135").
+                            thumbnail(160, 120),
             // D2X v1.0.1
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/nikon/D2X/1.01/_DSC0733.NEF").
                             image(4320, 2868, 3, 16, "0cb29a0834bb2293ee4bf0c09b201631").
@@ -102,6 +106,11 @@ public class NEFImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(106, 160).
                             thumbnail(384, 255).
                             issues("JRW-149", "JRW-150"),
+            // D80
+            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d80/RAW_NIKON_D80_SRGB.NEF").
+                            image(3904, 2616, 3, 16, "856a729b61cdcdb75817b58b3a6d3fc3").
+                            thumbnail(160, 120).
+                            thumbnail(3872, 2592),
             // D90
             ExpectedResults.create("http://jalbum.net/download/DSC_0067.NEF").
                             image(4352, 2868, 3, 16, "d4e48694534da435072e93f04244a37b").
