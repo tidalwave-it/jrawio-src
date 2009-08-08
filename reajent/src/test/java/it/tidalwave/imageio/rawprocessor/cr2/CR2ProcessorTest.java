@@ -54,39 +54,39 @@ public class CR2ProcessorTest extends NewImageReaderTestSupport
           (
             // EOS20D v1.1.0
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/1.1.0/_MG_8587.CR2").
-                            image(3504, 2336, 3, 8, "9923cd610b37a8dbba7acd4062c87ebe").
+                            image(3504, 2336, 3, 8, "77bd8c04f2895087aefbfb022bfd3b51").
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
-                            issues("JRW-208"),
+                            issues("JRW-208", "JRW-216"),
             // EOS20D v2.0.3
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/2.0.3/XXXX0000.CR2").
-                            image(3504, 2336, 3, 8, "9ef9413b5ae1da30d7af1958eb812b66").
+                            image(3504, 2336, 3, 8, "6200fba42ece0cced0604e41226384b0").
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
-                            issues("JRW-208"),
-            // EOS30D v1.0.4
+                            issues("JRW-208", "JRW-216"),
+//             EOS30D v1.0.4
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS30D/1.0.4/_MG_8882.CR2").
                             image(3504, 2336, 3, 8, "f9b8e443fd9ad47aad25ceb60f3673fb").
                             thumbnail(1728, 1152).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
-                            issues("JRW-208"),
+                            issues("JRW-208", "JRW-216"),
             // EOS40D v1.0.3
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS40D/1.0.3/img_0003.cr2").
-                            image(3888, 2592, 3, 8, "2c922503eaaa729814123c0564751ff3") .
+                            image(3888, 2592, 3, 8, "2e28cfb6f50551a031b142b013460de5") .
                             thumbnail(1936, 1288).
                             thumbnail(160, 120).
                             thumbnail(486, 324).
-                            issues("JRW-208"),
-            // EOS350D
+                            issues("JRW-208", "JRW-216"),
+//             EOS350D
             ExpectedResults.create("https://stlth.s3.amazonaws.com/assets/production/50b54a30-6324-012c-2155-fe109c37265e/e4fb97a0-6325-012c-6693-f225730bc406/IMG_4707.CR2").
-                            image(3456, 2304, 3, 8, "99dc4459bd3babdb6ea5d1519ff8f9dd").
+                            image(3456, 2304, 3, 8, "d502b9e00b3d7507b8d39da9ec612d07").
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
-                            issues("JRW-206", "JRW-208").
+                            issues("JRW-206", "JRW-208", "JRW-216").
                             metadata("metadata.canonMakerNote.sensorInfo.width", 3516).
                             metadata("metadata.canonMakerNote.sensorInfo.height", 2328).
                             metadata("metadata.canonMakerNote.sensorInfo.cropLeft", 52).
