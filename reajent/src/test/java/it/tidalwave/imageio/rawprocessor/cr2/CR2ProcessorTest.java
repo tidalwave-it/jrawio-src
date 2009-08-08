@@ -82,7 +82,6 @@ public class CR2ProcessorTest extends NewImageReaderTestSupport
                             issues("JRW-208", "JRW-216", "JRW-217"),
 //             EOS350D
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/marioivankovits/Canon/EOS305D/CR2/IMG_4707.CR2").
-//            ExpectedResults.create("https://stlth.s3.amazonaws.com/assets/production/50b54a30-6324-012c-2155-fe109c37265e/e4fb97a0-6325-012c-6693-f225730bc406/IMG_4707.CR2").
                             image(3456, 2304, 3, 8, "d502b9e00b3d7507b8d39da9ec612d07").
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
