@@ -22,42 +22,80 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ORFColorConversionOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.orf;
 
-import it.tidalwave.imageio.util.Logger;
+import it.tidalwave.imageio.orf.OlympusMakerNote;
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 import it.tidalwave.imageio.rawprocessor.ColorMatrix;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.rawprocessor.raw.ColorConversionOperation;
-import it.tidalwave.imageio.orf.OlympusMakerNote;
+import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
+import it.tidalwave.imageio.util.Logger;
+import java.util.HashMap;
+import java.util.Map;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFColorConversionOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ORFColorConversionOperation extends ColorConversionOperation
   {
     private final static Logger logger = getLogger(ORFColorConversionOperation.class);
-    
+
+    private final Map<String, ColorMatrix> matrixMapByModel = new HashMap<String, ColorMatrix>();
+
+    public ORFColorConversionOperation()
+      {
+        matrixMapByModel.put("E-500", get(new int[] { 8136,-1968,-299,-5481,13742,1871,-2556,4205,6630 }));
+        matrixMapByModel.put("E-510", get(new int[] { 8785,-2529,-1033,-7639,15624,2112,-1783,2300,7817 }));
+        matrixMapByModel.put("E-520", get(new int[] { 8344,-2322,-1020,-7596,15635,2048,-1748,2269,7287 }));
+      }
+
+    private static ColorMatrix get (final @Nonnull int[] values)
+      {
+        return getMatrix(values, 1.0/65535.0);
+      }
+
+
     /*******************************************************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
-/*    protected ColorMatrix getColorMatrix (RAWImage image)
+    @CheckForNull
+    @Override
+    protected ColorMatrix getColorMatrixXYZ (final @Nonnull RAWImage image)
       {
-        OlympusMakerNote orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
-        
-        if (orfMakernote.isColourMatrixAvailable())
-          {
-            int[] colorMatrix = orfMakernote.getColourMatrix();  
-            return getMatrix(colorMatrix, 1.0/65535.0);
-          }          
-        
-        return null;
-      }    */
+        final OlympusMakerNote orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
+        final String model = ((TIFFMetadataSupport)image.getRAWMetadata()).getPrimaryIFD().getModel().toUpperCase().trim();
+        return matrixMapByModel.get(model);
+//        final OlympusMakerNote orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
+//
+//        if (orfMakernote.isColorMatrixAvailable())
+//          {
+//            final int[] colorMatrix = orfMakernote.getColorMatrix();
+//
+//            for (int i = 0; i < colorMatrix.length; i++)
+//              {
+//                colorMatrix[i] = 65535 - colorMatrix[i];
+//              }
+//
+//            return getMatrix(colorMatrix, 1.0/65535.0);
+//          }
+//    { "OLYMPUS E-500", 0, 0,
+//        { 8136,-1968,-299,-5481,13742,1871,-2556,4205,6630 } },
+//    { "OLYMPUS E-510", 0, 0xf6a,
+//        { 8785,-2529,-1033,-7639,15624,2112,-1783,2300,7817 } },
+//    { "OLYMPUS E-520", 0, 0xfd2,
+//        { 8344,-2322,-1020,-7596,15635,2048,-1748,2269,7287 } },
+
+//        return getMatrix(new int[] { 8136,-1968,-299,-5481,13742,1871,-2556,4205,6630 }, 1.0/65535.0);
+//        return null;
+      }    
   }
