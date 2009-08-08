@@ -68,7 +68,7 @@ public class CR2ProcessorTest extends NewImageReaderTestSupport
                             issues("JRW-208", "JRW-216"),
 //             EOS30D v1.0.4
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS30D/1.0.4/_MG_8882.CR2").
-                            image(3504, 2336, 3, 8, "f9b8e443fd9ad47aad25ceb60f3673fb").
+                            image(3504, 2336, 3, 8, "d8cad9ef2f3cb8b3e82f0529057ff6e3").
                             thumbnail(1728, 1152).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
