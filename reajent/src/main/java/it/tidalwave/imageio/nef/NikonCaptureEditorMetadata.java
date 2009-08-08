@@ -495,13 +495,12 @@ public class NikonCaptureEditorMetadata
      *******************************************************************************/
     public NikonCaptureEditorMetadata (final @Nonnull byte[] buffer)
       {
-        logger.finer("Creating a CaptureEditorMetadata from %d bytes", buffer.length);
+        logger.finer("NikonCaptureEditorMetadata(%d bytes)", buffer.length);
         byteBuffer = ByteBuffer.allocate(buffer.length);
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN); // FIXME check this
         byteBuffer.put(buffer);
 
         int offset = 0x16; // FIXME: parse the header in a better way!
-        final List temp = new ArrayList();
 
         while ((offset + 24) /* FIXME: ? */< byteBuffer.limit())
           {
@@ -509,6 +508,14 @@ public class NikonCaptureEditorMetadata
             final int size = (int)byteBuffer.getLong(offset + 18) - 4;
             offset += 22;
             byteBuffer.position(offset);
+            logger.finest(">>>> read subbuffer id: %x, size: %d", id, size);
+
+            // I don't know if it's a valid way to quit, but i.e
+            // http://www.rawsamples.ch/raws/nikon/d60/RAW_NIKON_D60.NEF needs it.
+            if (size == 0)
+              {
+                break;
+              }
 
             final ByteBuffer subBuffer = byteBuffer.slice();
             subBuffer.order(byteBuffer.order());
@@ -516,7 +523,7 @@ public class NikonCaptureEditorMetadata
             bufferMapById.put(new Integer(id), subBuffer);
             offset += size;
 
-            final int index = temp.size() - 1;
+            final int index = bufferMapById.size() - 1;
 
             String s = "";
 
