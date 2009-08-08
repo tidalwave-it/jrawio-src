@@ -52,6 +52,10 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
       {
         return fixed
           (
+            // D1
+            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d1/RAW_NIKON_D1.NEF").
+                            image(2000, 1312, 3, 8, "f62836d70fab86475a155178f18cd1aa").
+                            thumbnail(160, 120),
             // D2X v1.0.1
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/nikon/D2X/1.01/_DSC0733.NEF").
                             image(4288, 2848, 3, 8, "f0c8a971dc82b31f1de739d7fb3d8a10").
@@ -107,6 +111,11 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(4288, 2848).
                             issues("JRW-187", "JRW-215"),
+            // D80
+            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d80/RAW_NIKON_D80_SRGB.NEF").
+                            image(2616, 3904, 3, 8, "bfce1c1d61ea4769e8ba20e050f3be70").
+                            thumbnail(160, 120).
+                            thumbnail(3872, 2592),
             // D100
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/fabriziogiudici/Nikon/D100/NEF/NikonCaptureEditor/ccw90.nef").
                             image(2000, 3008, 3, 8, "f9fab4ee10aa950bfa30426783ea3fda").
