@@ -34,6 +34,7 @@ import java.awt.Dimension;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.metadata.IIOMetadataFormatImpl;
 import org.w3c.dom.Node;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -43,6 +44,9 @@ import org.w3c.dom.Node;
  **********************************************************************************************************************/
 public abstract class RAWMetadataSupport extends IIOMetadata
   {
+    private final static String CLASS = RAWMetadataSupport.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+    
     @Nonnull
     protected final Directory realPrimaryIFD;
 
@@ -195,7 +199,7 @@ public abstract class RAWMetadataSupport extends IIOMetadata
     @Nonnegative
     public final int getWidth()
       {
-        return ((overriddenSize != null) ? overriddenSize : getImageSize()).width;
+        return ((overriddenImageSize != null) ? overriddenImageSize : getImageSize()).width;
       }
 
     /*******************************************************************************************************************
@@ -208,7 +212,7 @@ public abstract class RAWMetadataSupport extends IIOMetadata
     @Nonnegative
     public final int getHeight()
       {
-        return ((overriddenSize != null) ? overriddenSize : getImageSize()).height;
+        return ((overriddenImageSize != null) ? overriddenImageSize : getImageSize()).height;
       }
 
     /*******************************************************************************************************************
@@ -219,16 +223,17 @@ public abstract class RAWMetadataSupport extends IIOMetadata
     protected abstract Dimension getImageSize();
 
     @CheckForNull
-    private Dimension overriddenSize;
+    private Dimension overriddenImageSize;
 
     /*******************************************************************************************************************
      *
      * Don't use - it's not part of the public APIs.
      *
      ******************************************************************************************************************/
-    public void setSize (final @Nonnull Dimension overriddenSize)
+    public void setOverriddenImageSize (final @Nonnull Dimension overriddenSize)
       {
-        this.overriddenSize = overriddenSize;
+        logger.fine("setOverriddenImageSize(%s)", overriddenSize);
+        this.overriddenImageSize = overriddenSize;
       }
 
     /*******************************************************************************************************************

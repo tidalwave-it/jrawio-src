@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.nef;
 
+import javax.annotation.Nonnull;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;
@@ -43,27 +44,16 @@ public class NEFRotateOperation extends RotateOperation
   {
     private final static Logger logger = getLogger(NEFRotateOperation.class);
     
-    private NikonCaptureEditorMetadata nceMetadata;
-    
     /*******************************************************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    public void init (PipelineArtifact artifact) throws Exception
+    @Override
+    protected int getCameraOrientation (final @Nonnull PipelineArtifact artifact)
       {
-        super.init(artifact);
-        NEFMetadata metadata = (NEFMetadata)artifact.getRAWMetadata();
-        nceMetadata = (NikonCaptureEditorMetadata)metadata.getCaptureEditorMetadata();
-      }
-                
-    /*******************************************************************************************************************
-     *
-     * @inheritDoc
-     *
-     ******************************************************************************************************************/
-    protected int getCameraOrientation (PipelineArtifact artifact)
-      {
+        final NEFMetadata metadata = (NEFMetadata)artifact.getRAWMetadata();
+        final NikonCaptureEditorMetadata nceMetadata = (NikonCaptureEditorMetadata)metadata.getCaptureEditorMetadata();
         return (nceMetadata != null) ? nceMetadata.getOrientation() : super.getCameraOrientation(artifact);
       }
   }

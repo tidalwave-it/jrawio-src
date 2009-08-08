@@ -85,6 +85,12 @@ public class NEFImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(3008, 2000).
                             issues("JRW-129"),
+            // D60
+            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d60/RAW_NIKON_D60.NEF").
+                            image(3904, 2616, 3, 16, "1bb9b055b9504ea67993d813995efecf").
+                            thumbnail(320, 214).
+                            thumbnail(3872, 2592).
+                            issues("JRW-224"),
             // D70 v1.0.1
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/nikon/D70/1.01/DSC_2544.NEF").
                             image(3040, 2014, 3, 16, "f5d7d487f69fee3ef0b6b344729cf2cf").

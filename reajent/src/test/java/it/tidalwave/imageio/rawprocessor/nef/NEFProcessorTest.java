@@ -84,6 +84,13 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(3008, 2000).
                             issues("JRW-129"),
+            // D60 with Nikon Capture Editor data
+            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d60/RAW_NIKON_D60.NEF").
+                            image(3008, 2000, 3, 8, "d69f1c3d6ae8c4cf29ee98e17f996a9d"). // cropped by NCE
+//                            image(3872, 2592, 3, 8, "0cb29a0834bb2293ee4bf0c09b201631").
+                            thumbnail(320, 214).
+                            thumbnail(3872, 2592).
+                            issues("JRW-224"),
             // D70 v1.0.1
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/nikon/D70/1.01/DSC_2544.NEF").
                             image(3008, 2000, 3, 8, "72f0034d835dbbc0afe9d65255de9423").
