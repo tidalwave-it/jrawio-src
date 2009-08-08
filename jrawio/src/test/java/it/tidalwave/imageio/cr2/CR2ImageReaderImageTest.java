@@ -111,7 +111,7 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                             metadata("metadata.canonMakerNote.sensorInfo.cropTop", 23).
                             metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2614),
             // EOS350D
-            ExpectedResults.create("https://stlth.s3.amazonaws.com/assets/production/50b54a30-6324-012c-2155-fe109c37265e/e4fb97a0-6325-012c-6693-f225730bc406/IMG_4707.CR2").
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/marioivankovits/Canon/EOS305D/CR2/IMG_4707.CR2").
                             image(EOS350D_SENSOR_SIZE, 3, 16, "b629606121712938f27e60004880052c").
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
