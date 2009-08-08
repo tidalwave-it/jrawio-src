@@ -22,11 +22,13 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: CR2RasterReader.java 85 2008-08-24 09:35:51Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.cr2;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import java.nio.ByteOrder;
 import java.awt.image.DataBufferUShort;
@@ -38,8 +40,8 @@ import it.tidalwave.imageio.raw.RasterReader;
 
 /***********************************************************************************************************************
  *
- * @author  fritz
- * @version $Id: CR2RasterReader.java 85 2008-08-24 09:35:51Z fabriziogiudici $
+ * @author  Fabrizio Giudici
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CR2RasterReader extends RasterReader
@@ -54,8 +56,8 @@ public class CR2RasterReader extends RasterReader
      * 
      * @param canonTileWidth The canonTileWidth to set.
      * 
-     *******************************************************************************/
-    public void setCanonTileWidth (int canonTileWidth)
+     ******************************************************************************************************************/
+    public void setCanonTileWidth (final @Nonnegative int canonTileWidth)
       {
         this.canonTileWidth = canonTileWidth;
       }
@@ -64,53 +66,54 @@ public class CR2RasterReader extends RasterReader
      * 
      * @param canonLastTileWidth The canonLastTileWidth to set.
      * 
-     *******************************************************************************/
-    public void setCanonLastTileWidth (int canonLastTileWidth)
+     ******************************************************************************************************************/
+    public void setCanonLastTileWidth (final @Nonnegative int canonLastTileWidth)
       {
         this.canonLastTileWidth = canonLastTileWidth;
       }
 
     /*******************************************************************************************************************
      * 
-     * @inheritDoc
+     * {@inheritDoc}
      * CR2 files are always compressed.
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     @Override
-    protected boolean isCompressedRaster ()
+    protected boolean isCompressedRaster()
       {
         return true;
       }
 
     /*******************************************************************************************************************
      * 
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     @Override
-    protected void loadCompressedRaster (RAWImageInputStream iis,
-                                         WritableRaster raster,
-                                         RAWImageReaderSupport ir) throws IOException
+    protected void loadCompressedRaster (final @Nonnull RAWImageInputStream iis,
+                                         final @Nonnull WritableRaster raster,
+                                         final @Nonnull RAWImageReaderSupport ir)
+      throws IOException
       {
-        LosslessJPEGDecoder jpegDecoder = new LosslessJPEGDecoder();
-        ByteOrder byteOrderSaved = iis.getByteOrder();
+        final LosslessJPEGDecoder jpegDecoder = new LosslessJPEGDecoder();
+        final ByteOrder byteOrderSaved = iis.getByteOrder();
         iis.setByteOrder(ByteOrder.BIG_ENDIAN);
         jpegDecoder.reset(iis);
-        DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
-        short[] data = dataBuffer.getData();
-        int width = raster.getWidth();
-        int height = raster.getHeight();
-        int pixelStride = 3; // FIXME
-        int scanStride = width * pixelStride;
+        final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
+        final short[] data = dataBuffer.getData();
+        final int width = raster.getWidth();
+        final int height = raster.getHeight();
+        final int pixelStride = 3; // FIXME
+        final int scanStride = width * pixelStride;
         
         iis.selectBitReader(-1, BUFFER_SIZE); 
         iis.setSkipZeroAfterFF(true);
-        int wholeTileCount = (canonTileWidth != 0) ? (width - canonLastTileWidth) / canonTileWidth : 0;
-        int odd = height % 2;
+        final int wholeTileCount = (canonTileWidth != 0) ? (width - canonLastTileWidth) / canonTileWidth : 0;
+        final int odd = height % 2;
 
         for (int y = 0; y < height; y++)
           {
-            short[] rowBuffer = jpegDecoder.loadRow(iis);
+            final short[] rowBuffer = jpegDecoder.loadRow(iis);
 
             for (int x = 0; x < width; x++)
               {
@@ -127,7 +130,7 @@ public class CR2RasterReader extends RasterReader
                 if (canonTileWidth != 0)
                   {
                     int scan = y * width + x;
-                    int tileIndex = scan / (canonTileWidth * height);
+                    final int tileIndex = scan / (canonTileWidth * height);
 
                     if (tileIndex < wholeTileCount)
                       {
@@ -142,16 +145,16 @@ public class CR2RasterReader extends RasterReader
                         yy = scan / canonLastTileWidth;
                       }
                   }
-              //
-              // This is a very strange thing. EOS 1Ds Mark II has an odd number of rows on the sensor.
-              // Looks like it's a GBRG Bayer pattern, but DNG marks it as a RGGB. So we skip the first
-              // row and voila', GBRG becomes RGGB.
-              //
+                //
+                // This is a very strange thing. EOS 1Ds Mark II has an odd number of rows on the sensor.
+                // Looks like it's a GBRG Bayer pattern, but DNG marks it as a RGGB. So we skip the first
+                // row and voila', GBRG becomes RGGB.
+                //
                 yy -= odd;
 
                 if ((xx < width) && (yy >= 0) && (yy < height))
                   {
-                    int cfaIndex = (yy % 2) * 2 + (xx % 2);
+                    final int cfaIndex = (yy % 2) * 2 + (xx % 2);
                     data[yy * scanStride + xx * pixelStride + cfaOffsets[cfaIndex]] = (short)value;
                   }
               }
