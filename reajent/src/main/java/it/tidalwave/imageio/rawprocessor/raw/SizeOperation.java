@@ -122,8 +122,9 @@ public abstract class SizeOperation extends OperationSupport
     public void processMetadata (@Nonnull final PipelineArtifact artifact)
       {
         logger.fine("processMetadata(%s)", artifact);
-        final int rotation = normalizedAngle(artifact.getRotation());
-        artifact.getRAWMetadata().setOverriddenImageSize(rotate(getSize(artifact), rotation));
+//        final int rotation = normalizedAngle(artifact.getRotation());
+//        artifact.getRAWMetadata().setOverriddenImageSize(rotate(getSize(artifact), rotation));
+        artifact.getRAWMetadata().setOverriddenImageSize(getSize(artifact));
       } 
     
     /*******************************************************************************************************************

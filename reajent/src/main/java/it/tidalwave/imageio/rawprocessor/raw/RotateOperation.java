@@ -27,20 +27,20 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
+import javax.annotation.Nonnull;
 import java.util.Properties;
-import it.tidalwave.imageio.util.Logger;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.Raster;
 import java.awt.image.SampleModel;
 import java.awt.image.WritableRaster;
-import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
-import javax.annotation.Nonnull;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -52,6 +52,28 @@ public class RotateOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(RotateOperation.class);
 
+    private int rotation;
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     * It's important to compute rotation here since it can be needed by other operations' init().
+     *
+     ******************************************************************************************************************/
+    @Override
+    public void init (final @Nonnull PipelineArtifact artifact)
+      {
+        logger.fine("init(%s)", artifact);
+
+        rotation = getCameraOrientation(artifact);
+
+        if (rotation != 0)
+          {
+            artifact.setRotation(rotation);
+          }
+      }
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
@@ -61,32 +83,29 @@ public class RotateOperation extends OperationSupport
       {
         logger.fine("process(%s)", artifact);
         
-        int rotation = getCameraOrientation(artifact);
-        
         if (rotation != 0)
           {
             artifact.setImage(rotateQuadrant(artifact.getImage(), rotation));
-            artifact.setRotation(rotation);
           }
       }
         
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override
-    public void processMetadata (final @Nonnull PipelineArtifact artifact)
-      {
-        logger.fine("processMetadata(%s)", artifact);
-
-        final int rotation = getCameraOrientation(artifact);
-
-        if (rotation != 0)
-          {
-            artifact.setRotation(rotation);
-          }
-      }
+//    /*******************************************************************************************************************
+//     *
+//     * {@inheritDoc}
+//     *
+//     ******************************************************************************************************************/
+//    @Override
+//    public void processMetadata (final @Nonnull PipelineArtifact artifact)
+//      {
+//        logger.fine("processMetadata(%s)", artifact);
+//
+//        final int rotation = getCameraOrientation(artifact);
+//
+//        if (rotation != 0)
+//          {
+//            artifact.setRotation(rotation);
+//          }
+//      }
 
     /*******************************************************************************************************************
      *

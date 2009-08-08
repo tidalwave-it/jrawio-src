@@ -44,29 +44,16 @@ public class NEFRotateOperation extends RotateOperation
   {
     private final static Logger logger = getLogger(NEFRotateOperation.class);
     
-    private NikonCaptureEditorMetadata nceMetadata;
-    
     /*******************************************************************************************************************
      *
-     * @inheritDoc
-     *
-     ******************************************************************************************************************/
-    @Override
-    public void init (final @Nonnull PipelineArtifact artifact)
-      {
-        super.init(artifact);
-        final NEFMetadata metadata = (NEFMetadata)artifact.getRAWMetadata();
-        nceMetadata = (NikonCaptureEditorMetadata)metadata.getCaptureEditorMetadata();
-      }
-                
-    /*******************************************************************************************************************
-     *
-     * @inheritDoc
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override
     protected int getCameraOrientation (final @Nonnull PipelineArtifact artifact)
       {
+        final NEFMetadata metadata = (NEFMetadata)artifact.getRAWMetadata();
+        final NikonCaptureEditorMetadata nceMetadata = (NikonCaptureEditorMetadata)metadata.getCaptureEditorMetadata();
         return (nceMetadata != null) ? nceMetadata.getOrientation() : super.getCameraOrientation(artifact);
       }
   }

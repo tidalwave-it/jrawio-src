@@ -46,26 +46,37 @@ import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 public class NEFSizeOperation extends SizeOperation
   {
     private final static Logger logger = getLogger(NEFSizeOperation.class);
-    
+
+    @Nonnull
+    private Insets crop;
+
+    @Nonnull
+    private Dimension size;
+
     /*******************************************************************************************************************
      *
      * @{@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override
-    @Nonnull 
-    protected Insets getCrop (@Nonnull final PipelineArtifact artifact)
+    public void init (@Nonnull final PipelineArtifact artifact)
       {
-        logger.fine("getCrop()");
-        Insets crop = super.getCrop(artifact);
+        logger.fine("init(%s)", artifact);
+
+        size = super.getSize(artifact);
+        crop = super.getCrop(artifact);
         final int rotation = normalizedAngle(artifact.getRotation());
         crop = rotate(crop, rotation);
-        logger.finer(String.format(">>>> rotation: %d, crop: %s", rotation, crop));
+        logger.finer(">>>> size: %s, rotation: %d, crop: %s", size, rotation, crop);
 
         final NEFMetadata metadata = (NEFMetadata)artifact.getRAWMetadata();
         final NikonCaptureEditorMetadata nceMetadata = (NikonCaptureEditorMetadata)metadata.getCaptureEditorMetadata();
 
-        if (nceMetadata != null)
+        if (nceMetadata == null)
+          {
+            size = rotate(size, rotation);
+          }
+        else
           {
             double scale = 0.5;
             Rectangle nceCrop = new Rectangle(0, 0, 0, 0);
@@ -76,22 +87,21 @@ public class NEFSizeOperation extends SizeOperation
             nceCrop.y = (int)Math.round(nceMetadata.getCropTop() * scale);
             nceCrop.width = (int)Math.round(nceMetadata.getCropWidth() * scale);
             nceCrop.height = (int)Math.round(nceMetadata.getCropHeight() * scale);
-            
+
             if (metadata.getPrimaryIFD().getModel().trim().equals("NIKON D1X"))
               {
-                nceCrop.height /= 2; // ??  
-              } 
+                nceCrop.height /= 2; // ??
+              }
 
-            final Dimension size = getSize(artifact);
-            logger.fine(String.format(">>>> original size: %s, original NCE crop: %s", size, nceCrop));
- 
+            logger.fine(">>>> NCE crop: %s", nceCrop);
+
             // Some images needs to rotate the NCE crop (e.g. ccw90.nef)
             // others don't (e.g. Nikon_D70s_0001.NEF)
             // FIXME: but we don't know how to guess. See the trick below.
             boolean shouldRotateNCECrop = true;
-            
+
             if (shouldRotateNCECrop)
-              {  
+              {
                 final Rectangle save = (Rectangle)nceCrop.clone();
                 nceCrop = rotate(nceCrop, size, rotation);
                 //
@@ -100,27 +110,53 @@ public class NEFSizeOperation extends SizeOperation
                 if ((nceCrop.x < 0) || (nceCrop.y < 0))
                   {
                     logger.warning("Bad crop, NCE crop hadn't to be rotated");
-                    nceCrop = save;  
+                    nceCrop = save;
                   }
               }
-            
-            if ((rotation == 90) || (rotation == 270)) // FIXME: refactor into rotateDimension
-              {
-                int tmp = size.width;
-                size.width = size.height;
-                size.height = tmp;
-              }
-            
-            logger.fine(String.format(">>>> size: %s, NCE crop: %s", size, nceCrop));
+
+            size = rotate(size, rotation);
+//            if ((rotation == 90) || (rotation == 270)) // FIXME: refactor into rotateDimension
+//              {
+//                int tmp = size.width;
+//                size.width = size.height;
+//                size.height = tmp;
+//              }
+
+            logger.fine(">>>> size: %s, NCE crop: %s", size, nceCrop);
 
             crop.left   += nceCrop.x;
             crop.top    += nceCrop.y;
             crop.right  += size.width - nceCrop.width;
             crop.bottom += size.height - nceCrop.height;
+
+            size.width  = nceCrop.width;
+            size.height = nceCrop.height;
           }
-        
-        logger.fine(">>>> returning crop: %s", crop);
-        
+
+        logger.fine(">>>> computed crop: %s, size: %s", crop, size);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * @{@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    @Nonnull 
+    protected Insets getCrop (@Nonnull final PipelineArtifact artifact)
+      { 
         return crop;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * @{@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    @Nonnull
+    protected Dimension getSize (@Nonnull final PipelineArtifact artifact)
+      {
+        return size;
       }
   }
