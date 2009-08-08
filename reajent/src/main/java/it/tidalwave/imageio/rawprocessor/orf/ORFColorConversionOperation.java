@@ -27,16 +27,16 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.orf;
 
-import it.tidalwave.imageio.orf.OlympusMakerNote;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
+import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
+import it.tidalwave.imageio.orf.OlympusMakerNote;
 import it.tidalwave.imageio.rawprocessor.ColorMatrix;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.rawprocessor.raw.ColorConversionOperation;
-import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.util.Logger;
-import java.util.HashMap;
-import java.util.Map;
 
 /***********************************************************************************************************************
  *
@@ -59,7 +59,7 @@ public class ORFColorConversionOperation extends ColorConversionOperation
 
     private static ColorMatrix get (final @Nonnull int[] values)
       {
-        return getMatrix(values, 1.0/65535.0);
+        return getMatrix(values, 1.0/10000.0);
       }
 
 
@@ -72,30 +72,22 @@ public class ORFColorConversionOperation extends ColorConversionOperation
     @Override
     protected ColorMatrix getColorMatrixXYZ (final @Nonnull RAWImage image)
       {
-        final OlympusMakerNote orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
         final String model = ((TIFFMetadataSupport)image.getRAWMetadata()).getPrimaryIFD().getModel().toUpperCase().trim();
-        return matrixMapByModel.get(model);
-//        final OlympusMakerNote orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
-//
+        final OlympusMakerNote orfMakernote = (OlympusMakerNote)image.getRAWMetadata().getMakerNote();
+
+        // FIXME: try to use the embedded matrix instead of hardwired coefficients.
 //        if (orfMakernote.isColorMatrixAvailable())
 //          {
 //            final int[] colorMatrix = orfMakernote.getColorMatrix();
 //
-//            for (int i = 0; i < colorMatrix.length; i++)
-//              {
-//                colorMatrix[i] = 65535 - colorMatrix[i];
-//              }
+////            for (int i = 0; i < colorMatrix.length; i++)
+////              {
+////                colorMatrix[i] = 65535 - colorMatrix[i];
+////              }
 //
 //            return getMatrix(colorMatrix, 1.0/65535.0);
 //          }
-//    { "OLYMPUS E-500", 0, 0,
-//        { 8136,-1968,-299,-5481,13742,1871,-2556,4205,6630 } },
-//    { "OLYMPUS E-510", 0, 0xf6a,
-//        { 8785,-2529,-1033,-7639,15624,2112,-1783,2300,7817 } },
-//    { "OLYMPUS E-520", 0, 0xfd2,
-//        { 8344,-2322,-1020,-7596,15635,2048,-1748,2269,7287 } },
 
-//        return getMatrix(new int[] { 8136,-1968,-299,-5481,13742,1871,-2556,4205,6630 }, 1.0/65535.0);
-//        return null;
+        return matrixMapByModel.get(model);
       }    
   }
