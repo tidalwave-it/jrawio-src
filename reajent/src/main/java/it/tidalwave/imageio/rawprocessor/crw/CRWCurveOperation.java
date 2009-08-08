@@ -22,36 +22,83 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: CRWCurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.crw;
 
-import it.tidalwave.imageio.util.Logger;
-import it.tidalwave.imageio.tiff.IFD;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.rawprocessor.RAWImage;
 import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
+import it.tidalwave.imageio.crw.CRWMetadata;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: CRWCurveOperation.java 153 2008-09-13 15:13:59Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CRWCurveOperation extends CurveOperation  
   {
-    private final static String CLASS = "it.tidalwave.imageio.rawprocessor.crw.CRWCurveOperation";
-    
+    private final static String CLASS = CRWCurveOperation.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
-    
+
     /*******************************************************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    protected double getWhiteLevel (RAWImage image)
+    @Override
+    @Nonnull
+    protected int[] getBlackLevel (@Nonnull final RAWImage image)
       {
-        logger.fine("getWhiteLevel()");
+        logger.fine("getBlackLevel(%s)", image);
+
+        final WritableRaster raster = image.getImage().getRaster();
+        final CRWMetadata metadata = (CRWMetadata)image.getRAWMetadata();
+
+        // TODO: document why use these margins
+        final int yMin = metadata.getSensorTopBorder() /*- 5*/;
+        final int yMax = metadata.getSensorBottomBorder() /*+ 5*/;
+        final int xMin = 2;
+        final int xMax = metadata.getSensorLeftBorder() - 13;
+        logger.finer(">>>> computing black level from (%d; %d) - (%d; %d)...", xMin, xMax, yMin, yMax);
+
+        final double[] dark = new double[2];
+
+        for (int y = yMin; y <= yMax; y++)
+          {
+            for (int x = xMin; x <= xMax; x++)
+              {
+                final int s1 = raster.getSample(x, y, 0);
+                final int s2 = raster.getSample(x, y, 1);
+                final int s3 = raster.getSample(x, y, 2);
+                dark[x & 1] += s1 + s2 + s3;
+//                  System.err.printf("%d %d %d\n", s1, s2, s3);
+              }
+          }
+
+        logger.finer(">>>> dark: %s", Arrays.toString(dark));
+        final int sampleCount = (yMax - yMin + 1) * (xMax - xMin + 1) / 2; // each row adds a single sample, so divide by 2
+        final int black = (int)((dark[0] + dark[1]) / (2 * sampleCount));
+
+        return new int[]{ black, black, black };
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Nonnegative
+    @Override
+    protected double getWhiteLevel (final @Nonnull RAWImage image)
+      {
+        logger.fine("getWhiteLevel(%s)", image);
         return (1 << 12) - 1; // FIXME
       }
   }
