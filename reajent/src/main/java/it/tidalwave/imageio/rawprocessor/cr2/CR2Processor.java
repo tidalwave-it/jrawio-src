@@ -27,7 +27,9 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.cr2;
 
+import javax.annotation.Nonnull;
 import java.util.List;
+import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWProcessor;
 import it.tidalwave.imageio.rawprocessor.raw.ColorProfileOperation;
 import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
@@ -42,10 +44,10 @@ public class CR2Processor extends RAWProcessor
   {
     /*******************************************************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    protected void buildPipeline (List operationList)
+    protected void buildPipeline (final @Nonnull List<OperationSupport> operationList)
       {
         operationList.add(new CR2WhiteBalanceOperation());
 //        operationList.add(new NEFExposureOperation());
