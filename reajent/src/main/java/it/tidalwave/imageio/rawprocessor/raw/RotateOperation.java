@@ -40,6 +40,7 @@ import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
+import javax.annotation.Nonnull;
 
 /***********************************************************************************************************************
  *
@@ -50,15 +51,15 @@ import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 public class RotateOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(RotateOperation.class);
-        
+
     /*******************************************************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    public void process (PipelineArtifact artifact)
+    public void process (final @Nonnull PipelineArtifact artifact)
       {
-        logger.fine("process()");
+        logger.fine("process(%s)", artifact);
         
         int rotation = getCameraOrientation(artifact);
         
@@ -71,15 +72,15 @@ public class RotateOperation extends OperationSupport
         
     /*******************************************************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
      *
      ******************************************************************************************************************/
     @Override
-    public void processMetadata (PipelineArtifact artifact)
+    public void processMetadata (final @Nonnull PipelineArtifact artifact)
       {
-        logger.fine("processMetadata()");
+        logger.fine("processMetadata(%s)", artifact);
 
-        int rotation = getCameraOrientation(artifact);
+        final int rotation = getCameraOrientation(artifact);
 
         if (rotation != 0)
           {
@@ -93,11 +94,11 @@ public class RotateOperation extends OperationSupport
      * RAW processors for other formats should override this method. 
      *
      ******************************************************************************************************************/
-    protected int getCameraOrientation (PipelineArtifact artifact)
+    protected int getCameraOrientation (final @Nonnull PipelineArtifact artifact)
       {
-        TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
-        IFD primaryIFD = metadata.getPrimaryIFD();
-        IFD exifIFD = metadata.getExifIFD();
+        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
+        final IFD primaryIFD = metadata.getPrimaryIFD();
+        final IFD exifIFD = metadata.getExifIFD();
         int orientation = 0;
         IFD.Orientation tiffOrientation = null;
 
@@ -130,7 +131,8 @@ public class RotateOperation extends OperationSupport
      *
      *
      ******************************************************************************************************************/
-    protected static BufferedImage rotateQuadrant (BufferedImage image, int degrees)
+    @Nonnull
+    protected static BufferedImage rotateQuadrant (final @Nonnull BufferedImage image, int degrees)
       {
         logger.finer("rotateQuadrant(%d)", degrees);
         logImage(logger, ">>>> image: ", image);
@@ -146,15 +148,15 @@ public class RotateOperation extends OperationSupport
             sampleModel = sampleModel.createCompatibleSampleModel(image.getHeight(), image.getWidth());
           }
 
-        WritableRaster newRaster = Raster.createWritableRaster(sampleModel, null);
-        ColorModel colorModel = image.getColorModel();
-        BufferedImage result = new BufferedImage(colorModel, newRaster, false, getProperties(image));
+        final WritableRaster newRaster = Raster.createWritableRaster(sampleModel, null);
+        final ColorModel colorModel = image.getColorModel();
+        final BufferedImage result = new BufferedImage(colorModel, newRaster, false, getProperties(image));
 
-        Graphics2D g2d = (Graphics2D)result.getGraphics();
+        final Graphics2D g2d = (Graphics2D)result.getGraphics();
 
         try
           {
-            double radians = Math.toRadians(degrees);
+            final double radians = Math.toRadians(degrees);
             g2d.transform(AffineTransform.getRotateInstance(radians));
 
             int x = 0;
@@ -196,10 +198,11 @@ public class RotateOperation extends OperationSupport
      *
      *
      ******************************************************************************************************************/
-    private static Properties getProperties (BufferedImage image)
+    @Nonnull
+    private static Properties getProperties (final @Nonnull BufferedImage image)
       {
-        Properties properties = new Properties();
-        String[] propertyNames = image.getPropertyNames();
+        final Properties properties = new Properties();
+        final String[] propertyNames = image.getPropertyNames();
 
         if (propertyNames != null)
           {
