@@ -184,7 +184,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
         logger.fine("loadImage(%d) - iis: %s", imageIndex, iis);
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
-        BufferedImage image = loadRAWImage();
+        final BufferedImage image = loadRAWImage();
         logger.fine(">>>> loadImage() completed ok, returning %s", image);
 
         return image;
