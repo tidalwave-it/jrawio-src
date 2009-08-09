@@ -27,19 +27,20 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
+import javax.annotation.Nonnull;
 import java.util.Properties;
-import it.tidalwave.imageio.util.Logger;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.Raster;
 import java.awt.image.SampleModel;
 import java.awt.image.WritableRaster;
-import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -50,54 +51,55 @@ import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 public class RotateOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(RotateOperation.class);
-        
+
+    private int rotation;
+
     /*******************************************************************************************************************
      *
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * It's important to compute rotation here since it can be needed by other operations' init().
      *
      ******************************************************************************************************************/
-    public void process (PipelineArtifact artifact)
+    @Override
+    public void init (final @Nonnull PipelineArtifact artifact)
       {
-        logger.fine("process()");
-        
-        int rotation = getCameraOrientation(artifact);
+        logger.fine("init(%s)", artifact);
+
+        rotation = getCameraOrientation(artifact);
+
+        if (rotation != 0)
+          {
+            artifact.setRotation(rotation);
+          }
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    public void process (final @Nonnull PipelineArtifact artifact)
+      {
+        logger.fine("process(%s)", artifact);
         
         if (rotation != 0)
           {
             artifact.setImage(rotateQuadrant(artifact.getImage(), rotation));
-            artifact.setRotation(rotation);
           }
       }
         
-    /*******************************************************************************************************************
-     *
-     * @inheritDoc
-     *
-     ******************************************************************************************************************/
-    @Override
-    public void processMetadata (PipelineArtifact artifact)
-      {
-        logger.fine("processMetadata()");
-
-        int rotation = getCameraOrientation(artifact);
-
-        if (rotation != 0)
-          {
-            artifact.setRotation(rotation);
-          }
-      }
-
     /*******************************************************************************************************************
      *
      * Reads the camera embedded orientation. This method works with EXIF data:
      * RAW processors for other formats should override this method. 
      *
      ******************************************************************************************************************/
-    protected int getCameraOrientation (PipelineArtifact artifact)
+    protected int getCameraOrientation (final @Nonnull PipelineArtifact artifact)
       {
-        TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
-        IFD primaryIFD = metadata.getPrimaryIFD();
-        IFD exifIFD = metadata.getExifIFD();
+        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
+        final IFD primaryIFD = metadata.getPrimaryIFD();
+        final IFD exifIFD = metadata.getExifIFD();
         int orientation = 0;
         IFD.Orientation tiffOrientation = null;
 
@@ -130,7 +132,8 @@ public class RotateOperation extends OperationSupport
      *
      *
      ******************************************************************************************************************/
-    protected static BufferedImage rotateQuadrant (BufferedImage image, int degrees)
+    @Nonnull
+    protected static BufferedImage rotateQuadrant (final @Nonnull BufferedImage image, int degrees)
       {
         logger.finer("rotateQuadrant(%d)", degrees);
         logImage(logger, ">>>> image: ", image);
@@ -146,15 +149,15 @@ public class RotateOperation extends OperationSupport
             sampleModel = sampleModel.createCompatibleSampleModel(image.getHeight(), image.getWidth());
           }
 
-        WritableRaster newRaster = Raster.createWritableRaster(sampleModel, null);
-        ColorModel colorModel = image.getColorModel();
-        BufferedImage result = new BufferedImage(colorModel, newRaster, false, getProperties(image));
+        final WritableRaster newRaster = Raster.createWritableRaster(sampleModel, null);
+        final ColorModel colorModel = image.getColorModel();
+        final BufferedImage result = new BufferedImage(colorModel, newRaster, false, getProperties(image));
 
-        Graphics2D g2d = (Graphics2D)result.getGraphics();
+        final Graphics2D g2d = (Graphics2D)result.getGraphics();
 
         try
           {
-            double radians = Math.toRadians(degrees);
+            final double radians = Math.toRadians(degrees);
             g2d.transform(AffineTransform.getRotateInstance(radians));
 
             int x = 0;
@@ -196,10 +199,11 @@ public class RotateOperation extends OperationSupport
      *
      *
      ******************************************************************************************************************/
-    private static Properties getProperties (BufferedImage image)
+    @Nonnull
+    private static Properties getProperties (final @Nonnull BufferedImage image)
       {
-        Properties properties = new Properties();
-        String[] propertyNames = image.getPropertyNames();
+        final Properties properties = new Properties();
+        final String[] propertyNames = image.getPropertyNames();
 
         if (propertyNames != null)
           {

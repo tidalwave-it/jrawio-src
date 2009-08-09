@@ -47,7 +47,8 @@ public class DNGSizeOperation extends SizeOperation
   {
     private static final String CLASS = DNGSizeOperation.class.getName();
     private static final Logger logger = Logger.getLogger(CLASS);
-    
+
+    // TODO: refactor merging in the init() method.
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
@@ -113,7 +114,8 @@ public class DNGSizeOperation extends SizeOperation
         final int width = (int)Math.round(cropWidth * scale[0].doubleValue());
         final int height = (int)Math.round(cropHeight * scale[1].doubleValue());
                 
-        final Dimension size = new Dimension(width, height);
+        final int rotation = normalizedAngle(artifact.getRotation());
+        final Dimension size = rotate(new Dimension(width, height), rotation);
         logger.finer(">>>> returning %s", size);
 
         return size;

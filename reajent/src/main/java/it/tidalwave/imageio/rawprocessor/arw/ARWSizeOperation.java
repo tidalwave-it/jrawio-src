@@ -27,10 +27,10 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.arw;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.awt.Dimension;
 import java.awt.Insets;
-import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
 import it.tidalwave.imageio.minolta.MinoltaRawData.PRD;
@@ -47,6 +47,36 @@ public class ARWSizeOperation extends SizeOperation
   {
     private final static Logger logger = getLogger(ARWSizeOperation.class);
 
+    @CheckForNull
+    private Insets crop;
+
+    @CheckForNull
+    private Dimension size;
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    public void init (final @Nonnull PipelineArtifact artifact)
+      throws Exception
+      {
+        logger.fine("init(%s)", artifact);
+
+        final ARWMetadata metadata = (ARWMetadata)artifact.getRAWMetadata();
+        final PRD prd = metadata.getMinoltaRawData().getPRD();
+        size = prd.getImageSize();
+        final Dimension sensorSize = prd.getCcdSize();
+        // FIXME: I'm not sure the crop must be centered
+        crop = new Insets((sensorSize.height - size.height) / 2,
+                          (sensorSize.width - size.width) / 2,
+                          (sensorSize.height - size.height) / 2,
+                          (sensorSize.width - size.width) / 2);
+
+        logger.finer(">>>> sensor size: %s, size: %s, crop: %s", sensorSize, size, crop);
+      }
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
@@ -56,18 +86,6 @@ public class ARWSizeOperation extends SizeOperation
     @Nonnull
     protected Insets getCrop (final @Nonnull PipelineArtifact artifact)
       {
-        logger.fine("getCrop(%s)", artifact);
-        final Dimension newSize = getSize(artifact);
-        final BufferedImage bufferedImage = artifact.getImage();
-        final int width = bufferedImage.getWidth();
-        final int height = bufferedImage.getHeight();
-        // FIXME: I'm not sure the crop must be centered
-        final Insets crop = new Insets((height - newSize.height) / 2,
-                                       (width - newSize.width) / 2,
-                                       (height - newSize.height) / 2,
-                                       (width - newSize.width) / 2);
-        logger.finer(">>>> returning %s", crop);
-
         return crop;
       }
 
@@ -80,12 +98,6 @@ public class ARWSizeOperation extends SizeOperation
     @Nonnull
     protected Dimension getSize (final @Nonnull PipelineArtifact artifact)
       {
-        logger.fine("getSize(%s)", artifact);
-        final ARWMetadata metadata = (ARWMetadata)artifact.getRAWMetadata();
-        final PRD prd = metadata.getMinoltaRawData().getPRD();
-        final Dimension size = prd.getImageSize();
-        logger.finer(">>>> returning %s", size);
-
         return size;
       }
   }

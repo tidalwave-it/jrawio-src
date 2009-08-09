@@ -22,27 +22,27 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: TIFFTag.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.tiff;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.raw.AbstractTag;
 import it.tidalwave.imageio.raw.TagRational;
 import it.tidalwave.imageio.raw.TagRegistry;
-import java.util.Arrays;
 
 /***********************************************************************************************************************
  * 
  * This class represents a TIFF tag and is able to read from an IFD block.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: TIFFTag.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class TIFFTag extends AbstractTag
@@ -100,6 +100,9 @@ public class TIFFTag extends AbstractTag
     
     private long valueOffset;
 
+    /** False if there has been an anomaly while loading this tag. */
+    private boolean valid = true;
+
     /*******************************************************************************************************************
      * 
      * Creates an <code>TIFFTag</code> in a registry given s numeric code.
@@ -116,6 +119,18 @@ public class TIFFTag extends AbstractTag
     public int getValueOffset() 
       {
         return (int)valueOffset;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Returns true if this tag is valid.
+     *
+     * @return  true if the tag is valid
+     *
+     ******************************************************************************************************************/
+    public boolean isValid()
+      {
+        return valid;
       }
     
     /*******************************************************************************************************************
@@ -281,6 +296,7 @@ public class TIFFTag extends AbstractTag
             default:
               logger.warning("WARNING: TIFF type unknown: " + type);
               iis.readUnsignedInt();
+              valid = false;
               break;
           }
       }

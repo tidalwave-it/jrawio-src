@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: Directory.java 203 2008-10-12 12:43:28Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.raw;
@@ -46,7 +46,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: Directory.java 203 2008-10-12 12:43:28Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public abstract class Directory implements Serializable
@@ -343,6 +343,17 @@ public abstract class Directory implements Serializable
       {
         keyList.remove(tagRegistry.getKey(key));
         return tagMapByKey.remove(tagRegistry.getKey(key));
+      }
+
+    /*******************************************************************************************************************
+     *
+     * Removes all tags from this /code>Directory</code>.
+     *
+     ******************************************************************************************************************/
+    public void removeAllTags()
+      {
+        keyList.clear();
+        tagMapByKey.clear();
       }
 
     /*******************************************************************************************************************

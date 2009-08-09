@@ -122,8 +122,7 @@ public abstract class SizeOperation extends OperationSupport
     public void processMetadata (@Nonnull final PipelineArtifact artifact)
       {
         logger.fine("processMetadata(%s)", artifact);
-        final int rotation = normalizedAngle(artifact.getRotation());
-        artifact.getRAWMetadata().setSize(rotate(getSize(artifact), rotation));
+        artifact.getRAWMetadata().setOverriddenImageSize(getSize(artifact));
       } 
     
     /*******************************************************************************************************************
@@ -153,7 +152,7 @@ public abstract class SizeOperation extends OperationSupport
     @Nonnull
     protected Dimension getSize (@Nonnull final PipelineArtifact artifact)
       {
-        logger.fine("getSize()");
+        logger.fine("getSize(%s)", artifact);
         final TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
         final IFD primaryIFD = metadata.getPrimaryIFD();
         return getStandardSize(primaryIFD.getModel());

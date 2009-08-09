@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: IFDSupport.java 165 2008-09-20 23:44:28Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.tiff;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * This class provides the capability of loading an IFD.
  * 
  * @author Fabrizio Giudici
- * @version $Id: IFDSupport.java 165 2008-09-20 23:44:28Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class IFDSupport extends Directory
@@ -47,6 +47,9 @@ public class IFDSupport extends Directory
     private final static String CLASS = IFDSupport.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
     private final static long serialVersionUID = -8252917582886315978L;
+
+    /** After this number of invalig tags it will give up loading further tags. */
+    public final static int CONSECUTIVE_INVALID_TAG_THRESHOLD = 5;
 
     /*******************************************************************************************************************
      *
@@ -107,15 +110,29 @@ public class IFDSupport extends Directory
 
         logger.finest(">>>> entryCount: %d", entryCount);
 
-        for (int i = 0; i < entryCount; i++)
+        int consecutiveInvalidTagCount = 0;
+        boolean giveUp = false;
+        
+        for (int i = 0; (i < entryCount) && !giveUp; i++)
           {
             final int ifdTag = iis.readUnsignedShort();
             final TIFFTag tag = new TIFFTag(tagRegistry, ifdTag);
             tag.read(iis);
             addTag(tag);
+
+            if (tag.isValid())
+              {
+                consecutiveInvalidTagCount = 0;
+              }
+            else if (++consecutiveInvalidTagCount >= CONSECUTIVE_INVALID_TAG_THRESHOLD)
+              {
+                logger.warning("Too many consecutive invalid tags (%d), giving up", CONSECUTIVE_INVALID_TAG_THRESHOLD);
+                giveUp = true;
+                removeAllTags();
+              }
           }
 
-        offset = iis.readUnsignedInt();
+        offset = giveUp ? 0 : iis.readUnsignedInt();
         end = iis.getStreamPosition() + iis.getBaseOffset() - 1;
         logger.finest(">>>> next ifdOffset: %d", offset);
         logger.finest(">>>> loaded: %s", this);
