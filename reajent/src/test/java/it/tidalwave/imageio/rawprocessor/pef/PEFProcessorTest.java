@@ -25,7 +25,7 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.pef;
+package it.tidalwave.imageio.rawprocessor.pef;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -39,9 +39,9 @@ import org.junit.runners.Parameterized.Parameters;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class PEFImageReaderImageTest extends NewImageReaderTestSupport
+public class PEFProcessorTest extends NewImageReaderTestSupport
   {
-    public PEFImageReaderImageTest (final @Nonnull ExpectedResults expectedResults)
+    public PEFProcessorTest (final @Nonnull ExpectedResults expectedResults)
       {
         super(expectedResults);
       }
@@ -52,41 +52,42 @@ public class PEFImageReaderImageTest extends NewImageReaderTestSupport
       {
         return fixed
           (
-            // K100D Super
+//            // K100D Super
             ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/k100dsuper/RAW_PENTAX_K100DSUPER.PEF").
-                            image(3040, 2024, 3, 16, "da955411f632b53b0cb6c51014916766").
+                            image(3008, 2008, 3, 8, "3a221a9c7a4fac3b9ee0d95d98dc91e7").
                             thumbnail(160, 120).
                             thumbnail(3008, 2000).
                             thumbnail(640, 480),
             // K10D
             ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/k10d/RAW_PENTAX_K10D_SRGB.DNG").
-                            image(3936, 2624, 3, 16, "c9753f470fa8d87086250e50a07c9e0b").
+                            image(3872, 2592, 3, 8, "c9753f470fa8d87086250e50a07c9e0b").
                             thumbnail(160, 120).
                             thumbnail(3872, 2592),
             // K10D
             ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/k10d/RAW_PENTAX_K10D_SRGB.PEF").
-                            image(3936, 2624, 3, 16, "5c2b928cc582d022759b2a60b7730fdb").
+                            image(3872, 2592, 3, 8, "0ad68051445e4d00bfc2ed3ccb7d6873").
                             thumbnail(160, 120).
                             thumbnail(3872, 2592).
                             thumbnail(640, 480),
             // K200D
             ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/k200d/RAW_PENTAX_K200D.PEF").
-                            image(3936, 2624, 3, 16, "fce5ba4092b032c01a2c8d72f00156fb").
+                            image(3872, 2592, 3, 8, "e7f89a612fd19604e7de8859437258ee").
                             thumbnail(160, 120).
                             thumbnail(3872, 2592).
                             thumbnail(640, 480),
-            // K20D
+//             K20D
             ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/k20d/RAW_PENTAX_K20D.PEF").
-                            image(4864, 3136, 3, 16, "df3ccf84b3af424a10e3594436317656").
+                            image(4864, 3136, 3, 8, "0f658d7c5754819b21b6dc2cef19de67").
                             thumbnail(160, 120).
                             thumbnail(4672, 3104).
                             thumbnail(640, 480),
             // *istD
             ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/star_d/RAW_PENTAX_STARISTD_SRGB.PEF").
-                            image(3040, 2024, 3, 16, "0f658d7c5754819b21b6dc2cef19de67").
+                            image(3008, 2008, 3, 8, "1da5a949a787c9819b64495778e2c592").
                             thumbnail(160, 120).
                             thumbnail(3008, 2008).
                             thumbnail(640, 480)
           );
       }
   }
+
