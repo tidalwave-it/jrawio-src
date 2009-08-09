@@ -61,17 +61,20 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
             ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d3x/RAW_NIKON_D3X.NEF").
                             image(4032, 6048, 3, 8, "cc3c6dc29cc167453186b248754be1d9").
                             thumbnail(160, 120).
-                            thumbnail(6048, 4032),
+                            thumbnail(6048, 4032).
+                            issues("JRW-221"),
             // D300
             ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d300/RAW_NIKON_D300.NEF").
                             image(4288, 2848, 3, 8, "8b433b9f5bc4e5546185a9f8a4c2397c").
                             thumbnail(160, 120).
-                            thumbnail(4288, 2848),
+                            thumbnail(4288, 2848).
+                            issues("JRW-222"),
             // D700
             ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d700/RAW_NIKON_D700.NEF").
                             image(2832, 4256, 3, 8, "cb6139515ee2e1e64716c83ccb374332").
                             thumbnail(160, 120).
-                            thumbnail(4256, 2832)
+                            thumbnail(4256, 2832).
+                            issues("JRW-223")
 //            // D1
 //            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d1/RAW_NIKON_D1.NEF").
 //                            image(2000, 1312, 3, 8, "f62836d70fab86475a155178f18cd1aa").
