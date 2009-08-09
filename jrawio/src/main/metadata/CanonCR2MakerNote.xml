@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+Copyright (C) 2003-2009 by Fabrizio Giudici
+======================================================
+
+This file is licensed under a Creative Common License.
+http://creativecommons.org/licenses/by-sa/2.5
+======================================================
+
+-->
+
+<directory name="CanonCR2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="Directory.xsd">
+    <tag>
+        <code>6</code>
+        <type>ascii</type>
+        <name>Camera Model</name>
+        <example>Canon EOS-1Ds Mark II</example>
+        <description>The camera model name. The value can be padded with spaces and/or zeroes.</description>
+    </tag>
+    <tag>
+        <code>7</code>
+        <type>ascii</type>
+        <name>Firmware Version</name>
+        <example>Firmware Version 1.0.2</example>
+        <description>The version of the camera firmware. The value can be padded with spaces and/or zeroes.</description>
+    </tag>
+    <tag>
+        <code>9</code>
+        <type>ascii</type>
+        <name>Owner Name</name>
+        <example>John Smith</example>
+        <description>The name of the camera owner. The value can be padded with spaces and/or zeroes.</description>
+    </tag>
+    <tag>
+        <code>12</code>
+        <type>long</type>
+        <length>1</length>
+        <name>Serial Number</name>
+        <example>303949</example>
+        <description>The serial number.</description>
+    </tag>
+    <tag>
+        <code>18</code>
+        <type>short</type>
+        <length>99</length>
+        <name>Canon Picture Info</name>
+        <example></example>
+        <description>A block of data related to the picture.</description>
+    </tag>
+    <tag>
+        <code>224</code>
+        <type>short</type>
+        <length>99</length>
+        <name>Sensor Info As Integers</name>
+        <example></example>
+        <description>A block of data related to the sensor.</description>
+    </tag>
+    <tag>
+        <code>16385</code>
+        <type>short</type>
+        <length></length>
+        <name>White Balance Info</name>
+        <example></example>
+        <description>A block of data related to the white balance.</description>
+    </tag>
+ </directory>
+

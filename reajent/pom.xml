@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.tidalwave.imageio</groupId>
+        <artifactId>jrawio-all</artifactId>
+        <version>1.5.2-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>reajent</artifactId>
+    <!-- packaging>nbm</packaging FIXME: complains about dependencies -->
+    <packaging>jar</packaging>
+    <name>reajent</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>it.tidalwave.imageio</groupId>
+            <artifactId>jrawio</artifactId>
+            <version>1.5.2-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>it.tidalwave.imageio</groupId>
+            <artifactId>jrawio</artifactId>
+            <version>1.5.2-SNAPSHOT</version>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Private-Package>it.tidalwave.imageio.rawprocessor.*</Private-Package>
+                        <Export-Package>it.tidalwave.imageio.rawprocessor,
+                                        it.tidalwave.imageio.rawprocessor.arw,
+                                        it.tidalwave.imageio.rawprocessor.cr2,
+                                        it.tidalwave.imageio.rawprocessor.crw,
+                                        it.tidalwave.imageio.rawprocessor.dcr,
+                                        it.tidalwave.imageio.rawprocessor.dng,
+                                        it.tidalwave.imageio.rawprocessor.mrw,
+                                        it.tidalwave.imageio.rawprocessor.nef,
+                                        it.tidalwave.imageio.rawprocessor.orf,
+                                        it.tidalwave.imageio.rawprocessor.pef,
+                                        it.tidalwave.imageio.rawprocessor.raf,
+                                        it.tidalwave.imageio.rawprocessor.raw,
+                                        it.tidalwave.imageio.rawprocessor.srf,
+                                        it.tidalwave.imageio.nef
+                        </Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+
