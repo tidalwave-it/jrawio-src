@@ -74,19 +74,6 @@
         <bundle.namespace>${pom.groupId}.${pom.artifactId}</bundle.namespace>
     </properties>
 
-    <repositories>
-        <repository>
-            <id>maven2-repository.tidalwave.kenai.com</id>
-            <name>Tidalwave Maven Release Repository</name>
-            <url>https://kenai.com/svn/tidalwave~maven-repo/release/2</url>
-        </repository>
-        <repository>
-            <id>maven2-aux-repository.tidalwave.kenai.com</id>
-            <name>Tidalwave Maven Aux Repository</name>
-            <url>https://kenai.com/svn/tidalwave~maven-repo/aux/2</url>
-        </repository>
-    </repositories>
-
     <distributionManagement>
         <repository>
             <id>maven2-repository.tidalwave.kenai.com</id>
