@@ -55,10 +55,10 @@ public class NEFImageReaderImageTest extends NewImageReaderTestSupport
       {
         return fixed
           (
-            // D1x
-            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d1x/RAW_NIKON_D1X.NEF").
-                            image(4028, 1324, 3, 16, "d3d3b27908bc6f9ed97d1f68c9d7a4af").
-                            thumbnail(160, 120),
+//            // D1x
+//            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d1x/RAW_NIKON_D1X.NEF").
+//                            image(4028, 1324, 3, 16, "d3d3b27908bc6f9ed97d1f68c9d7a4af").
+//                            thumbnail(160, 120),
             // D3
             ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d3/RAW_NIKON_D3.NEF").
                             image(4288, 2844, 3, 16, "ab2d2c8779c7938de85b5023d933811a").
@@ -66,17 +66,17 @@ public class NEFImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(4256, 2832),
             // D3x
             ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d3x/RAW_NIKON_D3X.NEF").
-                            image(6080, 4044, 3, 16, "0cb29a0834bb2293ee4bf0c09b201631").
+                            image(6080, 4044, 3, 16, "2a0cfc36cea7c3346b8d39355bf786e6").
                             thumbnail(160, 120).
                             thumbnail(6048, 4032),
             // D300
             ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d300/RAW_NIKON_D300.NEF").
-                            image(4352, 2868, 3, 16, "0cb29a0834bb2293ee4bf0c09b201631").
+                            image(4352, 2868, 3, 16, "13318aa72965d3807be5f1e5049c6264").
                             thumbnail(160, 120).
                             thumbnail(4288, 2848),
             // D700
             ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d700/RAW_NIKON_D700.NEF").
-                            image(4288, 2844, 3, 16, "0cb29a0834bb2293ee4bf0c09b201631").
+                            image(4288, 2844, 3, 16, "451322b803ec25d9386f0052ada7faae").
                             thumbnail(160, 120).
                             thumbnail(4256, 2832)
 //

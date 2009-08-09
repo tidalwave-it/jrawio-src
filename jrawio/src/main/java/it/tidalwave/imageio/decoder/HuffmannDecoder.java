@@ -22,13 +22,13 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: HuffmannDecoder.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.decoder;
 
+import javax.annotation.Nonnull;
 import java.io.IOException;
-
 import javax.imageio.stream.ImageInputStream;
 
 /***********************************************************************************************************************
@@ -41,7 +41,7 @@ import javax.imageio.stream.ImageInputStream;
  * shorts, following some common schemes used in many RAW formats.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: HuffmannDecoder.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class HuffmannDecoder
@@ -58,13 +58,26 @@ public class HuffmannDecoder
     /** The value of the current leaf. */
     private int leafValue;
 
-    /*******************************************************************************************************************
-     * 
-     * 
-     * 
-     *******************************************************************************/
     private HuffmannDecoder ()
       {
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public static HuffmannDecoder[] createDecoders (final @Nonnull short[] ... sources)
+      {
+        final HuffmannDecoder[] decoders = new HuffmannDecoder[sources.length];
+
+        for (int i = 0; i < decoders.length; i++)
+          {
+            decoders[i] = createDecoder(sources[i]);
+          }
+
+        return decoders;
       }
 
     /*******************************************************************************************************************
@@ -101,10 +114,11 @@ public class HuffmannDecoder
      * @param source  the coded version as an array of shorts
      * @return        the HuffmannDecoder
      * 
-     *******************************************************************************/
-    public static HuffmannDecoder createDecoder (short[] source)
+     ******************************************************************************************************************/
+    @Nonnull
+    public static HuffmannDecoder createDecoder (final @Nonnull short[] source)
       {
-        byte[] bytes = new byte[source.length];
+        final byte[] bytes = new byte[source.length];
 
         for (int i = 0; i < bytes.length; i++)
           {
@@ -123,9 +137,9 @@ public class HuffmannDecoder
      * @param start   the offset in the source to the first byte to use
      * @return        the HuffmannDecoder
      * 
-     *******************************************************************************/
-    public static HuffmannDecoder createDecoder (byte[] source,
-                                                 int start)
+     ******************************************************************************************************************/
+    @Nonnull
+    public static HuffmannDecoder createDecoder (final @Nonnull byte[] source, final int start)
       {
         leafCounter = 0;
         return createDecoder(source, start, 0, false);
@@ -142,9 +156,9 @@ public class HuffmannDecoder
      * @param start   the offset in the source to the first byte to use
      * @return        the HuffmannDecoder
      * 
-     *******************************************************************************/
-    public static HuffmannDecoder createDecoderWithJpegHack (byte[] source,
-                                                             int start)
+     ******************************************************************************************************************/
+    @Nonnull
+    public static HuffmannDecoder createDecoderWithJpegHack (final @Nonnull byte[] source, final int start)
       {
         leafCounter = 0;
         return createDecoder(source, start, 0, true);
@@ -157,8 +171,9 @@ public class HuffmannDecoder
      * @param level
      * @return
      * 
-     *******************************************************************************/
-    private static HuffmannDecoder createDecoder (byte[] source,
+     ******************************************************************************************************************/
+    @Nonnull
+    private static HuffmannDecoder createDecoder (final @Nonnull byte[] source,
                                                   int start,
                                                   int level,
                                                   boolean jpgHack)
@@ -177,9 +192,9 @@ public class HuffmannDecoder
      * @param level
      * @param jpgHack
      * 
-     *******************************************************************************/
-    private static void createDecoder (HuffmannDecoder dest,
-                                       byte[] source,
+     ******************************************************************************************************************/
+    private static void createDecoder (final @Nonnull HuffmannDecoder dest,
+                                       final @Nonnull byte[] source,
                                        int start,
                                        int level,
                                        boolean jpgHack)
@@ -213,8 +228,9 @@ public class HuffmannDecoder
      * @return               the decoded value
      * @throws  IOException  if an I/O exception occurs
      * 
-     *******************************************************************************/
-    public int decode (ImageInputStream br) throws IOException
+     ******************************************************************************************************************/
+    public int decode (final @Nonnull ImageInputStream br)
+      throws IOException
       {
         HuffmannDecoder d = this;
 
@@ -230,8 +246,10 @@ public class HuffmannDecoder
      * 
      * @inheritDoc
      * 
-     *******************************************************************************/
-    public String toString ()
+     ******************************************************************************************************************/
+    @Nonnull
+    @Override
+    public String toString()
       {
         return toString("");
       }
@@ -239,8 +257,9 @@ public class HuffmannDecoder
     /*******************************************************************************************************************
      * 
      * 
-     *******************************************************************************/
-    public String toString (String prefix)
+     ******************************************************************************************************************/
+    @Nonnull
+    public String toString (final @Nonnull String prefix)
       {
         StringBuffer buffer = new StringBuffer();
 

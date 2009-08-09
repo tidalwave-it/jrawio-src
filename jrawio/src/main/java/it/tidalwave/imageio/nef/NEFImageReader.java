@@ -37,6 +37,7 @@ import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.util.Logger;
+import static it.tidalwave.imageio.nef.NEFRasterReader.CompressionType.*;
 
 /***********************************************************************************************************************
  *
@@ -146,7 +147,9 @@ public class NEFImageReader extends TIFFImageReaderSupport
 
         if (nikonMakerNote.isCompressionDataAvailable())
           {
-            rasterReader.setLinearizationTable(nikonMakerNote.getLinearizationTable().getExpandedValues(bitsPerSample));
+            final NEFLinearizationTable linearizationTable = nikonMakerNote.getLinearizationTable();
+            rasterReader.setCompressionType(((linearizationTable.getVersion() & 0xff00) == 0x4600) ? LOSSLESS : LOSSY);
+            rasterReader.setLinearizationTable(linearizationTable.getExpandedValues(bitsPerSample));
             rasterReader.setVPredictor(nikonMakerNote.getVPredictor());
           }
 
@@ -161,7 +164,7 @@ public class NEFImageReader extends TIFFImageReaderSupport
      * 
      * @inheritDoc
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     @Override
     protected void processMetadata() 
       throws IOException
