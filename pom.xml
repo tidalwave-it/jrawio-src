@@ -337,7 +337,7 @@
                             <value>${testset.cached.folder}</value>
                         </property>
                     </systemProperties>
-                    <argLine>-Xmx512M</argLine>
+                    <argLine>-Xmx768M</argLine>
                 </configuration>
             </plugin>
 
