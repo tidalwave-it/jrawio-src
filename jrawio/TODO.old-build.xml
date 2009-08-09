@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="jrawio" default="jar" basedir=".">
+<!--
+    <target name="makedocs">
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=211" dest="ChangeLog.html"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=212" dest="README.html"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=213" dest="ReleaseNotes.html"/>
+    </target>
+
+    <target name="getdescriptors">
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=234" dest="${metadata.dir}/CanonCR2MakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=235" dest="${metadata.dir}/CanonCRWMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=240" dest="${metadata.dir}/KodakMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=236" dest="${metadata.dir}/MinoltaMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=239" dest="${metadata.dir}/Nikon3MakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=237" dest="${metadata.dir}/OlympusMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=241" dest="${metadata.dir}/PentaxMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=238" dest="${metadata.dir}/SonyMakerNote.xml"/>
+    </target>
+-->
+
+    <target name="wiki">
+        <mkdir dir="${metadata.dir}/wiki"/>
+        <xslt in="${metadata.dir}/Nikon3MakerNote.xml"
+             out="${metadata.dir}/wiki/Nikon3MakerNote.wiki"
+           style="${metadata.dir}/xslt/DirectoryToWiki.xslt">
+        </xslt>
+    </target>
+
+</project>
+
