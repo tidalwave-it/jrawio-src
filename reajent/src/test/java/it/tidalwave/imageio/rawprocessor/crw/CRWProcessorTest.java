@@ -56,7 +56,7 @@ public class CRWProcessorTest extends NewImageReaderTestSupport
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/CRW/100_0056.CRW").
                             image(3072, 2048, 3, 8, "67994f630322d2bede87a2884f5f0965").
                             thumbnail(2048, 1360).
-                            issues("JRW-218", "JRW-219")
+                            issues("JRW-104", "JRW-218", "JRW-219")
           );
       }
   }
