@@ -127,18 +127,26 @@ public class NEFRasterReader extends RasterReader
         0,1,4,2,2,3,1,2,0,0,0,0,0,0,0,0,7,6,8,5,9,4,10,3,11,12,2,0,1,13,14
       };
 
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     public static enum CompressionType
       {
         LOSSY, LOSSLESS
       }
 
-    static class MapIndex
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    static class DecoderType
       {
         private final CompressionType compressionType;
         private final int bitsPerSample;
 
-        public MapIndex (final @Nonnull CompressionType compressionType,
-                         final @Nonnegative int bitsPerSample)
+        public DecoderType (final @Nonnull CompressionType compressionType,
+                            final @Nonnegative int bitsPerSample)
           {
             this.compressionType = compressionType;
             this.bitsPerSample = bitsPerSample;
@@ -157,7 +165,7 @@ public class NEFRasterReader extends RasterReader
                 return false;
               }
 
-            final MapIndex other = (MapIndex)object;
+            final DecoderType other = (DecoderType)object;
 
             return (this.compressionType == other.compressionType) && (this.bitsPerSample == other.bitsPerSample);
         }
@@ -179,8 +187,12 @@ public class NEFRasterReader extends RasterReader
           }
       }
 
-    private final static Map<MapIndex, List<HuffmannDecoder>> DECODER_MAP = new HashMap<MapIndex, List<HuffmannDecoder>>();
+    private final static Map<DecoderType, List<HuffmannDecoder>> DECODER_MAP = new HashMap<DecoderType, List<HuffmannDecoder>>();
 
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     static
       {
         registerDecoders(CompressionType.LOSSY,    12, CONF_DECODER_12BIT_LOSSY_1, CONF_DECODER_12BIT_LOSSY_2);
@@ -322,11 +334,11 @@ public class NEFRasterReader extends RasterReader
             // dumpLinearizationTable();
           }
 
-        final MapIndex mapIndex = new MapIndex(compressionType, bitsPerSample);
-        final Iterator<HuffmannDecoder> decoderIterator = DECODER_MAP.get(mapIndex).iterator();
+        final DecoderType decoderType = new DecoderType(compressionType, bitsPerSample);
+        final Iterator<HuffmannDecoder> decoderIterator = DECODER_MAP.get(decoderType).iterator();
         HuffmannDecoder decoder = decoderIterator.next();
 
-        logger.finer("Using decoder for %s: %s", mapIndex, decoder);
+        logger.finer("Using decoder for %s: %s", decoderType, decoder);
 
         for (int i = 0, y = 0; y < height; y++)
           {
@@ -390,7 +402,7 @@ public class NEFRasterReader extends RasterReader
                                           final @Nonnegative int bitsPerSample,
                                           final @Nonnull short[] ... sources)
       {
-        DECODER_MAP.put(new MapIndex(compressionType, bitsPerSample), Arrays.asList(HuffmannDecoder.createDecoders(sources)));
+        DECODER_MAP.put(new DecoderType(compressionType, bitsPerSample), Arrays.asList(HuffmannDecoder.createDecoders(sources)));
       }
 
     /*******************************************************************************************************************
