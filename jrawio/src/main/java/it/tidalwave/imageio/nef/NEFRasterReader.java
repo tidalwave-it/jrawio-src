@@ -322,7 +322,6 @@ public class NEFRasterReader extends RasterReader
             // dumpLinearizationTable();
           }
 
-        compressionType = CompressionType.LOSSLESS;
         final MapIndex mapIndex = new MapIndex(compressionType, bitsPerSample);
         final Iterator<HuffmannDecoder> decoderIterator = DECODER_MAP.get(mapIndex).iterator();
         HuffmannDecoder decoder = decoderIterator.next();
