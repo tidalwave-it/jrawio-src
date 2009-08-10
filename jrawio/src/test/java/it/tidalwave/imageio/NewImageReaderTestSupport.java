@@ -27,6 +27,8 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio;
 
+import it.tidalwave.imageio.raw.RAWImageReadParam;
+import it.tidalwave.imageio.raw.Source;
 import javax.annotation.Nonnull;
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -131,7 +133,9 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
                 final ExpectedResults.Image expectedImage = expectedResults.getImage(i);
                 final Dimension size = expectedImage.getSize();
                 final BufferedImage image = assertLoadImage(ir, expectedResults.getReadParam(), size.width, size.height, expectedImage.getBandCount(), expectedImage.getBitsPerSample());
-                assertRaster(image, expectedResults.getPath(), expectedImage.getFingerPrint());
+                final RAWImageReadParam readParam = expectedResults.getReadParam();
+                final String suffix = (readParam == null) ? "NO_PARAM" : readParam.lookup(Source.class).toString();
+                assertRaster(image, expectedResults.getPath(), expectedImage.getFingerPrint(), "-" + suffix);
               }
             catch (Throwable e)
               {

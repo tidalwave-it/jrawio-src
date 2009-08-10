@@ -265,11 +265,14 @@ public class ImageReaderTestSupport extends TestSupport
      * 
      * 
      ******************************************************************************************************************/
-    protected void assertRaster (final BufferedImage image, final String path, final String expectedRasterMD5) 
+    protected void assertRaster (final @Nonnull BufferedImage image,
+                                 final @Nonnull String path,
+                                 final @Nonnull String expectedRasterMD5,
+                                 final @Nonnull String suffix)
       throws IOException, NoSuchAlgorithmException
       {
         final File targetDirectory = new File(System.getProperty("java.io.tmpdir") + "/jrawio-test");
-        final File tiffFile = new File(targetDirectory, path.replace("https://", "").replace("http://", "") + ".tiff");
+        final File tiffFile = new File(targetDirectory, path.replace("https://", "").replace("http://", "") + suffix + ".tiff");
         tiffFile.getParentFile().mkdirs();
         logger.info("***************** Writing %s...", tiffFile.getAbsolutePath());
         ImageIO.write(image, "TIFF", tiffFile);
