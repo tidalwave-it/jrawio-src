@@ -90,7 +90,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
       {
         final List<Throwable> errors = new ArrayList<Throwable>();
         
-        final ImageReader ir = getImageReader(expectedResults.getPath());
+        final ImageReader ir = getImageReader(expectedResults.getPath(), expectedResults.getReadParam());
         final int imageCount = expectedResults.getImageCount();
         final int thumbnailCount = expectedResults.getThumbnailCount();
         assertEquals("image count", imageCount, ir.getNumImages(false));
@@ -130,7 +130,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
               {
                 final ExpectedResults.Image expectedImage = expectedResults.getImage(i);
                 final Dimension size = expectedImage.getSize();
-                final BufferedImage image = assertLoadImage(ir, size.width, size.height, expectedImage.getBandCount(), expectedImage.getBitsPerSample());
+                final BufferedImage image = assertLoadImage(ir, expectedResults.getReadParam(), size.width, size.height, expectedImage.getBandCount(), expectedImage.getBitsPerSample());
                 assertRaster(image, expectedResults.getPath(), expectedImage.getFingerPrint());
               }
             catch (Throwable e)

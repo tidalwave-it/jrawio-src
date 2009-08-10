@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio;
 
+import it.tidalwave.imageio.raw.RAWImageReadParam;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ import java.util.List;
 import java.awt.Dimension;
 import java.util.HashMap;
 import java.util.Map;
+import javax.annotation.CheckForNull;
 import javax.annotation.Nullable;
 import javax.imageio.ImageReader;
 
@@ -104,6 +106,9 @@ public final class ExpectedResults
     @Nonnull
     private final String path;
 
+    @CheckForNull
+    private RAWImageReadParam readParam;
+
     private final List<Image> images = new ArrayList<Image>();
 
     private final List<Image> thumbnails = new ArrayList<Image>();
@@ -133,6 +138,12 @@ public final class ExpectedResults
     public String getPath()
       {
         return path;
+      }
+
+    @CheckForNull
+    public RAWImageReadParam getReadParam()
+      {
+        return readParam;
       }
 
     @Nonnegative
@@ -169,6 +180,13 @@ public final class ExpectedResults
     public Extra getExtra()
       {
         return extra;
+      }
+
+    @Nonnull
+    public ExpectedResults param (final @Nonnull RAWImageReadParam readParam)
+      {
+        this.readParam = readParam;
+        return this;
       }
 
     @Nonnull
