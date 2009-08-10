@@ -27,11 +27,13 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.raw;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
-import it.tidalwave.imageio.util.Logger;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -49,8 +51,7 @@ import java.awt.image.ComponentColorModel;
 import java.awt.image.DataBuffer;
 import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -62,8 +63,7 @@ import javax.annotation.Nonnull;
  **********************************************************************************************************************/
 public abstract class RAWImageReaderSupport extends ImageReader
   {
-    private final static String CLASS = "it.tidalwave.imageio.raw.RAWImageReaderSupport";
-
+    private final static String CLASS = RAWImageReaderSupport.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
     
     /** The input object cast as a RAWImageInputStream. */
@@ -87,7 +87,11 @@ public abstract class RAWImageReaderSupport extends ImageReader
     /** The Maker Note. */
     protected Directory makerNote;
     
+    @Nonnull
     protected HeaderProcessor headerProcessor = new HeaderProcessor();
+
+    @Nonnull
+    private RAWImageReadParam defaultReadParam = RAWImageReadParam.DEFAULT;
 
     /*******************************************************************************************************************
      * 
@@ -106,11 +110,12 @@ public abstract class RAWImageReaderSupport extends ImageReader
      ******************************************************************************************************************/
     @Nonnull
     public final BufferedImage read (final @Nonnegative int imageIndex,
-                                     final @Nonnull ImageReadParam readParam)
+                                     @CheckForNull ImageReadParam readParam)
       throws IOException
       {
         logger.fine("read(%d, %s)", imageIndex, readParam);
 
+        readParam = (readParam == null) ? RAWImageReadParam.DEFAULT : readParam;
         final int imageCount = getNumImages(true);
 
         if (image == null)
@@ -368,6 +373,28 @@ public abstract class RAWImageReaderSupport extends ImageReader
       }
 
     /*******************************************************************************************************************
+     *
+     * FIXME: API extension to discuss
+     *
+     ******************************************************************************************************************/
+    public void setDefaultReadParam (final @Nonnull ImageReadParam defaultReadParam)
+      {
+        this.defaultReadParam = (RAWImageReadParam)defaultReadParam;
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    @Nonnull
+    public ImageReadParam getDefaultReadParam()
+      {
+        return defaultReadParam;
+      }
+
+    /*******************************************************************************************************************
      * 
      * This default implementation just ensures that metadata is loaded and then
      * calls {@link #loadRAWImage(RAWImageInputStream)}.
@@ -533,7 +560,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
       {
         if (!metadataLoaded)
           {
-            loadMetadata(imageIndex, null); // FIXME: null
+            loadMetadata(imageIndex, defaultReadParam); 
             checkMetadataIsLoaded();
           }
       }
