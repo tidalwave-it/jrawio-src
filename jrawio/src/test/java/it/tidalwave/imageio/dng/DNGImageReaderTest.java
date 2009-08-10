@@ -29,6 +29,7 @@ package it.tidalwave.imageio.dng;
 
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.ImageReaderTestSupport;
+import it.tidalwave.imageio.raw.RAWImageReadParam;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -51,7 +52,7 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
       throws Exception
       {
         final String path = "https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0056.DNG";
-        final ImageReader ir = getImageReader(path);
+        final ImageReader ir = getImageReader(path, RAWImageReadParam.DEFAULT);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
         assertImage(ir, 3088, 2055);
