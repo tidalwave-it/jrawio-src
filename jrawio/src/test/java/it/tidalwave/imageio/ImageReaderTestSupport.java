@@ -27,9 +27,11 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio;
 
+import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Iterator;
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
 import java.io.FileNotFoundException;
@@ -45,7 +47,8 @@ import javax.imageio.spi.ImageReaderSpi;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import it.tidalwave.imageio.util.Logger;
-import java.awt.Dimension;
+import it.tidalwave.imageio.raw.RAWImageReadParam;
+import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 
@@ -95,6 +98,7 @@ public class ImageReaderTestSupport extends TestSupport
      * 
      * 
      ******************************************************************************************************************/
+    // FIXME: rename to assertImageMetadataSize
     protected void assertImage (final ImageReader ir, final int width, final int height) 
       throws IOException 
       {
@@ -123,13 +127,14 @@ public class ImageReaderTestSupport extends TestSupport
     @Nonnull
     @Deprecated
     protected BufferedImage assertLoadImage (final @Nonnull ImageReader ir,
+                                             final @CheckForNull RAWImageReadParam readParam,
                                              final @Nonnegative int width,
                                              final @Nonnegative int height,
                                              final @Nonnegative int bandCount,
                                              final @Nonnegative int sampleSize)
       throws IOException
       {
-        final BufferedImage image = ir.read(0);
+        final BufferedImage image = ir.read(0, readParam);
         assertNotNull(image);
         final Dimension imageSize = new Dimension(image.getWidth(), image.getHeight());
         final Dimension expectedSize = new Dimension(width, height);
@@ -150,6 +155,7 @@ public class ImageReaderTestSupport extends TestSupport
      ******************************************************************************************************************/
     @Nonnull
     protected BufferedImage assertLoadImage (final @Nonnull ImageReader ir,
+                                             final @CheckForNull RAWImageReadParam readParam,
                                              final @Nonnegative int width,
                                              final @Nonnegative int height,
                                              final @Nonnegative int bandCount,
@@ -157,7 +163,7 @@ public class ImageReaderTestSupport extends TestSupport
                                              final int type)
       throws IOException 
       {
-        final BufferedImage image = ir.read(0);
+        final BufferedImage image = ir.read(0, readParam);
         assertNotNull(image);
         final Dimension imageSize = new Dimension(image.getWidth(), image.getHeight());
         final Dimension expectedSize = new Dimension(width, height);
@@ -236,16 +242,23 @@ public class ImageReaderTestSupport extends TestSupport
      * 
      ******************************************************************************************************************/
     @Nonnull
-    protected ImageReader getImageReader (final @Nonnull String path)
+    protected ImageReader getImageReader (final @Nonnull String path,
+                                          final @Nonnull RAWImageReadParam readParam)
       throws IOException
       {
         logger.info("************* TESTING FILE: %s", path);
 
         final File file = getTestFile(path);
-        final ImageReader imageReader = ImageIO.getImageReaders(file).next();
-        assertNotNull(imageReader);
-        imageReader.setInput(ImageIO.createImageInputStream(file));
-        return imageReader;
+        final ImageReader ir = ImageIO.getImageReaders(file).next();
+        assertNotNull(ir);
+
+        if (readParam != null)
+          {
+            ((RAWImageReaderSupport)ir).setDefaultReadParam(readParam);
+          }
+        
+        ir.setInput(ImageIO.createImageInputStream(file));
+        return ir;
       }
     
     /*******************************************************************************************************************
