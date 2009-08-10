@@ -29,6 +29,7 @@ import java.io.Serializable;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageTypeSpecifier;
 import it.tidalwave.imageio.util.Lookup;
+import it.tidalwave.imageio.util.Lookup.NotFoundException;
 import it.tidalwave.imageio.util.DefaultingLookup;
 
 /***********************************************************************************************************************
@@ -39,6 +40,8 @@ import it.tidalwave.imageio.util.DefaultingLookup;
  **********************************************************************************************************************/
 public final class RAWImageReadParam extends ImageReadParam implements Serializable
   {
+    public final static RAWImageReadParam DEFAULT = new RAWImageReadParam();
+    
     private final Lookup lookup;
 
     /*******************************************************************************************************************
@@ -74,6 +77,23 @@ public final class RAWImageReadParam extends ImageReadParam implements Serializa
     public final Lookup getLookup()
       {
         return lookup;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public <T> T lookup (final @Nonnull Class<T> type)
+      {
+        try
+          {
+            return lookup.lookup(type);
+          }
+        catch (NotFoundException e) // we're using DefaultingLookup. so there's always a default
+          {
+            throw new RuntimeException(e);
+          }
       }
 
     /*******************************************************************************************************************
