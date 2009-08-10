@@ -25,12 +25,12 @@
 package it.tidalwave.imageio.raw;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 import javax.imageio.ImageReader;
 
 /***********************************************************************************************************************
