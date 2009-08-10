@@ -85,4 +85,15 @@ public class DefaultingLookup extends DefaultLookup
         
         return result;
       }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Override
+    @Nonnull
+    public String toString()
+      {
+        return String.format("DefaultingLookup[%s]", delegate);
+      }
   }
