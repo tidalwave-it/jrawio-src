@@ -104,7 +104,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
               {
                 final ExpectedResults.Image expectedImage = expectedResults.getImage(i);
                 final Dimension size = expectedImage.getSize();
-                assertImage(ir, size.width, size.height);
+                assertImageMetadataSize(ir, size.width, size.height);
               }
             catch (Throwable e)
               {
@@ -118,13 +118,16 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
               {
                 final ExpectedResults.Image expectedThumbnail = expectedResults.getThumbnail(t);
                 final Dimension size = expectedThumbnail.getSize();
-                assertThumbnail(ir, t, size.width, size.height);
+                assertThumbnailMetadataSize(ir, t, size.width, size.height);
               }
             catch (Throwable e)
               {
                 errors.add(e);
               }
           }
+
+        final RAWImageReadParam readParam = expectedResults.getReadParam();
+        final String suffix = (readParam == null) ? "NO_PARAM" : readParam.lookup(Source.class).toString();
 
         for (int i = 0; i < imageCount; i++)
           {
@@ -133,8 +136,6 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
                 final ExpectedResults.Image expectedImage = expectedResults.getImage(i);
                 final Dimension size = expectedImage.getSize();
                 final BufferedImage image = assertLoadImage(ir, expectedResults.getReadParam(), size.width, size.height, expectedImage.getBandCount(), expectedImage.getBitsPerSample());
-                final RAWImageReadParam readParam = expectedResults.getReadParam();
-                final String suffix = (readParam == null) ? "NO_PARAM" : readParam.lookup(Source.class).toString();
                 assertRaster(image, expectedResults.getPath(), expectedImage.getFingerPrint(), "-" + suffix);
               }
             catch (Throwable e)
@@ -149,7 +150,8 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
               {
                 final ExpectedResults.Image expectedThumbnail = expectedResults.getThumbnail(t);
                 final Dimension size = expectedThumbnail.getSize();
-                assertLoadThumbnail(ir, t, size.width, size.height);
+                final BufferedImage thumbnail = assertLoadThumbnail(ir, t, size.width, size.height);
+                assertRaster(thumbnail, expectedResults.getPath(), null, "-" + suffix + "-thumb" + t);
               }
             catch (Throwable e)
               {

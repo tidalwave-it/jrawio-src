@@ -55,9 +55,9 @@ public class DNGImageReaderTest extends ImageReaderTestSupport
         final ImageReader ir = getImageReader(path, RAWImageReadParam.DEFAULT);
         assertEquals(1, ir.getNumImages(false));
         assertEquals(2, ir.getNumThumbnails(0));
-        assertImage(ir, 3088, 2055);
-        assertThumbnail(ir, 0, 256, 171);
-        assertThumbnail(ir, 1, 1024, 683);
+        assertImageMetadataSize(ir, 3088, 2055);
+        assertThumbnailMetadataSize(ir, 0, 256, 171);
+        assertThumbnailMetadataSize(ir, 1, 1024, 683);
         close(ir);
       }
   }

@@ -98,8 +98,7 @@ public class ImageReaderTestSupport extends TestSupport
      * 
      * 
      ******************************************************************************************************************/
-    // FIXME: rename to assertImageMetadataSize
-    protected void assertImage (final ImageReader ir, final int width, final int height) 
+    protected void assertImageMetadataSize (final ImageReader ir, final int width, final int height)
       throws IOException 
       {
         final Dimension imageSize = new Dimension(ir.getWidth(0), ir.getHeight(0));
@@ -111,7 +110,7 @@ public class ImageReaderTestSupport extends TestSupport
      * 
      * 
      ******************************************************************************************************************/
-    protected void assertThumbnail (final ImageReader ir, final int thumbnailIndex, final int width, final int height) 
+    protected void assertThumbnailMetadataSize (final ImageReader ir, final int thumbnailIndex, final int width, final int height)
       throws IOException 
       {
         final Dimension thumbnailSize = new Dimension(ir.getThumbnailWidth(0, thumbnailIndex),
@@ -285,18 +284,21 @@ public class ImageReaderTestSupport extends TestSupport
             dumpRasterAsText(raster, textDumpFile);
           }
 
-        final MessageDigest md5 = md5(raster);
+        if (expectedRasterMD5 != null) // we temporarily accept null since there's no value for thumbnails
+          {
+            final MessageDigest md5 = md5(raster);
 
-        // Comparisons are broken with JDK 1.5.0, don't make tests fail under Hudson.
-        // See http://jrawio.tidalwave.it/issues/browse/JRW-162
-//        if (System.getProperty("java.version").contains("1.5.0"))
-//          {
-//            logger.warning("Not testing raster's MD5 on Java 5 because of JRW-162");
-//          }
-//        else
-//          {
-            assertEquals(expectedRasterMD5, asString(md5.digest()));
-//          }
+            // Comparisons are broken with JDK 1.5.0, don't make tests fail under Hudson.
+            // See http://jrawio.tidalwave.it/issues/browse/JRW-162
+    //        if (System.getProperty("java.version").contains("1.5.0"))
+    //          {
+    //            logger.warning("Not testing raster's MD5 on Java 5 because of JRW-162");
+    //          }
+    //        else
+    //          {
+                assertEquals(expectedRasterMD5, asString(md5.digest()));
+    //          }
+          }
       }
 
     /*******************************************************************************************************************
