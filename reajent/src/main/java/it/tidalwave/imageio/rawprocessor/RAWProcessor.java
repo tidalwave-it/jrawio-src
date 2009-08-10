@@ -33,6 +33,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.raw.PostProcessor;
+import it.tidalwave.imageio.raw.RAWImageReadParam;
 import it.tidalwave.imageio.raw.RAWMetadataSupport;
 import it.tidalwave.imageio.util.Logger;
 
@@ -71,10 +72,11 @@ public abstract class RAWProcessor implements PostProcessor
      ******************************************************************************************************************/
     @Nonnull
     public final BufferedImage process (final @Nonnull BufferedImage image,
-                                        final @Nonnull RAWMetadataSupport metadata)
+                                        final @Nonnull RAWMetadataSupport metadata,
+                                        final @Nonnull RAWImageReadParam readParam)
       {
         logger.fine("POSTPROCESSING...");
-        PipelineArtifact rawImage = new PipelineArtifact(image, metadata);
+        PipelineArtifact rawImage = new PipelineArtifact(image, metadata, readParam);
         init(rawImage);                
         process(rawImage);                
         return rawImage.getImage();
@@ -85,10 +87,11 @@ public abstract class RAWProcessor implements PostProcessor
      * @inheritDoc
      *
      ******************************************************************************************************************/
-    public final void processMetadata (final @Nonnull RAWMetadataSupport metadata)
+    public final void processMetadata (final @Nonnull RAWMetadataSupport metadata,
+                                       final @Nonnull RAWImageReadParam readParam)
       {
         logger.fine("POSTPROCESSING METADATA...");
-        PipelineArtifact rawImage = new PipelineArtifact(null, metadata);
+        PipelineArtifact rawImage = new PipelineArtifact(null, metadata, readParam);
         init(rawImage);
         processMetadata(rawImage);
       }
