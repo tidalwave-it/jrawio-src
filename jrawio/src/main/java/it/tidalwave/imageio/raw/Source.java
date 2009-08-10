@@ -67,6 +67,19 @@ public abstract class Source implements Serializable
           {
             return ir.read(0);
           }
+
+        @Override
+        protected boolean needsPostProcessor()
+          {
+            return true;
+          }
+
+        @Override
+        @Nonnull
+        public String toString()
+          {
+            return "PROCESSED_IMAGE";
+          }
       };
 
     /*******************************************************************************************************************
@@ -91,6 +104,19 @@ public abstract class Source implements Serializable
           throws IOException
           {
             return ir.read(0);
+          }
+
+        @Override
+        protected boolean needsPostProcessor()
+          {
+            return false;
+          }
+
+        @Override
+        @Nonnull
+        public String toString()
+          {
+            return "RAW_IMAGE";
           }
       };
 
@@ -120,6 +146,19 @@ public abstract class Source implements Serializable
           {
             final int t = findFullSizeThumbnailIndex(ir);
             return ir.readThumbnail(0, t);
+          }
+
+        @Override
+        protected boolean needsPostProcessor()
+          {
+            return false;
+          }
+
+        @Override
+        @Nonnull
+        public String toString()
+          {
+            return "FULL_SIZE_PREVIEW";
           }
 
         private int findFullSizeThumbnailIndex (final @Nonnull ImageReader ir)
@@ -195,4 +234,10 @@ public abstract class Source implements Serializable
     @Nonnull
     protected abstract BufferedImage readImage (final @Nonnull ImageReader ir)
       throws IOException;
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    protected abstract boolean needsPostProcessor();
   }
