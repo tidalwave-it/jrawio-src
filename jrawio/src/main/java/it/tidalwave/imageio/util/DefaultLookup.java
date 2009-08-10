@@ -107,6 +107,6 @@ public class DefaultLookup extends Lookup
     @Nonnull
     public String toString()
       {
-        return String.format("DefaultLookup[%s]", contents);
+        return String.format("DefaultLookup%s", contents);
       }
   }
