@@ -40,8 +40,10 @@ public interface PostProcessor
   {
     @Nonnull 
     public BufferedImage process (@Nonnull BufferedImage image, 
-                                  @Nonnull RAWMetadataSupport metadata);
+                                  @Nonnull RAWMetadataSupport metadata,
+                                  @Nonnull RAWImageReadParam readParam);
 
     @Nonnull
-    public void processMetadata (@Nonnull RAWMetadataSupport metadata);
+    public void processMetadata (@Nonnull RAWMetadataSupport metadata,
+                                 @Nonnull RAWImageReadParam readParam);
   }

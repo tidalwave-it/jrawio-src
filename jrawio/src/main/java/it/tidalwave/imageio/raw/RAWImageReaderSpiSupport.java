@@ -27,10 +27,11 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.raw;
 
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.HashMap;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.stream.ImageInputStream;
@@ -149,10 +150,12 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
      * @return        the post-processed image
      * 
      *******************************************************************************/
-    protected BufferedImage postProcess (BufferedImage image, RAWMetadataSupport metadata)
+    protected BufferedImage postProcess (final @Nonnull BufferedImage image,
+                                         final @Nonnull RAWMetadataSupport metadata,
+                                         final @Nonnull RAWImageReadParam readParam)
       {
         final PostProcessor postProcessor = (PostProcessor)postProcessorMapBySpiClass.get(getClass());
-        return (postProcessor != null) ? postProcessor.process(image, metadata) : image;
+        return (postProcessor != null) ? postProcessor.process(image, metadata, readParam) : image;
       }
     
     /*******************************************************************************************************************
@@ -163,13 +166,14 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
      * @return        the post-processed image
      *
      *******************************************************************************/
-    protected void postProcessMetadata (RAWMetadataSupport metadata)
+    protected void postProcessMetadata (final @Nonnull RAWMetadataSupport metadata,
+                                        final @Nonnull RAWImageReadParam readParam)
       {
         final PostProcessor postProcessor = (PostProcessor)postProcessorMapBySpiClass.get(getClass());
 
         if (postProcessor != null)
           {
-            postProcessor.processMetadata(metadata);
+            postProcessor.processMetadata(metadata, readParam);
           }
       }
 

@@ -104,12 +104,14 @@ public abstract class RAWImageReaderSupport extends ImageReader
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    public final BufferedImage read (int imageIndex, ImageReadParam param) 
+    @Nonnull
+    public final BufferedImage read (final @Nonnegative int imageIndex,
+                                     final @Nonnull ImageReadParam readParam)
       throws IOException
       {
-        logger.fine("read(%d, %s)", imageIndex, param);
+        logger.fine("read(%d, %s)", imageIndex, readParam);
 
-        int imageCount = getNumImages(true);
+        final int imageCount = getNumImages(true);
 
         if (image == null)
           {
@@ -129,7 +131,8 @@ public abstract class RAWImageReaderSupport extends ImageReader
             try
               {
                 BufferedImage rawImage = loadImage(imageIndex); 
-                image[imageIndex] = ((RAWImageReaderSpiSupport)getOriginatingProvider()).postProcess(rawImage, metadata);
+                image[imageIndex] = ((RAWImageReaderSpiSupport)getOriginatingProvider()).
+                        postProcess(rawImage, metadata, (RAWImageReadParam)readParam);
                 processImageComplete();
               }
 
@@ -213,17 +216,30 @@ public abstract class RAWImageReaderSupport extends ImageReader
 
     /*******************************************************************************************************************
      * 
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     *******************************************************************************/
-    public IIOMetadata getImageMetadata (int imageIndex) 
+     ******************************************************************************************************************/
+    @Nonnull
+    public IIOMetadata getImageMetadata (final @Nonnegative int imageIndex)
+      throws IOException
+      {
+        return getImageMetadata(imageIndex, null);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public IIOMetadata getImageMetadata (final @Nonnegative int imageIndex, final @Nonnull RAWImageReadParam readParam)
       throws IOException
       {
         if (metadata == null)
           {
             try
               {
-                metadata = loadMetadata(imageIndex);
+                metadata = loadMetadata(imageIndex, readParam);
               }
 
             catch (IOException e)
@@ -517,7 +533,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
       {
         if (!metadataLoaded)
           {
-            loadMetadata(imageIndex);
+            loadMetadata(imageIndex, null); // FIXME: null
             checkMetadataIsLoaded();
           }
       }
@@ -581,15 +597,18 @@ public abstract class RAWImageReaderSupport extends ImageReader
      * @throws IOException  if an I/O error occurs
      *
      ******************************************************************************************************************/
-    protected synchronized RAWMetadataSupport loadMetadata (int imageIndex) throws IOException
+    @Nonnull
+    protected synchronized RAWMetadataSupport loadMetadata (final @Nonnegative int imageIndex,
+                                                            final @Nonnull RAWImageReadParam readParam)
+      throws IOException
       {
-        logger.fine("loadMetadata(%d) - iis: %s", imageIndex, iis);
+        logger.fine("loadMetadata(%d, %s) - iis: %s", imageIndex, readParam, iis);
         checkImageIndex(imageIndex);
 
         if (!metadataLoaded)
           {
             processMetadata();
-            ((RAWImageReaderSpiSupport)getOriginatingProvider()).postProcessMetadata(metadata);
+            ((RAWImageReaderSpiSupport)getOriginatingProvider()).postProcessMetadata(metadata, readParam);
             metadataLoaded = true;
           }
 
