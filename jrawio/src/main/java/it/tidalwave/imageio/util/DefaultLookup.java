@@ -25,7 +25,6 @@
 package it.tidalwave.imageio.util;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.io.Serializable;
@@ -41,17 +40,17 @@ public class DefaultLookup extends Lookup
     private final static String CLASS = DefaultLookup.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
 
-    private final Set<Serializable> contents;
+    private final Set<Object> contents;
 
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
-    protected DefaultLookup (final @Nonnull Serializable ... contents)
+    protected DefaultLookup (final @Nonnull Object ... contents)
       {
-        this.contents = new HashSet<Serializable>();
+        this.contents = new HashSet<Object>();
 
-        for (final Serializable content : contents)
+        for (final Object content : contents)
           {
             if (content != null)
               {
@@ -88,7 +87,7 @@ public class DefaultLookup extends Lookup
     public <T> T lookup (final @Nonnull Class<T> type)
       throws NotFoundException
       {
-        for (final Serializable param : contents)
+        for (final Object param : contents)
           {
             if (type.isAssignableFrom(param.getClass()))
               {

@@ -51,7 +51,7 @@ public abstract class Lookup implements Serializable
      *
      *
      ******************************************************************************************************************/
-    public static Lookup fixed (final @Nonnull Serializable ... contents)
+    public static Lookup fixed (final @Nonnull Object ... contents)
       {
         return new DefaultLookup(contents);
       }
