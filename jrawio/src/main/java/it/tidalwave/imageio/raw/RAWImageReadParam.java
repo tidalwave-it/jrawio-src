@@ -25,7 +25,6 @@
 package it.tidalwave.imageio.raw;
 
 import javax.annotation.Nonnull;
-import java.awt.Dimension;
 import java.io.Serializable;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageTypeSpecifier;
@@ -46,7 +45,7 @@ public final class RAWImageReadParam extends ImageReadParam implements Serializa
      *
      *
      ******************************************************************************************************************/
-    public RAWImageReadParam (final @Nonnull Serializable ... params)
+    public RAWImageReadParam (final @Nonnull Object ... params)
       {
         lookup = new DefaultingLookup(Lookup.fixed(params));
 
@@ -58,13 +57,13 @@ public final class RAWImageReadParam extends ImageReadParam implements Serializa
           {
           }
 
-        try
-          {
-            setSourceRenderSize(lookup.lookup(Dimension.class));
-          }
-        catch (Lookup.NotFoundException e)
-          {
-          }
+//        try TODO: setSourceRenderSize is not implemented
+//          {
+//            setSourceRenderSize(lookup.lookup(Dimension.class));
+//          }
+//        catch (Lookup.NotFoundException e)
+//          {
+//          }
       }
 
     /*******************************************************************************************************************
@@ -75,6 +74,17 @@ public final class RAWImageReadParam extends ImageReadParam implements Serializa
     public final Lookup getLookup()
       {
         return lookup;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    @Override
+    public String toString()
+      {
+        return String.format("RAWImageReadParam[%s]", lookup);
       }
   }
 
