@@ -27,10 +27,14 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
 
+import javax.annotation.Nonnull;
 import java.awt.image.BufferedImage;
+import it.tidalwave.imageio.util.Lookup;
+import it.tidalwave.imageio.util.Lookup.NotFoundException;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
+import it.tidalwave.imageio.raw.RAWImageReadParam;
 import it.tidalwave.imageio.raw.RAWMetadataSupport;
 
 /***********************************************************************************************************************
@@ -60,16 +64,32 @@ public class PipelineArtifact // FIXME: refactor with Lookup
     
     /** The angle that the image was rotated to. */
     private int rotation;
+
+    private final Lookup lookup;
     
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
-    public PipelineArtifact (BufferedImage image, RAWMetadataSupport rawMetadata)
+    public PipelineArtifact (final @Nonnull BufferedImage image,
+                             final @Nonnull RAWMetadataSupport rawMetadata,
+                             final @Nonnull RAWImageReadParam readParam)
       {
         this.image = image;
         this.rawMetadata = rawMetadata;
+        lookup = Lookup.fixed(image, rawMetadata, readParam);
+
         cfaPattern = computeCFAPattern();
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public <T> T lookup (final @Nonnull Class<T> type)
+      throws NotFoundException
+      {
+        return lookup.lookup(type);
       }
 
     /*******************************************************************************************************************
