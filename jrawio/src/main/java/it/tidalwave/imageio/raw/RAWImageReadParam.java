@@ -30,6 +30,7 @@ import java.io.Serializable;
 import javax.imageio.ImageReadParam;
 import javax.imageio.ImageTypeSpecifier;
 import it.tidalwave.imageio.util.Lookup;
+import it.tidalwave.imageio.util.DefaultingLookup;
 
 /***********************************************************************************************************************
  *
@@ -37,13 +38,17 @@ import it.tidalwave.imageio.util.Lookup;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class RAWImageReadParam extends ImageReadParam implements Serializable
+public final class RAWImageReadParam extends ImageReadParam implements Serializable
   {
     private final Lookup lookup;
 
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     public RAWImageReadParam (final @Nonnull Serializable ... params)
       {
-        lookup = Lookup.fixed(params);
+        lookup = new DefaultingLookup(Lookup.fixed(params));
 
         try
           {
@@ -62,8 +67,12 @@ public class RAWImageReadParam extends ImageReadParam implements Serializable
           }
       }
 
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
     @Nonnull
-    public Lookup getLookup()
+    public final Lookup getLookup()
       {
         return lookup;
       }
