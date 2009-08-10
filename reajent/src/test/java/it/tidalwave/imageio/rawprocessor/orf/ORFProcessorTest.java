@@ -39,6 +39,8 @@ import it.tidalwave.imageio.orf.ImageProcessing;
 import it.tidalwave.imageio.orf.ORFMetadata;
 import it.tidalwave.imageio.orf.OlympusMakerNote;
 import it.tidalwave.imageio.orf.RawDevelopment;
+import it.tidalwave.imageio.raw.RAWImageReadParam;
+import it.tidalwave.imageio.raw.Source;
 import org.junit.runners.Parameterized.Parameters;
 import static org.junit.Assert.*;
 
@@ -101,6 +103,46 @@ public class ORFProcessorTest extends NewImageReaderTestSupport
                                     assertEquals(14, rawDevelopment.getTags().size());
                                   }
                               }),
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/victoriagracia/Olympus/E500/ORF/V7020205.ORF").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(3360, 2504, 3, 16, "4dfff3c25f1fdc8940ace2d079a09c6f").
+                            thumbnail(160, 120).
+                            thumbnail(1600, 1200).
+                            issues("JRW-160", "JRW-202").
+                            metadata("metadata.olympusMakerNote.imageWidth", 3264).
+                            metadata("metadata.olympusMakerNote.imageHeight", 2448).
+                            extra(new ExpectedResults.Extra()
+                              {
+                                public void run (final @Nonnull ImageReader ir)
+                                  throws Exception
+                                  {
+                                    final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
+                                    assertNotNull(metadata);
+                                    final OlympusMakerNote makerNote = metadata.getOlympusMakerNote();
+                                    assertNotNull(makerNote);
+                                    assertEquals(27, makerNote.getTags().size());
+
+                                    final CameraSettings cameraSettings = makerNote.getOlympusCameraSettings();
+                                    assertNotNull(cameraSettings);
+                                    assertEquals(40, cameraSettings.getTags().size());
+
+                                    final Equipment equipment = makerNote.getOlympusEquipment();
+                                    assertNotNull(equipment);
+                                    assertEquals(23, equipment.getTags().size());
+
+                                    final FocusInfo focusInfo = makerNote.getOlympusFocusInfo();
+                                    assertNotNull(focusInfo);
+                                    assertEquals(52, focusInfo.getTags().size());
+
+                                    final ImageProcessing imageProcessing = makerNote.getOlympusImageProcessing();
+                                    assertNotNull(imageProcessing);
+                                    assertEquals(109, imageProcessing.getTags().size());
+
+                                    final RawDevelopment rawDevelopment = makerNote.getOlympusRawDevelopment();
+                                    assertNotNull(rawDevelopment);
+                                    assertEquals(14, rawDevelopment.getTags().size());
+                                  }
+                              }),
             // Olympus E510
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/josephandre/Olympus/E510/ORF/_2090037.ORF").
                             image(3648, 2736, 3, 8, "4e92f94313383cfaa52f7415ac3c5ad3").
@@ -108,6 +150,46 @@ public class ORFProcessorTest extends NewImageReaderTestSupport
                             issues("JRW-151", "JRW-154", "JRW-155", "JRW-159", "JRW-211", "JRW-214").
                             metadata("metadata.olympusMakerNote.olympusImageProcessing.imageWidth", 3648).
                             metadata("metadata.olympusMakerNote.olympusImageProcessing.imageHeight", 2736).
+                            extra(new ExpectedResults.Extra()
+                              {
+                                public void run (final @Nonnull ImageReader ir)
+                                  throws Exception
+                                  {
+                                    final ORFMetadata metadata = (ORFMetadata)ir.getImageMetadata(0);
+                                    assertNotNull(metadata);
+                                    final OlympusMakerNote makerNote = metadata.getOlympusMakerNote();
+                                    assertNotNull(makerNote);
+                                    assertEquals(8, makerNote.getTags().size());
+
+                                    final CameraSettings cameraSettings = makerNote.getOlympusCameraSettings();
+                                    assertNotNull(cameraSettings);
+                                    assertEquals(44, cameraSettings.getTags().size());
+
+                                    final Equipment equipment = makerNote.getOlympusEquipment();
+                                    assertNotNull(equipment);
+                                    assertEquals(23, equipment.getTags().size());
+
+                                    final FocusInfo focusInfo = makerNote.getOlympusFocusInfo();
+                                    assertNotNull(focusInfo);
+                                    assertEquals(59, focusInfo.getTags().size());
+
+                                    final ImageProcessing imageProcessing = makerNote.getOlympusImageProcessing();
+                                    assertNotNull(imageProcessing);
+                                    assertEquals(142, imageProcessing.getTags().size());
+
+                                    final RawDevelopment rawDevelopment = makerNote.getOlympusRawDevelopment();
+                                    assertNotNull(rawDevelopment);
+                                    assertEquals(14, rawDevelopment.getTags().size());
+                                  }
+                              }),
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/josephandre/Olympus/E510/ORF/_2090037.ORF").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(3720, 2800, 3, 16, "f823981ab27195c2db002ee03a65af84").
+                            thumbnail(1600, 1200).
+                            issues("JRW-151", "JRW-154", "JRW-155", "JRW-159").
+                            metadata("metadata.olympusMakerNote.olympusImageProcessing.imageWidth", 3648).
+                            metadata("metadata.olympusMakerNote.olympusImageProcessing.imageHeight", 2736).
+
                             extra(new ExpectedResults.Extra()
                               {
                                 public void run (final @Nonnull ImageReader ir)
