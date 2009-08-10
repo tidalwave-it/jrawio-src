@@ -31,6 +31,8 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
+import it.tidalwave.imageio.raw.RAWImageReadParam;
+import it.tidalwave.imageio.raw.Source;
 import org.junit.runners.Parameterized.Parameters;
 
 /***********************************************************************************************************************
@@ -58,13 +60,25 @@ public class DNGProcessorTest extends NewImageReaderTestSupport
                             thumbnail(256, 171).
                             thumbnail(1024, 683).
                             issues("JRW-144", "JRW-210"),
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0056.DNG").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(3088, 2055, 3, 16, "1601cd0415c7266d0449063661cb1d9c").
+                            thumbnail(256, 171).
+                            thumbnail(1024, 683).
+                            issues("JRW-144"),
             // EOS300D
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0043.DNG").
                             image(2048, 3072, 3, 8, "f69d5f5b830db85850eb40779353a803").
                             thumbnail(256, 171).
                             thumbnail(1024, 683).
-                            issues("JRW-145", "JRW-210")
-          );
+                            issues("JRW-145", "JRW-210"),
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0043.DNG").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(3088, 2055, 3, 16, "b96e7f37a44071e8a8c675cf97e55dda").
+                            thumbnail(256, 171).
+                            thumbnail(1024, 683).
+                            issues("JRW-145")
+         );
       }
 
     /*
