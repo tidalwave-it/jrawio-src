@@ -61,46 +61,7 @@ public class MRWImageReaderImageTest extends NewImageReaderTestSupport
         return fixed
           (
             // Dynax 7D
-            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/theoheinze/Minolta/Dynax7D/MRW/PICT0652.MRW").
-                            image(3016, 2008, 3, 16, "152b5d95ad3bc6d69eb2f7da721bfc96").
-                            thumbnail(640, 480).
-                            issues("JRW-152", "JRW-201").
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final MRWMetadata metadata = (MRWMetadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                    final MinoltaMakerNote makerNote = metadata.getMinoltaMakerNote();
-                                    assertNotNull(makerNote);
-                                    final MinoltaRawData minoltaRawData = metadata.getMinoltaRawData();
-                                    assertNotNull(minoltaRawData);
-                                    final PRD prd = minoltaRawData.getPRD();
-                                    assertEquals("21810002", prd.getVersion());
-                                    assertEquals(new Dimension(3016, 2008), prd.getCcdSize());
-                                    assertEquals(new Dimension(3008, 2000), prd.getImageSize());
-                                    assertEquals(12, prd.getDataSize());
-                                    assertEquals(12, prd.getPixelSize());
-                                    assertEquals(0x59, prd.getStorageMethod());
-                                    assertEquals(0, prd.getUnknown1());
-                                    assertEquals(0, prd.getUnknown2());
-                                    assertEquals(0, prd.getUnknown3());
-                                    assertNotNull(prd);
-                                    final RIF rif = minoltaRawData.getRIF();
-                                    assertNotNull(rif);
-                                    // TODO: assert rif stuff
-                                    final WBG wbg = minoltaRawData.getWBG();
-                                    assertNotNull(wbg);
-                                    assertEquals(new TagRational(447, 256), wbg.getRedCoefficient());
-                                    assertEquals(new TagRational(260, 256), wbg.getGreen1Coefficient());
-                                    assertEquals(new TagRational(260, 256), wbg.getGreen2Coefficient());
-                                    assertEquals(new TagRational(454, 256), wbg.getBlueCoefficient());
-                                    assertEquals(1.74609375, wbg.getRedCoefficient().doubleValue(), 0);
-                                    assertEquals(1.015625, wbg.getGreen1Coefficient().doubleValue(), 0);
-                                    assertEquals(1.015625, wbg.getGreen2Coefficient().doubleValue(), 0);
-                                    assertEquals(1.7734375, wbg.getBlueCoefficient().doubleValue(), 0);                                  }
-                              })
+
           );
       }
   }
