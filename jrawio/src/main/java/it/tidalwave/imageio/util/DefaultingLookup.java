@@ -25,7 +25,8 @@
 package it.tidalwave.imageio.util;
 
 import javax.annotation.Nonnull;
-import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /***********************************************************************************************************************
  *
@@ -33,60 +34,55 @@ import java.io.Serializable;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public abstract class Lookup implements Serializable
+public class DefaultingLookup extends DefaultLookup
   {
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    public static class NotFoundException extends Exception
-      {
-        public NotFoundException (final @Nonnull Class<?> type)
-          {
-            super("Parameter type not found: " + type);
-          }
-      }
+    private final static String CLASS = DefaultingLookup.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
 
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    public static Lookup fixed (final @Nonnull Serializable ... contents)
-      {
-        return new DefaultLookup(contents);
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    protected Lookup()
-      {
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
     @Nonnull
-    public <T> T lookup (final @Nonnull Class<T> type, final @Nonnull T defaultValue)
+    private final Lookup delegate;
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public DefaultingLookup (final @Nonnull Lookup delegate)
       {
-        //TODO: enforce defaultValue not null
+        this.delegate = delegate;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Override
+    @Nonnull
+    public <T> T lookup (final @Nonnull Class<T> type)
+      throws NotFoundException
+      {
+        T defaultValue = null;
+
         try
           {
-            return lookup(type);
+            final Method getDefault = type.getMethod("getDefault");
+            defaultValue = (T)getDefault.invoke(null);
           }
-        catch (NotFoundException e)
+        catch (InvocationTargetException ex)
           {
-            return defaultValue;
           }
+        catch (IllegalAccessException ex)
+          {
+          }
+        catch (NoSuchMethodException ex)
+          {
+          }
+        catch (SecurityException ex)
+          {
+          }
+        
+        final T result = delegate.lookup(type, defaultValue);
+        logger.finest("lookup(%s) returning %s", type, result);
+        
+        return result;
       }
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    @Nonnull
-    public abstract <T> T lookup (final @Nonnull Class<T> type)
-      throws NotFoundException;
   }

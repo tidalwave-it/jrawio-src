@@ -25,6 +25,9 @@
 package it.tidalwave.imageio.util;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.io.Serializable;
 
 /***********************************************************************************************************************
@@ -33,17 +36,27 @@ import java.io.Serializable;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public abstract class Lookup implements Serializable
+public class DefaultLookup extends Lookup
   {
+    private final static String CLASS = DefaultLookup.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+
+    private final Set<Serializable> contents;
+
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
-    public static class NotFoundException extends Exception
+    protected DefaultLookup (final @Nonnull Serializable ... contents)
       {
-        public NotFoundException (final @Nonnull Class<?> type)
+        this.contents = new HashSet<Serializable>();
+
+        for (final Serializable content : contents)
           {
-            super("Parameter type not found: " + type);
+            if (content != null)
+              {
+                this.contents.add(content);
+              }
           }
       }
 
@@ -51,24 +64,8 @@ public abstract class Lookup implements Serializable
      *
      *
      ******************************************************************************************************************/
-    public static Lookup fixed (final @Nonnull Serializable ... contents)
-      {
-        return new DefaultLookup(contents);
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
-    protected Lookup()
-      {
-      }
-
-    /*******************************************************************************************************************
-     *
-     *
-     ******************************************************************************************************************/
     @Nonnull
+    @Override
     public <T> T lookup (final @Nonnull Class<T> type, final @Nonnull T defaultValue)
       {
         //TODO: enforce defaultValue not null
@@ -87,6 +84,20 @@ public abstract class Lookup implements Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    public abstract <T> T lookup (final @Nonnull Class<T> type)
-      throws NotFoundException;
+    @Override
+    public <T> T lookup (final @Nonnull Class<T> type)
+      throws NotFoundException
+      {
+        for (final Serializable param : contents)
+          {
+            if (type.isAssignableFrom(param.getClass()))
+              {
+                logger.finest("lookup(%s) returning %s", type, param);
+                return (T)param;
+              }
+          }
+
+        logger.finest("lookup(%s) throwing NotFoundException", type);
+        throw new NotFoundException(type);
+      }
   }
