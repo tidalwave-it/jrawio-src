@@ -27,7 +27,6 @@ package it.tidalwave.imageio.util;
 import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.Set;
-import java.io.Serializable;
 
 /***********************************************************************************************************************
  *
@@ -98,5 +97,16 @@ public class DefaultLookup extends Lookup
 
         logger.finest("lookup(%s) throwing NotFoundException", type);
         throw new NotFoundException(type);
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Override
+    @Nonnull
+    public String toString()
+      {
+        return String.format("DefaultLookup[%s]", contents);
       }
   }
