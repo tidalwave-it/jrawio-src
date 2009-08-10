@@ -36,6 +36,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.stream.ImageInputStream;
 import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -45,8 +46,11 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  **********************************************************************************************************************/
 public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
   {
+    private final static String CLASS = RAWImageReaderSpiSupport.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+
     /** A postprocessor, if available, will be run against the loaded image. */
-    private static Map postProcessorMapBySpiClass = new HashMap();
+    private static Map<Class<?>, PostProcessor> postProcessorMapBySpiClass = new HashMap<Class<?>, PostProcessor>();
     
     /*******************************************************************************************************************
      * 
@@ -67,7 +71,7 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
      * @param extraImageMetadataFormatNames
      * @param extraImageMetadataFormatClassNames
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     protected RAWImageReaderSpiSupport (String[] names, String[] suffixes, String[] MIMETypes, Class readerClass,
                                         Class[] inputTypes, String[] writerSpiNames,
                                         boolean supportsStandardStreamMetadataFormat,
@@ -137,7 +141,7 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
      * @param postProcessor  the post processor to install
      *
      *******************************************************************************/
-    public static void installPostProcessor (Class spiClass, PostProcessor postProcessor)
+    public static void installPostProcessor (Class<?> spiClass, PostProcessor postProcessor)
       {
         postProcessorMapBySpiClass.put(spiClass, postProcessor);
       }
@@ -149,12 +153,17 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
      * @param  image  the raw image to postprocess
      * @return        the post-processed image
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
+    @Nonnull
     protected BufferedImage postProcess (final @Nonnull BufferedImage image,
                                          final @Nonnull RAWMetadataSupport metadata,
                                          final @Nonnull RAWImageReadParam readParam)
       {
-        final PostProcessor postProcessor = (PostProcessor)postProcessorMapBySpiClass.get(getClass());
+        logger.fine("postProcess(%s, %s, %s)", image, metadata.getClass(), readParam);
+        final Source source = readParam.lookup(Source.class);
+        final PostProcessor postProcessor = !source.needsPostProcessor() ? null : postProcessorMapBySpiClass.get(getClass());
+        logger.finer(">>>> source: %s, postProcessor: %s", source, postProcessor);
+        
         return (postProcessor != null) ? postProcessor.process(image, metadata, readParam) : image;
       }
     
@@ -165,11 +174,14 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
      * @param  image  the raw image to postprocess
      * @return        the post-processed image
      *
-     *******************************************************************************/
+     ******************************************************************************************************************/
     protected void postProcessMetadata (final @Nonnull RAWMetadataSupport metadata,
                                         final @Nonnull RAWImageReadParam readParam)
       {
-        final PostProcessor postProcessor = (PostProcessor)postProcessorMapBySpiClass.get(getClass());
+        logger.fine("postProcessMetadata(%s, %s)", metadata.getClass(), readParam);
+        final Source source = readParam.lookup(Source.class);
+        final PostProcessor postProcessor = !source.needsPostProcessor() ? null : postProcessorMapBySpiClass.get(getClass());
+        logger.finer(">>>> source: %s, postProcessor: %s", source, postProcessor);
 
         if (postProcessor != null)
           {
@@ -181,7 +193,7 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
      * 
      * @inheritDoc
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     public boolean canDecodeInput (Object source)
       throws IOException
       {
@@ -219,7 +231,7 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
     /*******************************************************************************************************************
      * 
      * 
-     *******************************************************************************/    
+     ******************************************************************************************************************/
     private boolean canDecodeInput (ImageInputStream source) throws IOException
       {
         RAWImageInputStream iis = new RAWImageInputStream(source);
@@ -249,6 +261,6 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
      * @return
      * @throws IOException
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     protected abstract boolean canDecodeInput (RAWImageInputStream iis) throws IOException;
   }
