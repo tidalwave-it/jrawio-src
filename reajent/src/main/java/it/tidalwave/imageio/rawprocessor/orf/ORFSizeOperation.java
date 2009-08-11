@@ -71,10 +71,12 @@ public class ORFSizeOperation extends SizeOperation
         else
           {
             // FIXME: I'm not sure the crop must be centered
-            crop = new Insets((height - newSize.height) / 2,
-                              (width - newSize.width) / 2,
-                              (height - newSize.height) / 2,
-                              (width - newSize.width) / 2);
+            final int top = (height - newSize.height) / 2;
+            final int left = (width - newSize.width) / 2;
+            final int bottom = height - newSize.height - top;
+            final int right = width - newSize.width - left;
+
+            crop = new Insets(top, left, bottom, right);
           }
 
         logger.finer(">>>> returning %s", crop);
