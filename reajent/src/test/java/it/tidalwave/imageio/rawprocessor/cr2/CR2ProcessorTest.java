@@ -52,6 +52,70 @@ public class CR2ProcessorTest extends NewImageReaderTestSupport
       {
         return fixed
           (
+            // EOS 1D mkII
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/1dm2/RAW_CANON_1DM2.CR2").
+                            image(3504, 2336, 3, 8, "df74ee076c0d6af72d304cce7a5c3fe3").
+                            thumbnail(1536, 1024).
+                            thumbnail(160, 120).
+                            thumbnail(384, 256).
+                            issues("JRW-233"),
+            // EOS 1D mkII N
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/1dm2n/RAW_CANON_1DM2N.CR2").
+                            image(3504, 2336, 3, 8, "9220a0897c7f19a5e9ec8abad906ed29").
+                            thumbnail(1728, 1152).
+                            thumbnail(160, 120).
+                            thumbnail(384, 256).
+                            issues("JRW-233"),
+            // EOS 1D mkIII
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/1dm3/RAW_CANON_1DMARK3.CR2").
+                            image(3888, 2592, 3, 8, "e5021dab3aa112b89c26bad4802bf1f9").
+                            thumbnail(1936, 1288).
+                            thumbnail(160, 120).
+                            thumbnail(486, 324).
+                            issues("JRW-233"),
+            // EOS 1Ds mkII
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/1dsm2/RAW_CANON_1DSM2.CR2").
+                            image(4992, 3328, 3, 8, "65fd3c49fd56f7f6af136ccf98391151").
+                            thumbnail(1536, 1024).
+                            thumbnail(160, 120).
+                            thumbnail(384, 256).
+                            issues("JRW-233"),
+            // EOS 1Ds mkIII
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/1dsm3/RAW_CANON_1DSM3.CR2").
+                            image(5616, 3744, 3, 8, "16e6985733ff58761a72c7ab18123a87").
+                            thumbnail(2784, 1856).
+                            thumbnail(160, 120).
+                            thumbnail(476, 312).
+                            issues("JRW-233"),
+            // EOS 5D
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/5d/RAW_CANON_5D_ARGB.CR2").
+                            image(4368, 2912, 3, 16, "876c2311b9544283107e2f537b8f4adf").
+                            thumbnail(2496, 1664).
+                            thumbnail(160, 120).
+                            thumbnail(384, 256).
+                            issues("JRW-233"),
+            // EOS 50D
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/50d/RAW_CANON_50D.CR2").
+                            image(4752, 3168, 3, 8, "876c2311b9544283107e2f537b8f4adf").
+                            thumbnail(4752, 3168).
+                            thumbnail(160, 120).
+                            thumbnail(604, 396).
+                            issues(""),
+            // EOS 400D
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/400d/RAW_CANON_400D_ARGB.CR2").
+                            image(3888, 2592, 3, 8, "e96ed62b6d28a711f796dfe05211d4ec").
+                            thumbnail(1936, 1288).
+                            thumbnail(160, 120).
+                            thumbnail(384, 256).
+                            issues(""),
+            // EOS 450D
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/450d/RAW_CANON_450D.CR2").
+                            image(4272, 2848, 3, 8, "d5f37215f9c1ccc99c69d43ad9890917").
+                            thumbnail(2256, 1504).
+                            thumbnail(160, 120).
+                            thumbnail(539, 356).
+                            issues("JRW-233"),
+                            
             // EOS20D v1.1.0
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/1.1.0/_MG_8587.CR2").
                             image(3504, 2336, 3, 8, "77bd8c04f2895087aefbfb022bfd3b51").
