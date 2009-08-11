@@ -63,11 +63,11 @@ public class ORFProcessorTest extends NewImageReaderTestSupport
           (
             // Olympus C5050Z
             ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/c5050z/RAW_OLYMPUS_C5050Z.ORF").
-                            image(2560, 1921, 3, 8, "6f1c720d038c5c1cea22be6e9ae9f416").
+                            image(2560, 1920, 3, 8, "6f1c720d038c5c1cea22be6e9ae9f416").
                             issues("JRW-231"),
             // Olympus C8080
             ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/c8080/RAW_OLYMPUS_C8080.ORF").
-                            image(3264, 2449, 3, 8, "3389abe2a1cf518d99a6f6885b3ff852").
+                            image(3264, 2448, 3, 8, "3389abe2a1cf518d99a6f6885b3ff852").
                             issues("JRW-231"),
             // Olympus E1
             ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/e1/RAW_OLYMPUS_E1.ORF").
@@ -104,11 +104,11 @@ public class ORFProcessorTest extends NewImageReaderTestSupport
                             issues("JRW-231"),
             // Olympus SP350
             ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/sp350/RAW_OLYMPUS_SP350.ORF").
-                            image(3264, 2449, 3, 8, "1672ea074357752bdbb7fbe932ae2679").
+                            image(3264, 2448, 3, 8, "1672ea074357752bdbb7fbe932ae2679").
                             issues("JRW-231"),
             // Olympus SP500UZ
             ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/sp500uz/RAW_OLYMPUS_SP500UZ.ORF").
-                            image(2816, 2113, 3, 8, "4702030e04ef52986b8b91a8abe9aa6d").
+                            image(2816, 2112, 3, 8, "4702030e04ef52986b8b91a8abe9aa6d").
                             issues("JRW-231"),
             // Olympus E500
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/victoriagracia/Olympus/E500/ORF/V7020205.ORF").
