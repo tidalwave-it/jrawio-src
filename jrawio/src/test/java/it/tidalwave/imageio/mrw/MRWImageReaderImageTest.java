@@ -60,6 +60,36 @@ public class MRWImageReaderImageTest extends NewImageReaderTestSupport
       {
         return fixed
           (
+            // Dynax 5D
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/5d/RAW_MINOLTA_5D.MRW").
+                            image(3016, 2008, 3, 16, "de8ed2949e91924c8430f49d32602dc2").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
+            // Dynax 7D
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/7d/RAW_MINOLTA_7D_SRGB.MRW").
+                            image(3016, 2008, 3, 16, "a14650ae72e8f919b2401f285092f99f").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
+            // Dynax 7HI
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/7hi/RAW_MINOLTA_DIMAGE_7HI.MRW").
+                            image(2568, 1928, 3, 16, "b7a556ac8f162daa6a87f85439fa7624").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
+            // Dynax 7I
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/7i/RAW_MINOLTA_DIMAGE_7I.MRW").
+                            image(2568, 1928, 3, 16, "e277971086f1c786f08f8f93fd8c33ed").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
+            // A1
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/a1/RAW_MINOLTA_A1.MRW").
+                            image(2568, 1928, 3, 16, "f5cab08f838de5aa776a3fe2259dc677").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
+            // A2
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/a2/RAW_MINOLTA_A2.MRW").
+                            image(3272, 2456, 3, 16, "a1b5e8b1821f8401ba49bb9794a2b727").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
             // Dynax 7D
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/theoheinze/Minolta/Dynax7D/MRW/PICT0652.MRW").
                             image(3016, 2008, 3, 16, "152b5d95ad3bc6d69eb2f7da721bfc96").
