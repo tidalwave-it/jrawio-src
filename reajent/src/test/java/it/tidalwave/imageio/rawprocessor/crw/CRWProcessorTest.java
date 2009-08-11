@@ -52,7 +52,27 @@ public class CRWProcessorTest extends NewImageReaderTestSupport
       {
         return fixed
           (
-            // EOS300D 
+            // EOS 10D
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/10d/RAW_CANON_10D.CRW").
+                            image(3072, 2048, 3, 8, "8af30532d1b7911d63852d710d722c5d").
+                            thumbnail(3072, 2048).
+                            issues("JRW-234"),
+            // EOS 300D
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/300d/RAW_CANON_300D.CRW").
+                            image(3072, 2048, 3, 8, "d9e8cb87977403cf0c04e32dc0bdfec9").
+                            thumbnail(3072, 2048).
+                            issues("JRW-234"),
+            // EOS D30
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/d30/RAW_CANON_D30_SRGB.CRW").
+                            image(2160, 1440, 3, 8, "6df92e1d4589fb9fb2b353aaa9efc83b").
+                            thumbnail(1440, 960).
+                            issues("JRW-234"),
+            // EOS D60
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/d60/RAW_CANON_D60_ARGB.CRW").
+                            image(2224, 1456, 3, 8, "b499a77c82e5289d043e2f330c6fffba").
+                            thumbnail(1440, 960).
+                            issues("JRW-234"),
+            // EOS300D
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/CRW/100_0056.CRW").
                             image(3072, 2048, 3, 8, "67994f630322d2bede87a2884f5f0965").
                             thumbnail(2048, 1360).
