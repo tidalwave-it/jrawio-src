@@ -61,11 +61,60 @@ public class ORFProcessorTest extends NewImageReaderTestSupport
       {
         return fixed
           (
+            // Olympus C5050Z
+            ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/c5050z/RAW_OLYMPUS_C5050Z.ORF").
+                            image(2560, 1920, 3, 8, "7eccaeb9ad7417b5d953a2715a16d4f7").
+                            issues("JRW-231", "JRW-232"),
+            // Olympus C8080
+            ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/c8080/RAW_OLYMPUS_C8080.ORF").
+                            image(3264, 2448, 3, 8, "d40ec96c87322ad6c44b9c6edf905915").
+                            issues("JRW-231", "JRW-232"),
+            // Olympus E1
+            ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/e1/RAW_OLYMPUS_E1.ORF").
+                            image(2560, 1920, 3, 8, "cdf56b7f51532ca1209a6b2d995951b3").
+                            thumbnail(160, 120).
+                            thumbnail(1280, 960).
+                            issues("JRW-231"),
+            // Olympus E20
+            ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/e20/RAW_OLYMPUS_E20.ORF").
+                            image(2572, 1920, 3, 8, "904993daf23603c7a32541098cafa5ae").
+                            thumbnail(160, 120).
+                            issues("JRW-231"),
+            // Olympus E3
+            ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/e3/RAW_OLYMPUS_E3.ORF").
+                            image(3648, 2736, 3, 8, "0b7c96483de383b5e79dcc4ca5ecd74e").
+                            thumbnail(1600, 1200).
+                            issues("JRW-231"),
+            // Olympus E300
+            ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/e300/RAW_OLYMPUS_E300.ORF").
+                            image(3264, 2448, 3, 8, "91575615d59c00bca7508641f776cf6a").
+                            thumbnail(160, 120).
+                            thumbnail(1600, 1200).
+                            issues("JRW-231"),
+            // Olympus E410
+            ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/e410/RAW_OLYMPUS_E410.ORF").
+                            image(3648, 2736, 3, 8, "f1071fe8ee12b9079e0bc64f665ac59b").
+                            thumbnail(1600, 1200).
+                            issues("JRW-231"),
+            // Olympus E500
+            ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/e500/RAW_OLYMPUS_E500.ORF").
+                            image(3264, 2448, 3, 8, "c617af4d2d20b73aac779344232f8f5a").
+                            thumbnail(160, 120).
+                            thumbnail(1600, 1200).
+                            issues("JRW-231"),
+            // Olympus SP350
+            ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/sp350/RAW_OLYMPUS_SP350.ORF").
+                            image(3264, 2448, 3, 8, "fbd692a7464643d39eb9e3ab3d1d614d").
+                            issues("JRW-231", "JRW-232"),
+            // Olympus SP500UZ
+            ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/sp500uz/RAW_OLYMPUS_SP500UZ.ORF").
+                            image(2816, 2112, 3, 8, "9abaf233741f92da543c7b7392d297a2").
+                            issues("JRW-231", "JRW-232"),
             // Olympus E500
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/victoriagracia/Olympus/E500/ORF/V7020205.ORF").
                             image(3264, 2448, 3, 8, "0020be22c4224b51d60807502ff8c8af").
                             thumbnail(160, 120).
-                            thumbnail(1600, 1200). 
+                            thumbnail(1600, 1200).
                             issues("JRW-160", "JRW-211", "JRW-214").
                             metadata("metadata.olympusMakerNote.imageWidth", 3264).
                             metadata("metadata.olympusMakerNote.imageHeight", 2448).

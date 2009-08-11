@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.arw;
 
+import it.tidalwave.imageio.minolta.MinoltaRawData.PRD;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -64,7 +65,7 @@ class ARWPrimaryIFD extends IFD
     public int[] getSubIFDs() 
       {
         return new int[0];
-//        final int[] original = super.getSubIFDs();
+//        final int[] original = super.getSubIFDs(); FIXME
 //        final int bad = 0x10000;
 //        
 //        int count = 0;
@@ -156,14 +157,13 @@ public class ARWImageReader extends TIFFImageReaderSupport
     protected void initializeRasterReader (@Nonnull final RasterReader rasterReader)
       {
         final ARWMetadata arwMetadata = (ARWMetadata)metadata;
-        final int bitsPerSample = arwMetadata.getMinoltaRawData().getPRD().getPixelSize();
-        final int width = arwMetadata.getWidth();
-        final int height = arwMetadata.getHeight();
+        final PRD prd = arwMetadata.getMinoltaRawData().getPRD();
+        final int bitsPerSample = prd.getPixelSize();
         rasterReader.setRasterOffset(((ARWPrimaryIFD)primaryDirectory).getRasterOffset()); 
         rasterReader.setTileOffsets(new int[1]); // FIXME: useless, but otherwise an assertion fails
         rasterReader.setCompression(1); // FIXME
-        rasterReader.setWidth(width);
-        rasterReader.setHeight(height);
+        rasterReader.setWidth(prd.getCcdSize().width);
+        rasterReader.setHeight(prd.getCcdSize().height);
         rasterReader.setBitsPerSample(bitsPerSample);
         rasterReader.setCFAPattern(new byte[] { 0, 1, 1, 2 }); // FIXME
       }

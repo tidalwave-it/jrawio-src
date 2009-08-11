@@ -210,11 +210,12 @@ public abstract class OperationSupport implements Operation
       {
         if (image == null)
           {
-            logger.fine("%s.image: null", prefix);
+            logger.fine("%s.image:       null", prefix);
           }
         else
           {
             final ColorModel colorModel = image.getColorModel();
+            logger.fine("%s.size:        %d x %d", prefix, image.getWidth(), image.getHeight());
             logger.fine("%s.class:       %s", prefix, image.getClass().getName());
             logger.fine("%s.sampleModel: %s", prefix, toString(image.getSampleModel()));
             logger.fine("%s.colorModel:  %s : %s", prefix, colorModel.getClass().getName(), colorModel);

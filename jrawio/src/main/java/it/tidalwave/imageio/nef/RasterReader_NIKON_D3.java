@@ -25,39 +25,33 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.rawprocessor.arw;
+package it.tidalwave.imageio.nef;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
-import it.tidalwave.imageio.ExpectedResults;
-import it.tidalwave.imageio.NewImageReaderTestSupport;
-import org.junit.runners.Parameterized.Parameters;
+import java.awt.image.WritableRaster;
+import java.io.IOException;
+import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 
 /***********************************************************************************************************************
  *
+ * This class specializes a PixelLoader for the Nikon D100. There is some 
+ * trickery to understand if a D100 NEF is compressed and in some cases there
+ * are bits to skip while reading the data.
+ * 
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class ARWProcessorTest extends NewImageReaderTestSupport
+public class RasterReader_NIKON_D3 extends NEFRasterReader
   {
-    public ARWProcessorTest (final @Nonnull ExpectedResults expectedResults)
+    @Override
+    protected void loadUncompressedRaster (final @Nonnull RAWImageInputStream iis,
+                                           final @Nonnull WritableRaster raster,
+                                           final @Nonnull RAWImageReaderSupport ir)
+      throws IOException
       {
-        super(expectedResults);
+        assert (cfaOffsets != null);
+        loadUncompressedRaster16(iis, raster, ir);
       }
-
-    @Nonnull
-    @Parameters
-    public static Collection<Object[]> expectedResults()
-      {
-        return fixed
-          (
-            // A100
-            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/kijiro/Sony/A100/ARW/DSC00041.ARW").
-                            image(3872, 2592, 3, 8, "0fadabd72e76c535e39216d68a55d4b9").
-                            thumbnail(640, 480).
-                            thumbnail(160, 120).
-                            issues("JRW-127", "JRW-198", "JRW-209")
-          );
-      }
-  }
+   }

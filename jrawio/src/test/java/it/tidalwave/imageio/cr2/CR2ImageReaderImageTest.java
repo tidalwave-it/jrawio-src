@@ -58,6 +58,70 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
       {
         return fixed
           (
+            // EOS 1D mkII
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/1dm2/RAW_CANON_1DM2.CR2").
+                            image(3596, 2360, 3, 16, "4550a2de42fbaf3306c391e763ce9575").
+                            thumbnail(1536, 1024).
+                            thumbnail(160, 120).
+                            thumbnail(384, 256).
+                            issues("JRW-233"),
+            // EOS 1D mkII N
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/1dm2n/RAW_CANON_1DM2N.CR2").
+                            image(3596, 2360, 3, 16, "ed66afbf08943834ba7985a32e039d28").
+                            thumbnail(1728, 1152).
+                            thumbnail(160, 120).
+                            thumbnail(384, 256).
+                            issues("JRW-233"),
+            // EOS 1D mkIII
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/1dm3/RAW_CANON_1DMARK3.CR2").
+                            image(3984, 2622, 3, 16, "6465ca47a83ad90702af2a1ee299bd3e").
+                            thumbnail(1936, 1288).
+                            thumbnail(160, 120).
+                            thumbnail(486, 324).
+                            issues("JRW-233"),
+            // EOS 1Ds mkII
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/1dsm2/RAW_CANON_1DSM2.CR2").
+                            image(5108, 3349, 3, 16, "65fd3c49fd56f7f6af136ccf98391151").
+                            thumbnail(1536, 1024).
+                            thumbnail(160, 120).
+                            thumbnail(384, 256).
+                            issues("JRW-233"),
+            // EOS 1Ds mkIII
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/1dsm3/RAW_CANON_1DSM3.CR2").
+                            image(5712, 3774, 3, 16, "c0ef91e296adabf920a504ff53e4ba59").
+                            thumbnail(2784, 1856).
+                            thumbnail(160, 120).
+                            thumbnail(476, 312).
+                            issues("JRW-233"),
+            // EOS 5D
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/5d/RAW_CANON_5D_ARGB.CR2").
+                            image(4476, 2954, 3, 16, "876c2311b9544283107e2f537b8f4adf").
+                            thumbnail(2496, 1664).
+                            thumbnail(160, 120).
+                            thumbnail(384, 256).
+                            issues("JRW-233"),
+            // EOS 50D
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/50d/RAW_CANON_50D.CR2").
+                            image(4832, 3228, 3, 16, "876c2311b9544283107e2f537b8f4adf").
+                            thumbnail(4752, 3168).
+                            thumbnail(160, 120).
+                            thumbnail(604, 396).
+                            issues("JRW-233"),
+            // EOS 400D
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/400d/RAW_CANON_400D_ARGB.CR2").
+                            image(3948, 2622, 3, 16, "b335bb3bc9267a5d3b86e1a3a2e8f15f").
+                            thumbnail(1936, 1288).
+                            thumbnail(160, 120).
+                            thumbnail(384, 256).
+                            issues("JRW-233"),
+            // EOS 450D
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/450d/RAW_CANON_450D.CR2").
+                            image(4312, 2876, 3, 16, "00fd4c4caa39a80f9173a5ab9a1034f8").
+                            thumbnail(2256, 1504).
+                            thumbnail(160, 120).
+                            thumbnail(539, 356).
+                            issues("JRW-233"),
+
             // EOS20D v1.1.0
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/1.1.0/_MG_8587.CR2").
                             image(EOS20D_SENSOR_SIZE, 3, 16, "992a061e12ac559e49e040344a9e3bb4").

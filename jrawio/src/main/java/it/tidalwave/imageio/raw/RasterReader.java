@@ -547,7 +547,7 @@ public class RasterReader
         final int height = raster.getHeight();
         final int pixelStride = 3; // FIXME
         final int scanStride = width * pixelStride;
-        selectBitReader(iis, raster, bitsPerSample);
+        selectBitReader(iis, raster, 16);
         
         if (byteOrder == null)
           {
@@ -570,7 +570,7 @@ public class RasterReader
               {
                 int j = x % 2;
 //                int sample = iis.readShort() & 0xFFFF; Works, but it's 50% slower'
-                int sample = (int)iis.readBits(bitsPerSample) & 0xFFFF;
+                int sample = (int)iis.readBits(16) & 0xFFFF;
                 
                 if (swap16)
                   {

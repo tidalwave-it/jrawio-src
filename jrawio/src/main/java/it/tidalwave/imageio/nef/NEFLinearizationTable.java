@@ -61,17 +61,35 @@ public class NEFLinearizationTable
      ******************************************************************************************************************/
     public NEFLinearizationTable (final @Nonnull NikonMakerNote3 makerNote)
       {
+        logger.fine("NEFLinearizationTable()");
         this.makerNote = makerNote;
         shortBuffer = makerNote.getCompressionDataAsShortBuffer();
         shortBuffer.position(0);
         version = shortBuffer.get();
         shortBuffer.position(5);
-        final int lutSize = shortBuffer.get();
-        lut = new int[lutSize];
+        int lutSize = shortBuffer.get();
+        logger.finer(">>>> version: %04x samples: %d", version, lutSize);
 
-        for (int i = 0; i < lutSize; i++)
+        if ((version & 0xff00) == 0x4600)
           {
-            lut[i] = shortBuffer.get() & 0xFFFF;
+            logger.finer(">>>> using linear table");
+            lutSize = 1 << 14;
+            lut = new int[lutSize];
+
+            for (int i = 0; i < lutSize; i++)
+              {
+                lut[i] = i;
+              }
+          }
+        else
+          {
+            logger.finer(">>>> using sampled table");
+            lut = new int[lutSize];
+
+            for (int i = 0; i < lutSize; i++)
+              {
+                lut[i] = shortBuffer.get() & 0xFFFF;
+              }
           }
 
         logger.finer(toString());
@@ -110,25 +128,12 @@ public class NEFLinearizationTable
         logger.fine("getExpandedValues(%d)", bitsPerSample);
         
         final int[] values = new int[1 << 16];
-
         final int max = 1 << bitsPerSample;
         final int step = max / (this.lut.length - 1);
+
+        logger.finer(">>>> version: %04x samples: %d step: %d", version, this.lut.length, step);
           
-        if ((version != 0x4420) || (step == 0))
-          {
-            logger.finer(">>>> returning padded values");
-
-            for (int i = 0; i < this.lut.length; i++)
-              {
-                values[i] = this.lut[i];
-              }
-
-            for (int i = this.lut.length; i < values.length; i++)
-              {
-                values[i] = values[this.lut.length - 1];
-              }
-          }
-        else
+        if ((version == 0x4420) && (step > 0))
           {
             logger.finer(">>>> returning interpolated and padded values");
 
@@ -146,6 +151,20 @@ public class NEFLinearizationTable
             for (int i = max; i < values.length; i++)
               {
                 values[i] = values[max - 1];
+              }
+          }
+        else
+          {
+            logger.finer(">>>> returning padded values");
+
+            for (int i = 0; i < this.lut.length; i++)
+              {
+                values[i] = this.lut[i];
+              }
+
+            for (int i = this.lut.length; i < values.length; i++)
+              {
+                values[i] = values[this.lut.length - 1];
               }
           }
 

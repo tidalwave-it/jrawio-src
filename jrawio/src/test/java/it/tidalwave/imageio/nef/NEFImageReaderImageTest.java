@@ -55,6 +55,11 @@ public class NEFImageReaderImageTest extends NewImageReaderTestSupport
       {
         return fixed
           (
+            // D1x
+            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d1x/RAW_NIKON_D1X.NEF").
+                            image(4028, 1324, 3, 16, "d3d3b27908bc6f9ed97d1f68c9d7a4af").
+                            thumbnail(160, 120),
+
             // D1
             ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d1/RAW_NIKON_D1.NEF").
                             image(2012, 1324, 3, 16, "69c3916e9a583f7e48ca3918d31db135").
@@ -69,6 +74,17 @@ public class NEFImageReaderImageTest extends NewImageReaderTestSupport
                             image(4320, 2868, 3, 16, "37d5aa7aab4e2d4fd667efb674f558ed").
                             thumbnail(160, 120).
                             thumbnail(4288, 2848),
+            // D3
+            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d3/RAW_NIKON_D3.NEF").
+                            image(4288, 2844, 3, 16, "fadead8af5aefe88b4ca8730cfb7392c").
+                            thumbnail(160, 120).
+                            thumbnail(4256, 2832),
+            // D3x
+            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d3x/RAW_NIKON_D3X.NEF").
+                            image(6080, 4044, 3, 16, "2a0cfc36cea7c3346b8d39355bf786e6").
+                            thumbnail(160, 120).
+                            thumbnail(6048, 4032).
+                            issues("JRW-221"),
             // D40 v1.0.0
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/nikon/D40/1.00/DSC_0108.NEF").
                             image(3040, 2014, 3, 16, "3b565723bb5b3c7db33fc2e69cca040c").
@@ -142,7 +158,19 @@ public class NEFImageReaderImageTest extends NewImageReaderTestSupport
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/nikon/D200/1.00/DCC_0280.NEF").
                             image(3904, 2616, 3, 16, "eca27d2b7ade85c4803f287b8c413844").
                             thumbnail(160, 120).
-                            thumbnail(3872, 2592)
+                            thumbnail(3872, 2592),
+            // D300
+            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d300/RAW_NIKON_D300.NEF").
+                            image(4352, 2868, 3, 16, "13318aa72965d3807be5f1e5049c6264").
+                            thumbnail(160, 120).
+                            thumbnail(4288, 2848).
+                            issues("JRW-222"),
+            // D700
+            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d700/RAW_NIKON_D700.NEF").
+                            image(4288, 2844, 3, 16, "451322b803ec25d9386f0052ada7faae").
+                            thumbnail(160, 120).
+                            thumbnail(4256, 2832).
+                            issues("JRW-223")
           );
       }
   }

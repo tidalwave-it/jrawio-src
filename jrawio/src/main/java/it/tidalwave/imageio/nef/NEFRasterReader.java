@@ -27,8 +27,13 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
 
+import java.util.Iterator;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.io.IOException;
 import java.awt.image.DataBufferUShort;
@@ -92,23 +97,117 @@ public class NEFRasterReader extends RasterReader
         3908, 3923, 3937, 3952, 3967, 3981, 3996, 4011, 4026, 4041, 4055, 4070, 4085, 4095
       };
 
-    /** The configuration for the Huffman decoder. */
-    private final static short[] CONF_DECODER_12BIT_LOSSY =
+    private final static short[] CONF_DECODER_12BIT_LOSSY_1 =
       {
         0, 1, 5, 1, 1, 1, 1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 5, 4, 3, 6, 2, 7, 1, 0, 8, 9, 11, 10, 12
       };
 
-    /** The Huffman decoder. */
-    private final static HuffmannDecoder DECODER = HuffmannDecoder.createDecoder(CONF_DECODER_12BIT_LOSSY);
+    private final static short[] CONF_DECODER_12BIT_LOSSY_2 =
+      {
+        0,1,5,1,1,1,1,1,1,2,0,0,0,0,0,0, 0x39,0x5a,0x38,0x27,0x16,5,4,3,2,1,0,11,12,12 
+      };
+
+    private final static short[] CONF_DECODER_12BIT_LOSSLESS =
+      {
+        0,1,4,2,3,1,2,0,0,0,0,0,0,0,0,0, 5,4,6,3,7,2,8,1,9,0,10,11,12
+      };
+
+    private final static short[] CONF_DECODER_14BIT_LOSSY_1 =
+      {
+        0,1,4,3,1,1,1,1,1,2,0,0,0,0,0,0, 5,6,4,7,8,3,9,2,1,0,10,11,12,13,14
+      };
+
+    private final static short[] CONF_DECODER_14BIT_LOSSY_2 =
+      {
+        0,1,5,1,1,1,1,1,1,1,2,0,0,0,0,0,8,0x5c,0x4b,0x3a,0x29,7,6,5,4,3,2,1,0,13,14 
+      };
+
+    private final static short[] CONF_DECODER_14BIT_LOSSLESS =
+      {
+        0,1,4,2,2,3,1,2,0,0,0,0,0,0,0,0,7,6,8,5,9,4,10,3,11,12,2,0,1,13,14
+      };
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public static enum CompressionType
+      {
+        LOSSY, LOSSLESS
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    static class DecoderType
+      {
+        private final CompressionType compressionType;
+        private final int bitsPerSample;
+
+        public DecoderType (final @Nonnull CompressionType compressionType,
+                            final @Nonnegative int bitsPerSample)
+          {
+            this.compressionType = compressionType;
+            this.bitsPerSample = bitsPerSample;
+          }
+
+        @Override
+        public boolean equals (final Object object)
+          {
+            if (object == null)
+              {
+                return false;
+              }
+
+            if (getClass() != object.getClass())
+              {
+                return false;
+              }
+
+            final DecoderType other = (DecoderType)object;
+
+            return (this.compressionType == other.compressionType) && (this.bitsPerSample == other.bitsPerSample);
+        }
+
+        @Override
+        public int hashCode()
+          {
+            int hash = 7;
+            hash = 47 * hash + this.compressionType.hashCode();
+            hash = 47 * hash + this.bitsPerSample;
+            return hash;
+          }
+
+        @Override
+        @Nonnull
+        public String toString()
+          {
+            return String.format("[%d bits, %s", bitsPerSample, compressionType);
+          }
+      }
+
+    private final static Map<DecoderType, List<HuffmannDecoder>> DECODER_MAP = new HashMap<DecoderType, List<HuffmannDecoder>>();
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    static
+      {
+        registerDecoders(CompressionType.LOSSY,    12, CONF_DECODER_12BIT_LOSSY_1, CONF_DECODER_12BIT_LOSSY_2);
+        registerDecoders(CompressionType.LOSSY,    14, CONF_DECODER_14BIT_LOSSY_1, CONF_DECODER_14BIT_LOSSY_2);
+        registerDecoders(CompressionType.LOSSLESS, 12, CONF_DECODER_12BIT_LOSSLESS);
+        registerDecoders(CompressionType.LOSSLESS, 14, CONF_DECODER_14BIT_LOSSLESS);
+
+        logger.fine("Decoders: %s", DECODER_MAP);
+      }
 
     /** The vertical predictors. */
     @Nonnull
     private int[] vPredictor;
-    
-    static
-      {
-        logger.fine("NEF HuffmannDecoder: %s", DECODER);
-      }
+
+    private CompressionType compressionType = CompressionType.LOSSY;
 
     /*******************************************************************************************************************
      * 
@@ -122,8 +221,7 @@ public class NEFRasterReader extends RasterReader
      * 
      ******************************************************************************************************************/
     @Nonnull
-    public static NEFRasterReader getInstance (@Nonnull String model,
-                                               final boolean isNDF)
+    public static NEFRasterReader getInstance (@Nonnull String model, final boolean isNDF)
       {
         if (isNDF)
           {
@@ -184,6 +282,25 @@ public class NEFRasterReader extends RasterReader
 
     /*******************************************************************************************************************
      *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public CompressionType getCompressionType()
+      {
+        return compressionType;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public void setCompressionType (@Nonnull final CompressionType compressionType)
+      {
+        this.compressionType = compressionType;
+      }
+
+    /*******************************************************************************************************************
+     *
      * {@inheritDoc}
      * 
      * This method implements raster data loading for compressed NEF.
@@ -196,6 +313,7 @@ public class NEFRasterReader extends RasterReader
       throws IOException
       {
         logger.fine("loadCompressedRaster(%s, %s, %s)", iis, raster, ir);
+
         final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
         //        int typeBits = DataBuffer.getDataTypeSize(dataBuffer.getDataType());
         final short[] data = dataBuffer.getData();
@@ -216,12 +334,18 @@ public class NEFRasterReader extends RasterReader
             // dumpLinearizationTable();
           }
 
+        final DecoderType decoderType = new DecoderType(compressionType, bitsPerSample);
+        final Iterator<HuffmannDecoder> decoderIterator = DECODER_MAP.get(decoderType).iterator();
+        HuffmannDecoder decoder = decoderIterator.next();
+
+        logger.finer("Using decoder for %s: %s", decoderType, decoder);
+
         for (int i = 0, y = 0; y < height; y++)
           {
             for (int x = 0; x < width; x++)
               {
                 final int cfaIndex = (2 * (y & 1)) + (x & 1);
-                final int bitsCount = DECODER.decode(iis);
+                final int bitsCount = decoder.decode(iis);
                 final int diff = iis.readComplementedBits(bitsCount);
 
                 if (x < 2)
@@ -268,6 +392,17 @@ public class NEFRasterReader extends RasterReader
     public String toString()
       {
         return String.format("NEFRasterReader@%06x", System.identityHashCode(this));
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    private static void registerDecoders (final @Nonnull CompressionType compressionType,
+                                          final @Nonnegative int bitsPerSample,
+                                          final @Nonnull short[] ... sources)
+      {
+        DECODER_MAP.put(new DecoderType(compressionType, bitsPerSample), Arrays.asList(HuffmannDecoder.createDecoders(sources)));
       }
 
     /*******************************************************************************************************************
