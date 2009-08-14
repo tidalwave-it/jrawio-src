@@ -488,6 +488,7 @@
     <modules>
         <module>jrawio</module>
         <module>reajent</module>
+        <module>examples</module>
         <!-- module>jrawio-test</module -->
     </modules>
 
