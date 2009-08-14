@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.tidalwave.imageio</groupId>
+        <artifactId>jrawio-all</artifactId>
+        <version>1.6.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>example1</artifactId>
+    <packaging>jar</packaging>
+    <name>Example 1</name>
+
+    <repositories>
+        <repository>
+            <id>maven2-repository.tidalwave.kenai.com</id>
+            <name>Tidalwave Maven Release Repository</name>
+            <url>https://kenai.com/svn/tidalwave~maven-repo/release/2</url>
+        </repository>
+        <repository>
+            <id>maven2-aux-repository.tidalwave.kenai.com</id>
+            <name>Tidalwave Maven Aux Repository</name>
+            <url>https://kenai.com/svn/tidalwave~maven-repo/aux/2</url>
+        </repository>
+    </repositories>
+
+    <build>
+    </build>
+    <dependencies>
+        <dependency>
+            <groupId>it.tidalwave.imageio</groupId>
+            <artifactId>jrawio</artifactId>
+            <version>1.5.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>it.tidalwave.imageio</groupId>
+            <artifactId>reajent</artifactId>
+            <version>1.5.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it.tidalwave.singlelinelogformatter</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+    </dependencies>
+</project>
+
+
+
+
+
+
+
