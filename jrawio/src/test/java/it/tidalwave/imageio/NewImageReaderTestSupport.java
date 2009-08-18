@@ -38,45 +38,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.util.Logger;
+import it.tidalwave.imageio.MyParameterized;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import static org.junit.Assert.*;
-
-class MyErrorCollector extends ErrorCollector
-  {
-    @Nonnull
-    private final String name;
-
-    private boolean firstError = true;
-
-    public MyErrorCollector (@Nonnull final String name)
-      {
-        this.name = name;
-      }
-
-    @Override
-    public void addError (@Nonnull final Throwable error)
-      {
-        if (firstError)
-          {
-            try
-              {
-                fail(name);
-              }
-            catch (Throwable e2)
-              {
-                super.addError(e2);
-              }
-          }
-
-        firstError = false;
-        super.addError(error);
-      }
-  }
 
 /***********************************************************************************************************************
  *
@@ -84,7 +52,7 @@ class MyErrorCollector extends ErrorCollector
  * @version $Id$
  *
  **********************************************************************************************************************/
-@RunWith(value=Parameterized.class)
+@RunWith(value=MyParameterized.class)
 public class NewImageReaderTestSupport extends ImageReaderTestSupport
   {
     private final static String CLASS = NewImageReaderTestSupport.class.getName();
@@ -94,7 +62,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
     private final ExpectedResults expectedResults;
 
     @Rule
-    public final MyErrorCollector errors;
+    public final ErrorCollector errors = new ErrorCollector();
 
     /*******************************************************************************************************************
      *
@@ -103,7 +71,6 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
     protected NewImageReaderTestSupport (final @Nonnull ExpectedResults expectedResults)
       {
         this.expectedResults = expectedResults;
-        errors = new MyErrorCollector(expectedResults.getPath());
       }
 
     /*******************************************************************************************************************
