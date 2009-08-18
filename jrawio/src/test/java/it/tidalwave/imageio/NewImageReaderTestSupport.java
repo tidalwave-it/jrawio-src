@@ -46,6 +46,38 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import static org.junit.Assert.*;
 
+class MyErrorCollector extends ErrorCollector
+  {
+    @Nonnull
+    private final String name;
+
+    private boolean firstError = true;
+
+    public MyErrorCollector (@Nonnull final String name)
+      {
+        this.name = name;
+      }
+
+    @Override
+    public void addError (@Nonnull final Throwable error)
+      {
+        if (firstError)
+          {
+            try
+              {
+                fail(name);
+              }
+            catch (Throwable e2)
+              {
+                super.addError(e2);
+              }
+          }
+
+        firstError = false;
+        super.addError(error);
+      }
+  }
+
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
@@ -62,7 +94,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
     private final ExpectedResults expectedResults;
 
     @Rule
-    public final ErrorCollector errors = new ErrorCollector();
+    public final MyErrorCollector errors;
 
     /*******************************************************************************************************************
      *
@@ -71,6 +103,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
     protected NewImageReaderTestSupport (final @Nonnull ExpectedResults expectedResults)
       {
         this.expectedResults = expectedResults;
+        errors = new MyErrorCollector(expectedResults.getPath());
       }
 
     /*******************************************************************************************************************
@@ -248,17 +281,6 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
           }
 
         close(ir);
-
-//        if (!errors.isEmpty())
-//          {
-//            for (final Throwable error : errors)
-//              {
-//                logger.throwing(CLASS, "================================================================", error);
-//              }
-//
-//            final String fileName = expectedResults.getPath().replaceAll("^.*[^/]/", "");
-//            fail(fileName + ": " + errors.toString());
-//          }
       }
 
     /*******************************************************************************************************************
