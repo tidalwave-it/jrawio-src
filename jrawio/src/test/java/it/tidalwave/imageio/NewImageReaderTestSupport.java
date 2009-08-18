@@ -40,6 +40,8 @@ import javax.imageio.ImageReader;
 import it.tidalwave.imageio.util.Logger;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Rule;
+import org.junit.rules.ErrorCollector;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import static org.junit.Assert.*;
@@ -58,6 +60,9 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
     
     @Nonnull
     private final ExpectedResults expectedResults;
+
+    @Rule
+    public final ErrorCollector errors = new ErrorCollector();
 
     /*******************************************************************************************************************
      *
@@ -88,8 +93,6 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
     public final void testImage()
       throws Exception
       {
-        final List<Throwable> errors = new ArrayList<Throwable>();
-        
         final ImageReader ir = getImageReader(expectedResults.getPath());
         final int imageCount = expectedResults.getImageCount();
         final int thumbnailCount = expectedResults.getThumbnailCount();
@@ -106,7 +109,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
               }
             catch (Throwable e)
               {
-                errors.add(e);
+                errors.addError(e);
               }
           }
 
@@ -120,7 +123,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
               }
             catch (Throwable e)
               {
-                errors.add(e);
+                errors.addError(e);
               }
           }
 
@@ -135,7 +138,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
               }
             catch (Throwable e)
               {
-                errors.add(e);
+                errors.addError(e);
               }
           }
 
@@ -149,7 +152,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
               }
             catch (Throwable e)
               {
-                errors.add(e);
+                errors.addError(e);
               }
           }
 
@@ -231,7 +234,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
               }
             catch (Throwable e)
               {
-                errors.add(e);
+                errors.addError(e);
               }
           }
 
@@ -241,21 +244,21 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
           }
         catch (Throwable e)
           {
-            errors.add(e);
+            errors.addError(e);
           }
 
         close(ir);
 
-        if (!errors.isEmpty())
-          {
-            for (final Throwable error : errors)
-              {
-                logger.throwing(CLASS, "================================================================", error);
-              }
-
-            final String fileName = expectedResults.getPath().replaceAll("^.*[^/]/", "");
-            fail(fileName + ": " + errors.toString());
-          }
+//        if (!errors.isEmpty())
+//          {
+//            for (final Throwable error : errors)
+//              {
+//                logger.throwing(CLASS, "================================================================", error);
+//              }
+//
+//            final String fileName = expectedResults.getPath().replaceAll("^.*[^/]/", "");
+//            fail(fileName + ": " + errors.toString());
+//          }
       }
 
     /*******************************************************************************************************************
