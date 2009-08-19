@@ -75,11 +75,11 @@ public class CR2ProcessorTest extends NewImageReaderTestSupport
                             issues("JRW-233"),
             // EOS 1Ds mkII
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/1dsm2/RAW_CANON_1DSM2.CR2").
-                            image(4992, 3328, 3, 8, "65fd3c49fd56f7f6af136ccf98391151").
+                            image(4992, 3328, 3, 8, "c5682d2fa8ef55ab67bb534553bf0a34").
                             thumbnail(1536, 1024).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
-                            issues("JRW-233"),
+                            issues("JRW-233", "JRW-239"),
             // EOS 1Ds mkIII
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/1dsm3/RAW_CANON_1DSM3.CR2").
                             image(5616, 3744, 3, 8, "16e6985733ff58761a72c7ab18123a87").
@@ -89,33 +89,32 @@ public class CR2ProcessorTest extends NewImageReaderTestSupport
                             issues("JRW-233"),
             // EOS 5D
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/5d/RAW_CANON_5D_ARGB.CR2").
-                            image(4368, 2912, 3, 16, "876c2311b9544283107e2f537b8f4adf").
+                            image(4368, 2912, 3, 8, "df60589bf48530258c67573790cf2cce").
                             thumbnail(2496, 1664).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
-                            issues("JRW-233"),
+                            issues("JRW-233", "JRW-239"),
             // EOS 50D
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/50d/RAW_CANON_50D.CR2").
-                            image(4752, 3168, 3, 8, "876c2311b9544283107e2f537b8f4adf").
+                            image(4752, 3168, 3, 8, "e37524e49c0d4a9ef2148595afbad6c4").
                             thumbnail(4752, 3168).
                             thumbnail(160, 120).
                             thumbnail(604, 396).
-                            issues(""),
+                            issues("JRW-237", "JRW-239"),
             // EOS 400D
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/400d/RAW_CANON_400D_ARGB.CR2").
                             image(3888, 2592, 3, 8, "e96ed62b6d28a711f796dfe05211d4ec").
                             thumbnail(1936, 1288).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
-                            issues(""),
+                            issues(),
             // EOS 450D
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/450d/RAW_CANON_450D.CR2").
                             image(4272, 2848, 3, 8, "d5f37215f9c1ccc99c69d43ad9890917").
                             thumbnail(2256, 1504).
                             thumbnail(160, 120).
                             thumbnail(539, 356).
-                            issues("JRW-233"),
-                            
+                            issues("JRW-233"),                
             // EOS20D v1.1.0
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/1.1.0/_MG_8587.CR2").
                             image(3504, 2336, 3, 8, "77bd8c04f2895087aefbfb022bfd3b51").
