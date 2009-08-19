@@ -102,11 +102,11 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                             issues("JRW-233"),
             // EOS 50D
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/50d/RAW_CANON_50D.CR2").
-                            image(4832, 3228, 3, 16, "876c2311b9544283107e2f537b8f4adf").
+                            image(4832, 3228, 3, 16, "982c9c5bbf8384ea5200aab51f92e8cf").
                             thumbnail(4752, 3168).
                             thumbnail(160, 120).
                             thumbnail(604, 396).
-                            issues("JRW-233"),
+                            issues("JRW-233", "JRW-237"),
             // EOS 400D
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/400d/RAW_CANON_400D_ARGB.CR2").
                             image(3948, 2622, 3, 16, "b335bb3bc9267a5d3b86e1a3a2e8f15f").
