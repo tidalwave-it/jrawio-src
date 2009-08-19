@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: LosslessJPEGDecoder.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.decoder;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * widely used by some RAW formats which include blocks of encoded data.
  * 
  * @author  fritz
- * @version $Id: LosslessJPEGDecoder.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class LosslessJPEGDecoder
@@ -70,7 +70,7 @@ public class LosslessJPEGDecoder
 
     private int[] vPredictors;
 
-    private HuffmannDecoder[] decoders = new HuffmannDecoder[4];
+    private HuffmannDecoder[] decoders;
 
     private short[] rowBuffer;
 
@@ -102,6 +102,8 @@ public class LosslessJPEGDecoder
           {
             throw new RuntimeException("Bad magic: " + Integer.toHexString(magic & SHORT_MASK));
           }
+
+        HuffmannDecoder[] dcTables = new HuffmannDecoder[4];
 
         loop: for (;;)
           {
@@ -152,15 +154,29 @@ public class LosslessJPEGDecoder
 
                       byte[] temp = new byte[decoderLen];
                       System.arraycopy(data, scan, temp, 0, temp.length);
-                      decoders[channel] = HuffmannDecoder.createDecoderWithJpegHack(temp, 0);
-                      logger.fine("Decoder[%d] = %s", channel, decoders[channel]);
+                      dcTables[channel] = HuffmannDecoder.createDecoderWithJpegHack(temp, 0);
+                      logger.fine("Decoder[%d] = %s", channel, dcTables[channel]);
                       scan += decoderLen;
                     }
 
                   break;
 
                 case (short)0xffda:
-                  iis.skipBytes(length);
+                  final int channels = iis.readUnsignedByte();
+                  decoders = new HuffmannDecoder[channels];
+
+                  for (int i = 0; i < channels; i++)
+                    {
+                      final int index = iis.readUnsignedByte();
+                      final int dcac = iis.readUnsignedByte();
+                      final int dc = dcac >> 4;
+                      final int ac = dcac & 0xF;
+                      logger.fine("Decoder index=%d, DC table=%d, AC table=%d", index, dc, ac);
+                      decoders[index - 1] = dcTables[dc];
+                    }
+
+                  iis.skipBytes(3);
+
                   break loop;
               }
           }
