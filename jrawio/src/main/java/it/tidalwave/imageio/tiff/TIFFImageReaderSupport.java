@@ -264,7 +264,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      * @param bitsPerSample
      * @param rasterReader
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     protected void initializeRasterReader (int width,
                                            int height,
                                            int bitsPerSample,
@@ -344,7 +344,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
     /*******************************************************************************************************************
      * 
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     protected IFD createPrimaryIFD()
       {
         return new IFD();
@@ -372,7 +372,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      * 
      * @inheritDoc
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     protected void processMetadata() throws IOException
       {
         primaryDirectory = loadPrimaryDirectory();
@@ -426,9 +426,12 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      * 
      * @inheritDoc
      * 
-     *******************************************************************************/
-    protected void processMakerNote() throws IOException
+     ******************************************************************************************************************/
+    protected void processMakerNote()
+      throws IOException
       {
+        logger.fine("processMakerNote()");
+
         try
           {
             makerNote = (Directory)makerNoteClass.newInstance();
@@ -437,9 +440,10 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
           {
             throw new RuntimeException(e);
           }
-        
-        IFD exifIFD = (IFD)primaryDirectory.getNamedDirectory(IFD.EXIF_NAME);
-        int makerNoteOffset = exifIFD.getMakerNoteOffset();        
+
+        logger.finer(">>>> makerNote class: %s", makerNoteClass);
+        final IFD exifIFD = (IFD)primaryDirectory.getNamedDirectory(IFD.EXIF_NAME);
+        final int makerNoteOffset = exifIFD.getMakerNoteOffset();
         makerNote.loadAll(iis, makerNoteOffset);
         exifIFD.addNamedDirectory(IFD.MAKER_NOTE_NAME, makerNote);
         logger.fine("MakerNote: %s", makerNote);
@@ -452,7 +456,7 @@ public abstract class TIFFImageReaderSupport extends RAWImageReaderSupport
      * @param   thumbnailIndex              the thumbnail index
      * @throws  IndexOutOfBoundsException   if the index is invalid
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     protected void checkThumbnailIndex (int thumbnailIndex) throws IOException
       {
         if (thumbnailIndex >= getNumThumbnails(0)) // FIXME
