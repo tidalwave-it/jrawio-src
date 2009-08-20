@@ -67,25 +67,25 @@ public class PEFImageReaderImageTest extends NewImageReaderTestSupport
                             issues("JRW-203"),
             // K10D
             ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/k10d/RAW_PENTAX_K10D_SRGB.PEF").
-                            image(3936, 2624, 3, 16, "5c2b928cc582d022759b2a60b7730fdb").
+                            image(3936, 2624, 3, 16, "e64482dbeb55462b8511643ed22cb45f").
                             thumbnail(160, 120).
                             thumbnail(3872, 2592).
                             thumbnail(640, 480).
-                            issues("JRW-203"),
+                            issues("JRW-203", "JRW-240"),
             // K200D
             ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/k200d/RAW_PENTAX_K200D.PEF").
-                            image(3936, 2624, 3, 16, "fce5ba4092b032c01a2c8d72f00156fb").
+                            image(3936, 2624, 3, 16, "2895ac93979706d029991443e898376d").
                             thumbnail(160, 120).
                             thumbnail(3872, 2592).
                             thumbnail(640, 480).
-                            issues("JRW-203"),
+                            issues("JRW-203", "JRW-240"),
             // K20D
             ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/k20d/RAW_PENTAX_K20D.PEF").
-                            image(4672, 3104, 3, 16, "df3ccf84b3af424a10e3594436317656").
+                            image(4864, 3136, 3, 16, "863b104f6dc7b9bb80630a34a2d4c326").
                             thumbnail(160, 120).
                             thumbnail(4672, 3104).
                             thumbnail(640, 480).
-                            issues("JRW-203"),
+                            issues("JRW-203", "JRW-240"),
             // *istD
             ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/star_d/RAW_PENTAX_STARISTD_SRGB.PEF").
                             image(3040, 2024, 3, 16, "0f658d7c5754819b21b6dc2cef19de67").

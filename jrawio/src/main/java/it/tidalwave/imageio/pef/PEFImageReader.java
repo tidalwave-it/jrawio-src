@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: PEFImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.pef;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PEFImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class PEFImageReader extends TIFFImageReaderSupport
@@ -118,6 +118,9 @@ public class PEFImageReader extends TIFFImageReaderSupport
             rasterReader.setTileOffsets(primaryIFD.getTileOffsets());
             //int[] tileByteCounts = primaryIFD.getTileByteCounts();
           }
+        
+        rasterReader.setRasterOffset(primaryIFD.getStripOffsets());
+        ((PEFRasterReader)rasterReader).setDecoder(((PentaxMakerNote)makerNote).getDecoder());
 
         if (primaryIFD.isLinearizationTableAvailable())
           {
