@@ -88,6 +88,7 @@ public class CanonCR2MakerNote extends CanonCR2MakerNoteSupport
     @Nonnull
     public String getLensName()
       {
+        // FIXME: when available, use getLensModel() with removed zeros
         return lensNameByID.getProperty("" + getLensType());
       }
 
