@@ -22,21 +22,89 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: PEFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.pef;
 
+import javax.annotation.Nonnull;
+import java.awt.image.DataBufferUShort;
+import java.awt.image.WritableRaster;
+import java.io.IOException;
+import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 import it.tidalwave.imageio.raw.RasterReader;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
  * This class implements the PEF (Pentax raw Format) raster loading.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: PEFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class PEFRasterReader extends RasterReader
   {
+    private final static String CLASS = PEFRasterReader.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+
+    private PEFDecoder decoder;
+
+    public void setDecoder (final @Nonnull PEFDecoder decoder)
+      {
+        this.decoder = decoder;
+      }
+
+    @Override
+    protected void loadUncompressedRasterNot16 (final @Nonnull RAWImageInputStream iis,
+                                                final @Nonnull WritableRaster raster,
+                                                final @Nonnull RAWImageReaderSupport ir)
+      throws IOException
+      {
+        final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
+        final short[] data = dataBuffer.getData();
+        final int width = raster.getWidth();
+        final int height = raster.getHeight();
+        final int pixelStride = 3; // FIXME
+
+        iis.seek(rasterOffset); // FIXME
+        final short vPredictor[][] = new short[2][2];
+        final short hPredictor[] = new short[2];
+
+        for (int i = 0, y = 0; y < height; y++)
+          {
+            for (int x = 0; x < width; x++)
+              {
+                final int bitCount = decoder.decode(12, true, iis, false);
+
+        //          if (len == 16 && (!dng_version || dng_version >= 0x1010000))
+        //            return -32768;
+                int diff = decoder.decode(bitCount, false, iis, false);
+
+                if ((diff & (1 << (bitCount-1))) == 0)
+                  {
+                    diff -= (1 << bitCount) - 1;
+                  }
+
+                if (x < 2)
+                  {
+                    hPredictor[x] = vPredictor[y & 1][x] += diff;
+                  }
+                else
+                  {
+                    hPredictor[x & 1] += diff;
+                  }
+
+                if (x < width)
+                  {
+                    final int cfaIndex = (2 * (y & 1)) + (x & 1);
+                    data[i + cfaOffsets[cfaIndex]] = hPredictor[x & 1];
+                  }
+
+                i += pixelStride;
+                assert (hPredictor[x & 1] >>> 12) == 0;
+              }
+          }
+      }
   }

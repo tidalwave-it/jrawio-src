@@ -22,27 +22,33 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: PentaxMakerNote.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.pef;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
+import java.io.ByteArrayInputStream;
+import java.io.DataInputStream;
 import java.nio.ByteOrder;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
+import javax.annotation.CheckForNull;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PentaxMakerNote.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class PentaxMakerNote extends PentaxMakerNoteSupport
   {
     private final static long serialVersionUID = 6347805620960118907L;
     
+    @CheckForNull
+    private PEFDecoder decoder;
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
@@ -73,5 +79,29 @@ public class PentaxMakerNote extends PentaxMakerNoteSupport
             iis.setBaseOffset(baseOffsetSave);
             iis.setByteOrder(byteOrderSave);       
           }
+
+//        iis.seek(2950); // FIXME
+//        decoder.load(iis);
+      }
+
+    @CheckForNull
+    public synchronized  PEFDecoder getDecoder()
+      {
+        if ((decoder == null) && isCompressionInfoAvailable())
+          {
+            try 
+              {
+                final ByteArrayInputStream is = new ByteArrayInputStream(getCompressionInfo());
+                is.skip(14);
+                decoder = new PEFDecoder();
+                decoder.load(new DataInputStream(is));
+              }
+            catch (IOException e) // shouldn't really happen, we're reading from memory
+              {
+                throw new RuntimeException(e);
+              }
+          }
+
+        return decoder;
       }
   }
