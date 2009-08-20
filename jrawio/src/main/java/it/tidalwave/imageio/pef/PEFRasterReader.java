@@ -35,6 +35,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 import it.tidalwave.imageio.raw.RasterReader;
 import it.tidalwave.imageio.util.Logger;
+import javax.annotation.CheckForNull;
 
 /***********************************************************************************************************************
  *
@@ -49,7 +50,14 @@ public class PEFRasterReader extends RasterReader
     private final static String CLASS = PEFRasterReader.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
 
+    @CheckForNull
     private PEFDecoder decoder;
+
+    @Override
+    protected boolean isCompressedRaster()
+      {
+        return true;
+      }
 
     public void setDecoder (final @Nonnull PEFDecoder decoder)
       {
@@ -57,9 +65,9 @@ public class PEFRasterReader extends RasterReader
       }
 
     @Override
-    protected void loadUncompressedRasterNot16 (final @Nonnull RAWImageInputStream iis,
-                                                final @Nonnull WritableRaster raster,
-                                                final @Nonnull RAWImageReaderSupport ir)
+    protected void loadCompressedRaster (final @Nonnull RAWImageInputStream iis,
+                                         final @Nonnull WritableRaster raster,
+                                         final @Nonnull RAWImageReaderSupport ir)
       throws IOException
       {
         final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();

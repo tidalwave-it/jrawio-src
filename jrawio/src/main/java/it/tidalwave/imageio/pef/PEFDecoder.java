@@ -31,9 +31,9 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.io.IOException;
+import java.io.DataInputStream;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.util.Logger;
-import java.io.DataInputStream;
 
 /***********************************************************************************************************************
  *
@@ -43,14 +43,14 @@ import java.io.DataInputStream;
  **********************************************************************************************************************/
 public class PEFDecoder
   {
+    private final static String CLASS = PEFDecoder.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+
     private int bitBuffer = 0;
     private int availableBitCount = 0;
     private boolean reset = false;
     private final int bitCountTable[] = new int[1 << 12];
     private final byte byteTable[] = new byte[1 << 12];
-
-    private final static String CLASS = PEFDecoder.class.getName();
-    private final static Logger logger = Logger.getLogger(CLASS);
 
     public void load (final @Nonnull DataInputStream iis)
       throws IOException
@@ -88,13 +88,14 @@ public class PEFDecoder
                        final boolean zeroAfterFF)
       throws IOException
       {
-        int value;
-
-        if (bitCount == 0 || availableBitCount < 0)
+        if ((bitCount == 0) || (availableBitCount < 0))
           {
             return 0;
           }
 
+        int value;
+
+        // TODO: RAWImageInputStream supports zeroAfterFF - use it and simplify this loop
         while (!reset && (availableBitCount < bitCount) && ((value = iis.read() & 0xff) != -1) &&
                !(reset = zeroAfterFF && (value == 0xff) && (iis.read() != 0)))
           {
