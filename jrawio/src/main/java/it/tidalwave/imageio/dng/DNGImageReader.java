@@ -22,37 +22,36 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: DNGImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.dng;
 
-import it.tidalwave.imageio.makernote.LeicaMakerNote;
+import javax.annotation.Nonnull;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
-import it.tidalwave.imageio.util.Logger;
 import javax.imageio.spi.ImageReaderSpi;
-import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.Directory;
-import it.tidalwave.imageio.raw.RAWMetadataSupport;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
+import it.tidalwave.imageio.makernote.LeicaMakerNote;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DNGImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class DNGImageReader extends TIFFImageReaderSupport
   {
-    private static Logger logger = Logger.getLogger("it.tidalwave.imageio.dng.DNGImageReader");
+    private final static String CLASS = DNGImageReader.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
 
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    protected DNGImageReader (ImageReaderSpi originatingProvider, Object extension)
+    protected DNGImageReader (final @Nonnull ImageReaderSpi originatingProvider, final @Nonnull Object extension)
       {
         super(originatingProvider, IFD.class, DNGMetadata.class);
       }
@@ -62,16 +61,17 @@ public class DNGImageReader extends TIFFImageReaderSupport
      * @inheritDoc
      *
      ******************************************************************************************************************/
+    @Nonnull
     protected WritableRaster loadRAWRaster()
       throws IOException
       {
         logger.fine("loadRaster() - iis: %s", iis);
-        long time = System.currentTimeMillis();
-        IFD rasterIFD = ((TIFFMetadataSupport)metadata).getRasterIFD();
-        DNGRasterReader rasterReader = new DNGRasterReader();
-        int width = rasterIFD.getImageWidth();
-        int height = rasterIFD.getImageLength();
-        int bitsPerSample = rasterIFD.getBitsPerSample()[0];
+        final long time = System.currentTimeMillis();
+        final IFD rasterIFD = ((TIFFMetadataSupport)metadata).getRasterIFD();
+        final DNGRasterReader rasterReader = new DNGRasterReader();
+        final int width = rasterIFD.getImageWidth();
+        final int height = rasterIFD.getImageLength();
+        final int bitsPerSample = rasterIFD.getBitsPerSample()[0];
         initializeRasterReader(width, height, bitsPerSample, rasterReader);
 
         if (!rasterIFD.isTileWidthAvailable())
@@ -79,7 +79,7 @@ public class DNGImageReader extends TIFFImageReaderSupport
             iis.seek(rasterIFD.getStripOffsets()); // FIXME: move, it's responsibility of the rreader to seek
           }
 
-        WritableRaster raster = rasterReader.loadRaster(iis, this);
+        final WritableRaster raster = rasterReader.loadRaster(iis, this);
         logger.fine(">>>> loadRAWRaster() completed ok in %d msec", (System.currentTimeMillis() - time));
         
         return raster;
@@ -93,7 +93,9 @@ public class DNGImageReader extends TIFFImageReaderSupport
      * @throws  IOException  if an I/O error occurs
      *
      ******************************************************************************************************************/
-    protected void processMakerNote() throws IOException
+    @Override
+    protected void processMakerNote()
+      throws IOException
       {
         String make = ((IFD)primaryDirectory).getMake();
 
