@@ -114,7 +114,7 @@ public class CanonCR2MakerNote extends CanonCR2MakerNoteSupport
         
         if (wbi != null)
           {
-            int offset = 0;
+            final int offset;
             
             switch (wbi.length)
               {
@@ -126,12 +126,8 @@ public class CanonCR2MakerNote extends CanonCR2MakerNoteSupport
                   offset = 68 / 2;
                   break;
                   
-                case 796: 
-                  offset = 126 / 2;
-                  break;
-                  
                 default:
-                  offset = 0;
+                  offset = 126 / 2;
                   break;
               }
             
@@ -140,7 +136,8 @@ public class CanonCR2MakerNote extends CanonCR2MakerNoteSupport
                 coefficients[i] = (short)wbi[offset + i];  
               }
 
-            logger.finer(">>>> wb coefficients: %s", Arrays.toString(coefficients));
+            logger.finer(">>>> wb coefficients: %s - read at %d, wbi.length: %d",
+                         Arrays.toString(coefficients), offset, wbi.length);
           }
         
         return coefficients;
