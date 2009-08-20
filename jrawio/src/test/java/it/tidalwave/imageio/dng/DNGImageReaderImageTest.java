@@ -59,31 +59,18 @@ public class DNGImageReaderImageTest extends NewImageReaderTestSupport
                             image(3088, 2055, 3, 16, "1601cd0415c7266d0449063661cb1d9c").
                             thumbnail(256, 171).
                             thumbnail(1024, 683).
-                            issues("JRW-144").
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final DNGMetadata metadata = (DNGMetadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                  }
-                              }),
+                            issues("JRW-144"),
             // EOS300D
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/esordini/Canon/EOS300D/Adobe/DNG/100_0043.DNG").
                             image(3088, 2055, 3, 16, "b96e7f37a44071e8a8c675cf97e55dda").
                             thumbnail(256, 171).
                             thumbnail(1024, 683).
-                            issues("JRW-145").
-                            extra(new ExpectedResults.Extra()
-                              {
-                                public void run (final @Nonnull ImageReader ir)
-                                  throws Exception
-                                  {
-                                    final DNGMetadata metadata = (DNGMetadata)ir.getImageMetadata(0);
-                                    assertNotNull(metadata);
-                                  }
-                              })
+                            issues("JRW-145"),
+            // Leica M8
+            ExpectedResults.create("https://www.rawsamples.ch/raws/leica/m8/RAW_LEICA_M8.DNG").
+                            image(3920, 2638, 3, 16, "c3979e415a748b33f034b6cd82a82382").
+                            thumbnail(320, 240).
+                            issues("JRW-230")
           );
       }
 

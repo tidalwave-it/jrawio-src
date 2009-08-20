@@ -63,7 +63,12 @@ public class DNGProcessorTest extends NewImageReaderTestSupport
                             image(2048, 3072, 3, 8, "f69d5f5b830db85850eb40779353a803").
                             thumbnail(256, 171).
                             thumbnail(1024, 683).
-                            issues("JRW-145", "JRW-210")
+                            issues("JRW-145", "JRW-210"),
+            // Leica M8
+            ExpectedResults.create("https://www.rawsamples.ch/raws/leica/m8/RAW_LEICA_M8.DNG").
+                            image(3916, 2634, 3, 8, "10ed1c9ed73859c79704a8105ada292e").
+                            thumbnail(320, 240).
+                            issues("JRW-230")
           );
       }
 
