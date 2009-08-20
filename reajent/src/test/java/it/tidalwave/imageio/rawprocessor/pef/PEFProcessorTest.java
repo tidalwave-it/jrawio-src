@@ -67,25 +67,25 @@ public class PEFProcessorTest extends NewImageReaderTestSupport
                             issues("JRW-203"),
             // K10D
             ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/k10d/RAW_PENTAX_K10D_SRGB.PEF").
-                            image(3872, 2592, 3, 8, "0ad68051445e4d00bfc2ed3ccb7d6873").
+                            image(3872, 2592, 3, 8, "9dea3a21d70774aba56e84167f6c2bc7").
                             thumbnail(160, 120).
                             thumbnail(3872, 2592).
                             thumbnail(640, 480).
-                            issues("JRW-203"),
+                            issues("JRW-203", "JRW-240"),
             // K200D
             ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/k200d/RAW_PENTAX_K200D.PEF").
-                            image(3872, 2592, 3, 8, "e7f89a612fd19604e7de8859437258ee").
+                            image(3872, 2592, 3, 8, "41f65a7b77f3bdc60c775dad7646eb6a").
                             thumbnail(160, 120).
                             thumbnail(3872, 2592).
                             thumbnail(640, 480).
-                            issues("JRW-203"),
+                            issues("JRW-203", "JRW-240"),
             // K20D
             ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/k20d/RAW_PENTAX_K20D.PEF").
-                            image(4864, 3136, 3, 8, "0f658d7c5754819b21b6dc2cef19de67").
+                            image(4672, 3104, 3, 8, "722b817c92d5945eb2f38c4bb696700d").
                             thumbnail(160, 120).
                             thumbnail(4672, 3104).
                             thumbnail(640, 480).
-                            issues("JRW-203"),
+                            issues("JRW-203", "JRW-240"),
             // *istD
             ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/star_d/RAW_PENTAX_STARISTD_SRGB.PEF").
                             image(3008, 2008, 3, 8, "1da5a949a787c9819b64495778e2c592").
