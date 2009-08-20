@@ -52,13 +52,13 @@ public class PEFImageReaderImageTest extends NewImageReaderTestSupport
       {
         return fixed
           (
-//            // K100D Super
-//            ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/k100dsuper/RAW_PENTAX_K100DSUPER.PEF").
-//                            image(3040, 2024, 3, 16, "da955411f632b53b0cb6c51014916766").
-//                            thumbnail(160, 120).
-//                            thumbnail(3008, 2000).
-//                            thumbnail(640, 480).
-//                            issues("JRW-203"),
+            // K100D Super
+            ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/k100dsuper/RAW_PENTAX_K100DSUPER.PEF").
+                            image(3040, 2024, 3, 16, "da955411f632b53b0cb6c51014916766").
+                            thumbnail(160, 120).
+                            thumbnail(3008, 2000).
+                            thumbnail(640, 480).
+                            issues("JRW-203"),
 //            // K10D - FIXME: should be moved to DNG
 //            ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/k10d/RAW_PENTAX_K10D_SRGB.DNG").
 //                            image(3936, 2624, 3, 16, "c9753f470fa8d87086250e50a07c9e0b").
@@ -85,14 +85,14 @@ public class PEFImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(4672, 3104).
                             thumbnail(640, 480).
-                            issues("JRW-203", "JRW-240")
-//            // *istD
-//            ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/star_d/RAW_PENTAX_STARISTD_SRGB.PEF").
-//                            image(3040, 2024, 3, 16, "0f658d7c5754819b21b6dc2cef19de67").
-//                            thumbnail(160, 120).
-//                            thumbnail(3008, 2008).
-//                            thumbnail(640, 480).
-//                            issues("JRW-203")
+                            issues("JRW-203", "JRW-240"),
+            // *istD
+            ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/star_d/RAW_PENTAX_STARISTD_SRGB.PEF").
+                            image(3040, 2024, 3, 16, "0f658d7c5754819b21b6dc2cef19de67").
+                            thumbnail(160, 120).
+                            thumbnail(3008, 2008).
+                            thumbnail(640, 480).
+                            issues("JRW-203")
           );
       }
   }

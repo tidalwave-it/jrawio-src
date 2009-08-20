@@ -56,7 +56,7 @@ public class PEFRasterReader extends RasterReader
     @Override
     protected boolean isCompressedRaster()
       {
-        return true;
+        return decoder != null;
       }
 
     public void setDecoder (final @Nonnull PEFDecoder decoder)
@@ -84,7 +84,7 @@ public class PEFRasterReader extends RasterReader
           {
             for (int x = 0; x < width; x++)
               {
-                final int bitCount = decoder.decode(12, true, iis, false);
+                final int bitCount = decoder.decode(12, true, iis, false); // TODO: 12 -> bitsPerSample
 
         //          if (len == 16 && (!dng_version || dng_version >= 0x1010000))
         //            return -32768;
@@ -111,7 +111,7 @@ public class PEFRasterReader extends RasterReader
                   }
 
                 i += pixelStride;
-                assert (hPredictor[x & 1] >>> 12) == 0;
+                assert (hPredictor[x & 1] >>> 12) == 0; // TODO: 12 -> bitsPerSample
               }
           }
       }
