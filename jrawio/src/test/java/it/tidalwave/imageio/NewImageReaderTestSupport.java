@@ -38,7 +38,6 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.util.Logger;
-import it.tidalwave.imageio.MyParameterized;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Rule;
