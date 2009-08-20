@@ -98,6 +98,7 @@ public class DNGImageReader extends TIFFImageReaderSupport
       throws IOException
       {
         String make = ((IFD)primaryDirectory).getMake();
+        logger.fine("processMakerNote() - make: %s", make);
 
         if (make != null)
           {
