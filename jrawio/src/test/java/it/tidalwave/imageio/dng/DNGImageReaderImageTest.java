@@ -29,11 +29,9 @@ package it.tidalwave.imageio.dng;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
-import javax.imageio.ImageReader;
 import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
 import org.junit.runners.Parameterized.Parameters;
-import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
  *
@@ -67,7 +65,7 @@ public class DNGImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(1024, 683).
                             issues("JRW-145"),
             // Leica M8
-            ExpectedResults.create("https://www.rawsamples.ch/raws/leica/m8/RAW_LEICA_M8.DNG").
+            ExpectedResults.create("http://www.rawsamples.ch/raws/leica/m8/RAW_LEICA_M8.DNG").
                             image(3920, 2638, 3, 16, "c3979e415a748b33f034b6cd82a82382").
                             thumbnail(320, 240).
                             issues("JRW-230")
