@@ -33,8 +33,8 @@ import java.awt.image.DataBufferUShort;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.Packed12RasterReader;
 import it.tidalwave.imageio.raw.RAWImageReaderSupport;
+import it.tidalwave.imageio.raw.RasterReader;
 import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
@@ -45,7 +45,7 @@ import it.tidalwave.imageio.util.Logger;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class E300RasterReader extends Packed12RasterReader
+public class E300RasterReader extends RasterReader
   {
     private final static String CLASS = E300RasterReader.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
@@ -55,8 +55,7 @@ public class E300RasterReader extends Packed12RasterReader
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    // TODO: drop this method (and fix endOfColumn()). While the implementation of Packed12RasterReader mostly works,
-    // it seems there are errors due to the sign bit.
+    // This is different than Packed12RasterReader for the ordering of nibbles; TODO: perhaps can be merged?
     @Override
     protected void loadUncompressedRaster (@Nonnull final RAWImageInputStream iis,
                                            @Nonnull final WritableRaster raster,
@@ -109,7 +108,6 @@ public class E300RasterReader extends Packed12RasterReader
               }
 
             ir.processImageProgress((100.0f * y) / height);
-            endOfRow(y, iis);
           }
       }
 
@@ -118,7 +116,6 @@ public class E300RasterReader extends Packed12RasterReader
      * {@inheritDoc}
      * 
      ******************************************************************************************************************/
-    @Override
     protected void endOfColumn (final @Nonnegative int x, final @Nonnull RAWImageInputStream iis)
       throws IOException
       {
