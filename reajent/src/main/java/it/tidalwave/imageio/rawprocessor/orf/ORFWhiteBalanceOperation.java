@@ -52,18 +52,28 @@ public class ORFWhiteBalanceOperation extends OperationSupport
      ******************************************************************************************************************/
     public void process (@Nonnull final PipelineArtifact artifact)
       {
-        logger.fine("process()");
-        final OlympusMakerNote orfMakernote = (OlympusMakerNote)artifact.getRAWMetadata().getMakerNote();
+        logger.fine("process(%s)", artifact);
+        final OlympusMakerNote makerNote = (OlympusMakerNote)artifact.getRAWMetadata().getMakerNote();
         
-        if (orfMakernote != null)
+        if (makerNote != null)
           {
-            final ImageProcessing imageProcessing = orfMakernote.getOlympusImageProcessing();
-            
-            if ((imageProcessing != null) && imageProcessing.isRBCoefficientsAvailable())
+            if (makerNote.isRedBalanceAvailable() && makerNote.isBlueBalanceAvailable())
               {
-                final int[] rbCoefficients = imageProcessing.getRBCoefficients();
-                artifact.multiplyRedCoefficient(rbCoefficients[0] / 256.0);
-                artifact.multiplyBlueCoefficient(rbCoefficients[1] / 256.0);
+                logger.finest(">>>> RB from makerNote.{red,blue}Balance");
+                artifact.multiplyRedCoefficient(makerNote.getRedBalance()[0] / 256.0);
+                artifact.multiplyBlueCoefficient(makerNote.getBlueBalance()[0] / 256.0);
+              }
+            else if (makerNote.isImageProcessingAvailable())
+              {
+                logger.finest(">>>> RB from makerNote.imageProcessing");
+                final ImageProcessing imageProcessing = makerNote.getOlympusImageProcessing();
+
+                if ((imageProcessing != null) && imageProcessing.isRBCoefficientsAvailable())
+                  {
+                    final int[] rbCoefficients = imageProcessing.getRBCoefficients();
+                    artifact.multiplyRedCoefficient(rbCoefficients[0] / 256.0);
+                    artifact.multiplyBlueCoefficient(rbCoefficients[1] / 256.0);
+                  }
               }
           }
       }    
