@@ -62,7 +62,6 @@ public class ORFColorConversionOperation extends ColorConversionOperation
         return getMatrix(values, 1.0/10000.0);
       }
 
-
     /*******************************************************************************************************************
      *
      * {@inheritDoc}
