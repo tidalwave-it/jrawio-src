@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ORFRasterReader.java 122 2008-08-25 00:15:14Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -37,7 +37,7 @@ import it.tidalwave.imageio.raw.RasterReader;
  * This class implements the ORF (Olympus raw Format) raster loading.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: ORFRasterReader.java 122 2008-08-25 00:15:14Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ORFRasterReader extends RasterReader
@@ -45,9 +45,9 @@ public class ORFRasterReader extends RasterReader
     private static final CSeriesRasterReader C_SERIES_RASTER_READER = new CSeriesRasterReader();
     private static final E300RasterReader E300_RASTER_READER = new E300RasterReader();
     private static final E410RasterReader E410_RASTER_READER = new E410RasterReader();
+    private static final SPRasterReader SP_RASTER_READER = new SPRasterReader();
     
-    private static final Map<String, ORFRasterReader> rasterReaderMapByModel =
-            new HashMap<String, ORFRasterReader>();
+    private static final Map<String, ORFRasterReader> rasterReaderMapByModel = new HashMap<String, ORFRasterReader>();
     
     static
       {
@@ -55,6 +55,10 @@ public class ORFRasterReader extends RasterReader
         rasterReaderMapByModel.put("E-410", E410_RASTER_READER);
         rasterReaderMapByModel.put("E-500", E300_RASTER_READER);
         rasterReaderMapByModel.put("E-510", E410_RASTER_READER);
+
+        rasterReaderMapByModel.put("C5050Z",  SP_RASTER_READER);
+        rasterReaderMapByModel.put("SP350",   SP_RASTER_READER);
+        rasterReaderMapByModel.put("SP500UZ", SP_RASTER_READER);
       }
     
     /*******************************************************************************************************************

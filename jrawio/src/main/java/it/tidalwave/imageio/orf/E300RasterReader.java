@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: E300RasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -33,17 +33,22 @@ import java.awt.image.DataBufferUShort;
 import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RAWImageReaderSupport;
+import it.tidalwave.imageio.util.Logger;
+import javax.annotation.Nonnegative;
 
 /***********************************************************************************************************************
  *
  * This class implements the ORF (Olympus raw Format) raster loading for E-300.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: E300RasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class E300RasterReader extends ORFRasterReader
   {
+    private final static String CLASS = E300RasterReader.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+    
     /*******************************************************************************************************************
      * 
      * {@inheritDoc}
@@ -55,7 +60,7 @@ public class E300RasterReader extends ORFRasterReader
                                            @Nonnull final RAWImageReaderSupport ir) 
       throws IOException
       {
-//        logger.fine("loadUncompressedRaster()");
+        logger.fine("loadUncompressedRaster(%s, %s, %s)", iis, raster, ir);
 //        logger.finer(">>>> CFA pattern: " + cfaOffsets[0] + " " + cfaOffsets[1] + " " + cfaOffsets[2] + " " + cfaOffsets[3]);
 
         final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
@@ -67,8 +72,7 @@ public class E300RasterReader extends ORFRasterReader
         setBitsPerSample(12);
         selectBitReader(iis, raster, -1);
         //
-        // We can rely on the fact that the array has been zeroed by the JVM,
-        // so we just set nonzero samples.
+        // We can rely on the fact that the array has been zeroed by the JVM,  so we just set nonzero samples.
         //
         for (int y = 0; y < height; y++)
           {
@@ -93,19 +97,53 @@ public class E300RasterReader extends ORFRasterReader
 
                 int j = x % 2;
                 data[i + cfaOffsets[j + k]] = (short)sample1;
+                endOfColumn(x, iis);
                 x++;
                 i += pixelStride;
                 j = x % 2;
                 data[i + cfaOffsets[j + k]] = (short)sample2;
+                endOfColumn(x, iis);
                 i += pixelStride;
-                
-                if (((x + 1) % 10) == 0)
-                  {
-                    iis.readByte();  
-                  }
               }
 
             ir.processImageProgress((100.0f * y) / height);
+            endOfRow(y, iis);
           }
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    protected void endOfColumn (final @Nonnegative int x,
+                                final @Nonnull RAWImageInputStream iis)
+      throws IOException
+      {
+        if (((x + 1) % 10) == 0)
+          {
+            iis.readByte();
+          }
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    protected void endOfRow (final @Nonnegative int y,
+                             final @Nonnull RAWImageInputStream iis)
+      throws IOException
+      {
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    @Nonnull
+    public String toString()
+      {
+        return "E300RasterReader";
       }
   }
