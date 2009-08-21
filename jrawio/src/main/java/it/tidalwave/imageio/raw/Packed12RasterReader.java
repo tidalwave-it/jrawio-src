@@ -66,7 +66,7 @@ public class Packed12RasterReader extends RasterReader
         final int pixelStride = 3; // FIXME
         final int scanStride = width * pixelStride;
         setBitsPerSample(12);
-        selectBitReader(iis, raster, -1);
+        selectBitReader(iis, raster, 12);
         //
         // We can rely on the fact that the array has been zeroed by the JVM,  so we just set nonzero samples.
         //
@@ -78,28 +78,42 @@ public class Packed12RasterReader extends RasterReader
 
             for (int x = 0; x < width; x++)
               {
-                final int b0 = iis.readByte() & 0xff;
-                final int b1 = iis.readByte() & 0xff;
-                final int b2 = iis.readByte() & 0xff;
-                
-                int sample1 = ((b1 << 8) | b0) & 0xfff;
-                int sample2 = ((b2 << 4) | (b1 >>> 4)) & 0xfff;
-                
+                int sample = (int)iis.readBits(12);
+
                 if (linearizationTable != null)
                   {
-                    sample1 = linearizationTable[sample1];
-                    sample2 = linearizationTable[sample2];
+                    sample = linearizationTable[sample];
                   }
 
-                int j = x % 2;
-                data[i + cfaOffsets[j + k]] = (short)sample1;
-                endOfColumn(x, iis);
-                x++;
-                i += pixelStride;
-                j = x % 2;
-                data[i + cfaOffsets[j + k]] = (short)sample2;
+                final int j = x % 2;
+                data[i + cfaOffsets[j + k]] = (short)sample;
                 endOfColumn(x, iis);
                 i += pixelStride;
+
+                // TODO: before dropping this, test whether it's faster.
+                // Consider that produces slightly different (wrong) results, I suspect for signedness
+//                final int b0 = iis.readByte() & 0xff;
+//                final int b1 = iis.readByte() & 0xff;
+//                final int b2 = iis.readByte() & 0xff;
+//
+//                int sample1 = ((b1 << 8) | b0) & 0xfff;
+//                int sample2 = ((b2 << 4) | (b1 >>> 4)) & 0xfff;
+//
+//                if (linearizationTable != null)
+//                  {
+//                    sample1 = linearizationTable[sample1];
+//                    sample2 = linearizationTable[sample2];
+//                  }
+//
+//                int j = x % 2;
+//                data[i + cfaOffsets[j + k]] = (short)sample1;
+//                endOfColumn(x, iis);
+//                i += pixelStride;
+//                x++;
+//                j = x % 2;
+//                data[i + cfaOffsets[j + k]] = (short)sample2;
+//                endOfColumn(x, iis);
+//                i += pixelStride;
               }
 
             ir.processImageProgress((100.0f * y) / height);
