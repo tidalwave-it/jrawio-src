@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: ORFImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -40,7 +40,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: ORFImageReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class ORFImageReader extends TIFFImageReaderSupport
@@ -69,7 +69,7 @@ public class ORFImageReader extends TIFFImageReaderSupport
 
         final long time = System.currentTimeMillis();
         final String model = ((IFD)primaryDirectory).getModel();
-        final ORFRasterReader rasterReader = ORFRasterReader.getInstance(model);
+        final RasterReader rasterReader = ORFRasterReader.getInstance(model);
         initializeRasterReader(rasterReader);
 
         logger.finest(">>>> using rasterReader: %s", rasterReader);

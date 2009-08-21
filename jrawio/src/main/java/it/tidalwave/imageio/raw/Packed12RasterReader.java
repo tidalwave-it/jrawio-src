@@ -25,33 +25,26 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.orf;
+package it.tidalwave.imageio.raw;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.awt.image.WritableRaster;
 import java.io.IOException;
+import java.awt.image.DataBufferUShort;
+import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.RAWImageReaderSupport;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
- * This class implements the ORF (Olympus raw Format) raster loading for C-series.
- * 
  * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class CSeriesRasterReader extends ORFRasterReader
+public class Packed12RasterReader extends RasterReader
   {
-    private final static int BITS_PER_PIXEL = 8;
-    
-    private final static int BITS_COUNT = 11;
-    
-    private final static int MASK = (1 << (BITS_COUNT + 1)) - 1;
-    
-    /** Size of a row in bytes. */
-    private int rowByteCount;
+    private final static String CLASS = Packed12RasterReader.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
     
     /*******************************************************************************************************************
      * 
@@ -64,43 +57,74 @@ public class CSeriesRasterReader extends ORFRasterReader
                                            @Nonnull final RAWImageReaderSupport ir) 
       throws IOException
       {
-        rowByteCount = (raster.getWidth() * bitsPerSample) / 8;
-        super.loadUncompressedRaster(iis, raster, ir);  
-      }
-    
-    /*******************************************************************************************************************
-     * 
-     * {@inheritDoc}
-     * 
-     * C-series rasters are interlaced.
-     * 
-     ******************************************************************************************************************/
-    @Override
-    protected int getRow (@Nonnegative final int y, 
-                          @Nonnegative final int height)
-      {
-        return (y <= (height / 2)) ? (y * 2) : ((y - height / 2) * 2 - 1);
-      }
-    
-    /*******************************************************************************************************************
-     * 
-     * The second set of interlaced rows starts at an offset with the BITS_COUNT
-     * least significant bits to zero. Pad appropriately.
-     * 
-     ******************************************************************************************************************/
-    @Override
-    @Nonnegative
-    protected int getSkipCountAtEndOfRow (@Nonnegative final int y,
-                                          @Nonnegative final int height)
-      {
-        if (y != (height / 2))
+        logger.fine("loadUncompressedRaster(%s, %s, %s)", iis, raster, ir);
+
+        final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
+        final short[] data = dataBuffer.getData();
+        final int width = raster.getWidth();
+        final int height = raster.getHeight();
+        final int pixelStride = 3; // FIXME
+        final int scanStride = width * pixelStride;
+        setBitsPerSample(12);
+        selectBitReader(iis, raster, -1);
+        //
+        // We can rely on the fact that the array has been zeroed by the JVM,  so we just set nonzero samples.
+        //
+        for (int y = 0; y < height; y++)
           {
-            return 0;  
+            final int row = getRow(y, height);
+            final int k = (row % 2) * 2;
+            int i = row * scanStride;
+
+            for (int x = 0; x < width; x++)
+              {
+                final int b0 = iis.readByte() & 0xff;
+                final int b1 = iis.readByte() & 0xff;
+                final int b2 = iis.readByte() & 0xff;
+                
+                int sample1 = ((b1 << 8) | b0) & 0xfff;
+                int sample2 = ((b2 << 4) | (b1 >>> 4)) & 0xfff;
+                
+                if (linearizationTable != null)
+                  {
+                    sample1 = linearizationTable[sample1];
+                    sample2 = linearizationTable[sample2];
+                  }
+
+                int j = x % 2;
+                data[i + cfaOffsets[j + k]] = (short)sample1;
+                endOfColumn(x, iis);
+                x++;
+                i += pixelStride;
+                j = x % 2;
+                data[i + cfaOffsets[j + k]] = (short)sample2;
+                endOfColumn(x, iis);
+                i += pixelStride;
+              }
+
+            ir.processImageProgress((100.0f * y) / height);
+            endOfRow(y, iis);
           }
-        
-        final int delta = MASK + 1 - (((y + 1) * rowByteCount) & MASK);
-        
-        return delta * BITS_PER_PIXEL;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    protected void endOfColumn (final @Nonnegative int x,
+                                final @Nonnull RAWImageInputStream iis)
+      throws IOException
+      {
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    protected void endOfRow (final @Nonnegative int y,
+                             final @Nonnull RAWImageInputStream iis)
+      throws IOException
+      {
       }
 
     /*******************************************************************************************************************
@@ -112,6 +136,6 @@ public class CSeriesRasterReader extends ORFRasterReader
     @Nonnull
     public String toString()
       {
-        return String.format("CSeriesRasterReader@%x", System.identityHashCode(this));
+        return String.format("Packed12RasterReader@%x", System.identityHashCode(this));
       }
   }

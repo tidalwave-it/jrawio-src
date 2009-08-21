@@ -184,6 +184,6 @@ public class E410RasterReader extends ORFRasterReader
     @Nonnull
     public String toString()
       {
-        return "E410RasterReader";
+        return String.format("E410RasterReader@%x", System.identityHashCode(this));
       }
   }

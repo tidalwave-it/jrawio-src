@@ -47,7 +47,7 @@ public class ORFRasterReader extends RasterReader
     private static final E410RasterReader E410_RASTER_READER = new E410RasterReader();
     private static final SPRasterReader SP_RASTER_READER = new SPRasterReader();
     
-    private static final Map<String, ORFRasterReader> rasterReaderMapByModel = new HashMap<String, ORFRasterReader>();
+    private static final Map<String, RasterReader> rasterReaderMapByModel = new HashMap<String, RasterReader>();
     
     static
       {
@@ -70,10 +70,10 @@ public class ORFRasterReader extends RasterReader
      * 
      ******************************************************************************************************************/
     @Nonnull
-    public static ORFRasterReader getInstance (@Nonnull String model)
+    public static RasterReader getInstance (@Nonnull String model)
       {
         model = model.toUpperCase().trim();
-        final ORFRasterReader rasterReader = rasterReaderMapByModel.get(model);
+        final RasterReader rasterReader = rasterReaderMapByModel.get(model);
         
         if (rasterReader != null)
           {
@@ -97,6 +97,6 @@ public class ORFRasterReader extends RasterReader
     @Nonnull
     public String toString()
       {
-        return "ORFRasterReader";  
+        return String.format("ORFRasterReader@%x", System.identityHashCode(this));
       }
   }

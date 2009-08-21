@@ -32,6 +32,7 @@ import javax.annotation.Nonnull;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
 import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.raw.Packed12RasterReader;
 import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 import it.tidalwave.imageio.util.Logger;
 
@@ -43,7 +44,7 @@ import it.tidalwave.imageio.util.Logger;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class SPRasterReader extends E300RasterReader
+public class SPRasterReader extends Packed12RasterReader
   {
     private final static String CLASS = SPRasterReader.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
@@ -61,23 +62,15 @@ public class SPRasterReader extends E300RasterReader
         super.loadUncompressedRaster(iis, raster, ir);
       }
 
-    @Override
-    protected void endOfColumn (final @Nonnegative int x,
-                                final @Nonnull RAWImageInputStream iis)
-      throws IOException
-      {
-      }
-
     @Nonnegative
     @Override
     protected int getRow (final @Nonnegative int interlacedRow, final @Nonnegative int height)
       {
-        return (interlacedRow <= height / 2) ? (interlacedRow * 2) : (interlacedRow - 1 - height / 2) * 2 + 1;
+        return interlacedRow * 2 - ((interlacedRow <= height / 2) ? 0 : (height / 2) * 2 + 1);
       }
 
     @Override
-    protected void endOfRow (final @Nonnegative int y,
-                             final @Nonnull RAWImageInputStream iis)
+    protected void endOfRow (final @Nonnegative int y, final @Nonnull RAWImageInputStream iis)
       throws IOException
       {
         if (y == height / 2)
@@ -92,6 +85,6 @@ public class SPRasterReader extends E300RasterReader
     @Nonnull
     public String toString()
       {
-        return "XXXRasterReader";
+        return String.format("SPRasterReader@%x", System.identityHashCode(this));
       }
   }
