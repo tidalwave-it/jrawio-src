@@ -75,7 +75,7 @@ public class ORFImageReaderImageTest extends NewImageReaderTestSupport
                             issues("JRW-231"),
             // Olympus E3
             ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/e3/RAW_OLYMPUS_E3.ORF").
-                            image(3720, 2800, 3, 16, "025a705534ae469edecc5cc9395413f9").
+                            image(3720, 2800, 3, 16, "efd24368591ebdf2455ab7033d67ba6e").
                             thumbnail(1600, 1200).
                             issues("JRW-231", "JRW-236"),
             // Olympus E300
