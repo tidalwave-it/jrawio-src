@@ -11,7 +11,7 @@
     <groupId>it.tidalwave.imageio</groupId>
     <artifactId>jrawio-all</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.4-SNAPSHOT</version>
+    <version>1.5.4</version>
     <name>jrawio-all</name>
 
     <url>http://jrawio.tidalwave.it</url>
