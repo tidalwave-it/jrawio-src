@@ -1,0 +1,92 @@
+/***********************************************************************************************************************
+ *
+ * jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+ * ===============================================================
+ *
+ * Copyright (C) 2003-2009 by Tidalwave s.a.s. (http://www.tidalwave.it)
+ * http://jrawio.tidalwave.it
+ *
+ ***********************************************************************************************************************
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); 
+ * you may not use this file except in compliance with the License. 
+ * You may obtain a copy of the License at 
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0 
+ * 
+ * Unless required by applicable law or agreed to in writing, software 
+ * distributed under the License is distributed on an "AS IS" BASIS, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+ * See the License for the specific language governing permissions and 
+ * limitations under the License. 
+ *
+ ***********************************************************************************************************************
+ *
+ * $Id$
+ *
+ **********************************************************************************************************************/
+package it.tidalwave.imageio.rawprocessor.mrw;
+
+import javax.annotation.Nonnull;
+import java.util.Collection;
+import it.tidalwave.imageio.ExpectedResults;
+import it.tidalwave.imageio.NewImageReaderTestSupport;
+import org.junit.runners.Parameterized.Parameters;
+
+/***********************************************************************************************************************
+ *
+ * @author  Fabrizio Giudici
+ * @version $Id$
+ *
+ **********************************************************************************************************************/
+public class MRWProcessorTest  extends NewImageReaderTestSupport
+  {
+    public MRWProcessorTest (final @Nonnull ExpectedResults expectedResults)
+      {
+        super(expectedResults);
+      }
+
+    @Nonnull
+    @Parameters
+    public static Collection<Object[]> expectedResults()
+      {
+        return fixed
+          (
+            // Dynax 5D
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/5d/RAW_MINOLTA_5D.MRW").
+                            image(3008, 2000, 3, 8, "17140ec9ceaad36963728c6599f180bd").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
+            // Dynax 7D
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/7d/RAW_MINOLTA_7D_SRGB.MRW").
+                            image(3008, 2000, 3, 8, "da688ad8abe48bb9afa9c61d7514b0a9").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
+            // Dynax 7HI
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/7hi/RAW_MINOLTA_DIMAGE_7HI.MRW").
+                            image(2560, 1920, 3, 8, "cbe688cb3c7d7cac88e09866e7bad8a3").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
+            // Dynax 7I
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/7i/RAW_MINOLTA_DIMAGE_7I.MRW").
+                            image(2560, 1920, 3, 8, "ff887620cbda15d9bb9fc517731f3e44").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
+            // A1
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/a1/RAW_MINOLTA_A1.MRW").
+                            image(2560, 1920, 3, 8, "9762c2585d3b2b73cb1cc54da33f8b44").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
+            // A2
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/a2/RAW_MINOLTA_A2.MRW").
+                            image(3264, 2448, 3, 8, "3103a7a3c1eccf06efec39d9a6e12792").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
+            // Dynax 7D
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/theoheinze/Minolta/Dynax7D/MRW/PICT0652.MRW").
+                            image(3008, 2000, 3, 8, "0c011c16b6e2b511417dc484377ca239").
+                            thumbnail(640, 480).
+                            issues("JRW-152", "JRW-209")
+          );
+      }
+  }
