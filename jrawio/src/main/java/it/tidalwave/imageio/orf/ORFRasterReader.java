@@ -55,10 +55,14 @@ public class ORFRasterReader extends RasterReader
     
     static
       {
+        // FIXME: instead of this table, try to find a rule from metadata
         RASTER_READER_MAP_BY_MODEL.put("E-300",   E300_RASTER_READER);
+        RASTER_READER_MAP_BY_MODEL.put("E-330",   E300_RASTER_READER);
         RASTER_READER_MAP_BY_MODEL.put("E-410",   E410_RASTER_READER);
+        RASTER_READER_MAP_BY_MODEL.put("E-420",   E410_RASTER_READER);
         RASTER_READER_MAP_BY_MODEL.put("E-500",   E300_RASTER_READER);
         RASTER_READER_MAP_BY_MODEL.put("E-510",   E410_RASTER_READER);
+        RASTER_READER_MAP_BY_MODEL.put("E-620",   E410_RASTER_READER);
         RASTER_READER_MAP_BY_MODEL.put("C5050Z",  SP_RASTER_READER);
         RASTER_READER_MAP_BY_MODEL.put("SP350",   SP_RASTER_READER);
         RASTER_READER_MAP_BY_MODEL.put("SP500UZ", SP_RASTER_READER);
