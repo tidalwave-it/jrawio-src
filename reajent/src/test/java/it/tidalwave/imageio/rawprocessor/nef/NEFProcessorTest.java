@@ -84,6 +84,12 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(3008, 2000).
                             issues("JRW-215"),
+            // D40x
+            ExpectedResults.create("http://raw.fotosite.pl/download-Nikon_D40X_Nikkor_18-135_f3.5-5.6_AFS/DSC_0001.NEF").
+                            image(3872, 2592, 3, 8, "0c1eacfa819622783264372248618df3").
+                            thumbnail(160, 120).
+                            thumbnail(3872, 2592).
+                            issues("JRW-256"),
             // D50 v1.0.0
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/nikon/D50/1.00/DSC_0015.NEF").
                             image(3008, 2000, 3, 8, "5b785ffd3a34430c58e56ea5b204d7d3").
