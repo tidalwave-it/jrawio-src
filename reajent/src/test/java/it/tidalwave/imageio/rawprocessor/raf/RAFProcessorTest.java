@@ -57,8 +57,14 @@ public class RAFProcessorTest extends NewImageReaderTestSupport
                             image(2848, 2136, 3, 8, "230d59e11a1e459b444d40a77f196244").
                             thumbnail(160, 120).
                             thumbnail(1600, 1200).
-                            issues("JRW-127", "JRW-212", "JRW-213")
-          );
+                            issues("JRW-127", "JRW-212", "JRW-213"),
+            // S9500
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/peterbecker/Fujifilm/FinePixS9500/RAF/DSCF3756.RAF").
+                            image(2848, 2136, 3, 8, "963d1ed769b35a91e1325f62a3b423c7").
+                            thumbnail(160, 120).
+                            thumbnail(1600, 1200).
+                            issues("JRW-252")
+           );
       }
   }
 

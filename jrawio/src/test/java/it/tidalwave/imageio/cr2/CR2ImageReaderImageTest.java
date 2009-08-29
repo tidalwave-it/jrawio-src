@@ -100,6 +100,13 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(384, 256).
                             issues("JRW-233"),
+            // EOS 5D mkII
+            ExpectedResults.create("http://raw.fotosite.pl/download-Canon_5DMk2_Canon_EF_24-70L_ISO_50-25600_a._stopa/IMG_0001.CR2").
+                            image(5792, 3804, 3, 16, "7550d708623fb2d3cb8a150b09683bd9").
+                            thumbnail(5616, 3744).
+                            thumbnail(160, 120).
+                            thumbnail(362, 234).
+                            issues("JRW-253"),
             // EOS 50D
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/50d/RAW_CANON_50D.CR2").
                             image(4832, 3228, 3, 16, "982c9c5bbf8384ea5200aab51f92e8cf").
@@ -186,7 +193,20 @@ public class CR2ImageReaderImageTest extends NewImageReaderTestSupport
                             metadata("metadata.canonMakerNote.sensorInfo.cropLeft", 52).
                             metadata("metadata.canonMakerNote.sensorInfo.cropRight", 3507).
                             metadata("metadata.canonMakerNote.sensorInfo.cropTop", 19).
-                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2322)
+                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2322),
+            // EOS 1000D
+            ExpectedResults.create("http://raw.fotosite.pl/download-Canon_1000D_Canon_EF50_f1.8_by_Darren_Sim/IMG_0086.CR2").
+                            image(3948, 2622, 3, 16, "42973595ef88a440db287ca72c984fcb").
+                            thumbnail(1936, 1288).
+                            thumbnail(160, 120).
+                            thumbnail(486, 324).
+                            issues("JRW-253").
+                            metadata("metadata.canonMakerNote.sensorInfo.width", 3948).
+                            metadata("metadata.canonMakerNote.sensorInfo.height", 2622).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropLeft", 52).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropRight", 3939).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropTop", 23).
+                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2614)
           );
       }
   }

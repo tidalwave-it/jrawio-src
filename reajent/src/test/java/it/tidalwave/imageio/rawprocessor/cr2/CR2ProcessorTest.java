@@ -94,6 +94,13 @@ public class CR2ProcessorTest extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(384, 256).
                             issues("JRW-233", "JRW-239", "JRW-248"),
+            // EOS 5D mkII
+            ExpectedResults.create("http://raw.fotosite.pl/download-Canon_5DMk2_Canon_EF_24-70L_ISO_50-25600_a._stopa/IMG_0001.CR2").
+                            image(5616, 3744, 3, 8, "38499c0891c12fa9238272d5773224d5").
+                            thumbnail(5616, 3744).
+                            thumbnail(160, 120).
+                            thumbnail(362, 234).
+                            issues("JRW-253"),
             // EOS 50D
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/50d/RAW_CANON_50D.CR2").
                             image(4752, 3168, 3, 8, "7e56badc2a14e995db9c5c0b11d40e4c").
@@ -155,7 +162,14 @@ public class CR2ProcessorTest extends NewImageReaderTestSupport
                             metadata("metadata.canonMakerNote.sensorInfo.cropLeft", 52).
                             metadata("metadata.canonMakerNote.sensorInfo.cropRight", 3507).
                             metadata("metadata.canonMakerNote.sensorInfo.cropTop", 19).
-                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2322)
+                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2322),
+            // EOS 1000D
+            ExpectedResults.create("http://raw.fotosite.pl/download-Canon_1000D_Canon_EF50_f1.8_by_Darren_Sim/IMG_0086.CR2").
+                            image(3888, 2592, 3, 8, "4af6c11afeb3b9945e682fcb41974939").
+                            thumbnail(1936, 1288).
+                            thumbnail(160, 120).
+                            thumbnail(486, 324).
+                            issues("JRW-253")
           );
       }
   }

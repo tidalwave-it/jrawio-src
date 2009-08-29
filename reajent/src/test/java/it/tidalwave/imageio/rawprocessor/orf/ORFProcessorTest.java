@@ -91,17 +91,39 @@ public class ORFProcessorTest extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(1600, 1200).
                             issues("JRW-231", "JRW-249"),
+            // Olympus E330
+            ExpectedResults.create("http://raw.fotosite.pl/download-Olympus_E-330_Sigma_135-400_f4.5-5.6/400mm_f5.6.ORF").
+                            image(3136, 2352, 3, 8, "93ee52ed3aa4fe4b6b50d63c7554eaee").
+                            thumbnail(160, 120).
+                            thumbnail(1600, 1200).
+                            issues("JRW-254"),
+            // Olympus E400
+            ExpectedResults.create("http://raw.fotosite.pl/download-Olympus_E-400/PA288576.ORF").
+                            image(3648, 2736, 3, 8, "773890bf915157588cd042d64865cae3").
+                            thumbnail(160, 120).
+                            thumbnail(1600, 1200).
+                            issues("JRW-255"),
             // Olympus E410
             ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/e410/RAW_OLYMPUS_E410.ORF").
                             image(3648, 2736, 3, 8, "741ee76169d4ac572bc8be70ab2ebbf5").
                             thumbnail(1600, 1200).
                             issues("JRW-231", "JRW-249"),
+            // Olympus E420
+            ExpectedResults.create("http://raw.fotosite.pl/download-Olympus_E-420_Zuiko_25_f2.8_Pancake_by_Jack/P4040036.ORF").
+                            image(3648, 2736, 3, 8, "0ab4041cbea54c209a7c35e29101e52a").
+                            thumbnail(1600, 1200).
+                            issues("JRW-254"),
             // Olympus E500
             ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/e500/RAW_OLYMPUS_E500.ORF").
                             image(3264, 2448, 3, 8, "c617af4d2d20b73aac779344232f8f5a").
                             thumbnail(160, 120).
                             thumbnail(1600, 1200).
                             issues("JRW-231"),
+            // Olympus E620
+            ExpectedResults.create("http://raw.fotosite.pl/download-Olympus_E-620_ZD14-42_3.5-5.6_LouHolland/P4244924.ORF").
+                            image(4032, 3024, 3, 8, "84c8f14a36c24c02d9bb2736aebda2f9").
+                            thumbnail(3200, 2400).
+                            issues("JRW-254"),
             // Olympus SP350
             ExpectedResults.create("http://www.rawsamples.ch/raws/olympus/sp350/RAW_OLYMPUS_SP350.ORF").
                             image(3264, 2448, 3, 8, "d954d7c4215328e11e2520c77fc14e1b").
