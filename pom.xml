@@ -146,7 +146,7 @@
             <id>default</id>
             <properties>
                 <buildNumber>unknown</buildNumber>
-                <maven.test.skip.exec>true</maven.test.skip.exec>
+                <!-- maven.test.skip.exec>true</maven.test.skip.exec -->
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
