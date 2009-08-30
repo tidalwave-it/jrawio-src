@@ -27,7 +27,6 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio;
 
-import java.util.logging.Level;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Iterator;
@@ -216,6 +215,7 @@ public class ImageReaderTestSupport extends TestSupport
                 // With Hudson, this could be executed by multiple processes at a time - processes, not threads, so
                 // we can't use Java thread-based synchronization.
                 final File lockFile = new File(file.getPath() + ".lck");
+                lockFile.getParentFile().mkdirs();
                 boolean alreadyLocked = !lockFile.createNewFile();
 
                 if (lockFile.lastModified() - System.currentTimeMillis() > 10 * 60 * 1000)
