@@ -8,17 +8,17 @@
  *
  ***********************************************************************************************************************
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License. 
- * You may obtain a copy of the License at 
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0 
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
- * limitations under the License. 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  ***********************************************************************************************************************
  *
@@ -64,12 +64,12 @@ public class SonyMakerNote extends IFDSupport
     private final static int MAKER_NOTE_BYTE_COUNT = SECOND_ENCRYPTED_BLOCK_BYTE_COUNT + SECOND_ENCRYPTED_BLOCK_OFFSET;
 
     /*******************************************************************************************************************
-     * 
+     *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
     @Override
-    public void loadAll (final @Nonnull RAWImageInputStream iis, 
+    public void loadAll (final @Nonnull RAWImageInputStream iis,
                          final @Nonnegative long offset)
       throws IOException
       {
@@ -103,6 +103,11 @@ public class SonyMakerNote extends IFDSupport
         // SRF1 lays entirely in the first block, so it can be read now.
         // And it *must* be read now, since it contains the key for finishing the decryption.
         //
+        if (nextOffset == 0)
+          {
+            return;
+          }
+
         ByteBuffer bb = ByteBuffer.wrap(buffer);
         bb.order(ByteOrder.BIG_ENDIAN);
         ((SRFImageInputStream)iis).startEncryptedSection(nextOffset, bb);
@@ -228,20 +233,20 @@ public class SonyMakerNote extends IFDSupport
         TagRational ONE = new TagRational(1, 1);
         return new TagRational[] { ONE, ONE };
       }
-    
+
     /*******************************************************************************************************************
-     * 
+     *
      * Retrieves the makerNote decryption key.
-     * 
+     *
      * @param  iis          the image input stream
      * @return              the key
      * @throws IOException
-     * 
+     *
      ******************************************************************************************************************/
     private int getMakerNoteKey (final @Nonnull RAWImageInputStream iis)
       throws IOException
       {
-        iis.seek(MAKER_NOTE_KEY_OFFSET); 
+        iis.seek(MAKER_NOTE_KEY_OFFSET);
         final int skip = iis.readByte() & 0xff;
         // System.err.println("BBB is " + bbb);
         iis.skipBytes(skip * 4 - 1);
@@ -250,7 +255,7 @@ public class SonyMakerNote extends IFDSupport
         // System.err.println("Reading key at: " + iis.getStreamPosition());
         final int ifdKey = iis.readInt();
         iis.setByteOrder(byteOrderSave);
-        
+
         return ifdKey;
       }
   }

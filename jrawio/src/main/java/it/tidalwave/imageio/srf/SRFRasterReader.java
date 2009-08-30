@@ -22,11 +22,12 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: SRFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.srf;
 
+import javax.annotation.Nonnull;
 import java.awt.image.DataBufferUShort;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
@@ -40,21 +41,23 @@ import it.tidalwave.imageio.raw.RAWImageReaderSupport;
  * This class implements the SRF (Sony Raw Format) raster loading.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: SRFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class SRFRasterReader extends RasterReader
   {
     private int rasterKey;
+    private boolean encrypted = false;
 
     /*******************************************************************************************************************
      * 
      * @param rasterKey
      * 
-     *******************************************************************************/
-    public void setRasterKey (int rasterKey)
+     ******************************************************************************************************************/
+    public void setRasterKey (final int rasterKey)
       {
         this.rasterKey = rasterKey;
+        encrypted = true;
       }
 
     /*******************************************************************************************************************
@@ -62,7 +65,8 @@ public class SRFRasterReader extends RasterReader
      * @inheritDoc
      * 
      ******************************************************************************************************************/
-    protected boolean isCompressedRaster ()
+    @Override
+    protected boolean isCompressedRaster()
       {
         return false;
       }
@@ -72,9 +76,11 @@ public class SRFRasterReader extends RasterReader
      * @inheritDoc
      * 
      ******************************************************************************************************************/
-    protected void loadUncompressedRaster (RAWImageInputStream iis,
-                                           WritableRaster raster,
-                                           RAWImageReaderSupport ir) throws IOException
+    @Override
+    protected void loadUncompressedRaster (final @Nonnull RAWImageInputStream iis,
+                                           final @Nonnull WritableRaster raster,
+                                           final @Nonnull RAWImageReaderSupport ir)
+      throws IOException
       {
         DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
         //        int typeBits = DataBuffer.getDataTypeSize(dataBuffer.getDataType());
@@ -90,7 +96,10 @@ public class SRFRasterReader extends RasterReader
 
         for (int y = 0; y < height; y++)
           {
-            ((SRFImageInputStream)iis).startEncryptedSection(width * 2);
+            if (encrypted)
+              {
+                ((SRFImageInputStream)iis).startEncryptedSection(width * 2);
+              }
 
             for (int x = 0; x < width; x++)
               {
@@ -100,7 +109,11 @@ public class SRFRasterReader extends RasterReader
               }
 
             ir.processImageProgress((100.0f * y) / height);
-            ((SRFImageInputStream)iis).stopEncryptedSection();
+
+            if (encrypted)
+              {
+                ((SRFImageInputStream)iis).stopEncryptedSection();
+              }
           }
       }
   }

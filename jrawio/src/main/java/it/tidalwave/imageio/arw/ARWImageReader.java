@@ -27,7 +27,6 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.arw;
 
-import it.tidalwave.imageio.minolta.MinoltaRawData.PRD;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -38,6 +37,7 @@ import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 import it.tidalwave.imageio.raw.RasterReader;
 import it.tidalwave.imageio.util.Logger;
+import it.tidalwave.imageio.minolta.MinoltaRawData.PRD;
 
 /***********************************************************************************************************************
  *
@@ -52,19 +52,19 @@ class ARWPrimaryIFD extends IFD
     @Nonnegative
     public int getRasterOffset()
       {
-        return super.getSubIFDs()[0];
+        return isA100() ? super.getSubIFDs()[0] : super.getStripOffsets();
       }
     
     @Override
     public boolean isSubIFDsAvailable() 
       {
-        return false;
+        return isA100() ? false : super.isSubIFDsAvailable();
       }
     
     @Override
     public int[] getSubIFDs() 
       {
-        return new int[0];
+        return isA100() ? new int[0] : super.getSubIFDs();
 //        final int[] original = super.getSubIFDs(); FIXME
 //        final int bad = 0x10000;
 //        
@@ -90,6 +90,11 @@ class ARWPrimaryIFD extends IFD
 //          }
 //        
 //        return result;
+      }
+
+    private boolean isA100()
+      {
+        return "DSLR-A100".equals(getModel());
       }
   }
 
@@ -136,7 +141,7 @@ public class ARWImageReader extends TIFFImageReaderSupport
       {
         logger.fine("loadRAWRaster() - iis: %s", iis);
 
-        long time = System.currentTimeMillis();
+        final long time = System.currentTimeMillis();
         final ARWRasterReader rasterReader = new ARWRasterReader();
         initializeRasterReader(rasterReader);
 
