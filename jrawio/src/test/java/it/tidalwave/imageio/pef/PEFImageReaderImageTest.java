@@ -72,6 +72,13 @@ public class PEFImageReaderImageTest extends NewImageReaderTestSupport
                             thumbnail(3872, 2592).
                             thumbnail(640, 480).
                             issues("JRW-203", "JRW-240"),
+            // K100D
+            ExpectedResults.create("http://raw.fotosite.pl/download-Pentax_K100D_Pentax_DA_12-24f4/IMGP7119.PEF").
+                            image(3040, 2024, 3, 16, "4268e361a4d94bdd88c2d57bcc0366a1").
+                            thumbnail(160, 120).
+                            thumbnail(3008, 2000).
+                            thumbnail(640, 480).
+                            issues("JRW-259"),
             // K200D
             ExpectedResults.create("http://www.rawsamples.ch/raws/pentax/k200d/RAW_PENTAX_K200D.PEF").
                             image(3936, 2624, 3, 16, "2895ac93979706d029991443e898376d").
