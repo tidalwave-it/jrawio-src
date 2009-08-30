@@ -57,7 +57,37 @@ public class ARWProcessorTest extends NewImageReaderTestSupport
                             image(3872, 2592, 3, 8, "0fadabd72e76c535e39216d68a55d4b9").
                             thumbnail(640, 480).
                             thumbnail(160, 120).
-                            issues("JRW-127", "JRW-198", "JRW-209")
+                            issues("JRW-127", "JRW-198", "JRW-209"),
+            // A200
+            ExpectedResults.create("http://www.rawsamples.ch/raws/sony/a200/RAW_SONY_A200.ARW").
+                            image(3880, 2600, 3, 8, "90e70a15bb3bd63ea4dacb1ea9841653").
+                            thumbnail(1616, 1080).
+                            thumbnail(160, 120).
+                            issues("JRW-257", "JRW-258"),
+            // A300
+            ExpectedResults.create("http://www.rawsamples.ch/raws/sony/a300/RAW_SONY_A300.ARW").
+                            image(3880, 2600, 3, 8, "90e70a15bb3bd63ea4dacb1ea9841653").
+                            thumbnail(1616, 1080).
+                            thumbnail(160, 120).
+                            issues("JRW-257", "JRW-258"),
+            // A350
+            ExpectedResults.create("http://www.rawsamples.ch/raws/sony/a350/RAW_SONY_A350.ARW").
+                            image(4600, 3064, 3, 8, "90e70a15bb3bd63ea4dacb1ea9841653").
+                            thumbnail(1920, 1080).
+                            thumbnail(160, 120).
+                            issues("JRW-257", "JRW-258"),
+            // A700
+            ExpectedResults.create("http://raw.fotosite.pl/download-Sony_A700_35mm_f1.4G_aperture_test_Ninik/DSC01592.ARW").
+                            image(4288, 2856, 3, 8, "90e70a15bb3bd63ea4dacb1ea9841653").
+                            thumbnail(1616, 1080).
+                            thumbnail(160, 120).
+                            issues("JRW-257", "JRW-258"),
+            // A900
+            ExpectedResults.create("http://raw.fotosite.pl/download-Sony_A900_Carl_Zeiss_85mm_f1.4_by_Ninik/DSC08682.ARW").
+                            image(6080, 4048, 3, 8, "90e70a15bb3bd63ea4dacb1ea9841653").
+                            thumbnail(1616, 1080).
+                            thumbnail(160, 120).
+                            issues("JRW-257", "JRW-258")
           );
       }
   }
