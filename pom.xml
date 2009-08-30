@@ -153,6 +153,12 @@
             </activation>
         </profile>
         <profile>
+            <id>hudson</id>
+            <properties>
+                <buildNumber>unknown</buildNumber>
+            </properties>
+        </profile>
+        <profile>
             <id>fritz</id>
             <properties>
                 <buildNumber>unknown</buildNumber>
