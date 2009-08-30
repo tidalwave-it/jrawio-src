@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio;
 
+import java.util.logging.Level;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.util.Iterator;
@@ -212,9 +213,47 @@ public class ImageReaderTestSupport extends TestSupport
 
             if (!file.exists())
               {
-                file.getParentFile().mkdirs();
-                logger.info(">>>> downloading to %s...", file.getAbsolutePath());
-                FileUtils.copyURLToFile(new URL(path), file);
+                // With Hudson, this could be executed by multiple processes at a time - processes, not threads, so
+                // we can't use Java thread-based synchronization.
+                final File lockFile = new File(file.getPath() + ".lck");
+                boolean alreadyLocked = !lockFile.createNewFile();
+
+                if (lockFile.lastModified() - System.currentTimeMillis() > 10 * 60 * 1000)
+                  {
+                    logger.info(">>>> stale lock file %s", lockFile.getAbsolutePath());
+                    alreadyLocked = false;
+                    // FIXME: unfortunately, both processes would do the same
+                  }
+
+                if (!alreadyLocked)
+                  {
+                    logger.info(">>>> downloading to %s...", file.getAbsolutePath());
+                    file.getParentFile().mkdirs();
+                    FileUtils.copyURLToFile(new URL(path), file);
+                    lockFile.delete(); // TODO: consider using a try / finally
+                  }
+                else
+                  {
+                    final long time = System.currentTimeMillis();
+
+                    while (lockFile.exists())
+                      {
+                        logger.info(">>>> waiting for the download of %s to complete...", file.getAbsolutePath());
+                       
+                        if (System.currentTimeMillis() - time > 10 * 60 * 1000)
+                          {
+                            fail("Timeout while waiting for another thread to download " + file.getAbsolutePath());
+                          }
+
+                        try
+                          {
+                            Thread.sleep(1000);
+                          }
+                        catch (InterruptedException e)
+                          {
+                          }
+                      }
+                  }
               }
             else
               {
