@@ -143,6 +143,6 @@ public class ARWRasterReader extends RasterReader
     @Nonnull
     public String toString()
       {
-        return "ARWRasterReader";  
+        return String.format("ARWRasterReader@%x", System.identityHashCode(this));
       }
   }
