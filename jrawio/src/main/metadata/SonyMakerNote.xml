@@ -43,5 +43,21 @@ http://creativecommons.org/licenses/by-sa/2.5
         <example></example>
         <description>The size of raster data in bytes.</description>
     </tag>
+    <tag>
+        <code>45099</code>
+        <type>long</type>
+        <length>2</length>
+        <name>Sensor Size</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>45100</code>
+        <type>long</type>
+        <length>2</length>
+        <name>Thumbnail Size</name>
+        <example></example>
+        <description></description>
+    </tag>
  </directory>
 
