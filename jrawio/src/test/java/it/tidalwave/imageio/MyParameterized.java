@@ -5,6 +5,7 @@
 
 package it.tidalwave.imageio;
 
+import javax.annotation.Nonnull;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,12 +14,12 @@ import java.util.List;
 import org.junit.runner.Runner;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
+import org.junit.runners.Parameterized.Parameters;
+import org.junit.runners.Suite;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
 import org.junit.runners.model.TestClass;
-import org.junit.runners.Parameterized.Parameters;
-import org.junit.runners.Suite;
 
 /**
  *
@@ -63,13 +64,20 @@ public class MyParameterized extends Suite
         @Override
         protected String getName()
           {
-            return String.format("[%s]", Arrays.toString(fParameterList.get(fParameterSetNumber)));
+            return String.format("[%s] (%s)", Arrays.toString(fParameterList.get(fParameterSetNumber)), getTestMode());
           }
 
         @Override
         protected String testName (final FrameworkMethod method)
           {
-            return String.format("%s[%s]", method.getName(), Arrays.toString(fParameterList.get(fParameterSetNumber)));
+            return String.format("%s[%s] (%s)", method.getName(), Arrays.toString(fParameterList.get(fParameterSetNumber)), getTestMode());
+          }
+
+        @Nonnull
+        private String getTestMode()
+          {
+            final String stcp = System.getProperty("surefire.test.class.path");
+            return ((stcp == null) || !stcp.contains("cobertura")) ? "normal" : "cobertura";
           }
 
         @Override
