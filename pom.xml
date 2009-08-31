@@ -146,6 +146,7 @@
             <id>default</id>
             <properties>
                 <buildNumber>unknown</buildNumber>
+                <testReportsDirectory>${project.build.directory}/surefire-reports</testReportsDirectory>
                 <!-- maven.test.skip.exec>true</maven.test.skip.exec -->
             </properties>
             <activation>
@@ -163,6 +164,7 @@
             <id>fritz</id>
             <properties>
                 <buildNumber>unknown</buildNumber>
+                <testReportsDirectory>${project.build.directory}/surefire-reports</testReportsDirectory>
                 <testset.cached.folder>/Users/fritz/Business/Tidalwave/Projects/TestCacheFolder</testset.cached.folder>
             </properties>
             <activation>
