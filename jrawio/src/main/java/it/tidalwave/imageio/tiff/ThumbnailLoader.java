@@ -88,7 +88,7 @@ public class ThumbnailLoader
     public ThumbnailLoader (@Nonnull final RAWImageInputStream iis,
                             @Nonnull final IFD ifd)
       {
-        logger.finest("ThumbnailHelper(%s, %s)", iis, ifd);
+        logger.finest("ThumbnailLoader(%s, %s)", iis, ifd);
 
         this.ifd = ifd; 
 
@@ -132,7 +132,7 @@ public class ThumbnailLoader
                             final int offset, 
                             @Nonnegative final int byteCount)
       {
-        logger.finest("ThumbnailHelper(%s, %d, %d)", iis, offset, byteCount);
+        logger.finest("ThumbnailLoader(%s, %d, %d)", iis, offset, byteCount);
         this.ifd = null;
         this.offset = offset;
         this.byteCount = byteCount;
