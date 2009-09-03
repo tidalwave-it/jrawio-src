@@ -30,7 +30,7 @@ package it.tidalwave.imageio.orf;
 import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
-import it.tidalwave.imageio.raw.RasterReader;
+import it.tidalwave.imageio.craw.RasterReader;
 import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************

@@ -32,7 +32,7 @@ import java.util.Collection;
 import java.awt.Dimension;
 import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
-import it.tidalwave.imageio.raw.TagRational;
+import it.tidalwave.imageio.craw.TagRational;
 import org.junit.runners.Parameterized.Parameters;
 
 /***********************************************************************************************************************

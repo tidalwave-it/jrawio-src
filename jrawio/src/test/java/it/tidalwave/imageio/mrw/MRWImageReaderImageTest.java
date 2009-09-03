@@ -37,7 +37,7 @@ import it.tidalwave.imageio.minolta.MinoltaRawData;
 import it.tidalwave.imageio.minolta.MinoltaRawData.PRD;
 import it.tidalwave.imageio.minolta.MinoltaRawData.RIF;
 import it.tidalwave.imageio.minolta.MinoltaRawData.WBG;
-import it.tidalwave.imageio.raw.TagRational;
+import it.tidalwave.imageio.craw.TagRational;
 import org.junit.runners.Parameterized.Parameters;
 import static org.junit.Assert.*;
 

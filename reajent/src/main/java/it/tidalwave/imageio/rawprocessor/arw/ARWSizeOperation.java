@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
 import java.awt.Dimension;
 import java.awt.Insets;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
-import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
+import it.tidalwave.imageio.rawprocessor.craw.SizeOperation;
 import it.tidalwave.imageio.minolta.MinoltaRawData.PRD;
 import it.tidalwave.imageio.arw.ARWMetadata;
 import it.tidalwave.imageio.util.Logger;

@@ -30,8 +30,8 @@ package it.tidalwave.imageio.cr2;
 import javax.annotation.Nonnull;
 import java.awt.Dimension;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.Directory;
-import it.tidalwave.imageio.raw.HeaderProcessor;
+import it.tidalwave.imageio.craw.Directory;
+import it.tidalwave.imageio.craw.HeaderProcessor;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
 

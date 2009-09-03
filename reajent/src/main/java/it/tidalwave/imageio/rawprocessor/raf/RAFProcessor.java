@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.RAWProcessor;
-import it.tidalwave.imageio.rawprocessor.raw.ColorProfileOperation;
+import it.tidalwave.imageio.rawprocessor.craw.ColorProfileOperation;
 
 /***********************************************************************************************************************
  *

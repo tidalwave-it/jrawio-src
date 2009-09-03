@@ -22,20 +22,20 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: NEFHeaderProcessor.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
-import it.tidalwave.imageio.raw.HeaderProcessor;
+import it.tidalwave.imageio.craw.HeaderProcessor;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NEFHeaderProcessor.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class NEFHeaderProcessor extends HeaderProcessor

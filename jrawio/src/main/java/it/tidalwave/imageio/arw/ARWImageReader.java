@@ -36,7 +36,7 @@ import java.awt.image.WritableRaster;
 import javax.imageio.spi.ImageReaderSpi;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
-import it.tidalwave.imageio.raw.RasterReader;
+import it.tidalwave.imageio.craw.RasterReader;
 import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************

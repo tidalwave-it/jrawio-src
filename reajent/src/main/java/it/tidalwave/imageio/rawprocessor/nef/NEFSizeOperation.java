@@ -35,7 +35,7 @@ import java.awt.Insets;
 import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
-import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
+import it.tidalwave.imageio.rawprocessor.craw.SizeOperation;
 
 /***********************************************************************************************************************
  *

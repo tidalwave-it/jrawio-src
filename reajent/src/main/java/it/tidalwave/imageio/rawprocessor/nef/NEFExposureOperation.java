@@ -28,7 +28,7 @@
 package it.tidalwave.imageio.rawprocessor.nef;
 
 import it.tidalwave.imageio.util.Logger;
-import it.tidalwave.imageio.rawprocessor.raw.ExposureOperation;
+import it.tidalwave.imageio.rawprocessor.craw.ExposureOperation;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;

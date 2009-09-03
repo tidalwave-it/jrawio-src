@@ -33,7 +33,7 @@ import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.srf.SonyMakerNote;
-import it.tidalwave.imageio.raw.RasterReader;
+import it.tidalwave.imageio.craw.RasterReader;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 

@@ -25,13 +25,13 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.rawprocessor.raw;
+package it.tidalwave.imageio.rawprocessor.craw;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.awt.image.DataBufferUShort;
 import java.awt.image.WritableRaster;
-import it.tidalwave.imageio.raw.TagRational;
+import it.tidalwave.imageio.craw.TagRational;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.ColorMatrix;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;

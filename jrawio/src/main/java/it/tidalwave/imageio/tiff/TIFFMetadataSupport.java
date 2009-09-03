@@ -37,11 +37,11 @@ import java.awt.Dimension;
 import javax.imageio.metadata.IIOMetadataNode;
 import org.w3c.dom.Node;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.Directory;
-import it.tidalwave.imageio.raw.HeaderProcessor;
-import it.tidalwave.imageio.raw.RAWMetadataSupport;
-import it.tidalwave.imageio.raw.TagRational;
-import it.tidalwave.imageio.raw.TagRegistry;
+import it.tidalwave.imageio.craw.Directory;
+import it.tidalwave.imageio.craw.HeaderProcessor;
+import it.tidalwave.imageio.craw.RAWMetadataSupport;
+import it.tidalwave.imageio.craw.TagRational;
+import it.tidalwave.imageio.craw.TagRegistry;
 
 /***********************************************************************************************************************
  *

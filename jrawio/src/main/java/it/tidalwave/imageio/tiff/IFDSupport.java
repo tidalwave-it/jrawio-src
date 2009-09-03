@@ -30,8 +30,8 @@ package it.tidalwave.imageio.tiff;
 import javax.annotation.Nonnull;
 import java.io.IOException;
 import it.tidalwave.imageio.util.Logger;
-import it.tidalwave.imageio.raw.Directory;
-import it.tidalwave.imageio.raw.TagRegistry;
+import it.tidalwave.imageio.craw.Directory;
+import it.tidalwave.imageio.craw.TagRegistry;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 
 /***********************************************************************************************************************

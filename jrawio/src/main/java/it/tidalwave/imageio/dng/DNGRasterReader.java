@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: DNGRasterReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 
@@ -35,14 +35,14 @@ import java.awt.image.DataBufferUShort;
 import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.decoder.LosslessJPEGDecoder;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.RAWImageReaderSupport;
-import it.tidalwave.imageio.raw.RasterReader;
+import it.tidalwave.imageio.craw.RAWImageReaderSupport;
+import it.tidalwave.imageio.craw.RasterReader;
 import it.tidalwave.imageio.tiff.IFD;
 
 /***********************************************************************************************************************
  *
  * @author  fritz
- * @version $Id: DNGRasterReader.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class DNGRasterReader extends RasterReader

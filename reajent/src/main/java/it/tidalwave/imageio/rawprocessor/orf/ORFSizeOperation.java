@@ -32,7 +32,7 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
-import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
+import it.tidalwave.imageio.rawprocessor.craw.SizeOperation;
 import it.tidalwave.imageio.orf.ImageProcessing;
 import it.tidalwave.imageio.orf.ORFMetadata;
 import it.tidalwave.imageio.orf.OlympusMakerNote;

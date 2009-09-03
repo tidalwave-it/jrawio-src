@@ -33,12 +33,12 @@ import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferUShort;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
-import it.tidalwave.imageio.raw.RasterReader;
+import it.tidalwave.imageio.craw.RasterReader;
 import it.tidalwave.imageio.raf.FujiRawData;
 import it.tidalwave.imageio.raf.FujiTable1;
 import it.tidalwave.imageio.raf.RAFMetadata;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
-import it.tidalwave.imageio.rawprocessor.raw.RotateOperation;
+import it.tidalwave.imageio.rawprocessor.craw.RotateOperation;
 
 /***********************************************************************************************************************
  *

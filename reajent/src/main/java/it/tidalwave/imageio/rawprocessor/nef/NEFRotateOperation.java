@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;
-import it.tidalwave.imageio.rawprocessor.raw.RotateOperation;
+import it.tidalwave.imageio.rawprocessor.craw.RotateOperation;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 
 /***********************************************************************************************************************

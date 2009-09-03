@@ -25,16 +25,11 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.rawprocessor.raw;
+package it.tidalwave.imageio.craw;
 
-import javax.annotation.Nonnull;
-import java.awt.RenderingHints;
-import java.awt.color.ColorSpace;
-import java.awt.color.ICC_Profile;
-import java.awt.image.ColorConvertOp;
-import it.tidalwave.imageio.util.Logger;
-import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
-import it.tidalwave.imageio.rawprocessor.OperationSupport;
+import java.io.IOException;
+import javax.imageio.stream.ImageInputStream;
+import it.tidalwave.imageio.io.RAWImageInputStream;
 
 /***********************************************************************************************************************
  *
@@ -42,25 +37,35 @@ import it.tidalwave.imageio.rawprocessor.OperationSupport;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class ColorProfileOperation extends OperationSupport
+public class HeaderProcessor
   {
-    private final static Logger logger = getLogger(ColorProfileOperation.class);
+    /*******************************************************************************************************************
+     * 
+     * 
+     *******************************************************************************/
+    public void process (RAWImageInputStream iis) throws IOException
+      {        
+      }
     
     /*******************************************************************************************************************
-     *
-     * @inheritDoc
-     *
-     * FIXME: temporary: always converts in sRGB to 8 bits per channel
-     *
-     ******************************************************************************************************************/
-    public void process (final @Nonnull PipelineArtifact artifact)
+     * 
+     * @return
+     * @throws IOException
+     * 
+     *******************************************************************************/
+    public int getBaseOffset()
       {
-        logger.fine("process()");
-        logImage(logger, ">>>> image: ", artifact.getImage());
-        final ICC_Profile colorProfile = ICC_Profile.getInstance(ColorSpace.CS_sRGB);
-        final RenderingHints hints = null; // FIXME
-        final ColorConvertOp ccOp = new ColorConvertOp(new ICC_Profile[] { colorProfile }, hints);
-        artifact.setImage(ccOp.filter(artifact.getImage(), null));
-        logImage(logger, ">>>> process returning: ", artifact.getImage());
-      }    
+        return 0;    
+      }
+
+    /*******************************************************************************************************************
+     * 
+     * @return
+     * @throws IOException
+     * 
+     *******************************************************************************/
+    public int getOffset () 
+      {
+        return 0;    
+      }
   }

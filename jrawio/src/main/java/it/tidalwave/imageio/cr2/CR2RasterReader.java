@@ -35,8 +35,8 @@ import java.awt.image.DataBufferUShort;
 import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.decoder.LosslessJPEGDecoder;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.RAWImageReaderSupport;
-import it.tidalwave.imageio.raw.RasterReader;
+import it.tidalwave.imageio.craw.RAWImageReaderSupport;
+import it.tidalwave.imageio.craw.RasterReader;
 
 /***********************************************************************************************************************
  *

@@ -36,8 +36,8 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.minolta.MinoltaRawData;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
-import it.tidalwave.imageio.raw.Directory;
-import it.tidalwave.imageio.raw.HeaderProcessor;
+import it.tidalwave.imageio.craw.Directory;
+import it.tidalwave.imageio.craw.HeaderProcessor;
 
 /***********************************************************************************************************************
  *

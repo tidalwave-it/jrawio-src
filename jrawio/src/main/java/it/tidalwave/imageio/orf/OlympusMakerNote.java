@@ -33,7 +33,7 @@ import java.util.NoSuchElementException;
 import java.io.IOException;
 import it.tidalwave.imageio.tiff.ThumbnailLoader;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.Directory;
+import it.tidalwave.imageio.craw.Directory;
 import it.tidalwave.imageio.tiff.TIFFTag;
 import it.tidalwave.imageio.util.Logger;
 

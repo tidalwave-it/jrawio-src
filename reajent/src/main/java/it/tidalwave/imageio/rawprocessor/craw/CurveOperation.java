@@ -25,11 +25,11 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.rawprocessor.raw;
+package it.tidalwave.imageio.rawprocessor.craw;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
-import it.tidalwave.imageio.raw.TagRational;
+import it.tidalwave.imageio.craw.TagRational;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;

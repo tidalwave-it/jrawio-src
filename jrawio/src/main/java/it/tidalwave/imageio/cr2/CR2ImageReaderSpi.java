@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: CR2ImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.cr2;
@@ -32,14 +32,14 @@ import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
+import it.tidalwave.imageio.craw.RAWImageReaderSpiSupport;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 
 /***********************************************************************************************************************
  *
  * @author  fritz
- * @version $Id: CR2ImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CR2ImageReaderSpi extends RAWImageReaderSpiSupport

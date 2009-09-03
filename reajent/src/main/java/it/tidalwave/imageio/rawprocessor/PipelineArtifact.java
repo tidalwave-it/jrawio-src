@@ -31,7 +31,7 @@ import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
-import it.tidalwave.imageio.raw.RAWMetadataSupport;
+import it.tidalwave.imageio.craw.RAWMetadataSupport;
 
 /***********************************************************************************************************************
  *

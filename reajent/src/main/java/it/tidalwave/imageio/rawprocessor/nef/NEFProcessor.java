@@ -36,8 +36,8 @@ import it.tidalwave.imageio.nef.NikonMakerNote3;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.RAWProcessor;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
-import it.tidalwave.imageio.rawprocessor.raw.ColorProfileOperation;
-import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
+import it.tidalwave.imageio.rawprocessor.craw.ColorProfileOperation;
+import it.tidalwave.imageio.rawprocessor.craw.DemosaicOperation;
 
 /***********************************************************************************************************************
  *

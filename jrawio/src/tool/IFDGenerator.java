@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: IFDGenerator.java 233 2009-06-14 13:43:51Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 import java.io.BufferedReader;
@@ -36,7 +36,7 @@ import java.util.StringTokenizer;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: IFDGenerator.java 233 2009-06-14 13:43:51Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class IFDGenerator
@@ -91,9 +91,9 @@ public class IFDGenerator
 
             pw.println("package " + packageName + ";");
             pw.println();
-            pw.println("import it.tidalwave.imageio.raw.Directory;");
-            pw.println("import it.tidalwave.imageio.raw.TagRational;");
-            pw.println("import it.tidalwave.imageio.raw.TagRegistry;");
+            pw.println("import it.tidalwave.imageio.craw.Directory;");
+            pw.println("import it.tidalwave.imageio.craw.TagRational;");
+            pw.println("import it.tidalwave.imageio.craw.TagRegistry;");
             pw.println("import it.tidalwave.imageio.tiff.IFDSupport;");
 
             pw.println("/** This class is auto-generated from " + fileName + ". */");

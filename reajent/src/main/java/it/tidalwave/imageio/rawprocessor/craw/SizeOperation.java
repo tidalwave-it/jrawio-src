@@ -25,7 +25,7 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.rawprocessor.raw;
+package it.tidalwave.imageio.rawprocessor.craw;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
@@ -39,7 +39,7 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import it.tidalwave.imageio.raw.TagRational;
+import it.tidalwave.imageio.craw.TagRational;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;

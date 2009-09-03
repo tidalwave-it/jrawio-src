@@ -32,8 +32,8 @@ import java.awt.image.WritableRaster;
 import java.io.IOException;
 import java.nio.ByteOrder;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.RasterReader;
-import it.tidalwave.imageio.raw.RAWImageReaderSupport;
+import it.tidalwave.imageio.craw.RasterReader;
+import it.tidalwave.imageio.craw.RAWImageReaderSupport;
 
 /***********************************************************************************************************************
  *

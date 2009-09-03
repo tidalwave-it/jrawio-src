@@ -25,7 +25,7 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.raw;
+package it.tidalwave.imageio.craw;
 
 import java.util.ArrayList;
 import java.util.Iterator;

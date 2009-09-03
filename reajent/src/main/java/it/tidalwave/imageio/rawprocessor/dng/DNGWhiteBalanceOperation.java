@@ -28,7 +28,7 @@
 package it.tidalwave.imageio.rawprocessor.dng;
 
 import it.tidalwave.imageio.util.Logger;
-import it.tidalwave.imageio.raw.TagRational;
+import it.tidalwave.imageio.craw.TagRational;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;

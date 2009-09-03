@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: MRWImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -34,12 +34,12 @@ import java.io.IOException;
 import java.nio.ByteOrder;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
+import it.tidalwave.imageio.craw.RAWImageReaderSpiSupport;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class MRWImageReaderSpi extends RAWImageReaderSpiSupport

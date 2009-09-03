@@ -37,8 +37,8 @@ import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.MemoryCacheImageInputStream;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.Directory;
-import it.tidalwave.imageio.raw.TagRational;
+import it.tidalwave.imageio.craw.Directory;
+import it.tidalwave.imageio.craw.TagRational;
 import it.tidalwave.imageio.tiff.IFDSupport;
 
 /***********************************************************************************************************************

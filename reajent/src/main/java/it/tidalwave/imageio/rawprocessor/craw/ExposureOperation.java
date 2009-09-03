@@ -25,7 +25,7 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.rawprocessor.raw;
+package it.tidalwave.imageio.rawprocessor.craw;
 
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;

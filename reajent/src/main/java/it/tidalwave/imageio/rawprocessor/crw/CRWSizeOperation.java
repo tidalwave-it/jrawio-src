@@ -32,7 +32,7 @@ import it.tidalwave.imageio.util.Logger;
 import java.awt.Insets;
 import it.tidalwave.imageio.crw.CRWMetadata;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
-import it.tidalwave.imageio.rawprocessor.raw.SizeOperation;
+import it.tidalwave.imageio.rawprocessor.craw.SizeOperation;
 
 /***********************************************************************************************************************
  *

@@ -22,29 +22,26 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: Version.java 263 2009-06-15 09:18:57Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.raw;
+package it.tidalwave.imageio.craw;
 
-import it.tidalwave.imageio.util.VersionLoader;
+import javax.annotation.Nonnull;
+import java.awt.image.BufferedImage;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: Version.java 263 2009-06-15 09:18:57Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
-public final class Version
+public interface PostProcessor
   {
-    public final static String TAG = VersionLoader.getVersion(Version.class);
+    @Nonnull 
+    public BufferedImage process (@Nonnull BufferedImage image, 
+                                  @Nonnull RAWMetadataSupport metadata);
 
-    private Version()
-      {
-      }
-
-    public static void main (final String ... args)
-      {
-        System.out.println("tag: " + TAG);
-      }
+    @Nonnull
+    public void processMetadata (@Nonnull RAWMetadataSupport metadata);
   }

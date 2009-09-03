@@ -22,20 +22,20 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: VersionLoader.java 263 2009-06-15 09:18:57Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.util;
 
 import javax.annotation.Nonnull;
 import java.util.Properties;
-import it.tidalwave.imageio.raw.Version;
+import it.tidalwave.imageio.craw.Version;
 import java.io.InputStream;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: VersionLoader.java 263 2009-06-15 09:18:57Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public final class VersionLoader

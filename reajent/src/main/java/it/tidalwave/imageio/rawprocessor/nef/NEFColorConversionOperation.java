@@ -37,7 +37,7 @@ import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonMakerNote3;
 import it.tidalwave.imageio.rawprocessor.ColorMatrix;
-import it.tidalwave.imageio.rawprocessor.raw.ColorConversionOperation;
+import it.tidalwave.imageio.rawprocessor.craw.ColorConversionOperation;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 
 /***********************************************************************************************************************

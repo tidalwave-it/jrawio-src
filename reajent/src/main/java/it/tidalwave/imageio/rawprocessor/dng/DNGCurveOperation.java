@@ -31,7 +31,7 @@ import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
-import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
+import it.tidalwave.imageio.rawprocessor.craw.CurveOperation;
 
 /***********************************************************************************************************************
  *

@@ -22,10 +22,10 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: AbstractTag.java 88 2008-08-24 10:45:39Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.raw;
+package it.tidalwave.imageio.craw;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
@@ -46,7 +46,7 @@ import javax.imageio.stream.ImageInputStream;
  * from an image stream.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: AbstractTag.java 88 2008-08-24 10:45:39Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public abstract class AbstractTag implements Serializable

@@ -28,7 +28,7 @@
 package it.tidalwave.imageio.rawprocessor.crw;
 
 import it.tidalwave.imageio.crw.CRWMetadata;
-import it.tidalwave.imageio.raw.Directory;
+import it.tidalwave.imageio.craw.Directory;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.util.HashMap;
@@ -36,7 +36,7 @@ import java.util.Map;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.ColorMatrix;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
-import it.tidalwave.imageio.rawprocessor.raw.ColorConversionOperation;
+import it.tidalwave.imageio.rawprocessor.craw.ColorConversionOperation;
 import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************

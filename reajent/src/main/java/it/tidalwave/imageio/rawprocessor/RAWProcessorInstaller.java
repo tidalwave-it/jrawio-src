@@ -22,13 +22,13 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: RAWProcessorInstaller.java 264 2009-06-15 09:31:03Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
 
 import it.tidalwave.imageio.util.Logger;
-import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
+import it.tidalwave.imageio.craw.RAWImageReaderSpiSupport;
 import it.tidalwave.imageio.arw.ARWImageReaderSpi;
 import it.tidalwave.imageio.cr2.CR2ImageReaderSpi;
 import it.tidalwave.imageio.crw.CRWImageReaderSpi;
@@ -62,7 +62,7 @@ public class RAWProcessorInstaller
     
     static
       {
-        String jrawioVersion = it.tidalwave.imageio.raw.Version.TAG;
+        String jrawioVersion = it.tidalwave.imageio.craw.Version.TAG;
         
         if (jrawioVersion.startsWith(Version.REQUIRED_JRAWIO_TAG))
           {

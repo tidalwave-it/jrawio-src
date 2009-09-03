@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
-import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
+import it.tidalwave.imageio.rawprocessor.craw.CurveOperation;
 import it.tidalwave.imageio.cr2.CR2Metadata;
 import it.tidalwave.imageio.cr2.CR2SensorInfo;
 import it.tidalwave.imageio.util.Logger;

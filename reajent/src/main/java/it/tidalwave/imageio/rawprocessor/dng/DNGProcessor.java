@@ -22,21 +22,21 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: DNGProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
 
 import java.util.List;
 import it.tidalwave.imageio.rawprocessor.RAWProcessor;
-import it.tidalwave.imageio.rawprocessor.raw.RotateOperation;
-import it.tidalwave.imageio.rawprocessor.raw.ColorProfileOperation;
-import it.tidalwave.imageio.rawprocessor.raw.DemosaicOperation;
+import it.tidalwave.imageio.rawprocessor.craw.RotateOperation;
+import it.tidalwave.imageio.rawprocessor.craw.ColorProfileOperation;
+import it.tidalwave.imageio.rawprocessor.craw.DemosaicOperation;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DNGProcessor.java 55 2008-08-21 19:43:51Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class DNGProcessor extends RAWProcessor

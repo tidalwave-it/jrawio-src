@@ -32,7 +32,7 @@ import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.rawprocessor.ColorMatrix;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
-import it.tidalwave.imageio.rawprocessor.raw.ColorConversionOperation;
+import it.tidalwave.imageio.rawprocessor.craw.ColorConversionOperation;
 
 /***********************************************************************************************************************
  *

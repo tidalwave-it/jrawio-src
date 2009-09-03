@@ -25,7 +25,7 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.rawprocessor.raw;
+package it.tidalwave.imageio.rawprocessor.craw;
 
 import javax.annotation.Nonnull;
 import java.util.Properties;

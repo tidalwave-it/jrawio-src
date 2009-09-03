@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: NDFRasterReader.java 58 2008-08-22 19:17:28Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -30,12 +30,12 @@ package it.tidalwave.imageio.nef;
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.image.WritableRaster;
-import it.tidalwave.imageio.raw.RAWImageReaderSupport;
+import it.tidalwave.imageio.craw.RAWImageReaderSupport;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: NDFRasterReader.java 58 2008-08-22 19:17:28Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class NDFRasterReader extends NEFRasterReader

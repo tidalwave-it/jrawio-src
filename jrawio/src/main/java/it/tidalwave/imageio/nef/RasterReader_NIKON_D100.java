@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: RasterReader_NIKON_D100.java 58 2008-08-22 19:17:28Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
@@ -36,7 +36,7 @@ import javax.annotation.Nonnegative;
  * are bits to skip while reading the data.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: RasterReader_NIKON_D100.java 58 2008-08-22 19:17:28Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class RasterReader_NIKON_D100 extends NEFRasterReader

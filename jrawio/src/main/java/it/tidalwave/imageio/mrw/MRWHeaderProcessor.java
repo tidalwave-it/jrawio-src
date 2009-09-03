@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: MRWHeaderProcessor.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.mrw;
@@ -31,13 +31,13 @@ import javax.annotation.Nonnull;
 import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.HeaderProcessor;
+import it.tidalwave.imageio.craw.HeaderProcessor;
 import it.tidalwave.imageio.minolta.MinoltaRawData;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: MRWHeaderProcessor.java 151 2008-09-13 15:13:22Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class MRWHeaderProcessor extends HeaderProcessor

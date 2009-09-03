@@ -34,9 +34,9 @@ import java.awt.image.WritableRaster;
 import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.stream.ImageInputStream;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.Directory;
-import it.tidalwave.imageio.raw.RAWImageReaderSupport;
-import it.tidalwave.imageio.raw.RAWMetadataSupport;
+import it.tidalwave.imageio.craw.Directory;
+import it.tidalwave.imageio.craw.RAWImageReaderSupport;
+import it.tidalwave.imageio.craw.RAWMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 

@@ -33,8 +33,8 @@ import java.awt.image.DataBufferUShort;
 import java.awt.image.WritableRaster;
 import java.io.IOException;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.RAWImageReaderSupport;
-import it.tidalwave.imageio.raw.RasterReader;
+import it.tidalwave.imageio.craw.RAWImageReaderSupport;
+import it.tidalwave.imageio.craw.RasterReader;
 import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************

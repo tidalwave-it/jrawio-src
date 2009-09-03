@@ -33,9 +33,9 @@ import java.util.Arrays;
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
 import it.tidalwave.imageio.util.Logger;
-import it.tidalwave.imageio.raw.AbstractTag;
-import it.tidalwave.imageio.raw.TagRational;
-import it.tidalwave.imageio.raw.TagRegistry;
+import it.tidalwave.imageio.craw.AbstractTag;
+import it.tidalwave.imageio.craw.TagRational;
+import it.tidalwave.imageio.craw.TagRegistry;
 
 /***********************************************************************************************************************
  * 

@@ -28,7 +28,7 @@
 package it.tidalwave.imageio.rawprocessor.nef;
 
 import it.tidalwave.imageio.util.Logger;
-import it.tidalwave.imageio.raw.TagRational;
+import it.tidalwave.imageio.craw.TagRational;
 import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;
 import it.tidalwave.imageio.nef.NEFWhiteBalanceInfo;

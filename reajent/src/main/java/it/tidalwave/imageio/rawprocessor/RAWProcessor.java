@@ -32,8 +32,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.awt.image.BufferedImage;
-import it.tidalwave.imageio.raw.PostProcessor;
-import it.tidalwave.imageio.raw.RAWMetadataSupport;
+import it.tidalwave.imageio.craw.PostProcessor;
+import it.tidalwave.imageio.craw.RAWMetadataSupport;
 import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************

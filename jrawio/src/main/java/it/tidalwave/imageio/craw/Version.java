@@ -22,50 +22,29 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: HeaderProcessor.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio.raw;
+package it.tidalwave.imageio.craw;
 
-import java.io.IOException;
-import javax.imageio.stream.ImageInputStream;
-import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.util.VersionLoader;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: HeaderProcessor.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
-public class HeaderProcessor
+public final class Version
   {
-    /*******************************************************************************************************************
-     * 
-     * 
-     *******************************************************************************/
-    public void process (RAWImageInputStream iis) throws IOException
-      {        
-      }
-    
-    /*******************************************************************************************************************
-     * 
-     * @return
-     * @throws IOException
-     * 
-     *******************************************************************************/
-    public int getBaseOffset()
+    public final static String TAG = VersionLoader.getVersion(Version.class);
+
+    private Version()
       {
-        return 0;    
       }
 
-    /*******************************************************************************************************************
-     * 
-     * @return
-     * @throws IOException
-     * 
-     *******************************************************************************/
-    public int getOffset () 
+    public static void main (final String ... args)
       {
-        return 0;    
+        System.out.println("tag: " + TAG);
       }
   }

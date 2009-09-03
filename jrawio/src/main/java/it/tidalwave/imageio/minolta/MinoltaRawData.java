@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: MRWHeaderProcessor.java 73 2008-08-23 21:39:29Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.minolta;
@@ -35,14 +35,14 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.ByteOrder;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.TagRational;
+import it.tidalwave.imageio.craw.TagRational;
 
 /***********************************************************************************************************************
  *
  * This structure is used by both MRW and ARW (Sony-Minolta).
  * 
  * @author  Fabrizio Giudici
- * @version $Id: MRWHeaderProcessor.java 73 2008-08-23 21:39:29Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class MinoltaRawData 

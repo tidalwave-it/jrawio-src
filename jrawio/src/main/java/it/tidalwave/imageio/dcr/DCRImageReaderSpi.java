@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: DCRImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.dcr;
@@ -32,14 +32,14 @@ import java.io.IOException;
 import it.tidalwave.imageio.util.Logger;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
+import it.tidalwave.imageio.craw.RAWImageReaderSpiSupport;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: DCRImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class DCRImageReaderSpi extends RAWImageReaderSpiSupport

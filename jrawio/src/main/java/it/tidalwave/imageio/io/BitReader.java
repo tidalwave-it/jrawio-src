@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: BitReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.io;
@@ -39,7 +39,7 @@ import javax.imageio.stream.ImageInputStream;
  * are much faster.
  *
  * @author  Fabrizio Giudici
- * @version $Id: BitReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 /* package */abstract class BitReader

@@ -49,9 +49,9 @@ $Id: DirectoryToJava.xslt,v 1.2 2006/02/13 22:41:17 fabriziogiudici Exp $
     <xsl:template match="directory">
         package <xsl:value-of select='$package'/>;
 
-        import it.tidalwave.imageio.raw.Directory;
-        import it.tidalwave.imageio.raw.TagRational;
-        import it.tidalwave.imageio.raw.TagRegistry;
+        import it.tidalwave.imageio.craw.Directory;
+        import it.tidalwave.imageio.craw.TagRational;
+        import it.tidalwave.imageio.craw.TagRegistry;
         import it.tidalwave.imageio.tiff.IFDSupport;
  
         public class <xsl:value-of select='@name'/>MakerNoteSupport extends IFDSupport

@@ -30,7 +30,7 @@ package it.tidalwave.imageio.rawprocessor.orf;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
-import it.tidalwave.imageio.rawprocessor.raw.CurveOperation;
+import it.tidalwave.imageio.rawprocessor.craw.CurveOperation;
 import it.tidalwave.imageio.orf.OlympusMakerNote;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 

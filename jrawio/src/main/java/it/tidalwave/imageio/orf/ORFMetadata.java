@@ -33,8 +33,8 @@ import java.util.NoSuchElementException;
 import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import it.tidalwave.imageio.io.RAWImageInputStream;
-import it.tidalwave.imageio.raw.Directory;
-import it.tidalwave.imageio.raw.HeaderProcessor;
+import it.tidalwave.imageio.craw.Directory;
+import it.tidalwave.imageio.craw.HeaderProcessor;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 
