@@ -50,14 +50,24 @@
 
     <mailingLists>
         <mailingList>
-            <name>Commits</name>
-            <post>commits@jrawio.dev.java.net</post>
-            <archive>https://jrawio.dev.java.net/servlets/SummarizeList?listName=commits</archive>
+            <name>Continuous Integration</name>
+            <post>ci@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/ci/archive</archive>
         </mailingList>
         <mailingList>
-            <name>Dev</name>
-            <post>dev@jrawio.dev.java.net</post>
-            <archive>https://jrawio.dev.java.net/servlets/SummarizeList?listName=dev</archive>
+            <name>Commits</name>
+            <post>commits@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/commits/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Developers</name>
+            <post>dev@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/dev/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Users</name>
+            <post>users@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/users/archive</archive>
         </mailingList>
     </mailingLists>
 
