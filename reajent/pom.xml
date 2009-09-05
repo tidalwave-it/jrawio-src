@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.imageio</groupId>
         <artifactId>jrawio-all</artifactId>
-        <version>1.5.5-SNAPSHOT</version>
+        <version>1.5.5</version>
     </parent>
 
     <artifactId>reajent</artifactId>
@@ -18,12 +18,12 @@
         <dependency>
             <groupId>it.tidalwave.imageio</groupId>
             <artifactId>jrawio</artifactId>
-            <version>1.5.5-SNAPSHOT</version>
+            <version>1.5.5</version>
         </dependency>
         <dependency>
             <groupId>it.tidalwave.imageio</groupId>
             <artifactId>jrawio</artifactId>
-            <version>1.5.5-SNAPSHOT</version>
+            <version>1.5.5</version>
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
