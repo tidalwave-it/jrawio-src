@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: SRFImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.srf;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: SRFImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class SRFImageReaderSpi extends RAWImageReaderSpiSupport

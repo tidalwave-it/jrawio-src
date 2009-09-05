@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: PixelGroupingDemosaicingFilter.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.demosaic;
@@ -33,7 +33,7 @@ import java.awt.image.Raster;
 /***********************************************************************************************************************
  *
  * @author  Fabrizio Giudici
- * @version $Id: PixelGroupingDemosaicingFilter.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  * FIXME: it works only for the D100 bayer pattern, should be generalized.
  *
