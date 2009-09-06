@@ -29,6 +29,9 @@ package it.tidalwave.imageio.crw;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -41,6 +44,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 import it.tidalwave.imageio.raw.RAWMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
+import it.tidalwave.imageio.tiff.ThumbnailLoader;
 
 /***********************************************************************************************************************
  *
@@ -54,7 +58,7 @@ public class CRWImageReader extends RAWImageReaderSupport
     private final static Logger logger = Logger.getLogger(CLASS);
 
     /** The thumbnail count. */
-    private int thumbnailCount;
+//    private int thumbnailCount;
 
     /** True if is available a JPG thumbnail. */
     private boolean jpgFromRawAvailable;
@@ -69,6 +73,8 @@ public class CRWImageReader extends RAWImageReaderSupport
 
     /** The CRW Maker Note. */
     private CanonCRWMakerNote canonMakerNote;
+
+    private final List<ThumbnailLoader> thumbnailLoaders = new ArrayList<ThumbnailLoader>();
 
     /*******************************************************************************************************************
      *
@@ -89,7 +95,7 @@ public class CRWImageReader extends RAWImageReaderSupport
       {
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
-        return thumbnailCount;
+        return thumbnailLoaders.size();
       }
 
     /*******************************************************************************************************************
@@ -133,7 +139,8 @@ public class CRWImageReader extends RAWImageReaderSupport
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
         checkThumbnailIndex(thumbnailIndex);
-        return ((CRWMetadata)metadata).getThumbnailWidth();
+        return thumbnailLoaders.get(thumbnailIndex).getWidth();
+//        return ((CRWMetadata)metadata).getThumbnailWidth(thumbnailIndex);
       }
 
     /*******************************************************************************************************************
@@ -149,7 +156,8 @@ public class CRWImageReader extends RAWImageReaderSupport
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
         checkThumbnailIndex(thumbnailIndex);
-        return ((CRWMetadata)metadata).getThumbnailHeight();
+        return thumbnailLoaders.get(thumbnailIndex).getHeight();
+//        return ((CRWMetadata)metadata).getThumbnailHeight(thumbnailIndex);
       }
 
     /*******************************************************************************************************************
@@ -178,32 +186,12 @@ public class CRWImageReader extends RAWImageReaderSupport
     protected BufferedImage loadThumbnail (final @Nonnegative int imageIndex, final @Nonnegative int thumbnailIndex)
       throws IOException
       {
-        logger.info("loadThumbnail(%d, %d) - iis: %s", imageIndex, thumbnailIndex, iis);
+        logger.fine("loadThumbnail(%d, %d) - iis: %s", imageIndex, thumbnailIndex, iis);
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
         checkThumbnailIndex(thumbnailIndex);
 
-        CanonCRWMakerNote crwMakerNote = ((CanonCRWMakerNote)primaryDirectory);
-        int jpegOffset = 0;
-        int jpegSize = 0;
-
-        if (thumbnailImageAvailable && (thumbnailIndex == 0))
-          {
-            CIFFTag thumbTag = (CIFFTag)crwMakerNote.getTag(CanonCRWMakerNote.THUMBNAIL_IMAGE);
-            jpegOffset = thumbTag.getOffset() + thumbTag.getBaseOffset();
-            jpegSize = thumbTag.getSize();
-            logger.fine(">>>> using thumbnail");
-          }
-
-        else
-          {
-            CIFFTag jpgTag = (CIFFTag)crwMakerNote.getTag(CanonCRWMakerNote.JPG_FROM_RAW);
-            jpegOffset = jpgTag.getOffset() + jpgTag.getBaseOffset();
-            jpegSize = jpgTag.getSize();
-            logger.fine(">>>> using jpgFromRaw");
-          }
-
-        return loadEmbeddedImage(iis, jpegOffset, jpegSize);
+        return thumbnailLoaders.get(thumbnailIndex).load(iis);
       }
 
     /*******************************************************************************************************************
@@ -244,7 +232,7 @@ public class CRWImageReader extends RAWImageReaderSupport
      ******************************************************************************************************************/
     protected void checkThumbnailIndex (final @Nonnegative int thumbnailIndex)
       {
-        if (thumbnailIndex >= thumbnailCount)
+        if (thumbnailIndex >= thumbnailLoaders.size())
           {
             throw new IndexOutOfBoundsException("Invalid thumbnail index: " + thumbnailIndex);
           }
@@ -258,26 +246,37 @@ public class CRWImageReader extends RAWImageReaderSupport
     protected void processMetadata() 
       throws IOException
       {
+        logger.fine("processMetadata()");
         primaryDirectory = loadPrimaryDirectory();
-        logger.fine("PRIMARY DIRECTORY: %s", primaryDirectory);
+        logger.finer(">>>> primary directory: %s", primaryDirectory);
 
-        CanonCRWMakerNote crwMakerNote = ((CanonCRWMakerNote)primaryDirectory);
+        final CanonCRWMakerNote crwMakerNote = ((CanonCRWMakerNote)primaryDirectory);
         thumbnailImageAvailable = crwMakerNote.isThumbnailImageAvailable();
         jpgFromRawAvailable = crwMakerNote.isJpgFromRawAvailable();
 
         if (thumbnailImageAvailable)
           {
-            thumbnailCount++;
+            logger.finest(">>>> thumbnailImageAvailable");
+            final CIFFTag thumbTag = (CIFFTag)crwMakerNote.getTag(CanonCRWMakerNote.THUMBNAIL_IMAGE);
+            final int jpegOffset = thumbTag.getOffset() + thumbTag.getBaseOffset();
+            final int jpegSize = thumbTag.getSize();
+            thumbnailLoaders.add(new ThumbnailLoader(iis, jpegOffset, jpegSize));
           }
 
         if (jpgFromRawAvailable)
           {
-            thumbnailCount++;
+            logger.finest(">>>> jpgFromRawAvailable");
+            final CIFFTag jpgTag = (CIFFTag)crwMakerNote.getTag(CanonCRWMakerNote.JPG_FROM_RAW);
+            final int jpegOffset = jpgTag.getOffset() + jpgTag.getBaseOffset();
+            final int jpegSize = jpgTag.getSize();
+            thumbnailLoaders.add(new ThumbnailLoader(iis, jpegOffset, jpegSize));
           }
 
+        Collections.sort(thumbnailLoaders);
+        logger.finer(">>>> thumbnailLoaders: %s", thumbnailLoaders);
         tryToReadEXIFFromTHM();
         metadata = createMetadata(primaryDirectory, imageIFD);
-        logger.fine(">>>> metadata: %s", metadata);
+        logger.finer(">>>> metadata: %s", metadata);
       }
 
     /*******************************************************************************************************************
