@@ -8,17 +8,17 @@
  *
  ***********************************************************************************************************************
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License. 
- * You may obtain a copy of the License at 
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0 
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
- * limitations under the License. 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  ***********************************************************************************************************************
  *
@@ -42,10 +42,10 @@ import it.tidalwave.imageio.raw.RAWImageReaderSupport;
 /***********************************************************************************************************************
  *
  * This class loads raster data for Canon cameras.
- * 
+ *
  * Thanks to Dave Coffin for providing through his dcraw information about the
  * compression scheme.
- * 
+ *
  * @author  Fabrizio Giudici
  * @version $Id$
  *
@@ -71,18 +71,23 @@ public class CRWRasterReader extends RasterReader
     /** Decompression decoders. */
     private final static HuffmannDecoder[][] canonDecoders;
 
-    private final static short[][] firstDecoderConfiguration = {
+    private final static short[][] firstDecoderConfiguration =
       {
-        0, 1, 4, 2, 3, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x04, 0x03, 0x05, 0x06, 0x02, 0x07, 0x01, 0x08, 0x09, 0x00,
-        0x0a, 0x0b, 0xff },
+        {
+          0, 1, 4, 2, 3, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x04, 0x03, 0x05, 0x06, 0x02, 0x07, 0x01, 0x08, 0x09, 0x00,
+          0x0a, 0x0b, 0xff
+        },
 
-      {
-        0, 2, 2, 3, 1, 1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0x03, 0x02, 0x04, 0x01, 0x05, 0x00, 0x06, 0x07, 0x09, 0x08,
-        0x0a, 0x0b, 0xff },
+        {
+          0, 2, 2, 3, 1, 1, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0x03, 0x02, 0x04, 0x01, 0x05, 0x00, 0x06, 0x07, 0x09, 0x08,
+          0x0a, 0x0b, 0xff
+        },
 
-      {
-        0, 0, 6, 3, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x06, 0x05, 0x07, 0x04, 0x08, 0x03, 0x09, 0x02, 0x00, 0x0a,
-        0x01, 0x0b, 0xff }, };
+        {
+          0, 0, 6, 3, 1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x06, 0x05, 0x07, 0x04, 0x08, 0x03, 0x09, 0x02, 0x00, 0x0a,
+          0x01, 0x0b, 0xff
+        },
+      };
 
     private final static short[][] secondDecoderConfiguration =
       {
@@ -127,8 +132,8 @@ public class CRWRasterReader extends RasterReader
       };
 
     /*******************************************************************************************************************
-     * 
-     * 
+     *
+     *
      ******************************************************************************************************************/
     static
       {
@@ -143,9 +148,9 @@ public class CRWRasterReader extends RasterReader
       }
 
     /*******************************************************************************************************************
-     * 
+     *
      * @param rasterOffset
-     * 
+     *
      ******************************************************************************************************************/
     public void setRasterOffset (final @Nonnegative int rasterOffset) // makerNote.getDecoderTable()[2];
       {
@@ -153,9 +158,9 @@ public class CRWRasterReader extends RasterReader
       }
 
     /*******************************************************************************************************************
-     * 
+     *
      * @param decoderPairIndex
-     * 
+     *
      ******************************************************************************************************************/
     public void setDecoderPairIndex (final @Nonnegative int decoderPairIndex) // makerNote.getDecoderTable()[0]; // FIXME
       {
@@ -163,12 +168,12 @@ public class CRWRasterReader extends RasterReader
       }
 
     /*******************************************************************************************************************
-     * 
+     *
      * Returns the most appropriate RasterReader for the given Canon model.
-     * 
+     *
      * @param model		the camera model
      * @return			the RasterReader
-     * 
+     *
      ******************************************************************************************************************/
     @Nonnull
     public static CRWRasterReader getInstance (final @Nonnull String model)
@@ -182,10 +187,10 @@ public class CRWRasterReader extends RasterReader
       }
 
     /*******************************************************************************************************************
-     * 
+     *
      * @inheritDoc
      * CRW files are always compressed.
-     * 
+     *
      ******************************************************************************************************************/
     @Override
     protected boolean isCompressedRaster()
@@ -196,7 +201,7 @@ public class CRWRasterReader extends RasterReader
     /*******************************************************************************************************************
      *
      * @inheritDoc
-     * 
+     *
      * This method implements raster data loading for compressed CRW.
      *
      ******************************************************************************************************************/
@@ -206,6 +211,9 @@ public class CRWRasterReader extends RasterReader
                                          final @Nonnull RAWImageReaderSupport ir)
       throws IOException
       {
+        logger.fine("loadCompressedRaster(%s, %s, %s)", iis, raster, ir);
+        logger.finest(">>>> rasterOffset: %d, decoderPairIndex: %d", rasterOffset, decoderPairIndex);
+        
         assert rasterOffset >= 0 : "rasterOffset not set";
         assert decoderPairIndex >= 0 : "decoderPairIndex not set";
 
@@ -222,6 +230,8 @@ public class CRWRasterReader extends RasterReader
         final int lowBitsOffset = HEADER_SIZE + rasterOffset;
         int rawOffset = lowBitsOffset;
         final boolean hasLowBits = hasLowBits(iis, rawOffset);
+
+        logger.finest(">>>> hasLowBits: %s", hasLowBits);
 
         if (hasLowBits)
           {
@@ -283,12 +293,12 @@ public class CRWRasterReader extends RasterReader
       }
 
     /*******************************************************************************************************************
-     * 
+     *
      * @param iis
      * @param diffBlock
      * @param decoderPair
      * @throws IOException
-     * 
+     *
      ******************************************************************************************************************/
     private void loadBlock (final @Nonnull RAWImageInputStream iis,
                             final @Nonnull int[] diffBlock,
@@ -328,14 +338,14 @@ public class CRWRasterReader extends RasterReader
       }
 
     /*******************************************************************************************************************
-     * 
+     *
      * @param iis
      * @param width
      * @param pixel
      * @param row
      * @throws IOException
-     * 
-     *******************************************************************************/
+     *
+     ******************************************************************************************************************/
     private void loadLowBits (final @Nonnull ImageInputStream iis,
                               final @Nonnegative int width,
                               final @Nonnull short[] pixel,
@@ -366,16 +376,16 @@ public class CRWRasterReader extends RasterReader
       }
 
     /*******************************************************************************************************************
-     * 
-     * Return true if the image starts with compressed data. In Canon compressed 
+     *
+     * Return true if the image starts with compressed data. In Canon compressed
      * data, 0xff is always followed by 0x00.
-     * 
+     *
      * @param  iis          the image input stream
      * @param  offset       the offset to read at
-     * @return              true if the image starts with compressed data 
+     * @return              true if the image starts with compressed data
      * @throws IOException
-     * 
-     *******************************************************************************/
+     *
+     ******************************************************************************************************************/
     private static boolean hasLowBits (final @Nonnull ImageInputStream iis,
                                        final @Nonnegative int offset)
       throws IOException
@@ -388,7 +398,7 @@ public class CRWRasterReader extends RasterReader
 
         for (int i = offset; i < buffer.length - 1; i++)
           {
-            if (buffer[i] == 0xff) // FIXME: signed vs unsigned
+            if ((buffer[i] & 0xff) == 0xff) // FIXME: signed vs unsigned
               {
                 if (buffer[i + 1] != 0)
                   {
