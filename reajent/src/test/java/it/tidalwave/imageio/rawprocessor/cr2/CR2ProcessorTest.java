@@ -92,6 +92,9 @@ public class CR2ProcessorTest extends NewImageReaderTestSupport
             // EOS20D v2.0.3
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/2.0.3/XXXX0000.CR2").
                             image(3504, 2336, 3, 8, "6200fba42ece0cced0604e41226384b0").
+                            thumbnail(1936, 1288).
+                            thumbnail(160, 120).
+                            thumbnail(486, 324).
                             issues("JRW-233", "JRW-248"),
             // EOS 1D mkIII
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/1dm3/RAW_CANON_1DMARK3.CR2").
@@ -323,15 +326,14 @@ public class CR2ProcessorTest extends NewImageReaderTestSupport
                             image(3888, 2592, 3, 8, "4af6c11afeb3b9945e682fcb41974939").
                             thumbnail(1936, 1288).
                             thumbnail(160, 120).
-                            thumbnail(384, 256).
+                            thumbnail(486, 324).
                             issues("JRW-206", "JRW-253").
                             metadata("metadata.canonMakerNote.sensorInfo.width", 3516).
                             metadata("metadata.canonMakerNote.sensorInfo.height", 2328).
                             metadata("metadata.canonMakerNote.sensorInfo.cropLeft", 52).
                             metadata("metadata.canonMakerNote.sensorInfo.cropRight", 3507).
                             metadata("metadata.canonMakerNote.sensorInfo.cropTop", 19).
-                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2322).
-                            thumbnail(486, 324),
+                            metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2322),
             // EOS 1000D
             ExpectedResults.create("http://raw.fotosite.pl/download-Canon_1000D_Canon_EF50_f1.8_by_Darren_Sim/IMG_0086.CR2").
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
