@@ -58,7 +58,7 @@ import it.tidalwave.imageio.util.Logger;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class ThumbnailLoader
+public class ThumbnailLoader implements Comparable<ThumbnailLoader>
   {
     private final static String CLASS = ThumbnailLoader.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
@@ -147,7 +147,7 @@ public class ThumbnailLoader
     public ThumbnailLoader (@Nonnull final RAWImageInputStream iis,
                             @Nonnull final byte[] buffer)
       {
-        logger.finest("ThumbnailHelper(%s, %s)", iis, buffer);
+        logger.finest("ThumbnailLoader(%s, %s)", iis, buffer);
         this.ifd = null;
         this.buffer = buffer;
         getSizeFromEmbeddedJPEG(iis);
@@ -217,6 +217,28 @@ public class ThumbnailLoader
         return image;
       }
     
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    public int compareTo (final @Nonnull ThumbnailLoader other)
+      {
+        final int delta = this.width - other.width; // useless to check height
+        return (delta == 0) ? 0 : ((delta > 0) ? +1 : -1);
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    public String toString()
+      {
+        return String.format("ThumbnailLoader[%d x %d]", width, height);
+      }
+
     /*******************************************************************************************************************
      *
      *
