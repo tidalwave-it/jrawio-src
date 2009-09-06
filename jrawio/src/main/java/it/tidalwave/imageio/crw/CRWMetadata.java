@@ -114,17 +114,21 @@ public class CRWMetadata extends TIFFMetadataSupport
         return findTag(CanonCRWMakerNote.IMAGE_INFO).getIntValues()[1];
       }
 
-    @Nonnegative
-    public int getThumbnailWidth()
-      {
-        return findTag(CanonCRWMakerNote.THUMBNAIL_INFO).getIntValues()[3];
-      }
-
-    @Nonnegative
-    public int getThumbnailHeight()
-      {
-        return findTag(CanonCRWMakerNote.THUMBNAIL_INFO).getIntValues()[4];
-      }
+//    @Nonnegative
+//    @Override
+//    public int getThumbnailWidth (final @Nonnegative int index)
+//      {
+//        final CIFFTag thumbnailInfo = findTag(CanonCRWMakerNote.THUMBNAIL_INFO);
+//        return (thumbnailInfo == null)? 0 : thumbnailInfo.getIntValues()[3];
+//      }
+//
+//    @Nonnegative
+//    @Override
+//    public int getThumbnailHeight(final @Nonnegative int index)
+//      {
+//        final CIFFTag thumbnailInfo = findTag(CanonCRWMakerNote.THUMBNAIL_INFO);
+//        return (thumbnailInfo == null)? 0 : thumbnailInfo.getIntValues()[4];
+//      }
 
     @Nonnegative
     public float getPixelAspectRatio()
@@ -459,10 +463,9 @@ public class CRWMetadata extends TIFFMetadataSupport
 
         if (tag == null)
           {
-            for (Iterator i = dir.getSubDirectories().iterator(); i.hasNext();)
+            for (final Directory subDir : dir.getSubDirectories())
               {
-                CanonCRWMakerNote subDir = (CanonCRWMakerNote)i.next();
-                tag = findTag(subDir, code);
+                tag = findTag((CanonCRWMakerNote)subDir, code);
 
                 if (tag != null)
                   {
