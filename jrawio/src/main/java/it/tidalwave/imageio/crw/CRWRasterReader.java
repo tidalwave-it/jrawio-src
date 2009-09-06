@@ -211,17 +211,17 @@ public class CRWRasterReader extends RasterReader
 
         // Warning, this relies upon the fact that RGB offsets share the same value as TIFF CFA_PATTERN.
         // FIXME: decouple them
-        DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
-        short[] data = dataBuffer.getData();
-        int width = raster.getWidth();
-        int height = raster.getHeight();
-        int pixelStride = 3; // FIXME dataBuffer.getNumBanks();
-        int scanStride = width * pixelStride;
+        final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
+        final short[] data = dataBuffer.getData();
+        final int width = raster.getWidth();
+        final int height = raster.getHeight();
+        final int pixelStride = 3; // FIXME dataBuffer.getNumBanks();
+        final int scanStride = width * pixelStride;
 
         iis.selectBitReader(-1, 0);
-        int lowBitsOffset = HEADER_SIZE + rasterOffset;
+        final int lowBitsOffset = HEADER_SIZE + rasterOffset;
         int rawOffset = lowBitsOffset;
-        boolean hasLowBits = hasLowBits(iis, rawOffset);
+        final boolean hasLowBits = hasLowBits(iis, rawOffset);
 
         if (hasLowBits)
           {
@@ -230,14 +230,14 @@ public class CRWRasterReader extends RasterReader
           }
 
         iis.seek(rawOffset);
-        HuffmannDecoder[] decoderPair = canonDecoders[decoderPairIndex];
+        final HuffmannDecoder[] decoderPair = canonDecoders[decoderPairIndex];
         logger.finest(">>>> decoderTable: %d, lowBitsOffset: %d, rawOffset: %d", decoderPairIndex, lowBitsOffset, rawOffset);
         logger.finest("firstDecoder: %s", decoderPair[0]);
         logger.finest("secondDecoder: %s", decoderPair[1]);
 
-        int[] diffBlock = new int[BLOCK_WIDTH * BLOCK_HEIGHT];
-        short[] pixel = new short[width * BLOCK_HEIGHT];
-        int[] base = new int[2];
+        final int[] diffBlock = new int[BLOCK_WIDTH * BLOCK_HEIGHT];
+        final short[] pixel = new short[width * BLOCK_HEIGHT];
+        final int[] base = new int[2];
 
         int carry = 0;
         int pixelCounter = 0;
@@ -302,7 +302,7 @@ public class CRWRasterReader extends RasterReader
 
         for (int i = 0; i < diffBlock.length; i++)
           {
-            int value = decoderPair[(i == 0) ? 0 : 1].decode(iis);
+            final int value = decoderPair[(i == 0) ? 0 : 1].decode(iis);
 
             if ((value == 0) && (i != 0))
               {
@@ -347,7 +347,7 @@ public class CRWRasterReader extends RasterReader
 
         for (int p = 0, i = 0; i < width * 2; i++)
           {
-            byte c = iis.readByte();
+            final byte c = iis.readByte();
 
             for (int r = 0; r < 8; r += 2, p++)
               {
@@ -380,7 +380,7 @@ public class CRWRasterReader extends RasterReader
                                        final @Nonnegative int offset)
       throws IOException
       {
-        byte[] buffer = new byte[16 * 1024];
+        final byte[] buffer = new byte[16 * 1024];
         boolean compressed = true;
 
         iis.seek(0);
