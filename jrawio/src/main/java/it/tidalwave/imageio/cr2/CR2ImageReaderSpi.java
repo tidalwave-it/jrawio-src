@@ -22,15 +22,16 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: CR2ImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.cr2;
 
+import javax.annotation.Nonnull;
 import java.util.Locale;
-import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import javax.imageio.ImageReader;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RAWImageReaderSpiSupport;
 import it.tidalwave.imageio.tiff.IFD;
@@ -38,8 +39,8 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 
 /***********************************************************************************************************************
  *
- * @author  fritz
- * @version $Id: CR2ImageReaderSpi.java 166 2008-09-27 09:43:00Z fabriziogiudici $
+ * @author  Fabrizio Giudici
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CR2ImageReaderSpi extends RAWImageReaderSpiSupport
@@ -50,7 +51,7 @@ public class CR2ImageReaderSpi extends RAWImageReaderSpiSupport
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    public CR2ImageReaderSpi ()
+    public CR2ImageReaderSpi()
       {
         super("CR2", "cr2", "image/x-canon-cr2", CR2ImageReader.class);
       }
@@ -58,7 +59,8 @@ public class CR2ImageReaderSpi extends RAWImageReaderSpiSupport
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    public String getDescription (Locale locale)
+    @Nonnull
+    public String getDescription (final @Nonnull Locale locale)
       {
         return "Standard CR2 Image Reader";
       }
@@ -66,7 +68,9 @@ public class CR2ImageReaderSpi extends RAWImageReaderSpiSupport
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    public ImageReader createReaderInstance (Object extension) throws IOException
+    @Nonnull
+    public ImageReader createReaderInstance (final @Nonnull Object extension)
+      throws IOException
       {
         return new CR2ImageReader(this);
       }
@@ -74,11 +78,12 @@ public class CR2ImageReaderSpi extends RAWImageReaderSpiSupport
     /*******************************************************************************************************************
      *
      ******************************************************************************************************************/
-    public boolean canDecodeInput (RAWImageInputStream iis) throws IOException
+    public boolean canDecodeInput (final @Nonnull RAWImageInputStream iis)
+      throws IOException
       {
         iis.seek(0);
-        long ifdOffset = TIFFImageReaderSupport.processHeader(iis, null);
-        IFD primaryIFD = new IFD();
+        final long ifdOffset = TIFFImageReaderSupport.processHeader(iis, null);
+        final IFD primaryIFD = new IFD();
         primaryIFD.load(iis, ifdOffset);
         
         if (primaryIFD.isDNGVersionAvailable())
@@ -86,14 +91,14 @@ public class CR2ImageReaderSpi extends RAWImageReaderSpiSupport
             return false;    
           }
         
-        String make = primaryIFD.getMake();
-        String model = primaryIFD.getModel();
+        final String make = primaryIFD.getMake();
+        final String model = primaryIFD.getModel();
         //
         // CHECK THIS: TIFF files out of Canon scanners are tagged as Canon?
         // Check the model name too.
         //
-        if ((make == null) || !make.toUpperCase().startsWith("CANON") || (model == null)
-            || (!model.toUpperCase().startsWith("CANON EOS")))
+        if ((make == null) || !make.toUpperCase().startsWith("CANON") 
+            || (model == null) || (!model.toUpperCase().startsWith("CANON")))
           {
             logger.fine("CR2ImageReaderSpi giving up on: '%s' / %s'", make, model);
             return false;
