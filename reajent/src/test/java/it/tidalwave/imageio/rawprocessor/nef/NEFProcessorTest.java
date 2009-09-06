@@ -125,7 +125,6 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
             ExpectedResults.create("http://raw.fotosite.pl/download-Nikon_D40X_Nikkor_18-135_f3.5-5.6_AFS/DSC_0001.NEF").
                             image(3872, 2592, 3, 8, "0c1eacfa819622783264372248618df3").
                             thumbnail(160, 120).
-                            thumbnail(3008, 2000).
                             thumbnail(3872, 2592).
                             issues("JRW-256"),
             ExpectedResults.create("http://raw.fotosite.pl/download-Nikon_D40X_Nikkor_18-135_f3.5-5.6_AFS/DSC_0001.NEF").

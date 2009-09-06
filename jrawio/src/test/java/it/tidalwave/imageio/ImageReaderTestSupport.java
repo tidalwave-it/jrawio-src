@@ -312,9 +312,13 @@ public class ImageReaderTestSupport extends TestSupport
         final File targetDirectory = new File(System.getProperty("java.io.tmpdir") + "/jrawio-test");
         final File tiffFile = new File(targetDirectory, path.replace("https://", "").replace("http://", "") +
                               suffix + "-" + System.getProperty("java.version") + ".tiff");
-        tiffFile.getParentFile().mkdirs();
-        logger.info("***************** Writing %s...", tiffFile.getAbsolutePath());
-        ImageIO.write(image, "TIFF", tiffFile);
+
+        if (Boolean.getBoolean("jrawio.dumpImageAsTIFF"))
+          {
+            tiffFile.getParentFile().mkdirs();
+            logger.info("***************** Writing %s...", tiffFile.getAbsolutePath());
+            ImageIO.write(image, "TIFF", tiffFile);
+          }
         
         final Raster raster = image.getData();
 
@@ -323,7 +327,7 @@ public class ImageReaderTestSupport extends TestSupport
             final File textDumpFile = new File(tiffFile.getAbsolutePath() + "-" + System.getProperty("java.version") + ".txt");
             dumpRasterAsText(raster, textDumpFile);
           }
-
+        
         if (expectedRasterMD5 != null) // we temporarily accept null since there's no value for thumbnails
           {
             final MessageDigest md5 = md5(raster);

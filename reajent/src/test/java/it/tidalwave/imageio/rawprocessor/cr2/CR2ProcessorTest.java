@@ -44,11 +44,6 @@ import org.junit.runners.Parameterized.Parameters;
  **********************************************************************************************************************/
 public class CR2ProcessorTest extends NewImageReaderTestSupport
   {
-    private final static Dimension EOS20D_SENSOR_SIZE = new Dimension(3596, 2360);
-    private final static Dimension EOS30D_SENSOR_SIZE = new Dimension(3596, 2360);
-    private final static Dimension EOS40D_SENSOR_SIZE = new Dimension(3944, 2622);
-    private final static Dimension EOS350D_SENSOR_SIZE = new Dimension(3516, 2328);
-
     public CR2ProcessorTest (final @Nonnull ExpectedResults expectedResults)
       {
         super(expectedResults);
@@ -126,10 +121,6 @@ public class CR2ProcessorTest extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(384, 256).
                             issues("JRW-233"),
-            ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/canon/EOS20D/2.0.3/XXXX0000.CR2").
-                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
-                            image(EOS20D_SENSOR_SIZE, 3, 16, "d15a94cfc3615c0a399696f1af2cdbd1").
-                            issues("JRW-233", "JRW-239", "JRW-248"),
             // EOS 1Ds mkIII
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/1dsm3/RAW_CANON_1DSM3.CR2").
                             image(5616, 3744, 3, 8, "952dbb135790933a06cd16ba3e3ffa2c").
@@ -333,15 +324,14 @@ public class CR2ProcessorTest extends NewImageReaderTestSupport
                             thumbnail(1936, 1288).
                             thumbnail(160, 120).
                             thumbnail(384, 256).
-                            issues("JRW-206").
+                            issues("JRW-206", "JRW-253").
                             metadata("metadata.canonMakerNote.sensorInfo.width", 3516).
                             metadata("metadata.canonMakerNote.sensorInfo.height", 2328).
                             metadata("metadata.canonMakerNote.sensorInfo.cropLeft", 52).
                             metadata("metadata.canonMakerNote.sensorInfo.cropRight", 3507).
                             metadata("metadata.canonMakerNote.sensorInfo.cropTop", 19).
                             metadata("metadata.canonMakerNote.sensorInfo.cropBottom", 2322).
-                            thumbnail(486, 324).
-                            issues("JRW-253"),
+                            thumbnail(486, 324),
             // EOS 1000D
             ExpectedResults.create("http://raw.fotosite.pl/download-Canon_1000D_Canon_EF50_f1.8_by_Darren_Sim/IMG_0086.CR2").
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
