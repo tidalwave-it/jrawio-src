@@ -22,28 +22,36 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: SonyMakerNote.java 156 2008-09-13 18:39:08Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.srf;
 
-import it.tidalwave.imageio.util.Logger;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import javax.imageio.stream.ImageInputStream;
 import javax.imageio.stream.MemoryCacheImageInputStream;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.Directory;
 import it.tidalwave.imageio.raw.TagRational;
 import it.tidalwave.imageio.tiff.IFDSupport;
 
+/***********************************************************************************************************************
+ *
+ * @author  Fabrizio Giudici
+ * @version $Id$
+ *
+ **********************************************************************************************************************/
 public class SonyMakerNote extends IFDSupport
   {
     private final static long serialVersionUID = -3814200534424599307L;
-
-    private final static Logger logger = Logger.getLogger("it.tidalwave.imageio.srf.SonyMakerNote");
+    private final static String CLASS = SonyMakerNote.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
 
     private final static int MAKER_NOTE_KEY_OFFSET = 200896;
 
@@ -57,25 +65,29 @@ public class SonyMakerNote extends IFDSupport
 
     /*******************************************************************************************************************
      * 
-     * @inheritDoc
+     * {@inheritDoc}
      * 
-     *******************************************************************************/
-    public void loadAll (RAWImageInputStream iis, long offset) throws IOException
+     ******************************************************************************************************************/
+    @Override
+    public void loadAll (final @Nonnull RAWImageInputStream iis, 
+                         final @Nonnegative long offset)
+      throws IOException
       {
-        int makerNoteKey = getMakerNoteKey(iis);
+        logger.fine("loadAll(%s, %d)", iis, offset);
+        final int makerNoteKey = getMakerNoteKey(iis);
         //
         // The first IFD (SRF0) is in plaintext.
         //
-        SonySRF0 srf0 = new SonySRF0();
+        final SonySRF0 srf0 = new SonySRF0();
         setSRF(0, srf0);
-        logger.fine("Loading plaintext SRF0 AT %d", offset);
+        logger.finer(">>>> loading plaintext SRF0 AT %d", offset);
         long nextOffset = srf0.load(iis, offset);
         //
         // Follows a block of encrypted data. Part of this block is encrypted twice,
         // so unfortunately we cannot decrypt it with the simple use of a SonyDecypher.
         // We have to load it entirely in memory and process it.
         //
-        byte[] buffer = new byte[MAKER_NOTE_BYTE_COUNT];
+        final byte[] buffer = new byte[MAKER_NOTE_BYTE_COUNT];
         iis.seek(nextOffset);
         iis.readFully(buffer);
         ImageInputStream iis2 = new MemoryCacheImageInputStream(new ByteArrayInputStream(buffer));
@@ -94,10 +106,10 @@ public class SonyMakerNote extends IFDSupport
         ByteBuffer bb = ByteBuffer.wrap(buffer);
         bb.order(ByteOrder.BIG_ENDIAN);
         ((SRFImageInputStream)iis).startEncryptedSection(nextOffset, bb);
-        SonySRF1 srf1 = new SonySRF1();
+        final SonySRF1 srf1 = new SonySRF1();
         setSRF(1, srf1);
         logger.fine("Loading encrypted SRF1 AT %d", nextOffset);
-        long srf1Offset = nextOffset;
+        final long srf1Offset = nextOffset;
         nextOffset = srf1.load(iis, nextOffset);
         //
         // Now we decrypt the second block.
@@ -121,7 +133,7 @@ public class SonyMakerNote extends IFDSupport
 
             try
               {
-                Class srfClass = Class.forName("it.tidalwave.imageio.srf.SonySRF" + srfIndex);
+                final Class srfClass = Class.forName("it.tidalwave.imageio.srf.SonySRF" + srfIndex);
                 srf = (Directory)srfClass.newInstance();
               }
             catch (Exception e)
@@ -130,81 +142,87 @@ public class SonyMakerNote extends IFDSupport
               }
 
             setSRF(srfIndex, srf);
-            logger.fine("Loading encrypted SRF%d AT %d", srfIndex, nextOffset);
+            logger.finer(">>>> loading encrypted SRF%d AT %d", srfIndex, nextOffset);
             nextOffset = srf.load(iis, nextOffset);
           }
 
         ((SRFImageInputStream)iis).stopEncryptedSection();
       }
 
-    private void setSRF (int i,
-                        Directory srf)
+    private void setSRF (int i, Directory srf)
       {
         this.addNamedDirectory("SRF" + i, srf);
       }
 
-    public SonySRF0 getSRF0 ()
+    @Nonnull
+    public SonySRF0 getSRF0()
       {
         return (SonySRF0)getNamedDirectory("SRF0");
       }
 
-    public SonySRF1 getSRF1 ()
+    @Nonnull
+    public SonySRF1 getSRF1()
       {
         return (SonySRF1)getNamedDirectory("SRF1");
       }
 
-    public SonySRF2 getSRF2 ()
+    @Nonnull
+    public SonySRF2 getSRF2()
       {
         return (SonySRF2)getNamedDirectory("SRF2");
       }
 
-    public String getColorMode ()
+    @Nonnull
+    public String getColorMode()
       {
         // TODO Auto-generated method stub
         return "UNKNOWN";
       }
 
-    public String getToneCompensation ()
+    @Nonnull
+    public String getToneCompensation()
       {
         // TODO Auto-generated method stub
         return "UNKNOWN";
       }
 
-    public boolean isCompressionDataAvailable ()
+    public boolean isCompressionDataAvailable()
       {
         // TODO Auto-generated method stub
         return false;
       }
 
-    public int[] getLinearizationTable ()
+    public int[] getLinearizationTable()
       {
         // TODO Auto-generated method stub
         return null;
       }
 
-    public byte[] getCurve ()
+    public byte[] getCurve()
       {
         // TODO Auto-generated method stub
         return null;
       }
 
-    public String getWhiteBalance ()
+    @Nonnull
+    public String getWhiteBalance()
       {
         // TODO Auto-generated method stub
         return "SUNNY";
       }
 
-    public boolean isWhiteBalanceFineAvailable ()
+    public boolean isWhiteBalanceFineAvailable()
       {
         // TODO Auto-generated method stub
         return false;
       }
 
-    public int getWhiteBalanceFine ()
+    public int getWhiteBalanceFine()
       {
         return 0;
       }
 
+    @Nonnull
     public TagRational[] getWhiteBalanceRBCoefficients ()
       {
         TagRational ONE = new TagRational(1, 1);
@@ -219,17 +237,18 @@ public class SonyMakerNote extends IFDSupport
      * @return              the key
      * @throws IOException
      * 
-     *******************************************************************************/
-    private int getMakerNoteKey (RAWImageInputStream iis) throws IOException
+     ******************************************************************************************************************/
+    private int getMakerNoteKey (final @Nonnull RAWImageInputStream iis)
+      throws IOException
       {
         iis.seek(MAKER_NOTE_KEY_OFFSET); 
-        int skip = iis.readByte() & 0xff;
+        final int skip = iis.readByte() & 0xff;
         // System.err.println("BBB is " + bbb);
         iis.skipBytes(skip * 4 - 1);
-        ByteOrder byteOrderSave = iis.getByteOrder();
+        final ByteOrder byteOrderSave = iis.getByteOrder();
         iis.setByteOrder(ByteOrder.BIG_ENDIAN);
         // System.err.println("Reading key at: " + iis.getStreamPosition());
-        int ifdKey = iis.readInt();
+        final int ifdKey = iis.readInt();
         iis.setByteOrder(byteOrderSave);
         
         return ifdKey;

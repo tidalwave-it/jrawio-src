@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: E300RasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -33,17 +33,21 @@ import java.awt.image.DataBufferUShort;
 import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RAWImageReaderSupport;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
  * This class implements the ORF (Olympus raw Format) raster loading for E-300.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: E300RasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class E410RasterReader extends ORFRasterReader
   {
+    private final static String CLASS = E410RasterReader.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+
     /*******************************************************************************************************************
      * 
      * {@inheritDoc}
@@ -56,7 +60,7 @@ public class E410RasterReader extends ORFRasterReader
                                            @Nonnull final RAWImageReaderSupport ir) 
       throws IOException
       {
-//        logger.fine("loadUncompressedRaster()");
+        logger.fine("loadUncompressedRaster(%s, %s, %s)", iis, raster, ir);
 //        logger.finer(">>>> CFA pattern: " + cfaOffsets[0] + " " + cfaOffsets[1] + " " + cfaOffsets[2] + " " + cfaOffsets[3]);
 
         final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
@@ -169,5 +173,17 @@ public class E410RasterReader extends ORFRasterReader
             
             ir.processImageProgress((100.0f * y) / height);
           }
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    @Nonnull
+    public String toString()
+      {
+        return String.format("E410RasterReader@%x", System.identityHashCode(this));
       }
   }

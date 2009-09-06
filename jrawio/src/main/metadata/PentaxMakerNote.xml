@@ -355,5 +355,13 @@ http://creativecommons.org/licenses/by-sa/2.5
         <example></example>
         <description></description>
     </tag>
+    <tag>
+        <code>544</code>
+        <type>undefined</type>
+        <length>99</length>
+        <name>Compression Info</name>
+        <example></example>
+        <description></description>
+    </tag>
  </directory>
 

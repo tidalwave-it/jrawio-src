@@ -244,4 +244,10 @@ public final class ExpectedResults
         this.extra = extra;
         return this;
       }
+
+    @Override
+    public String toString()
+      {
+        return path;
+      }
   }

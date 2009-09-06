@@ -42,8 +42,9 @@ import javax.imageio.ImageReader;
 import it.tidalwave.imageio.util.Logger;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Rule;
+import org.junit.rules.ErrorCollector;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
 import static org.junit.Assert.*;
 
 /***********************************************************************************************************************
@@ -52,7 +53,7 @@ import static org.junit.Assert.*;
  * @version $Id$
  *
  **********************************************************************************************************************/
-@RunWith(value=Parameterized.class)
+@RunWith(value=MyParameterized.class)
 public class NewImageReaderTestSupport extends ImageReaderTestSupport
   {
     private final static String CLASS = NewImageReaderTestSupport.class.getName();
@@ -60,6 +61,9 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
     
     @Nonnull
     private final ExpectedResults expectedResults;
+
+    @Rule
+    public final ErrorCollector errors = new ErrorCollector();
 
     /*******************************************************************************************************************
      *
@@ -90,9 +94,13 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
     public final void testImage()
       throws Exception
       {
+<<<<<<< local
         final List<Throwable> errors = new ArrayList<Throwable>();
         
         final ImageReader ir = getImageReader(expectedResults.getPath(), expectedResults.getReadParam());
+=======
+        final ImageReader ir = getImageReader(expectedResults.getPath());
+>>>>>>> other
         final int imageCount = expectedResults.getImageCount();
         final int thumbnailCount = expectedResults.getThumbnailCount();
         assertEquals("image count", imageCount, ir.getNumImages(false));
@@ -108,7 +116,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
               }
             catch (Throwable e)
               {
-                errors.add(e);
+                errors.addError(e);
               }
           }
 
@@ -122,7 +130,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
               }
             catch (Throwable e)
               {
-                errors.add(e);
+                errors.addError(e);
               }
           }
 
@@ -140,7 +148,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
               }
             catch (Throwable e)
               {
-                errors.add(e);
+                errors.addError(e);
               }
           }
 
@@ -155,7 +163,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
               }
             catch (Throwable e)
               {
-                errors.add(e);
+                errors.addError(e);
               }
           }
 
@@ -237,7 +245,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
               }
             catch (Throwable e)
               {
-                errors.add(e);
+                errors.addError(e);
               }
           }
 
@@ -247,21 +255,10 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
           }
         catch (Throwable e)
           {
-            errors.add(e);
+            errors.addError(e);
           }
 
         close(ir);
-
-        if (!errors.isEmpty())
-          {
-            for (final Throwable error : errors)
-              {
-                logger.throwing(CLASS, "================================================================", error);
-              }
-
-            final String fileName = expectedResults.getPath().replaceAll("^.*[^/]/", "");
-            fail(fileName + ": " + errors.toString());
-          }
       }
 
     /*******************************************************************************************************************

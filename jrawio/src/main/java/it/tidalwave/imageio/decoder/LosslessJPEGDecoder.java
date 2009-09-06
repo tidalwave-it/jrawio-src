@@ -22,17 +22,17 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: LosslessJPEGDecoder.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.decoder;
 
-import it.tidalwave.imageio.util.Logger;
-
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
-
 import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -40,13 +40,12 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * widely used by some RAW formats which include blocks of encoded data.
  * 
  * @author  fritz
- * @version $Id: LosslessJPEGDecoder.java 159 2008-09-13 19:15:44Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class LosslessJPEGDecoder
   {
-    private final static String CLASS = "it.tidalwave.imageio.decoder.LosslessJPEGDecoder";
-
+    private final static String CLASS = LosslessJPEGDecoder.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
 
     private final static int BYTE_MASK = 0xff;
@@ -54,23 +53,28 @@ public class LosslessJPEGDecoder
     private final static int SHORT_MASK = 0xffff;
 
     /** The size of a bit sample. */
+    @Nonnegative
     private int bitsPerSample;
 
     /** The height of the encoded block. */
+    @Nonnegative
     private int height;
 
     /** The width of the encoded block. */
+    @Nonnegative
     private int width;
 
     /** The number of channels. */
+    @Nonnegative
     private int channelCount;
 
     /** The size of a row (it's the width * channelCount) */
+    @Nonnegative
     private int rowSize;
 
     private int[] vPredictors;
 
-    private HuffmannDecoder[] decoders = new HuffmannDecoder[4];
+    private HuffmannDecoder[] decoders;
 
     private short[] rowBuffer;
 
@@ -80,35 +84,37 @@ public class LosslessJPEGDecoder
      * stream by means of the {@link #reset(ImageInputStream)} method. The same 
      * instance can be reused more than once by resetting it multiple times. 
      * 
-     *******************************************************************************/
+     ******************************************************************************************************************/
     public LosslessJPEGDecoder()
       { 
       }
     
     /*******************************************************************************************************************
      * 
-     * Links the decoder to a given input stream. This method also parses the 
-     * Lossless JPEG header.
+     * Links the decoder to a given input stream. This method also parses the Lossless JPEG header.
      * 
      * @param   iis          the input stream
      * @throws  IOException  if an I/O error occurs
      * 
-     *******************************************************************************/
-    public void reset (ImageInputStream iis) throws IOException
+     ******************************************************************************************************************/
+    public void reset (@Nonnull final ImageInputStream iis)
+      throws IOException
       {
-        short magic = iis.readShort();
+        final short magic = iis.readShort();
 
         if (magic != (short)0xffd8)
           {
             throw new RuntimeException("Bad magic: " + Integer.toHexString(magic & SHORT_MASK));
           }
 
+        final HuffmannDecoder[] dcTables = new HuffmannDecoder[4];
+
         loop: for (;;)
           {
-            short tag = iis.readShort();
-            int length = iis.readShort() - 2;
+            final short tag = iis.readShort();
+            final int length = iis.readShort() - 2;
 
-            logger.finer(">>>> tag: %s length: %d", Integer.toHexString(tag & SHORT_MASK), length);
+            logger.finer(">>>> tag: %x length: %d", tag & SHORT_MASK, length);
 
             if (((tag & SHORT_MASK) <= 0xff00) || (length > 255))
               {
@@ -137,12 +143,12 @@ public class LosslessJPEGDecoder
                   break;
 
                 case (short)0xffc4:
-                  byte[] data = new byte[length];
+                  final byte[] data = new byte[length];
                   iis.readFully(data);
 
                   for (int scan = 0; (scan < length) && (data[scan] < 4);)
                     {
-                      int channel = data[scan++];
+                      final int channel = data[scan++];
                       int decoderLen = 16;
 
                       for (int q = scan; q < scan + 16; q++)
@@ -150,17 +156,31 @@ public class LosslessJPEGDecoder
                           decoderLen += data[q];
                         }
 
-                      byte[] temp = new byte[decoderLen];
+                      final byte[] temp = new byte[decoderLen];
                       System.arraycopy(data, scan, temp, 0, temp.length);
-                      decoders[channel] = HuffmannDecoder.createDecoderWithJpegHack(temp, 0);
-                      logger.fine("Decoder[%d] = %s", channel, decoders[channel]);
+                      dcTables[channel] = HuffmannDecoder.createDecoderWithJpegHack(temp, 0);
+                      logger.fine("Decoder[%d] = %s", channel, dcTables[channel]);
                       scan += decoderLen;
                     }
 
                   break;
 
                 case (short)0xffda:
-                  iis.skipBytes(length);
+                  final int channels = iis.readUnsignedByte();
+                  decoders = new HuffmannDecoder[channels];
+
+                  for (int i = 0; i < channels; i++)
+                    {
+                      final int index = iis.readUnsignedByte();
+                      final int dcac = iis.readUnsignedByte();
+                      final int dc = dcac >> 4;
+                      final int ac = dcac & 0xF;
+                      logger.fine("Decoder index=%d, DC table=%d, AC table=%d", index, dc, ac);
+                      decoders[index - 1] = dcTables[dc];
+                    }
+
+                  iis.skipBytes(3);
+
                   break loop;
               }
           }
@@ -173,8 +193,10 @@ public class LosslessJPEGDecoder
      * @param  iis           the bit reader to read data from
      * @throws IOException  if an I/O error occurs
      * 
-     *******************************************************************************/
-    public short[] loadRow (RAWImageInputStream iis) throws IOException
+     ******************************************************************************************************************/
+    @Nonnull
+    public short[] loadRow (final @Nonnull RAWImageInputStream iis)
+      throws IOException
       {
         int scan = 0;
 
@@ -182,8 +204,8 @@ public class LosslessJPEGDecoder
           {
             for (int c = 0; c < channelCount; c++)
               {
-                int bitCount = decoders[c].decode(iis);
-                int diff = iis.readComplementedBits(bitCount);
+                final int bitCount = decoders[c].decode(iis);
+                final int diff = iis.readComplementedBits(bitCount);
                 rowBuffer[scan] = (short)((x == 0) ? (vPredictors[c] += diff)
                     : (rowBuffer[scan - channelCount] + diff));
                 scan++;

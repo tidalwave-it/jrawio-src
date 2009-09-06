@@ -62,10 +62,14 @@ public class RAFProcessorTest extends NewImageReaderTestSupport
                             issues("JRW-127", "JRW-212", "JRW-213"),
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/tmlehto/Fujifilm/S6500fd/RAF/DSCF6315.RAF").
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
-                            image(3592, 3591, 3, 16, "8c256e68fe9897a4fac12a06f1a07fb4").
+                            image(3592, 3591, 3, 16, "8c256e68fe9897a4fac12a06f1a07fb4"),
+            // S9500
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/peterbecker/Fujifilm/FinePixS9500/RAF/DSCF3756.RAF").
+                            image(2848, 2136, 3, 8, "963d1ed769b35a91e1325f62a3b423c7").
                             thumbnail(160, 120).
                             thumbnail(1600, 1200).
                             issues("JRW-204").
+                            issues("JRW-252").
                             metadata("metadata.fujiRawData.header", "FUJIFILMCCD-RAW 0201FF389701FinePix S6500fd\u0000\u0000\u0000\u0000\u0000").
 //                            metadata("metadata.fujiRawData.version", "0100").
                             metadata("metadata.fujiRawData.version", "\u0000\u0000\u0000\u0000").

@@ -3,3 +3,6 @@ jrawio/target
 reajent/target
 jrawio/nbproject/private
 reajent/nbproject/private
+.repository
+hudson.env
+

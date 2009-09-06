@@ -22,41 +22,47 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: E300RasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.orf;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.io.IOException;
 import java.awt.image.DataBufferUShort;
 import java.awt.image.WritableRaster;
+import java.io.IOException;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.raw.RAWImageReaderSupport;
+import it.tidalwave.imageio.raw.RasterReader;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
  * This class implements the ORF (Olympus raw Format) raster loading for E-300.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: E300RasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
-public class E300RasterReader extends ORFRasterReader
+public class E300RasterReader extends RasterReader
   {
+    private final static String CLASS = E300RasterReader.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+    
     /*******************************************************************************************************************
-     * 
+     *
      * {@inheritDoc}
-     * 
+     *
      ******************************************************************************************************************/
+    // This is different than Packed12RasterReader for the ordering of nibbles; TODO: perhaps can be merged?
     @Override
     protected void loadUncompressedRaster (@Nonnull final RAWImageInputStream iis,
                                            @Nonnull final WritableRaster raster,
-                                           @Nonnull final RAWImageReaderSupport ir) 
+                                           @Nonnull final RAWImageReaderSupport ir)
       throws IOException
       {
-//        logger.fine("loadUncompressedRaster()");
-//        logger.finer(">>>> CFA pattern: " + cfaOffsets[0] + " " + cfaOffsets[1] + " " + cfaOffsets[2] + " " + cfaOffsets[3]);
+        logger.fine("loadUncompressedRaster(%s, %s, %s)", iis, raster, ir);
 
         final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
         final short[] data = dataBuffer.getData();
@@ -67,8 +73,7 @@ public class E300RasterReader extends ORFRasterReader
         setBitsPerSample(12);
         selectBitReader(iis, raster, -1);
         //
-        // We can rely on the fact that the array has been zeroed by the JVM,
-        // so we just set nonzero samples.
+        // We can rely on the fact that the array has been zeroed by the JVM,  so we just set nonzero samples.
         //
         for (int y = 0; y < height; y++)
           {
@@ -81,10 +86,10 @@ public class E300RasterReader extends ORFRasterReader
                 final int b0 = iis.readByte() & 0xff;
                 final int b1 = iis.readByte() & 0xff;
                 final int b2 = iis.readByte() & 0xff;
-                
+
                 int sample1 = ((b1 << 8) | b0) & 0xfff;
                 int sample2 = ((b2 << 4) | (b1 >>> 4)) & 0xfff;
-                
+
                 if (linearizationTable != null)
                   {
                     sample1 = linearizationTable[sample1];
@@ -93,19 +98,43 @@ public class E300RasterReader extends ORFRasterReader
 
                 int j = x % 2;
                 data[i + cfaOffsets[j + k]] = (short)sample1;
-                x++;
+                endOfColumn(x, iis);
                 i += pixelStride;
+                x++;
                 j = x % 2;
                 data[i + cfaOffsets[j + k]] = (short)sample2;
+                endOfColumn(x, iis);
                 i += pixelStride;
-                
-                if (((x + 1) % 10) == 0)
-                  {
-                    iis.readByte();  
-                  }
               }
 
             ir.processImageProgress((100.0f * y) / height);
           }
+      }
+
+    /*******************************************************************************************************************
+     * 
+     * {@inheritDoc}
+     * 
+     ******************************************************************************************************************/
+    protected void endOfColumn (final @Nonnegative int x, final @Nonnull RAWImageInputStream iis)
+      throws IOException
+      {
+        if (((x + 1) % 10) == 0)
+          {
+            iis.readByte();
+//            iis.skipBits(8);
+          }
+      }
+
+    /*******************************************************************************************************************
+     *
+     * {@inheritDoc}
+     *
+     ******************************************************************************************************************/
+    @Override
+    @Nonnull
+    public String toString()
+      {
+        return String.format("E300RasterReader@%x", System.identityHashCode(this));
       }
   }

@@ -50,14 +50,24 @@
 
     <mailingLists>
         <mailingList>
-            <name>Commits</name>
-            <post>commits@jrawio.dev.java.net</post>
-            <archive>https://jrawio.dev.java.net/servlets/SummarizeList?listName=commits</archive>
+            <name>Continuous Integration</name>
+            <post>ci@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/ci/archive</archive>
         </mailingList>
         <mailingList>
-            <name>Dev</name>
-            <post>dev@jrawio.dev.java.net</post>
-            <archive>https://jrawio.dev.java.net/servlets/SummarizeList?listName=dev</archive>
+            <name>Commits</name>
+            <post>commits@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/commits/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Developers</name>
+            <post>dev@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/dev/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Users</name>
+            <post>users@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/users/archive</archive>
         </mailingList>
     </mailingLists>
 
@@ -112,7 +122,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.5</version>
+            <version>4.7</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -146,15 +156,25 @@
             <id>default</id>
             <properties>
                 <buildNumber>unknown</buildNumber>
+                <testReportsDirectory>${project.build.directory}/surefire-reports</testReportsDirectory>
+                <!-- maven.test.skip.exec>true</maven.test.skip.exec -->
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
         <profile>
+            <id>hudson</id>
+            <properties>
+                <buildNumber>unknown</buildNumber>
+                <testReportsDirectory>${project.build.directory}/surefire-reports</testReportsDirectory>
+            </properties>
+        </profile>
+        <profile>
             <id>fritz</id>
             <properties>
                 <buildNumber>unknown</buildNumber>
+                <testReportsDirectory>${project.build.directory}/surefire-reports</testReportsDirectory>
                 <testset.cached.folder>/Users/fritz/Business/Tidalwave/Projects/TestCacheFolder</testset.cached.folder>
             </properties>
             <activation>
@@ -263,7 +283,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>cobertura-maven-plugin</artifactId>
-                    <version>2.2</version>
+                    <version>2.3</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -338,9 +358,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <!-- Don't fail, or it won't produce the tests artifact and won't compile
-                         tests of other modules depending on the current. -->
-                    <testFailureIgnore>true</testFailureIgnore>
+                    <reportsDirectory>${testReportsDirectory}</reportsDirectory>
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>

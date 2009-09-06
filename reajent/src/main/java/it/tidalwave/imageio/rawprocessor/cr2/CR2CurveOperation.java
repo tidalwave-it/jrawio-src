@@ -65,7 +65,7 @@ public class CR2CurveOperation extends CurveOperation
 
         // TODO: document why use these margins
         final int yMin = sensorInfo.getCropTop() - 5;
-        final int yMax = sensorInfo.getCropBottom() + 5;
+        final int yMax = Math.min(sensorInfo.getHeight() - 1, sensorInfo.getCropBottom() + 5);
         final int xMin = 2;
         final int xMax = sensorInfo.getCropLeft() - 13;
         logger.finer(">>>> computing black level from (%d; %d) - (%d; %d)...", xMin, xMax, yMin, yMax);
