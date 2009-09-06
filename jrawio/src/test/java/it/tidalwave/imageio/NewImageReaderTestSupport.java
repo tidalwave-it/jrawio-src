@@ -90,7 +90,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
      *
      *
      ******************************************************************************************************************/
-    @Test(timeout=90000)
+    @Test(timeout=60000)
     public final void testImage()
       throws Exception
       {
