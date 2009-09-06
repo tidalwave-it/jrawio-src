@@ -310,7 +310,8 @@ public class ImageReaderTestSupport extends TestSupport
       throws IOException, NoSuchAlgorithmException
       {
         final File targetDirectory = new File(System.getProperty("java.io.tmpdir") + "/jrawio-test");
-        final File tiffFile = new File(targetDirectory, path.replace("https://", "").replace("http://", "") + suffix + ".tiff");
+        final File tiffFile = new File(targetDirectory, path.replace("https://", "").replace("http://", "") +
+                              suffix + "-" + System.getProperty("java.version") + ".tiff");
         tiffFile.getParentFile().mkdirs();
         logger.info("***************** Writing %s...", tiffFile.getAbsolutePath());
         ImageIO.write(image, "TIFF", tiffFile);
