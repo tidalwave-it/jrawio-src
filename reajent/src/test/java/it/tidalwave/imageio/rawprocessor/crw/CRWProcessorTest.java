@@ -56,23 +56,23 @@ public class CRWProcessorTest extends NewImageReaderTestSupport
           (
             // Powershot G1
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/g1/RAW_CANON_G1.CRW").
-                            image(2048, 1536, 3, 8, "a38f045797f22b677fd290c0b9cea655").
+                            image(2048, 1536, 3, 8, "b7fe523a6cfcd1367bcd566f96e9989f").
                             thumbnail(640, 480).
                             issues("JRW-264"),
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/g1/RAW_CANON_G1.CRW").
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
-                            image(2144, 1560, 3, 16, "355abf0c7c3721dbcbca3d452246e4e9").
+                            image(2144, 1560, 3, 16, "916c029069053280fc457798191469e9").
                             thumbnail(640, 480).
                             issues("JRW-264"),
             // Powershot G2
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/g2/RAW_CANON_G2.CRW").
-                            image(2272, 1704, 3, 8, "32a8cb46214a2eee44c1dd76f4b66c74").
+                            image(2272, 1704, 3, 8, "41cd23fc6648de746194f479795fd462").
                             thumbnail(160, 120).
                             thumbnail(640, 480).
                             issues("JRW-264"),
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/g2/RAW_CANON_G2.CRW").
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
-                            image(2376, 1728, 3, 16, "69ff6953ab3e8d4ade384c2adfd746de").
+                            image(2376, 1728, 3, 16, "3b296c1ef291505225fa7cc046d840f1").
                             thumbnail(160, 120).
                             thumbnail(640, 480).
                             issues("JRW-264"),
@@ -108,7 +108,7 @@ public class CRWProcessorTest extends NewImageReaderTestSupport
                             issues("JRW-264"),
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/g6/RAW_CANON_G6_SRGB.CRW").
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
-                            image(3160, 2344, 3, 16, "5c4fd5f6b64ddfcc31aaa3af9977a90a").
+                            image(3160, 2344, 3, 16, "1e03f84873e07436301157675fa2f9d3").
                             thumbnail(160, 120).
                             thumbnail(640, 480).
                             issues("JRW-264"),
@@ -268,25 +268,25 @@ public class CRWProcessorTest extends NewImageReaderTestSupport
                             issues("JRW-264"),
             // Powershot S30
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/s30/RAW_CANON_S30.CRW").
-                            image(2048, 1536, 3, 8, "3f63be26c16fbfc4cc0804f9bbdb1583").
+                            image(2048, 1536, 3, 8, "34f6d222ad6958c38557a6eb38098c75").
                             thumbnail(160, 120).
                             thumbnail(640, 480).
                             issues("JRW-264"),
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/s30/RAW_CANON_S30.CRW").
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
-                            image(2144, 1560, 3, 16, "5c4fd5f6b64ddfcc31aaa3af9977a90a").
+                            image(2144, 1560, 3, 16, "0556361d2c23334a4d19f7adeba28211").
                             thumbnail(160, 120).
                             thumbnail(640, 480).
                             issues("JRW-264"),
             // Powershot S40
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/s40/RAW_CANON_S40.CRW").
-                            image(2272, 1704, 3, 8, "de3c47c490443ec3f2dd758208e5a4da").
+                            image(2272, 1704, 3, 8, "96c31edf9bfac82d3c93ab23acf28f29").
                             thumbnail(160, 120).
                             thumbnail(640, 480).
                             issues("JRW-264"),
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/s40/RAW_CANON_S40.CRW").
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
-                            image(2376, 1728, 3, 16, "62235d04c09dab11eda1dd060ee5b8c3").
+                            image(2376, 1728, 3, 16, "cdf5be9fa68209dcce45ef4c1c5bb1d2").
                             thumbnail(160, 120).
                             thumbnail(640, 480).
                             issues("JRW-264"),
@@ -298,7 +298,7 @@ public class CRWProcessorTest extends NewImageReaderTestSupport
                             issues("JRW-264"),
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/s45/RAW_CANON_S45.CRW").
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
-                            image(2376, 1728, 3, 16, "5c4fd5f6b64ddfcc31aaa3af9977a90a").
+                            image(2376, 1728, 3, 16, "8da4e150aa3a2e749089f3b2dcb0715f").
                             thumbnail(160, 120).
                             thumbnail(2272, 1704).
                             issues("JRW-264"),
@@ -334,7 +334,7 @@ public class CRWProcessorTest extends NewImageReaderTestSupport
                             issues("JRW-264"),
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/s70/RAW_CANON_S70_SRGB.CRW").
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
-                            image(3160, 2344, 3, 16, "5c4fd5f6b64ddfcc31aaa3af9977a90a").
+                            image(3160, 2344, 3, 16, "0b6d83b0187d96398d4a27dddbc96f57").
                             thumbnail(160, 120).
                             thumbnail(3072, 2304).
                             issues("JRW-264")
