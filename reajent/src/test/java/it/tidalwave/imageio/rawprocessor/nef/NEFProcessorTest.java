@@ -62,11 +62,11 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
                             image(2012, 1324, 3, 16, "69c3916e9a583f7e48ca3918d31db135").
                             thumbnail(160, 120),
-//            // D1x
-//            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d1x/RAW_NIKON_D1X.NEF").
-//                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
-//                            image(4028, 1324, 3, 16, "d3d3b27908bc6f9ed97d1f68c9d7a4af").
-//                            thumbnail(160, 120),
+            // D1x
+            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d1x/RAW_NIKON_D1X.NEF").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(4028, 1324, 3, 16, "d3d3b27908bc6f9ed97d1f68c9d7a4af").
+                            thumbnail(160, 120),
             // D2X v1.0.1
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/nikon/D2X/1.01/_DSC0733.NEF").
                             image(4288, 2848, 3, 8, "f0c8a971dc82b31f1de739d7fb3d8a10").
@@ -118,12 +118,20 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             issues("JRW-215"),
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/nikon/D40/1.00/DSC_0108.NEF").
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
-                            image(3040, 2014, 3, 16, "3b565723bb5b3c7db33fc2e69cca040c"),
+                            image(3040, 2014, 3, 16, "3b565723bb5b3c7db33fc2e69cca040c").
+                            thumbnail(160, 120).
+                            thumbnail(3008, 2000),
             // D40x
             ExpectedResults.create("http://raw.fotosite.pl/download-Nikon_D40X_Nikkor_18-135_f3.5-5.6_AFS/DSC_0001.NEF").
                             image(3872, 2592, 3, 8, "0c1eacfa819622783264372248618df3").
                             thumbnail(160, 120).
                             thumbnail(3008, 2000).
+                            thumbnail(3872, 2592).
+                            issues("JRW-256"),
+            ExpectedResults.create("http://raw.fotosite.pl/download-Nikon_D40X_Nikkor_18-135_f3.5-5.6_AFS/DSC_0001.NEF").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(3904, 2616, 3, 16, "b28044d4f1405f1718332a1253aec8a5").
+                            thumbnail(160, 120).
                             thumbnail(3872, 2592).
                             issues("JRW-256"),
             // D50 v1.0.0

@@ -59,9 +59,19 @@ public class CRWProcessorTest extends NewImageReaderTestSupport
                             image(3072, 2048, 3, 8, "8af30532d1b7911d63852d710d722c5d").
                             thumbnail(3072, 2048).
                             issues("JRW-234"),
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/10d/RAW_CANON_10D.CRW").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(3152, 2068, 3, 16, "5c4fd5f6b64ddfcc31aaa3af9977a90a").
+                            thumbnail(3072, 2048).
+                            issues("JRW-234"),
             // EOS 300D
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/300d/RAW_CANON_300D.CRW").
                             image(3072, 2048, 3, 8, "d9e8cb87977403cf0c04e32dc0bdfec9").
+                            thumbnail(3072, 2048).
+                            issues("JRW-234"),
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/300d/RAW_CANON_300D.CRW").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(3152, 2068, 3, 16, "b79a5a68ff43667883487cf8489d7fc7").
                             thumbnail(3072, 2048).
                             issues("JRW-234"),
             // EOS D30
@@ -69,9 +79,19 @@ public class CRWProcessorTest extends NewImageReaderTestSupport
                             image(2160, 1440, 3, 8, "6df92e1d4589fb9fb2b353aaa9efc83b").
                             thumbnail(1440, 960).
                             issues("JRW-234"),
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/d30/RAW_CANON_D30_SRGB.CRW").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(2224, 1456, 3, 16, "54d2db66bee9df2075527f405e1c651f").
+                            thumbnail(1440, 960).
+                            issues("JRW-234"),
             // EOS D60
             ExpectedResults.create("http://www.rawsamples.ch/raws/canon/d60/RAW_CANON_D60_ARGB.CRW").
                             image(2224, 1456, 3, 8, "b499a77c82e5289d043e2f330c6fffba").
+                            thumbnail(1440, 960).
+                            issues("JRW-234"),
+            ExpectedResults.create("http://www.rawsamples.ch/raws/canon/d60/RAW_CANON_D60_ARGB.CRW").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(2224, 1456, 3, 16, "b499a77c82e5289d043e2f330c6fffba").
                             thumbnail(1440, 960).
                             issues("JRW-234"),
             // EOS300D
@@ -113,6 +133,7 @@ public class CRWProcessorTest extends NewImageReaderTestSupport
                             metadata("metadata.whiteBalanceAsString", "auto").
                             metadata("metadata.RBCoefficients", new double[] { 1.9963898916967509, 1.1778846153846154}).
                             metadata("metadata.colorTemperatureAvailable", true).
-                            metadata("metadata.colorTemperature", 5200)         );
+                            metadata("metadata.colorTemperature", 5200)
+          );
       }
   }

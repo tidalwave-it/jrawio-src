@@ -94,13 +94,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
     public final void testImage()
       throws Exception
       {
-<<<<<<< local
-        final List<Throwable> errors = new ArrayList<Throwable>();
-        
         final ImageReader ir = getImageReader(expectedResults.getPath(), expectedResults.getReadParam());
-=======
-        final ImageReader ir = getImageReader(expectedResults.getPath());
->>>>>>> other
         final int imageCount = expectedResults.getImageCount();
         final int thumbnailCount = expectedResults.getThumbnailCount();
         assertEquals("image count", imageCount, ir.getNumImages(false));

@@ -69,19 +69,39 @@ public class MRWProcessorTest  extends NewImageReaderTestSupport
                             image(3008, 2000, 3, 8, "17140ec9ceaad36963728c6599f180bd").
                             thumbnail(640, 480).
                             issues("JRW-235"),
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/5d/RAW_MINOLTA_5D.MRW").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(3016, 2008, 3, 16, "de8ed2949e91924c8430f49d32602dc2").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
             // Dynax 7D
             ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/7d/RAW_MINOLTA_7D_SRGB.MRW").
                             image(3008, 2000, 3, 8, "da688ad8abe48bb9afa9c61d7514b0a9").
                             thumbnail(640, 480).
                             issues("JRW-235"),
-            // Dynax 7HI
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/7d/RAW_MINOLTA_7D_SRGB.MRW").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(3016, 2008, 3, 16, "a14650ae72e8f919b2401f285092f99f").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
+            // Dynax 7Hi
             ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/7hi/RAW_MINOLTA_DIMAGE_7HI.MRW").
                             image(2560, 1920, 3, 8, "cbe688cb3c7d7cac88e09866e7bad8a3").
                             thumbnail(640, 480).
                             issues("JRW-235"),
-            // Dynax 7I
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/7hi/RAW_MINOLTA_DIMAGE_7HI.MRW").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(2568, 1928, 3, 16, "b7a556ac8f162daa6a87f85439fa7624").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
+            // Dynax 7i
             ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/7i/RAW_MINOLTA_DIMAGE_7I.MRW").
                             image(2560, 1920, 3, 8, "ff887620cbda15d9bb9fc517731f3e44").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/7i/RAW_MINOLTA_DIMAGE_7I.MRW").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(2568, 1928, 3, 16, "e277971086f1c786f08f8f93fd8c33ed").
                             thumbnail(640, 480).
                             issues("JRW-235"),
             // A1
@@ -89,9 +109,19 @@ public class MRWProcessorTest  extends NewImageReaderTestSupport
                             image(2560, 1920, 3, 8, "9762c2585d3b2b73cb1cc54da33f8b44").
                             thumbnail(640, 480).
                             issues("JRW-235"),
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/a1/RAW_MINOLTA_A1.MRW").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(2568, 1928, 3, 16, "f5cab08f838de5aa776a3fe2259dc677").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
             // A2
             ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/a2/RAW_MINOLTA_A2.MRW").
                             image(3264, 2448, 3, 8, "3103a7a3c1eccf06efec39d9a6e12792").
+                            thumbnail(640, 480).
+                            issues("JRW-235"),
+            ExpectedResults.create("http://www.rawsamples.ch/raws/minolta/a2/RAW_MINOLTA_A2.MRW").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(3272, 2456, 3, 16, "a1b5e8b1821f8401ba49bb9794a2b727").
                             thumbnail(640, 480).
                             issues("JRW-235"),
             // Dynax 7D
