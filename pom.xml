@@ -9,10 +9,10 @@
     *
     **************************************************************************************************************** -->
     <groupId>it.tidalwave.imageio</groupId>
-    <artifactId>jrawio-all</artifactId>
+    <artifactId>jrawio</artifactId>
     <packaging>pom</packaging>
     <version>1.6.0-SNAPSHOT</version>
-    <name>jrawio-all</name>
+    <name>jrawio</name>
 
     <url>http://jrawio.tidalwave.it</url>
     <description>Camera raw support in Java</description>
@@ -493,9 +493,9 @@
     *
     **************************************************************************************************************** -->
     <modules>
-        <module>jrawio</module>
-        <module>reajent</module>
-        <module>artifacts</module>
+        <module>codec</module>
+        <module>processor</module>
+        <module>jrawio-all</module>
         <!-- module>jrawio-test</module -->
     </modules>
 
