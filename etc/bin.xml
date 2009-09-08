@@ -14,19 +14,11 @@
                 </includes>
             </fileSet>
             <fileSet>
-                <directory>jrawio/target</directory>
+                <directory>artifacts/target</directory>
                 <outputDirectory>/</outputDirectory>
                 <includes>
-                    <include>jrawio*.jar</include>
+                    <include>jrawio-all*.jar</include>
                     <include>jrawio*.nbm</include>
-                </includes>
-            </fileSet>
-            <fileSet>
-                <directory>reajent/target</directory>
-                <outputDirectory>/</outputDirectory>
-                <includes>
-                    <include>reajent*.jar</include>
-                    <include>reajent*.nbm</include>
                 </includes>
             </fileSet>
             <fileSet>

@@ -170,17 +170,6 @@
                 <testReportsDirectory>${project.build.directory}/surefire-reports</testReportsDirectory>
             </properties>
         </profile>
-        <profile>
-            <id>fritz</id>
-            <properties>
-                <buildNumber>unknown</buildNumber>
-                <testReportsDirectory>${project.build.directory}/surefire-reports</testReportsDirectory>
-                <testset.cached.folder>/Users/fritz/Business/Tidalwave/Projects/TestCacheFolder</testset.cached.folder>
-            </properties>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-        </profile>
     </profiles>
 
     <!-- ***************************************************************************************************************
