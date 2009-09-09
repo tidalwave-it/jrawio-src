@@ -12,7 +12,7 @@
     <artifactId>jrawio-all</artifactId>
     <!-- packaging>nbm</packaging FIXME: complains about dependencies -->
     <packaging>jar</packaging>
-    <name>jrawio-all</name>
+    <name>jrawio - JAR artifact</name>
 
     <dependencies>
         <dependency>

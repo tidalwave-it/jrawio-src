@@ -11,7 +11,7 @@
 
     <artifactId>processor</artifactId>
     <packaging>jar</packaging>
-    <name>processor</name>
+    <name>jrawio - processor</name>
 
     <dependencies>
         <dependency>

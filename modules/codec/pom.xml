@@ -11,7 +11,7 @@
 
     <artifactId>codec</artifactId>
     <packaging>jar</packaging>
-    <name>codec</name>
+    <name>jrawio - codec</name>
 
     <build>
         <plugins>
