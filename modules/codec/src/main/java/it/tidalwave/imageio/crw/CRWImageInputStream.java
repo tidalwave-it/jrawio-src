@@ -33,7 +33,7 @@ import java.io.IOException;
 import javax.imageio.stream.FileImageInputStream;
 import javax.imageio.stream.ImageInputStream;
 import it.tidalwave.imageio.io.FileImageInputStream2;
-import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.io.RAWImageInputStreamImpl;
 
 /***********************************************************************************************************************
  *
@@ -41,7 +41,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class CRWImageInputStream extends RAWImageInputStream
+public class CRWImageInputStream extends RAWImageInputStreamImpl
   {
     private final static String CLASS = CRWImageInputStream.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);

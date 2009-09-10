@@ -27,12 +27,11 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.srf;
 
-import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.stream.ImageInputStream;
 import java.awt.image.WritableRaster;
-import it.tidalwave.imageio.srf.SonyMakerNote;
+import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.raw.RasterReader;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
@@ -45,7 +44,7 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
  **********************************************************************************************************************/
 public class SRFImageReader extends TIFFImageReaderSupport
   {
-    private final static Logger logger = Logger.getLogger("it.tidalwave.imageio.srf.SRFImageReader");
+    private final static Logger logger = Logger.getLogger(SRFImageReader.class.getName());
 
     /*******************************************************************************************************************
      *

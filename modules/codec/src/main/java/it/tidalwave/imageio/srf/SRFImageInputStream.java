@@ -30,7 +30,7 @@ package it.tidalwave.imageio.srf;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import javax.imageio.stream.ImageInputStream;
-import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.io.RAWImageInputStreamImpl;
 
 /***********************************************************************************************************************
  *
@@ -38,7 +38,7 @@ import it.tidalwave.imageio.io.RAWImageInputStream;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class SRFImageInputStream extends RAWImageInputStream
+public class SRFImageInputStream extends RAWImageInputStreamImpl
   {
     private SonyDecipher decipher;
 

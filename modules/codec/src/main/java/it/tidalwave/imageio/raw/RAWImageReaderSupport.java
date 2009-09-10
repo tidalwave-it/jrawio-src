@@ -51,6 +51,7 @@ import java.awt.image.ComponentColorModel;
 import java.awt.image.DataBuffer;
 import java.awt.image.WritableRaster;
 import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.io.RAWImageInputStreamImpl;
 import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
@@ -476,7 +477,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
      *******************************************************************************/
     protected Object wrapInput (Object input)
       {
-        return new RAWImageInputStream((ImageInputStream)input);
+        return new RAWImageInputStreamImpl((ImageInputStream)input);
       }
 
     /*******************************************************************************************************************

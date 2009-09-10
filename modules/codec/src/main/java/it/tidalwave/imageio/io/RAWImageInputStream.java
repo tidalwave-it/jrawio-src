@@ -27,109 +27,58 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.io;
 
-import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import it.tidalwave.imageio.util.Logger;
 import java.io.IOException;
 import javax.imageio.stream.ImageInputStream;
-import javax.imageio.stream.ImageInputStreamImpl;
 
 /***********************************************************************************************************************
  *
- * @author  fritz
+ * @author  Fabrizio Giudici
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class RAWImageInputStream extends ImageInputStreamImpl
+public interface RAWImageInputStream extends ImageInputStream
   {
-    private final static String CLASS = RAWImageInputStream.class.getName();
-    private final static Logger logger = Logger.getLogger(CLASS);
-    
-    @Nonnegative
-    private long baseOffset;
-
-    @Nonnull
-    // Not final: CRWImageInputStream needs to switch it.
-    protected ImageInputStream delegate;
-
-    @CheckForNull
-    private BitReader bitReader;
-
-    private boolean dontClose;
-
     /*******************************************************************************************************************
-     * 
-     * @param delegate
+     *
+     * Sets a new base offset.
+     *
+     * @param baseOffset      the new base offset
      * 
      ******************************************************************************************************************/
-    public RAWImageInputStream (@Nonnull final ImageInputStream delegate)
-      {
-        this.delegate = delegate;
-      }
+    public void setBaseOffset (@Nonnegative long baseOffset);
 
     /*******************************************************************************************************************
-     * 
-     * @param baseOffset
-     * 
-     ******************************************************************************************************************/
-    public void setBaseOffset (final long baseOffset)
-      {
-        this.baseOffset = baseOffset;
-      }
-
-    /*******************************************************************************************************************
+     *
+     * Returns the current base offset.
      * 
      * @return
      * 
      ******************************************************************************************************************/
-    public long getBaseOffset()
-      {
-        return baseOffset;
-      }
+    @Nonnegative 
+    public long getBaseOffset();
 
     /*******************************************************************************************************************
-     * 
-     * @param bitCount
-     * @param bufferSize
+     *
+     * Select the most suitable {@link BitReader} given the bit count and the buffer size. You will pass a non zero
+     * bitCount for uncompressed rasters (where you always read set of bits of the same size); zero in other cases.
+     *
+     * @param  bitCount     the number of bits that will be read
+     * @param  bufferSize   the buffer size
      * 
      ******************************************************************************************************************/
     public void selectBitReader (@Nonnegative final int bitCount,
-                                 @Nonnegative int bufferSize)
-      {
-        if (bufferSize == 0)
-          {
-            bufferSize = FastBitReader.DEFAULT_BUFFER_SIZE;
-          }
-
-        if (bitCount == 12)
-          {
-            bitReader = new TwelveBitsReader(delegate, bufferSize);
-          }
-
-        else if (bitCount == 16)
-          {
-            bitReader = new SixteenBitsReader(delegate, bufferSize);
-          }
-
-        else
-          {
-            bitReader = new FastBitReader(delegate, bufferSize);
-          }
-
-        logger.finest(">>>> Using bitReader: %s", bitReader);
-      }
+                                 @Nonnegative int bufferSize);
 
     /*******************************************************************************************************************
+     *
+     * Some formats have a zero byte after each byte valued 0xff. This usually need to be skipped and this stream is
+     * able to do that automatically.
      * 
-     * @param b
+     * @param  skipZeroAfterFF  true if you want to skip a zero byte after each 0xff
      * 
      ******************************************************************************************************************/
-    public void setSkipZeroAfterFF (final boolean b)
-      {
-        assert (bitReader != null) : "null bitReader";
-        bitReader.setSkipZeroAfterFF(b);
-      }
+    public void setSkipZeroAfterFF (final boolean skipZeroAfterFF);
 
     /*******************************************************************************************************************
      * 
@@ -141,195 +90,22 @@ public class RAWImageInputStream extends ImageInputStreamImpl
      * @return              the bits as an integer
      * @throws IOException  if any I/O error occurs
      *
-     ***************************************************************************/
-    public final int readComplementedBits (@Nonnegative final int bitsToGet) 
-      throws IOException
-      {
-        int value = (int)readBits(bitsToGet);
-
-        if ((value & (1 << (bitsToGet - 1))) == 0)
-          {
-            value -= (1 << bitsToGet) - 1;
-          }
-
-        return value;
-      }
+     ******************************************************************************************************************/
+    public int readComplementedBits (@Nonnegative final int bitsToGet)
+      throws IOException;
 
     /*******************************************************************************************************************
      * 
-     * @param bitsToSkip
-     * @throws IOException
+     * @param   bitCount
+     * @throws  IOException
      * 
      ******************************************************************************************************************/
-    public final void skipBits (@Nonnegative final int bitsToSkip) 
-      throws IOException
-      {
-        assert (bitReader != null) : "null bitReader";
-        bitReader.skipBits(bitsToSkip);
-      }
+    public void skipBits (@Nonnegative final int bitCount)
+      throws IOException;
 
     /*******************************************************************************************************************
-     * 
-     * {@inheritDoc}
-     * 
+     *
+     *
      ******************************************************************************************************************/
-    @Override
-    public String toString() 
-      {
-        return String.format("RAWImageInputStream[%s, %s]", bitReader, delegate);
-      }
-    
-    ////////// Decorated methods follow ////////////////////////////////////////////
-
-    @Override
-    public final int readBit () throws IOException
-      {
-        return (bitReader != null) ? bitReader.readBits(1) : delegate.readBit();
-      }
-
-    @Override
-    public final long readBits (int numBits) throws IOException
-      {
-        return (bitReader != null) ? bitReader.readBits(numBits) : delegate.readBits(numBits);
-      }
-
-    @Override
-    public void seek (long pos) throws IOException
-      {
-        if (bitReader != null)
-          {
-            bitReader.seek(pos + baseOffset);
-          }
-
-        else
-          {
-            delegate.seek(pos + baseOffset);
-          }
-      }
-
-    @Override
-    public long getStreamPosition () throws IOException
-      {
-        return ((bitReader != null) ? bitReader.getStreamPosition() : delegate.getStreamPosition()) - baseOffset;
-      }
-
-    @Override
-    public int getBitOffset () throws IOException
-      {
-        return (bitReader != null) ? bitReader.getBitOffset() : delegate.getBitOffset();
-      }
-
-    @Override
-    public void setBitOffset (int bitOffset) throws IOException
-      {
-        if (bitReader != null)
-          {
-            bitReader.setBitOffset(bitOffset);
-          }
-
-        else
-          {
-            delegate.setBitOffset(bitOffset);
-          }
-      }
-
-    ////////// Delegate methods follow /////////////////////////////////////////////
-
-    public int read() throws IOException
-      {
-        return delegate.read();
-      }
-
-    public int read (byte[] b,
-                     int off,
-                     int len) throws IOException
-      {
-        return delegate.read(b, off, len);
-      }
-
-    @Override
-    public long length ()
-      {
-        try
-          {
-            return delegate.length() - baseOffset;
-          }
-        catch (IOException e)
-          {
-            return -1;
-          }
-      }
-
-    @Override
-    public int skipBytes (int n) throws IOException
-      {
-        return delegate.skipBytes(n); // FIXME: bitReader?
-      }
-
-    @Override
-    public long skipBytes (long n) throws IOException
-      {
-        return delegate.skipBytes(n); // FIXME: bitReader?
-      }
-
-    /*
-     public void mark ()
-     {
-     delegate.mark();
-     }
-
-     public void reset () throws IOException
-     {
-     delegate.reset();
-     }
-     */
-    @Override
-    public void flushBefore (long pos) throws IOException
-      {
-        delegate.flushBefore(pos + baseOffset);
-      }
-
-    @Override
-    public void flush () throws IOException
-      {
-        delegate.flush();
-      }
-
-    @Override
-    public long getFlushedPosition ()
-      {
-        return delegate.getFlushedPosition();
-      }
-
-    @Override
-    public boolean isCached ()
-      {
-        return delegate.isCached();
-      }
-
-    @Override
-    public boolean isCachedMemory ()
-      {
-        return delegate.isCachedMemory();
-      }
-
-    @Override
-    public boolean isCachedFile ()
-      {
-        return delegate.isCachedFile();
-      }
-
-    @Override
-    public void close () throws IOException
-      {
-//        if (!dontClose)
-//          {
-//            delegate.close();
-//          }
-      }
-
-    public void setDontClose ()
-      {
-        dontClose = true;
-      }
+    public void setDontCloseDelegate();
   }

@@ -36,6 +36,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.spi.ImageReaderSpi;
 import javax.imageio.stream.ImageInputStream;
 import it.tidalwave.imageio.io.RAWImageInputStream;
+import it.tidalwave.imageio.io.RAWImageInputStreamImpl;
 import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
@@ -234,8 +235,8 @@ public abstract class RAWImageReaderSpiSupport extends ImageReaderSpi
      ******************************************************************************************************************/
     private boolean canDecodeInput (ImageInputStream source) throws IOException
       {
-        RAWImageInputStream iis = new RAWImageInputStream(source);
-        iis.setDontClose(); // otherwise the garbage collector will close it together with the original source!!
+        RAWImageInputStream iis = new RAWImageInputStreamImpl(source);
+        iis.setDontCloseDelegate(); // otherwise the garbage collector will close it together with the original source!!
 
         try
           {
