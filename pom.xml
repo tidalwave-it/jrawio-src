@@ -496,6 +496,7 @@
         <module>modules/codec</module>
         <module>modules/processor</module>
         <module>modules/jrawio-all</module>
+        <module>modules/jrawio-nbm</module>
         <!-- module>modules/jrawio-test</module -->
     </modules>
 

@@ -18,11 +18,17 @@
                 <outputDirectory>/</outputDirectory>
                 <includes>
                     <include>jrawio-all*.jar</include>
-                    <include>jrawio*.nbm</include>
                 </includes>
                 <excludes>
                     <exclude>*-tests.jar</exclude>
                 </excludes>
+            </fileSet>
+            <fileSet>
+                <directory>modules/jrawio-nbm/target</directory>
+                <outputDirectory>/</outputDirectory>
+                <includes>
+                    <include>*.nbm</include>
+                </includes>
             </fileSet>
             <fileSet>
                 <directory>target/site/apidocs</directory>
