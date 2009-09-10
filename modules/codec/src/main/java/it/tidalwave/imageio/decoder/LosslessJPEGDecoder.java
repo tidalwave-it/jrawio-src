@@ -204,10 +204,10 @@ public class LosslessJPEGDecoder
           {
             for (int c = 0; c < channelCount; c++)
               {
-                final int bitCount = decoders[c].decode(iis);
-                final int diff = iis.readComplementedBits(bitCount);
-                rowBuffer[scan] = (short)((x == 0) ? (vPredictors[c] += diff)
-                    : (rowBuffer[scan - channelCount] + diff));
+                final HuffmannDecoder decoder = decoders[c];
+                final int bitCount = decoder.decode(iis);
+                final int diff = decoder.readSignedBits(iis, bitCount);
+                rowBuffer[scan] = (short)((x == 0) ? (vPredictors[c] += diff) : (rowBuffer[scan - channelCount] + diff));
                 scan++;
               }
           }

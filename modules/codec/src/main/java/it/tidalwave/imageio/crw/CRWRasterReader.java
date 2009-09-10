@@ -294,7 +294,8 @@ public class CRWRasterReader extends RasterReader
 
         for (int i = 0; i < diffBlock.length; i++)
           {
-            int value = decoderPair[(i == 0) ? 0 : 1].decode(iis);
+            final HuffmannDecoder decoder = decoderPair[(i == 0) ? 0 : 1];
+            int value = decoder.decode(iis);
 
             if ((value == 0) && (i != 0))
               {
@@ -308,7 +309,7 @@ public class CRWRasterReader extends RasterReader
 
                 if (length > 0)
                   {
-                    int diff = iis.readComplementedBits(length);
+                    int diff = decoder.readSignedBits(iis, length);
 
                     if (i < diffBlock.length)
                       {

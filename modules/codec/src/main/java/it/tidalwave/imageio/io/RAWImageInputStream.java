@@ -67,7 +67,7 @@ public interface RAWImageInputStream extends ImageInputStream
      * @param  bufferSize   the buffer size
      * 
      ******************************************************************************************************************/
-    public void selectBitReader (@Nonnegative final int bitCount,
+    public void selectBitReader (@Nonnegative int bitCount,
                                  @Nonnegative int bufferSize);
 
     /*******************************************************************************************************************
@@ -78,21 +78,7 @@ public interface RAWImageInputStream extends ImageInputStream
      * @param  skipZeroAfterFF  true if you want to skip a zero byte after each 0xff
      * 
      ******************************************************************************************************************/
-    public void setSkipZeroAfterFF (final boolean skipZeroAfterFF);
-
-    /*******************************************************************************************************************
-     * 
-     * Read another string of bits. If the most significant bits of the read string
-     * is 1, the 2-complement value is returned. This operation is frequently needed
-     * by some RAW formats.
-     *
-     * @param  bitsToGet    how many bits to read
-     * @return              the bits as an integer
-     * @throws IOException  if any I/O error occurs
-     *
-     ******************************************************************************************************************/
-    public int readComplementedBits (@Nonnegative final int bitsToGet)
-      throws IOException;
+    public void setSkipZeroAfterFF (boolean skipZeroAfterFF);
 
     /*******************************************************************************************************************
      * 
@@ -100,7 +86,7 @@ public interface RAWImageInputStream extends ImageInputStream
      * @throws  IOException
      * 
      ******************************************************************************************************************/
-    public void skipBits (@Nonnegative final int bitCount)
+    public void skipBits (@Nonnegative int bitCount)
       throws IOException;
 
     /*******************************************************************************************************************

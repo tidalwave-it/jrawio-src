@@ -336,7 +336,7 @@ public class NEFRasterReader extends RasterReader
 
         final DecoderType decoderType = new DecoderType(compressionType, bitsPerSample);
         final Iterator<HuffmannDecoder> decoderIterator = DECODER_MAP.get(decoderType).iterator();
-        HuffmannDecoder decoder = decoderIterator.next();
+        final HuffmannDecoder decoder = decoderIterator.next();
 
         logger.finer("Using decoder for %s: %s", decoderType, decoder);
 
@@ -345,8 +345,8 @@ public class NEFRasterReader extends RasterReader
             for (int x = 0; x < width; x++)
               {
                 final int cfaIndex = (2 * (y & 1)) + (x & 1);
-                final int bitsCount = decoder.decode(iis);
-                final int diff = iis.readComplementedBits(bitsCount);
+                final int bitCount = decoder.decode(iis);
+                final int diff = decoder.readSignedBits(iis, bitCount);
 
                 if (x < 2)
                   {

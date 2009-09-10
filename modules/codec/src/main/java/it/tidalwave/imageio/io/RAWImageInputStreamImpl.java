@@ -136,24 +136,6 @@ public class RAWImageInputStreamImpl extends ImageInputStreamImpl implements RAW
     /*******************************************************************************************************************
      * 
      * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    public final int readComplementedBits (@Nonnegative final int bitsToGet) 
-      throws IOException
-      {
-        int value = (int)readBits(bitsToGet);
-
-        if ((value & (1 << (bitsToGet - 1))) == 0)
-          {
-            value -= (1 << bitsToGet) - 1;
-          }
-
-        return value;
-      }
-
-    /*******************************************************************************************************************
-     * 
-     * {@inheritDoc}
      * 
      ******************************************************************************************************************/
     public final void skipBits (@Nonnegative final int bitCount)

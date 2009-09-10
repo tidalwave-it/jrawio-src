@@ -29,6 +29,7 @@ package it.tidalwave.imageio.decoder;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
+import javax.annotation.Nonnegative;
 import javax.imageio.stream.ImageInputStream;
 
 /***********************************************************************************************************************
@@ -242,6 +243,37 @@ public class HuffmannDecoder
         return d.leafValue;
       }
 
+    /*******************************************************************************************************************
+     *
+     * A Huffman encoder represents a value with the strictly needed bits, thus stripping off all the leading zeroes.
+     * For instance, +9 in binary is 0000 0000 0000 1001 and is encoded with just 4 bits: 1001. This means that,
+     * by definition, positive numbers are encoded with the most significant bit equals to 1 - the opposite convention
+     * than the usual 2-complemented representation. For coherence, negative numbers need to be represented with a
+     * leading zero - in particular, they are the 1-complement of their absolute value. For instance, -9 is represented
+     * as 0110, which is the 1-complement of the encoded value for +9 (1001).
+     *
+     * This method performs the associated decoding, thus returning integer values represented with the normal
+     * convention.
+     *
+     * @param  bitsToGet    how many bits to read
+     * @return              the bits as an integer
+     * @throws IOException  if any I/O error occurs
+     *
+     ******************************************************************************************************************/
+    public int readSignedBits (final @Nonnull ImageInputStream iis,
+                               final @Nonnegative int bitCount)
+      throws IOException
+      {
+        int value = (int)iis.readBits(bitCount);
+
+        if ((value & (1 << (bitCount - 1))) == 0)
+          {
+            value -= (1 << bitCount) - 1;
+          }
+
+        return value;
+      }
+    
     /*******************************************************************************************************************
      * 
      * @inheritDoc
