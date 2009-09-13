@@ -386,29 +386,6 @@
                 </executions>
             </plugin>
 
-            <!-- Produces the NBMs for the NetBeans Platform -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>nbm-maven-plugin</artifactId>
-                <extensions>true</extensions>
-            </plugin>
-            
-            <!-- Produces the OSGi bundle information. -->
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <id>bundle-manifest</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- Cobertura support -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -498,7 +475,7 @@
         <module>modules/jrawio-all</module>
         <module>modules/jrawio-nbm</module>
         <module>functional-tests/tests</module>
-        <!-- module>modules/jrawio-test</module -->
+        <module>functional-tests/jse</module>
     </modules>
 
 </project>
