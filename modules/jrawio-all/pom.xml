@@ -10,8 +10,7 @@
     </parent>
 
     <artifactId>jrawio-all</artifactId>
-    <!-- packaging>nbm</packaging FIXME: complains about dependencies -->
-    <packaging>jar</packaging>
+    <packaging>bundle</packaging>
     <name>jrawio - JAR artifact</name>
 
     <dependencies>
@@ -30,90 +29,19 @@
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.0.0</version>
                 <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <id>bundle-manifest</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <instructions>
-                        <Export-Package>it.tidalwave.imageio.*</Export-Package>
-                        <!--Export-Package>it.tidalwave.imageio.arw</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.cr2</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.crw</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.dcr</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.decoder</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.dng</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.io</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.makernote</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.minolta</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.mrw</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.nef</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.orf</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.pef</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.raf</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.raw</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.srf</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.tiff</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.util</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.rawprocessor</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.rawprocessor.arw</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.rawprocessor.cr2</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.rawprocessor.crw</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.rawprocessor.demosaic</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.rawprocessor.dng</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.rawprocessor.mrw</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.rawprocessor.nef</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.rawprocessor.orf</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.rawprocessor.pef</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.rawprocessor.raf</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.rawprocessor.raw</Export-Package>
-                        <Export-Package>it.tidalwave.imageio.rawprocessor.srf</Export-Package-->
+                        <Export-Package>it.tidalwave.imageio.*;-split-package:=merge-first</Export-Package>
                         <Bundle-Name>jrawio</Bundle-Name>
                         <Bundle-SymbolicName>it.tidalwave.imageio.jrawio</Bundle-SymbolicName>
                         <Bundle-DocURL>http://jrawio.rawdarkroom.org</Bundle-DocURL>
+                        <Embed-Dependency>processor;codec;inline=true</Embed-Dependency>
                     </instructions>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <finalName>jrawio-all-${version}.${buildNumber}</finalName>
-                            <artifactSet>
-                                <includes>
-                                    <include>it.tidalwave.imageio:codec</include>
-                                    <include>it.tidalwave.imageio:processor</include>
-                                </includes>
-                            </artifactSet>
-                            <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
-                            </transformers>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
