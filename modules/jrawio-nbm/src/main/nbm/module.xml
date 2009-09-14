@@ -1,0 +1,18 @@
+
+<nbm>
+    <moduleType>normal</moduleType>
+    <codeNameBase>it.tidalwave.imageio.raw/1</codeNameBase>
+    <cluster>libraries</cluster>
+    <manifest>src/main/nbm/manifest.mf</manifest>
+    <homepageUrl>http://jrawio.rawdarkroom.org</homepageUrl>
+    <author>Fabrizio Giudici</author>
+    <licenseName>Apache License, Version 2.0</licenseName>
+    <licenseFile>../../LICENSE.txt</licenseFile>
+    <dependencies>
+        <dependency>
+            <id>com.google.code.findbugs:jsr305</id>
+            <type>impl</type>
+        </dependency>
+    </dependencies>
+</nbm>
+

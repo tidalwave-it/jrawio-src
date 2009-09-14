@@ -9,10 +9,10 @@
     *
     **************************************************************************************************************** -->
     <groupId>it.tidalwave.imageio</groupId>
-    <artifactId>jrawio-all</artifactId>
+    <artifactId>jrawio</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.7-SNAPSHOT</version>
-    <name>jrawio-all</name>
+    <version>1.6.0-SNAPSHOT</version>
+    <name>jrawio</name>
 
     <url>http://jrawio.tidalwave.it</url>
     <description>Camera raw support in Java</description>
@@ -170,17 +170,6 @@
                 <testReportsDirectory>${project.build.directory}/surefire-reports</testReportsDirectory>
             </properties>
         </profile>
-        <profile>
-            <id>fritz</id>
-            <properties>
-                <buildNumber>unknown</buildNumber>
-                <testReportsDirectory>${project.build.directory}/surefire-reports</testReportsDirectory>
-                <testset.cached.folder>/Users/fritz/Business/Tidalwave/Projects/TestCacheFolder</testset.cached.folder>
-            </properties>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-        </profile>
     </profiles>
 
     <!-- ***************************************************************************************************************
@@ -278,7 +267,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>nbm-maven-plugin</artifactId>
-                    <version>3.0</version>
+                    <version>3.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
@@ -299,7 +288,7 @@
                 <plugin>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>maven-bundle-plugin</artifactId>
-                    <version>1.4.0</version>
+                    <version>2.0.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -397,29 +386,6 @@
                 </executions>
             </plugin>
 
-            <!-- Produces the NBMs for the NetBeans Platform -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>nbm-maven-plugin</artifactId>
-                <extensions>true</extensions>
-            </plugin>
-            
-            <!-- Produces the OSGi bundle information. -->
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <id>bundle-manifest</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <!-- Cobertura support -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -504,9 +470,12 @@
     *
     **************************************************************************************************************** -->
     <modules>
-        <module>jrawio</module>
-        <module>reajent</module>
-        <!-- module>jrawio-test</module -->
+        <module>modules/codec</module>
+        <module>modules/processor</module>
+        <module>modules/jrawio-all</module>
+        <module>modules/jrawio-nbm</module>
+        <module>functional-tests/tests</module>
+        <module>functional-tests/jse</module>
     </modules>
 
 </project>
