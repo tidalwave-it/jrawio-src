@@ -47,7 +47,44 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>nbm-maven-plugin</artifactId>
+                <version>3.1</version>
                 <extensions>true</extensions>
+                <configuration>
+                    <publicPackages>
+                        <publicPackage>it.tidalwave.imageio</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.arw</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.cr2</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.crw</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.dcr</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.decoder</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.dng</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.io</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.makernote</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.minolta</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.mrw</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.nef</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.orf</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.pef</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.raf</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.raw</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.arw</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.cr2</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.crw</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.demosaic</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.dng</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.mrw</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.nef</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.orf</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.pef</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.raf</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.raw</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.srf</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.srf</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.tiff</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.util</publicPackage>
+                    </publicPackages>
+                </configuration>
             </plugin>
         </plugins>
     </build>
