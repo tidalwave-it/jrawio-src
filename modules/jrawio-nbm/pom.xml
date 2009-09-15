@@ -82,7 +82,7 @@
                         <publicPackage>it.tidalwave.imageio.srf</publicPackage>
                         <publicPackage>it.tidalwave.imageio.tiff</publicPackage>
                         <publicPackage>it.tidalwave.imageio.util</publicPackage>
-                    .*</publicPackages>
+                    </publicPackages>
                 </configuration>
             </plugin>
         </plugins>
