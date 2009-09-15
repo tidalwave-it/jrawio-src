@@ -47,7 +47,6 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>nbm-maven-plugin</artifactId>
-                <version>3.1</version>
                 <extensions>true</extensions>
                 <configuration>
                     <publicPackages>
@@ -83,7 +82,7 @@
                         <publicPackage>it.tidalwave.imageio.srf</publicPackage>
                         <publicPackage>it.tidalwave.imageio.tiff</publicPackage>
                         <publicPackage>it.tidalwave.imageio.util</publicPackage>
-                    </publicPackages>
+                    .*</publicPackages>
                 </configuration>
             </plugin>
         </plugins>
