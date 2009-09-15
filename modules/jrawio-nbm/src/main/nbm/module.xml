@@ -8,11 +8,5 @@
     <author>Fabrizio Giudici</author>
     <licenseName>Apache License, Version 2.0</licenseName>
     <licenseFile>../../LICENSE.txt</licenseFile>
-    <dependencies>
-        <dependency>
-            <id>com.google.code.findbugs:jsr305</id>
-            <type>impl</type>
-        </dependency>
-    </dependencies>
 </nbm>
 
