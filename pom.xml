@@ -476,6 +476,7 @@
         <module>modules/jrawio-nbm</module>
         <module>functional-tests/tests</module>
         <module>functional-tests/jse</module>
+        <module>examples</module>
     </modules>
 
 </project>
