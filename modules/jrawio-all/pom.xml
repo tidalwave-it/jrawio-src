@@ -36,7 +36,7 @@
                     <instructions>
                         <Export-Package>it.tidalwave.imageio.*;-split-package:=merge-first</Export-Package>
                         <Bundle-Name>jrawio</Bundle-Name>
-                        <Bundle-SymbolicName>it.tidalwave.imageio.jrawio</Bundle-SymbolicName>
+                        <Bundle-SymbolicName>it.tidalwave.imageio.raw</Bundle-SymbolicName>
                         <Bundle-DocURL>http://jrawio.rawdarkroom.org</Bundle-DocURL>
                         <Embed-Dependency>processor;codec;inline=true</Embed-Dependency>
                     </instructions>
