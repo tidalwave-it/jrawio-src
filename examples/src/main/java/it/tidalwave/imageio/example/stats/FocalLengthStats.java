@@ -49,38 +49,42 @@ import it.tidalwave.imageio.tiff.IFD;
 public class FocalLengthStats
   {
     public static void main (final String[] args)
-      throws IOException
       {
-        final PrintWriter out = new PrintWriter(new File(args[1]));
-
-        new DirectoryWalker()
+        try
           {
-            @Override
-            protected void handleFile (final File file,
-                                       final int depth,
-                                       final Collection results)
-              throws IOException
+            final PrintWriter out = new PrintWriter(new File(args[1]));
+            new DirectoryWalker()
               {
-                if (file.getName().toUpperCase().endsWith(".NEF"))
+                @Override
+                protected void handleFile (final File file, final int depth, final Collection results)
+                  throws IOException
                   {
-                    final ImageReader reader = (ImageReader)ImageIO.getImageReaders(file).next();
-                    reader.setInput(ImageIO.createImageInputStream(file));
-                    final IIOMetadata metadata = reader.getImageMetadata(0);
-                    final NEFMetadata nefMetadata = (NEFMetadata)metadata;
-                    final IFD exifIFD = nefMetadata.getExifIFD();
-                    final TagRational focalLength = exifIFD.getFocalLength();
-                    out.println(focalLength.doubleValue());
+                    if (file.getName().toUpperCase().endsWith(".NEF"))
+                      {
+                        System.out.printf("Processing %s...\n", file.getCanonicalPath());
+                        final ImageReader reader = (ImageReader) ImageIO.getImageReaders(file).next();
+                        reader.setInput(ImageIO.createImageInputStream(file));
+                        final IIOMetadata metadata = reader.getImageMetadata(0);
+                        final NEFMetadata nefMetadata = (NEFMetadata) metadata;
+                        final IFD exifIFD = nefMetadata.getExifIFD();
+                        final TagRational focalLength = exifIFD.getFocalLength();
+                        out.println(focalLength.doubleValue());
+                      }
                   }
-              }
 
-            public void start() 
-              throws IOException
-              {
-                super.walk(new File(args[0]), new ArrayList());
-              }
-          }.start();
-          
-        out.flush();
-        out.close();
+                public void start() 
+                  throws IOException
+                  {
+                    super.walk(new File(args[0]), new ArrayList<Object>());
+                  }
+              }.start();
+
+            out.flush();
+            out.close();
+          }
+        catch (Exception e)
+          {
+            e.printStackTrace();
+          }
       }
   }
