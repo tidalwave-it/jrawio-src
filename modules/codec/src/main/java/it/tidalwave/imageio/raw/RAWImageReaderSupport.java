@@ -150,7 +150,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
               }
           }
 
-        logger.info(">>>> read() completed ok");
+        logger.finer(">>>> read() completed ok");
 
         return image[imageIndex];
       }
@@ -164,7 +164,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
     public final BufferedImage readThumbnail (int imageIndex, int thumbnailIndex) 
       throws IOException
       {
-        logger.info("readThumbnail(%d, %d)", imageIndex, thumbnailIndex);
+        logger.fine("readThumbnail(%d, %d)", imageIndex, thumbnailIndex);
 
         if (!readerSupportsThumbnails())
           {
@@ -215,7 +215,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
               }
           }
 
-        logger.info(">>>> readThumbnail() completed ok");
+        logger.finer(">>>> readThumbnail() completed ok");
 
         return thumbnail[imageIndex][thumbnailIndex];
       }
@@ -229,7 +229,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
     public IIOMetadata getImageMetadata (final @Nonnegative int imageIndex)
       throws IOException
       {
-        return getImageMetadata(imageIndex, null);
+        return getImageMetadata(imageIndex, new RAWImageReadParam());
       }
 
     /*******************************************************************************************************************
@@ -241,6 +241,11 @@ public abstract class RAWImageReaderSupport extends ImageReader
     public IIOMetadata getImageMetadata (final @Nonnegative int imageIndex, final @Nonnull RAWImageReadParam readParam)
       throws IOException
       {
+        if (readParam == null)
+          {
+            throw new IllegalArgumentException("readParam can't be null");
+          }
+
         if (metadata == null)
           {
             try

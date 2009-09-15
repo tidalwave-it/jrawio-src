@@ -206,8 +206,8 @@ public class NEFColorConversionOperation extends ColorConversionOperation
                             colorMatrixProfileMap.put(getCompositeKey(model, colorMode), colorMatrix);
                           }
 
-                        logger.info("Model: %s, colorMode: %s, nce code: %s", model, colorMode, nceCode);
-                        logger.info(">>>> Color matrix:   %s", colorMatrix);
+                        logger.fine("Model: %s, colorMode: %s, nce code: %s", model, colorMode, nceCode);
+                        logger.fine(">>>> Color matrix:   %s", colorMatrix);
                       }
 
                     colorModesMap.put(model, colorModes);

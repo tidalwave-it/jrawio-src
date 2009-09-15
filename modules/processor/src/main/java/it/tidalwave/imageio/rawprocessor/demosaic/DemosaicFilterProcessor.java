@@ -94,7 +94,7 @@ public class DemosaicFilterProcessor
      ******************************************************************************************************************/
     public void process (BufferedImage image)
       {
-        logger.info("Demosaicing: R: %f, G: %f, B: %f, black: %f, Curve: %s", redCoeff, greenCoeff, blueCoeff, blackLevel, curve);
+        logger.fine("Demosaicing: R: %f, G: %f, B: %f, black: %f, Curve: %s", redCoeff, greenCoeff, blueCoeff, blackLevel, curve);
 
         if (bayerInfo != null)
           {

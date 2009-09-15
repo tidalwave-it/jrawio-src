@@ -74,13 +74,13 @@ public abstract class ColorConversionOperation extends OperationSupport
         
         if (colorMatrix != null)
           {
-            logger.info(">>>> colorMatrix in XYZ space: %s", colorMatrix);
+            logger.finer(">>>> colorMatrix in XYZ space: %s", colorMatrix);
             ColorMatrix colorMatrixRGB = colorMatrix.product(ColorMatrix.XYZ_TO_RGB);
-            logger.info(">>>> colorMatrix in RGB space: %s", colorMatrixRGB);
+            logger.finer(">>>> colorMatrix in RGB space: %s", colorMatrixRGB);
             colorMatrixRGB.normalizeRows(); // FIXME: investigate if it's correct
-            logger.info(">>>> colorMatrix in RGB space, normalized: %s", colorMatrixRGB);
+            logger.finer(">>>> colorMatrix in RGB space, normalized: %s", colorMatrixRGB);
             colorMatrixRGB = colorMatrixRGB.inverse();
-            logger.info(">>>> final colorMatrix: %s", colorMatrixRGB);
+            logger.finer(">>>> final colorMatrix: %s", colorMatrixRGB);
             return colorMatrixRGB;
           }
         

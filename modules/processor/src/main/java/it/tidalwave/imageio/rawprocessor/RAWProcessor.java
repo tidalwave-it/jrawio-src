@@ -138,10 +138,10 @@ public abstract class RAWProcessor implements PostProcessor
             try
               {
                long time = System.currentTimeMillis();
-                logger.info("Executing: %s", operationName);
+                logger.fine("Executing: %s", operationName);
                 operation.process(rawImage);
                 time = System.currentTimeMillis() - time;
-                logger.fine(">>>> %s completed ok in %d msec", operationName, time);
+                logger.finer(">>>> %s completed ok in %d msec", operationName, time);
               }
 
             catch (Exception e)
@@ -168,10 +168,10 @@ public abstract class RAWProcessor implements PostProcessor
             try
               {
                 long time = System.currentTimeMillis();
-                logger.info("Executing: %s", operationName);
+                logger.fine("Executing: %s", operationName);
                 operation.processMetadata(rawImage);
                 time = System.currentTimeMillis() - time;
-                logger.fine(">>>> %s completed ok in %d msec", operationName, time);
+                logger.finer(">>>> %s completed ok in %d msec", operationName, time);
               }
 
             catch (Exception e)

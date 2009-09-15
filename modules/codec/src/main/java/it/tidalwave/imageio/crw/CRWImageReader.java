@@ -154,7 +154,7 @@ public class CRWImageReader extends RAWImageReaderSupport
     protected Directory loadPrimaryDirectory() 
       throws IOException
       {
-        logger.info("loadPrimaryDirectory() - iis: %s", iis);
+        logger.fine("loadPrimaryDirectory() - iis: %s", iis);
         long directoryOffset = processHeader(iis, true);
         primaryDirectory = new CanonCRWMakerNote();
         primaryDirectory.loadAll(iis, directoryOffset);
@@ -170,7 +170,7 @@ public class CRWImageReader extends RAWImageReaderSupport
     protected BufferedImage loadThumbnail (int imageIndex, int thumbnailIndex) 
       throws IOException
       {
-        logger.info("loadThumbnail(%d, %d) - iis: %s", imageIndex, thumbnailIndex, iis);
+        logger.fine("loadThumbnail(%d, %d) - iis: %s", imageIndex, thumbnailIndex, iis);
         checkImageIndex(imageIndex);
         ensureMetadataIsLoaded(imageIndex);
         checkThumbnailIndex(thumbnailIndex);
