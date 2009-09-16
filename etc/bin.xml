@@ -17,7 +17,7 @@
                 <directory>modules/jrawio-all/target</directory>
                 <outputDirectory>/</outputDirectory>
                 <includes>
-                    <include>jrawio-all*.jar</include>
+                    <include>it.tidalwave.imageio.raw*.jar</include>
                 </includes>
                 <excludes>
                     <exclude>*-tests.jar</exclude>

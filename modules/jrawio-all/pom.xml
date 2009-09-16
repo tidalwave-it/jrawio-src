@@ -9,7 +9,7 @@
         <version>1.6.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>jrawio-all</artifactId>
+    <artifactId>it.tidalwave.imageio.raw</artifactId>
     <packaging>bundle</packaging>
     <name>jrawio - JAR artifact</name>
 
