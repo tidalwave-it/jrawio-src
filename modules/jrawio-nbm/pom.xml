@@ -42,6 +42,7 @@
 
     <build>
         <plugins>
+            <!--
             <plugin>
                 <artifactId>maven-jar-plugin</artifactId>
                 <configuration>
@@ -50,6 +51,7 @@
                     </archive>
                 </configuration>
             </plugin>
+            -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>nbm-maven-plugin</artifactId>
