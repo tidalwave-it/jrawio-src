@@ -38,7 +38,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReadParam;
-import javax.imageio.ImageReader;
 import javax.imageio.ImageTypeSpecifier;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.spi.ImageReaderSpi;
@@ -62,7 +61,7 @@ import it.tidalwave.imageio.util.Logger;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public abstract class RAWImageReaderSupport extends ImageReader
+public abstract class RAWImageReaderSupport extends RAWImageReader
   {
     private final static String CLASS = RAWImageReaderSupport.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
@@ -90,9 +89,6 @@ public abstract class RAWImageReaderSupport extends ImageReader
     
     @Nonnull
     protected HeaderProcessor headerProcessor = new HeaderProcessor();
-
-    @Nonnull
-    private RAWImageReadParam defaultReadParam = RAWImageReadParam.DEFAULT;
 
     /*******************************************************************************************************************
      * 
@@ -373,31 +369,9 @@ public abstract class RAWImageReaderSupport extends ImageReader
      * {@inheritDoc}
      *
      ******************************************************************************************************************/
-    public IIOMetadata getStreamMetadata ()
+    public IIOMetadata getStreamMetadata()
       {
-        return null;
-      }
-
-    /*******************************************************************************************************************
-     *
-     * FIXME: API extension to discuss
-     *
-     ******************************************************************************************************************/
-    public void setDefaultReadParam (final @Nonnull ImageReadParam defaultReadParam)
-      {
-        this.defaultReadParam = (RAWImageReadParam)defaultReadParam;
-      }
-
-    /*******************************************************************************************************************
-     *
-     * {@inheritDoc}
-     *
-     ******************************************************************************************************************/
-    @Override
-    @Nonnull
-    public ImageReadParam getDefaultReadParam()
-      {
-        return defaultReadParam;
+        return null; // FIXME
       }
 
     /*******************************************************************************************************************
@@ -566,7 +540,7 @@ public abstract class RAWImageReaderSupport extends ImageReader
       {
         if (!metadataLoaded)
           {
-            loadMetadata(imageIndex, defaultReadParam); 
+            loadMetadata(imageIndex, getDefaultReadParam());
             checkMetadataIsLoaded();
           }
       }
