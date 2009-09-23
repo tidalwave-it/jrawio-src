@@ -94,12 +94,12 @@
 
     <distributionManagement>
         <repository>
-            <id>release.tidalwave.it</id>
+            <id>maven2-release.tidalwave.it</id>
             <name>Tidalwave Maven Release Repository</name>
             <url>https://services.tidalwave.it/nexus/content/repositories/releases</url>
         </repository>
         <snapshotRepository>
-            <id>snapshot.tidalwave.it</id>
+            <id>maven2-snapshot.tidalwave.it</id>
             <name>Tidalwave Maven Snapshot Repository</name>
             <url>https://services.tidalwave.it/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
@@ -461,7 +461,7 @@
         <module>modules/jrawio-nbm</module>
         <module>functional-tests/tests</module>
         <module>functional-tests/jse</module>
-        <module>examples</module>
+        <!-- module>examples</module -->
     </modules>
 
 </project>
