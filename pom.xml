@@ -86,11 +86,6 @@
 
     <repositories>
         <repository>
-            <id>maven2-repository.tidalwave.kenai.com</id>
-            <name>Tidalwave Maven Release Repository</name>
-            <url>https://kenai.com/svn/tidalwave~maven-repo/release/2</url>
-        </repository>
-        <repository>
             <id>maven2-aux-repository.tidalwave.kenai.com</id>
             <name>Tidalwave Maven Aux Repository</name>
             <url>https://kenai.com/svn/tidalwave~maven-repo/aux/2</url>
@@ -99,16 +94,14 @@
 
     <distributionManagement>
         <repository>
-            <id>maven2-repository.tidalwave.kenai.com</id>
+            <id>release.tidalwave.it</id>
             <name>Tidalwave Maven Release Repository</name>
-            <url>svn:https://kenai.com/svn/tidalwave~maven-repo/release/2</url>
-            <uniqueVersion>false</uniqueVersion>
+            <url>https://services.tidalwave.it/nexus/content/repositories/releases</url>
         </repository>
         <snapshotRepository>
-            <id>maven2-snapshot-repository.tidalwave.kenai.com</id>
+            <id>snapshot.tidalwave.it</id>
             <name>Tidalwave Maven Snapshot Repository</name>
-            <url>svn:https://kenai.com/svn/tidalwave~maven-repo/snapshot/2</url>
-            <uniqueVersion>true</uniqueVersion>
+            <url>https://services.tidalwave.it/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -181,14 +174,6 @@
         <!-- For buildNumber to be properly evaluated by assembly:assembly, use also the validate goal -->
         <finalName>${project.artifactId}-${project.version}.${buildNumber}</finalName>
        
-        <extensions>
-            <extension>
-                <groupId>org.jvnet.wagon-svn</groupId>
-                <artifactId>wagon-svn</artifactId>
-                <version>1.9</version>
-            </extension>
-        </extensions>
- 
         <resources>
             <resource>
                 <filtering>true</filtering>
