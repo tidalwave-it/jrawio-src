@@ -27,12 +27,14 @@
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
+        <!--
         <dependency>
             <groupId>it.tidalwave.imageio</groupId>
             <artifactId>functional-tests</artifactId>
             <version>1.6.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
+        -->
     </dependencies>
 
     <build>
