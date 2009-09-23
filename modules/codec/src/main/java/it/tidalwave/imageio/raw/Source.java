@@ -31,12 +31,12 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serializable;
-import javax.imageio.ImageReader;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
  * This class allows to implement a dynamic strategy to choose where to load the bits from. In fact, sometimes one might
- * wish that the read() method of ImageReader returns a reasonably large thumbnail, rather than the raw data.
+ * wish that the read() method of RAWImageReader returns a reasonably large thumbnail, rather than the raw data.
  *
  * @author  Fabrizio Giudici
  * @version $Id$
@@ -44,6 +44,9 @@ import javax.imageio.ImageReader;
  **********************************************************************************************************************/
 public abstract class Source implements Serializable
   {
+    private final static String CLASS = Source.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+
     /*******************************************************************************************************************
      *
      * This source represents the image processed by the post-processor.
@@ -54,7 +57,7 @@ public abstract class Source implements Serializable
       {
         @Override
         @Nonnull
-        protected Dimension getDimension (final @Nonnull ImageReader ir)
+        protected Dimension getDimension (final @Nonnull RAWImageReader ir)
           throws IOException
           {
             return new Dimension(ir.getWidth(0), ir.getHeight(0));
@@ -62,10 +65,16 @@ public abstract class Source implements Serializable
 
         @Override
         @Nonnull
-        protected BufferedImage readImage (final @Nonnull ImageReader ir)
+        protected BufferedImage readImage (final @Nonnull RAWImageReader ir)
           throws IOException
           {
-            return ir.read(0);
+            return ((RAWImageReaderSupport)ir).loadImage(0);
+          }
+
+        @Override
+        protected int getImageCount (final @Nonnull RAWImageReader ir)
+          {
+            return 1;
           }
 
         @Override
@@ -92,7 +101,7 @@ public abstract class Source implements Serializable
       {
         @Override
         @Nonnull
-        protected Dimension getDimension (final @Nonnull ImageReader ir)
+        protected Dimension getDimension (final @Nonnull RAWImageReader ir)
           throws IOException
           {
             return new Dimension(ir.getWidth(0), ir.getHeight(0));
@@ -100,16 +109,22 @@ public abstract class Source implements Serializable
 
         @Override
         @Nonnull
-        protected BufferedImage readImage (final @Nonnull ImageReader ir)
+        protected BufferedImage readImage (final @Nonnull RAWImageReader ir)
           throws IOException
           {
-            return ir.read(0);
+            return ((RAWImageReaderSupport)ir).loadImage(0);
           }
 
         @Override
         protected boolean needsPostProcessor()
           {
             return false;
+          }
+
+        @Override
+        protected int getImageCount (final @Nonnull RAWImageReader ir)
+          {
+            return 1;
           }
 
         @Override
@@ -124,15 +139,13 @@ public abstract class Source implements Serializable
      *
      * This source represents the full-size preview.
      *
-     * FIXME: what to do if it is not found? Failover or exception?
-     *
      ******************************************************************************************************************/
     @Nonnull
     public static final Source FULL_SIZE_PREVIEW = new Source()
       {
         @Override
         @Nonnull
-        protected Dimension getDimension (final @Nonnull ImageReader ir)
+        protected Dimension getDimension (final @Nonnull RAWImageReader ir)
           throws IOException
           {
             final int t = findFullSizeThumbnailIndex(ir);
@@ -141,7 +154,7 @@ public abstract class Source implements Serializable
 
         @Override
         @Nonnull
-        protected BufferedImage readImage (final @Nonnull ImageReader ir)
+        protected BufferedImage readImage (final @Nonnull RAWImageReader ir)
           throws IOException
           {
             final int t = findFullSizeThumbnailIndex(ir);
@@ -155,27 +168,50 @@ public abstract class Source implements Serializable
           }
 
         @Override
+        protected int getImageCount (final @Nonnull RAWImageReader ir)
+          {
+            try
+              {
+                findFullSizeThumbnailIndex(ir);
+                return 1;
+              }
+            catch (IOException e)
+              {
+                return 0;
+              }
+          }
+
+        @Override
         @Nonnull
         public String toString()
           {
             return "FULL_SIZE_PREVIEW";
           }
 
-        private int findFullSizeThumbnailIndex (final @Nonnull ImageReader ir)
+        private int findFullSizeThumbnailIndex (final @Nonnull RAWImageReader ir)
           throws IOException
           {
+            ir.getImageMetadata(0); // needed to trigger the postprocessor and crop the size
             final int imageWidth = ir.getWidth(0);
             final int imageHeight = ir.getHeight(0);
 
             for (int t = 0; t < ir.getNumThumbnails(0); t++)
               {
-                if ((imageWidth == ir.getThumbnailWidth(0, t)) && (imageHeight == ir.getThumbnailHeight(0, t)))
+                final int thumbnailWidth = ir.getThumbnailWidth(0, t);
+                final int thumbnailHeight = ir.getThumbnailHeight(0, t);
+                logger.finest(">>>> expected: %d x %d, probing: %d x %d",
+                              imageWidth, imageHeight, thumbnailWidth, thumbnailHeight);
+                //
+                // Two comparisons to take care of rotated images.
+                //
+                if (((imageWidth == thumbnailWidth) && (imageHeight == thumbnailHeight)) ||
+                    ((imageWidth == thumbnailHeight) && (imageHeight == thumbnailWidth)))
                   {
                     return t;
                   }
               }
 
-            return -1;
+            throw new IOException("Can't find full-size preview in this image");
           }
       };
 
@@ -224,7 +260,7 @@ public abstract class Source implements Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected abstract Dimension getDimension (final @Nonnull ImageReader ir)
+    protected abstract Dimension getDimension (final @Nonnull RAWImageReader ir)
       throws IOException;
 
     /*******************************************************************************************************************
@@ -232,8 +268,14 @@ public abstract class Source implements Serializable
      *
      ******************************************************************************************************************/
     @Nonnull
-    protected abstract BufferedImage readImage (final @Nonnull ImageReader ir)
+    protected abstract BufferedImage readImage (final @Nonnull RAWImageReader ir)
       throws IOException;
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    protected abstract int getImageCount (final @Nonnull RAWImageReader ir);
 
     /*******************************************************************************************************************
      *

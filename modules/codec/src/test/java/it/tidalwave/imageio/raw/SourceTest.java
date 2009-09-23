@@ -68,11 +68,4 @@ public class SourceTest
         System.setProperty(Source.PROP_DEFAULT_SOURCE, "foobar");
         Source.getDefault();
       }
-
-//    public void testGetDimension() throws Exception {
-//    }
-//
-//    @Test
-//    public void testReadImage() throws Exception {
-//      }
   }

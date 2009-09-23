@@ -112,8 +112,11 @@ public abstract class RAWImageReaderSupport extends RAWImageReader
       {
         logger.fine("read(%d, %s)", imageIndex, readParam);
 
-        readParam = (readParam == null) ? RAWImageReadParam.DEFAULT : readParam;
-        final int imageCount = getNumImages(true);
+        readParam = (readParam == null) ? getDefaultReadParam() : readParam;
+        final RAWImageReadParam rawReadParam = (RAWImageReadParam)readParam;
+        final Source source = rawReadParam.getLookup().lookup(Source.class, Source.PROCESSED_IMAGE);
+        logger.finer(">>>> source: %s", source);
+        final int imageCount = source.getImageCount(this);
 
         if (image == null)
           {
@@ -132,9 +135,9 @@ public abstract class RAWImageReaderSupport extends RAWImageReader
 
             try
               {
-                BufferedImage rawImage = loadImage(imageIndex); 
+                final BufferedImage rawImage = source.readImage(this);
                 image[imageIndex] = ((RAWImageReaderSpiSupport)getOriginatingProvider()).
-                        postProcess(rawImage, metadata, (RAWImageReadParam)readParam);
+                        postProcess(rawImage, metadata,rawReadParam);
                 processImageComplete();
               }
 
@@ -340,9 +343,10 @@ public abstract class RAWImageReaderSupport extends RAWImageReader
      * @return              the number of managed images
      *
      ******************************************************************************************************************/
-    public int getNumImages (boolean allowSearch)
+    public int getNumImages (final boolean allowSearch)
       {
-        return 1;
+        final Source source = getDefaultReadParam().getLookup().lookup(Source.class, Source.PROCESSED_IMAGE);
+        return source.getImageCount(this);
       }
 
     /*******************************************************************************************************************

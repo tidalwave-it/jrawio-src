@@ -33,6 +33,7 @@ import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
 import it.tidalwave.imageio.raw.RAWImageReadParam;
 import it.tidalwave.imageio.raw.Source;
+import java.io.IOException;
 import org.junit.runners.Parameterized.Parameters;
 
 /***********************************************************************************************************************
@@ -98,6 +99,11 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             image(4288, 2844, 3, 16, "fadead8af5aefe88b4ca8730cfb7392c").
                             thumbnail(160, 120).
                             thumbnail(4256, 2832),
+            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d3/RAW_NIKON_D3.NEF").
+                            param(new RAWImageReadParam(Source.FULL_SIZE_PREVIEW)).
+                            image(4256, 2832, 3, 8, "a09bd596f4f4cb0a55e923871ef3cb7d").
+                            thumbnail(160, 120).
+                            thumbnail(4256, 2832),
             // D3x
             ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d3x/RAW_NIKON_D3X.NEF").
                             image(4032, 6048, 3, 8, "cc3c6dc29cc167453186b248754be1d9").
@@ -110,6 +116,12 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(6048, 4032).
                             issues("JRW-221"),
+            ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d3x/RAW_NIKON_D3X.NEF").
+                            param(new RAWImageReadParam(Source.FULL_SIZE_PREVIEW)).
+                            image(6048, 4032, 3, 8, "2a0cfc36cea7c3346b8d39355bf786e6").
+                            thumbnail(160, 120).
+                            thumbnail(6048, 4032).
+                            issues(),
             // D40 v1.0.0
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/nikon/D40/1.00/DSC_0108.NEF").
                             image(2000, 3008, 3, 8, "51f5ec81eff835ac17061b050f247fe5").
@@ -242,6 +254,12 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             image(3034, 2024, 3, 16, "3659664029723dc8ea29b09a923fca7d").
                             thumbnail(120, 160).
                             issues("JRW-146"),
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/fabriziogiudici/Nikon/D100/NEF/NikonCaptureEditor/ccw90.nef").
+                            param(new RAWImageReadParam(Source.FULL_SIZE_PREVIEW)).
+                            imageException(IllegalArgumentException.class).
+                            thumbnailException(IllegalArgumentException.class).
+                            thumbnail(120, 160).
+                            issues(),
             // D100
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/fabriziogiudici/Nikon/D100/TIFF/TIFF-Large.TIF").
                             image(3008, 2000, 3, 8, "7b376e9dd911ab94e0d0a6e20123c582").

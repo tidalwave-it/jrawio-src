@@ -27,8 +27,6 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio;
 
-import it.tidalwave.imageio.raw.RAWImageReadParam;
-import it.tidalwave.imageio.raw.Source;
 import javax.annotation.Nonnull;
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -40,6 +38,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageReader;
 import it.tidalwave.imageio.util.Logger;
+import it.tidalwave.imageio.raw.RAWImageReadParam;
+import it.tidalwave.imageio.raw.Source;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Rule;
@@ -99,6 +99,9 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
         final int thumbnailCount = expectedResults.getThumbnailCount();
         assertEquals("image count", imageCount, ir.getNumImages(false));
         assertEquals("thumbnail count", thumbnailCount, ir.getNumThumbnails(0));
+        Class<? extends Throwable> imageException = expectedResults.getImageException();
+        Class<? extends Throwable> thumbnailException = expectedResults.getThumbnailException();
+        Class<? extends Throwable> metadataException = expectedResults.getMetadataException();
 
         for (int i = 0; i < imageCount; i++)
           {
@@ -107,10 +110,18 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
                 final ExpectedResults.Image expectedImage = expectedResults.getImage(i);
                 final Dimension size = expectedImage.getSize();
                 assertImageMetadataSize(ir, size.width, size.height);
+
+                if (metadataException != null)
+                  {
+                    errors.addError(new AssertionError("Expected " + metadataException));
+                  }
               }
             catch (Throwable e)
               {
-                errors.addError(e);
+                if ((metadataException == null) || !(metadataException.equals(e.getClass())))
+                  {
+                    errors.addError(e);
+                  }
               }
           }
 
@@ -121,10 +132,18 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
                 final ExpectedResults.Image expectedThumbnail = expectedResults.getThumbnail(t);
                 final Dimension size = expectedThumbnail.getSize();
                 assertThumbnailMetadataSize(ir, t, size.width, size.height);
+
+                if (metadataException != null)
+                  {
+                    errors.addError(new AssertionError("Expected " + metadataException));
+                  }
               }
             catch (Throwable e)
               {
-                errors.addError(e);
+                if ((metadataException == null) || !(metadataException.equals(e.getClass())))
+                  {
+                    errors.addError(e);
+                  }
               }
           }
 
@@ -139,10 +158,18 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
                 final Dimension size = expectedImage.getSize();
                 final BufferedImage image = assertLoadImage(ir, expectedResults.getReadParam(), size.width, size.height, expectedImage.getBandCount(), expectedImage.getBitsPerSample());
                 assertRaster(image, expectedResults.getPath(), expectedImage.getFingerPrint(), "-" + suffix);
+
+                if (imageException != null)
+                  {
+                    errors.addError(new AssertionError("Expected " + imageException));
+                  }
               }
             catch (Throwable e)
               {
-                errors.addError(e);
+                if ((imageException == null) || !(imageException.equals(e.getClass())))
+                  {
+                    errors.addError(e);
+                  }
               }
           }
 
@@ -154,10 +181,18 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
                 final Dimension size = expectedThumbnail.getSize();
                 final BufferedImage thumbnail = assertLoadThumbnail(ir, t, size.width, size.height);
                 assertRaster(thumbnail, expectedResults.getPath(), null, "-" + suffix + "-thumb" + t);
+
+                if (thumbnailException != null)
+                  {
+                    errors.addError(new AssertionError("Expected " + thumbnailException));
+                  }
               }
             catch (Throwable e)
               {
-                errors.addError(e);
+                if ((thumbnailException == null) || !(thumbnailException.equals(e.getClass())))
+                  {
+                    errors.addError(e);
+                  }
               }
           }
 

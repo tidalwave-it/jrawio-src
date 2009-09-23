@@ -115,6 +115,15 @@ public final class ExpectedResults
 
     private Map<String, Object> properties = new HashMap<String, Object>();
 
+    @CheckForNull
+    private Class<? extends Throwable> imageException;
+
+    @CheckForNull
+    private Class<? extends Throwable> thumbnailException;
+
+    @CheckForNull
+    private Class<? extends Throwable> metadataException;
+
     @Nonnegative
     private Extra extra = new Extra()
       {
@@ -182,6 +191,24 @@ public final class ExpectedResults
         return extra;
       }
 
+    @CheckForNull
+    public Class<? extends Throwable> getImageException()
+      {
+        return imageException;
+      }
+
+    @CheckForNull
+    public Class<? extends Throwable> getThumbnailException()
+      {
+        return thumbnailException;
+      }
+
+    @CheckForNull
+    public Class<? extends Throwable> getMetadataException()
+      {
+        return metadataException;
+      }
+
     @Nonnull
     public ExpectedResults param (final @Nonnull RAWImageReadParam readParam)
       {
@@ -226,6 +253,27 @@ public final class ExpectedResults
       }
 
     @Nonnull
+    public ExpectedResults imageException (final @Nonnull Class<? extends Throwable> exception)
+      {
+        this.imageException = exception;
+        return this;
+      }
+
+    @Nonnull
+    public ExpectedResults thumbnailException (final @Nonnull Class<? extends Throwable> exception)
+      {
+        this.thumbnailException = exception;
+        return this;
+      }
+
+    @Nonnull
+    public ExpectedResults metadataException (final @Nonnull Class<? extends Throwable> exception)
+      {
+        this.metadataException = exception;
+        return this;
+      }
+
+    @Nonnull
     public ExpectedResults issues (final @Nonnull String ... issues)
       {
         return this;
@@ -248,6 +296,6 @@ public final class ExpectedResults
     @Override
     public String toString()
       {
-        return path;
+        return path + " " + readParam;
       }
   }

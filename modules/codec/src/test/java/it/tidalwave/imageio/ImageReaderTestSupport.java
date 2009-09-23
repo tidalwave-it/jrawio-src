@@ -48,7 +48,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.raw.RAWImageReadParam;
-import it.tidalwave.imageio.raw.RAWImageReaderSupport;
+import it.tidalwave.imageio.raw.RAWImageReader;
 import org.junit.BeforeClass;
 import static org.junit.Assert.*;
 
@@ -284,7 +284,7 @@ public class ImageReaderTestSupport extends TestSupport
                                           final @Nonnull RAWImageReadParam readParam)
       throws IOException
       {
-        logger.info("************* TESTING FILE: %s", path);
+        logger.info("************* TESTING FILE: %s - %s", path, readParam);
 
         final File file = getTestFile(path);
         final ImageReader ir = ImageIO.getImageReaders(file).next();
@@ -292,7 +292,7 @@ public class ImageReaderTestSupport extends TestSupport
 
         if (readParam != null)
           {
-            ((RAWImageReaderSupport)ir).setDefaultReadParam(readParam);
+            ((RAWImageReader)ir).setDefaultReadParam(readParam);
           }
         
         ir.setInput(ImageIO.createImageInputStream(file));
