@@ -14,7 +14,7 @@
     <version>1.6.0-SNAPSHOT</version>
     <name>jrawio</name>
 
-    <url>http://jrawio.tidalwave.it</url>
+    <url>http://jrawio.rawdarkroom.it</url>
     <description>Camera raw support in Java</description>
     <organization>
         <name>Tidalwave s.a.s.</name>
@@ -85,6 +85,7 @@
     </properties>
 
     <repositories>
+        <!-- This provides the required versions of JAI-ImageIO, JAI and IJ -->
         <repository>
             <id>maven2-aux-repository.tidalwave.kenai.com</id>
             <name>Tidalwave Maven Aux Repository</name>
@@ -150,7 +151,6 @@
             <properties>
                 <buildNumber>unknown</buildNumber>
                 <testReportsDirectory>${project.build.directory}/surefire-reports</testReportsDirectory>
-                <!-- maven.test.skip.exec>true</maven.test.skip.exec -->
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -246,7 +246,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>buildnumber-maven-plugin</artifactId>
-                    <version>1.0-beta-1</version>
+                    <version>1.0-beta-3</version>
                 </plugin>
 -->
                 <plugin>
@@ -353,8 +353,6 @@
                 <configuration>
                     <useDefaultManifestFile>true</useDefaultManifestFile> <!-- required since nbm-plugin 3.0-->
                     <archive>
-                        <!-- Needed to put the OSGi stuff -->
-                        <!-- manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile -->
                         <manifestEntries>
                             <Implementation-Build>${buildNumber}</Implementation-Build>
                         </manifestEntries>
@@ -402,7 +400,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
-                    <arguments>-Dmaven.test.skip.exec=true -DbuildNumber=${buildNumber} -Dtestset.cached.folder=${testset.cached.folder}</arguments>
+                    <arguments>-DskipTests=true -DbuildNumber=${buildNumber} -Dtestset.cached.folder=${testset.cached.folder}</arguments>
                 </configuration>
             </plugin>
         </plugins>
@@ -461,7 +459,7 @@
         <module>modules/jrawio-nbm</module>
         <!-- module>functional-tests/tests</module -->
         <module>functional-tests/jse</module>
-        <!-- module>examples</module -->
+        <module>examples</module>
     </modules>
 
 </project>
