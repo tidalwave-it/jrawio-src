@@ -89,4 +89,11 @@ public abstract class Lookup implements Serializable
     @Nonnull
     public abstract <T> T lookup (final @Nonnull Class<T> type)
       throws NotFoundException;
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public abstract String toContentString();
   }

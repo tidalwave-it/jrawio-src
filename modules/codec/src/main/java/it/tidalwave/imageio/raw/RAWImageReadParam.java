@@ -104,7 +104,7 @@ public final class RAWImageReadParam extends ImageReadParam implements Serializa
     @Override
     public String toString()
       {
-        return String.format("RAWImageReadParam[%s]", lookup);
+        return String.format("RAWImageReadParam[%s]", lookup.toContentString());
       }
   }
 
