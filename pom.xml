@@ -82,6 +82,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <bundle.namespace>${pom.groupId}.${pom.artifactId}</bundle.namespace>
+        <testReportsDirectory>${project.build.directory}/surefire-reports/plain</testReportsDirectory>
     </properties>
 
     <repositories>
@@ -150,18 +151,47 @@
             <id>default</id>
             <properties>
                 <buildNumber>unknown</buildNumber>
-                <testReportsDirectory>${project.build.directory}/surefire-reports</testReportsDirectory>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
+    
+        <!-- Cobertura support -->
         <profile>
-            <id>hudson</id>
+            <id>cobertura</id>
             <properties>
-                <buildNumber>unknown</buildNumber>
-                <testReportsDirectory>${project.build.directory}/surefire-reports</testReportsDirectory>
+                <testReportsDirectory>${project.build.directory}/surefire-reports/cobertura</testReportsDirectory>
             </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                        <configuration>
+                            <instrumentation>
+                                <excludes>
+                                    <exclude>it/tidalwave/imageio/io/*.class</exclude>
+                                    <exclude>it/tidalwave/imageio/decoder/*.class</exclude>
+                                    <exclude>it/tidalwave/imageio/cr2/CR2RasterReader.class</exclude>
+                                </excludes>
+                            </instrumentation>
+                            <formats>
+                                <format>xml</format>
+                                <format>html</format>
+                            </formats>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>cobertura</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
@@ -369,33 +399,6 @@
                 </executions>
             </plugin>
 
-            <!-- Cobertura support -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <configuration>
-                    <instrumentation>
-                        <excludes>
-                            <exclude>it/tidalwave/imageio/io/*.class</exclude>
-                            <exclude>it/tidalwave/imageio/decoder/*.class</exclude>
-                            <exclude>it/tidalwave/imageio/cr2/CR2RasterReader.class</exclude>
-                        </excludes>
-                    </instrumentation>
-                    <formats>
-                        <format>xml</format>
-                        <format>html</format>
-                    </formats>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>cobertura</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
@@ -403,6 +406,7 @@
                     <arguments>-DskipTests=true -DbuildNumber=${buildNumber} -Dtestset.cached.folder=${testset.cached.folder}</arguments>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
