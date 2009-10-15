@@ -59,7 +59,8 @@ public class CanonCRWMakerNote extends CanonCRWMakerNoteSupport
           }
         catch (IOException e)
           {
-            e.printStackTrace(); // TODO
+            logger.severe(e.toString());
+            logger.throwing(CLASS, "static ctor", e);
           }
       }
 
