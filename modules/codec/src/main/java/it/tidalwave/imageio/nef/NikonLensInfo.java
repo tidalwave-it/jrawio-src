@@ -27,11 +27,12 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.nef;
 
+import javax.annotation.Nonnull;
 import java.util.Properties;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-import javax.annotation.Nonnull;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -41,6 +42,9 @@ import javax.annotation.Nonnull;
  **********************************************************************************************************************/
 public class NikonLensInfo // NOT Serializable, it is rebuilt on demand
   {
+    private final static String CLASS = NikonLensInfo.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
+
     private static Properties lensNameByID = new Properties();
 
     private int version;
@@ -81,7 +85,8 @@ public class NikonLensInfo // NOT Serializable, it is rebuilt on demand
           }
         catch (IOException e)
           {
-            e.printStackTrace(); // TODO
+            logger.severe(e.toString());
+            logger.throwing(CLASS, "static ctor", e);
           }
       }
 
