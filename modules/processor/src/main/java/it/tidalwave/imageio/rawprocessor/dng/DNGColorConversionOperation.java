@@ -27,6 +27,8 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
 
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
@@ -44,15 +46,12 @@ public class DNGColorConversionOperation extends ColorConversionOperation
   {
     private final static Logger logger = getLogger(DNGColorConversionOperation.class);
     
-    /*******************************************************************************************************************
-     *
-     * @inheritDoc
-     *
-     ******************************************************************************************************************/
-    protected ColorMatrix getColorMatrixXYZ (PipelineArtifact artifact)
+    @Override
+    @CheckForNull
+    protected ColorMatrix getColorMatrixXYZ (final @Nonnull PipelineArtifact artifact)
       {
-        TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
-        IFD primaryIFD = metadata.getPrimaryIFD();
+        final TIFFMetadataSupport metadata = (TIFFMetadataSupport)artifact.getRAWMetadata();
+        final IFD primaryIFD = metadata.getPrimaryIFD();
         
         if (primaryIFD.isColorMatrix1Available())
           {
