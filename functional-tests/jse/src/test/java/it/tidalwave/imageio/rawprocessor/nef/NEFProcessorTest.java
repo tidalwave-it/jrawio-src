@@ -335,7 +335,30 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             image(3904, 2616, 3, 16, "8269404d3ac6c2e1e33d8c0a3f6f79b8").
                             thumbnail(160, 120).
                             thumbnail(3872, 2592).
-                            issues("JRW-272")
+                            issues("JRW-272"),
+            // D5000
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d5000/sample_images/nikon_d5000_02.nef").
+                            image(4288, 2848, 3, 8, "0ca4773fb7ae1b8dfb2cc4c8608df5cc").
+                            thumbnail(160, 120).
+                            thumbnail(4288, 2848).
+                            issues("JRW-273"),
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d5000/sample_images/nikon_d5000_02.nef").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(4352, 2868, 3, 16, "3c31d071636a22692cd083f8aaa6723a").
+                            thumbnail(160, 120).
+                            thumbnail(4288, 2848).
+                            issues("JRW-273"),
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d5000/sample_images/nikon_d5000_03.nef").
+                            image(2848, 4288, 3, 8, "3a411fc83597b4f132aeb2ca06f0d466").
+                            thumbnail(160, 120).
+                            thumbnail(4288, 2848).
+                            issues("JRW-273"),
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d5000/sample_images/nikon_d5000_03.nef").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(4352, 2868, 3, 16, "8cdc202a71292fb222afb7ddc9ac050c").
+                            thumbnail(160, 120).
+                            thumbnail(4288, 2848).
+                            issues("JRW-273")
           );
       }
   }
