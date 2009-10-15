@@ -33,7 +33,6 @@ import it.tidalwave.imageio.ExpectedResults;
 import it.tidalwave.imageio.NewImageReaderTestSupport;
 import it.tidalwave.imageio.raw.RAWImageReadParam;
 import it.tidalwave.imageio.raw.Source;
-import java.io.IOException;
 import org.junit.runners.Parameterized.Parameters;
 
 /***********************************************************************************************************************
@@ -313,7 +312,30 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             image(4288, 2844, 3, 16, "451322b803ec25d9386f0052ada7faae").
                             thumbnail(160, 120).
                             thumbnail(4256, 2832).
-                            issues("JRW-223")
+                            issues("JRW-223"),
+            // D3000
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d3000/sample_images/nikon_d3000_02.nef").
+                            image(3872, 2592, 3, 8, "b44d6670ac8f5b44c292b6934b95d5c2").
+                            thumbnail(160, 120).
+                            thumbnail(3872, 2592).
+                            issues("JRW-272"),
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d3000/sample_images/nikon_d3000_02.nef").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(3904, 2616, 3, 16, "14461fd23f073d3277d8e1b3b139bb2d").
+                            thumbnail(160, 120).
+                            thumbnail(3872, 2592).
+                            issues("JRW-272"),
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d3000/sample_images/nikon_d3000_04.nef").
+                            image(3872, 2592, 3, 8, "f6f117c295cd578fd0faa72f0b2c26c8").
+                            thumbnail(160, 120).
+                            thumbnail(3872, 2592).
+                            issues("JRW-272"),
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d3000/sample_images/nikon_d3000_04.nef").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(3904, 2616, 3, 16, "8269404d3ac6c2e1e33d8c0a3f6f79b8").
+                            thumbnail(160, 120).
+                            thumbnail(3872, 2592).
+                            issues("JRW-272")
           );
       }
   }
