@@ -29,6 +29,7 @@ package it.tidalwave.imageio.rawprocessor.nef;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -39,6 +40,7 @@ import it.tidalwave.imageio.nef.NikonMakerNote3;
 import it.tidalwave.imageio.rawprocessor.ColorMatrix;
 import it.tidalwave.imageio.rawprocessor.raw.ColorConversionOperation;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
+import it.tidalwave.imageio.nef.Nikon3MakerNoteSupport.ColorMode;
 
 /***********************************************************************************************************************
  *
@@ -48,7 +50,8 @@ import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
  **********************************************************************************************************************/
 public class NEFColorConversionOperation extends ColorConversionOperation  
   {
-    private final static Logger logger = getLogger(NEFColorConversionOperation.class);
+    private final static String CLASS = NEFColorConversionOperation.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
 
     private static Map colorMatrixProfileMap;
 
@@ -66,15 +69,11 @@ public class NEFColorConversionOperation extends ColorConversionOperation
         final IFD primaryIFD = metadata.getPrimaryIFD();
         final NikonMakerNote3 makerNote = metadata.getNikonMakerNote();
         
-        if (makerNote.isColorModeAvailable())
-          {
-            ColorMatrix colorMatrix = getColorModeColorMatrix(primaryIFD.getModel(), makerNote.getColorMode());
-            logger.finer(">>>> model: %s colorMode: %s matrixXYZ: %s", primaryIFD.getModel(), makerNote.getColorMode(), colorMatrix);
+        final ColorMode colorMode = makerNote.isColorModeAvailable() ? makerNote.getColorMode() : ColorMode.getInstance("default");
+        final ColorMatrix colorMatrix = getColorModeColorMatrix(primaryIFD.getModel(), colorMode);
+        logger.finer(">>>> model: %s colorMode: %s matrixXYZ: %s", primaryIFD.getModel(), colorMode, colorMatrix);
         
-             return colorMatrix;
-          }
-       
-        return null;
+        return colorMatrix;
       }
     
     /*******************************************************************************************************************
@@ -94,7 +93,7 @@ public class NEFColorConversionOperation extends ColorConversionOperation
           }
 
         String[] parts = string.trim().split(" ");
-        assert parts.length == 9;
+        assert parts.length == 9 : "Not a 3x3 matrix: " + Arrays.asList(parts);
         double c[] = new double[9];
 
         for (int i = 0; i < c.length; i++)
