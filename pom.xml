@@ -156,6 +156,12 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
+        <profile>
+            <id>dumpRaster</id>
+            <properties>
+                <jrawio.dumpImageAsTIFF>true</jrawio.dumpImageAsTIFF>
+            </properties>
+        </profile>
     
         <!-- Cobertura support -->
         <profile>
@@ -417,6 +423,35 @@
     **************************************************************************************************************** -->
     <reporting>
         <plugins>
+            <!-- JavaDoc support -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <docfilessubdirs>true</docfilessubdirs>
+                    <excludePackageNames>*.impl:*.impl.*</excludePackageNames>
+                    <links>
+                        <link href="http://java.sun.com/javase/6/docs/api/" />
+                    </links>
+                    <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+                    <docletArtifact>
+                        <groupId>org.umlgraph</groupId>
+                        <artifactId>doclet</artifactId>
+                        <version>5.1</version>
+                    </docletArtifact>
+                    <additionalparam>-views</additionalparam>
+                    <additionalparam>-attributes</additionalparam>
+                    <additionalparam>-operations</additionalparam>
+                    <additionalparam>-qualify</additionalparam>
+                    <additionalparam>-types</additionalparam>
+                    <additionalparam>-visibility</additionalparam>
+                    <additionalparam>-inferdep</additionalparam>
+                    <additionalparam>-inferrel</additionalparam>
+                    <additionalparam>-inferdepinpackage</additionalparam>
+                    <useStandardDocletOptions>true</useStandardDocletOptions>
+                </configuration>
+            </plugin>
+
             <!-- FindBugs support -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
