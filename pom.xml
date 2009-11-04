@@ -153,6 +153,7 @@
             <id>default</id>
             <properties>
                 <buildNumber>unknown</buildNumber>
+                <buildNumberSep>.</buildNumberSep>
             </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
@@ -210,7 +211,7 @@
     **************************************************************************************************************** -->
     <build>
         <!-- For buildNumber to be properly evaluated by assembly:assembly, use also the validate goal -->
-        <finalName>${project.artifactId}-${project.version}.${buildNumber}</finalName>
+        <finalName>${project.artifactId}-${project.version}${buildNumberSep}${buildNumber}</finalName>
        
         <resources>
             <resource>
@@ -413,7 +414,7 @@
                 <configuration>
                     <preparationGoals>clean install verify</preparationGoals>
                     <goals>assembly:assembly deploy</goals>
-                    <arguments>-DbuildNumber=${buildNumber} -DskipTests -Dstaging.hg.repo.url=${staging.hg.repo.url} -DaltDeploymentRepository=release-repo-hudson::default::${staging.mvn.repo.url} -Dstaging.mvn.repo.url=${staging.mvn.repo.url}</arguments>
+                    <arguments>-DbuildNumber= -DbuildNumberSep=. -DskipTests -Dstaging.hg.repo.url=${staging.hg.repo.url} -DaltDeploymentRepository=release-repo-hudson::default::${staging.mvn.repo.url} -Dstaging.mvn.repo.url=${staging.mvn.repo.url}</arguments>
                 </configuration>
             </plugin>
 
