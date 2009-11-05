@@ -753,7 +753,7 @@
         <module>modules/jrawio-all</module>
         <module>modules/jrawio-nbm</module>
         <!-- module>functional-tests/tests</module -->
-        <module>functional-tests/jse</module>
+        <!-- module>functional-tests/jse</module -->
         <!-- module>examples</module-->
     </modules>
 
