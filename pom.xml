@@ -405,20 +405,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Assembler to produce final artifacts. Creates a -bin and -project (source) tarball. -->
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>src/assemble/bin.xml</descriptor>
-                        <descriptor>src/assemble/project.xml</descriptor>
-                        <descriptor>src/assemble/sources.xml</descriptor>
-                        <descriptor>src/assemble/javadoc.xml</descriptor>
-                    </descriptors>
-                    <tarLongFileMode>gnu</tarLongFileMode>
-                </configuration>
-            </plugin>
-
             <!-- Retrieves the 4th build number from Subversion revision. -->
 <!--
             <plugin>
@@ -480,7 +466,22 @@
                 </executions>
             </plugin>
 
-            <!-- Attaches the extra artifacts prepared during the release process -->
+            <!-- Assembler to produce final artifacts. Creates -bin and -project tarballs, as well as
+                 sources and javadoc jars.. -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assemble/bin.xml</descriptor>
+                        <descriptor>src/assemble/project.xml</descriptor>
+                        <descriptor>src/assemble/sources.xml</descriptor>
+                        <descriptor>src/assemble/javadoc.xml</descriptor>
+                    </descriptors>
+                    <tarLongFileMode>gnu</tarLongFileMode>
+                </configuration>
+            </plugin>
+
+            <!-- Attaches the extra artifacts prepared during the release process by the assembly plugin -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -491,14 +492,14 @@
                         <configuration>
                             <artifacts>
                                 <artifact>
-                                    <file>${project.build.directory}/${project.build.finalName}-javadoc.jar</file>
-                                    <type>jar</type>
-                                    <classifier>javadoc</classifier>
-                                </artifact>
-                                <artifact>
                                     <file>${project.build.directory}/${project.build.finalName}-sources.jar</file>
                                     <type>jar</type>
                                     <classifier>sources</classifier>
+                                </artifact>
+                                <artifact>
+                                    <file>${project.build.directory}/${project.build.finalName}-javadoc.jar</file>
+                                    <type>jar</type>
+                                    <classifier>javadoc</classifier>
                                 </artifact>
                                 <artifact>
                                     <file>${project.build.directory}/${project.build.finalName}-project.tar.gz</file>
