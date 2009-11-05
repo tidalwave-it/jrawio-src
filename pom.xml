@@ -422,10 +422,6 @@
         <executions>
           <execution>
             <id>attach-artifacts</id>
-            <phase>none</phase>
-            <goals>
-              <goal>attach-artifact</goal>
-            </goals>
             <inherited>false</inherited> 
             <configuration>
               <artifacts>
