@@ -343,7 +343,7 @@
                                         <argument>--limit</argument>
                                         <argument>1</argument>
                                         <argument>--template</argument>
-                                        <argument>REVISION: {node|short}\n</argument>
+                                        <argument>REVISION {node|short}\n</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
