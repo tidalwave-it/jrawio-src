@@ -298,7 +298,61 @@
                 <jrawio.dumpImageAsTIFF>true</jrawio.dumpImageAsTIFF>
             </properties>
         </profile>
-    
+
+        <profile>
+            <id>hg</id>
+            <activation>
+                <file>
+                    <exists>.hg</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>create-hudson-env</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>hg</executable>
+                                    <arguments>
+                                        <argument>log</argument>
+                                        <argument>--limit</argument>
+                                        <argument>1</argument>
+                                        <argument>--template</argument>
+                                        <argument>#!bin/sh\nexport REVISION={node|short}\n</argument>
+                                    </arguments>
+                                    <outputFile>hudson.env</outputFile>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>show-revision</id>
+                                <phase>generate-sources</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>hg</executable>
+                                    <arguments>
+                                        <argument>log</argument>
+                                        <argument>--limit</argument>
+                                        <argument>1</argument>
+                                        <argument>--template</argument>
+                                        <argument>REVISION: {node|short}\n</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <!-- Cobertura support -->
         <profile>
             <id>cobertura</id>
