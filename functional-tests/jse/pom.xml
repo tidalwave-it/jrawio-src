@@ -18,7 +18,6 @@
         <dependency>
             <groupId>it.tidalwave.imageio</groupId>
             <artifactId>it.tidalwave.imageio.raw</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>it.tidalwave.imageio</groupId>
