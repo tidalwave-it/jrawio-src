@@ -1,0 +1,24 @@
+<assembly>
+  <id>sources</id>
+  <formats>
+    <format>jar</format>
+  </formats>
+  <fileSets>
+            <fileSet>
+                <directory>modules/codec/src/main/java</directory>
+                <outputDirectory>/</outputDirectory>
+                <includes>
+                    <include>**/*.java</include>
+                </includes>
+            </fileSet>
+            <fileSet>
+                <directory>modules/processor/src/main/java</directory>
+                <outputDirectory>/</outputDirectory>
+                <includes>
+                    <include>**/*.java</include>
+                </includes>
+            </fileSet>
+  </fileSets>
+     <includeBaseDirectory>false</includeBaseDirectory> 
+</assembly>
+
