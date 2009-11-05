@@ -29,7 +29,7 @@
 
     <scm>
         <connection>scm:hg:http://kenai.com/hg/jrawio~src</connection>
-        <developerConnection>scm:hg:${staging.hg.repo.url}</developerConnection>
+        <developerConnection>scm:hg:${hg.repo.url}</developerConnection>
         <url>http://kenai.com/projects/jrawio/sources/src/show</url>
     </scm>
 
@@ -83,7 +83,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <bundle.namespace>${pom.groupId}.${pom.artifactId}</bundle.namespace>
         <testReportsDirectory>${project.build.directory}/surefire-reports/plain</testReportsDirectory>
-        <staging.hg.repo.url>https://kenai.com/hg/jrawio~src</staging.hg.repo.url>
+        <hg.repo.url>https://kenai.com/hg/jrawio~src</hg.repo.url>
     </properties>
 
     <repositories>
@@ -227,10 +227,9 @@
             <properties>
                 <buildNumber></buildNumber>
                 <buildNumberSep></buildNumberSep>
-                <staging.hg.repo.url>file://${project.build.directory}/dummy-hg-repo</staging.hg.repo.url>
-                <staging.mvn.repo.url>file://${project.build.directory}/target-maven-repo</staging.mvn.repo.url>
+                <hg.repo.url>file://${project.build.directory}/dummy-hg-repo</hg.repo.url>
                 <skipTests>true</skipTests>
-                <altDeploymentRepository>release-repo-hudson::default::${staging.mvn.repo.url}</altDeploymentRepository>
+                <altDeploymentRepository>release-repo-hudson::default::file://${project.build.directory}/target-maven-repo</altDeploymentRepository>
             </properties>
 
             <build>
