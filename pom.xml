@@ -237,7 +237,7 @@
                         <executions>
                             <execution>
                                 <id>clean-release-dirs</id>
-                                <phase>verify</phase>
+                                <phase>initialize</phase>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
@@ -253,7 +253,7 @@
                             </execution>
                             <execution>
                                 <id>create-release-dirs</id>
-                                <phase>verify</phase>
+                                <phase>initialize</phase>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
@@ -269,7 +269,7 @@
                             </execution>
                             <execution>
                                 <id>init-dummy-hg-repo</id>
-                                <phase>verify</phase>
+                                <phase>initialize</phase>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
@@ -302,10 +302,10 @@
                             <execution>
                                 <id>create-extra-artifacts</id>
                                 <phase>package</phase>
-                                <goals>
-                                    <goal>assembly</goal>
-                                </goals>
                                 <inherited>false</inherited>
+                                <goals>
+                                    <goal>assemble</goal>
+                                </goals>
                             </execution>
                         </executions>
                     </plugin>
@@ -349,31 +349,7 @@
                             </execution>
                         </executions>
                     </plugin>
-            <!-- Assembler to produce final artifacts. Creates -bin and -project tarballs, as well as
-                 sources and javadoc jars.. -->
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>src/assemble/bin.xml</descriptor>
-                                <descriptor>src/assemble/project.xml</descriptor>
-                                <descriptor>src/assemble/sources.xml</descriptor>
-                                <descriptor>src/assemble/javadoc.xml</descriptor>
-                            </descriptors>
-                            <tarLongFileMode>gnu</tarLongFileMode>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>create-extra-artifacts</id>
-                                <phase>package</phase>
-                                <inherited>false</inherited>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    
+
                 </plugins>
             </build>
         </profile>
