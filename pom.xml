@@ -287,220 +287,300 @@
                             </execution>
                         </executions>
                     </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>dumpRaster</id>
-            <properties>
-                <jrawio.dumpImageAsTIFF>true</jrawio.dumpImageAsTIFF>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>hg</id>
-            <activation>
-                <file>
-                    <exists>.hg</exists>
-                </file>
-            </activation>
-            <build>
-                <plugins>
+            <!-- Assembler to produce final artifacts. Creates -bin and -project tarballs, as well as
+                 sources and javadoc jars.. -->
                     <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>src/assemble/bin.xml</descriptor>
+                                <descriptor>src/assemble/project.xml</descriptor>
+                                <descriptor>src/assemble/sources.xml</descriptor>
+                                <descriptor>src/assemble/javadoc.xml</descriptor>
+                            </descriptors>
+                            <tarLongFileMode>gnu</tarLongFileMode>
+                        </configuration>
                         <executions>
                             <execution>
-                                <id>create-hudson-env</id>
-                                <phase>generate-sources</phase>
+                                <id>make-assembly</id>
+                                <phase>package</phase>
                                 <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>hg</executable>
-                                    <arguments>
-                                        <argument>log</argument>
-                                        <argument>--limit</argument>
-                                        <argument>1</argument>
-                                        <argument>--template</argument>
-                                        <argument>#!bin/sh\nexport REVISION={tags} {node|short}\n</argument>
-                                    </arguments>
-                                    <outputFile>hudson.env</outputFile>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>show-revision</id>
-                                <phase>generate-sources</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>hg</executable>
-                                    <arguments>
-                                        <argument>log</argument>
-                                        <argument>--limit</argument>
-                                        <argument>1</argument>
-                                        <argument>--template</argument>
-                                        <argument>REVISION {tags} {node|short}\n</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>release2</id>
-            <build>
-                <plugins>
-            <!-- Attaches the extra artifacts prepared during the release process by the assembly plugin -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>attach-artifact</goal>
+                                    <goal>single</goal>
                                 </goals>
                                 <inherited>false</inherited>
                             </execution>
                         </executions>
-                        <configuration>
-                            <artifacts>
-                                <artifact>
-                                    <file>${project.build.directory}/${project.build.finalName}-sources.jar</file>
-                                    <type>jar</type>
-                                    <classifier>sources</classifier>
-                                </artifact>
-                                <artifact>
-                                    <file>${project.build.directory}/${project.build.finalName}-javadoc.jar</file>
-                                    <type>jar</type>
-                                    <classifier>javadoc</classifier>
-                                </artifact>
-                                <artifact>
-                                    <file>${project.build.directory}/${project.build.finalName}-project.tar.gz</file>
-                                    <type>tar.gz</type>
-                                    <classifier>project</classifier>
-                                </artifact>
-                                <artifact>
-                                    <file>${project.build.directory}/${project.build.finalName}-bin.tar.gz</file>
-                                    <type>tar.gz</type>
-                                    <classifier>bin</classifier>
-                                </artifact>
-                            </artifacts>
-                        </configuration>
                     </plugin>
-                </plugins>
-            </build>
-        </profile>
+
+                    <plugins>
+            <!-- Attaches the extra artifacts prepared during the release process by the assembly plugin -->
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>build-helper-maven-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <goals>
+                                        <goal>attach-artifact</goal>
+                                    </goals>
+                                    <inherited>false</inherited>
+                                </execution>
+                            </executions>
+                            <configuration>
+                                <artifacts>
+                                    <artifact>
+                                        <file>${project.build.directory}/${project.build.finalName}-sources.jar</file>
+                                        <type>jar</type>
+                                        <classifier>sources</classifier>
+                                    </artifact>
+                                    <artifact>
+                                        <file>${project.build.directory}/${project.build.finalName}-javadoc.jar</file>
+                                        <type>jar</type>
+                                        <classifier>javadoc</classifier>
+                                    </artifact>
+                                    <artifact>
+                                        <file>${project.build.directory}/${project.build.finalName}-project.tar.gz</file>
+                                        <type>tar.gz</type>
+                                        <classifier>project</classifier>
+                                    </artifact>
+                                    <artifact>
+                                        <file>${project.build.directory}/${project.build.finalName}-bin.tar.gz</file>
+                                        <type>tar.gz</type>
+                                        <classifier>bin</classifier>
+                                    </artifact>
+                                </artifacts>
+                            </configuration>
+                        </plugin>
+            <!-- Assembler to produce final artifacts. Creates -bin and -project tarballs, as well as
+                 sources and javadoc jars.. -->
+                        <plugin>
+                            <artifactId>maven-assembly-plugin</artifactId>
+                            <configuration>
+                                <descriptors>
+                                    <descriptor>src/assemble/bin.xml</descriptor>
+                                    <descriptor>src/assemble/project.xml</descriptor>
+                                    <descriptor>src/assemble/sources.xml</descriptor>
+                                    <descriptor>src/assemble/javadoc.xml</descriptor>
+                                </descriptors>
+                                <tarLongFileMode>gnu</tarLongFileMode>
+                            </configuration>
+                            <executions>
+                                <execution>
+                                    <id>create-extra-artifacts</id>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>single</goal>
+                                    </goals>
+                                    <inherited>false</inherited>
+                                </execution>
+                            </executions>
+                        </plugin>
+
+<!-- Attaches the extra artifacts prepared during the release process by the assembly plugin -->
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>build-helper-maven-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <goals>
+                                        <goal>attach-artifact</goal>
+                                    </goals>
+                                    <inherited>false</inherited>
+                                </execution>
+                            </executions>
+                            <configuration>
+                                <artifacts>
+                                    <artifact>
+                                        <file>${project.build.directory}/${project.build.finalName}-sources.jar</file>
+                                        <type>jar</type>
+                                        <classifier>sources</classifier>
+                                    </artifact>
+                                    <artifact>
+                                        <file>${project.build.directory}/${project.build.finalName}-javadoc.jar</file>
+                                        <type>jar</type>
+                                        <classifier>javadoc</classifier>
+                                    </artifact>
+                                    <artifact>
+                                        <file>${project.build.directory}/${project.build.finalName}-project.tar.gz</file>
+                                        <type>tar.gz</type>
+                                        <classifier>project</classifier>
+                                    </artifact>
+                                    <artifact>
+                                        <file>${project.build.directory}/${project.build.finalName}-bin.tar.gz</file>
+                                        <type>tar.gz</type>
+                                        <classifier>bin</classifier>
+                                    </artifact>
+                                </artifacts>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </build>
+            </profile>
+
+            <profile>
+                <id>dumpRaster</id>
+                <properties>
+                    <jrawio.dumpImageAsTIFF>true</jrawio.dumpImageAsTIFF>
+                </properties>
+            </profile>
+
+            <profile>
+                <id>hg</id>
+                <activation>
+                    <file>
+                        <exists>.hg</exists>
+                    </file>
+                </activation>
+                <build>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>exec-maven-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>create-hudson-env</id>
+                                    <phase>generate-sources</phase>
+                                    <goals>
+                                        <goal>exec</goal>
+                                    </goals>
+                                    <configuration>
+                                        <executable>hg</executable>
+                                        <arguments>
+                                            <argument>log</argument>
+                                            <argument>--limit</argument>
+                                            <argument>1</argument>
+                                            <argument>--template</argument>
+                                            <argument>#!bin/sh\nexport REVISION={tags} {node|short}\n</argument>
+                                        </arguments>
+                                        <outputFile>hudson.env</outputFile>
+                                    </configuration>
+                                </execution>
+                                <execution>
+                                    <id>show-revision</id>
+                                    <phase>generate-sources</phase>
+                                    <goals>
+                                        <goal>exec</goal>
+                                    </goals>
+                                    <configuration>
+                                        <executable>hg</executable>
+                                        <arguments>
+                                            <argument>log</argument>
+                                            <argument>--limit</argument>
+                                            <argument>1</argument>
+                                            <argument>--template</argument>
+                                            <argument>REVISION {tags} {node|short}\n</argument>
+                                        </arguments>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </build>
+            </profile>
 
         <!-- Cobertura support -->
-        <profile>
-            <id>cobertura</id>
-            <properties>
-                <testReportsDirectory>${project.build.directory}/surefire-reports/cobertura</testReportsDirectory>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>cobertura-maven-plugin</artifactId>
-                        <configuration>
-                            <instrumentation>
-                                <excludes>
-                                    <exclude>it/tidalwave/imageio/io/*.class</exclude>
-                                    <exclude>it/tidalwave/imageio/decoder/*.class</exclude>
-                                    <exclude>it/tidalwave/imageio/cr2/CR2RasterReader.class</exclude>
-                                </excludes>
-                            </instrumentation>
-                            <formats>
-                                <format>xml</format>
-                                <format>html</format>
-                            </formats>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>cobertura</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+            <profile>
+                <id>cobertura</id>
+                <properties>
+                    <testReportsDirectory>${project.build.directory}/surefire-reports/cobertura</testReportsDirectory>
+                </properties>
+                <build>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>cobertura-maven-plugin</artifactId>
+                            <configuration>
+                                <instrumentation>
+                                    <excludes>
+                                        <exclude>it/tidalwave/imageio/io/*.class</exclude>
+                                        <exclude>it/tidalwave/imageio/decoder/*.class</exclude>
+                                        <exclude>it/tidalwave/imageio/cr2/CR2RasterReader.class</exclude>
+                                    </excludes>
+                                </instrumentation>
+                                <formats>
+                                    <format>xml</format>
+                                    <format>html</format>
+                                </formats>
+                            </configuration>
+                            <executions>
+                                <execution>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>cobertura</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </build>
+            </profile>
+        </profiles>
 
     <!-- ***************************************************************************************************************
     *
     *
     *
     **************************************************************************************************************** -->
-    <build>
+        <build>
         <!-- For buildNumber to be properly evaluated by assembly:assembly, use also the validate goal -->
-        <finalName>${project.artifactId}-${project.version}${buildNumberSep}${buildNumber}</finalName>
+            <finalName>${project.artifactId}-${project.version}${buildNumberSep}${buildNumber}</finalName>
        
-        <resources>
-            <resource>
-                <filtering>true</filtering>
-                <directory>src/main/resources/</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </resource>
-        </resources>
+            <resources>
+                <resource>
+                    <filtering>true</filtering>
+                    <directory>src/main/resources/</directory>
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                </resource>
+            </resources>
 
         <!-- ***********************************************************************************************************
         *
         * We want reproducible builds, so all Maven plugins have explicit version numbers.
         *
         ************************************************************************************************************ -->
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.0.2</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.5</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.2-beta-4</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.4.3</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.2</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-pmd-plugin</artifactId>
-                    <version>2.4</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.3</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.3</version>
-                </plugin>
+            <pluginManagement>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <version>2.0.2</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.5</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>2.2-beta-4</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.4.3</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <version>2.2</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-pmd-plugin</artifactId>
+                        <version>2.4</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-checkstyle-plugin</artifactId>
+                        <version>2.3</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-antrun-plugin</artifactId>
+                        <version>1.3</version>
+                    </plugin>
                 <!--
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -508,16 +588,16 @@
                     <version>1.2.1</version>
                 </plugin>
                 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.4</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>2.0-beta-9</version>
-                </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <version>2.4</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <version>2.0-beta-9</version>
+                    </plugin>
 
 <!--
                 <plugin>
@@ -526,58 +606,58 @@
                     <version>1.0-beta-3</version>
                 </plugin>
 -->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>exec-maven-plugin</artifactId>
-                    <version>1.1.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>nbm-maven-plugin</artifactId>
-                    <version>3.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>cobertura-maven-plugin</artifactId>
-                    <version>2.3</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>2.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.4</version>
-                </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>1.1.1</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>nbm-maven-plugin</artifactId>
+                        <version>3.1</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                        <version>2.3</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>findbugs-maven-plugin</artifactId>
+                        <version>2.1</version>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>1.4</version>
+                    </plugin>
 
-                <plugin>
-                    <groupId>org.apache.felix</groupId>
-                    <artifactId>maven-bundle-plugin</artifactId>
-                    <version>2.0.1</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
+                    <plugin>
+                        <groupId>org.apache.felix</groupId>
+                        <artifactId>maven-bundle-plugin</artifactId>
+                        <version>2.0.1</version>
+                    </plugin>
+                </plugins>
+            </pluginManagement>
 
         <!-- ***********************************************************************************************************
         *
         *
         *
         ************************************************************************************************************ -->
-        <plugins>
+            <plugins>
             <!-- Compiler -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <debug>true</debug>
-                    <optimize>true</optimize>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                    <showDeprecation>true</showDeprecation>
-                    <showWarnings>true</showWarnings>
-                </configuration>
-            </plugin>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <debug>true</debug>
+                        <optimize>true</optimize>
+                        <source>1.5</source>
+                        <target>1.5</target>
+                        <showDeprecation>true</showDeprecation>
+                        <showWarnings>true</showWarnings>
+                    </configuration>
+                </plugin>
 
             <!-- Retrieves the 4th build number from Subversion revision. -->
 <!--
@@ -599,170 +679,145 @@
             </plugin>
 -->
             <!-- Executes tests -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <reportsDirectory>${testReportsDirectory}</reportsDirectory>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
-                    <systemProperties>
-                        <property>
-                            <name>testset.cached.folder</name>
-                            <value>${testset.cached.folder}</value>
-                        </property>
-                    </systemProperties>
-                    <argLine>-Xmx768M</argLine>
-                </configuration>
-            </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <reportsDirectory>${testReportsDirectory}</reportsDirectory>
+                        <includes>
+                            <include>**/*Test.java</include>
+                        </includes>
+                        <systemProperties>
+                            <property>
+                                <name>testset.cached.folder</name>
+                                <value>${testset.cached.folder}</value>
+                            </property>
+                        </systemProperties>
+                        <argLine>-Xmx768M</argLine>
+                    </configuration>
+                </plugin>
 
             <!-- Produces the JARs, with OSGi support and the Subversion revision in the Manifest -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <useDefaultManifestFile>true</useDefaultManifestFile> <!-- required since nbm-plugin 3.0-->
-                    <archive>
-                        <manifestEntries>
-                            <Implementation-Build>${buildNumber}</Implementation-Build>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Assembler to produce final artifacts. Creates -bin and -project tarballs, as well as
-                 sources and javadoc jars.. -->
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>src/assemble/bin.xml</descriptor>
-                        <descriptor>src/assemble/project.xml</descriptor>
-                        <descriptor>src/assemble/sources.xml</descriptor>
-                        <descriptor>src/assemble/javadoc.xml</descriptor>
-                    </descriptors>
-                    <tarLongFileMode>gnu</tarLongFileMode>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal> 
-                        </goals>
-                        <inherited>false</inherited>
-                    </execution>
-                </executions>
-            </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <configuration>
+                        <useDefaultManifestFile>true</useDefaultManifestFile> <!-- required since nbm-plugin 3.0-->
+                        <archive>
+                            <manifestEntries>
+                                <Implementation-Build>${buildNumber}</Implementation-Build>
+                            </manifestEntries>
+                        </archive>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>jar</goal>
+                                <goal>test-jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
 
             <!-- Configures the release process, calling the assembly to include extra artifacts in deploy -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <configuration>
-                    <preparationGoals>clean install verify</preparationGoals>
-                    <goals>javadoc:javadoc deploy</goals>
-                    <arguments>-Prelease,release2</arguments>
-                </configuration>
-            </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <configuration>
+                        <preparationGoals>clean install verify</preparationGoals>
+                        <goals>javadoc:javadoc deploy</goals>
+                        <arguments>-Prelease</arguments>
+                    </configuration>
+                </plugin>
 
-        </plugins>
-    </build>
+            </plugins>
+        </build>
 
     <!-- ***************************************************************************************************************
     *
     *
     *
     **************************************************************************************************************** -->
-    <reporting>
-        <plugins>
+        <reporting>
+            <plugins>
             <!-- JavaDoc support -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <configuration>
-                    <docfilessubdirs>true</docfilessubdirs>
-                    <excludePackageNames>*.impl:*.impl.*</excludePackageNames>
-                    <links>
-                        <link href="http://java.sun.com/javase/6/docs/api/" />
-                    </links>
-                    <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
-                    <docletArtifact>
-                        <groupId>org.umlgraph</groupId>
-                        <artifactId>doclet</artifactId>
-                        <version>5.1</version>
-                    </docletArtifact>
-                    <additionalparam>-views</additionalparam>
-                    <additionalparam>-attributes</additionalparam>
-                    <additionalparam>-operations</additionalparam>
-                    <additionalparam>-qualify</additionalparam>
-                    <additionalparam>-types</additionalparam>
-                    <additionalparam>-visibility</additionalparam>
-                    <additionalparam>-inferdep</additionalparam>
-                    <additionalparam>-inferrel</additionalparam>
-                    <additionalparam>-inferdepinpackage</additionalparam>
-                    <useStandardDocletOptions>true</useStandardDocletOptions>
-                </configuration>
-            </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <configuration>
+                        <docfilessubdirs>true</docfilessubdirs>
+                        <excludePackageNames>*.impl:*.impl.*</excludePackageNames>
+                        <links>
+                            <link href="http://java.sun.com/javase/6/docs/api/" />
+                        </links>
+                        <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+                        <docletArtifact>
+                            <groupId>org.umlgraph</groupId>
+                            <artifactId>doclet</artifactId>
+                            <version>5.1</version>
+                        </docletArtifact>
+                        <additionalparam>-views</additionalparam>
+                        <additionalparam>-attributes</additionalparam>
+                        <additionalparam>-operations</additionalparam>
+                        <additionalparam>-qualify</additionalparam>
+                        <additionalparam>-types</additionalparam>
+                        <additionalparam>-visibility</additionalparam>
+                        <additionalparam>-inferdep</additionalparam>
+                        <additionalparam>-inferrel</additionalparam>
+                        <additionalparam>-inferdepinpackage</additionalparam>
+                        <useStandardDocletOptions>true</useStandardDocletOptions>
+                    </configuration>
+                </plugin>
 
             <!-- FindBugs support -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <configuration>
-                    <xmlOutput>true</xmlOutput>
-                    <threshold>Low</threshold>
-                    <effort>Max</effort>
-                    <debug>false</debug>
-                    <relaxed>false</relaxed>
-                    <findbugsXmlOutput>true</findbugsXmlOutput>
-                </configuration>
-            </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <configuration>
+                        <xmlOutput>true</xmlOutput>
+                        <threshold>Low</threshold>
+                        <effort>Max</effort>
+                        <debug>false</debug>
+                        <relaxed>false</relaxed>
+                        <findbugsXmlOutput>true</findbugsXmlOutput>
+                    </configuration>
+                </plugin>
 
             <!-- PMD/CPD support -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <configuration>
-                    <targetJdk>1.5</targetJdk>
-                </configuration>
-            </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <configuration>
+                        <targetJdk>1.5</targetJdk>
+                    </configuration>
+                </plugin>
 
             <!-- CheckStyle support -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <configLocation>config/checkstyle.xml</configLocation>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <configuration>
+                        <configLocation>config/checkstyle.xml</configLocation>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </reporting>
 
     <!-- ***************************************************************************************************************
     *
     *
     *
     **************************************************************************************************************** -->
-    <modules>
-        <module>modules/codec</module>
-        <module>modules/processor</module>
-        <module>modules/jrawio-all</module>
-        <module>modules/jrawio-nbm</module>
+        <modules>
+            <module>modules/codec</module>
+            <module>modules/processor</module>
+            <module>modules/jrawio-all</module>
+            <module>modules/jrawio-nbm</module>
         <!-- module>functional-tests/tests</module -->
-        <module>functional-tests/jse</module>
+            <module>functional-tests/jse</module>
         <!-- module>examples</module-->
-    </modules>
+        </modules>
 
-</project>
+    </project>
 
