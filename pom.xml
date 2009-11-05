@@ -304,7 +304,7 @@
                                 <phase>package</phase>
                                 <inherited>false</inherited>
                                 <goals>
-                                    <goal>assemble</goal>
+                                    <goal>assembly</goal>
                                 </goals>
                             </execution>
                         </executions>
