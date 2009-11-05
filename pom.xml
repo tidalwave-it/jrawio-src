@@ -109,42 +109,103 @@
         </snapshotRepository>
     </distributionManagement>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>it.tidalwave.imageio</groupId>
+                <artifactId>it.tidalwave.imageio.raw</artifactId>
+                <version>1.6.1</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.imageio</groupId>
+                <artifactId>codec</artifactId>
+                <version>1.6.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.imageio</groupId>
+                <artifactId>codec</artifactId>
+                <version>1.6.1-SNAPSHOT</version>
+                <classifier>tests</classifier>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.imageio</groupId>
+                <artifactId>processor</artifactId>
+                <version>1.6.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.imageio</groupId>
+                <artifactId>functional-tests</artifactId>
+                <version>1.6.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.imageio</groupId>
+                <artifactId>it.tidalwave.imageio.raw</artifactId>
+                <version>1.6.1-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>1.3.7</version>
+            <!-- WARNING: don't use 1.3.8, it has got a broken pom which brings is tons of useless stuff! -->
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it.tidalwave.singlelinelogformatter</artifactId>
+                <version>1.0.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.media</groupId>
+                <artifactId>jai_imageio</artifactId>
+                <version>1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.7</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>1.7</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
-            <version>1.3.7</version>
-            <!-- WARNING: don't use 1.3.8, it has got a broken pom which brings is tons of useless stuff! -->
         </dependency>
         
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.7</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>1.7</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>1.4</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
             <artifactId>it.tidalwave.singlelinelogformatter</artifactId>
-            <version>1.0.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.media</groupId>
             <artifactId>jai_imageio</artifactId>
-            <version>1.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -467,7 +528,8 @@
                                -DskipTests
                                -Dstaging.hg.repo.url=${staging.hg.repo.url}
                                -DaltDeploymentRepository=release-repo-hudson::default::${staging.mvn.repo.url}
-                               -Dstaging.mvn.repo.url=${staging.mvn.repo.url}</arguments>
+                               -Dstaging.mvn.repo.url=${staging.mvn.repo.url}
+                    </arguments>
                 </configuration>
             </plugin>
 

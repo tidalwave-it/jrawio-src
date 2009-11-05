@@ -17,14 +17,12 @@
         <dependency>
             <groupId>it.tidalwave.imageio</groupId>
             <artifactId>codec</artifactId>
-            <version>1.6.1-SNAPSHOT</version>
             <!-- scope>provided</scope -->
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>it.tidalwave.imageio</groupId>
             <artifactId>processor</artifactId>
-            <version>1.6.1-SNAPSHOT</version>
             <!-- scope>provided</scope -->
             <optional>true</optional>
         </dependency>

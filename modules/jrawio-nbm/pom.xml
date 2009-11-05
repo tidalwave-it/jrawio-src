@@ -17,25 +17,21 @@
         <dependency>
             <groupId>it.tidalwave.imageio</groupId>
             <artifactId>it.tidalwave.imageio.raw</artifactId>
-            <version>1.6.1-SNAPSHOT</version>
         </dependency>
         <!-- These dependencies with 'provided' scope won't be embedded in the .nbm -->
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
-            <version>1.3.7</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>it.tidalwave.imageio</groupId>
             <artifactId>codec</artifactId>
-            <version>1.6.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>it.tidalwave.imageio</groupId>
             <artifactId>processor</artifactId>
-            <version>1.6.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

@@ -17,13 +17,11 @@
         <dependency>
             <groupId>it.tidalwave.imageio</groupId>
             <artifactId>it.tidalwave.imageio.raw</artifactId>
-            <version>1.6.1-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>it.tidalwave.imageio</groupId>
             <artifactId>codec</artifactId>
-            <version>1.6.1-SNAPSHOT</version>
             <classifier>tests</classifier>
             <scope>test</scope>
         </dependency>
@@ -31,7 +29,6 @@
         <dependency>
             <groupId>it.tidalwave.imageio</groupId>
             <artifactId>functional-tests</artifactId>
-            <version>1.6.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
         -->
