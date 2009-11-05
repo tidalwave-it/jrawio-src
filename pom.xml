@@ -245,6 +245,7 @@
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
+                                <inherited>false</inherited>
                                 <configuration>
                                     <executable>mkdir</executable>
                                     <arguments>
@@ -260,6 +261,7 @@
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
+                                <inherited>false</inherited>
                                 <configuration>
                                     <executable>hg</executable>
                                     <workingDirectory>${project.build.directory}/dummy-hg-repo</workingDirectory>
