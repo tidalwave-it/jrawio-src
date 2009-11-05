@@ -419,13 +419,6 @@
        <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-artifacts</id>
-            <phase>package</phase>
-            <goals>
-              <goal>attach-artifact</goal>
-            </goals>
             <configuration>
               <artifacts>
                 <artifact>
@@ -450,8 +443,6 @@
                 </artifact>
               </artifacts>
             </configuration>
-          </execution>
-        </executions>
       </plugin>
 
             <plugin>
@@ -459,7 +450,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <preparationGoals>clean install verify</preparationGoals>
-                    <goals>javadoc:javadoc assembly:assembly deploy</goals>
+                    <goals>javadoc:javadoc assembly:assembly build-helper:attach-artifact deploy</goals>
                     <arguments>-DbuildNumber= -DbuildNumberSep= -DskipTests -Dstaging.hg.repo.url=${staging.hg.repo.url} -DaltDeploymentRepository=release-repo-hudson::default::${staging.mvn.repo.url} -Dstaging.mvn.repo.url=${staging.mvn.repo.url}</arguments>
                 </configuration>
             </plugin>
