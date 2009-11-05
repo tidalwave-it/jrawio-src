@@ -183,7 +183,7 @@
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -222,8 +222,8 @@
         <profile>
             <id>release</id>
             <properties>
-                <buildNumber></buildNumber>
-                <buildNumberSep></buildNumberSep>
+                <buildNumber />
+                <buildNumberSep />
                 <hg.repo.url>file://${project.build.directory}/dummy-hg-repo</hg.repo.url>
                 <skipTests>true</skipTests>
                 <altDeploymentRepository>release-repo-hudson::default::file://${project.build.directory}/target-maven-repo</altDeploymentRepository>
@@ -297,61 +297,8 @@
                                 <descriptor>src/assemble/javadoc.xml</descriptor>
                             </descriptors>
                             <tarLongFileMode>gnu</tarLongFileMode>
+                            <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
                         </configuration>
-                        <executions>
-                            <execution>
-                                <id>create-extra-artifacts</id>
-                                <!--
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>assembly</goal>
-                                </goals>
-                                -->
-                                <inherited>false</inherited>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-            <!-- Attaches the extra artifacts prepared during the release process by the assembly plugin -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>attach-extra-artifacts</id>
-                                <!--
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>attach-artifact</goal>
-                                </goals>
-                                -->
-                                <inherited>false</inherited>
-                                <configuration>
-                                    <artifacts>
-                                        <artifact>
-                                            <file>${project.build.directory}/${project.build.finalName}-sources.jar</file>
-                                            <type>jar</type>
-                                            <classifier>sources</classifier>
-                                        </artifact>
-                                        <artifact>
-                                            <file>${project.build.directory}/${project.build.finalName}-javadoc.jar</file>
-                                            <type>jar</type>
-                                            <classifier>javadoc</classifier>
-                                        </artifact>
-                                        <artifact>
-                                            <file>${project.build.directory}/${project.build.finalName}-project.tar.gz</file>
-                                            <type>tar.gz</type>
-                                            <classifier>project</classifier>
-                                        </artifact>
-                                        <artifact>
-                                            <file>${project.build.directory}/${project.build.finalName}-bin.tar.gz</file>
-                                            <type>tar.gz</type>
-                                            <classifier>bin</classifier>
-                                        </artifact>
-                                    </artifacts>
-                                </configuration>
-                            </execution>
-                        </executions>
                     </plugin>
 
                 </plugins>
@@ -465,7 +412,7 @@
     <build>
         <!-- For buildNumber to be properly evaluated by assembly:assembly, use also the validate goal -->
         <finalName>${project.artifactId}-${project.version}${buildNumberSep}${buildNumber}</finalName>
-       
+
         <resources>
             <resource>
                 <filtering>true</filtering>
@@ -668,7 +615,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <preparationGoals>clean install verify</preparationGoals>
-                    <goals>javadoc:javadoc deploy</goals>
+                    <goals>javadoc:javadoc assembly:single deploy</goals>
                     <arguments>-Prelease</arguments>
                 </configuration>
             </plugin>
