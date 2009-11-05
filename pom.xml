@@ -301,11 +301,13 @@
                         <executions>
                             <execution>
                                 <id>create-extra-artifacts</id>
+                                <!--
                                 <phase>package</phase>
-                                <inherited>false</inherited>
                                 <goals>
                                     <goal>assembly</goal>
                                 </goals>
+                                -->
+                                <inherited>false</inherited>
                             </execution>
                         </executions>
                     </plugin>
@@ -317,10 +319,12 @@
                         <executions>
                             <execution>
                                 <id>attach-extra-artifacts</id>
+                                <!--
                                 <phase>package</phase>
                                 <goals>
                                     <goal>attach-artifact</goal>
                                 </goals>
+                                -->
                                 <inherited>false</inherited>
                                 <configuration>
                                     <artifacts>
@@ -753,7 +757,7 @@
         <module>modules/jrawio-all</module>
         <module>modules/jrawio-nbm</module>
         <!-- module>functional-tests/tests</module -->
-        <!-- module>functional-tests/jse</module -->
+        <module>functional-tests/jse</module>
         <!-- module>examples</module-->
     </modules>
 
