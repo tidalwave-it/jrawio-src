@@ -303,7 +303,7 @@
                                 <id>create-extra-artifacts</id>
                                 <phase>package</phase>
                                 <goals>
-                                    <goal>single</goal>
+                                    <goal>assembly</goal>
                                 </goals>
                                 <inherited>false</inherited>
                             </execution>
