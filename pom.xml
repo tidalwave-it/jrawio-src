@@ -82,6 +82,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <bundle.namespace>${pom.groupId}.${pom.artifactId}</bundle.namespace>
+        <buildNumber>unknown</buildNumber>
+        <buildNumberSep>.</buildNumberSep>
         <testReportsDirectory>${project.build.directory}/surefire-reports/plain</testReportsDirectory>
         <hg.repo.url>https://kenai.com/hg/jrawio~src</hg.repo.url>
     </properties>
@@ -210,13 +212,8 @@
     </dependencies>
 
     <profiles>
-
         <profile>
             <id>default</id>
-            <properties>
-                <buildNumber>unknown</buildNumber>
-                <buildNumberSep>.</buildNumberSep>
-            </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
