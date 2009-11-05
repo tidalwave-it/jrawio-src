@@ -285,22 +285,6 @@
                         </executions>
                     </plugin>
 
-            <!-- Assembler to produce final artifacts. Creates -bin and -project tarballs, as well as
-                 sources and javadoc jars.. -->
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>src/assemble/bin.xml</descriptor>
-                                <descriptor>src/assemble/project.xml</descriptor>
-                                <descriptor>src/assemble/sources.xml</descriptor>
-                                <descriptor>src/assemble/javadoc.xml</descriptor>
-                            </descriptors>
-                            <tarLongFileMode>gnu</tarLongFileMode>
-                            <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
-                        </configuration>
-                    </plugin>
-
                 </plugins>
             </build>
         </profile>
@@ -327,7 +311,7 @@
                         <executions>
                             <execution>
                                 <id>create-hudson-env</id>
-                                <phase>generate-sources</phase>
+                                <phase>initialize</phase>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
@@ -345,7 +329,7 @@
                             </execution>
                             <execution>
                                 <id>show-revision</id>
-                                <phase>generate-sources</phase>
+                                <phase>initialize</phase>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
@@ -607,6 +591,22 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- Assembler to produce final artifacts. Creates -bin and -project tarballs, as well as
+                 sources and javadoc jars.. -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assemble/bin.xml</descriptor>
+                        <descriptor>src/assemble/project.xml</descriptor>
+                        <descriptor>src/assemble/sources.xml</descriptor>
+                        <descriptor>src/assemble/javadoc.xml</descriptor>
+                    </descriptors>
+                    <tarLongFileMode>gnu</tarLongFileMode>
+                    <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
+                </configuration>
             </plugin>
 
             <!-- Configures the release process, calling the assembly to include extra artifacts in deploy -->
