@@ -240,6 +240,22 @@
                         <artifactId>exec-maven-plugin</artifactId>
                         <executions>
                             <execution>
+                                <id>clean-release-dirs</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <executable>rm</executable>
+                                    <arguments>
+                                        <argument>-rf</argument>
+                                        <argument>${project.build.directory}/dummy-hg-repo</argument>
+                                        <argument>${project.build.directory}/target-maven-repo</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
                                 <id>create-release-dirs</id>
                                 <phase>verify</phase>
                                 <goals>
