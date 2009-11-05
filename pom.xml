@@ -615,7 +615,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <preparationGoals>clean install verify</preparationGoals>
-                    <goals>javadoc:javadoc assembly:single deploy</goals>
+                    <goals>clean install javadoc:javadoc assembly:single deploy</goals>
                     <arguments>-Prelease</arguments>
                 </configuration>
             </plugin>
