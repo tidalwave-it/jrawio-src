@@ -1,24 +1,25 @@
+
 <assembly>
-  <id>javadoc</id>
-  <formats>
-    <format>jar</format>
-  </formats>
-  <fileSets>
-            <fileSet>
-                <directory>modules/codec/target/site/apidocs</directory>
-                <outputDirectory>/</outputDirectory>
-                <includes>
-                    <include>**</include>
-                </includes>
-            </fileSet>
-            <fileSet>
-                <directory>modules/processor/target/site/apidocs</directory>
-                <outputDirectory>/</outputDirectory>
-                <includes>
-                    <include>**</include>
-                </includes>
-            </fileSet>
-  </fileSets>
-     <includeBaseDirectory>false</includeBaseDirectory> 
+    <id>javadoc</id>
+    <formats>
+        <format>jar</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <directory>modules/codec/target/site/apidocs</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>modules/processor/target/site/apidocs</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+    <includeBaseDirectory>false</includeBaseDirectory>
 </assembly>
 
