@@ -653,6 +653,16 @@
                     </descriptors>
                     <tarLongFileMode>gnu</tarLongFileMode>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal> 
+                        </goals>
+                        <inherited>false</inherited>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Configures the release process, calling the assembly to include extra artifacts in deploy -->
@@ -661,7 +671,7 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <preparationGoals>clean install verify</preparationGoals>
-                    <goals>javadoc:javadoc assembly:assembly deploy</goals>
+                    <goals>javadoc:javadoc deploy</goals>
                     <arguments>-Prelease,release2</arguments>
                 </configuration>
             </plugin>
