@@ -616,7 +616,7 @@
                 <configuration>
                     <preparationGoals>clean install verify</preparationGoals>
                     <goals>clean install javadoc:javadoc assembly:single deploy</goals>
-                    <arguments>-Prelease</arguments>
+                    <arguments>-Prelease -DaltDeploymentRepository=${altDeploymentRepository}</arguments>
                 </configuration>
             </plugin>
 
