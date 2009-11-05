@@ -341,10 +341,10 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
                     <descriptors>
-                        <descriptor>config/bin.xml</descriptor>
-                        <descriptor>config/project.xml</descriptor>
-                        <descriptor>config/sources.xml</descriptor>
-                        <descriptor>config/javadoc.xml</descriptor>
+                        <descriptor>src/assemble/bin.xml</descriptor>
+                        <descriptor>src/assemble/project.xml</descriptor>
+                        <descriptor>src/assemble/sources.xml</descriptor>
+                        <descriptor>src/assemble/javadoc.xml</descriptor>
                     </descriptors>
                     <tarLongFileMode>gnu</tarLongFileMode>
                 </configuration>
