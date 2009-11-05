@@ -242,6 +242,9 @@
                             <execution>
                                 <id>create-release-dirs</id>
                                 <phase>verify</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
                                 <configuration>
                                     <executable>mkdir</executable>
                                     <arguments>
@@ -254,6 +257,9 @@
                             <execution>
                                 <id>init-dummy-hg-repo</id>
                                 <phase>verify</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
                                 <configuration>
                                     <executable>hg</executable>
                                     <workingDirectory>${project.build.directory}/dummy-hg-repo</workingDirectory>
