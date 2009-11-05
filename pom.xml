@@ -83,8 +83,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <bundle.namespace>${pom.groupId}.${pom.artifactId}</bundle.namespace>
         <testReportsDirectory>${project.build.directory}/surefire-reports/plain</testReportsDirectory>
-        <hg.repo.url>https://kenai.com/hg/jrawio~src</hg.repo.url>
-        <staging.hg.repo.url>${hg.repo.url}</staging.hg.repo.url>
+        <staging.hg.repo.url>https://kenai.com/hg/jrawio~src</staging.hg.repo.url>
     </properties>
 
     <repositories>
@@ -211,6 +210,7 @@
     </dependencies>
 
     <profiles>
+
         <profile>
             <id>default</id>
             <properties>
@@ -221,6 +221,41 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
+
+        <profile>
+            <id>release</id>
+            <properties>
+                <buildNumber></buildNumber>
+                <buildNumberSep></buildNumberSep>
+                <staging.hg.repo.url>file://${project.build.directory}/dummy-hg-repo</staging.hg.repo.url>
+                <staging.mvn.repo.url>file://${project.build.directory}/target-maven-repo</staging.mvn.repo.url>
+                <skipTests>true</skipTests>
+                <altDeploymentRepository>release-repo-hudson::default::${staging.mvn.repo.url}</altDeploymentRepository>
+            </properties>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>init-dummy-hg-repo</id>
+                                <phase>verify</phase>
+                                <configuration>
+                                    <executable>hg</executable>
+                                    <workingDirectory>${project.build.directory}/dummy-hg-repo</workingDirectory>
+                                    <arguments>
+                                        <argument>init</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
         <profile>
             <id>dumpRaster</id>
             <properties>
@@ -524,13 +559,7 @@
                 <configuration>
                     <preparationGoals>clean install verify</preparationGoals>
                     <goals>javadoc:javadoc assembly:assembly build-helper:attach-artifact deploy</goals>
-                    <arguments>-DbuildNumber=
-                               -DbuildNumberSep=
-                               -DskipTests
-                               -Dstaging.hg.repo.url=${staging.hg.repo.url}
-                               -DaltDeploymentRepository=release-repo-hudson::default::${staging.mvn.repo.url}
-                               -Dstaging.mvn.repo.url=${staging.mvn.repo.url}
-                    </arguments>
+                    <arguments>-Prelease</arguments>
                 </configuration>
             </plugin>
 
