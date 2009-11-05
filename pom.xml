@@ -419,7 +419,14 @@
        <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
-        <inherited>false</inherited> 
+        <executions>
+          <execution>
+            <id>attach-artifacts</id>
+            <phase>none</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <inherited>false</inherited> 
             <configuration>
               <artifacts>
                 <artifact>
@@ -444,6 +451,8 @@
                 </artifact>
               </artifacts>
             </configuration>
+          </execution>
+        </executions>
       </plugin>
 
             <plugin>
