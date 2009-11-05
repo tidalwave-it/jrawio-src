@@ -319,6 +319,7 @@
                         <executions>
                             <execution>
                                 <id>attach-extra-artifacts</id>
+                                <phase>package</phase>
                                 <goals>
                                     <goal>attach-artifact</goal>
                                 </goals>
