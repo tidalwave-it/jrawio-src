@@ -422,22 +422,22 @@
             <configuration>
               <artifacts>
                 <artifact>
-                  <file>${finalName}-javadoc.jar</file>
+                  <file>${project.build.directory}/${project.build.finalName}-javadoc.jar</file>
                   <type>jar</type>
                   <classifier>javadoc</classifier>
                 </artifact>
                 <artifact>
-                  <file>${finalName}-sources.jar</file>
+                  <file>${project.build.directory}/${project.build.finalName}-sources.jar</file>
                   <type>jar</type>
                   <classifier>sources</classifier>
                 </artifact>
                 <artifact>
-                  <file>${finalName}-project.tar.gz</file>
+                  <file>${project.build.directory}/${project.build.finalName}-project.tar.gz</file>
                   <type>tar.gz</type>
                   <classifier>project</classifier>
                 </artifact>
                 <artifact>
-                  <file>${finalName}-bin.tar.gz</file>
+                  <file>${project.build.directory}/${project.build.finalName}-bin.tar.gz</file>
                   <type>tar.gz</type>
                   <classifier>bin</classifier>
                 </artifact>
