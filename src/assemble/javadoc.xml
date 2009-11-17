@@ -1,0 +1,34 @@
+
+<assembly>
+    <id>javadoc</id>
+    <formats>
+        <format>jar</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <directory>.</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>README*</include>
+                <include>LICENSE*</include>
+                <include>NOTICE*</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>modules/codec/target/site/apidocs</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>modules/processor/target/site/apidocs</directory>
+            <outputDirectory>/</outputDirectory>
+            <includes>
+                <include>**</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+    <includeBaseDirectory>false</includeBaseDirectory>
+</assembly>
+

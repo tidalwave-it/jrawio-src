@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- ***************************************************************************************************************
+    *
+    * Project description
+    *
+    **************************************************************************************************************** -->
+    <groupId>it.tidalwave.imageio</groupId>
+    <artifactId>jrawio</artifactId>
+    <packaging>pom</packaging>
+    <version>1.6.1-SNAPSHOT</version>
+    <name>jrawio</name>
+
+    <url>http://jrawio.rawdarkroom.it</url>
+    <description>Camera raw support in Java</description>
+    <organization>
+        <name>Tidalwave s.a.s.</name>
+        <url>http://www.tidalwave.it</url>
+    </organization>
+    <inceptionYear>2003</inceptionYear>
+
+    <issueManagement>
+        <system>Jira</system>
+        <url>https://services.tidalwave.it/jira/browse/JRW</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:hg:http://kenai.com/hg/jrawio~src</connection>
+        <developerConnection>scm:hg:${hg.repo.url}</developerConnection>
+        <url>http://kenai.com/projects/jrawio/sources/src/show</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Fabrizio Giudici</name>
+            <email>fabrizio.giudici@tidalwave.it</email>
+            <url>http://www.tidalwave.it/people</url>
+            <organization>Tidalwave s.a.s.</organization>
+            <organizationUrl>http://www.tidalwave.it</organizationUrl>
+            <roles>
+                <role>manager</role>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+
+    <mailingLists>
+        <mailingList>
+            <name>Continuous Integration</name>
+            <post>ci@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/ci/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Commits</name>
+            <post>commits@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/commits/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Developers</name>
+            <post>dev@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/dev/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Users</name>
+            <post>users@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/users/archive</archive>
+        </mailingList>
+    </mailingLists>
+
+    <licenses>
+        <license>
+            <name>ASF 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <bundle.namespace>${pom.groupId}.${pom.artifactId}</bundle.namespace>
+        <buildNumber>unknown</buildNumber>
+        <buildNumberSep>.</buildNumberSep>
+        <testReportsDirectory>${project.build.directory}/surefire-reports/plain</testReportsDirectory>
+        <hg.repo.url>https://kenai.com/hg/jrawio~src</hg.repo.url>
+    </properties>
+
+    <repositories>
+        <!-- This provides the required versions of JAI-ImageIO, JAI and IJ -->
+        <repository>
+            <id>maven2-aux-repository.tidalwave.kenai.com</id>
+            <name>Tidalwave Maven Aux Repository</name>
+            <url>https://kenai.com/svn/tidalwave~maven-repo/aux/2</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>maven2-release.tidalwave.it</id>
+            <name>Tidalwave Maven Release Repository</name>
+            <url>https://services.tidalwave.it/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>maven2-snapshot.tidalwave.it</id>
+            <name>Tidalwave Maven Snapshot Repository</name>
+            <url>https://services.tidalwave.it/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>it.tidalwave.imageio</groupId>
+                <artifactId>it.tidalwave.imageio.raw</artifactId>
+                <version>1.6.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.imageio</groupId>
+                <artifactId>codec</artifactId>
+                <version>1.6.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.imageio</groupId>
+                <artifactId>codec</artifactId>
+                <version>1.6.1-SNAPSHOT</version>
+                <classifier>tests</classifier>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.imageio</groupId>
+                <artifactId>processor</artifactId>
+                <version>1.6.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.imageio</groupId>
+                <artifactId>functional-tests</artifactId>
+                <version>1.6.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.imageio</groupId>
+                <artifactId>it.tidalwave.imageio.raw</artifactId>
+                <version>1.6.1-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>1.3.7</version>
+            <!-- WARNING: don't use 1.3.8, it has got a broken pom which brings is tons of useless stuff! -->
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it.tidalwave.singlelinelogformatter</artifactId>
+                <version>1.0.2</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.media</groupId>
+                <artifactId>jai_imageio</artifactId>
+                <version>1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>4.7</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-all</artifactId>
+                <version>1.7</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it.tidalwave.singlelinelogformatter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.media</groupId>
+            <artifactId>jai_imageio</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <profile>
+            <id>release</id>
+            <properties>
+                <buildNumber />
+                <buildNumberSep />
+                <hg.repo.url>file://${project.build.directory}/dummy-hg-repo</hg.repo.url>
+                <skipTests>true</skipTests>
+                <altDeploymentRepository>release-repo-hudson::default::file://${project.build.directory}/target-maven-repo</altDeploymentRepository>
+            </properties>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>clean-release-dirs</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <executable>rm</executable>
+                                    <arguments>
+                                        <argument>-rf</argument>
+                                        <argument>${project.build.directory}/dummy-hg-repo</argument>
+                                        <argument>${project.build.directory}/target-maven-repo</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>create-release-dirs</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <executable>mkdir</executable>
+                                    <arguments>
+                                        <argument>-p</argument>
+                                        <argument>${project.build.directory}/dummy-hg-repo</argument>
+                                        <argument>${project.build.directory}/target-maven-repo</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>init-dummy-hg-repo</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <executable>hg</executable>
+                                    <workingDirectory>${project.build.directory}/dummy-hg-repo</workingDirectory>
+                                    <arguments>
+                                        <argument>init</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>dumpRaster</id>
+            <properties>
+                <jrawio.dumpImageAsTIFF>true</jrawio.dumpImageAsTIFF>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>hg</id>
+            <activation>
+                <file>
+                    <exists>.hg</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>create-hudson-env</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>hg</executable>
+                                    <arguments>
+                                        <argument>log</argument>
+                                        <argument>--limit</argument>
+                                        <argument>1</argument>
+                                        <argument>--template</argument>
+                                        <argument>#!bin/sh\nexport REVISION="{tags} {node|short}"\n</argument>
+                                    </arguments>
+                                    <outputFile>hudson.env</outputFile>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>show-revision</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>hg</executable>
+                                    <arguments>
+                                        <argument>log</argument>
+                                        <argument>--limit</argument>
+                                        <argument>1</argument>
+                                        <argument>--template</argument>
+                                        <argument>REVISION {tags} {node|short}\n</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Cobertura support -->
+        <profile>
+            <id>cobertura</id>
+            <properties>
+                <testReportsDirectory>${project.build.directory}/surefire-reports/cobertura</testReportsDirectory>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                        <configuration>
+                            <instrumentation>
+                                <excludes>
+                                    <exclude>it/tidalwave/imageio/io/*.class</exclude>
+                                    <exclude>it/tidalwave/imageio/decoder/*.class</exclude>
+                                    <exclude>it/tidalwave/imageio/cr2/CR2RasterReader.class</exclude>
+                                </excludes>
+                            </instrumentation>
+                            <formats>
+                                <format>xml</format>
+                                <format>html</format>
+                            </formats>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>cobertura</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <!-- ***************************************************************************************************************
+    *
+    *
+    *
+    **************************************************************************************************************** -->
+    <build>
+        <!-- For buildNumber to be properly evaluated by assembly:assembly, use also the validate goal -->
+        <finalName>${project.artifactId}-${project.version}${buildNumberSep}${buildNumber}</finalName>
+
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>src/main/resources/</directory>
+                <includes>
+                    <include>**/*</include>
+                </includes>
+            </resource>
+        </resources>
+
+        <!-- ***********************************************************************************************************
+        *
+        * We want reproducible builds, so all Maven plugins have explicit version numbers.
+        *
+        ************************************************************************************************************ -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>2.0.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.5</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>2.2-beta-4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>2.4.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>2.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-antrun-plugin</artifactId>
+                    <version>1.3</version>
+                </plugin>
+                <!--
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>1.2.1</version>
+                </plugin>
+                -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.4</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.0-beta-9</version>
+                </plugin>
+
+<!--
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>buildnumber-maven-plugin</artifactId>
+                    <version>1.0-beta-3</version>
+                </plugin>
+-->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.1.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>nbm-maven-plugin</artifactId>
+                    <version>3.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>cobertura-maven-plugin</artifactId>
+                    <version>2.3</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>findbugs-maven-plugin</artifactId>
+                    <version>2.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.4</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.felix</groupId>
+                    <artifactId>maven-bundle-plugin</artifactId>
+                    <version>2.0.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <!-- ***********************************************************************************************************
+        *
+        *
+        *
+        ************************************************************************************************************ -->
+        <plugins>
+            <!-- Compiler -->
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <debug>true</debug>
+                    <optimize>true</optimize>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+
+            <!-- Retrieves the 4th build number from Subversion revision. -->
+<!--
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doCheck>false</doCheck>
+                    <doUpdate>false</doUpdate>
+                </configuration>
+            </plugin>
+-->
+            <!-- Executes tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <reportsDirectory>${testReportsDirectory}</reportsDirectory>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <systemProperties>
+                        <property>
+                            <name>testset.cached.folder</name>
+                            <value>${testset.cached.folder}</value>
+                        </property>
+                    </systemProperties>
+                    <argLine>-Xmx768M</argLine>
+                </configuration>
+            </plugin>
+
+            <!-- Produces the JARs, with OSGi support and the Subversion revision in the Manifest -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <useDefaultManifestFile>true</useDefaultManifestFile> <!-- required since nbm-plugin 3.0-->
+                    <archive>
+                        <manifestEntries>
+                            <Implementation-Build>${buildNumber}</Implementation-Build>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Assembler to produce final artifacts. Creates -bin and -project tarballs, as well as
+                 sources and javadoc jars.. -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assemble/bin.xml</descriptor>
+                        <descriptor>src/assemble/project.xml</descriptor>
+                        <descriptor>src/assemble/sources.xml</descriptor>
+                        <descriptor>src/assemble/javadoc.xml</descriptor>
+                    </descriptors>
+                    <tarLongFileMode>gnu</tarLongFileMode>
+                    <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
+                </configuration>
+            </plugin>
+
+            <!-- Configures the release process, calling the assembly to include extra artifacts in deploy -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <preparationGoals>clean install verify</preparationGoals>
+                    <goals>clean install javadoc:javadoc assembly:assembly deploy</goals>
+                    <arguments>-Prelease -DaltDeploymentRepository=${altDeploymentRepository}</arguments>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <!-- ***************************************************************************************************************
+    *
+    *
+    *
+    **************************************************************************************************************** -->
+    <reporting>
+        <plugins>
+            <!-- JavaDoc support -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <docfilessubdirs>true</docfilessubdirs>
+                    <excludePackageNames>*.impl:*.impl.*</excludePackageNames>
+                    <links>
+                        <link href="http://java.sun.com/javase/6/docs/api/" />
+                    </links>
+                    <doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+                    <docletArtifact>
+                        <groupId>org.umlgraph</groupId>
+                        <artifactId>doclet</artifactId>
+                        <version>5.1</version>
+                    </docletArtifact>
+                    <additionalparam>-views</additionalparam>
+                    <additionalparam>-attributes</additionalparam>
+                    <additionalparam>-operations</additionalparam>
+                    <additionalparam>-qualify</additionalparam>
+                    <additionalparam>-types</additionalparam>
+                    <additionalparam>-visibility</additionalparam>
+                    <additionalparam>-inferdep</additionalparam>
+                    <additionalparam>-inferrel</additionalparam>
+                    <additionalparam>-inferdepinpackage</additionalparam>
+                    <useStandardDocletOptions>true</useStandardDocletOptions>
+                </configuration>
+            </plugin>
+
+            <!-- FindBugs support -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <configuration>
+                    <xmlOutput>true</xmlOutput>
+                    <threshold>Low</threshold>
+                    <effort>Max</effort>
+                    <debug>false</debug>
+                    <relaxed>false</relaxed>
+                    <findbugsXmlOutput>true</findbugsXmlOutput>
+                </configuration>
+            </plugin>
+
+            <!-- PMD/CPD support -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                    <targetJdk>1.5</targetJdk>
+                </configuration>
+            </plugin>
+
+            <!-- CheckStyle support -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <configLocation>config/checkstyle.xml</configLocation>
+                </configuration>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <!-- ***************************************************************************************************************
+    *
+    *
+    *
+    **************************************************************************************************************** -->
+    <modules>
+        <module>modules/codec</module>
+        <module>modules/processor</module>
+        <module>modules/jrawio-all</module>
+        <module>modules/jrawio-nbm</module>
+        <!-- module>functional-tests/tests</module -->
+        <module>functional-tests/jse</module>
+        <!-- module>examples</module-->
+    </modules>
+
+</project>
+
