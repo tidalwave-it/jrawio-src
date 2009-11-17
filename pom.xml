@@ -89,7 +89,7 @@
     </properties>
 
     <repositories>
-        <!-- This provides the required versions of JAI-ImageIO, JAI and IJ -->
+        <!-- This provides the required versions of JAI-ImageIO -->
         <repository>
             <id>maven2-aux-repository.tidalwave.kenai.com</id>
             <name>Tidalwave Maven Aux Repository</name>
