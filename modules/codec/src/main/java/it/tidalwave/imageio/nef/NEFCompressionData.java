@@ -30,6 +30,8 @@ package it.tidalwave.imageio.nef;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.nio.ShortBuffer;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
@@ -38,9 +40,9 @@ import it.tidalwave.imageio.util.Logger;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class NEFLinearizationTable
+public class NEFCompressionData
   {
-    private final static String CLASS = NEFLinearizationTable.class.getName();
+    private final static String CLASS = NEFCompressionData.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
 
     @Nonnull
@@ -54,21 +56,42 @@ public class NEFLinearizationTable
 
     private final int version;
 
+    private final int[] vPredictor;
+
     /*******************************************************************************************************************
      *
      * @return the linearization table
      *
      ******************************************************************************************************************/
-    public NEFLinearizationTable (final @Nonnull NikonMakerNote3 makerNote)
+    public NEFCompressionData (final @Nonnull NikonMakerNote3 makerNote)
       {
-        logger.fine("NEFLinearizationTable()");
+        logger.fine("NEFCompressionData()");
         this.makerNote = makerNote;
-        shortBuffer = makerNote.getCompressionDataAsShortBuffer();
-        shortBuffer.position(0);
-        version = shortBuffer.get();
+
+        final ByteBuffer byteBuffer = ByteBuffer.wrap(makerNote.getCompressionData());
+        final ShortBuffer tempShortBuffer = byteBuffer.asShortBuffer();
+        version = tempShortBuffer.get(0);
+        final int endiannessMarker = tempShortBuffer.get(1);
+        // FIXME: this is really empyrical - these are compression predictors...
+        final ByteOrder order = (endiannessMarker == 0x4801) ? ByteOrder.LITTLE_ENDIAN : ByteOrder.BIG_ENDIAN;
+        byteBuffer.order(order);
+        shortBuffer = byteBuffer.asShortBuffer();
+
+        logger.finest(">>>> version:           %0x04x", version);
+        logger.finest(">>>> endianness marker: %0x04x", endiannessMarker);
+        logger.finest(">>>> endianness:        %s", order);
+
+        shortBuffer.position(1);
+        vPredictor = new int[4];
+
+        for (int i = 0; i < vPredictor.length; i++)
+          {
+            vPredictor[i] = shortBuffer.get();
+          }
+
         shortBuffer.position(5);
         int lutSize = shortBuffer.get();
-        logger.finer(">>>> version: %04x samples: %d", version, lutSize);
+        logger.finer(">>>> samples: %d", lutSize);
 
         if ((version & 0xff00) == 0x4600)
           {
@@ -106,6 +129,17 @@ public class NEFLinearizationTable
         return version;
       }
     
+    /*******************************************************************************************************************
+     *
+     * @return the vertical predictor
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public int[] getVPredictor()
+      {
+        return vPredictor.clone();
+      }
+
     /*******************************************************************************************************************
      *
      * @return the linearization table values
@@ -191,6 +225,6 @@ public class NEFLinearizationTable
     @Override
     public String toString()
       {
-        return String.format("NEFLinearizationTable[version: 0x%04x, size: %d, whiteLevel: %d]", version, lut.length, getWhiteLevel());
+        return String.format("NEFCompressionData[version: 0x%04x, size: %d, whiteLevel: %d]", version, lut.length, getWhiteLevel());
       }
   }
