@@ -84,7 +84,7 @@
         <bundle.namespace>${pom.groupId}.${pom.artifactId}</bundle.namespace>
         <buildNumber>unknown</buildNumber>
         <buildNumberSep>.</buildNumberSep>
-        <testReportsDirectory>${project.build.directory}/surefire-reports/plain</testReportsDirectory>
+        <testReportsDirectory>${project.build.directory}/surefire-reports/${java.version}/plain</testReportsDirectory>
         <hg.repo.url>https://kenai.com/hg/jrawio~src</hg.repo.url>
     </properties>
 
@@ -354,7 +354,7 @@
         <profile>
             <id>cobertura</id>
             <properties>
-                <testReportsDirectory>${project.build.directory}/surefire-reports/cobertura</testReportsDirectory>
+                <testReportsDirectory>${project.build.directory}/surefire-reports/${java.version}/cobertura</testReportsDirectory>
             </properties>
             <build>
                 <plugins>

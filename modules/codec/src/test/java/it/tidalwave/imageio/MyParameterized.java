@@ -64,13 +64,13 @@ public class MyParameterized extends Suite
         @Override
         protected String getName()
           {
-            return String.format("[%s] (%s)", Arrays.toString(fParameterList.get(fParameterSetNumber)), getTestMode());
+            return String.format("[%s] (%s, %s)", Arrays.toString(fParameterList.get(fParameterSetNumber)), System.getProperty("java.version"), getTestMode());
           }
 
         @Override
         protected String testName (final FrameworkMethod method)
           {
-            return String.format("%s[%s] (%s)", method.getName(), Arrays.toString(fParameterList.get(fParameterSetNumber)), getTestMode());
+            return String.format("%s[%s] (%s, %s)", method.getName(), Arrays.toString(fParameterList.get(fParameterSetNumber)), System.getProperty("java.version"), getTestMode());
           }
 
         @Nonnull
