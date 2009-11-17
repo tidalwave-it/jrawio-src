@@ -31,10 +31,8 @@ package it.tidalwave.imageio.nef;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
@@ -512,8 +510,10 @@ public class NikonCaptureEditorMetadata
 
             // I don't know if it's a valid way to quit, but i.e
             // http://www.rawsamples.ch/raws/nikon/d60/RAW_NIKON_D60.NEF needs it.
-            if (size == 0)
+            // Also https://imaging.dev.java.net/nonav/TestSets/others/jeromebernard/Nikon/D700/NEF/NikonNX2/_DSF0297_3.NEF
+            if (size <= 0)
               {
+                logger.warning("Giving up with subbuffer id: %x, because of size %d <= 0", id, size);
                 break;
               }
 
