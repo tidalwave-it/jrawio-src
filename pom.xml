@@ -845,10 +845,10 @@
         <module>modules/codec</module>
         <module>modules/processor</module>
         <module>modules/jrawio-all</module>
-        <module>modules/jrawio-nbm</module>
         <!-- module>functional-tests/tests</module -->
         <module>functional-tests/jse</module>
         <!-- module>examples</module-->
+        <module>modules/jrawio-nbm</module>
     </modules>
 
 </project>
