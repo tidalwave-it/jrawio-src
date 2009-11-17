@@ -147,10 +147,11 @@ public class NEFImageReader extends TIFFImageReaderSupport
 
         if (nikonMakerNote.isCompressionDataAvailable())
           {
-            final NEFLinearizationTable linearizationTable = nikonMakerNote.getLinearizationTable();
-            rasterReader.setCompressionType(((linearizationTable.getVersion() & 0xff00) == 0x4600) ? LOSSLESS : LOSSY);
-            rasterReader.setLinearizationTable(linearizationTable.getExpandedValues(bitsPerSample));
-            rasterReader.setVPredictor(nikonMakerNote.getVPredictor());
+            final NEFCompressionData compressionDataObject = nikonMakerNote.getCompressionDataObject();
+            // FIXME: encapsulate a NEFCompressionData.getCompressionType()
+            rasterReader.setCompressionType(((compressionDataObject.getVersion() & 0xff00) == 0x4600) ? LOSSLESS : LOSSY);
+            rasterReader.setLinearizationTable(compressionDataObject.getExpandedValues(bitsPerSample));
+            rasterReader.setVPredictor(nikonMakerNote.getCompressionDataObject().getVPredictor());
           }
 
         logger.finest(">>>> using rasterReader: %s", rasterReader);

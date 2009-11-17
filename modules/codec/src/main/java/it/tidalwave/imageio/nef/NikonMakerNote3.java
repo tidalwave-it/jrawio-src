@@ -31,11 +31,10 @@ import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.util.NoSuchElementException;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.ShortBuffer;
 import it.tidalwave.imageio.io.RAWImageInputStream;
 import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -46,11 +45,13 @@ import it.tidalwave.imageio.tiff.TIFFImageReaderSupport;
 public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
   {
     private static final long serialVersionUID = -802326201633669892L;
+    private static final String CLASS = NikonMakerNote3.class.getName();
+    private static final Logger logger = Logger.getLogger(CLASS);
     
     /** Lens info interpreter. */
     private transient NikonLensInfo lensInfo;
 
-    private transient NEFLinearizationTable nefLinearizationTable;
+    private transient NEFCompressionData nefCompressionData;
     
     private boolean bigEndian;
     // private ByteOrder byteOrder; // ByteOrder not serializable
@@ -137,67 +138,18 @@ public final class NikonMakerNote3 extends Nikon3MakerNoteSupport
 
     /*******************************************************************************************************************
      * 
-     * @return the vertical predictor
-     * 
-     ******************************************************************************************************************/
-    @Nonnull
-    public int[] getVPredictor()
-      {
-        final ShortBuffer shortBuffer = getCompressionDataAsShortBuffer();
-        shortBuffer.position(1);
-        final int[] vPredictor = new int[4];
-
-        for (int i = 0; i < vPredictor.length; i++)
-          {
-            vPredictor[i] = shortBuffer.get();
-          }
-
-        return vPredictor;
-
-      }
-
-    /*******************************************************************************************************************
-     * 
      * @return the linearization table
      * 
      ******************************************************************************************************************/
     @Nonnull
-    public synchronized NEFLinearizationTable getLinearizationTable()
+    public synchronized NEFCompressionData getCompressionDataObject()
       {
-        if (nefLinearizationTable == null)
+        if (nefCompressionData == null)
           {
-            nefLinearizationTable = new NEFLinearizationTable(this);
+            nefCompressionData = new NEFCompressionData(this);
           }
 
-        return nefLinearizationTable;
-      }
-
-    /*******************************************************************************************************************
-     * 
-     * @return the compression data
-     * 
-     ******************************************************************************************************************/
-    @CheckForNull
-    protected ShortBuffer getCompressionDataAsShortBuffer()
-      {
-        final byte[] bytes = getCompressionData();
-
-        if (bytes != null)
-          {
-            final ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
-            byteBuffer.order(ByteOrder.BIG_ENDIAN);
-            ShortBuffer shortBuffer = byteBuffer.asShortBuffer();
-            
-            if ((shortBuffer.get(5) & 0xffff) > 4096) // LUT size is clearly less than 1<<12
-              {
-                byteBuffer.order(ByteOrder.LITTLE_ENDIAN);
-                shortBuffer = byteBuffer.asShortBuffer();
-              }
-            
-            return shortBuffer;
-          }
-
-        return null;
+        return nefCompressionData;
       }
 
     /*******************************************************************************************************************
