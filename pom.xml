@@ -322,7 +322,7 @@
                                         <argument>--limit</argument>
                                         <argument>1</argument>
                                         <argument>--template</argument>
-                                        <argument>#!bin/sh\nexport REVISION={tags} {node|short}\n</argument>
+                                        <argument>#!bin/sh\nexport REVISION="{tags} {node|short}"\n</argument>
                                     </arguments>
                                     <outputFile>hudson.env</outputFile>
                                 </configuration>
