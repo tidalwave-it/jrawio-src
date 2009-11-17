@@ -73,19 +73,20 @@
 
     <licenses>
         <license>
-            <name>ASF 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-            <distribution>repo</distribution>
+            <name>Apache-2.0</name>
+            <url>http://www.opensource.org/licenses/apache2.0.php</url>
+            <comments>Apache License 2.0</comments>
         </license>
     </licenses>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <bundle.namespace>${pom.groupId}.${pom.artifactId}</bundle.namespace>
-        <buildNumber>unknown</buildNumber>
-        <buildNumberSep>.</buildNumberSep>
         <testReportsDirectory>${project.build.directory}/surefire-reports/${java.version}/plain</testReportsDirectory>
         <hg.repo.url>https://kenai.com/hg/jrawio~src</hg.repo.url>
+        <staging.mvn.repo.url>file://${project.build.directory}/target-maven-repo</staging.mvn.repo.url>
+        <buildNumber>unknown</buildNumber>
+        <buildNumberSep>.</buildNumberSep>
     </properties>
 
     <repositories>
@@ -211,189 +212,20 @@
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>default</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-
-        <profile>
-            <id>release</id>
-            <properties>
-                <buildNumber />
-                <buildNumberSep />
-                <hg.repo.url>file://${project.build.directory}/dummy-hg-repo</hg.repo.url>
-                <skipTests>true</skipTests>
-                <altDeploymentRepository>release-repo-hudson::default::file://${project.build.directory}/target-maven-repo</altDeploymentRepository>
-            </properties>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>clean-release-dirs</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <inherited>false</inherited>
-                                <configuration>
-                                    <executable>rm</executable>
-                                    <arguments>
-                                        <argument>-rf</argument>
-                                        <argument>${project.build.directory}/dummy-hg-repo</argument>
-                                        <argument>${project.build.directory}/target-maven-repo</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>create-release-dirs</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <inherited>false</inherited>
-                                <configuration>
-                                    <executable>mkdir</executable>
-                                    <arguments>
-                                        <argument>-p</argument>
-                                        <argument>${project.build.directory}/dummy-hg-repo</argument>
-                                        <argument>${project.build.directory}/target-maven-repo</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>init-dummy-hg-repo</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <inherited>false</inherited>
-                                <configuration>
-                                    <executable>hg</executable>
-                                    <workingDirectory>${project.build.directory}/dummy-hg-repo</workingDirectory>
-                                    <arguments>
-                                        <argument>init</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>dumpRaster</id>
-            <properties>
-                <jrawio.dumpImageAsTIFF>true</jrawio.dumpImageAsTIFF>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>hg</id>
-            <activation>
-                <file>
-                    <exists>.hg</exists>
-                </file>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>create-hudson-env</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>hg</executable>
-                                    <arguments>
-                                        <argument>log</argument>
-                                        <argument>--limit</argument>
-                                        <argument>1</argument>
-                                        <argument>--template</argument>
-                                        <argument>#!bin/sh\nexport REVISION="{tags} {node|short}"\n</argument>
-                                    </arguments>
-                                    <outputFile>hudson.env</outputFile>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>show-revision</id>
-                                <phase>initialize</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>hg</executable>
-                                    <arguments>
-                                        <argument>log</argument>
-                                        <argument>--limit</argument>
-                                        <argument>1</argument>
-                                        <argument>--template</argument>
-                                        <argument>REVISION {tags} {node|short}\n</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-        <!-- Cobertura support -->
-        <profile>
-            <id>cobertura</id>
-            <properties>
-                <testReportsDirectory>${project.build.directory}/surefire-reports/${java.version}/cobertura</testReportsDirectory>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>cobertura-maven-plugin</artifactId>
-                        <configuration>
-                            <instrumentation>
-                                <excludes>
-                                    <exclude>it/tidalwave/imageio/io/*.class</exclude>
-                                    <exclude>it/tidalwave/imageio/decoder/*.class</exclude>
-                                    <exclude>it/tidalwave/imageio/cr2/CR2RasterReader.class</exclude>
-                                </excludes>
-                            </instrumentation>
-                            <formats>
-                                <format>xml</format>
-                                <format>html</format>
-                            </formats>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>cobertura</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
     <!-- ***************************************************************************************************************
     *
     *
     *
     **************************************************************************************************************** -->
     <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-webdav-jackrabbit</artifactId>
+                <version>1.0-beta-5</version>
+            </extension>
+        </extensions>
+
         <!-- For buildNumber to be properly evaluated by assembly:assembly, use also the validate goal -->
         <finalName>${project.artifactId}-${project.version}${buildNumberSep}${buildNumber}</finalName>
 
@@ -532,6 +364,19 @@
                 </configuration>
             </plugin>
 
+            <!-- Assembler to produce final artifacts. Creates a -bin and -project (source) tarball. -->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <descriptors>
+                        <descriptor>src/assemble/bin.xml</descriptor>
+                        <descriptor>src/assemble/project.xml</descriptor>
+                    </descriptors>
+                    <tarLongFileMode>gnu</tarLongFileMode>
+                    <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
+                </configuration>
+            </plugin>
+
             <!-- Retrieves the 4th build number from Subversion revision. -->
 <!--
             <plugin>
@@ -593,35 +438,341 @@
                 </executions>
             </plugin>
 
-            <!-- Assembler to produce final artifacts. Creates -bin and -project tarballs, as well as
-                 sources and javadoc jars.. -->
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>src/assemble/bin.xml</descriptor>
-                        <descriptor>src/assemble/project.xml</descriptor>
-                        <descriptor>src/assemble/sources.xml</descriptor>
-                        <descriptor>src/assemble/javadoc.xml</descriptor>
-                    </descriptors>
-                    <tarLongFileMode>gnu</tarLongFileMode>
-                    <runOnlyAtExecutionRoot>true</runOnlyAtExecutionRoot>
-                </configuration>
-            </plugin>
-
             <!-- Configures the release process, calling the assembly to include extra artifacts in deploy -->
+           <!-- Configures the release process, calling the assembly to include extra artifacts in deploy -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <preparationGoals>clean install verify</preparationGoals>
                     <goals>clean install javadoc:javadoc assembly:assembly deploy</goals>
-                    <arguments>-Prelease -DaltDeploymentRepository=${altDeploymentRepository}</arguments>
+                    <arguments>-Prelease -DaltDeploymentRepository="${altDeploymentRepository}"</arguments>
                 </configuration>
             </plugin>
 
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <properties>
+                <buildNumber />
+                <buildNumberSep />
+                <hg.repo.url>file://${project.build.directory}/dummy-hg-repo</hg.repo.url>
+                <skipTests>true</skipTests>
+                <altDeploymentRepository>release-repo-hudson::default::${staging.mvn.repo.url}</altDeploymentRepository>
+            </properties>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>clean-release-dirs</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <executable>rm</executable>
+                                    <arguments>
+                                        <argument>-rf</argument>
+                                        <argument>${project.build.directory}/dummy-hg-repo</argument>
+                                        <argument>${project.build.directory}/target-maven-repo</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>create-release-dirs</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <executable>mkdir</executable>
+                                    <arguments>
+                                        <argument>-p</argument>
+                                        <argument>${project.build.directory}/dummy-hg-repo</argument>
+                                        <argument>${project.build.directory}/target-maven-repo</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>init-dummy-hg-repo</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <executable>hg</executable>
+                                    <workingDirectory>${project.build.directory}/dummy-hg-repo</workingDirectory>
+                                    <arguments>
+                                        <argument>init</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>hg</id>
+            <activation>
+                <file>
+                    <exists>.hg</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>create-hudson-env</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>hg</executable>
+                                    <arguments>
+                                        <argument>log</argument>
+                                        <argument>--limit</argument>
+                                        <argument>1</argument>
+                                        <argument>--template</argument>
+                                        <argument>#!bin/sh\nexport REVISION="{tags} {node|short}"\n</argument>
+                                    </arguments>
+                                    <outputFile>hudson.env</outputFile>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>show-revision</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>hg</executable>
+                                    <arguments>
+                                        <argument>log</argument>
+                                        <argument>--limit</argument>
+                                        <argument>1</argument>
+                                        <argument>--template</argument>
+                                        <argument>REVISION {tags} {node|short}\n</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>release-commit</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>push-hg</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <executable>hg</executable>
+                                    <arguments>
+                                        <argument>push</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>wagon-maven-plugin</artifactId>
+                        <configuration>
+                            <source>${staging.mvn.repo.url}</source>
+                            <target>${project.distributionManagement.repository.url}</target>
+                            <targetId>${project.distributionManagement.repository.id}</targetId>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>merge-repo</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>merge-maven-repos</goal>
+                                </goals>
+                                <inherited>false</inherited>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>release-cancel</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>strip-hg</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <inherited>false</inherited>
+                                <configuration>
+                                    <!-- FIXME: would be better to strip local changes -->
+                                    <executable>rm</executable>
+                                    <arguments>
+                                        <argument>-rf</argument>
+                                        <argument>.hg</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>deploy-extra-artifacts</id>
+            <properties>
+                <buildNumber />
+                <buildNumberSep />
+                <altDeploymentRepository>release-repo-hudson::default::${staging.mvn.repo.url}</altDeploymentRepository>
+            </properties>
+            <build>
+                <plugins>
+                            <!-- Attaches the extra artifacts prepared during the release process by the assembly plugin -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-artifacts</id>
+                                <inherited>false</inherited>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>attach-artifact</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>${project.build.directory}/${project.build.finalName}-project.tar.gz</file>
+                                    <type>tar.gz</type>
+                                    <classifier>project</classifier>
+                                </artifact>
+                                <artifact>
+                                    <file>${project.build.directory}/${project.build.finalName}-bin.tar.gz</file>
+                                    <type>tar.gz</type>
+                                    <classifier>bin</classifier>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Cobertura support -->
+        <profile>
+            <id>cobertura</id>
+            <properties>
+                <testReportsDirectory>${project.build.directory}/surefire-reports/${java.version}/cobertura</testReportsDirectory>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>cobertura-maven-plugin</artifactId>
+                        <configuration>
+                            <instrumentation>
+                                <excludes>
+                                    <exclude>it/tidalwave/imageio/io/*.class</exclude>
+                                    <exclude>it/tidalwave/imageio/decoder/*.class</exclude>
+                                    <exclude>it/tidalwave/imageio/cr2/CR2RasterReader.class</exclude>
+                                </excludes>
+                            </instrumentation>
+                            <formats>
+                                <format>xml</format>
+                                <format>html</format>
+                            </formats>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>cobertura</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>deployment</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>nbm-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>updatesite</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>autoupdate</goal>
+                                </goals>
+                                <configuration>
+                                    <fileName>catalog.xml</fileName>
+                                    <distBase>forceten-update-center::default::https://services.tidalwave.it/nexus/content/groups/public</distBase>
+                                    <etcConfFile>config/forceten.conf</etcConfFile>
+                                </configuration>
+                            </execution>
+                            <!--
+                            <execution>
+                                <id>webstart</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>webstart-app</goal>
+                                </goals>
+                                <configuration>
+                                    <codebase>${project.build.directory}/webstart/${brandingToken}</codebase>
+                                </configuration>
+                            </execution>
+                            -->
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
     <!-- ***************************************************************************************************************
     *
@@ -646,15 +797,7 @@
                         <artifactId>doclet</artifactId>
                         <version>5.1</version>
                     </docletArtifact>
-                    <additionalparam>-views</additionalparam>
-                    <additionalparam>-attributes</additionalparam>
-                    <additionalparam>-operations</additionalparam>
-                    <additionalparam>-qualify</additionalparam>
-                    <additionalparam>-types</additionalparam>
-                    <additionalparam>-visibility</additionalparam>
-                    <additionalparam>-inferdep</additionalparam>
-                    <additionalparam>-inferrel</additionalparam>
-                    <additionalparam>-inferdepinpackage</additionalparam>
+                    <additionalparam>-views -attributes -operations -types -postfixpackage -nodefontpackagesize 6 -nodefontclasssize 8 -nodefontsize 7 -edgefontsize 7 -nodesep 0.05 -ranksep 0.1 -visibility -inferdep -inferrel -inferdepinpackage -hide java.*|javax.*</additionalparam>
                     <useStandardDocletOptions>true</useStandardDocletOptions>
                 </configuration>
             </plugin>
