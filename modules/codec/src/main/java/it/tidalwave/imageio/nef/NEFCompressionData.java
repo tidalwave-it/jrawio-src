@@ -77,8 +77,8 @@ public class NEFCompressionData
         byteBuffer.order(order);
         shortBuffer = byteBuffer.asShortBuffer();
 
-        logger.finest(">>>> version:           %0x04x", version);
-        logger.finest(">>>> endianness marker: %0x04x", endiannessMarker);
+        logger.finest(">>>> version:           0x%04x", version);
+        logger.finest(">>>> endianness marker: 0x%04x", endiannessMarker);
         logger.finest(">>>> endianness:        %s", order);
 
         shortBuffer.position(1);
