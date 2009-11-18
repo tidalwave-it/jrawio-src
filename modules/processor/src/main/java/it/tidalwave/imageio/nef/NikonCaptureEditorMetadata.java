@@ -553,43 +553,43 @@ public class NikonCaptureEditorMetadata
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN); // FIXME check this
         byteBuffer.put(buffer);
 
-        int offset = 0x16; // FIXME: parse the header in a better way!
+        int offset = 0;
 
-all:    while ((offset + 24) /* FIXME: ? */< byteBuffer.limit())
+        final int masterSize = (int)byteBuffer.getLong(offset + 18);
+        offset += 22; // FIXME: parse the header in a better way!
+        logger.finest(">>>> master size: %d", masterSize);
+
+        // TODO: we stop after masterSize, but often there further data beyond that point; garbage or other tags?
+        while (offset < masterSize)
           {
             final int id = byteBuffer.getInt(offset);
-            final int size = (int)byteBuffer.getLong(offset + 18);
+            int size = (int)byteBuffer.getLong(offset + 18);
             offset += 22;
             byteBuffer.position(offset);
-            logger.finest(">>>> read subbuffer id: %x, size: %d", id, size);
-
-            if (id == 0)
-              {
-                break;
-              }
+            logger.finest(">>>> read subbuffer id: 0x%x, size: %d", id, size);
 
             // This was a safety check, that *seems* to be no more needed since fixing JRW-276 - keeping it for safety.
             if (size <= 0)
               {
-                logger.warning("Giving up with subbuffer id: %x, because of size %d <= 0", id, size);
+                logger.warning("Giving up with subbuffer id: 0x%x, because of size %d <= 0", id, size);
                 break;
               }
 
             final ByteBuffer subBuffer = byteBuffer.slice();
             subBuffer.order(byteBuffer.order());
-            subBuffer.limit(size - 4); // we're skipping the first 4 bytes that are the size
-            bufferMapById.put(id, subBuffer);
-            
-            final int index = bufferMapById.size() - 1;
-
-            String s = "";
-
-            if (logger.isLoggable(Level.FINER))
+            //
+            // For all block but XML_DATA, the size includes the 4-bytes that define size itself.
+            //
+            if (id != XML_DATA_MARKER)
               {
-                s = getDebugString(offset, id, size - 4, subBuffer, index);
+                size -= 4;
               }
 
-            offset += size - 4;
+            subBuffer.limit(size); // we're skipping the first 4 bytes that are the size
+            bufferMapById.put(id, subBuffer);
+            
+            final String s = logger.isLoggable(Level.FINER) ? getDebugString(offset, id, size, subBuffer) : "";
+            offset += size;
 
             switch (id)
               {
@@ -693,7 +693,7 @@ all:    while ((offset + 24) /* FIXME: ? */< byteBuffer.limit())
 
                   xmlData = builder.toString();
                   logger.finer(">>>> XML DATA: %s", xmlData);
-                  break all;
+                  break;
 
                 default:
                   logger.finer(">>>> UNKNOWN: " + s);
@@ -1085,17 +1085,14 @@ all:    while ((offset + 24) /* FIXME: ? */< byteBuffer.limit())
     private String getDebugString (final @Nonnegative int offset,
                                    final int id,
                                    final @Nonnegative int size,
-                                   final @Nonnull ByteBuffer subBuffer,
-                                   final int index)
+                                   final @Nonnull ByteBuffer subBuffer)
       {
         String s;
         final StringBuilder bbb = new StringBuilder();
-        bbb.append("subBuffer #");
-        bbb.append(index);
-        bbb.append(" ");
-        bbb.append(Integer.toHexString(id));
+        bbb.append("subBuffer ");
+        bbb.append("0x" + Integer.toHexString(id));
         bbb.append(" at ");
-        bbb.append(Integer.toHexString(offset));
+        bbb.append(Integer.toString(offset));
         bbb.append(", size: ");
         bbb.append(size);
         bbb.append(", data: ");
