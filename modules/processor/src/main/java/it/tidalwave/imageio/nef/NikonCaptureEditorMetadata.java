@@ -198,6 +198,8 @@ public class NikonCaptureEditorMetadata
 
     private static final int PHOTO_EFFECTS_DATA_MARKER = 0xb0384e1e;
 
+    private static final int HISTORY_STEP = 0xe9651831;
+
     private static final int XML_DATA_MARKER = 0x083a1a25;
 
     private static Map colorModeMap = new HashMap();
@@ -536,6 +538,8 @@ public class NikonCaptureEditorMetadata
 
     private String xmlData;
 
+    private String historyStep;
+
     private Map<Integer, ByteBuffer> bufferMapById = new HashMap<Integer, ByteBuffer>();
 
     @CheckForNull
@@ -682,16 +686,13 @@ public class NikonCaptureEditorMetadata
                   logger.finer(">>>> PHOTO EFFECTS DATA: %s", s);
                   break;
 
+                case HISTORY_STEP:
+                  historyStep = toString(subBuffer);
+                  logger.finer(">>>> HISTORY STEP : %s", historyStep);
+                  break;
+
                 case XML_DATA_MARKER:
-                  final StringBuilder builder = new StringBuilder();
-                  subBuffer.position(0);
-
-                  while (subBuffer.hasRemaining())
-                    {
-                      builder.append((char)subBuffer.get());
-                    }
-
-                  xmlData = builder.toString();
+                  xmlData = toString(subBuffer);
                   logger.finer(">>>> XML DATA: %s", xmlData);
                   break;
 
@@ -942,6 +943,12 @@ public class NikonCaptureEditorMetadata
         return xmlData;
       }
 
+    @CheckForNull
+    public String getHistoryStep()
+      {
+        return historyStep;
+      }
+
     ////////////////////////////////////////////////////////////////////////////////
     @Override
     @Nonnull
@@ -1077,7 +1084,7 @@ public class NikonCaptureEditorMetadata
      * @param offset
      * @param id
      * @param size
-     * @param subBuffer
+     * @param buffer
      * @param i
      * @return
      */
@@ -1121,5 +1128,19 @@ public class NikonCaptureEditorMetadata
         s = bbb.toString();
 
         return s;
+      }
+
+    @Nonnull
+    private String toString (final @Nonnull ByteBuffer buffer)
+      {
+        final StringBuilder builder = new StringBuilder();
+        buffer.position(0);
+
+        while (buffer.hasRemaining())
+          {
+            builder.append((char)buffer.get());
+          }
+
+        return builder.toString();
       }
   }
