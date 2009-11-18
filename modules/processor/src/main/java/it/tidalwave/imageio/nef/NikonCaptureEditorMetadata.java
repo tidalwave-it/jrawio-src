@@ -25,7 +25,6 @@
  * $Id$
  *
  **********************************************************************************************************************/
-
 package it.tidalwave.imageio.nef;
 
 import javax.annotation.CheckForNull;
@@ -36,6 +35,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
+import java.awt.Rectangle;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import it.tidalwave.imageio.util.Logger;
@@ -48,6 +48,64 @@ import it.tidalwave.imageio.util.Logger;
  **********************************************************************************************************************/
 public class NikonCaptureEditorMetadata
   {
+    public final static class CropObject
+      {
+        private final static int CROP_LEFT_OFFSET = 30;
+        private final static int CROP_TOP_OFFSET = 38;
+        private final static int CROP_RIGHT_OFFSET = 46;
+        private final static int CROP_BOTTOM_OFFSET = 54;
+
+        @Nonnull
+        private final ByteBuffer cropBuffer;
+
+        protected CropObject (final @Nonnull ByteBuffer cropBuffer)
+          {
+            this.cropBuffer = cropBuffer;
+          }
+
+        @Nonnegative
+        public double getCropLeft()
+          {
+            return cropBuffer.getDouble(CROP_LEFT_OFFSET);
+          }
+
+        @Nonnegative
+        public double getCropTop()
+          {
+            return cropBuffer.getDouble(CROP_TOP_OFFSET);
+          }
+
+        @Nonnegative
+        public double getCropWidth()
+          {
+            return cropBuffer.getDouble(CROP_RIGHT_OFFSET);
+          }
+
+        @Nonnegative
+        public double getCropHeight()
+          {
+            return cropBuffer.getDouble(CROP_BOTTOM_OFFSET);
+          }
+
+        @Nonnull
+        public Rectangle getCrop (final double scale)
+          {
+            final Rectangle crop = new Rectangle(0, 0, 0, 0);
+            crop.x = (int)Math.round(getCropLeft() * scale);
+            crop.y = (int)Math.round(getCropTop() * scale);
+            crop.width = (int)Math.round(getCropWidth() * scale);
+            crop.height = (int)Math.round(getCropHeight() * scale);
+
+            return crop;
+          }
+
+        @Override
+        public String toString()
+          {
+            return String.format("CropObject[l:%f t:%f w:%f h:%f]", getCropLeft(),getCropTop(), getCropWidth(), getCropHeight());
+          }
+      }
+    
     public static class UnsharpMaskData
       {
         public final static int RGB = 0;
@@ -74,7 +132,6 @@ public class NikonCaptureEditorMetadata
 
         public UnsharpMaskData (final int type, final int intensity, final int haloWidth, final int threshold)
           {
-            super();
             this.type = type;
             this.intensity = intensity;
             this.haloWidth = haloWidth;
@@ -141,6 +198,8 @@ public class NikonCaptureEditorMetadata
 
     private static final int PHOTO_EFFECTS_DATA_MARKER = 0xb0384e1e;
 
+    private static final int XML_DATA_MARKER = 0x083a1a25;
+
     private static Map colorModeMap = new HashMap();
 
     private static Map hueMap = new HashMap();
@@ -173,15 +232,6 @@ public class NikonCaptureEditorMetadata
     public final static int ORIENTATION_180 = 180;
 
     private final static int ORIENTATION_ORIENTATION_OFFSET = 0;
-
-    //// CROP //////////////////////////////////////////////////////////////////////
-    private final static int CROP_LEFT_OFFSET = 30;
-
-    private final static int CROP_TOP_OFFSET = 38;
-
-    private final static int CROP_RIGHT_OFFSET = 46;
-
-    private final static int CROP_BOTTOM_OFFSET = 54;
 
     //// ADVANCED RAW //////////////////////////////////////////////////////////////
     private final static int ADVANCED_RAW_ENABLED_OFFSET = 0;
@@ -484,7 +534,12 @@ public class NikonCaptureEditorMetadata
 
     private ByteBuffer photoEffectDataBuffer;
 
+    private String xmlData;
+
     private Map<Integer, ByteBuffer> bufferMapById = new HashMap<Integer, ByteBuffer>();
+
+    @CheckForNull
+    private CropObject cropObject;
 
     /*******************************************************************************************************************
      * 
@@ -503,10 +558,15 @@ public class NikonCaptureEditorMetadata
         while ((offset + 24) /* FIXME: ? */< byteBuffer.limit())
           {
             final int id = byteBuffer.getInt(offset);
-            final int size = (int)byteBuffer.getLong(offset + 18) - 4;
+            final int size = (int)byteBuffer.getLong(offset + 18);
             offset += 22;
             byteBuffer.position(offset);
             logger.finest(">>>> read subbuffer id: %x, size: %d", id, size);
+
+            if (id == 0)
+              {
+                break;
+              }
 
             // I don't know if it's a valid way to quit, but i.e
             // http://www.rawsamples.ch/raws/nikon/d60/RAW_NIKON_D60.NEF needs it.
@@ -519,18 +579,19 @@ public class NikonCaptureEditorMetadata
 
             final ByteBuffer subBuffer = byteBuffer.slice();
             subBuffer.order(byteBuffer.order());
-            subBuffer.limit(size);
-            bufferMapById.put(new Integer(id), subBuffer);
-            offset += size;
-
+            subBuffer.limit(size - 4); // we're skipping the first 4 bytes that are the size
+            bufferMapById.put(id, subBuffer);
+            
             final int index = bufferMapById.size() - 1;
 
             String s = "";
 
             if (logger.isLoggable(Level.FINER))
               {
-                s = getDebugString(offset, id, size, subBuffer, index);
+                s = getDebugString(offset, id, size - 4, subBuffer, index);
               }
+
+            offset += size - 4;
 
             switch (id)
               {
@@ -623,6 +684,20 @@ public class NikonCaptureEditorMetadata
                   logger.finer(">>>> PHOTO EFFECTS DATA: %s", s);
                   break;
 
+                case XML_DATA_MARKER:
+                  final StringBuilder builder = new StringBuilder();
+                  subBuffer.position(0);
+
+                  while (subBuffer.hasRemaining())
+                    {
+                      builder.append((char)subBuffer.get());
+                    }
+
+                  xmlData = builder.toString();
+                  offset += 4;
+                  logger.finer(">>>> XML DATA: %s", xmlData);
+                  break;
+
                 default:
                   logger.finer(">>>> UNKNOWN: " + s);
                   break;
@@ -684,28 +759,16 @@ public class NikonCaptureEditorMetadata
     //    private final static int CROP_PIXEL_HEIGHT_OFFSET = 206;
     //    private final static int CROP_PIXEL_AREA_OFFSET   = 214;
     //    private final static int CROP_RATIO_OFFSET        = 222;
-    @Nonnegative
-    public double getCropLeft()
-      {
-        return cropBuffer.getDouble(CROP_LEFT_OFFSET);
-      }
 
-    @Nonnegative
-    public double getCropTop()
+    @Nonnull
+    public synchronized CropObject getCropObject()
       {
-        return cropBuffer.getDouble(CROP_TOP_OFFSET);
-      }
+        if (cropObject == null)
+          {
+            cropObject = new CropObject(cropBuffer);
+          }
 
-    @Nonnegative
-    public double getCropWidth()
-      {
-        return cropBuffer.getDouble(CROP_RIGHT_OFFSET);
-      }
-
-    @Nonnegative
-    public double getCropHeight()
-      {
-        return cropBuffer.getDouble(CROP_BOTTOM_OFFSET);
+        return cropObject;
       }
 
     public boolean isAdvancedRawEnabled()
@@ -876,6 +939,12 @@ public class NikonCaptureEditorMetadata
         return unsharpMaskData;
       }
 
+    @CheckForNull
+    public String getXMLData()
+      {
+        return xmlData;
+      }
+
     ////////////////////////////////////////////////////////////////////////////////
     @Override
     @Nonnull
@@ -883,7 +952,7 @@ public class NikonCaptureEditorMetadata
       {
         final StringBuilder buffer = new StringBuilder("CaptureEditorMetadata[");
         buffer.append("\n>>>>Orientation: " + getOrientation() + " degrees, ");
-        buffer.append("\n>>>>crop: " + getCropLeft() + ", " + getCropTop() + ", " + getCropWidth() + ", " + getCropHeight());
+        buffer.append("\n>>>>crop: " + cropObject);
 
         if (isAdvancedRawEnabled())
           {
