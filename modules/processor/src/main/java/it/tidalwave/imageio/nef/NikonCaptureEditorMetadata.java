@@ -555,7 +555,7 @@ public class NikonCaptureEditorMetadata
 
         int offset = 0x16; // FIXME: parse the header in a better way!
 
-        while ((offset + 24) /* FIXME: ? */< byteBuffer.limit())
+all:    while ((offset + 24) /* FIXME: ? */< byteBuffer.limit())
           {
             final int id = byteBuffer.getInt(offset);
             final int size = (int)byteBuffer.getLong(offset + 18);
@@ -694,9 +694,8 @@ public class NikonCaptureEditorMetadata
                     }
 
                   xmlData = builder.toString();
-                  offset += 4;
                   logger.finer(">>>> XML DATA: %s", xmlData);
-                  break;
+                  break all;
 
                 default:
                   logger.finer(">>>> UNKNOWN: " + s);
