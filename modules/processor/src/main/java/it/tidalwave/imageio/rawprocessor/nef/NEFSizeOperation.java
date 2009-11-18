@@ -79,14 +79,10 @@ public class NEFSizeOperation extends SizeOperation
         else
           {
             double scale = 0.5;
-            Rectangle nceCrop = new Rectangle(0, 0, 0, 0);
             //
             // NCE crop settings are relative to the rotated image
             //
-            nceCrop.x = (int)Math.round(nceMetadata.getCropLeft() * scale);
-            nceCrop.y = (int)Math.round(nceMetadata.getCropTop() * scale);
-            nceCrop.width = (int)Math.round(nceMetadata.getCropWidth() * scale);
-            nceCrop.height = (int)Math.round(nceMetadata.getCropHeight() * scale);
+            Rectangle nceCrop = nceMetadata.getCropObject().getCrop(0.5);
 
             if (metadata.getPrimaryIFD().getModel().trim().equals("NIKON D1X"))
               {
