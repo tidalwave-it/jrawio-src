@@ -568,9 +568,7 @@ all:    while ((offset + 24) /* FIXME: ? */< byteBuffer.limit())
                 break;
               }
 
-            // I don't know if it's a valid way to quit, but i.e
-            // http://www.rawsamples.ch/raws/nikon/d60/RAW_NIKON_D60.NEF needs it.
-            // Also https://imaging.dev.java.net/nonav/TestSets/others/jeromebernard/Nikon/D700/NEF/NikonNX2/_DSF0297_3.NEF
+            // This was a safety check, that *seems* to be no more needed since fixing JRW-276 - keeping it for safety.
             if (size <= 0)
               {
                 logger.warning("Giving up with subbuffer id: %x, because of size %d <= 0", id, size);
