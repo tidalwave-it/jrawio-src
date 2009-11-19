@@ -101,8 +101,10 @@ public class NikonCaptureEditorMetadata
             final double scale = 0.5;
             crop.x = (int)Math.round(cropBuffer.getDouble(CROP_LEFT_OFFSET) * scale);
             crop.y = (int)Math.round(cropBuffer.getDouble(CROP_TOP_OFFSET) * scale);
-            crop.width = (int)Math.round(cropBuffer.getDouble(CROP_RIGHT_OFFSET) * scale);
-            crop.height = (int)Math.round(cropBuffer.getDouble(CROP_BOTTOM_OFFSET) * scale);
+            final int right = (int)Math.round(cropBuffer.getDouble(CROP_RIGHT_OFFSET) * scale);
+            final int bottom = (int)Math.round(cropBuffer.getDouble(CROP_BOTTOM_OFFSET) * scale);
+            crop.width = right - crop.x - 1 + 1;
+            crop.height = bottom - crop.y - 1 + 1;
 
             return crop;
           }
