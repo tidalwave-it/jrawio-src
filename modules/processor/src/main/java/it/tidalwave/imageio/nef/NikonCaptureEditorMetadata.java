@@ -633,7 +633,7 @@ public class NikonCaptureEditorMetadata
         logger.finest(">>>> master size: %d", masterSize);
 
         // TODO: we stop after masterSize, but often there further data beyond that point; garbage or other tags?
-        while (offset < masterSize)
+        while (offset + 22 < masterSize)
           {
             final int id = byteBuffer.getInt(offset);
             int size = (int)byteBuffer.getLong(offset + 18);
