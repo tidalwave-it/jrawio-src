@@ -54,6 +54,9 @@ import it.tidalwave.imageio.util.Logger;
  **********************************************************************************************************************/
 public abstract class OperationSupport implements Operation
   {
+    public static final String CLASS = OperationSupport.class.getName();
+    private static final Logger logger = Logger.getLogger(CLASS);
+
     private static final Map<String, Properties> PROPERTY_MAP = new HashMap<String, Properties>();
     
     /*******************************************************************************************************************
@@ -157,7 +160,7 @@ public abstract class OperationSupport implements Operation
 
             if (is != null)
               {
-                System.err.println("OperationSpiSupport.getProperties() from " + string);
+                logger.fine(">>>> getResourceInputStream() from %s", string);
                 temp.add(is);
               }
           }
