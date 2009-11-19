@@ -148,6 +148,14 @@ public class MyParameterized extends Suite
           {
             runners.add(new TestClassRunnerForParameters(getTestClass().getJavaClass(), parametersList, i));
           }
+
+        final int executors = Integer.getInteger("testExecutors", 1);
+        System.err.printf("Running tests with %d parallel executors\n", executors);
+
+        if (executors > 1)
+          {
+            setScheduler(new ParallelRunnerScheduler(executors));
+          }
       }
 
     @Override
