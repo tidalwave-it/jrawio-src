@@ -120,8 +120,15 @@ public class MyParameterized extends Suite
         @Override
         public void run (final RunNotifier notifier)
           {
-            MultiThreadHandler.setTestName(getName());
-            super.run(notifier);
+            try
+              {
+                MultiThreadHandler.setLogName(getName());
+                super.run(notifier);
+              }
+            finally
+              {
+                MultiThreadHandler.resetLogName();
+              }
           }
       }
 

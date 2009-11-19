@@ -43,15 +43,38 @@ import java.io.IOException;
  **********************************************************************************************************************/
 public class MultiThreadHandler extends Handler
   {
-    private static final Map<ThreadGroup, String> TEST_NAME_MAP = new HashMap<ThreadGroup, String>();
+    private static final Handler VOID_HANDLER = new Handler()
+      {
+        @Override
+        public void publish (final LogRecord logRecord)
+          {
+          }
+
+        @Override
+        public void flush()
+          {
+          }
+
+        @Override
+        public void close()
+          {
+          }
+      };
+    
+    private static final Map<ThreadGroup, String> LOG_NAME_MAP = new HashMap<ThreadGroup, String>();
     
     private final Map<String, Handler> handlerMap = new HashMap<String, Handler>();
 
     protected String directory = "target/logs";
 
-    public static void setTestName (final @Nonnull String name)
+    public static void setLogName (final @Nonnull String name)
       {
-        TEST_NAME_MAP.put(Thread.currentThread().getThreadGroup(), name);
+        LOG_NAME_MAP.put(Thread.currentThread().getThreadGroup(), name);
+      }
+
+    public static void resetLogName()
+      {
+        LOG_NAME_MAP.remove(Thread.currentThread().getThreadGroup());
       }
 
     public void setDirectory (final String directory)
@@ -86,7 +109,13 @@ public class MultiThreadHandler extends Handler
     @Nonnull
     private synchronized Handler getHandler()
       {
-        final String id = TEST_NAME_MAP.get(Thread.currentThread().getThreadGroup());
+        final String id = LOG_NAME_MAP.get(Thread.currentThread().getThreadGroup());
+
+        if (id == null)
+          {
+            return VOID_HANDLER;
+          }
+
         Handler handler = handlerMap.get(id);
 
         if (handler == null)
@@ -108,6 +137,6 @@ public class MultiThreadHandler extends Handler
               }
           }
 
-        return handler;
+        return (handler == null) ? handler : VOID_HANDLER;
       }
   }
