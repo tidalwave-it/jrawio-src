@@ -77,9 +77,4 @@ public class TestSupport
             e.printStackTrace();
           }
       }
-//
-//    @Test(timeout=60000)
-//    public void dummy() // FIXME: drop it, make this class ignored
-//      {
-//      }
   }
