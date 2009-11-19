@@ -25,7 +25,6 @@
  * $Id$
  *
  **********************************************************************************************************************/
-
 package it.tidalwave.imageio.nef;
 
 import javax.annotation.CheckForNull;
@@ -36,9 +35,19 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
+import java.awt.Rectangle;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import org.w3c.dom.Document;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import it.tidalwave.imageio.util.Logger;
+import java.io.StringReader;
+import org.xml.sax.InputSource;
 
 /***********************************************************************************************************************
  *
@@ -48,6 +57,123 @@ import it.tidalwave.imageio.util.Logger;
  **********************************************************************************************************************/
 public class NikonCaptureEditorMetadata
   {
+    public abstract static class CropObject
+      {
+        @CheckForNull
+        public abstract Rectangle getCrop();
+
+        @Override
+        public String toString()
+          {
+            return String.format("CropObject[%s]", getCrop());
+          }
+      }
+
+    protected final static class CropObjectNoCrop extends CropObject
+      {
+        @Override
+        public Rectangle getCrop()
+          {
+            return null;
+          }
+      }
+    
+    protected final static class CropObjectFromBinaryBlock extends CropObject
+      {
+        private final static int CROP_LEFT_OFFSET = 30;
+        private final static int CROP_TOP_OFFSET = 38;
+        private final static int CROP_RIGHT_OFFSET = 46;
+        private final static int CROP_BOTTOM_OFFSET = 54;
+
+        @Nonnull
+        private final ByteBuffer cropBuffer;
+
+        protected CropObjectFromBinaryBlock (final @Nonnull ByteBuffer cropBuffer)
+          {
+            this.cropBuffer = cropBuffer;
+          }
+
+        @Override
+        @Nonnull
+        public Rectangle getCrop()
+          {
+            final Rectangle crop = new Rectangle(0, 0, 0, 0);
+            final double scale = 0.5;
+            crop.x = (int)Math.round(cropBuffer.getDouble(CROP_LEFT_OFFSET) * scale);
+            crop.y = (int)Math.round(cropBuffer.getDouble(CROP_TOP_OFFSET) * scale);
+            final int right = (int)Math.round(cropBuffer.getDouble(CROP_RIGHT_OFFSET) * scale);
+            final int bottom = (int)Math.round(cropBuffer.getDouble(CROP_BOTTOM_OFFSET) * scale);
+            crop.width = right - crop.x - 1 + 1;
+            crop.height = bottom - crop.y - 1 + 1;
+
+            return crop;
+          }
+      }
+
+    protected final static class CropObjectFromXMLBlock extends CropObject
+      {
+        private final static  XPath XPATH = XPathFactory.newInstance().newXPath();
+        
+        private final static XPathExpression ACTIVE_EXPR;
+        private final static XPathExpression CROP_LEFT_EXPR;
+        private final static XPathExpression CROP_TOP_EXPR;
+        private final static XPathExpression CROP_RIGHT_EXPR;
+        private final static XPathExpression CROP_BOTTOM_EXPR;
+
+        @Nonnull
+        private final Document document;
+
+        static
+          {
+            try
+              {
+                ACTIVE_EXPR = XPATH.compile("/historystep/filter[@id='nik::Crop']/active/text()");
+                CROP_LEFT_EXPR = XPATH.compile("/historystep/filter[@id='nik::Crop']/parameters/point[@name='cropStart']/@x");
+                CROP_TOP_EXPR = XPATH.compile("/historystep/filter[@id='nik::Crop']/parameters/point[@name='cropStart']/@y");
+                CROP_RIGHT_EXPR = XPATH.compile("/historystep/filter[@id='nik::Crop']/parameters/point[@name='cropEnd']/@x");
+                CROP_BOTTOM_EXPR = XPATH.compile("/historystep/filter[@id='nik::Crop']/parameters/point[@name='cropEnd']/@y");
+              }
+            catch (XPathExpressionException e)
+              {
+                throw new ExceptionInInitializerError(e);
+              }
+          }
+        
+        protected CropObjectFromXMLBlock (final @Nonnull Document document)
+          {
+            this.document = document;
+          }
+
+        @CheckForNull
+        public Rectangle getCrop()
+          {
+            try
+              {
+                if (!Boolean.valueOf(ACTIVE_EXPR.evaluate(document)))
+                  {
+                    return null;
+                  }
+
+                final int cropLeft = Integer.valueOf(CROP_LEFT_EXPR.evaluate(document));
+                final int cropTop = Integer.valueOf(CROP_TOP_EXPR.evaluate(document));
+                final int cropRight = Integer.valueOf(CROP_RIGHT_EXPR.evaluate(document));
+                final int cropBottom = Integer.valueOf(CROP_BOTTOM_EXPR.evaluate(document));
+
+                final Rectangle crop = new Rectangle(0, 0, 0, 0);
+                crop.x = cropLeft;
+                crop.y = cropTop;
+                crop.width = cropRight - cropLeft + 1 - 1;
+                crop.height = cropBottom - cropTop + 1 - 1;
+
+                return crop;
+              }
+            catch (XPathExpressionException e)
+              {
+                throw new RuntimeException(e);
+              }
+          }
+      }
+
     public static class UnsharpMaskData
       {
         public final static int RGB = 0;
@@ -74,7 +200,6 @@ public class NikonCaptureEditorMetadata
 
         public UnsharpMaskData (final int type, final int intensity, final int haloWidth, final int threshold)
           {
-            super();
             this.type = type;
             this.intensity = intensity;
             this.haloWidth = haloWidth;
@@ -141,6 +266,10 @@ public class NikonCaptureEditorMetadata
 
     private static final int PHOTO_EFFECTS_DATA_MARKER = 0xb0384e1e;
 
+    private static final int HISTORY_STEP = 0xe9651831;
+
+    private static final int XML_DATA_MARKER = 0x083a1a25;
+
     private static Map colorModeMap = new HashMap();
 
     private static Map hueMap = new HashMap();
@@ -173,15 +302,6 @@ public class NikonCaptureEditorMetadata
     public final static int ORIENTATION_180 = 180;
 
     private final static int ORIENTATION_ORIENTATION_OFFSET = 0;
-
-    //// CROP //////////////////////////////////////////////////////////////////////
-    private final static int CROP_LEFT_OFFSET = 30;
-
-    private final static int CROP_TOP_OFFSET = 38;
-
-    private final static int CROP_RIGHT_OFFSET = 46;
-
-    private final static int CROP_BOTTOM_OFFSET = 54;
 
     //// ADVANCED RAW //////////////////////////////////////////////////////////////
     private final static int ADVANCED_RAW_ENABLED_OFFSET = 0;
@@ -484,53 +604,67 @@ public class NikonCaptureEditorMetadata
 
     private ByteBuffer photoEffectDataBuffer;
 
+    private Document xmlData;
+
+    private Document historyStep;
+
     private Map<Integer, ByteBuffer> bufferMapById = new HashMap<Integer, ByteBuffer>();
+
+    @CheckForNull
+    private CropObject cropObject;
 
     /*******************************************************************************************************************
      * 
      * @param buffer
      * 
      *******************************************************************************/
-    public NikonCaptureEditorMetadata (final @Nonnull byte[] buffer)
+    public NikonCaptureEditorMetadata (final @Nonnull byte[] buffer) 
       {
         logger.finer("NikonCaptureEditorMetadata(%d bytes)", buffer.length);
+
+        final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+
         byteBuffer = ByteBuffer.allocate(buffer.length);
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN); // FIXME check this
         byteBuffer.put(buffer);
 
-        int offset = 0x16; // FIXME: parse the header in a better way!
+        int offset = 0;
 
-        while ((offset + 24) /* FIXME: ? */< byteBuffer.limit())
+        final int masterSize = (int)byteBuffer.getLong(offset + 18);
+        offset += 22; // FIXME: parse the header in a better way!
+        logger.finest(">>>> master size: %d", masterSize);
+
+        // TODO: we stop after masterSize, but often there further data beyond that point; garbage or other tags?
+        while (offset + 22 < masterSize)
           {
             final int id = byteBuffer.getInt(offset);
-            final int size = (int)byteBuffer.getLong(offset + 18) - 4;
+            int size = (int)byteBuffer.getLong(offset + 18);
             offset += 22;
             byteBuffer.position(offset);
-            logger.finest(">>>> read subbuffer id: %x, size: %d", id, size);
+            logger.finest(">>>> read subbuffer id: 0x%x, size: %d", id, size);
 
-            // I don't know if it's a valid way to quit, but i.e
-            // http://www.rawsamples.ch/raws/nikon/d60/RAW_NIKON_D60.NEF needs it.
-            // Also https://imaging.dev.java.net/nonav/TestSets/others/jeromebernard/Nikon/D700/NEF/NikonNX2/_DSF0297_3.NEF
+            // This was a safety check, that *seems* to be no more needed since fixing JRW-276 - keeping it for safety.
             if (size <= 0)
               {
-                logger.warning("Giving up with subbuffer id: %x, because of size %d <= 0", id, size);
+                logger.warning("Giving up with subbuffer id: 0x%x, because of size %d <= 0", id, size);
                 break;
               }
 
             final ByteBuffer subBuffer = byteBuffer.slice();
             subBuffer.order(byteBuffer.order());
-            subBuffer.limit(size);
-            bufferMapById.put(new Integer(id), subBuffer);
-            offset += size;
-
-            final int index = bufferMapById.size() - 1;
-
-            String s = "";
-
-            if (logger.isLoggable(Level.FINER))
+            //
+            // For all block but XML_DATA, the size includes the 4-bytes that define size itself.
+            //
+            if (id != XML_DATA_MARKER)
               {
-                s = getDebugString(offset, id, size, subBuffer, index);
+                size -= 4;
               }
+
+            subBuffer.limit(size); // we're skipping the first 4 bytes that are the size
+            bufferMapById.put(id, subBuffer);
+            
+            final String s = logger.isLoggable(Level.FINER) ? getDebugString(offset, id, size, subBuffer) : "";
+            offset += size;
 
             switch (id)
               {
@@ -586,6 +720,7 @@ public class NikonCaptureEditorMetadata
 
                 case CROP_MARKER:
                   cropBuffer = subBuffer;
+                  cropObject = new CropObjectFromBinaryBlock(cropBuffer);
                   logger.finer(">>>> CROP: " + s);
                   break;
 
@@ -621,6 +756,47 @@ public class NikonCaptureEditorMetadata
                 case PHOTO_EFFECTS_DATA_MARKER:
                   photoEffectDataBuffer = subBuffer;
                   logger.finer(">>>> PHOTO EFFECTS DATA: %s", s);
+                  break;
+
+                case HISTORY_STEP:
+                  final String historyStepAsString = toString(subBuffer);
+                  logger.finer(">>>> HISTORY STEP : %s", historyStepAsString);
+
+                  if ("".equals(historyStepAsString.trim()))
+                    {
+                      cropObject = new CropObjectNoCrop(); // must override the possibly set CropObjectFromBinaryBlock
+                    }
+                  else
+                    {
+                      try
+                        {
+                          final DocumentBuilder db = dbf.newDocumentBuilder();
+                          historyStep = db.parse(new InputSource(new StringReader(historyStepAsString)));
+                          cropObject = new CropObjectFromXMLBlock(historyStep);
+                        }
+                      catch (Exception e)
+                        {
+                          logger.severe("Cannot parse XML HISTORY STEP: %s", e.getMessage());
+                          logger.throwing(CLASS, "ctor", e);
+                        }
+                    }
+                  break;
+
+                case XML_DATA_MARKER:
+                  // Sounds as Nikon doesn't ever know what a valid XML document is... we must fake a root element.
+                  final String xmlDataAsString = "<root>" + toString(subBuffer) + "</root>";
+                  logger.finer(">>>> XML DATA: %s", xmlDataAsString);
+
+                  try
+                    {
+                      final DocumentBuilder db = dbf.newDocumentBuilder();
+                      xmlData = db.parse(new InputSource(new StringReader(xmlDataAsString)));
+                    }
+                  catch (Exception e)
+                    {
+                      logger.severe("Cannot parse XML DATA: %s", e.getMessage());
+                      logger.throwing(CLASS, "ctor", e);
+                    }
                   break;
 
                 default:
@@ -684,28 +860,11 @@ public class NikonCaptureEditorMetadata
     //    private final static int CROP_PIXEL_HEIGHT_OFFSET = 206;
     //    private final static int CROP_PIXEL_AREA_OFFSET   = 214;
     //    private final static int CROP_RATIO_OFFSET        = 222;
-    @Nonnegative
-    public double getCropLeft()
-      {
-        return cropBuffer.getDouble(CROP_LEFT_OFFSET);
-      }
 
-    @Nonnegative
-    public double getCropTop()
+    @Nonnull
+    public CropObject getCropObject()
       {
-        return cropBuffer.getDouble(CROP_TOP_OFFSET);
-      }
-
-    @Nonnegative
-    public double getCropWidth()
-      {
-        return cropBuffer.getDouble(CROP_RIGHT_OFFSET);
-      }
-
-    @Nonnegative
-    public double getCropHeight()
-      {
-        return cropBuffer.getDouble(CROP_BOTTOM_OFFSET);
+        return cropObject;
       }
 
     public boolean isAdvancedRawEnabled()
@@ -876,6 +1035,18 @@ public class NikonCaptureEditorMetadata
         return unsharpMaskData;
       }
 
+    @CheckForNull
+    public Document getXMLData()
+      {
+        return xmlData;
+      }
+
+    @CheckForNull
+    public Document getHistoryStep()
+      {
+        return historyStep;
+      }
+
     ////////////////////////////////////////////////////////////////////////////////
     @Override
     @Nonnull
@@ -883,7 +1054,7 @@ public class NikonCaptureEditorMetadata
       {
         final StringBuilder buffer = new StringBuilder("CaptureEditorMetadata[");
         buffer.append("\n>>>>Orientation: " + getOrientation() + " degrees, ");
-        buffer.append("\n>>>>crop: " + getCropLeft() + ", " + getCropTop() + ", " + getCropWidth() + ", " + getCropHeight());
+        buffer.append("\n>>>>crop: " + cropObject);
 
         if (isAdvancedRawEnabled())
           {
@@ -1011,7 +1182,7 @@ public class NikonCaptureEditorMetadata
      * @param offset
      * @param id
      * @param size
-     * @param subBuffer
+     * @param buffer
      * @param i
      * @return
      */
@@ -1019,17 +1190,14 @@ public class NikonCaptureEditorMetadata
     private String getDebugString (final @Nonnegative int offset,
                                    final int id,
                                    final @Nonnegative int size,
-                                   final @Nonnull ByteBuffer subBuffer,
-                                   final int index)
+                                   final @Nonnull ByteBuffer subBuffer)
       {
         String s;
         final StringBuilder bbb = new StringBuilder();
-        bbb.append("subBuffer #");
-        bbb.append(index);
-        bbb.append(" ");
-        bbb.append(Integer.toHexString(id));
+        bbb.append("subBuffer ");
+        bbb.append("0x" + Integer.toHexString(id));
         bbb.append(" at ");
-        bbb.append(Integer.toHexString(offset));
+        bbb.append(Integer.toString(offset));
         bbb.append(", size: ");
         bbb.append(size);
         bbb.append(", data: ");
@@ -1058,5 +1226,19 @@ public class NikonCaptureEditorMetadata
         s = bbb.toString();
 
         return s;
+      }
+
+    @Nonnull
+    private String toString (final @Nonnull ByteBuffer buffer)
+      {
+        final StringBuilder builder = new StringBuilder();
+        buffer.position(0);
+
+        while (buffer.hasRemaining())
+          {
+            builder.append((char)buffer.get());
+          }
+
+        return builder.toString();
       }
   }

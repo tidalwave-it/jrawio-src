@@ -8,17 +8,17 @@
  *
  ***********************************************************************************************************************
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); 
- * you may not use this file except in compliance with the License. 
- * You may obtain a copy of the License at 
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0 
- * 
- * Unless required by applicable law or agreed to in writing, software 
- * distributed under the License is distributed on an "AS IS" BASIS, 
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
- * See the License for the specific language governing permissions and 
- * limitations under the License. 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  *
  ***********************************************************************************************************************
  *
@@ -54,7 +54,7 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
       {
         return fixed
           (
-            // D1
+//            // D1
             ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d1/RAW_NIKON_D1.NEF").
                             image(2000, 1312, 3, 8, "f62836d70fab86475a155178f18cd1aa").
                             thumbnail(160, 120),
@@ -166,19 +166,18 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(3008, 2000).
                             issues("JRW-129"),
-            // D60 with Nikon Capture Editor data
+            // D60 edited with Nikon software data
             ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d60/RAW_NIKON_D60.NEF").
-                            image(3008, 2000, 3, 8, "d69f1c3d6ae8c4cf29ee98e17f996a9d"). // cropped by NCE
-//                            image(3872, 2592, 3, 8, "0cb29a0834bb2293ee4bf0c09b201631").
+                            image(3872, 2592, 3, 8, "806c0b0b99683fc08f80cf70229dffd0").
                             thumbnail(320, 214).
                             thumbnail(3872, 2592).
-                            issues("JRW-224"),
+                            issues("JRW-224", "JRW-276", "JRW-277", "JRW-278"),
             ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d60/RAW_NIKON_D60.NEF").
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
                             image(3904, 2616, 3, 16, "1bb9b055b9504ea67993d813995efecf").
                             thumbnail(320, 214).
                             thumbnail(3872, 2592).
-                            issues("JRW-224"),
+                            issues("JRW-224", "JRW-277", "JRW-278"),
             // D70 v1.0.1
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/nikon/D70/1.01/DSC_2544.NEF").
                             image(3008, 2000, 3, 8, "72f0034d835dbbc0afe9d65255de9423").
@@ -259,6 +258,16 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             thumbnailException(IllegalArgumentException.class).
                             thumbnail(120, 160).
                             issues(),
+            // D100 cropped with Nikon Capture Editor
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/fabriziogiudici/Nikon/D100/NEF/NikonCaptureEditor/20030920-0007-Cropped.nef").
+                            image(1712, 1316, 3, 8, "e26754dc1627b690ef5e471656a6dbca").
+                            thumbnail(160, 122).
+                            issues("JRW-276", "JRW-279"),
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/fabriziogiudici/Nikon/D100/NEF/NikonCaptureEditor/20030920-0007-Cropped.nef").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(3034, 2024, 3, 16, "aa086925ceec36e37f3824ac6861c4f1").
+                            thumbnail(160, 122).
+                            issues("JRW-276", "JRW-279"),
             // D100
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/fabriziogiudici/Nikon/D100/TIFF/TIFF-Large.TIF").
                             image(3008, 2000, 3, 8, "7b376e9dd911ab94e0d0a6e20123c582").
@@ -374,11 +383,10 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             thumbnail(4256, 2832).
                             issues("JRW-275"),
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/jeromebernard/Nikon/D700/NEF/NikonNX2/_DSF0297_2.NEF").
-                            image(3008, 2000, 3, 8, "ac54f0c51b687a86b92e214cccb25e90"). // FIXME! Wrong size?
-//                            image(4256, 2832, 3, 8, "cb6139515ee2e1e64716c83ccb374332").
+                            image(4256, 2832, 3, 8, "42c3b3172ca75d5ce31c1ce1253aca26").
                             thumbnail(320, 212).
                             thumbnail(4256, 2832).
-                            issues("JRW-275"),
+                            issues("JRW-275", "JRW-276"),
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/jeromebernard/Nikon/D700/NEF/NikonNX2/_DSF0297_2.NEF").
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
                             image(4288, 2844, 3, 16, "e4dcadc578c2dabe33b1c11f7e2e0497").
@@ -386,30 +394,40 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             thumbnail(4256, 2832).
                             issues("JRW-275"),
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/jeromebernard/Nikon/D700/NEF/NikonNX2/_DSF0297_3.NEF").
-                            image(3008, 2000, 3, 8, "ac54f0c51b687a86b92e214cccb25e90"). // FIXME! Wrong size?
-//                            image(4256, 2832, 3, 8, "ac54f0c51b687a86b92e214cccb25e90").
+                            image(4256, 2832, 3, 8, "42c3b3172ca75d5ce31c1ce1253aca26").
                             thumbnail(320, 212).
                             thumbnail(4256, 2832).
-                            issues("JRW-275"),
+                            issues("JRW-275", "JRW-276", "JRW-277", "JRW-278"),
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/jeromebernard/Nikon/D700/NEF/NikonNX2/_DSF0297_3.NEF").
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
                             image(4288, 2844, 3, 16, "e4dcadc578c2dabe33b1c11f7e2e0497").
                             thumbnail(320, 212).
                             thumbnail(4256, 2832).
-                            issues("JRW-275"),
+                            issues("JRW-275", "JRW-277", "JRW-278"),
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/jeromebernard/Nikon/D700/NEF/NikonNX2/_DSF0297_4.NEF").
-//                            image(4256, 2832, 3, 8, "cb6139515ee2e1e64716c83ccb374332").
-                            image(3008, 2000, 3, 8, "ac54f0c51b687a86b92e214cccb25e90"). // FIXME! Wrong size
+                            image(4256, 2832, 3, 8, "42c3b3172ca75d5ce31c1ce1253aca26").
                             thumbnail(320, 212).
                             thumbnail(4256, 2832).
-                            issues("JRW-275"),
+                            issues("JRW-275", "JRW-277", "JRW-278"),
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/jeromebernard/Nikon/D700/NEF/NikonNX2/_DSF0297_4.NEF").
                             param(new RAWImageReadParam(Source.RAW_IMAGE)).
                             image(4288, 2844, 3, 16, "e4dcadc578c2dabe33b1c11f7e2e0497").
                             thumbnail(320, 212).
                             thumbnail(4256, 2832).
-                            issues("JRW-275")
-          );
+                            issues("JRW-275", "JRW-277", "JRW-278"),
+            // D700 edited with Nikon software
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/jeromebernard/Nikon/D700/NEF/NikonNX2/_DSF0297_2-Crop1.NEF").
+                            image(956, 980, 3, 8, "c6513250271d0317b589424d6e4c3da2").
+                            thumbnail(312, 320).
+                            thumbnail(956, 980).
+                            issues("JRW-276"),
+            ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/jeromebernard/Nikon/D700/NEF/NikonNX2/_DSF0297_2-Crop1.NEF").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(4288, 2844, 3, 16, "e4dcadc578c2dabe33b1c11f7e2e0497").
+                            thumbnail(312, 320).
+                            thumbnail(956, 980).
+                            issues("JRW-276")
+         );
       }
   }
 
