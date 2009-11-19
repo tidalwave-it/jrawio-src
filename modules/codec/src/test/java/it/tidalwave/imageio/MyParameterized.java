@@ -122,6 +122,7 @@ public class MyParameterized extends Suite
           {
             try
               {
+                System.err.printf("Running %s...\n", getName());
                 MultiThreadHandler.setLogName(getName());
                 super.run(notifier);
               }
