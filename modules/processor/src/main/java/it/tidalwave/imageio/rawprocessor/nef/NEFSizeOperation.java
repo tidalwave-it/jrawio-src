@@ -78,55 +78,61 @@ public class NEFSizeOperation extends SizeOperation
           }
         else
           {
-            double scale = 0.5;
             //
             // NCE crop settings are relative to the rotated image
             //
-            Rectangle nceCrop = nceMetadata.getCropObject().getCrop(0.5);
+            Rectangle nceCrop = nceMetadata.getCropObject().getCrop();
 
-            if (metadata.getPrimaryIFD().getModel().trim().equals("NIKON D1X"))
+            if (nceCrop == null)
               {
-                nceCrop.height /= 2; // ??
+                logger.fine(">>>> no NCE crop");
               }
-
-            logger.fine(">>>> NCE crop: %s", nceCrop);
-
-            // Some images needs to rotate the NCE crop (e.g. ccw90.nef)
-            // others don't (e.g. Nikon_D70s_0001.NEF)
-            // FIXME: but we don't know how to guess. See the trick below.
-            boolean shouldRotateNCECrop = true;
-
-            if (shouldRotateNCECrop)
+            else
               {
-                final Rectangle save = (Rectangle)nceCrop.clone();
-                nceCrop = rotate(nceCrop, size, rotation);
-                //
-                // FIXME: trick to recover NCE crop quirks - see above.
-                //
-                if ((nceCrop.x < 0) || (nceCrop.y < 0))
+                if (metadata.getPrimaryIFD().getModel().trim().equals("NIKON D1X"))
                   {
-                    logger.warning("Bad crop, NCE crop hadn't to be rotated");
-                    nceCrop = save;
+                    nceCrop.height /= 2; // ??
                   }
+
+                logger.fine(">>>> NCE crop: %s", nceCrop);
+
+                // Some images needs to rotate the NCE crop (e.g. ccw90.nef)
+                // others don't (e.g. Nikon_D70s_0001.NEF)
+                // FIXME: but we don't know how to guess. See the trick below.
+                boolean shouldRotateNCECrop = true;
+
+                if (shouldRotateNCECrop)
+                  {
+                    final Rectangle save = (Rectangle)nceCrop.clone();
+                    nceCrop = rotate(nceCrop, size, rotation);
+                    //
+                    // FIXME: trick to recover NCE crop quirks - see above.
+                    //
+                    if ((nceCrop.x < 0) || (nceCrop.y < 0))
+                      {
+                        logger.warning("Bad crop, NCE crop hadn't to be rotated");
+                        nceCrop = save;
+                      }
+                  }
+
+                size = rotate(size, rotation);
+    //            if ((rotation == 90) || (rotation == 270)) // FIXME: refactor into rotateDimension
+    //              {
+    //                int tmp = size.width;
+    //                size.width = size.height;
+    //                size.height = tmp;
+    //              }
+
+                logger.fine(">>>> size: %s, NCE crop: %s", size, nceCrop);
+
+                crop.left   += nceCrop.x;
+                crop.top    += nceCrop.y;
+                crop.right  += size.width - nceCrop.width - nceCrop.x;
+                crop.bottom += size.height - nceCrop.height - nceCrop.y;
+
+                size.width  = nceCrop.width;
+                size.height = nceCrop.height;
               }
-
-            size = rotate(size, rotation);
-//            if ((rotation == 90) || (rotation == 270)) // FIXME: refactor into rotateDimension
-//              {
-//                int tmp = size.width;
-//                size.width = size.height;
-//                size.height = tmp;
-//              }
-
-            logger.fine(">>>> size: %s, NCE crop: %s", size, nceCrop);
-
-            crop.left   += nceCrop.x;
-            crop.top    += nceCrop.y;
-            crop.right  += size.width - nceCrop.width;
-            crop.bottom += size.height - nceCrop.height;
-
-            size.width  = nceCrop.width;
-            size.height = nceCrop.height;
           }
 
         logger.fine(">>>> computed crop: %s, size: %s", crop, size);

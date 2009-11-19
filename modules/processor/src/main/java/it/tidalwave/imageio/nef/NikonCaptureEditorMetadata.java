@@ -38,7 +38,16 @@ import java.util.logging.Level;
 import java.awt.Rectangle;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import org.w3c.dom.Document;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import it.tidalwave.imageio.util.Logger;
+import java.io.StringReader;
+import org.xml.sax.InputSource;
 
 /***********************************************************************************************************************
  *
@@ -48,7 +57,28 @@ import it.tidalwave.imageio.util.Logger;
  **********************************************************************************************************************/
 public class NikonCaptureEditorMetadata
   {
-    public final static class CropObject
+    public abstract static class CropObject
+      {
+        @CheckForNull
+        public abstract Rectangle getCrop();
+
+        @Override
+        public String toString()
+          {
+            return String.format("CropObject[%s]", getCrop());
+          }
+      }
+
+    protected final static class CropObjectNoCrop extends CropObject
+      {
+        @Override
+        public Rectangle getCrop()
+          {
+            return null;
+          }
+      }
+    
+    protected final static class CropObjectFromBinaryBlock extends CropObject
       {
         private final static int CROP_LEFT_OFFSET = 30;
         private final static int CROP_TOP_OFFSET = 38;
@@ -58,54 +88,90 @@ public class NikonCaptureEditorMetadata
         @Nonnull
         private final ByteBuffer cropBuffer;
 
-        protected CropObject (final @Nonnull ByteBuffer cropBuffer)
+        protected CropObjectFromBinaryBlock (final @Nonnull ByteBuffer cropBuffer)
           {
             this.cropBuffer = cropBuffer;
           }
 
-        @Nonnegative
-        public double getCropLeft()
-          {
-            return cropBuffer.getDouble(CROP_LEFT_OFFSET);
-          }
-
-        @Nonnegative
-        public double getCropTop()
-          {
-            return cropBuffer.getDouble(CROP_TOP_OFFSET);
-          }
-
-        @Nonnegative
-        public double getCropWidth()
-          {
-            return cropBuffer.getDouble(CROP_RIGHT_OFFSET);
-          }
-
-        @Nonnegative
-        public double getCropHeight()
-          {
-            return cropBuffer.getDouble(CROP_BOTTOM_OFFSET);
-          }
-
+        @Override
         @Nonnull
-        public Rectangle getCrop (final double scale)
+        public Rectangle getCrop()
           {
             final Rectangle crop = new Rectangle(0, 0, 0, 0);
-            crop.x = (int)Math.round(getCropLeft() * scale);
-            crop.y = (int)Math.round(getCropTop() * scale);
-            crop.width = (int)Math.round(getCropWidth() * scale);
-            crop.height = (int)Math.round(getCropHeight() * scale);
+            final double scale = 0.5;
+            crop.x = (int)Math.round(cropBuffer.getDouble(CROP_LEFT_OFFSET) * scale);
+            crop.y = (int)Math.round(cropBuffer.getDouble(CROP_TOP_OFFSET) * scale);
+            crop.width = (int)Math.round(cropBuffer.getDouble(CROP_RIGHT_OFFSET) * scale);
+            crop.height = (int)Math.round(cropBuffer.getDouble(CROP_BOTTOM_OFFSET) * scale);
 
             return crop;
           }
+      }
 
-        @Override
-        public String toString()
+    protected final static class CropObjectFromXMLBlock extends CropObject
+      {
+        private final static  XPath XPATH = XPathFactory.newInstance().newXPath();
+        
+        private final static XPathExpression ACTIVE_EXPR;
+        private final static XPathExpression CROP_LEFT_EXPR;
+        private final static XPathExpression CROP_TOP_EXPR;
+        private final static XPathExpression CROP_RIGHT_EXPR;
+        private final static XPathExpression CROP_BOTTOM_EXPR;
+
+        @Nonnull
+        private final Document document;
+
+        static
           {
-            return String.format("CropObject[l:%f t:%f w:%f h:%f]", getCropLeft(),getCropTop(), getCropWidth(), getCropHeight());
+            try
+              {
+                ACTIVE_EXPR = XPATH.compile("/historystep/filter[@id='nik::Crop']/active/text()");
+                CROP_LEFT_EXPR = XPATH.compile("/historystep/filter[@id='nik::Crop']/parameters/point[@name='cropStart']/@x");
+                CROP_TOP_EXPR = XPATH.compile("/historystep/filter[@id='nik::Crop']/parameters/point[@name='cropStart']/@y");
+                CROP_RIGHT_EXPR = XPATH.compile("/historystep/filter[@id='nik::Crop']/parameters/point[@name='cropEnd']/@x");
+                CROP_BOTTOM_EXPR = XPATH.compile("/historystep/filter[@id='nik::Crop']/parameters/point[@name='cropEnd']/@y");
+              }
+            catch (XPathExpressionException e)
+              {
+                throw new ExceptionInInitializerError(e);
+              }
+          }
+        
+        protected CropObjectFromXMLBlock (final @Nonnull Document document)
+          {
+            this.document = document;
+          }
+
+        @CheckForNull
+        public Rectangle getCrop()
+          {
+            try
+              {
+                if (!Boolean.valueOf(ACTIVE_EXPR.evaluate(document)))
+                  {
+                    return null;
+                  }
+
+                final int cropLeft = Integer.valueOf(CROP_LEFT_EXPR.evaluate(document));
+                final int cropTop = Integer.valueOf(CROP_TOP_EXPR.evaluate(document));
+                final int cropRight = Integer.valueOf(CROP_RIGHT_EXPR.evaluate(document));
+                final int cropBottom = Integer.valueOf(CROP_BOTTOM_EXPR.evaluate(document));
+
+                final Rectangle crop = new Rectangle(0, 0, 0, 0);
+                crop.x = cropLeft;
+                crop.y = cropTop;
+                crop.width = cropRight - cropLeft + 1 - 1;
+                crop.height = cropBottom - cropTop + 1 - 1;
+
+                return crop;
+              }
+            catch (XPathExpressionException e)
+              {
+                throw new RuntimeException(e);
+              }
           }
       }
-    
+
     public static class UnsharpMaskData
       {
         public final static int RGB = 0;
@@ -536,9 +602,9 @@ public class NikonCaptureEditorMetadata
 
     private ByteBuffer photoEffectDataBuffer;
 
-    private String xmlData;
+    private Document xmlData;
 
-    private String historyStep;
+    private Document historyStep;
 
     private Map<Integer, ByteBuffer> bufferMapById = new HashMap<Integer, ByteBuffer>();
 
@@ -550,9 +616,12 @@ public class NikonCaptureEditorMetadata
      * @param buffer
      * 
      *******************************************************************************/
-    public NikonCaptureEditorMetadata (final @Nonnull byte[] buffer)
+    public NikonCaptureEditorMetadata (final @Nonnull byte[] buffer) 
       {
         logger.finer("NikonCaptureEditorMetadata(%d bytes)", buffer.length);
+
+        final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+
         byteBuffer = ByteBuffer.allocate(buffer.length);
         byteBuffer.order(ByteOrder.LITTLE_ENDIAN); // FIXME check this
         byteBuffer.put(buffer);
@@ -649,6 +718,7 @@ public class NikonCaptureEditorMetadata
 
                 case CROP_MARKER:
                   cropBuffer = subBuffer;
+                  cropObject = new CropObjectFromBinaryBlock(cropBuffer);
                   logger.finer(">>>> CROP: " + s);
                   break;
 
@@ -687,13 +757,44 @@ public class NikonCaptureEditorMetadata
                   break;
 
                 case HISTORY_STEP:
-                  historyStep = toString(subBuffer);
-                  logger.finer(">>>> HISTORY STEP : %s", historyStep);
+                  final String historyStepAsString = toString(subBuffer);
+                  logger.finer(">>>> HISTORY STEP : %s", historyStepAsString);
+
+                  if ("".equals(historyStepAsString.trim()))
+                    {
+                      cropObject = new CropObjectNoCrop(); // must override the possibly set CropObjectFromBinaryBlock
+                    }
+                  else
+                    {
+                      try
+                        {
+                          final DocumentBuilder db = dbf.newDocumentBuilder();
+                          historyStep = db.parse(new InputSource(new StringReader(historyStepAsString)));
+                          cropObject = new CropObjectFromXMLBlock(historyStep);
+                        }
+                      catch (Exception e)
+                        {
+                          logger.severe("Cannot parse XML HISTORY STEP: %s", e.getMessage());
+                          logger.throwing(CLASS, "ctor", e);
+                        }
+                    }
                   break;
 
                 case XML_DATA_MARKER:
-                  xmlData = toString(subBuffer);
-                  logger.finer(">>>> XML DATA: %s", xmlData);
+                  // Sounds as Nikon doesn't ever know what a valid XML document is... we must fake a root element.
+                  final String xmlDataAsString = "<root>" + toString(subBuffer) + "</root>";
+                  logger.finer(">>>> XML DATA: %s", xmlDataAsString);
+
+                  try
+                    {
+                      final DocumentBuilder db = dbf.newDocumentBuilder();
+                      xmlData = db.parse(new InputSource(new StringReader(xmlDataAsString)));
+                    }
+                  catch (Exception e)
+                    {
+                      logger.severe("Cannot parse XML DATA: %s", e.getMessage());
+                      logger.throwing(CLASS, "ctor", e);
+                    }
                   break;
 
                 default:
@@ -759,13 +860,8 @@ public class NikonCaptureEditorMetadata
     //    private final static int CROP_RATIO_OFFSET        = 222;
 
     @Nonnull
-    public synchronized CropObject getCropObject()
+    public CropObject getCropObject()
       {
-        if (cropObject == null)
-          {
-            cropObject = new CropObject(cropBuffer);
-          }
-
         return cropObject;
       }
 
@@ -938,13 +1034,13 @@ public class NikonCaptureEditorMetadata
       }
 
     @CheckForNull
-    public String getXMLData()
+    public Document getXMLData()
       {
         return xmlData;
       }
 
     @CheckForNull
-    public String getHistoryStep()
+    public Document getHistoryStep()
       {
         return historyStep;
       }
