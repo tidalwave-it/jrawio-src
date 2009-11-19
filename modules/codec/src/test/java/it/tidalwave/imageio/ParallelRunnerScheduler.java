@@ -69,7 +69,7 @@ public class ParallelRunnerScheduler implements RunnerScheduler
           {
 //          System.err.println("shutting down and awaiting termination...");
             executorService.shutdown();
-            executorService.awaitTermination(15 * 60, TimeUnit.SECONDS); // Note that MINUTES doesn't compile with Java 5
+            executorService.awaitTermination(9999999, TimeUnit.SECONDS); // Note that MINUTES doesn't compile with Java 5
 //              System.err.println(">>>> done");
           }
         catch (InterruptedException e)
