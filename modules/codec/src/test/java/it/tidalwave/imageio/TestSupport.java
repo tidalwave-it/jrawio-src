@@ -34,7 +34,6 @@ import java.io.File;
 import java.io.InputStream;
 import it.tidalwave.util.logging.SingleLineLogFormatter;
 import org.junit.BeforeClass;
-import org.junit.Test;
 
 /***********************************************************************************************************************
  *
