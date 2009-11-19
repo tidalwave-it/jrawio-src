@@ -41,19 +41,18 @@ import org.junit.runners.model.RunnerScheduler;
  **********************************************************************************************************************/
 public class ParallelRunnerScheduler implements RunnerScheduler
   {
+    private static int n = 0;
     private final ScheduledExecutorService executorService;
 
     public ParallelRunnerScheduler (final int poolSize)
       {
         executorService = Executors.newScheduledThreadPool(poolSize, new ThreadFactory()
           {
-            private int n = 0;
-            //
             // Each thread goes in its ThreadGroup because of MultiThreadHandler dispatches log handlers in function
             // of the ThreadGroup.
             public Thread newThread (final Runnable runnable)
               {
-                final ThreadGroup threadGroup = new ThreadGroup(String.format("TG #d", n++));
+                final ThreadGroup threadGroup = new ThreadGroup(String.format("TG #%d", n++));
                 return new Thread(threadGroup, runnable);
               }
           });
@@ -68,7 +67,10 @@ public class ParallelRunnerScheduler implements RunnerScheduler
       {
         try
           {
-            executorService.awaitTermination(10, TimeUnit.MINUTES);
+//          System.err.println("shutting down and awaiting termination...");
+            executorService.shutdown();
+            executorService.awaitTermination(15 * 60, TimeUnit.SECONDS); // Note that MINUTES doesn't compile with Java 5
+//              System.err.println(">>>> done");
           }
         catch (InterruptedException e)
           {
