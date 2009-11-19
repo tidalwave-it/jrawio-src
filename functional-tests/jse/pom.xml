@@ -56,7 +56,7 @@
                             <value>${testExecutors}</value>
                         </property>
                     </systemProperties>
-                    <argLine>-Xmx768M</argLine>
+                    <argLine>-Xmx3072M</argLine>
                 </configuration>
             </plugin>
 
