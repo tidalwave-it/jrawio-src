@@ -40,6 +40,7 @@ import org.junit.runners.Parameterized.Parameters;
 import org.junit.runners.Suite;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
+import org.junit.runners.model.RunnerScheduler;
 import org.junit.runners.model.Statement;
 import org.junit.runners.model.TestClass;
 
@@ -51,6 +52,20 @@ import org.junit.runners.model.TestClass;
  **********************************************************************************************************************/
 public class MyParameterized extends Suite
   {
+    private static final RunnerScheduler RUNNER_SCHEDULER;
+    
+    static
+      {
+        final int executors = Integer.getInteger("testExecutors", 1);
+
+        if (executors > 1)
+          {
+            System.err.printf("Running tests with %d parallel executors\n", executors);
+          }
+
+        RUNNER_SCHEDULER = (executors > 1) ? new ParallelRunnerScheduler(executors) : null;
+      }
+
     private class TestClassRunnerForParameters extends BlockJUnit4ClassRunner
       {
         private final int fParameterSetNumber;
@@ -149,12 +164,9 @@ public class MyParameterized extends Suite
             runners.add(new TestClassRunnerForParameters(getTestClass().getJavaClass(), parametersList, i));
           }
 
-        final int executors = Integer.getInteger("testExecutors", 1);
-        System.err.printf("Running tests with %d parallel executors\n", executors);
-
-        if (executors > 1)
+        if (RUNNER_SCHEDULER != null)
           {
-            setScheduler(new ParallelRunnerScheduler(executors));
+            setScheduler(RUNNER_SCHEDULER);
           }
       }
 
