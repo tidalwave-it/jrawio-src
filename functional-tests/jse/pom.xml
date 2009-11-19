@@ -51,6 +51,10 @@
                             <name>testset.cached.folder</name>
                             <value>${testset.cached.folder}</value>
                         </property>
+                        <property>
+                            <name>testExecutors</name>
+                            <value>${testExecutors}</value>
+                        </property>
                     </systemProperties>
                     <argLine>-Xmx768M</argLine>
                 </configuration>
