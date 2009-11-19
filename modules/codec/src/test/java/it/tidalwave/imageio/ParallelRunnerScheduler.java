@@ -29,6 +29,7 @@ package it.tidalwave.imageio;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import org.junit.runners.model.RunnerScheduler;
 
@@ -44,7 +45,18 @@ public class ParallelRunnerScheduler implements RunnerScheduler
 
     public ParallelRunnerScheduler (final int poolSize)
       {
-        executorService = Executors.newScheduledThreadPool(poolSize);
+        executorService = Executors.newScheduledThreadPool(poolSize, new ThreadFactory()
+          {
+            private int n = 0;
+            //
+            // Each thread goes in its ThreadGroup because of MultiThreadHandler dispatches log handlers in function
+            // of the ThreadGroup.
+            public Thread newThread (final Runnable runnable)
+              {
+                final ThreadGroup threadGroup = new ThreadGroup(String.format("TG #d", n++));
+                return new Thread(threadGroup, runnable);
+              }
+          });
       }
 
     public void schedule (final Runnable childStatement)

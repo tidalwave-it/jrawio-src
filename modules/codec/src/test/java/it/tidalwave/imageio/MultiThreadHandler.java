@@ -69,6 +69,7 @@ public class MultiThreadHandler extends Handler
 
     public static void setLogName (final @Nonnull String name)
       {
+//          System.err.printf(">>>> %s bound to %s\n", Thread.currentThread().getThreadGroup(), name);
         LOG_NAME_MAP.put(Thread.currentThread().getThreadGroup(), name);
       }
 
@@ -110,6 +111,7 @@ public class MultiThreadHandler extends Handler
     private synchronized Handler getHandler()
       {
         final String id = LOG_NAME_MAP.get(Thread.currentThread().getThreadGroup());
+//          System.err.printf(">>>> %s retrieved %s\n", Thread.currentThread().getThreadGroup(), id);
 
         if (id == null)
           {
@@ -137,6 +139,6 @@ public class MultiThreadHandler extends Handler
               }
           }
 
-        return (handler == null) ? handler : VOID_HANDLER;
+        return (handler != null) ? handler : VOID_HANDLER;
       }
   }
