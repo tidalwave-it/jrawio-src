@@ -29,8 +29,11 @@ package it.tidalwave.imageio.rawprocessor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nonnegative;
-import java.util.List;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Properties;
@@ -45,6 +48,8 @@ import java.awt.image.RenderedImage;
 import java.awt.image.SampleModel;
 import java.awt.image.SinglePixelPackedSampleModel;
 import it.tidalwave.imageio.util.Logger;
+import it.tidalwave.imageio.raw.Source;
+import it.tidalwave.imageio.raw.Source.Type;
 
 /***********************************************************************************************************************
  *
@@ -58,6 +63,10 @@ public abstract class OperationSupport implements Operation
     private static final Logger logger = Logger.getLogger(CLASS);
 
     private static final Map<String, Properties> PROPERTY_MAP = new HashMap<String, Properties>();
+
+    /** The image types this operation works on. */
+    @Nonnull
+    private final Set<Source.Type> imageTypes;
     
     /*******************************************************************************************************************
      *
@@ -67,6 +76,30 @@ public abstract class OperationSupport implements Operation
     protected static Logger getLogger (@Nonnull final Class clazz)
       {
         return Logger.getLogger(clazz.getName());
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public OperationSupport (final @Nonnull Type ... imageType)
+      {
+        if (imageType.length == 0)
+          {
+            System.err.println("SEVERE: invalid operation: " + getClass());
+            throw new IllegalArgumentException("You must specify at least one imageType - " + getClass());
+          }
+
+        this.imageTypes = new HashSet<Source.Type>(Arrays.asList(imageType));
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public boolean supportsType (final @Nonnull Source.Type imageType)
+      {
+        return imageTypes.contains(imageType);
       }
 
     /*******************************************************************************************************************

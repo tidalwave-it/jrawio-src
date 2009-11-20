@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
+import it.tidalwave.imageio.raw.Source.Type;
 import javax.annotation.Nonnull;
 import java.awt.RenderingHints;
 import java.awt.color.ColorSpace;
@@ -46,6 +47,15 @@ public class ColorProfileOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(ColorProfileOperation.class);
     
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public ColorProfileOperation()
+      {
+        super(Type.RAW);
+      }
+
     /*******************************************************************************************************************
      *
      * @inheritDoc

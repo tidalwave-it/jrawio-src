@@ -29,6 +29,7 @@ package it.tidalwave.imageio.rawprocessor.crw;
 
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.crw.CRWMetadata;
+import it.tidalwave.imageio.raw.Source;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 
@@ -42,6 +43,15 @@ public class CRWWhiteBalanceOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(CRWWhiteBalanceOperation.class);
     
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public CRWWhiteBalanceOperation()
+      {
+        super(Source.Type.RAW);
+      }
+
     /*******************************************************************************************************************
      *
      * @inheritDoc

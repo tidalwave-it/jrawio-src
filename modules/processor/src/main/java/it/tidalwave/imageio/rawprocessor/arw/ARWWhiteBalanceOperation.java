@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.arw;
 
+import it.tidalwave.imageio.raw.Source.Type;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
@@ -42,7 +43,16 @@ import it.tidalwave.imageio.arw.ARWMetadata;
 public class ARWWhiteBalanceOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(ARWWhiteBalanceOperation.class);
-    
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public ARWWhiteBalanceOperation()
+      {
+        super(Type.RAW);
+      }
+
     /*******************************************************************************************************************
      *
      * @inheritDoc

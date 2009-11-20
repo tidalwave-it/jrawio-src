@@ -36,6 +36,7 @@ import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.raw.RAWImageReadParam;
 import it.tidalwave.imageio.raw.RAWMetadataSupport;
+import it.tidalwave.imageio.raw.Source;
 
 /***********************************************************************************************************************
  *
@@ -77,8 +78,7 @@ public class PipelineArtifact // FIXME: refactor with Lookup
       {
         this.image = image;
         this.rawMetadata = rawMetadata;
-        lookup = Lookup.fixed(image, rawMetadata, readParam);
-
+        lookup = Lookup.fixed(image, rawMetadata, readParam, readParam.lookup(Source.class));
         cfaPattern = computeCFAPattern();
       }
 

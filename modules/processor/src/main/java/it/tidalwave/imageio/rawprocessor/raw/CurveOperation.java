@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
+import it.tidalwave.imageio.raw.Source;
 import javax.annotation.Nonnull;
 import java.util.Arrays;
 import it.tidalwave.imageio.raw.TagRational;
@@ -48,6 +49,15 @@ public class CurveOperation extends OperationSupport
     
     protected final static double MAX_LEVEL = (1 << 16) - 1;
     
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public CurveOperation()
+      {
+        super(Source.Type.RAW);
+      }
+
     /*******************************************************************************************************************
      *
      *

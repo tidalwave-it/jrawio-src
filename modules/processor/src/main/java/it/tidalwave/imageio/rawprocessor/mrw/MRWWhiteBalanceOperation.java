@@ -32,6 +32,7 @@ import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.minolta.MinoltaRawData.WBG;
 import it.tidalwave.imageio.mrw.MRWMetadata;
+import it.tidalwave.imageio.raw.Source;
 
 /***********************************************************************************************************************
  *
@@ -43,6 +44,15 @@ public class MRWWhiteBalanceOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(MRWWhiteBalanceOperation.class);
     
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public MRWWhiteBalanceOperation()
+      {
+        super(Source.Type.RAW);
+      }
+
     /*******************************************************************************************************************
      *
      * @inheritDoc

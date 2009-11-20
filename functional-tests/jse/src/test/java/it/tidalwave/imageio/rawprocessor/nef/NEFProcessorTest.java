@@ -41,7 +41,7 @@ import org.junit.runners.Parameterized.Parameters;
  * @version $Id$
  *
  **********************************************************************************************************************/
-public class NEFProcessorTest  extends NewImageReaderTestSupport
+    public class NEFProcessorTest  extends NewImageReaderTestSupport
   {
     public NEFProcessorTest (final @Nonnull ExpectedResults expectedResults)
       {
@@ -117,7 +117,7 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             issues("JRW-221"),
             ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d3x/RAW_NIKON_D3X.NEF").
                             param(new RAWImageReadParam(Source.FULL_SIZE_PREVIEW)).
-                            image(6048, 4032, 3, 8, "142df4f4b7f08514f06d44d71c1d4202").
+                            image(4032, 6048, 3, 8, "ac88f2274c75c37f293140e78a9d1030").
                             thumbnail(160, 120).
                             thumbnail(6048, 4032).
                             issues(),

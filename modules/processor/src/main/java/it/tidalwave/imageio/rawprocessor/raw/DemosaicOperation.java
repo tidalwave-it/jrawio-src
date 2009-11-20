@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
+import it.tidalwave.imageio.raw.Source;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.Curve;
@@ -50,6 +51,15 @@ public class DemosaicOperation extends OperationSupport
     private int[] cfaPattern;
 
     private String cfaPatternAsString;
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public DemosaicOperation()
+      {
+        super(Source.Type.RAW);
+      }
 
     /*******************************************************************************************************************
      *

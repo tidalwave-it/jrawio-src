@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
+import it.tidalwave.imageio.raw.Source.Type;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import java.awt.image.DataBufferUShort;
@@ -48,6 +49,15 @@ public abstract class ColorConversionOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(ColorConversionOperation.class);
     
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public ColorConversionOperation()
+      {
+        super(Type.RAW);
+      }
+
     /*******************************************************************************************************************
      *
      * @inheritDoc

@@ -31,6 +31,7 @@ import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.pef.PentaxMakerNote;
+import it.tidalwave.imageio.raw.Source.Type;
 
 /***********************************************************************************************************************
  *
@@ -42,6 +43,15 @@ public class PEFWhiteBalanceOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(PEFWhiteBalanceOperation.class);
     
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public PEFWhiteBalanceOperation()
+      {
+        super(Type.RAW);
+      }
+
     /*******************************************************************************************************************
      *
      * @inheritDoc

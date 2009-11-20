@@ -47,6 +47,11 @@ public abstract class Source implements Serializable
     private final static String CLASS = Source.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
 
+    public enum Type
+      {
+        NORMAL, RAW
+      }
+
     /*******************************************************************************************************************
      *
      * This source represents the image processed by the post-processor.
@@ -81,6 +86,13 @@ public abstract class Source implements Serializable
         protected boolean needsPostProcessor()
           {
             return true;
+          }
+
+        @Override
+        @Nonnull
+        public Type getType()
+          {
+            return Type.RAW;
           }
 
         @Override
@@ -129,6 +141,13 @@ public abstract class Source implements Serializable
 
         @Override
         @Nonnull
+        public Type getType()
+          {
+            return Type.RAW;
+          }
+
+        @Override
+        @Nonnull
         public String toString()
           {
             return "RAW_IMAGE";
@@ -164,7 +183,14 @@ public abstract class Source implements Serializable
         @Override
         protected boolean needsPostProcessor()
           {
-            return false;
+            return true;
+          }
+
+        @Override
+        @Nonnull
+        public Type getType()
+          {
+            return Type.NORMAL;
           }
 
         @Override
@@ -281,5 +307,11 @@ public abstract class Source implements Serializable
      *
      *
      ******************************************************************************************************************/
-    protected abstract boolean needsPostProcessor();
+    protected abstract boolean needsPostProcessor(); 
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public abstract Type getType();
   }

@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
+import it.tidalwave.imageio.raw.Source;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -70,6 +71,8 @@ public abstract class SizeOperation extends OperationSupport
      ******************************************************************************************************************/
     public SizeOperation()
       {
+        super(Source.Type.RAW);
+
         try
           {
             final String fileName = "/" + getClass().getName().replace('.', '/') + ".properties";

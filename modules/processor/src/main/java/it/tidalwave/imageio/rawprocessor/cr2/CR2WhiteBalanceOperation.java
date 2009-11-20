@@ -32,6 +32,7 @@ import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.cr2.CanonCR2MakerNote;
+import it.tidalwave.imageio.raw.Source;
 
 /***********************************************************************************************************************
  *
@@ -43,6 +44,15 @@ public class CR2WhiteBalanceOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(CR2WhiteBalanceOperation.class);
     
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public CR2WhiteBalanceOperation()
+      {
+        super(Source.Type.RAW);
+      }
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}

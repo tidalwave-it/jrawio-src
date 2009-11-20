@@ -137,7 +137,7 @@ public abstract class RAWImageReaderSupport extends RAWImageReader
               {
                 final BufferedImage rawImage = source.readImage(this);
                 image[imageIndex] = ((RAWImageReaderSpiSupport)getOriginatingProvider()).
-                        postProcess(rawImage, metadata,rawReadParam);
+                        postProcess(rawImage, metadata, rawReadParam);
                 processImageComplete();
               }
 

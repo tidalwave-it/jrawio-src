@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
 
+import it.tidalwave.imageio.raw.Source.Type;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,6 +36,7 @@ import java.awt.image.BufferedImage;
 import it.tidalwave.imageio.raw.PostProcessor;
 import it.tidalwave.imageio.raw.RAWImageReadParam;
 import it.tidalwave.imageio.raw.RAWMetadataSupport;
+import it.tidalwave.imageio.raw.Source;
 import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
@@ -75,7 +77,7 @@ public abstract class RAWProcessor implements PostProcessor
                                         final @Nonnull RAWMetadataSupport metadata,
                                         final @Nonnull RAWImageReadParam readParam)
       {
-        logger.fine("POSTPROCESSING...");
+        logger.fine("process(%s, %s, %s)", image, metadata, readParam);
         PipelineArtifact rawImage = new PipelineArtifact(image, metadata, readParam);
         init(rawImage);                
         process(rawImage);                
@@ -90,7 +92,7 @@ public abstract class RAWProcessor implements PostProcessor
     public final void processMetadata (final @Nonnull RAWMetadataSupport metadata,
                                        final @Nonnull RAWImageReadParam readParam)
       {
-        logger.fine("POSTPROCESSING METADATA...");
+        logger.fine("processMetadata(%s, %s)", metadata, readParam);
         PipelineArtifact rawImage = new PipelineArtifact(null, metadata, readParam);
         init(rawImage);
         processMetadata(rawImage);
@@ -100,7 +102,7 @@ public abstract class RAWProcessor implements PostProcessor
      *
      * Initializes the operation pipeline.
      *
-     * @param  rawImage  the image to process
+     * @param  pipelineArtifact  the image to process
      *
      ******************************************************************************************************************/
     private final void init (PipelineArtifact rawImage)
@@ -126,10 +128,10 @@ public abstract class RAWProcessor implements PostProcessor
      *
      * Executes the operation pipeline.
      *
-     * @param  rawImage  the image to process
+     * @param  pipelineArtifact  the image to process
      *
      ******************************************************************************************************************/
-    private final void process (final @Nonnull PipelineArtifact rawImage)
+    private final void process (final @Nonnull PipelineArtifact pipelineArtifact)
       {
         for (final Operation operation : operationList)
           {
@@ -137,11 +139,20 @@ public abstract class RAWProcessor implements PostProcessor
 
             try
               {
-               long time = System.currentTimeMillis();
-                logger.fine("Executing: %s", operationName);
-                operation.process(rawImage);
-                time = System.currentTimeMillis() - time;
-                logger.finer(">>>> %s completed ok in %d msec", operationName, time);
+                final Type type = pipelineArtifact.lookup(Source.class).getType();
+
+                if (!operation.supportsType(type))
+                  {
+                    logger.fine(">>>> skipping %s because doesn't support %s\n", operationName, type);
+                  }
+                else
+                  {
+                    long time = System.currentTimeMillis();
+                    logger.fine("Executing: %s", operationName);
+                    operation.process(pipelineArtifact);
+                    time = System.currentTimeMillis() - time;
+                    logger.finer(">>>> %s completed ok in %d msec", operationName, time);
+                  }
               }
 
             catch (Exception e)
@@ -156,7 +167,7 @@ public abstract class RAWProcessor implements PostProcessor
      *
      * Executes the operation pipeline.
      *
-     * @param  rawImage  the image to process
+     * @param  pipelineArtifact  the image to process
      *
      ******************************************************************************************************************/
     private final void processMetadata (final @Nonnull PipelineArtifact rawImage)

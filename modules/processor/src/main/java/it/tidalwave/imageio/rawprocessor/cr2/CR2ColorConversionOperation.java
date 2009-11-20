@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.cr2;
 
+import it.tidalwave.imageio.raw.Source.Type;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnull;
 import java.util.HashMap;

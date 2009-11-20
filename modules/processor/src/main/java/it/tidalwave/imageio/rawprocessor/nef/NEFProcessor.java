@@ -33,6 +33,7 @@ import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;
 import it.tidalwave.imageio.nef.NikonMakerNote3;
+import it.tidalwave.imageio.raw.Source.Type;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.RAWProcessor;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
@@ -52,6 +53,11 @@ public class NEFProcessor extends RAWProcessor
         
     class BindNCEMetadata extends OperationSupport
       {
+        public BindNCEMetadata()
+          {
+            super(Type.RAW, Type.NORMAL);
+          }
+
         @Override
         public void init (@Nonnull final PipelineArtifact artifact)
           throws Exception

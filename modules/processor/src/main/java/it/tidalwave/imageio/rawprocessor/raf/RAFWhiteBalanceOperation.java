@@ -33,6 +33,7 @@ import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.raf.RAFMetadata;
+import it.tidalwave.imageio.raw.Source.Type;
 
 /***********************************************************************************************************************
  *
@@ -44,6 +45,15 @@ public class RAFWhiteBalanceOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(RAFWhiteBalanceOperation.class);
     
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public RAFWhiteBalanceOperation()
+      {
+        super(Type.RAW);
+      }
+
     /*******************************************************************************************************************
      *
      * @inheritDoc

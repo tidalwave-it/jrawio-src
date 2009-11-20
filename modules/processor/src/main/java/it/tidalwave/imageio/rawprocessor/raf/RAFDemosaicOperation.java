@@ -27,7 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raf;
 
-import it.tidalwave.imageio.rawprocessor.raw.*;
+import it.tidalwave.imageio.raw.Source.Type;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.Curve;
@@ -51,6 +51,15 @@ public class RAFDemosaicOperation extends OperationSupport
     private int[] cfaPattern;
 
     private String cfaPatternAsString;
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public RAFDemosaicOperation()
+      {
+        super(Type.RAW);
+      }
 
     /*******************************************************************************************************************
      *

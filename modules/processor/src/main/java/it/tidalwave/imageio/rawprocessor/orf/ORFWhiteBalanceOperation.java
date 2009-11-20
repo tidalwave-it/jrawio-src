@@ -33,6 +33,7 @@ import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.orf.OlympusMakerNote;
 import it.tidalwave.imageio.orf.ImageProcessing;
+import it.tidalwave.imageio.raw.Source.Type;
 
 /***********************************************************************************************************************
  *
@@ -45,6 +46,15 @@ public class ORFWhiteBalanceOperation extends OperationSupport
     private final static String CLASS = ORFWhiteBalanceOperation.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
     
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public ORFWhiteBalanceOperation()
+      {
+        super(Type.RAW);
+      }
+
     /*******************************************************************************************************************
      *
      * {@inheritDoc}

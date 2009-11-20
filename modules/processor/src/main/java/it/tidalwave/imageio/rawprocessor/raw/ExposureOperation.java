@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
+import it.tidalwave.imageio.raw.Source;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 
@@ -38,6 +39,15 @@ import it.tidalwave.imageio.rawprocessor.OperationSupport;
  **********************************************************************************************************************/
 public class ExposureOperation extends OperationSupport
   {
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public ExposureOperation()
+      {
+        super(Source.Type.RAW);
+      }
+
     /*******************************************************************************************************************
      *
      * @inheritDoc

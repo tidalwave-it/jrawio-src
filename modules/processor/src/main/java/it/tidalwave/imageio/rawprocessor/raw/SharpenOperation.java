@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
+import it.tidalwave.imageio.raw.Source.Type;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 
@@ -38,6 +39,15 @@ import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
  **********************************************************************************************************************/
 public class SharpenOperation extends OperationSupport
   {
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public SharpenOperation()
+      {
+        super(Type.RAW, Type.NORMAL);
+      }
+
     /*******************************************************************************************************************
      *
      * @inheritDoc

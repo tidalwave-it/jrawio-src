@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.dng;
 
+import it.tidalwave.imageio.raw.Source;
 import it.tidalwave.imageio.util.Logger;
 import it.tidalwave.imageio.raw.TagRational;
 import it.tidalwave.imageio.tiff.IFD;
@@ -43,6 +44,15 @@ import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 public class DNGWhiteBalanceOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(DNGWhiteBalanceOperation.class);
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public DNGWhiteBalanceOperation()
+      {
+        super(Source.Type.RAW);
+      }
     
     /*******************************************************************************************************************
      *

@@ -27,6 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
+import it.tidalwave.imageio.raw.Source;
 import javax.annotation.Nonnull;
 import java.util.Properties;
 import java.awt.Graphics2D;
@@ -53,6 +54,15 @@ public class RotateOperation extends OperationSupport
     private final static Logger logger = getLogger(RotateOperation.class);
 
     private int rotation;
+
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public RotateOperation()
+      {
+        super(Source.Type.RAW, Source.Type.NORMAL);
+      }
 
     /*******************************************************************************************************************
      *

@@ -33,6 +33,7 @@ import it.tidalwave.imageio.nef.NEFMetadata;
 import it.tidalwave.imageio.nef.NikonCaptureEditorMetadata;
 import it.tidalwave.imageio.nef.NEFWhiteBalanceInfo;
 import it.tidalwave.imageio.nef.NikonMakerNote3;
+import it.tidalwave.imageio.raw.Source.Type;
 import it.tidalwave.imageio.rawprocessor.OperationSupport;
 import it.tidalwave.imageio.rawprocessor.PipelineArtifact;
 
@@ -46,6 +47,15 @@ public class NEFWhiteBalanceOperation extends OperationSupport
   {
     private final static Logger logger = getLogger(NEFWhiteBalanceOperation.class);
     
+    /*******************************************************************************************************************
+     *
+     *
+     ******************************************************************************************************************/
+    public NEFWhiteBalanceOperation()
+      {
+        super(Type.RAW);
+      }
+
     /*******************************************************************************************************************
      *
      * @inheritDoc
