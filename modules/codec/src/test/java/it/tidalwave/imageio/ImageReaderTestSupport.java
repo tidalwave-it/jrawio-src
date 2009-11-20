@@ -309,7 +309,7 @@ public class ImageReaderTestSupport extends TestSupport
                                  final @Nonnull String suffix)
       throws IOException, NoSuchAlgorithmException
       {
-        final File targetDirectory = new File(System.getProperty("java.io.tmpdir") + "/jrawio-test");
+        final File targetDirectory = new File("target/converted-images/");
         final File tiffFile = new File(targetDirectory, path.replace("https://", "").replace("http://", "") +
                               suffix + "-" + System.getProperty("java.version") + ".tiff");
 
@@ -317,6 +317,7 @@ public class ImageReaderTestSupport extends TestSupport
           {
             tiffFile.getParentFile().mkdirs();
             logger.info("***************** Writing %s...", tiffFile.getAbsolutePath());
+            System.err.printf(">>>> Writing %s...\n", tiffFile.getAbsolutePath());
             ImageIO.write(image, "TIFF", tiffFile);
           }
         
