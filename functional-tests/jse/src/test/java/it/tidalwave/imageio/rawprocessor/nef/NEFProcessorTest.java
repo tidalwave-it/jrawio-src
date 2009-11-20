@@ -322,55 +322,6 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             thumbnail(160, 120).
                             thumbnail(4256, 2832).
                             issues("JRW-223"),
-            // D3000
-            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d3000/sample_images/nikon_d3000_02.nef").
-                            image(3872, 2592, 3, 8, "ff17523a7823b9fd8124186e2e263b63").
-                            thumbnail(160, 120).
-                            thumbnail(3872, 2592).
-                            issues("JRW-272"),
-            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d3000/sample_images/nikon_d3000_02.nef").
-                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
-                            image(3904, 2616, 3, 16, "14461fd23f073d3277d8e1b3b139bb2d").
-                            thumbnail(160, 120).
-                            thumbnail(3872, 2592).
-                            issues("JRW-272"),
-            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d3000/sample_images/nikon_d3000_04.nef").
-                            image(3872, 2592, 3, 8, "01b483dd2b492943e361b1bc9f59272f").
-                            thumbnail(160, 120).
-                            thumbnail(3872, 2592).
-                            issues("JRW-272"),
-            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d3000/sample_images/nikon_d3000_04.nef").
-                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
-                            image(3904, 2616, 3, 16, "8269404d3ac6c2e1e33d8c0a3f6f79b8").
-                            thumbnail(160, 120).
-                            thumbnail(3872, 2592).
-                            issues("JRW-272"),
-            // D5000
-            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d5000/sample_images/nikon_d5000_02.nef").
-                            image(4288, 2848, 3, 8, "70d9edd7c5328337a6ea81a7875df629").
-                            thumbnail(160, 120).
-                            thumbnail(4288, 2848).
-                            issues("JRW-273"),
-            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d5000/sample_images/nikon_d5000_02.nef").
-                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
-                            image(4352, 2868, 3, 16, "3c31d071636a22692cd083f8aaa6723a").
-                            thumbnail(160, 120).
-                            thumbnail(4288, 2848).
-                            issues("JRW-273"),
-            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d5000/sample_images/nikon_d5000_03.nef").
-                            image(2848, 4288, 3, 8, "96c49002bccef008395f503f4b74b8b9").
-                            thumbnail(160, 120).
-                            thumbnail(4288, 2848).
-                            issues("JRW-273"),
-            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d5000/sample_images/nikon_d5000_03.nef").
-                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
-                            image(4352, 2868, 3, 16, "8cdc202a71292fb222afb7ddc9ac050c").
-                            thumbnail(160, 120).
-                            thumbnail(4288, 2848).
-                            issues("JRW-273"),
-
-
-            // D700
             ExpectedResults.create("https://imaging.dev.java.net/nonav/TestSets/others/jeromebernard/Nikon/D700/NEF/_DSF0297_1.NEF").
                             image(4256, 2832, 3, 8, "629a8c7353e001b89cdb9ac91c91cb3d").
                             thumbnail(160, 120).
@@ -426,7 +377,53 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
                             image(4288, 2844, 3, 16, "e4dcadc578c2dabe33b1c11f7e2e0497").
                             thumbnail(312, 320).
                             thumbnail(956, 980).
-                            issues("JRW-276")
+                            issues("JRW-276"),
+            // D3000
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d3000/sample_images/nikon_d3000_02.nef").
+                            image(3872, 2592, 3, 8, "ff17523a7823b9fd8124186e2e263b63").
+                            thumbnail(160, 120).
+                            thumbnail(3872, 2592).
+                            issues("JRW-272"),
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d3000/sample_images/nikon_d3000_02.nef").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(3904, 2616, 3, 16, "14461fd23f073d3277d8e1b3b139bb2d").
+                            thumbnail(160, 120).
+                            thumbnail(3872, 2592).
+                            issues("JRW-272"),
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d3000/sample_images/nikon_d3000_04.nef").
+                            image(3872, 2592, 3, 8, "01b483dd2b492943e361b1bc9f59272f").
+                            thumbnail(160, 120).
+                            thumbnail(3872, 2592).
+                            issues("JRW-272"),
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d3000/sample_images/nikon_d3000_04.nef").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(3904, 2616, 3, 16, "8269404d3ac6c2e1e33d8c0a3f6f79b8").
+                            thumbnail(160, 120).
+                            thumbnail(3872, 2592).
+                            issues("JRW-272"),
+            // D5000
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d5000/sample_images/nikon_d5000_02.nef").
+                            image(4288, 2848, 3, 8, "70d9edd7c5328337a6ea81a7875df629").
+                            thumbnail(160, 120).
+                            thumbnail(4288, 2848).
+                            issues("JRW-273"),
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d5000/sample_images/nikon_d5000_02.nef").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(4352, 2868, 3, 16, "3c31d071636a22692cd083f8aaa6723a").
+                            thumbnail(160, 120).
+                            thumbnail(4288, 2848).
+                            issues("JRW-273"),
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d5000/sample_images/nikon_d5000_03.nef").
+                            image(2848, 4288, 3, 8, "96c49002bccef008395f503f4b74b8b9").
+                            thumbnail(160, 120).
+                            thumbnail(4288, 2848).
+                            issues("JRW-273"),
+            ExpectedResults.create("http://img.photographyblog.com/reviews/nikon_d5000/sample_images/nikon_d5000_03.nef").
+                            param(new RAWImageReadParam(Source.RAW_IMAGE)).
+                            image(4352, 2868, 3, 16, "8cdc202a71292fb222afb7ddc9ac050c").
+                            thumbnail(160, 120).
+                            thumbnail(4288, 2848).
+                            issues("JRW-273")
          );
       }
   }
