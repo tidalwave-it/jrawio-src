@@ -54,7 +54,7 @@ public class NEFProcessorTest  extends NewImageReaderTestSupport
       {
         return fixed
           (
-//            // D1
+            // D1
             ExpectedResults.create("http://www.rawsamples.ch/raws/nikon/d1/RAW_NIKON_D1.NEF").
                             image(2000, 1312, 3, 8, "f62836d70fab86475a155178f18cd1aa").
                             thumbnail(160, 120),
