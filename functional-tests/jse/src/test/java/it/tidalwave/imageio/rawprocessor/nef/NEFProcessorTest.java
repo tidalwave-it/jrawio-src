@@ -41,7 +41,7 @@ import org.junit.runners.Parameterized.Parameters;
  * @version $Id$
  *
  **********************************************************************************************************************/
-    public class NEFProcessorTest  extends NewImageReaderTestSupport
+public class NEFProcessorTest extends NewImageReaderTestSupport
   {
     public NEFProcessorTest (final @Nonnull ExpectedResults expectedResults)
       {
