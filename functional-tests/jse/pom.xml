@@ -55,6 +55,14 @@
                             <name>testExecutors</name>
                             <value>${testExecutors}</value>
                         </property>
+                        <property>
+                            <name>jrawio.dumpImageAsTIFF</name>
+                            <value>${jrawio.dumpImageAsTIFF}</value>
+                        </property>
+                        <property>
+                            <name>jrawio.dumpRasterAsText</name>
+                            <value>${jrawio.dumpRasterAsText}</value>
+                        </property>
                     </systemProperties>
                     <argLine>-Xmx3072M</argLine>
                 </configuration>
