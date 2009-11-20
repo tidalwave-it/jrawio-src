@@ -27,7 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.srf;
 
-import it.tidalwave.imageio.ImageReaderTestSupport;
+import it.tidalwave.imageio.test.ImageReaderTestSupport;
 import org.junit.Test;
 
 /***********************************************************************************************************************

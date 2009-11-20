@@ -25,7 +25,7 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio;
+package it.tidalwave.thesefoolishthings.junit;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

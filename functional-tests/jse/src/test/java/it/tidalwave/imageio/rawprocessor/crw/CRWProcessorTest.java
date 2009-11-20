@@ -29,8 +29,8 @@ package it.tidalwave.imageio.rawprocessor.crw;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
-import it.tidalwave.imageio.ExpectedResults;
-import it.tidalwave.imageio.NewImageReaderTestSupport;
+import it.tidalwave.imageio.test.ExpectedResults;
+import it.tidalwave.imageio.test.NewImageReaderTestSupport;
 import it.tidalwave.imageio.raw.RAWImageReadParam;
 import it.tidalwave.imageio.raw.Source;
 import org.junit.runners.Parameterized.Parameters;

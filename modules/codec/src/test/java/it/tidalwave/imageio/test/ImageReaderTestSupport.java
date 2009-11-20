@@ -25,7 +25,7 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio;
+package it.tidalwave.imageio.test;
 
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;

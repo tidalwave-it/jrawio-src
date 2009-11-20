@@ -25,7 +25,7 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio;
+package it.tidalwave.imageio.test;
 
 import it.tidalwave.imageio.raw.RAWImageReadParam;
 import javax.annotation.Nonnegative;

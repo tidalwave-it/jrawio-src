@@ -25,8 +25,9 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio;
+package it.tidalwave.imageio.test;
 
+import it.tidalwave.thesefoolishthings.junit.MyParameterized;
 import javax.annotation.Nonnull;
 import java.lang.reflect.Method;
 import java.util.Collection;

@@ -27,7 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.cr2;
 
-import it.tidalwave.imageio.ImageReaderTestSupport;
+import it.tidalwave.imageio.test.ImageReaderTestSupport;
 import org.junit.Test;
 
 /***********************************************************************************************************************

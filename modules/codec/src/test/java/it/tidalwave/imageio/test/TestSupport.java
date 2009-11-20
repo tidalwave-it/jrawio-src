@@ -25,7 +25,7 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio;
+package it.tidalwave.imageio.test;
 
 import java.util.logging.Handler;
 import java.util.logging.LogManager;

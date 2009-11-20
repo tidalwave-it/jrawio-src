@@ -25,7 +25,7 @@
  * $Id$
  *
  **********************************************************************************************************************/
-package it.tidalwave.imageio;
+package it.tidalwave.thesefoolishthings.junit;
 
 import javax.annotation.Nonnull;
 import java.util.HashMap;
