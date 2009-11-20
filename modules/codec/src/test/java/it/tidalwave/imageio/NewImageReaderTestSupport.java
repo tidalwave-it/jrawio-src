@@ -94,6 +94,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
     public final void testImage()
       throws Exception
       {
+        final long time = System.currentTimeMillis();
         final ImageReader ir = getImageReader(expectedResults.getPath(), expectedResults.getReadParam());
         final int imageCount = expectedResults.getImageCount();
         final int thumbnailCount = expectedResults.getThumbnailCount();
@@ -288,6 +289,7 @@ public class NewImageReaderTestSupport extends ImageReaderTestSupport
           }
 
         close(ir);
+        System.err.printf(">>>> Completed in %d msec.\n", System.currentTimeMillis() - time);
       }
 
     /*******************************************************************************************************************
