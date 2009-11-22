@@ -120,7 +120,7 @@ public class NEFProcessorTest extends NewImageReaderTestSupport
                             image(4032, 6048, 3, 8, "ac88f2274c75c37f293140e78a9d1030").
                             thumbnail(160, 120).
                             thumbnail(6048, 4032).
-                            issues(),
+                            issues("JRW-282"),
             // D40 v1.0.0
             ExpectedResults.create("http://s179771984.onlinehome.us/RAWpository/images/nikon/D40/1.00/DSC_0108.NEF").
                             image(2000, 3008, 3, 8, "51f5ec81eff835ac17061b050f247fe5").
