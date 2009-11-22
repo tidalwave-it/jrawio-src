@@ -1,0 +1,4 @@
+OpenIDE-Module-Java-Dependencies: Java > 1.5
+OpenIDE-Module-Display-Category: Libraries
+OpenIDE-Module-Name: Libraries - jrawio
+AutoUpdate-Show-In-Client: true
