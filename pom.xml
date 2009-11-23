@@ -100,9 +100,9 @@
 
     <distributionManagement>
         <repository>
-            <id>maven2-release.tidalwave.it</id>
-            <name>Tidalwave Maven Release Repository</name>
-            <url>https://services.tidalwave.it/nexus/content/repositories/releases</url>
+            <id>maven2-release-repository.jrawio.kenai.com</id>
+            <name>jrawio Maven Release Repository</name>
+            <url>dav:https://kenai.com/website/jrawio/maven-repository/releases/</url>
         </repository>
         <snapshotRepository>
             <id>maven2-snapshot.tidalwave.it</id>
