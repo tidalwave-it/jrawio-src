@@ -610,8 +610,8 @@ public class NikonCaptureEditorMetadata
 
     private Map<Integer, ByteBuffer> bufferMapById = new HashMap<Integer, ByteBuffer>();
 
-    @CheckForNull
-    private CropObject cropObject;
+    @Nonnull
+    private CropObject cropObject = new CropObjectNoCrop();
 
     /*******************************************************************************************************************
      * 

@@ -78,7 +78,7 @@ public class NEFMetadata extends TIFFMetadataSupport
      ******************************************************************************************************************/
     public NEFMetadata (@Nonnull final Directory primaryIFD, 
                         @Nonnull final RAWImageInputStream iis, 
-                        @CheckForNull final HeaderProcessor headerProcessor)
+                        @Nonnull final HeaderProcessor headerProcessor)
       {
         super(primaryIFD, iis, headerProcessor);
       }

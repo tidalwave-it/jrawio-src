@@ -41,6 +41,7 @@ import it.tidalwave.imageio.raw.HeaderProcessor;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.util.Logger;
+import javax.annotation.CheckForNull;
 
 /***********************************************************************************************************************
  *
@@ -493,7 +494,7 @@ public class CRWMetadata extends TIFFMetadataSupport
      * @return
      * 
      ******************************************************************************************************************/
-    @Nonnull
+    @CheckForNull
     private CanonCRWMakerNote findDirectory (final @Nonnull CanonCRWMakerNote dir,
                                              final @Nonnull Object code)
       {

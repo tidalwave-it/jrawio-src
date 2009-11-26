@@ -130,7 +130,7 @@ public class NEFImageReader extends TIFFImageReaderSupport
         final IFD primaryIFD = ((IFD)primaryDirectory);
         final IFD rasterIFD = ((TIFFMetadataSupport)metadata).getRasterIFD();
         final IFD exifIFD = ((TIFFMetadataSupport)metadata).getExifIFD();
-        final IFD thumbnailIFD = ((TIFFMetadataSupport)metadata).getThumbnailHelper()[0].ifd;
+        final IFD thumbnailIFD = ((TIFFMetadataSupport)metadata).getThumbnailHelper()[0].getIFD();
         final NikonMakerNote3 nikonMakerNote = (NikonMakerNote3)makerNote;
 
         final long time = System.currentTimeMillis();
