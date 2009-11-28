@@ -38,6 +38,7 @@ public class DefaultingLookup extends DefaultLookup
   {
     private final static String CLASS = DefaultingLookup.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
+    private final static long serialVersionUID = 4574563455473452L;
 
     @Nonnull
     private final Lookup delegate;

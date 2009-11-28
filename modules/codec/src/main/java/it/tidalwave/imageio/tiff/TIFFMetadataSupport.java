@@ -68,13 +68,13 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
       };
 
     @Nonnull
-    private IFD primaryIFD;
+    private IFD primaryIFD = new IFD();
 
-    @CheckForNull
-    private IFD exifIFD;
+    @Nonnull
+    private IFD exifIFD = new IFD();
 
-    @CheckForNull
-    protected IFD rasterIFD;
+    @Nonnull
+    protected IFD rasterIFD = new IFD();
     
     protected final List<ThumbnailLoader> thumbnailLoaders = new ArrayList<ThumbnailLoader>();
         
@@ -606,8 +606,6 @@ public class TIFFMetadataSupport extends RAWMetadataSupport
             for (Iterator i = currentDirectory.getTags().iterator(); i.hasNext();)
               {
                 TIFFTag f = (TIFFTag)i.next();
-                int tagNumber = f.getCode();
-                Object t = new Integer(tagNumber);
                 Node node = getNativeNode(f, currentDirectory.getRegistry());
 
                 if (node != null)

@@ -35,4 +35,5 @@ package it.tidalwave.imageio.orf;
  **********************************************************************************************************************/
 public class RawDevelopment extends OlympusRawDevelopmentMakerNoteSupport
   {
+    private final static long serialVersionUID = 3423424574564564523L;
   }

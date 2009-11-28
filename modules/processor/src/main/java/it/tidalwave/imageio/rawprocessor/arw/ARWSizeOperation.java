@@ -86,6 +86,11 @@ public class ARWSizeOperation extends SizeOperation
     @Nonnull
     protected Insets getCrop (final @Nonnull PipelineArtifact artifact)
       {
+        if (crop == null)
+          {
+            throw new IllegalStateException("crop is null");
+          }
+
         return crop;
       }
 
@@ -98,6 +103,11 @@ public class ARWSizeOperation extends SizeOperation
     @Nonnull
     protected Dimension getSize (final @Nonnull PipelineArtifact artifact)
       {
+        if (crop == null)
+          {
+            throw new IllegalStateException("size is null");
+          }
+
         return size;
       }
   }

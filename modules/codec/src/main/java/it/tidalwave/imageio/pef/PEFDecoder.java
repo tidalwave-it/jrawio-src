@@ -96,7 +96,7 @@ public class PEFDecoder
         int value;
 
         // TODO: RAWImageInputStream supports zeroAfterFF - use it and simplify this loop
-        while (!reset && (availableBitCount < bitCount) && ((value = iis.read() & 0xff) != -1) &&
+        while (!reset && (availableBitCount < bitCount) && ((value = iis.read() & 0xff) != 0xff) &&
                !(reset = zeroAfterFF && (value == 0xff) && (iis.read() != 0)))
           {
             bitBuffer = (bitBuffer << 8) | value; // (uchar)c

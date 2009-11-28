@@ -129,7 +129,7 @@ public class NEFColorConversionOperation extends ColorConversionOperation
       {
         loadICCProfileMap();
 
-        return (ColorMatrix)colorMatrixProfileMap.get(getCompositeKey(model, new Integer(nceColorMode)));
+        return (ColorMatrix)colorMatrixProfileMap.get(getCompositeKey(model, nceColorMode));
       }
 
     /*******************************************************************************************************************

@@ -46,6 +46,7 @@ public class CanonCRWMakerNote extends CanonCRWMakerNoteSupport
   {
     private final static String CLASS = CanonCRWMakerNote.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
+    private final static long serialVersionUID = 2342354235240398L;
 
     private static Properties lensNameByID = new Properties();
 

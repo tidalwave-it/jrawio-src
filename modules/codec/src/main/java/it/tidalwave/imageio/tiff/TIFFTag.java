@@ -150,7 +150,7 @@ public class TIFFTag extends AbstractTag
             case TYPE_BYTE:
               if (intValue.length == 1)
                 {
-                  return new Byte((byte)intValue[0]);
+                  return Byte.valueOf((byte)intValue[0]);
                 }
 
               byte[] bytes = new byte[intValue.length];
@@ -166,7 +166,7 @@ public class TIFFTag extends AbstractTag
             case TYPE_SHORT:
               if (intValue.length == 1)
                 {
-                  return new Short((short)intValue[0]);
+                  return Short.valueOf((short)intValue[0]);
                 }
 
               short[] shorts = new short[intValue.length];
@@ -182,7 +182,7 @@ public class TIFFTag extends AbstractTag
             case TYPE_SLONG:
             case TYPE_LONG:
             case TYPE_ORF_13:
-              return (intValue.length == 1) ? new Integer(intValue[0]) : (Object)intValue;
+              return (intValue.length == 1) ? Integer.valueOf(intValue[0]) : (Object)intValue;
 
             case TYPE_ASCII:
               return asciiValue;
@@ -272,15 +272,12 @@ public class TIFFTag extends AbstractTag
               break;
 
             case TYPE_RATIONAL:
+            case TYPE_SRATIONAL:
               rationalValue = readRationalValues(iis, valuesCount);
               break;
 
             case TYPE_UNDEFINED:
               undefinedValue = readUndefinedValues(iis, valuesCount);
-              break;
-
-            case TYPE_SRATIONAL:
-              rationalValue = readRationalValues(iis, valuesCount);
               break;
 
             case TYPE_FLOAT:

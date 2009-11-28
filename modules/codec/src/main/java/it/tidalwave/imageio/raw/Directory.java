@@ -298,7 +298,7 @@ public abstract class Directory implements Serializable
       {
         if (tag != null)
           {
-            Object key = new Integer(tag.getCode());
+            final int key = tag.getCode();
             tagMapByKey.put(tagRegistry.getKey(key), tag);
             keyList.add(tagRegistry.getKey(key));
           }

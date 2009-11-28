@@ -101,12 +101,10 @@ public class TagRegistry
      * @return      the tag name
      * 
      ******************************************************************************************************************/
-    public String register (int code,
-                            String name)
+    public String register (int code, String name)
       {
-        Integer iCode = new Integer(code);
-        nameMapByCode.put(iCode, name);
-        codeMapByName.put(name, iCode);
+        nameMapByCode.put(code, name);
+        codeMapByName.put(name, code);
 
         return name;
       }
@@ -121,7 +119,7 @@ public class TagRegistry
      ******************************************************************************************************************/
     public String getTagName (int code)
       {
-        return (String)nameMapByCode.get(new Integer(code));
+        return (String)nameMapByCode.get(code);
       }
 
     /*******************************************************************************************************************
@@ -156,6 +154,7 @@ public class TagRegistry
      ******************************************************************************************************************/
     public Object getKey (int key)
       {
-        return getKey(new Integer(key));
+        // can't use autoboxing or will recurse infinitely!
+        return getKey(Integer.valueOf(key)); 
       }
   }

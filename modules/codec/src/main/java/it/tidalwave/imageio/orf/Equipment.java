@@ -35,4 +35,5 @@ package it.tidalwave.imageio.orf;
  **********************************************************************************************************************/
 public class Equipment extends OlympusEquipmentMakerNoteSupport
   {
+    private final static long serialVersionUID = 454358934592349084L;
   }

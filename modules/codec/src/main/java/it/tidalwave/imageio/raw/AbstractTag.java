@@ -159,12 +159,12 @@ public abstract class AbstractTag implements Serializable
 
         else if (intValue != null)
           {
-            return (intValue.length > 1) ? intValue : (Object)new Integer(intValue[0]);
+            return (intValue.length > 1) ? intValue : intValue[0];
           }
 
         else if (rationalValue != null)
           {
-            return (rationalValue.length > 1) ? rationalValue : (Object)rationalValue[0];
+            return (rationalValue.length > 1) ? rationalValue : rationalValue[0];
           }
 
         else if (asciiValue != null)
