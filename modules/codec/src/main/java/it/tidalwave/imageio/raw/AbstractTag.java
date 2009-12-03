@@ -150,6 +150,7 @@ public abstract class AbstractTag implements Serializable
      * 
      ******************************************************************************************************************/
     @CheckForNull
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP")
     public Object getValue()
       {
         if (undefinedValue != null)
@@ -186,6 +187,7 @@ public abstract class AbstractTag implements Serializable
      * 
      ******************************************************************************************************************/
     @CheckForNull
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP")
     public byte[] getByteValues()
       {
         //
@@ -212,6 +214,7 @@ public abstract class AbstractTag implements Serializable
      * 
      ******************************************************************************************************************/
     @CheckForNull
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP")
     public int[] getIntValues()
       {
         return intValue;
@@ -225,6 +228,7 @@ public abstract class AbstractTag implements Serializable
      * 
      ******************************************************************************************************************/
     @CheckForNull
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP")
     public float[] getFloatValues()
       {
         return floatValue;
@@ -238,6 +242,7 @@ public abstract class AbstractTag implements Serializable
      * 
      ******************************************************************************************************************/
     @CheckForNull
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP")
     public TagRational[] getRationalValues ()
       {
         return rationalValue;

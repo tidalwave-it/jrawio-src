@@ -244,7 +244,7 @@ public class RasterReader
      ******************************************************************************************************************/
     public void setTileOffsets (final @Nonnull int[] tileOffsets)
       {
-        this.tileOffsets = tileOffsets;
+        this.tileOffsets = tileOffsets.clone();
       }
 
     /*******************************************************************************************************************

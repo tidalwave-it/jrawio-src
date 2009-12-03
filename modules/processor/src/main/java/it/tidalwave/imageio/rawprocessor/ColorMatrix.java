@@ -27,8 +27,9 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor;
 
-import it.tidalwave.imageio.util.Logger;
+import javax.annotation.Nonnull;
 import java.text.DecimalFormat;
+import it.tidalwave.imageio.util.Logger;
 
 /***********************************************************************************************************************
  *
@@ -38,11 +39,13 @@ import java.text.DecimalFormat;
  **********************************************************************************************************************/
 public class ColorMatrix
   {
-    private final static Logger logger = Logger.getLogger("it.tidalwave.imageio.rawprocessor.ColorMatrix");
+    private final static String CLASS = ColorMatrix.class.getName();
+    private final static Logger logger = Logger.getLogger(CLASS);
 
     private final static DecimalFormat FORMAT = new DecimalFormat("+0.0000;-0.0000");
 
-    private double[] c;
+    @Nonnull
+    private final double[] c;
 
     private static final long SHORT_MASK = 0xffff;
 
@@ -56,9 +59,9 @@ public class ColorMatrix
      * @param coefficients
      * 
      *******************************************************************************/
-    public ColorMatrix (double[] coefficients)
+    public ColorMatrix (final @Nonnull double[] coefficients)
       {
-        this.c = coefficients;
+        this.c = coefficients.clone();
       }
 
     /*******************************************************************************************************************

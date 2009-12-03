@@ -146,6 +146,7 @@ public class ThumbnailLoader
      *
      *
      ******************************************************************************************************************/
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP")
     public ThumbnailLoader (@Nonnull final RAWImageInputStream iis,
                             @Nonnull final byte[] buffer)
       {

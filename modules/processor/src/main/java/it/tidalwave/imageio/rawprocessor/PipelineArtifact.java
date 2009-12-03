@@ -313,7 +313,7 @@ public class PipelineArtifact // FIXME: refactor with Lookup
      *******************************************************************************/
     public int[] getCFAPattern()
       {
-        return cfaPattern;  
+        return (cfaPattern != null) ? cfaPattern.clone() : null;
       }
     
     /*******************************************************************************************************************

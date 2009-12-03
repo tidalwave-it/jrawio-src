@@ -96,6 +96,20 @@
             <id>maven2-aux-repository.tidalwave.kenai.com</id>
             <name>Tidalwave Maven Aux Repository</name>
             <url>https://kenai.com/svn/tidalwave~maven-repo/aux/2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>maven2-snapshot-repository.tidalwave.it</id>
+            <name>Tidalwave Snapshot Repository</name>
+            <url>http://services.tidalwave.it/nexus/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
@@ -106,7 +120,7 @@
             <url>dav:https://kenai.com/website/jrawio/maven-repository/releases/</url>
         </repository>
         <snapshotRepository>
-            <id>maven2-snapshot.tidalwave.it</id>
+            <id>maven2-snapshot-repository.tidalwave.it</id>
             <name>Tidalwave Maven Snapshot Repository</name>
             <url>https://services.tidalwave.it/nexus/content/repositories/snapshots</url>
         </snapshotRepository>

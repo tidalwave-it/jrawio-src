@@ -16,9 +16,9 @@ import java.nio.ByteOrder;
 public class FujiRawData
   {
     private String header;
-    private byte[] b1 = new byte[16];
+    private final byte[] b1 = new byte[16];
     private String version;
-    private byte[] b2 = new byte[16];
+    private final byte[] b2 = new byte[16];
     private int jpegImageOffset;
     private int jpegImageLength;
     private int table1Offset;
@@ -88,12 +88,12 @@ public class FujiRawData
 
     public byte[] getB1()
       {
-        return b1;
+        return b1.clone();
       }
 
     public byte[] getB2()
       {
-        return b2;
+        return b2.clone();
       }
 
     public int getCFALength()

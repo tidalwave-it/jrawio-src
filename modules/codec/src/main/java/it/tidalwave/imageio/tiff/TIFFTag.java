@@ -142,7 +142,8 @@ public class TIFFTag extends AbstractTag
      *******************************************************************************/
     @Override
     @CheckForNull
-    public Object getValue ()
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP")
+    public Object getValue()
       {
         switch (type)
           {
