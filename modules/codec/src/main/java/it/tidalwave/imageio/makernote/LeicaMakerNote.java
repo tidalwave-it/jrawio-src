@@ -43,6 +43,7 @@ public class LeicaMakerNote extends LeicaMakerNoteSupport
   {
     private final static String CLASS = LeicaMakerNote.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
+    private final static long serialVersionUID = 435098698732458972L;
 
     @Override
     public void loadAll (final @Nonnull RAWImageInputStream iis, final long offset)

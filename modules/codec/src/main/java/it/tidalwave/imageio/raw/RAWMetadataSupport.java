@@ -50,7 +50,7 @@ public abstract class RAWMetadataSupport extends IIOMetadata
     @Nonnull
     protected final Directory realPrimaryIFD;
 
-    @CheckForNull
+    @Nonnull
     protected final HeaderProcessor headerProcessor;
 
     @Nonnull
@@ -64,7 +64,7 @@ public abstract class RAWMetadataSupport extends IIOMetadata
      *******************************************************************************/
     public RAWMetadataSupport (@Nonnull final Directory primaryDirectory, 
                                @Nonnull final String nativeFormatName, 
-                               @CheckForNull final HeaderProcessor headerProcessor)
+                               @Nonnull final HeaderProcessor headerProcessor)
       {
         this.nativeFormatName = nativeFormatName;
         this.realPrimaryIFD = primaryDirectory;

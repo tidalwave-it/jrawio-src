@@ -70,6 +70,8 @@ public class PEFRasterReader extends RasterReader
                                          final @Nonnull RAWImageReaderSupport ir)
       throws IOException
       {
+        assert decoder != null : "decoder has not been set";
+        
         final DataBufferUShort dataBuffer = (DataBufferUShort)raster.getDataBuffer();
         final short[] data = dataBuffer.getData();
         final int width = raster.getWidth();

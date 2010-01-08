@@ -37,6 +37,7 @@ import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
 import it.tidalwave.imageio.raw.RAWImageReadParam;
 import it.tidalwave.imageio.raw.RAWMetadataSupport;
 import it.tidalwave.imageio.raw.Source;
+import javax.annotation.Nullable;
 
 /***********************************************************************************************************************
  *
@@ -72,7 +73,7 @@ public class PipelineArtifact // FIXME: refactor with Lookup
      *
      *
      ******************************************************************************************************************/
-    public PipelineArtifact (final @Nonnull BufferedImage image,
+    public PipelineArtifact (final @Nullable BufferedImage image,
                              final @Nonnull RAWMetadataSupport rawMetadata,
                              final @Nonnull RAWImageReadParam readParam)
       {
@@ -312,7 +313,7 @@ public class PipelineArtifact // FIXME: refactor with Lookup
      *******************************************************************************/
     public int[] getCFAPattern()
       {
-        return cfaPattern;  
+        return (cfaPattern != null) ? cfaPattern.clone() : null;
       }
     
     /*******************************************************************************************************************

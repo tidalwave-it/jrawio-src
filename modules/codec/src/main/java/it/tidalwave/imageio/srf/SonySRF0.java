@@ -27,8 +27,7 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.srf;
 
-import it.tidalwave.imageio.makernote.*;
-
 public class SonySRF0 extends SonySRFMakerNoteSupport
   {
+    private final static long serialVersionUID = 23423523423L;
   }

@@ -195,6 +195,7 @@ public class LosslessJPEGDecoder
      * 
      ******************************************************************************************************************/
     @Nonnull
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP")
     public short[] loadRow (final @Nonnull RAWImageInputStream iis)
       throws IOException
       {

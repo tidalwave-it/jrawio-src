@@ -28,6 +28,7 @@
 package it.tidalwave.imageio.rawprocessor.demosaic;
 
 import java.awt.image.Raster;
+import javax.annotation.Nullable;
 
 /***********************************************************************************************************************
  *
@@ -92,18 +93,17 @@ public abstract class DemosaicingFilter
      *
      *
      ******************************************************************************************************************/
-    public void setCurve (short[] curve)
+    public void setCurve (final @Nullable short[] curve)
       {
         assert (curve == null) || (curve.length == (1 << 16)); 
-        this.curve = curve;
+        this.curve = (curve != null) ? curve.clone() : null;
       }
 
     /*******************************************************************************************************************
      *
      *
      ******************************************************************************************************************/
-    protected short applyCoefficientAndCurve (int coefficient,
-                                              int value)
+    protected short applyCoefficientAndCurve (int coefficient, int value)
       {
         value -= blackLevel;
         

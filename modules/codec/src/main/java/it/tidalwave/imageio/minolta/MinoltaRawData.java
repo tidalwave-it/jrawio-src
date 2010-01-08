@@ -49,6 +49,7 @@ public class MinoltaRawData
   {
     private final static String CLASS = MinoltaRawData.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
+    private final static long serialVersionUID = 23423490823498939L;
     
     private int rasterOffset;
     
@@ -71,6 +72,7 @@ public class MinoltaRawData
     public static final class PRD implements Serializable
       {
         public static final int TAG = 0x505244;
+        private final static long serialVersionUID = 54354350983459348L;
         
         private String version;
         @CheckForNull
@@ -158,6 +160,7 @@ public class MinoltaRawData
     public static final class WBG implements Serializable
       {
         public static final int TAG = 0x574247;
+        private final static long serialVersionUID = 3242342349238982L;
 
         private TagRational[] coefficients = new TagRational[4];
        
@@ -206,6 +209,7 @@ public class MinoltaRawData
     public static final class RIF implements Serializable
       {
         public static final int TAG = 0x524946;
+        private final static long serialVersionUID = 32423490823409238L;
         
         private int unknown;
         private int saturation;

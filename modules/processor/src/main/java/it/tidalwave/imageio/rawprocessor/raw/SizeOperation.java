@@ -27,7 +27,6 @@
  **********************************************************************************************************************/
 package it.tidalwave.imageio.rawprocessor.raw;
 
-import it.tidalwave.imageio.raw.Source;
 import javax.annotation.CheckForNull;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -40,6 +39,8 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
+import it.tidalwave.imageio.raw.Source;
 import it.tidalwave.imageio.raw.TagRational;
 import it.tidalwave.imageio.tiff.IFD;
 import it.tidalwave.imageio.tiff.TIFFMetadataSupport;
@@ -69,6 +70,7 @@ public abstract class SizeOperation extends OperationSupport
      *
      *
      ******************************************************************************************************************/
+    @SuppressWarnings("UI_INHERITANCE_UNSAFE_GETRESOURCE")
     public SizeOperation()
       {
         super(Source.Type.RAW);

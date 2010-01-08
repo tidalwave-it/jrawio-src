@@ -381,7 +381,7 @@ public class CRWRasterReader extends RasterReader
 
         for (int i = offset; i < buffer.length - 1; i++)
           {
-            if (buffer[i] == 0xff) // FIXME: signed vs unsigned
+            if ((buffer[i] & 0xff) == 0xff)
               {
                 if (buffer[i + 1] != 0)
                   {

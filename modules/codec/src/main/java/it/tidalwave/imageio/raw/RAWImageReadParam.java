@@ -41,6 +41,7 @@ import it.tidalwave.imageio.util.DefaultingLookup;
 public final class RAWImageReadParam extends ImageReadParam implements Serializable
   {
     public final static RAWImageReadParam DEFAULT = new RAWImageReadParam();
+    private final static long serialVersionUID = 34234346546764574L;
     
     private final Lookup lookup;
 

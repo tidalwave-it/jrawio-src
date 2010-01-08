@@ -244,7 +244,7 @@ public class RasterReader
      ******************************************************************************************************************/
     public void setTileOffsets (final @Nonnull int[] tileOffsets)
       {
-        this.tileOffsets = tileOffsets;
+        this.tileOffsets = tileOffsets.clone();
       }
 
     /*******************************************************************************************************************
@@ -293,7 +293,7 @@ public class RasterReader
      ******************************************************************************************************************/
     public void setLinearizationTable (final @CheckForNull int[] linearizationTable)
       {
-        logger.fine("setLinearizationTable(%d items)", linearizationTable.length);
+        logger.fine("setLinearizationTable(%d items)", (linearizationTable != null) ? linearizationTable.length : 0);
         
         if (linearizationTable == null)
           {

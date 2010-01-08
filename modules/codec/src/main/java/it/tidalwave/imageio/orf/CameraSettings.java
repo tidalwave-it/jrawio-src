@@ -35,4 +35,5 @@ package it.tidalwave.imageio.orf;
  **********************************************************************************************************************/
 public class CameraSettings extends OlympusCameraSettingsMakerNoteSupport
   {
+    private final static long serialVersionUID = 324234234234235L;
   }

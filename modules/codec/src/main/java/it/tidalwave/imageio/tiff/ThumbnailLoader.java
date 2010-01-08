@@ -62,9 +62,11 @@ public class ThumbnailLoader
   {
     private final static String CLASS = ThumbnailLoader.class.getName();
     private final static Logger logger = Logger.getLogger(CLASS);
-    
+
+    private final static IFD EMPTY_IFD = new IFD();
+
     @Nonnull
-    public final IFD ifd; // FIXME: make it private
+    private final IFD ifd;
 
     @Nonnegative
     private int width;
@@ -133,7 +135,7 @@ public class ThumbnailLoader
                             @Nonnegative final int byteCount)
       {
         logger.finest("ThumbnailLoader(%s, %d, %d)", iis, offset, byteCount);
-        this.ifd = null;
+        this.ifd = EMPTY_IFD;
         this.offset = offset;
         this.byteCount = byteCount;
         getSizeFromEmbeddedJPEG(iis);
@@ -144,11 +146,12 @@ public class ThumbnailLoader
      *
      *
      ******************************************************************************************************************/
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP")
     public ThumbnailLoader (@Nonnull final RAWImageInputStream iis,
                             @Nonnull final byte[] buffer)
       {
         logger.finest("ThumbnailHelper(%s, %s)", iis, buffer);
-        this.ifd = null;
+        this.ifd = EMPTY_IFD;
         this.buffer = buffer;
         getSizeFromEmbeddedJPEG(iis);
       }
@@ -165,11 +168,22 @@ public class ThumbnailLoader
                             @Nonnegative final int height)
       {
         logger.finest("ThumbnailHelper(%s, %d, %d, %d, %d)", iis, offset, byteCount, width, height);
-        this.ifd = null;
+        this.ifd = EMPTY_IFD;
         this.offset = offset;
         this.byteCount = byteCount;
         this.width = width;
         this.height = height;
+      }
+
+    /*******************************************************************************************************************
+     *
+     *
+     *
+     ******************************************************************************************************************/
+    @Nonnull
+    public IFD getIFD()
+      {
+        return ifd; // FIXME: return immutable version?
       }
        
     /*******************************************************************************************************************

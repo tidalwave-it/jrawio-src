@@ -264,7 +264,7 @@ public class NEFRasterReader extends RasterReader
      ******************************************************************************************************************/
     public void setVPredictor (@Nonnull final int[] vPredictor)
       {
-        this.vPredictor = vPredictor;
+        this.vPredictor = vPredictor.clone();
       }
 
     /*******************************************************************************************************************

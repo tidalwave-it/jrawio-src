@@ -35,4 +35,5 @@ package it.tidalwave.imageio.orf;
  **********************************************************************************************************************/
 public class ImageProcessing extends OlympusImageProcessingMakerNoteSupport
   {
+    private final static long serialVersionUID = 23423423423535654L;
   }

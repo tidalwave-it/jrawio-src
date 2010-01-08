@@ -76,7 +76,7 @@ public class Curve
      *******************************************************************************/
     public Curve (short[] samples, String name)
       {
-        this.samples = samples;
+        this.samples = samples.clone();
         this.name = name;
       }
 
@@ -85,9 +85,10 @@ public class Curve
      * @return
      * 
      *******************************************************************************/
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP")
     public short[] getSamples ()
       {
-        return samples;
+        return samples; // TODO: not too large, maybe you can clone it
       }
 
     /*******************************************************************************************************************

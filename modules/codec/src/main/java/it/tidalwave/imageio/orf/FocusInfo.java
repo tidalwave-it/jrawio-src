@@ -35,4 +35,5 @@ package it.tidalwave.imageio.orf;
  **********************************************************************************************************************/
 public class FocusInfo extends OlympusFocusInfoMakerNoteSupport
   {
+    private final static long serialVersionUID = 23423598354698L;
   }

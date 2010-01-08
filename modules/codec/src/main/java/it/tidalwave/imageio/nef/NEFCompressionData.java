@@ -146,9 +146,10 @@ public class NEFCompressionData
      *
      ******************************************************************************************************************/
     @Nonnull
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings("EI_EXPOSE_REP")
     public int[] getValues()
       {
-        return lut;
+        return lut; // TODO: not so large, maybe you can clone it
       }
 
     /*******************************************************************************************************************

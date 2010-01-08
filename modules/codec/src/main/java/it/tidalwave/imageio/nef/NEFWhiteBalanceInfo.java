@@ -141,7 +141,7 @@ public class NEFWhiteBalanceInfo // NOT Serializable
     @Nonnull
     public int[] getCoefficients()
       {
-        return coefficients;  
+        return coefficients.clone();
       }
     
     /*******************************************************************************************************************

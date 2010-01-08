@@ -610,8 +610,8 @@ public class NikonCaptureEditorMetadata
 
     private Map<Integer, ByteBuffer> bufferMapById = new HashMap<Integer, ByteBuffer>();
 
-    @CheckForNull
-    private CropObject cropObject;
+    @Nonnull
+    private CropObject cropObject = new CropObjectNoCrop();
 
     /*******************************************************************************************************************
      * 
@@ -1142,14 +1142,14 @@ public class NikonCaptureEditorMetadata
                                           final int key,
                                           final @Nonnull String text)
       {
-        map.put(new Integer(key), text);
+        map.put(key, text);
       }
 
     @CheckForNull
     private static String getConstant (final @Nonnull Map map,
                                        final int key)
       {
-        String string = (String)map.get(new Integer(key));
+        String string = (String)map.get(key);
 
         return (string != null) ? string : ("#" + key + " - 0x" + Integer.toHexString(key));
       }

@@ -28,7 +28,6 @@
 
 package it.tidalwave.imageio.srf;
 
-import it.tidalwave.imageio.makernote.*;
 import it.tidalwave.imageio.tiff.IFD;
 
 public class SonySRF6 extends IFD
