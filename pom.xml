@@ -12,7 +12,7 @@
     <artifactId>jrawio</artifactId>
     <packaging>pom</packaging>
     <version>1.6.2-SNAPSHOT</version>
-    <name>jrawio</name>
+    <name>jrawio (master)</name>
 
     <url>http://jrawio.rawdarkroom.it</url>
     <description>Camera raw support in Java</description>
@@ -88,6 +88,7 @@
         <buildNumber>unknown</buildNumber>
         <buildNumberSep>.</buildNumberSep>
         <testFailureIgnore>false</testFailureIgnore>
+        <revision.stamp>.revision</revision.stamp>
     </properties>
 
     <repositories>
@@ -194,7 +195,7 @@
             <dependency>
                 <groupId>org.mockito</groupId>
                 <artifactId>mockito-all</artifactId>
-                <version>1.7</version>
+                <version>1.8.1</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -562,12 +563,7 @@
         </profile>
 
         <profile>
-            <id>hg</id>
-            <activation>
-                <file>
-                    <exists>.hg</exists>
-                </file>
-            </activation>
+            <id>generate-revision-id</id>
             <build>
                 <plugins>
                     <plugin>
@@ -575,7 +571,7 @@
                         <artifactId>exec-maven-plugin</artifactId>
                         <executions>
                             <execution>
-                                <id>create-hudson-env</id>
+                                <id>create-id</id>
                                 <phase>initialize</phase>
                                 <goals>
                                     <goal>exec</goal>
@@ -587,9 +583,9 @@
                                         <argument>--limit</argument>
                                         <argument>1</argument>
                                         <argument>--template</argument>
-                                        <argument>#!bin/sh\nexport REVISION="{tags} {node|short}"\n</argument>
+                                        <argument>REVISION: {tags} {node|short}\n</argument>
                                     </arguments>
-                                    <outputFile>hudson.env</outputFile>
+                                    <outputFile>${revision.stamp}</outputFile>
                                 </configuration>
                             </execution>
                             <execution>
@@ -605,7 +601,34 @@
                                         <argument>--limit</argument>
                                         <argument>1</argument>
                                         <argument>--template</argument>
-                                        <argument>REVISION {tags} {node|short}\n</argument>
+                                        <argument>REVISION: {tags} {node|short}\n</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>show-revision-id</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>show-revision</id>
+                                <phase>initialize</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>cat</executable>
+                                    <arguments>
+                                        <argument>${revision.stamp}</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
