@@ -14,7 +14,7 @@
     <version>1.6.2-SNAPSHOT</version>
     <name>jrawio (master)</name>
 
-    <url>http://jrawio.rawdarkroom.it</url>
+    <url>http://jrawio.rawdarkroom.org</url>
     <description>Camera raw support in Java</description>
     <organization>
         <name>Tidalwave s.a.s.</name>
