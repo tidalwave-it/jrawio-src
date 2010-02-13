@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: CSeriesRasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.orf;
@@ -39,7 +39,7 @@ import it.tidalwave.imageio.raw.RAWImageReaderSupport;
  * This class implements the ORF (Olympus raw Format) raster loading for C-series.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: CSeriesRasterReader.java 81 2008-08-24 08:44:10Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class CSeriesRasterReader extends ORFRasterReader

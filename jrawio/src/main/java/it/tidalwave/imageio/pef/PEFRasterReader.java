@@ -22,7 +22,7 @@
  *
  ***********************************************************************************************************************
  *
- * $Id: PEFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * $Id$
  *
  **********************************************************************************************************************/
 package it.tidalwave.imageio.pef;
@@ -34,7 +34,7 @@ import it.tidalwave.imageio.raw.RasterReader;
  * This class implements the PEF (Pentax raw Format) raster loading.
  * 
  * @author  Fabrizio Giudici
- * @version $Id: PEFRasterReader.java 57 2008-08-21 20:00:46Z fabriziogiudici $
+ * @version $Id$
  *
  **********************************************************************************************************************/
 public class PEFRasterReader extends RasterReader
