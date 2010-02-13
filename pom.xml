@@ -8,7 +8,7 @@
     * Project description
     *
     **************************************************************************************************************** -->
-    <groupId>it.tidalwave.imageio</groupId>
+    <groupId>org.rawdarkroom</groupId>
     <artifactId>jrawio</artifactId>
     <packaging>pom</packaging>
     <version>1.6.2-SNAPSHOT</version>
@@ -130,33 +130,33 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>it.tidalwave.imageio</groupId>
+                <groupId>org.rawdarkroom</groupId>
                 <artifactId>it.tidalwave.imageio.raw</artifactId>
                 <version>1.6.2-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>it.tidalwave.imageio</groupId>
+                <groupId>org.rawdarkroom</groupId>
                 <artifactId>codec</artifactId>
                 <version>1.6.2-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>it.tidalwave.imageio</groupId>
+                <groupId>org.rawdarkroom</groupId>
                 <artifactId>codec</artifactId>
                 <version>1.6.2-SNAPSHOT</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
-                <groupId>it.tidalwave.imageio</groupId>
+                <groupId>org.rawdarkroom</groupId>
                 <artifactId>processor</artifactId>
                 <version>1.6.2-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>it.tidalwave.imageio</groupId>
+                <groupId>org.rawdarkroom</groupId>
                 <artifactId>functional-tests</artifactId>
                 <version>1.6.2-SNAPSHOT</version>
             </dependency>
             <dependency>
-                <groupId>it.tidalwave.imageio</groupId>
+                <groupId>org.rawdarkroom</groupId>
                 <artifactId>it.tidalwave.imageio.raw</artifactId>
                 <version>1.6.2-SNAPSHOT</version>
             </dependency>

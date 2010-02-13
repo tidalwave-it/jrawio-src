@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>it.tidalwave.imageio</groupId>
+        <groupId>org.rawdarkroom</groupId>
         <artifactId>jrawio</artifactId>
         <version>1.6.2-SNAPSHOT</version>
         <relativePath>../..</relativePath>
@@ -16,13 +16,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>it.tidalwave.imageio</groupId>
+            <groupId>org.rawdarkroom</groupId>
             <artifactId>codec</artifactId>
             <!-- scope>provided</scope -->
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>it.tidalwave.imageio</groupId>
+            <groupId>org.rawdarkroom</groupId>
             <artifactId>processor</artifactId>
             <!-- scope>provided</scope -->
             <optional>true</optional>
