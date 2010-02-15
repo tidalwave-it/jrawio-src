@@ -116,15 +116,19 @@
 
     <distributionManagement>
         <repository>
-            <id>maven2-release-repository.jrawio.kenai.com</id>
-            <name>jrawio Maven Release Repository</name>
-            <url>dav:https://kenai.com/website/jrawio/maven-repository/releases/</url>
+            <id>staging-oss.sonatype.org</id>
+            <name>SonaType Release Repository</name>
+            <url>dav:http://oss.sonatype.org/service/local/staging/deploy/maven2</url>
         </repository>
         <snapshotRepository>
-            <id>maven2-snapshot-repository.tidalwave.it</id>
-            <name>Tidalwave Maven Snapshot Repository</name>
-            <url>https://services.tidalwave.it/nexus/content/repositories/snapshots</url>
+            <id>snapshots-oss.sonatype.org</id>
+            <name>SonaType Snapshot Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <site>
+            <id>website-jrawio.kenai.com</id>
+            <url>dav:https://kenai.com/website/jrawio/site/${project.version}</url>
+        </site>
     </distributionManagement>
 
     <dependencyManagement>
