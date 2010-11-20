@@ -111,11 +111,6 @@
                 <artifactId>functional-tests</artifactId>
                 <version>1.6.2-SNAPSHOT</version>
             </dependency>
-            <dependency>
-                <groupId>org.rawdarkroom</groupId>
-                <artifactId>it.tidalwave.imageio.raw</artifactId>
-                <version>1.6.2-SNAPSHOT</version>
-            </dependency>
 
             <dependency>
                 <groupId>com.google.code.findbugs</groupId>
