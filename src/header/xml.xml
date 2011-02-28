@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!--********************************************************************************************************************
 
-   Semantic - semantic components for blueMarine
-   Copyright (C) 2008-2011 by Tidalwave s.a.s.
+   jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+   Copyright (C) 2003-2011 by Tidalwave s.a.s.
 
   **********************************************************************************************************************
 
@@ -17,8 +17,8 @@
 
   **********************************************************************************************************************
 
-   WWW: http://bluemarine.tidalwave.it/semantic
-   SCM: https://kenai.com/hg/bluemarine~semantic-src
+   WWW: http://jrawio.rawdarkroom.org
+   SCM: https://kenai.com/hg/jrawio~src
 
 *********************************************************************************************************************-->
 <additionalHeaders>

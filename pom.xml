@@ -15,7 +15,7 @@
     <version>1.6.2-SNAPSHOT</version>
     <name>jrawio (master)</name>
     <url>http://jrawio.rawdarkroom.org</url>
-    <description>Camera raw support in Java</description>
+    <description>jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files</description>
     <inceptionYear>2003</inceptionYear>
 
     <issueManagement>
