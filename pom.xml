@@ -272,7 +272,7 @@
         <module>modules/processor</module>
         <module>modules/jrawio-all</module>
         <!-- module>functional-tests/tests</module -->
-        <module>functional-tests/jse</module>
+        <!-- module>functional-tests/jse</module FIXME-->
         <!-- module>examples</module-->
         <!-- FIXME module>modules/jrawio-nbm</module -->
     </modules>
