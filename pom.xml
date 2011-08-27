@@ -23,6 +23,12 @@
         <url>https://services.tidalwave.it/jira/browse/JRW</url>
     </issueManagement>
 
+    <properties>
+        <scm.repo.url>ssh://hg@bitbucket.org/tidalwave/jrawio-src</scm.repo.url>
+        <scm.repo.readonly.url>https://fabriziogiudici@bitbucket.org/tidalwave/jrawio-src</scm.repo.readonly.url>
+        <scm.repo.browse.url>https://bitbucket.org/tidalwave/jrawio-src/src</scm.repo.browse.url>
+    </properties>
+
     <mailingLists>
         <mailingList>
             <name>Continuous Integration</name>
@@ -45,13 +51,6 @@
             <archive>http://kenai.com/projects/jrawio/lists/users/archive</archive>
         </mailingList>
     </mailingLists>
-
-    <properties>
-        <developerConnection>scm:hg:${hg.repo.url}</developerConnection>
-        <scm.repo.url>https://kenai.com/hg/jrawio~src</scm.repo.url>
-        <scm.repo.readonly.url>http://kenai.com/hg/jrawio~src</scm.repo.readonly.url>
-        <scm.repo.browse.url>http://kenai.com/projects/jrawio/sources/src/show</scm.repo.browse.url>
-    </properties>
 
     <repositories>
         <!-- This provides the required versions of JAI-ImageIO -->
