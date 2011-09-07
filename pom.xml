@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.superpom</groupId>
         <artifactId>superpom</artifactId>
-        <version>1.6</version>
+        <version>1.7-SNAPSHOT</version>
     </parent>
 
     <groupId>org.rawdarkroom</groupId>
@@ -18,15 +18,15 @@
     <description>jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files</description>
     <inceptionYear>2003</inceptionYear>
 
-    <issueManagement>
-        <system>Jira</system>
-        <url>https://services.tidalwave.it/jira/browse/JRW</url>
-    </issueManagement>
-
     <properties>
         <scm.repo.url>ssh://hg@bitbucket.org/tidalwave/jrawio-src</scm.repo.url>
         <scm.repo.readonly.url>https://bitbucket.org/tidalwave/jrawio-src</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/jrawio-src/src</scm.repo.browse.url>
+        <tidalwave.ci.view>jrawio</tidalwave.ci.view>
+        <tidalwave.issues>JRW</tidalwave.issues>
+
+        <tft.javac.source>1.5</tft.javac.source> <!-- Android compatibility -->
+        <tft.javac.target>1.5</tft.javac.target>
     </properties>
 
     <mailingLists>
@@ -170,13 +170,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
