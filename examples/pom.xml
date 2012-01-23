@@ -7,7 +7,7 @@
         <groupId>org.rawdarkroom</groupId>
         <artifactId>jrawio</artifactId>
         <version>1.6.1-SNAPSHOT</version>
-        <relativePath>../..</relativePath>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>examples</artifactId>

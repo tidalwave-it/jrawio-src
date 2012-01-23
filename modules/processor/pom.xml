@@ -7,22 +7,17 @@
         <groupId>org.rawdarkroom</groupId>
         <artifactId>jrawio</artifactId>
         <version>1.6.2-SNAPSHOT</version>
-        <relativePath>../..</relativePath>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>processor</artifactId>
-    <packaging>jar</packaging>
+    <packaging>nbm</packaging>
     <name>jrawio - processor</name>
 
     <dependencies>
         <dependency>
             <groupId>org.rawdarkroom</groupId>
             <artifactId>codec</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.findbugs</groupId>
-            <artifactId>annotations</artifactId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.rawdarkroom</groupId>
@@ -35,9 +30,24 @@
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>nbm-maven-plugin</artifactId>
                 <configuration>
-                    <skip>true</skip>
+                    <publicPackages>
+                        <publicPackage>it.tidalwave.imageio.nef</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.arw</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.cr2</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.crw</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.dng</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.mrw</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.nef</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.orf</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.pef</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.raf</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.raw</publicPackage>
+                        <publicPackage>it.tidalwave.imageio.rawprocessor.srf</publicPackage>
+                    </publicPackages>
                 </configuration>
             </plugin>
         </plugins>

@@ -7,7 +7,7 @@
         <groupId>org.rawdarkroom</groupId>
         <artifactId>jrawio</artifactId>
         <version>1.6.2-SNAPSHOT</version>
-        <relativePath>../..</relativePath>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
     <artifactId>functional-tests-jse</artifactId>
@@ -17,7 +17,11 @@
     <dependencies>
         <dependency>
             <groupId>org.rawdarkroom</groupId>
-            <artifactId>it.tidalwave.imageio.raw</artifactId>
+            <artifactId>codec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.rawdarkroom</groupId>
+            <artifactId>processor</artifactId>
         </dependency>
         <dependency>
             <groupId>org.rawdarkroom</groupId>
