@@ -12,7 +12,7 @@
     <groupId>org.rawdarkroom</groupId>
     <artifactId>jrawio</artifactId>
     <packaging>pom</packaging>
-    <version>1.7-ALPHA-1-SNAPSHOT</version>
+    <version>1.7-ALPHA-1</version>
     <name>jrawio (master)</name>
     <url>http://jrawio.rawdarkroom.org</url>
     <description>jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files</description>
@@ -79,28 +79,28 @@
             <dependency>
                 <groupId>org.rawdarkroom</groupId>
                 <artifactId>it.tidalwave.imageio.raw</artifactId>
-                <version>1.7-ALPHA-1-SNAPSHOT</version>
+                <version>1.7-ALPHA-1</version>
             </dependency>
             <dependency>
                 <groupId>org.rawdarkroom</groupId>
                 <artifactId>codec</artifactId>
-                <version>1.7-ALPHA-1-SNAPSHOT</version>
+                <version>1.7-ALPHA-1</version>
             </dependency>
             <dependency>
                 <groupId>org.rawdarkroom</groupId>
                 <artifactId>codec</artifactId>
-                <version>1.7-ALPHA-1-SNAPSHOT</version>
+                <version>1.7-ALPHA-1</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>org.rawdarkroom</groupId>
                 <artifactId>processor</artifactId>
-                <version>1.7-ALPHA-1-SNAPSHOT</version>
+                <version>1.7-ALPHA-1</version>
             </dependency>
             <dependency>
                 <groupId>org.rawdarkroom</groupId>
                 <artifactId>functional-tests</artifactId>
-                <version>1.7-ALPHA-1-SNAPSHOT</version>
+                <version>1.7-ALPHA-1</version>
             </dependency>
 
             <dependency>
@@ -220,7 +220,7 @@
         <module>modules/codec</module>
         <module>modules/processor</module>
         <module>modules/jrawio-all</module>
-        <module>functional-tests/tests</module >
+        <module>functional-tests/tests</module>
         <!-- module>functional-tests/jse</module FIXME-->
         <!-- module>examples</module-->
         <!-- FIXME module>modules/jrawio-nbm</module -->
