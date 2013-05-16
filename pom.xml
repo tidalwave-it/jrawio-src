@@ -25,6 +25,7 @@
         <tidalwave.ci.view>jrawio</tidalwave.ci.view>
         <tidalwave.issues>JRW</tidalwave.issues>
 
+        <thesefoolishthings.version>1.26</thesefoolishthings.version>
         <libraries.version>1.1.5</libraries.version>
         <tft.javac.source>1.5</tft.javac.source> <!-- Android compatibility -->
         <tft.javac.target>1.5</tft.javac.target>
@@ -76,6 +77,14 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>thesefoolishthings</artifactId>
+                <version>${thesefoolishthings.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <dependency>
                 <groupId>org.rawdarkroom</groupId>
                 <artifactId>it.tidalwave.imageio.raw</artifactId>
@@ -144,6 +153,11 @@
             <scope>provided</scope>
         </dependency>
 
+        <dependency>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it-tidalwave-util-test</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
