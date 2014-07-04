@@ -13,7 +13,7 @@
     <groupId>org.rawdarkroom</groupId>
     <artifactId>jrawio</artifactId>
     <packaging>pom</packaging>
-    <version>1.7-ALPHA-2</version>
+    <version>1.7-ALPHA-3-SNAPSHOT</version>
     <name>jrawio (master)</name>
     <url>http://jrawio.rawdarkroom.org</url>
     <description>jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files</description>
@@ -74,7 +74,7 @@
         <connection>scm:hg:${scm.repo.readonly.url}</connection>
         <developerConnection>scm:hg:${scm.repo.effective.url}</developerConnection>
         <url>${scm.repo.browse.url}</url>
-      <tag>1.7-ALPHA-2</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <dependencyManagement>
@@ -90,28 +90,28 @@
             <dependency>
                 <groupId>org.rawdarkroom</groupId>
                 <artifactId>it.tidalwave.imageio.raw</artifactId>
-                <version>1.7-ALPHA-2</version>
+                <version>1.7-ALPHA-3-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.rawdarkroom</groupId>
                 <artifactId>codec</artifactId>
-                <version>1.7-ALPHA-2</version>
+                <version>1.7-ALPHA-3-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.rawdarkroom</groupId>
                 <artifactId>codec</artifactId>
-                <version>1.7-ALPHA-2</version>
+                <version>1.7-ALPHA-3-SNAPSHOT</version>
                 <classifier>tests</classifier>
             </dependency>
             <dependency>
                 <groupId>org.rawdarkroom</groupId>
                 <artifactId>processor</artifactId>
-                <version>1.7-ALPHA-2</version>
+                <version>1.7-ALPHA-3-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>org.rawdarkroom</groupId>
                 <artifactId>functional-tests</artifactId>
-                <version>1.7-ALPHA-2</version>
+                <version>1.7-ALPHA-3-SNAPSHOT</version>
             </dependency>
 
             <dependency>
