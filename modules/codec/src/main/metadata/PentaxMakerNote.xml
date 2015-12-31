@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********************************************************************************************************************
+
+   jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+   Copyright (C) 2003-2011 by Tidalwave s.a.s.
+
+  **********************************************************************************************************************
+
+   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+   the License. You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+   an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations under the License.
+
+  **********************************************************************************************************************
+
+   WWW: http://jrawio.rawdarkroom.org
+   SCM: https://kenai.com/hg/jrawio~src
+
+*********************************************************************************************************************-->
+<directory name="Pentax" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="Directory.xsd">
+    <tag>
+        <code>2</code>
+        <type>short</type>
+        <length>2</length>
+        <name>Preview Thumbnail Dimensions</name>
+        <example>640 480</example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>3</code>
+        <type>long</type>
+        <length>1</length>
+        <name>Preview Thumbnail Size</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4</code>
+        <type>long</type>
+        <length>1</length>
+        <name>Preview Thumbnail Offset</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>7</code>
+        <type>undefined</type>
+        <length>3</length>
+        <name>Digitized Time</name>
+        <example>11 53 49</example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>8</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Quality Mode</name>
+        <example></example>
+        <enumeration>
+            <item>
+                <value>1</value>
+                <description>Fine</description>
+            </item>
+            <item>
+                <value>2</value>
+                <description>Super Fine</description>
+            </item>
+        </enumeration>
+        <description></description>
+    </tag>
+    <tag>
+        <code>9</code>
+        <type>short</type>
+        <length>2</length>
+        <name>Image Size</name>
+        <example></example>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>640 x 480 pixels</description>
+            </item>
+            <item>
+                <value>4</value>
+                <description>1600 x 1200 pixels</description>
+            </item>
+            <item>
+                <value>5</value>
+                <description>2048 x 1536 pixels</description>
+            </item>
+            <item>
+                <value>20</value>
+                <description>2288 x 1712 pixels</description>
+            </item>
+            <item>
+                <value>21</value>
+                <description>2592 x 1944 pixels</description>
+            </item>
+            <item>
+                <value>22</value>
+                <description>2304 x 1728 pixels</description>
+            </item>
+            <item>
+                <value>36</value>
+                <description>3008 x 2008 pixels</description>
+            </item>
+        </enumeration>
+        <description></description>
+    </tag>
+    <tag>
+        <code>13</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Focus Mode</name>
+        <example></example>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>Normal</description>
+            </item>
+            <item>
+                <value>1</value>
+                <description>Macro</description>
+            </item>
+        </enumeration>
+        <description></description>
+    </tag>
+    <tag>
+        <code>20</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Iso Sensitivity</name>
+        <example></example>
+        <enumeration>
+            <item>
+                <value>3</value>
+                <description>ISO 50</description>
+            </item>
+            <item>
+                <value>4</value>
+                <description>ISO 64</description>
+            </item>
+            <item>
+                <value>6</value>
+                <description>ISO 100</description>
+            </item>
+            <item>
+                <value>9</value>
+                <description>ISO 200</description>
+            </item>
+        </enumeration>
+        <description></description>
+    </tag>
+    <tag>
+        <code>25</code>
+        <type>short</type>
+        <length>1</length>
+        <name>White Balance</name>
+        <example></example>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>Auto</description>
+            </item>
+            <item>
+                <value>1</value>
+                <description>Daylight</description>
+            </item>
+            <item>
+                <value>2</value>
+                <description>Shade</description>
+            </item>
+            <item>
+                <value>3</value>
+                <description>Tungsten</description>
+            </item>
+            <item>
+                <value>4</value>
+                <description>Fluorescent</description>
+            </item>
+            <item>
+                <value>5</value>
+                <description>Manual</description>
+            </item>
+        </enumeration>
+        <description></description>
+    </tag>
+    <tag>
+        <code>29</code>
+        <type>long</type>
+        <length>1</length>
+        <name>Focal Length</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>31</code>
+        <type>short</type>
+        <length>2</length>
+        <name>Saturation</name>
+        <example></example>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>-1</description>
+            </item>
+            <item>
+                <value>1</value>
+                <description>Normal</description>
+            </item>
+            <item>
+                <value>2</value>
+                <description>+1</description>
+            </item>
+        </enumeration>
+        <description></description>
+    </tag>
+    <tag>
+        <code>32</code>
+        <type>short</type>
+        <length>2</length>
+        <name>Contrast</name>
+        <example></example>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>-1</description>
+            </item>
+            <item>
+                <value>1</value>
+                <description>Normal</description>
+            </item>
+            <item>
+                <value>2</value>
+                <description>+1</description>
+            </item>
+        </enumeration>
+        <description></description>
+    </tag>
+    <tag>
+        <code>33</code>
+        <type>short</type>
+        <length>2</length>
+        <name>Sharpness</name>
+        <example></example>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>-1</description>
+            </item>
+            <item>
+                <value>1</value>
+                <description>Normal</description>
+            </item>
+            <item>
+                <value>2</value>
+                <description>+1</description>
+            </item>
+        </enumeration>
+        <description></description>
+    </tag>
+    <tag>
+        <code>56</code>
+        <type>short</type>
+        <length>2</length>
+        <name>Image Crop Corner</name>
+        <example>19 11</example>
+        <description>The position of the upper-left corner for croppin.</description>
+    </tag>
+    <tag>
+        <code>57</code>
+        <type>short</type>
+        <length>2</length>
+        <name>Image Crop Size</name>
+        <example>3008 2008</example>
+        <description>The crop size.</description>
+    </tag>
+    <tag>
+        <code>512</code>
+        <type>short</type>
+        <length>4</length>
+        <name>Black Level</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>513</code>
+        <type>short</type>
+        <length>4</length>
+        <name>White Balance Info</name>
+        <example></example>
+        <description>A block of data related to the white balance.</description>
+    </tag>
+    <tag>
+        <code>525</code>
+        <type>short</type>
+        <length>4</length>
+        <name>White Balance Info 2</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>526</code>
+        <type>short</type>
+        <length>4</length>
+        <name>White Balance Info 3</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>527</code>
+        <type>short</type>
+        <length>4</length>
+        <name>White Balance Info 4</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>528</code>
+        <type>short</type>
+        <length>4</length>
+        <name>White Balance Info 5</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>528</code>
+        <type>short</type>
+        <length>4</length>
+        <name>White Balance Info 6</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>529</code>
+        <type>short</type>
+        <length>4</length>
+        <name>White Balance Info 7</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>530</code>
+        <type>short</type>
+        <length>4</length>
+        <name>White Balance Info 8</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>531</code>
+        <type>short</type>
+        <length>4</length>
+        <name>White Balance Info 9</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>532</code>
+        <type>short</type>
+        <length>4</length>
+        <name>White Balance Info 10</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>544</code>
+        <type>undefined</type>
+        <length>99</length>
+        <name>Compression Info</name>
+        <example></example>
+        <description></description>
+    </tag>
+ </directory>
+

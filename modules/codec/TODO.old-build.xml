@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********************************************************************************************************************
+
+   jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+   Copyright (C) 2003-2011 by Tidalwave s.a.s.
+
+  **********************************************************************************************************************
+
+   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+   the License. You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+   an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations under the License.
+
+  **********************************************************************************************************************
+
+   WWW: http://jrawio.rawdarkroom.org
+   SCM: https://kenai.com/hg/jrawio~src
+
+*********************************************************************************************************************-->
+
+<project name="jrawio" default="jar" basedir=".">
+<!--
+    <target name="makedocs">
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=211" dest="ChangeLog.html"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=212" dest="README.html"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=213" dest="ReleaseNotes.html"/>
+    </target>
+
+    <target name="getdescriptors">
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=234" dest="${metadata.dir}/CanonCR2MakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=235" dest="${metadata.dir}/CanonCRWMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=240" dest="${metadata.dir}/KodakMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=236" dest="${metadata.dir}/MinoltaMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=239" dest="${metadata.dir}/Nikon3MakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=237" dest="${metadata.dir}/OlympusMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=241" dest="${metadata.dir}/PentaxMakerNote.xml"/>
+        <get src="http://www.tidalwave.it/infoglueDeliverLive/ViewPage.action?siteNodeId=238" dest="${metadata.dir}/SonyMakerNote.xml"/>
+    </target>
+-->
+
+    <target name="wiki">
+        <mkdir dir="${metadata.dir}/wiki"/>
+        <xslt in="${metadata.dir}/Nikon3MakerNote.xml"
+             out="${metadata.dir}/wiki/Nikon3MakerNote.wiki"
+           style="${metadata.dir}/xslt/DirectoryToWiki.xslt">
+        </xslt>
+    </target>
+
+</project>
+

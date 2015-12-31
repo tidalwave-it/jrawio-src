@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********************************************************************************************************************
+
+   jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+   Copyright (C) 2003-2011 by Tidalwave s.a.s.
+
+  **********************************************************************************************************************
+
+   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+   the License. You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+   an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations under the License.
+
+  **********************************************************************************************************************
+
+   WWW: http://jrawio.rawdarkroom.org
+   SCM: https://kenai.com/hg/jrawio~src
+
+*********************************************************************************************************************-->
+<directory name="SonySRF" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="Directory.xsd">
+    <tag>
+        <code>0</code>
+        <type>long</type>
+        <length>1</length>
+        <name>SRF2 Key</name>
+        <example></example>
+        <description>The key needed for deciphering the SRF2 IFD.</description>
+    </tag>
+    <tag>
+        <code>1</code>
+        <type>long</type>
+        <length>1</length>
+        <name>Raster Key</name>
+        <example></example>
+        <description>The key needed for deciphering the raster data.</description>
+    </tag>
+    <tag>
+        <code>4</code>
+        <type>long</type>
+        <length>1</length>
+        <name>Raster Offset</name>
+        <example></example>
+        <description>The offset of raster data.</description>
+    </tag>
+    <tag>
+        <code>5</code>
+        <type>long</type>
+        <length>1</length>
+        <name>Raster Byte Count</name>
+        <example></example>
+        <description>The size of raster data in bytes.</description>
+    </tag>
+    <tag>
+        <code>45099</code>
+        <type>long</type>
+        <length>2</length>
+        <name>Sensor Size</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>45100</code>
+        <type>long</type>
+        <length>2</length>
+        <name>Thumbnail Size</name>
+        <example></example>
+        <description></description>
+    </tag>
+ </directory>
+

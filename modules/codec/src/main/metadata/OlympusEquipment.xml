@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********************************************************************************************************************
+
+   jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+   Copyright (C) 2003-2011 by Tidalwave s.a.s.
+
+  **********************************************************************************************************************
+
+   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+   the License. You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+   an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations under the License.
+
+  **********************************************************************************************************************
+
+   WWW: http://jrawio.rawdarkroom.org
+   SCM: https://kenai.com/hg/jrawio~src
+
+*********************************************************************************************************************-->
+<directory name="OlympusEquipment" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="Directory.xsd">
+</directory>
+
+<!--
+>0x0000468=1128    :          <000000=    0> EquipmentInfoVersion        [7 =UNDEFINED     4]  = 48,49,48,48 = '0100'
+>0x0000474=1140    :          <0x0100=  256> FirmwareVersion2            [2 =ASCII         6]  = @0x1a82=6786
+>0x0000480=1152    :          <0x0101=  257> SerialNumber                [2 =ASCII        32]  = @0x1a88=6792
+>0x000048c=1164    :          <0x0102=  258> TAG_0x0102                  [2 =ASCII        32]  = @0x1aa8=6824
+>0x0000498=1176    :          <0x0103=  259> FocalPlaneDiagonal          [5 =RATIONAL      1]  = @0x1ac8=6856
+>0x00004a4=1188    :          <0x0104=  260> BodyFirmwareVersion         [4 =LONG          1]  = 4610
+>0x00004b0=1200    :          <0x0201=  513> Lens                        [1 =BYTE          6]  = @0x1ada=6874
+>0x00004bc=1212    :          <0x0202=  514> LensSerialNumber            [2 =ASCII        32]  = @0x1ae0=6880
+>0x00004c8=1224    :          <0x0204=  516> LensFirmwareVersion         [4 =LONG          1]  = 4100
+>0x00004d4=1236    :          <0x0205=  517> TAG_0x0205                  [3 =SHORT         1]  = 925
+>0x00004e0=1248    :          <0x0206=  518> MaxApertureAtMaxFocal       [3 =SHORT         1]  = 1273
+>0x00004ec=1260    :          <0x0207=  519> MinFocalLength              [3 =SHORT         1]  = 14
+>0x00004f8=1272    :          <0x0208=  520> MaxFocalLength              [3 =SHORT         1]  = 45
+>0x0000504=1284    :          <0x020a=  522> TAG_0x020a                  [3 =SHORT         1]  = 1145
+>0x0000510=1296    :          <0x020b=  523> TAG_0x020b                  [3 =SHORT         1]  = 49219
+>0x000051c=1308    :          <0x0301=  769> Extender                    [1 =BYTE          6]  = @0x1b38=6968
+>0x0000528=1320    :          <0x0302=  770> ExtenderSerialNumber        [2 =ASCII        32]  = @0x1b3e=6974
+>0x0000534=1332    :          <0x0303=  771> TAG_0x0303                  [2 =ASCII        32]  = @0x1b5e=7006
+>0x0000540=1344    :          <0x0304=  772> ExtenderFirmwareVersion     [4 =LONG          1]  = 0
+>0x000054c=1356    :          <0x1000= 4096> FlashType                   [3 =SHORT         1]  = 0 = 'None'
+>0x0000558=1368    :          <0x1001= 4097> FlashModel                  [3 =SHORT         1]  = 0 = 'unknown'
+>0x0000564=1380    :          <0x1002= 4098> TAG_0x1002                  [4 =LONG          1]  = 0
+>0x0000570=1392    :          <0x1003= 4099> FlashSerialNumber           [2 =ASCII        32]  = @0x1b8c=7052
+-->

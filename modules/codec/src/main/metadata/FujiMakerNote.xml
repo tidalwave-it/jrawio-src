@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********************************************************************************************************************
+
+   jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+   Copyright (C) 2003-2011 by Tidalwave s.a.s.
+
+  **********************************************************************************************************************
+
+   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+   the License. You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+   an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations under the License.
+
+  **********************************************************************************************************************
+
+   WWW: http://jrawio.rawdarkroom.org
+   SCM: https://kenai.com/hg/jrawio~src
+
+*********************************************************************************************************************-->
+<directory name="Fuji" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="Directory.xsd">
+
+    <tag>
+        <code>0</code>
+        <type>undefined</type>
+        <length>4</length>
+        <name>Version</name>
+        <description></description>
+    </tag>
+    <tag>
+        <code>16</code>
+        <type>ascii</type>
+        <length>40</length>
+        <name>Unknown16</name>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4096</code>
+        <type>ascii</type>
+        <length>1</length>
+        <name>Quality</name>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4097</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Sharpness</name>
+        <description></description>
+        <enumeration>
+            <item>
+                <value>3</value>
+                <description>Normal</description>
+            </item>
+        </enumeration>
+    </tag>
+    <tag>
+        <code>4098</code>
+        <type>short</type>
+        <length>1</length>
+        <name>White Balance</name>
+        <description></description>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>Auto</description>
+            </item>
+        </enumeration>
+    </tag>
+    <tag>
+        <code>4099</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Color</name>
+        <description></description>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>Standard</description>
+            </item>
+        </enumeration>
+    </tag>
+    <tag>
+        <code>4112</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Flash Mode</name>
+        <description></description>
+        <enumeration>
+            <item>
+                <value>2</value>
+                <description>Off</description>
+            </item>
+        </enumeration>
+    </tag>
+    <tag>
+        <code>4113</code>
+        <type>rational</type>
+        <length>1</length>
+        <name>Flash Strength</name>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4128</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Macro</name>
+        <description></description>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>Off</description>
+            </item>
+        </enumeration>
+    </tag>
+    <tag>
+        <code>4129</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Focus Mode</name>
+        <description></description>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>Auto</description>
+            </item>
+        </enumeration>
+    </tag>
+    <tag>
+        <code>4130</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Unknown4130</name>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4131</code>
+        <type>short</type>
+        <length>2</length>
+        <name>Unknown4131</name>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4144</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Slow Sync</name>
+        <description></description>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>Off</description>
+            </item>
+        </enumeration>
+    </tag>
+    <tag>
+        <code>4145</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Picture Mode</name>
+        <description></description>
+        <enumeration>
+            <item>
+                <value>6</value>
+                <description>Program Normal</description>
+            </item>
+        </enumeration>
+    </tag>
+    <tag>
+        <code>4146</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Unknown4146</name>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4352</code>
+        <type>short</type>
+        <length>1</length>
+        <name>ContTake Bracket</name>
+        <description></description>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>Off</description>
+            </item>
+        </enumeration>
+    </tag>
+    <tag>
+        <code>4353</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Unknown4353</name>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4608</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Unknown4608</name>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4624</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Unknown4624</name>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4864</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Blur Warning</name>
+        <description></description>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>Ok</description>
+            </item>
+        </enumeration>
+    </tag>
+    <tag>
+        <code>4865</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Focus Warning</name>
+        <description></description>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>Ok</description>
+            </item>
+        </enumeration>
+    </tag>
+    <tag>
+        <code>4866</code>
+        <type>short</type>
+        <length>1</length>
+        <name>AE Warning</name>
+        <description></description>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>Ok</description>
+            </item>
+        </enumeration>
+    </tag>
+    <tag>
+        <code>4867</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Unknown4867</name>
+        <description></description>
+    </tag>
+    <tag>
+        <code>5120</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Unknown5120</name>
+        <description></description>
+    </tag>
+    <tag>
+        <code>5128</code>
+        <type>undefined</type>
+        <length>4</length>
+        <name>Unknown5128</name>
+        <description></description>
+    </tag>
+    <tag>
+        <code>5129</code>
+        <type>undefined</type>
+        <length>4</length>
+        <name>Unknown5129</name>
+        <description></description>
+    </tag>
+    <tag>
+        <code>5130</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Unknown5130</name>
+        <description></description>
+    </tag>
+    <tag>
+        <code>16640</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Unknown16640</name>
+        <description></description>
+    </tag>
+</directory>
+

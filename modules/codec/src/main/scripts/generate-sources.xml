@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********************************************************************************************************************
+
+   jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+   Copyright (C) 2003-2011 by Tidalwave s.a.s.
+
+  **********************************************************************************************************************
+
+   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+   the License. You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+   an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations under the License.
+
+  **********************************************************************************************************************
+
+   WWW: http://jrawio.rawdarkroom.org
+   SCM: https://kenai.com/hg/jrawio~src
+
+*********************************************************************************************************************-->
+ 
+<project name="jrawio-generate-sources" default="generate-sources" basedir=".">
+    <description>Builds, tests, and runs the project jrawio.</description>
+   
+    <property name="src.dir" value="src/main/java"/>
+    <property name="tool.src.dir" value="src/tool"/>
+    <property name="build.dir" value="target"/>
+    <property name="build.classes.dir" value="${build.dir}/tool-classes"/>
+    <property name="metadata.dir" value="src/main/metadata"/>
+    <property name="metadata.dest" value="target/src-generated"/>
+
+    <target name="generate-sources">
+        <echo message="Auto-generating some sources..."/>
+        <mkdir dir="${metadata.dest}"/>
+
+        <xslt in="${metadata.dir}/Nikon3MakerNote.xml"
+              out="${metadata.dest}/it/tidalwave/imageio/nef/Nikon3MakerNoteSupport.java"
+              style="${metadata.dir}/xslt/DirectoryToJava.xslt">
+            <param name="serialVersionUID" expression="1237805638960118907L"/>
+            <param name="package" expression="it.tidalwave.imageio.nef"/>
+        </xslt>
+        <xslt in="${metadata.dir}/CanonCR2MakerNote.xml"
+              out="${metadata.dest}/it/tidalwave/imageio/cr2/CanonCR2MakerNoteSupport.java"
+              style="${metadata.dir}/xslt/DirectoryToJava.xslt">
+            <param name="serialVersionUID" expression="6347805638960118907L"/>
+            <param name="package" expression="it.tidalwave.imageio.cr2"/>
+        </xslt>
+        <xslt in="${metadata.dir}/LeicaMakerNote.xml"
+              out="${metadata.dest}/it/tidalwave/imageio/makernote/LeicaMakerNoteSupport.java"
+              style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="2517342348960118907L"/>
+            <param name="package" expression="it.tidalwave.imageio.makernote"/>
+        </xslt>
+        <xslt in="${metadata.dir}/SonyMakerNote.xml"
+              out="${metadata.dest}/it/tidalwave/imageio/srf/SonySRFMakerNoteSupport.java"
+              style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="3029403930493230394L"/>
+            <param name="package" expression="it.tidalwave.imageio.srf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/PentaxMakerNote.xml"
+            out="${metadata.dest}/it/tidalwave/imageio/pef/PentaxMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt">
+            <param name="serialVersionUID" expression="4059509303945039494L"/>
+            <param name="package" expression="it.tidalwave.imageio.pef"/>
+        </xslt>
+        <xslt in="${metadata.dir}/MinoltaMakerNote.xml"
+              out="${metadata.dest}/it/tidalwave/imageio/mrw/MinoltaMakerNoteSupport.java"
+              style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="4358973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.mrw"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusMakerNote.xml"
+            out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="7930973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusCameraSettings.xml"
+            out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusCameraSettingsMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="1050973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusEquipment.xml"
+            out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusEquipmentMakerNoteSupport.java" 
+            style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="2050973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusFocusInfo.xml"
+              out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusFocusInfoMakerNoteSupport.java"
+              style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="3050973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusImageProcessing.xml"
+              out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusImageProcessingMakerNoteSupport.java"
+              style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="4050973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/OlympusRawDevelopment.xml"
+              out="${metadata.dest}/it/tidalwave/imageio/orf/OlympusRawDevelopmentMakerNoteSupport.java"
+              style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="5050973459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.orf"/>
+        </xslt>
+        <xslt in="${metadata.dir}/KodakMakerNote.xml"
+              out="${metadata.dest}/it/tidalwave/imageio/dcr/KodakMakerNoteSupport.java"
+              style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="3049583459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.dcr"/>
+        </xslt>
+        <xslt in="${metadata.dir}/FujiMakerNote.xml"
+              out="${metadata.dest}/it/tidalwave/imageio/raf/FujiMakerNoteSupport.java"
+              style="${metadata.dir}/xslt/DirectoryToJava.xslt" >
+            <param name="serialVersionUID" expression="4390583459348573495L"/>
+            <param name="package" expression="it.tidalwave.imageio.raf"/>
+        </xslt>
+
+        <echo message="Auto-generating some sources (2)..."/>
+        <mkdir dir="${build.classes.dir}"/>
+        <javac srcdir="${tool.src.dir}"
+               destdir="${build.classes.dir}"
+               classpath="${javac.classpath}"
+               source="1.5"
+               target="1.5"
+               fork="true"
+               includes="IFDGenerator.java"
+               optimize="yes"
+               deprecation="on"
+               debug="on">
+        </javac>
+        <mkdir dir="${basedir}/${metadata.dest}" />
+        <java classname="IFDGenerator">
+            <arg value="${basedir}/${src.dir}" />
+            <arg value="${basedir}/${metadata.dest}" />
+            <classpath>
+                <pathelement path="${build.classes.dir}" />
+            </classpath>
+        </java>
+    </target>
+
+</project>
+

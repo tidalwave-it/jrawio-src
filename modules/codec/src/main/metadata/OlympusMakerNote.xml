@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********************************************************************************************************************
+
+   jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+   Copyright (C) 2003-2011 by Tidalwave s.a.s.
+
+  **********************************************************************************************************************
+
+   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+   the License. You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+   an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations under the License.
+
+  **********************************************************************************************************************
+
+   WWW: http://jrawio.rawdarkroom.org
+   SCM: https://kenai.com/hg/jrawio~src
+
+*********************************************************************************************************************-->
+<directory name="Olympus" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="Directory.xsd">
+    <tag>
+        <code>256</code>
+        <type>undefined</type>
+        <length>99</length>
+        <name>JpegThumbnail</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>512</code>
+        <type>long</type>
+        <length>3</length>
+        <name>SpecialMode</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>513</code>
+        <type>short</type>
+        <length>1</length>
+        <name>CompressionMode</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>514</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Macro</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>515</code>
+        <type>short</type>
+        <length>1</length>
+        <name>BWMode</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>516</code>
+        <type>rational</type>
+        <length>1</length>
+        <name>DigitalZoom</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>517</code>
+        <type>rational</type>
+        <length>1</length>
+        <name>FocalplaneDiagonal</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>519</code>
+        <type>ascii</type>
+        <length>1</length>
+        <name>SoftwareRelease</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>521</code>
+        <type>undefined</type>
+        <length>99</length>
+        <name>CameraID</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4111</code>
+        <type>short</type>
+        <length>1</length>
+        <name>SharpnessFactor</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4113</code>
+        <type>short</type>
+        <length>9</length>
+        <name>ColorMatrix</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4114</code>
+        <type>short</type>
+        <length>4</length>
+        <name>BlackLevel</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4119</code>
+        <type>short</type>
+        <length>2</length>
+        <name>RedBalance</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4120</code>
+        <type>short</type>
+        <length>2</length>
+        <name>BlueBalance</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4137</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Contrast</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4138</code>
+        <type>short</type>
+        <length>1</length>
+        <name>SharpnessFactor2</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4139</code>
+        <type>short</type>
+        <length>6</length>
+        <name>ColorControl</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4140</code>
+        <type>short</type>
+        <length>2</length>
+        <name>ValidBits</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4141</code>
+        <type>short</type>
+        <length>1</length>
+        <name>CoringFilter</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>4142</code>
+        <type>int</type>
+        <length>1</length>
+        <name>ImageWidth</name>
+        <example></example>
+        <description>The width of the image for E-500</description>
+    </tag>
+    <tag>
+        <code>4143</code>
+        <type>int</type>
+        <length>1</length>
+        <name>ImageHeight</name>
+        <example></example>
+        <description>The height of the image for E-500</description>
+    </tag>
+    <tag>
+        <code>8208</code>
+        <type>int</type>
+        <length>1</length>
+        <name>Equipment</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>8224</code>
+        <type>int</type>
+        <length>1</length>
+        <name>CameraSettings</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>8240</code>
+        <type>int</type>
+        <length>1</length>
+        <name>RawDevelopment</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>8256</code>
+        <type>int</type>
+        <length>1</length>
+        <name>ImageProcessing</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>8272</code>
+        <type>int</type>
+        <length>1</length>
+        <name>FocusInfo</name>
+        <example></example>
+        <description></description>
+    </tag>
+</directory>
+

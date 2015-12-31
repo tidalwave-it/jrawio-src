@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--********************************************************************************************************************
+
+   jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+   Copyright (C) 2003-2011 by Tidalwave s.a.s.
+
+  **********************************************************************************************************************
+
+   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+   the License. You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+   an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations under the License.
+
+  **********************************************************************************************************************
+
+   WWW: http://jrawio.rawdarkroom.org
+   SCM: https://kenai.com/hg/jrawio~src
+
+*********************************************************************************************************************-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  
+    <xsd:element name="directory">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="tag" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="code">
+                                <xsd:complexType>
+                                    <xsd:simpleContent>
+                                        <xsd:extension base="xsd:nonNegativeInteger">
+                                            <xsd:attribute name="base" type="xsd:positiveInteger" default="10"/>
+                                        </xsd:extension>
+                                    </xsd:simpleContent>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="type">  
+                                <xsd:simpleType>                                    
+                                    <xsd:restriction base="xsd:string">
+                                        <xsd:enumeration value="byte"/>
+                                        <xsd:enumeration value="signed byte"/>
+                                        <xsd:enumeration value="short"/>
+                                        <xsd:enumeration value="signed short"/>
+                                        <xsd:enumeration value="int"/>
+                                        <xsd:enumeration value="signed int"/>
+                                        <xsd:enumeration value="long"/>
+                                        <xsd:enumeration value="signed long"/>
+                                        <xsd:enumeration value="float"/>
+                                        <xsd:enumeration value="double"/>
+                                        <xsd:enumeration value="rational"/>
+                                        <xsd:enumeration value="signed rational"/>
+                                        <xsd:enumeration value="ascii"/>
+                                        <xsd:enumeration value="undefined"/>
+                                    </xsd:restriction> 
+                                </xsd:simpleType>
+                            </xsd:element>            
+                            <xsd:element name="length" type="xsd:positiveInteger"  minOccurs="0"/>
+                            <xsd:element name="name" type="xsd:string"/>
+                            <xsd:element name="example" type="xsd:string"/>
+                            <xsd:element name="models" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="model" type="xsd:string"/>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="enumeration" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="item" maxOccurs="unbounded">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="value">
+                                                        <xsd:complexType>
+                                                            <xsd:simpleContent>
+                                                                <xsd:extension base="xsd:string">
+                                                                    <xsd:attribute name="base" type="xsd:positiveInteger" default="10"/>
+                                                                </xsd:extension>
+                                                            </xsd:simpleContent>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                    <xsd:element name="identifier" type="xsd:string"  minOccurs="0"/>
+                                                    <xsd:element name="short-description" type="xsd:string"  minOccurs="0"/>
+                                                    <xsd:element name="description" type="xsd:string"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="bitmask" minOccurs="0">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                        <xsd:element name="item" maxOccurs="unbounded">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="value">
+                                                        <xsd:complexType>
+                                                            <xsd:simpleContent>
+                                                                <xsd:extension base="xsd:string">
+                                                                    <xsd:attribute name="base" type="xsd:positiveInteger" default="10"/>
+                                                                </xsd:extension>
+                                                            </xsd:simpleContent>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                    <xsd:element name="identifier" type="xsd:string"/>
+                                                    <xsd:element name="short-description" type="xsd:string"/>
+                                                    <xsd:element name="description" type="xsd:string"/>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                            <xsd:element name="description" type="xsd:string"/>
+                        </xsd:sequence>
+                        <xsd:attribute name="status" default="good">  
+                            <xsd:simpleType>                                    
+                                <xsd:restriction base="xsd:string">
+                                    <xsd:enumeration value="unknown"/>
+                                    <xsd:enumeration value="uncertain"/>
+                                    <xsd:enumeration value="incomplete"/>
+                                    <xsd:enumeration value="volatile"/>
+                                    <xsd:enumeration value="good"/>
+                                </xsd:restriction> 
+                            </xsd:simpleType>
+                        </xsd:attribute>            
+                    </xsd:complexType>
+                </xsd:element>                
+            </xsd:sequence>
+            <xsd:attribute name="name" type="xsd:string" use="required"/>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
