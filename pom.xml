@@ -33,43 +33,6 @@
         <tft.javac.target>1.5</tft.javac.target>
     </properties>
 
-    <mailingLists>
-        <mailingList>
-            <name>Continuous Integration</name>
-            <post>ci@jrawio.kenai.com</post>
-            <archive>http://kenai.com/projects/jrawio/lists/ci/archive</archive>
-        </mailingList>
-        <mailingList>
-            <name>Commits</name>
-            <post>commits@jrawio.kenai.com</post>
-            <archive>http://kenai.com/projects/jrawio/lists/commits/archive</archive>
-        </mailingList>
-        <mailingList>
-            <name>Developers</name>
-            <post>dev@jrawio.kenai.com</post>
-            <archive>http://kenai.com/projects/jrawio/lists/dev/archive</archive>
-        </mailingList>
-        <mailingList>
-            <name>Users</name>
-            <post>users@jrawio.kenai.com</post>
-            <archive>http://kenai.com/projects/jrawio/lists/users/archive</archive>
-        </mailingList>
-    </mailingLists>
-
-    <repositories>
-        <repository>
-            <id>snapshots-oss.sonatype.org</id>
-            <name>Sonatype Snapshot Repository</name>
-            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
     <scm>
         <connection>scm:git:${scm.repo.readonly.url}</connection>
@@ -213,13 +176,6 @@
                         </property>
                     </systemProperties>
                 </configuration>
-            </plugin>
-
-            <!-- Needed for setting that inherited = false -->
-            <plugin>
-                <groupId>com.mycila.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
-                <inherited>false</inherited>
             </plugin>
         </plugins>
     </build>
