@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********************************************************************************************************************
+
+   jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+   Copyright (C) 2003 - 2016 by Tidalwave s.a.s.
+
+  **********************************************************************************************************************
+
+   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+   the License. You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+   an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations under the License.
+
+  **********************************************************************************************************************
+
+   WWW: http://jrawio.rawdarkroom.org
+   SCM: https://kenai.com/hg/jrawio~src
+
+*********************************************************************************************************************-->
+<directory name="Minolta" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="Directory.xsd">
+    <tag>
+        <code>0</code>
+        <type>undefined</type>
+        <length>4</length>
+        <name>Block Descriptor</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>1</code>
+        <type>undefined</type>
+        <length>99</length>
+        <name>Camera Settings</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>16</code>
+        <type>undefined</type>
+        <length>99</length>
+        <name>Autofocus Related</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>32</code>
+        <type>undefined</type>
+        <length>99</length>
+        <name>Unknown</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>64</code>
+        <type>long</type>
+        <length>1</length>
+        <name>Raster Data Size</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>129</code>
+        <type>long</type>
+        <length>1</length>
+        <name>Thumbnail</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>136</code>
+        <type>long</type>
+        <length>1</length>
+        <name>JpegThumbnailOffset</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>137</code>
+        <type>long</type>
+        <length>1</length>
+        <name>JpegThumbnailLength</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>3584</code>
+        <type>undefined</type>
+        <length>40</length>
+        <name>Epson PIM Info</name>
+        <example></example>
+        <description></description>
+    </tag>
+</directory>
+
