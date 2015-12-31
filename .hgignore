@@ -1,9 +1,0 @@
-target
-.repository
-.description
-.DS_Store
-\.orig\..*$
-\.orig$
-\.chg\..*$
-\.rej$
-\.conflict\~$
