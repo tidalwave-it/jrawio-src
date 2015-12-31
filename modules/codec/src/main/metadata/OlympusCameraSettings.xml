@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********************************************************************************************************************
+
+   jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+   Copyright (C) 2003 - 2016 by Tidalwave s.a.s.
+
+  **********************************************************************************************************************
+
+   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+   the License. You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+   an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations under the License.
+
+  **********************************************************************************************************************
+
+   WWW: http://jrawio.rawdarkroom.org
+   SCM: https://kenai.com/hg/jrawio~src
+
+*********************************************************************************************************************-->
+<directory name="OlympusCameraSettings" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="Directory.xsd">
+    <tag>
+        <code>257</code>
+        <type>int</type>
+        <length>1</length>
+        <name>ThumbnailOffset</name>
+        <example></example>
+        <description></description>
+    </tag>
+    <tag>
+        <code>258</code>
+        <type>int</type>
+        <length>1</length>
+        <name>ThumbnailSize</name>
+        <example></example>
+        <description></description>
+    </tag>
+</directory>
+
+<!--
+>0x0000582=1410    :          <000000=    0> CameraSettingsVersion       [7 =UNDEFINED     4]  = 48,49,48,48 = '0100'
+>0x000058e=1422    :          <0x0100=  256> PreviewImageValid           [4 =LONG          1]  = 1 = 'yes'
+>0x000059a=1434    :          <0x0101=  257> PreviewImageOffset          [4 =LONG          1]  = @0x6000=24576
+>0x00005a6=1446    :          <0x0102=  258> PreviewImageLength          [4 =LONG          1]  = 404649
+>0x00005b2=1458    :          <0x0200=  512> ExposureMode                [3 =SHORT         1]  = 2 = 'unknown'
+>0x00005be=1470    :          <0x0201=  513> TAG_0x0201                  [3 =SHORT         1]  = 0
+>0x00005ca=1482    :          <0x0202=  514> MeteringMode                [3 =SHORT         1]  = 261 = 'unknown'
+>0x00005d6=1494    :          <0x0300=  768> MacroMode                   [3 =SHORT         1]  = 0 = 'Off'
+>0x00005e2=1506    :          <0x0301=  769> FocusMode                   [3 =SHORT         1]  = 0 = 'Single AF'
+>0x00005ee=1518    :          <0x0302=  770> FocusProcess                [3 =SHORT         1]  = 1 = 'AF On'
+>0x00005fa=1530    :          <0x0303=  771> AFSearch                    [3 =SHORT         1]  = 1 = 'Ready'
+>0x0000606=1542    :          <0x0304=  772> AFAreas                     [4 =LONG         64]  = @0x1bcc=7116
+>0x0000612=1554    :          <0x0400= 1024> FlashMode                   [3 =SHORT         1]  = 0
+>0x000061e=1566    :          <0x0401= 1025> FlashExposureCompensation   [10=SRATIONAL     1]  = @0x1cd0=7376
+>0x000062a=1578    :          <0x0402= 1026> TAG_0x0402                  [3 =SHORT         1]  = 0
+>0x0000636=1590    :          <0x0500= 1280> TAG_0x0500                  [3 =SHORT         1]  = 18
+>0x0000642=1602    :          <0x0501= 1281> WhiteBalanceTemperature     [3 =SHORT         1]  = 5300
+>0x000064e=1614    :          <0x0502= 1282> WhiteBalanceBracket         [8 =SSHORT        2]  = 0,0
+>0x000065a=1626    :          <0x0503= 1283> CustomSaturation            [8 =SSHORT        3]  = @0x1ce2=7394
+>0x0000666=1638    :          <0x0504= 1284> ModifiedSaturation          [3 =SHORT         1]  = 0 = 'Off'
+>0x0000672=1650    :          <0x0505= 1285> ContrastSetting             [8 =SSHORT        3]  = @0x1cea=7402
+>0x000067e=1662    :          <0x0506= 1286> SharpnessSetting            [8 =SSHORT        3]  = @0x1cf0=7408
+>0x000068a=1674    :          <0x0507= 1287> ColorSpace                  [3 =SHORT         1]  = 0 = 'sRGB'
+>0x0000696=1686    :          <0x0508= 1288> TAG_0x0508                  [3 =SHORT         1]  = 0
+>0x00006a2=1698    :          <0x0509= 1289> SceneMode                   [3 =SHORT         1]  = 10 = 'Landscape'
+>0x00006ae=1710    :          <0x050a= 1290> NoiseReduction              [3 =SHORT         1]  = 0 = 'Off'
+>0x00006ba=1722    :          <0x050b= 1291> DistortionCorrection        [3 =SHORT         1]  = 0 = 'Off'
+>0x00006c6=1734    :          <0x050c= 1292> ShadingCompensation         [3 =SHORT         1]  = 1 = 'On'
+>0x00006d2=1746    :          <0x050e= 1294> TAG_0x050e                  [3 =SHORT         1]  = 1
+>0x00006de=1758    :          <0x050f= 1295> Gradation                   [8 =SSHORT        3]  = @0x1d0a=7434
+>0x00006ea=1770    :          <0x0520= 1312> TAG_0x0520                  [3 =SHORT         1]  = 1
+>0x00006f6=1782    :          <0x0521= 1313> TAG_0x0521                  [8 =SSHORT        3]  = @0x1d14=7444
+>0x0000702=1794    :          <0x0522= 1314> TAG_0x0522                  [3 =SHORT         1]  = 0
+>0x000070e=1806    :          <0x0523= 1315> TAG_0x0523                  [8 =SSHORT        3]  = @0x1d1c=7452
+>0x000071a=1818    :          <0x0524= 1316> TAG_0x0524                  [8 =SSHORT        3]  = @0x1d22=7458
+>0x0000726=1830    :          <0x0525= 1317> TAG_0x0525                  [8 =SSHORT        1]  = 0
+>0x0000732=1842    :          <0x0526= 1318> TAG_0x0526                  [8 =SSHORT        1]  = 0
+>0x000073e=1854    :          <0x0600= 1536> Sequence                    [3 =SHORT         3]  = @0x1d2c=7468
+>0x000074a=1866    :          <0x0603= 1539> ImageQuality2               [3 =SHORT         1]  = 4 = 'RAW1'
+>0x0000756=1878    :          <0x0800= 2048> TAG_0x0800                  [3 =SHORT         1]  = 0
+
+-->

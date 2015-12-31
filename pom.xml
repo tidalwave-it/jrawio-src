@@ -3,499 +3,244 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- ***************************************************************************************************************
-    *
-    * Project description
-    *
-    **************************************************************************************************************** -->
-    <groupId>it.tidalwave.imageio</groupId>
-    <artifactId>jrawio-all</artifactId>
-    <packaging>pom</packaging>
-    <version>1.5.5-SNAPSHOT</version>
-    <name>jrawio-all</name>
+    <parent>
+        <groupId>it.tidalwave.superpom</groupId>
+        <artifactId>superpom</artifactId>
+        <version>3.3</version>
+        <relativePath />
+    </parent>
 
-    <url>http://jrawio.tidalwave.it</url>
-    <description>Camera raw support in Java</description>
-    <organization>
-        <name>Tidalwave s.a.s.</name>
-        <url>http://www.tidalwave.it</url>
-    </organization>
+    <groupId>org.rawdarkroom</groupId>
+    <artifactId>jrawio</artifactId>
+    <packaging>pom</packaging>
+    <version>1.7-ALPHA-3-SNAPSHOT</version>
+    <name>jrawio</name>
+    <url>http://jrawio.rawdarkroom.org</url>
+    <description>jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files</description>
     <inceptionYear>2003</inceptionYear>
 
-    <issueManagement>
-        <system>Jira</system>
-        <url>https://services.tidalwave.it/jira/browse/JRW</url>
-    </issueManagement>
+    <properties>
+        <tft.scm>git</tft.scm>
+        <scm.repo.url>ssh://git@bitbucket.org/tidalwave/jrawio-src</scm.repo.url>
+        <scm.repo.readonly.url>https://bitbucket.org/tidalwave/jrawio-src.git</scm.repo.readonly.url>
+        <scm.repo.browse.url>https://bitbucket.org/tidalwave/jrawio-src/src</scm.repo.browse.url>
+        <tidalwave.ci.view>jrawio</tidalwave.ci.view>
+        <tidalwave.issues>JRW</tidalwave.issues>
 
-    <scm>
-        <connection>scm:hg:http://kenai.com/hg/jrawio~src</connection>
-        <developerConnection>scm:hg:https://kenai.com/hg/jrawio~src</developerConnection>
-        <url>http://kenai.com/projects/jrawio/sources/src/show</url>
-    </scm>
-
-    <developers>
-        <developer>
-            <name>Fabrizio Giudici</name>
-            <email>fabrizio.giudici@tidalwave.it</email>
-            <url>http://www.tidalwave.it/people</url>
-            <organization>Tidalwave s.a.s.</organization>
-            <organizationUrl>http://www.tidalwave.it</organizationUrl>
-            <roles>
-                <role>manager</role>
-                <role>developer</role>
-            </roles>
-            <timezone>+1</timezone>
-        </developer>
-    </developers>
+        <thesefoolishthings.version>1.26</thesefoolishthings.version>
+        <libraries.version>1.1.5</libraries.version>
+        <tft.javac.source>1.5</tft.javac.source> <!-- Android compatibility -->
+        <tft.javac.target>1.5</tft.javac.target>
+    </properties>
 
     <mailingLists>
         <mailingList>
-            <name>Commits</name>
-            <post>commits@jrawio.dev.java.net</post>
-            <archive>https://jrawio.dev.java.net/servlets/SummarizeList?listName=commits</archive>
+            <name>Continuous Integration</name>
+            <post>ci@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/ci/archive</archive>
         </mailingList>
         <mailingList>
-            <name>Dev</name>
-            <post>dev@jrawio.dev.java.net</post>
-            <archive>https://jrawio.dev.java.net/servlets/SummarizeList?listName=dev</archive>
+            <name>Commits</name>
+            <post>commits@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/commits/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Developers</name>
+            <post>dev@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/dev/archive</archive>
+        </mailingList>
+        <mailingList>
+            <name>Users</name>
+            <post>users@jrawio.kenai.com</post>
+            <archive>http://kenai.com/projects/jrawio/lists/users/archive</archive>
         </mailingList>
     </mailingLists>
 
-    <licenses>
-        <license>
-            <name>ASF 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <bundle.namespace>${pom.groupId}.${pom.artifactId}</bundle.namespace>
-    </properties>
-
     <repositories>
         <repository>
-            <id>maven2-repository.tidalwave.kenai.com</id>
-            <name>Tidalwave Maven Release Repository</name>
-            <url>https://kenai.com/svn/tidalwave~maven-repo/release/2</url>
-        </repository>
-        <repository>
-            <id>maven2-aux-repository.tidalwave.kenai.com</id>
-            <name>Tidalwave Maven Aux Repository</name>
-            <url>https://kenai.com/svn/tidalwave~maven-repo/aux/2</url>
+            <id>snapshots-oss.sonatype.org</id>
+            <name>Sonatype Snapshot Repository</name>
+            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
-    <distributionManagement>
-        <repository>
-            <id>maven2-repository.tidalwave.kenai.com</id>
-            <name>Tidalwave Maven Release Repository</name>
-            <url>svn:https://kenai.com/svn/tidalwave~maven-repo/release/2</url>
-            <uniqueVersion>false</uniqueVersion>
-        </repository>
-        <snapshotRepository>
-            <id>maven2-snapshot-repository.tidalwave.kenai.com</id>
-            <name>Tidalwave Maven Snapshot Repository</name>
-            <url>svn:https://kenai.com/svn/tidalwave~maven-repo/snapshot/2</url>
-            <uniqueVersion>true</uniqueVersion>
-        </snapshotRepository>
-    </distributionManagement>
+    <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
+    <scm>
+        <connection>scm:git:${scm.repo.readonly.url}</connection>
+        <developerConnection>scm:git:${scm.repo.effective.url}</developerConnection>
+        <url>${scm.repo.browse.url}</url>
+      <tag>HEAD</tag>
+  </scm>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>thesefoolishthings</artifactId>
+                <version>${thesefoolishthings.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.rawdarkroom</groupId>
+                <artifactId>it.tidalwave.imageio.raw</artifactId>
+                <version>1.7-ALPHA-3-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.rawdarkroom</groupId>
+                <artifactId>codec</artifactId>
+                <version>1.7-ALPHA-3-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.rawdarkroom</groupId>
+                <artifactId>codec</artifactId>
+                <version>1.7-ALPHA-3-SNAPSHOT</version>
+                <classifier>tests</classifier>
+            </dependency>
+            <dependency>
+                <groupId>org.rawdarkroom</groupId>
+                <artifactId>processor</artifactId>
+                <version>1.7-ALPHA-3-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>org.rawdarkroom</groupId>
+                <artifactId>functional-tests</artifactId>
+                <version>1.7-ALPHA-3-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>it.tidalwave.superpom</groupId>
+                <artifactId>libraries</artifactId>
+                <version>${libraries.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.findbugs</groupId>
+                <artifactId>annotations</artifactId>
+                <version>1.3.2</version>
+            </dependency>
+            <dependency>                
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>it.tidalwave.thesefoolishthings</groupId>
+                <artifactId>it-tidalwave-util-logging-singlelinelogformatter</artifactId>
+                <version>1.1.12</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.media</groupId>
+                <artifactId>jai_imageio</artifactId>
+                <version>1.1</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>1.3.7</version>
-            <!-- WARNING: don't use 1.3.8, it has got a broken pom which brings is tons of useless stuff! -->
+            <groupId>com.kenai.nbpwr</groupId>
+            <artifactId>javax-annotation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.findbugs</groupId>
+            <artifactId>annotations</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>it.tidalwave.thesefoolishthings</groupId>
+            <artifactId>it-tidalwave-util-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.7</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>1.7</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>1.4</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>it.tidalwave.thesefoolishthings</groupId>
-            <artifactId>it.tidalwave.singlelinelogformatter</artifactId>
-            <version>1.0.2</version>
+            <artifactId>it-tidalwave-util-logging-singlelinelogformatter</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.sun.media</groupId>
             <artifactId>jai_imageio</artifactId>
-            <version>1.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>default</id>
-            <properties>
-                <buildNumber>unknown</buildNumber>
-                <!-- maven.test.skip.exec>true</maven.test.skip.exec -->
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>hudson</id>
-            <properties>
-                <buildNumber>unknown</buildNumber>
-            </properties>
-        </profile>
-        <profile>
-            <id>fritz</id>
-            <properties>
-                <buildNumber>unknown</buildNumber>
-                <testset.cached.folder>/Users/fritz/Business/Tidalwave/Projects/TestCacheFolder</testset.cached.folder>
-            </properties>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-        </profile>
-    </profiles>
-
-    <!-- ***************************************************************************************************************
-    *
-    *
-    *
-    **************************************************************************************************************** -->
     <build>
-        <!-- For buildNumber to be properly evaluated by assembly:assembly, use also the validate goal -->
-        <finalName>${project.artifactId}-${project.version}.${buildNumber}</finalName>
-       
-        <extensions>
-            <extension>
-                <groupId>org.jvnet.wagon-svn</groupId>
-                <artifactId>wagon-svn</artifactId>
-                <version>1.9</version>
-            </extension>
-        </extensions>
- 
-        <resources>
-            <resource>
-                <filtering>true</filtering>
-                <directory>src/main/resources/</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </resource>
-        </resources>
-
-        <!-- ***********************************************************************************************************
-        *
-        * We want reproducible builds, so all Maven plugins have explicit version numbers.
-        *
-        ************************************************************************************************************ -->
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.0.2</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.5</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>2.2-beta-2</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.4.2</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.2</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-pmd-plugin</artifactId>
-                    <version>2.3</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.2</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.3</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-shade-plugin</artifactId>
-                    <version>1.2.1</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>2.0-beta-8</version>
-                </plugin>
-
-<!--
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>buildnumber-maven-plugin</artifactId>
-                    <version>1.0-beta-1</version>
-                </plugin>
--->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>nbm-maven-plugin</artifactId>
-                    <version>3.0</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>cobertura-maven-plugin</artifactId>
-                    <version>2.2</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>findbugs-maven-plugin</artifactId>
-                    <version>2.0</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>1.3</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.felix</groupId>
-                    <artifactId>maven-bundle-plugin</artifactId>
-                    <version>1.4.0</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
-        <!-- ***********************************************************************************************************
-        *
-        *
-        *
-        ************************************************************************************************************ -->
         <plugins>
-            <!-- Compiler -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <debug>true</debug>
-                    <optimize>true</optimize>
-                    <source>1.5</source>
-                    <target>1.5</target>
-                    <showDeprecation>true</showDeprecation>
-                    <showWarnings>true</showWarnings>
-                </configuration>
-            </plugin>
-
-            <!-- Assembler to produce final artifacts. Creates a -bin and -project (source) tarball. -->
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptors>
-                        <descriptor>etc/bin.xml</descriptor>
-                        <descriptor>etc/project.xml</descriptor>
-                    </descriptors>
-                </configuration>
-            </plugin>
-
-            <!-- Retrieves the 4th build number from Subversion revision. -->
-<!--
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <doCheck>false</doCheck>
-                    <doUpdate>false</doUpdate>
-                </configuration>
-            </plugin>
--->
-            <!-- Executes tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <!-- Don't fail, or it won't produce the tests artifact and won't compile
-                         tests of other modules depending on the current. -->
-                    <testFailureIgnore>true</testFailureIgnore>
-                    <includes>
-                        <include>**/*Test.java</include>
-                    </includes>
                     <systemProperties>
                         <property>
                             <name>testset.cached.folder</name>
                             <value>${testset.cached.folder}</value>
                         </property>
+                        <property>
+                            <name>testExecutors</name>
+                            <value>${testExecutors}</value>
+                        </property>
+                        <property>
+                            <name>jrawio.dumpImageAsTIFF</name>
+                            <value>${jrawio.dumpImageAsTIFF}</value>
+                        </property>
+                        <property>
+                            <name>jrawio.dumpRasterAsText</name>
+                            <value>${jrawio.dumpRasterAsText}</value>
+                        </property>
                     </systemProperties>
-                    <argLine>-Xmx768M</argLine>
                 </configuration>
             </plugin>
 
-            <!-- Produces the JARs, with OSGi support and the Subversion revision in the Manifest -->
+            <!-- Needed for setting that inherited = false -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <useDefaultManifestFile>true</useDefaultManifestFile> <!-- required since nbm-plugin 3.0-->
-                    <archive>
-                        <!-- Needed to put the OSGi stuff -->
-                        <!-- manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile -->
-                        <manifestEntries>
-                            <Implementation-Build>${buildNumber}</Implementation-Build>
-                        </manifestEntries>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Produces the NBMs for the NetBeans Platform -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>nbm-maven-plugin</artifactId>
-                <extensions>true</extensions>
-            </plugin>
-            
-            <!-- Produces the OSGi bundle information. -->
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <id>bundle-manifest</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Cobertura support -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <configuration>
-                    <instrumentation>
-                        <excludes>
-                            <exclude>it/tidalwave/imageio/io/*.class</exclude>
-                            <exclude>it/tidalwave/imageio/decoder/*.class</exclude>
-                            <exclude>it/tidalwave/imageio/cr2/CR2RasterReader.class</exclude>
-                        </excludes>
-                    </instrumentation>
-                    <formats>
-                        <format>xml</format>
-                        <format>html</format>
-                    </formats>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>cobertura</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <configuration>
-                    <arguments>-Dmaven.test.skip.exec=true -DbuildNumber=${buildNumber} -Dtestset.cached.folder=${testset.cached.folder}</arguments>
-                </configuration>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <inherited>false</inherited>
             </plugin>
         </plugins>
     </build>
 
-    <!-- ***************************************************************************************************************
-    *
-    *
-    *
-    **************************************************************************************************************** -->
-    <reporting>
-        <plugins>
-            <!-- FindBugs support -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <configuration>
-                    <xmlOutput>true</xmlOutput>
-                    <threshold>Low</threshold>
-                    <effort>Max</effort>
-                    <debug>false</debug>
-                    <relaxed>false</relaxed>
-                    <findbugsXmlOutput>true</findbugsXmlOutput>
-                </configuration>
-            </plugin>
+    <profiles>
+        <profile>
+            <id>dumpImageAsTIFF</id>
+            <properties>
+                <jrawio.dumpImageAsTIFF>true</jrawio.dumpImageAsTIFF>
+            </properties>
+        </profile>
+    </profiles>
 
-            <!-- PMD support -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <configuration>
-                    <targetJdk>1.5</targetJdk>
-                </configuration>
-            </plugin>
-
-            <!-- CheckStyle support -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <configuration>
-                    <configLocation>etc/checkstyle.xml</configLocation>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
-
-    <!-- ***************************************************************************************************************
-    *
-    *
-    *
-    **************************************************************************************************************** -->
     <modules>
-        <module>jrawio</module>
-        <module>reajent</module>
-        <!-- module>jrawio-test</module -->
+        <module>modules/codec</module>
+        <module>modules/processor</module>
+        <module>modules/jrawio-all</module>
+        <module>functional-tests/tests</module>
+        <!-- module>functional-tests/jse</module FIXME-->
+        <!-- module>examples</module-->
+        <!-- FIXME module>modules/jrawio-nbm</module -->
     </modules>
 
 </project>
