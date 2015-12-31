@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.superpom</groupId>
         <artifactId>superpom</artifactId>
-        <version>2.16</version>
+        <version>3.3</version>
         <relativePath />
     </parent>
 
@@ -14,7 +14,7 @@
     <artifactId>jrawio</artifactId>
     <packaging>pom</packaging>
     <version>1.7-ALPHA-3-SNAPSHOT</version>
-    <name>jrawio (master)</name>
+    <name>jrawio</name>
     <url>http://jrawio.rawdarkroom.org</url>
     <description>jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files</description>
     <inceptionYear>2003</inceptionYear>
