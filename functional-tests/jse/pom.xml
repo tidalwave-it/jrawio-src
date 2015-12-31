@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.rawdarkroom</groupId>
+        <artifactId>jrawio</artifactId>
+        <version>1.7-ALPHA-1-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>functional-tests-jse</artifactId>
+    <packaging>jar</packaging>
+    <name>jrawio - Functional Tests for JSE</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.rawdarkroom</groupId>
+            <artifactId>codec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.rawdarkroom</groupId>
+            <artifactId>processor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.rawdarkroom</groupId>
+            <artifactId>codec</artifactId>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
+        <!--
+        <dependency>
+            <groupId>org.rawdarkroom</groupId>
+            <artifactId>functional-tests</artifactId>
+            <scope>test</scope>
+        </dependency>
+        -->
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <!-- Executes tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <reportsDirectory>${testReportsDirectory}/functional/jse</reportsDirectory>
+                    <includes>
+                        <include>**/*Test.java</include>
+                    </includes>
+                    <systemProperties>
+                        <property>
+                            <name>testset.cached.folder</name>
+                            <value>${testset.cached.folder}</value>
+                        </property>
+                        <property>
+                            <name>testExecutors</name>
+                            <value>${testExecutors}</value>
+                        </property>
+                        <property>
+                            <name>jrawio.dumpImageAsTIFF</name>
+                            <value>${jrawio.dumpImageAsTIFF}</value>
+                        </property>
+                        <property>
+                            <name>jrawio.dumpRasterAsText</name>
+                            <value>${jrawio.dumpRasterAsText}</value>
+                        </property>
+                    </systemProperties>
+                    <argLine>-Xmx3072M</argLine>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            
+        </plugins>
+    </build>
+
+</project>
+

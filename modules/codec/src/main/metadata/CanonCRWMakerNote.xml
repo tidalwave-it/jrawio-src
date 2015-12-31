@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--********************************************************************************************************************
+
+   jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files
+   Copyright (C) 2003 - 2016 by Tidalwave s.a.s.
+
+  **********************************************************************************************************************
+
+   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+   the License. You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+   an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations under the License.
+
+  **********************************************************************************************************************
+
+   WWW: http://jrawio.rawdarkroom.org
+   SCM: https://kenai.com/hg/jrawio~src
+
+*********************************************************************************************************************-->
+<directory name="CanonCRW" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="Directory.xsd">
+    <tag>
+        <code>0</code>
+        <type>undefined</type>
+        <name>Null Record</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>1</code>
+        <type>undefined</type>
+        <name>Free Bytes</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>50</code>
+        <type>undefined</type>
+        <name>D30 White Balance</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>2053</code>
+        <type>ascii</type>
+        <name>Canon File Description</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>2053</code>
+        <type>ascii</type>
+        <name>User Comment</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>2058</code>
+        <type>ascii</type>
+        <name>Canon Raw Make Model</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>2059</code>
+        <type>ascii</type>
+        <name>Canon Firmware Version</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>2060</code>
+        <type>ascii</type>
+ 
+        <name>Component Version</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>2061</code>
+        <type>ascii</type>
+        <name>ROM Operation Mode</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>2064</code>
+        <type>ascii</type>
+        <name>Owner Name</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>2069</code>
+        <type>ascii</type>
+        <name>Canon Image Type</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>2069</code>
+        <type>ascii</type>
+        <name>Canon Image Type</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>2070</code>
+        <type>ascii</type>
+        <name>Original File Name</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>2071</code>
+        <type>ascii</type>
+        <name>Thumbnail File Name</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4106</code>
+        <type>short</type>
+        <name>Target Image Type</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4112</code>
+        <type>short</type>
+        <name>Shutter Release Method</name>
+        <example></example>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>single shot</description>
+            </item>
+            <item>
+                <value>1</value>
+                <description>continuos shooting</description>
+            </item>
+        </enumeration>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4113</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Shutter Release Timing</name>
+        <example></example>
+        <enumeration>
+            <item>
+                <value>0</value>
+                <description>priority on shutter</description>
+            </item>
+            <item>
+                <value>1</value>
+                <description>priority on focus</description>
+            </item>
+        </enumeration>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4118</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Release Setting</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4124</code>
+        <type>short</type>
+        <length>1</length>
+        <name>Base ISO</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4137</code>
+        <type>short</type>
+
+        <name>Focal Length</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4138</code>
+        <type>short</type>
+
+        <name>Canon Shot Info</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4140</code>
+        <type>short</type>
+
+        <name>G2 White Balance</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4141</code>
+        <type>short</type>
+
+        <name>Canon Camera Settings</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4144</code>
+        <type>short</type>
+
+        <name>White Sample</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4145</code>
+        <type>short</type>
+
+        <name>Sensor Info</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4147</code>
+        <type>short</type>
+
+        <name>Canon Custom Functions</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4152</code>
+        <type>short</type>
+
+        <name>Canon Picture Info</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4265</code>
+        <type>short</type>
+
+        <name>D60 Red Blue Coefficients</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4269</code>
+        <type>short</type>
+
+        <name>White Balance Coefficients</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4270</code>
+        <type>short</type>
+
+        <name>Color Temperature</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4276</code>
+        <type>short</type>
+
+        <name>Color Space</name>
+        <example></example>
+        <enumeration>
+            <item>
+                <value>1</value>
+                <description>sRGB</description>
+            </item>
+            <item>
+                <value>2</value>
+                <description>Adobe RGB</description>
+            </item>
+            <item>
+                <value>65535</value>
+                <description>uncalibrated</description>
+            </item>
+        </enumeration>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>4277</code>
+        <type>short</type>
+
+        <name>Thumbnail Info</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>6147</code>
+        <type>long</type>
+
+        <name>Image Format</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>6148</code>
+        <type>long</type>
+
+        <name>Record ID</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>6150</code>
+        <type>long</type>
+
+        <name>Self Timer Time</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>6151</code>
+        <type>float</type>
+
+        <name>Target Distance Setting</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>6155</code>
+        <type>long</type>
+
+        <name>Serial Number</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>6158</code>
+        <type>long</type>
+
+        <name>Timestamp</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>6160</code>
+        <type>long</type>
+
+        <name>Image Info</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>6163</code>
+        <type>long</type>
+
+        <name>Flash Info</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>6164</code>
+        <type>float</type>
+
+        <name>Measured EV</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>6167</code>
+        <type>long</type>
+
+        <name>File Number</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>6168</code>
+        <type>float</type>
+
+        <name>Exposure Info</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>6197</code>
+        <type>long</type>
+
+        <name>Decoder Table</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>8197</code>
+        <type>long</type>
+
+        <name>Raw Data</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>8199</code>
+        <type>long</type>
+        <length>1</length>
+        <name>Jpg From Raw</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>8200</code>
+        <type>long</type>
+        <length>1</length>
+        <name>Thumbnail Image</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>10244</code>
+        <type>undefined</type>
+
+        <name>Image Description</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>10247</code>
+        <type>undefined</type>
+
+        <name>Camera Object</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>12290</code>
+        <type>undefined</type>
+
+        <name>Shooting Record</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>12292</code>
+        <type>undefined</type>
+
+        <name>Camera Specification</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>12298</code>
+        <type>undefined</type>
+
+        <name>Image Properties</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>12299</code>
+        <type>undefined</type>
+        <length>1</length>
+        <name>EXIF Information</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>22542</code>
+        <type>long</type>
+        <name>Timestamp 2</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+    <tag>
+        <code>22547</code>
+        <type>long</type>
+        <length>1</length>
+        <name>Flash Used</name>
+        <example></example>
+        <description>????</description>
+    </tag>
+</directory>
+
