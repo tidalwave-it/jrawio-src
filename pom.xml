@@ -6,7 +6,7 @@
     <parent>
         <groupId>it.tidalwave.superpom</groupId>
         <artifactId>superpom</artifactId>
-        <version>2.16</version>
+        <version>3.3</version>
         <relativePath />
     </parent>
 
@@ -14,14 +14,15 @@
     <artifactId>jrawio</artifactId>
     <packaging>pom</packaging>
     <version>1.7-ALPHA-3-SNAPSHOT</version>
-    <name>jrawio (master)</name>
+    <name>jrawio</name>
     <url>http://jrawio.rawdarkroom.org</url>
     <description>jrawio - a Java(TM) Image I/O SPI Provider for Camera Raw files</description>
     <inceptionYear>2003</inceptionYear>
 
     <properties>
-        <scm.repo.url>ssh://hg@bitbucket.org/tidalwave/jrawio-src</scm.repo.url>
-        <scm.repo.readonly.url>https://bitbucket.org/tidalwave/jrawio-src</scm.repo.readonly.url>
+        <tft.scm>git</tft.scm>
+        <scm.repo.url>ssh://git@bitbucket.org/tidalwave/jrawio-src</scm.repo.url>
+        <scm.repo.readonly.url>https://bitbucket.org/tidalwave/jrawio-src.git</scm.repo.readonly.url>
         <scm.repo.browse.url>https://bitbucket.org/tidalwave/jrawio-src/src</scm.repo.browse.url>
         <tidalwave.ci.view>jrawio</tidalwave.ci.view>
         <tidalwave.issues>JRW</tidalwave.issues>
@@ -32,50 +33,21 @@
         <tft.javac.target>1.5</tft.javac.target>
     </properties>
 
-    <mailingLists>
-        <mailingList>
-            <name>Continuous Integration</name>
-            <post>ci@jrawio.kenai.com</post>
-            <archive>http://kenai.com/projects/jrawio/lists/ci/archive</archive>
-        </mailingList>
-        <mailingList>
-            <name>Commits</name>
-            <post>commits@jrawio.kenai.com</post>
-            <archive>http://kenai.com/projects/jrawio/lists/commits/archive</archive>
-        </mailingList>
-        <mailingList>
-            <name>Developers</name>
-            <post>dev@jrawio.kenai.com</post>
-            <archive>http://kenai.com/projects/jrawio/lists/dev/archive</archive>
-        </mailingList>
-        <mailingList>
-            <name>Users</name>
-            <post>users@jrawio.kenai.com</post>
-            <archive>http://kenai.com/projects/jrawio/lists/users/archive</archive>
-        </mailingList>
-    </mailingLists>
-
-    <repositories>
-        <repository>
-            <id>snapshots-oss.sonatype.org</id>
-            <name>Sonatype Snapshot Repository</name>
-            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
     <!-- Repeated because of http://jira.codehaus.org/browse/SCM-442 -->
     <scm>
-        <connection>scm:hg:${scm.repo.readonly.url}</connection>
-        <developerConnection>scm:hg:${scm.repo.effective.url}</developerConnection>
+        <connection>scm:git:${scm.repo.readonly.url}</connection>
+        <developerConnection>scm:git:${scm.repo.effective.url}</developerConnection>
         <url>${scm.repo.browse.url}</url>
       <tag>HEAD</tag>
   </scm>
+
+    <repositories>
+        <repository>
+            <id>maven2-thirdparty-repository.tidalwave.it</id>
+            <name>Tidalwave Release Repository</name>
+            <url>http://services.tidalwave.it/nexus/content/repositories/thirdparty</url>
+        </repository>
+    </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -212,13 +184,6 @@
                         </property>
                     </systemProperties>
                 </configuration>
-            </plugin>
-
-            <!-- Needed for setting that inherited = false -->
-            <plugin>
-                <groupId>com.mycila.maven-license-plugin</groupId>
-                <artifactId>maven-license-plugin</artifactId>
-                <inherited>false</inherited>
             </plugin>
         </plugins>
     </build>
