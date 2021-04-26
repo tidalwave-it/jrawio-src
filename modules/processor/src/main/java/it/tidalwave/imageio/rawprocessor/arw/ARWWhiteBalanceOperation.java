@@ -58,6 +58,11 @@ public class ARWWhiteBalanceOperation extends OperationSupport
         logger.fine("process()");
         final ARWMetadata metadata = (ARWMetadata)artifact.getRAWMetadata();
         final WBG wbg = metadata.getMinoltaRawData().getWBG();
+        if (wbg == null)
+        {
+            logger.fine("no PRD values for white balance operation");
+            return;
+        }
         artifact.multiplyRedCoefficient(wbg.getRedCoefficient().doubleValue());
         artifact.multiplyGreenCoefficient(wbg.getGreen1Coefficient().doubleValue());
         artifact.multiplyBlueCoefficient(wbg.getBlueCoefficient().doubleValue());

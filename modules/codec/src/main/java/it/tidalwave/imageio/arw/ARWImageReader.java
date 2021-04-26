@@ -59,7 +59,10 @@ class ARWPrimaryIFD extends IFD
     @Override
     public int[] getSubIFDs() 
       {
-        return new int[0];
+        int[] subIFDs = new int[1];
+        subIFDs[0] = super.getSubIFDs()[0];
+        return subIFDs;
+
 //        final int[] original = super.getSubIFDs(); FIXME
 //        final int bad = 0x10000;
 //        
@@ -153,13 +156,51 @@ public class ARWImageReader extends TIFFImageReaderSupport
       {
         final ARWMetadata arwMetadata = (ARWMetadata)metadata;
         final PRD prd = arwMetadata.getMinoltaRawData().getPRD();
-        final int bitsPerSample = prd.getPixelSize();
-        rasterReader.setRasterOffset(((ARWPrimaryIFD)primaryDirectory).getRasterOffset()); 
-        rasterReader.setTileOffsets(new int[1]); // FIXME: useless, but otherwise an assertion fails
-        rasterReader.setCompression(1); // FIXME
-        rasterReader.setWidth(prd.getCcdSize().width);
-        rasterReader.setHeight(prd.getCcdSize().height);
-        rasterReader.setBitsPerSample(bitsPerSample);
-        rasterReader.setCFAPattern(new byte[] { 0, 1, 1, 2 }); // FIXME
+
+        if (prd != null)
+        {
+            final int bitsPerSample = prd.getPixelSize();
+            rasterReader.setRasterOffset(((ARWPrimaryIFD)primaryDirectory).getRasterOffset());
+            rasterReader.setTileOffsets(new int[1]); // FIXME: useless, but otherwise an assertion fails
+            rasterReader.setCompression(1); // FIXME
+            rasterReader.setWidth(prd.getCcdSize().width);
+            rasterReader.setHeight(prd.getCcdSize().height);
+            rasterReader.setBitsPerSample(bitsPerSample);
+            rasterReader.setCFAPattern(new byte[] { 0, 1, 1, 2 }); // FIXME
+        }
+        else
+        {
+            IFD primaryIFD = arwMetadata.getPrimaryIFD();
+            IFD subIFD = (IFD) primaryIFD.getSubDirectories().toArray()[0];
+
+            int bitsPerSample = subIFD.getBitsPerSample()[0];
+            int width = subIFD.getImageWidth();
+            int height = subIFD.getImageLength();
+            rasterReader.setWidth(width);
+            rasterReader.setHeight(height);
+            rasterReader.setBitsPerSample(bitsPerSample);
+            rasterReader.setCFAPattern(subIFD.getCFAPattern());
+            rasterReader.setCompression(subIFD.getCompression().intValue());
+            if (subIFD.isStripByteCountsAvailable())
+            {
+                rasterReader.setStripByteCount(subIFD.getStripByteCounts());
+            }
+
+            if (subIFD.isTileWidthAvailable())
+            {
+                int tileWidth = subIFD.getTileWidth();
+                int tileLength = subIFD.getTileLength();
+                rasterReader.setTileWidth(tileWidth);
+                rasterReader.setTileHeight(tileLength);
+                rasterReader.setTilesAcross((width + tileWidth - 1) / tileWidth);
+                rasterReader.setTilesDown((height + tileLength - 1) / tileLength);
+                rasterReader.setTileOffsets(primaryIFD.getTileOffsets());
+            }
+
+            if (subIFD.isLinearizationTableAvailable())
+            {
+                rasterReader.setLinearizationTable(subIFD.getLinearizationTable());
+            }
+        }
       }
   }

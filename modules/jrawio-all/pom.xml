@@ -46,6 +46,7 @@
                 </configuration>
             </plugin>
         </plugins>
+	<finalName>it.tidalwave.imageio.raw-1.7-ALPHA-3-SNAPSHOT-nuix1.0</finalName>
     </build>
 </project>
 

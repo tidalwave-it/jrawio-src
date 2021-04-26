@@ -61,6 +61,11 @@ public class ARWSizeOperation extends SizeOperation
 
         final ARWMetadata metadata = (ARWMetadata)artifact.getRAWMetadata();
         final PRD prd = metadata.getMinoltaRawData().getPRD();
+	if (prd == null)
+	{
+            logger.fine("no PRD values for size operation");
+            return;
+	}
         size = prd.getImageSize();
         final Dimension sensorSize = prd.getCcdSize();
         // FIXME: I'm not sure the crop must be centered
@@ -81,11 +86,6 @@ public class ARWSizeOperation extends SizeOperation
     @Nonnull
     protected Insets getCrop (final @Nonnull PipelineArtifact artifact)
       {
-        if (crop == null)
-          {
-            throw new IllegalStateException("crop is null");
-          }
-
         return crop;
       }
 
@@ -98,11 +98,6 @@ public class ARWSizeOperation extends SizeOperation
     @Nonnull
     protected Dimension getSize (final @Nonnull PipelineArtifact artifact)
       {
-        if (crop == null)
-          {
-            throw new IllegalStateException("size is null");
-          }
-
         return size;
       }
   }
